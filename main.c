@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/19 18:49:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/19 20:42:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	cd(argc, argv, env );
+	echo(argc, argv, env );
 	return (0);
 }

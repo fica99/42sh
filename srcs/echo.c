@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/19 18:48:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/19 21:36:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,61 @@
 uint8_t	echo(int argc, char **argv, char **env)
 {
 	unsigned short	i;
-	uint8_t			j;
+	uint8_t			flags;
 
 	i = 1;
-	j = 0;
 	env = NULL;
 	if (argc == 1)
 	{
 		ft_putchar('\n');
 		return (1);
 	}
-	echo_find_flags(argv, &i, &j);
+	flags = echo_find_flags(argv, &i);
 	while (argv[i])
 	{
-		ft_putstr(argv[i++]);
+		if(is_flags(flags, 'E'))
+			ft_putstr_ecr(argv[i++]);
+		else
+			ft_putstr(argv[i++]);
 		if (argc != i)
 			ft_putchar(' ');
 	}
-	if (!j)
+	if (!(is_flags(flags, 'n')))
 		ft_putchar('\n');
 	return (1);
 }
 
-void	echo_find_flags(char **argv, unsigned short *i, uint8_t *j)
+uint8_t	echo_find_flags(char **argv, unsigned short *i)
 {
 	uint8_t	k;
+	uint8_t	flags;
 
+	flags = 0;
 	while (argv[*i] && argv[*i][0] == '-')
 	{
 		k = 0;
 		while (argv[*i][++k])
 		{
-			if (argv[*i][k] == 'n')
-				*j = 1;
-			else if (argv[*i][k] == 'e' || argv[*i][k] == 'E')
-				continue ;
+			if (!(add_flag(flags, argv[*i][k])))
+				return (flags);
 			else
-			{
-				*j = 0;
-				return ;
-			}
+				flags = add_flag(flags, argv[*i][k]);
 		}
 		(*i)++;
+	}
+	return (flags);
+}
+
+void	ft_putstr_ecr(char *arr)
+{
+	int	i;
+
+	i = -1;
+	while (arr[++i])
+	{
+		if (check_symbol(arr[i]))
+			if (!(arr[++i]))
+				break;
+		ft_putchar(arr[i]);	
 	}
 }
