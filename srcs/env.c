@@ -6,21 +6,27 @@
 /*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 20:28:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/16 20:34:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/19 18:49:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t	get_argc_env(char *arr, char **env)
+short	get_count_var(char *arr, char **env)
 {
 	uint8_t	i;
 
 	i = 0;
 	while (env[i])
 	{
-		if (ft_strncmp(env[i++], arr, ft_strlen(arr)) == 0)
-			return (--i);
+		if (ft_strncmp(env[i], arr, ft_strlen(arr)) == 0)
+			return (i);
+		i++;
 	}
-	return (0);
+	return (-1);
+}
+
+char	*get_var(char *arr, char **env)
+{
+	return (&(env[get_count_var(arr, env)][ft_strlen(arr) + 1]));
 }
