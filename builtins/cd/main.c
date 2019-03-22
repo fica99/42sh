@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 15:57:57 by aashara-         ###   ########.fr       */
+/*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
+/*   Updated: 2019/03/22 15:57:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "libft.h"
+# include <dirent.h>
+# include <unistd.h>
 
-short	get_count_var(char *arr, char **environ);
-char	*get_var(char *arr, char **environ);
+uint8_t	cd(int argc, char **argv, char **environ);
 
-uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t	is_flags(uint8_t flags, char flag);
-uint8_t	echo_find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
-#endif
+int		main(int argc, char **argv, char **environ)
+{
+	cd(argc, argv, environ);
+	return (0);
+}

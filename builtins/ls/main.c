@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 15:57:57 by aashara-         ###   ########.fr       */
+/*   Created: 2019/01/22 13:00:30 by aashara-          #+#    #+#             */
+/*   Updated: 2019/03/15 16:43:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "ft_ls.h"
 
-# include "libft.h"
+int	main(int argc, char **argv)
+{
+	t_dir	*request;
 
-short	get_count_var(char *arr, char **environ);
-char	*get_var(char *arr, char **environ);
-
-uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t	is_flags(uint8_t flags, char flag);
-uint8_t	echo_find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
-#endif
+	if (!(request = opening(argc, argv)))
+		exit(0);
+	print(request);
+	return (0);
+}

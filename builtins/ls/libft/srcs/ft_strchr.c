@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/20 21:00:41 by aashara-         ###   ########.fr       */
+/*   Created: 2018/11/23 21:44:34 by aashara-          #+#    #+#             */
+/*   Updated: 2018/12/06 14:56:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-# include <dirent.h>
-# include <unistd.h>
-
-uint8_t	cd(int argc, char **argv, char **env);
-
-int		main(int argc, char **argv, char **env)
+char	*ft_strchr(const char *str, int ch)
 {
-	cd(argc, argv, env);
-	return (0);
+	char	*pointer;
+	int		i;
+
+	i = 0;
+	pointer = (char*)str;
+	while (pointer[i] != '\0')
+	{
+		if (pointer[i] == ch)
+			return (&pointer[i]);
+		i++;
+	}
+	if (ch == '\0')
+		return (&pointer[i]);
+	return (NULL);
 }

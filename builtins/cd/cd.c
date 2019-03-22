@@ -6,39 +6,20 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/20 21:08:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/22 16:36:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+# include "minishell.h"
 
 # define MAXDIR 256
 
-static short	get_count_var(char *arr, char **env)
-{
-	uint8_t	i;
-
-	i = 0;
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], arr, ft_strlen(arr)) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static char	*get_var(char *arr, char **env)
-{
-	return (&(env[get_count_var(arr, env)][ft_strlen(arr) + 1]));
-}
-
-static uint8_t	check_request(int argc, char  **argv, char **env)
+static uint8_t	check_request(int argc, char  **argv, char **environ)
 {
 	if (argc == 1)
-		argv[1] = (get_var("HOME", env));
+		argv[1] = (get_var("HOME", environ));
 	if (ft_strcmp(argv[1], "-") == 0)
-		argv[1] = get_var("OLDPWD", env);
+		argv[1] = get_var("OLDPWD", environ);
 	if (chdir(argv[1]) == -1)
 	{
 		ft_putstr("cd: no such file or directory: ");
@@ -49,7 +30,7 @@ static uint8_t	check_request(int argc, char  **argv, char **env)
 	return (1);	
 }
 
-static uint8_t	check_ch_dir(int argc , char **argv, char **env)
+static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 {
 	if (argc >= 3)
 	{
@@ -65,18 +46,18 @@ static uint8_t	check_ch_dir(int argc , char **argv, char **env)
 	}
 	else
 	{
-		check_request(argc, argv, env);
+		check_request(argc, argv, environ);
 	}
 	return (1);
 }
 
-uint8_t	cd(int argc, char **argv, char **env)
+uint8_t	cd(int argc, char **argv, char **environ)
 {
 	char	buf[MAXDIR];
 
-	check_ch_dir(argc, argv, env);
+	check_ch_dir(argc, argv, environ);
 	getcwd(buf, MAXDIR);
-	env[get_count_var("PWD", env)] = ft_strjoin("PWD=", buf);
-	ft_putstr(env[6]);
+	environ[get_count_var("PWD", environ)] = ft_strjoin("PWD=", buf);
+//	ft_putstr(get_var("PWD", environ));
 	return (0);
 }

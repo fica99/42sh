@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 15:57:57 by aashara-         ###   ########.fr       */
+/*   Created: 2018/11/25 18:22:10 by aashara-          #+#    #+#             */
+/*   Updated: 2019/03/01 19:21:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "libft.h"
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*arr;
 
-short	get_count_var(char *arr, char **environ);
-char	*get_var(char *arr, char **environ);
-
-uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t	is_flags(uint8_t flags, char flag);
-uint8_t	echo_find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
-#endif
+	if (s1 && s2)
+	{
+		arr = (char*)malloc(sizeof(char)
+			* (ft_strlen((char*)s1) + ft_strlen((char*)s2) + 1));
+		if (arr)
+		{
+			ft_strcpy(arr, (char*)s1);
+			ft_strcat(arr, (char*)s2);
+			return (arr);
+		}
+	}
+	return (NULL);
+}
