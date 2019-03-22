@@ -6,17 +6,17 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 16:36:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/22 19:36:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-# define MAXDIR 256
+# define MAXDIR 4097
 
 static uint8_t	check_request(int argc, char  **argv, char **environ)
 {
-	if (argc == 1)
+	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
 		argv[1] = (get_var("HOME", environ));
 	if (ft_strcmp(argv[1], "-") == 0)
 		argv[1] = get_var("OLDPWD", environ);
@@ -45,9 +45,7 @@ static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 		exit (-1);
 	}
 	else
-	{
 		check_request(argc, argv, environ);
-	}
 	return (1);
 }
 
@@ -57,7 +55,10 @@ uint8_t	cd(int argc, char **argv, char **environ)
 
 	check_ch_dir(argc, argv, environ);
 	getcwd(buf, MAXDIR);
+	environ[get_count_var("OLDPWD", environ)] = ft_strjoin("OLDPWD", get_var("PWD", environ));
 	environ[get_count_var("PWD", environ)] = ft_strjoin("PWD=", buf);
-//	ft_putstr(get_var("PWD", environ));
+	ft_putstr(get_var("PWD", environ));
+	ft_putchar('\n');
+	ft_putstr(get_var("OLDPWD", environ));
 	return (0);
 }
