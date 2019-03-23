@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 15:49:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 18:25:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 short	get_count_var(char *arr, char **environ);
 char	*get_var(char *arr, char **environ);
+void	print_environ(char **environ);
 
 uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
 uint8_t	is_flags(uint8_t flags, char flag);

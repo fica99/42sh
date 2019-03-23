@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 15:52:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 17:01:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ uint8_t	cd(int argc, char **argv, char **environ)
 	getcwd(buf, MAXDIR);
 	environ[get_count_var("OLDPWD", environ)] = ft_strjoin("OLDPWD", get_var("PWD", environ));
 	environ[get_count_var("PWD", environ)] = ft_strjoin("PWD=", buf);
-	// ft_putstr(get_var("PWD", environ));
-	// ft_putchar('\n');
-	// ft_putstr(get_var("OLDPWD", environ));
 	return (0);
 }
 

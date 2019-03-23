@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 15:58:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 18:26:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,12 @@ uint8_t	check_set(char **argv)
 
 uint8_t env(int argc, char **argv, char **environ)
 {
-	short	i;
 	short	j;
 
-	i = -1;
+	j = 0;
 	if (check_set(argv))
 		return (1);
-	while (environ[++i])
-	{
-		ft_putstr(environ[i]);
-		ft_putchar('\n');
-	}
+	print_environ(environ);
 	if (argc != 1)
 	{
 		j = 0;
