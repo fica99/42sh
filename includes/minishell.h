@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 15:57:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:49:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ char	*get_var(char *arr, char **environ);
 
 uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
 uint8_t	is_flags(uint8_t flags, char flag);
-uint8_t	echo_find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
+uint8_t	find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
 #endif

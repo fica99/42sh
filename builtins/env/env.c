@@ -6,18 +6,16 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 16:58:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:58:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t env(int argc, char **argv, char **environ)
+uint8_t	check_set(char **argv)
 {
-	short	i;
 	short	j;
 
-	i = -1;
 	j = 0;
 	while (argv[++j])
 	{
@@ -29,6 +27,17 @@ uint8_t env(int argc, char **argv, char **environ)
 			return (1);
 		}
 	}
+	return (0);
+}
+
+uint8_t env(int argc, char **argv, char **environ)
+{
+	short	i;
+	short	j;
+
+	i = -1;
+	if (check_set(argv))
+		return (1);
 	while (environ[++i])
 	{
 		ft_putstr(environ[i]);
@@ -39,10 +48,15 @@ uint8_t env(int argc, char **argv, char **environ)
 		j = 0;
 		while (argv[++j])
 		{
-				environ[i] = ft_strdup(argv[j]);
-				ft_putstr(environ[i++]);
+				ft_putstr(argv[j]);
 				ft_putchar('\n');
 		}
 	}
 	return (0);
+}
+
+int main(int argc, char **argv, char **environ)
+{
+    env(argc, argv, environ);
+    return (0);
 }

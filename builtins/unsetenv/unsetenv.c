@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 20:12:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:51:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,11 @@ uint8_t ft_unsetenv(int argc, char **argv, char **environ)
 			}
         }
     }
+    return (0);
+}
+
+int main(int argc, char **argv, char **environ)
+{
+    ft_unsetenv(argc, argv, environ);
     return (0);
 }

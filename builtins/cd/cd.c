@@ -6,11 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 19:36:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:52:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
+# include <dirent.h>
+# include <unistd.h>
 
 # define MAXDIR 4097
 
@@ -57,8 +59,14 @@ uint8_t	cd(int argc, char **argv, char **environ)
 	getcwd(buf, MAXDIR);
 	environ[get_count_var("OLDPWD", environ)] = ft_strjoin("OLDPWD", get_var("PWD", environ));
 	environ[get_count_var("PWD", environ)] = ft_strjoin("PWD=", buf);
-	ft_putstr(get_var("PWD", environ));
-	ft_putchar('\n');
-	ft_putstr(get_var("OLDPWD", environ));
+	// ft_putstr(get_var("PWD", environ));
+	// ft_putchar('\n');
+	// ft_putstr(get_var("OLDPWD", environ));
+	return (0);
+}
+
+int		main(int argc, char **argv, char **environ)
+{
+	cd(argc, argv, environ);
 	return (0);
 }

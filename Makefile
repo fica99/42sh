@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/22 20:07:04 by aashara-         ###   ########.fr        #
+#    Updated: 2019/03/23 15:51:43 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,26 +14,21 @@ NAME=minishell
 
 ECHO=echo
 
-ECHO_SRCS=builtins/echo/main.c\
-			builtins/echo/echo.c
+ECHO_SRCS=builtins/echo/echo.c
 CD=cd
 
-CD_SRCS=builtins/cd/main.c\
-		builtins/cd/cd.c
+CD_SRCS=builtins/cd/cd.c
 ENV=env
 
-ENV_SRCS=builtins/env/main.c\
-		builtins/env/env.c
+ENV_SRCS=builtins/env/env.c
 
 SETENV=setenv
 
-SETENV_SRCS=builtins/setenv/main.c\
-		builtins/setenv/setenv.c
+SETENV_SRCS=builtins/setenv/setenv.c
 
 UNSETENV=unsetenv
 
-UNSETENV_SRCS=builtins/unsetenv/main.c\
-		builtins/unsetenv/unsetenv.c
+UNSETENV_SRCS=builtins/unsetenv/unsetenv.c
 
 LS=ls
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/22 15:56:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/23 15:49:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ uint8_t	echo(int argc, char **argv, char **environ)
 
 	i = 1;
 	environ = NULL;
-	flags = echo_find_flags(argv, &i, flag_n);
+	flags = find_flags(argv, &i, flag_n);
 	while (argv[i])
 	{
 		ft_putstr(argv[i++]);
@@ -35,5 +35,11 @@ uint8_t	echo(int argc, char **argv, char **environ)
 	}
 	if (!(is_flags(flags, 'n')) || argc == 1)
 		ft_putchar('\n');
+	return (0);
+}
+
+int		main(int argc, char **argv, char **environ)
+{
+	echo(argc, argv, environ);
 	return (0);
 }
