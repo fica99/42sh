@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 18:09:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/25 20:00:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,24 @@ int	main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	env_cp = copy_double_arr(environ);
-	ft_putstr(get_var("PWD", env_cp));
-	ft_putchar(':');
-    p = fork();
-	if (p < 0)
+	while (RUNNING)
 	{
-		perror("Fork() error");
-		exit(1);
+		ft_putstr(get_var("PWD", env_cp));
+		ft_putchar(':');
+    	p = fork();
+		if (p < 0)
+		{
+			perror("Fork() error");
+			exit(1);
+		}
+		if (p)
+			waitpid(p, &status, 0);
+		else
+		{
+			ft_putchar('\n');
+			execve(args[0], args, env_cp);
+		}
 	}
-	if (p)
-	{
-		waitpid(p, &status, 0);
-	}
-	else
-		execve(args[0], args, env_cp);
 	free_double_arr(env_cp);
 	return (0);
 }
