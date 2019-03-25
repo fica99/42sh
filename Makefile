@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/25 17:20:50 by aashara-         ###   ########.fr        #
+#    Updated: 2019/03/25 21:56:47 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,11 @@ UNSETENV_SRCS=builtins/unsetenv/unsetenv.c
 
 SRCS=srcs/get.c\
 	srcs/flags.c\
-	srcs/make.c
+	srcs/make.c\
+	srcs/print.c\
+	srcs/parse.c\
+	srcs/shell.c\
+	srcs/check.c
  
 INCLUDES=includes
 
