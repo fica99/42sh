@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 15:40:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:12:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include "libft.h"
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <stdio.h> //errors
 
 char			**env_cp;
 

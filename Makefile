@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/25 14:35:42 by aashara-         ###   ########.fr        #
+#    Updated: 2019/03/25 17:20:50 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,6 @@ UNSETENV=unsetenv
 
 UNSETENV_SRCS=builtins/unsetenv/unsetenv.c
 
-LS=ls
-
-LS_SRCS=builtins/ls
-
 SRCS=srcs/get.c\
 	srcs/flags.c\
 	srcs/make.c
@@ -46,7 +42,7 @@ EXTRA_FLAGS=-Wall -Wextra -Werror
 
 LIB=libft
 
-all:$(NAME) $(CD) $(ECHO) $(LS) $(ENV) $(SETENV) $(UNSETENV)
+all:$(NAME) $(CD) $(ECHO) $(ENV) $(SETENV) $(UNSETENV)
 
 $(NAME):
 			mkdir bin
@@ -62,11 +58,6 @@ $(CD):
 			make re -C $(LIB)
 			gcc $(EXTRA_FLAGS) -o $(CD) $(SRCS) $(CD_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft			
 			mv $(CD) ./bin/cd
-
-$(LS):
-			make re -C $(LS_SRCS)
-			mv $(LS_SRCS)/ft_ls ./bin/ls
-			make fclean -C $(LS_SRCS)
 
 $(ENV) :
 			make re -C $(LIB)

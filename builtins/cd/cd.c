@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 14:03:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/25 17:19:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static uint8_t	check_request(int argc, char  **argv, char **environ)
 		argv[1] = get_var("OLDPWD", environ);
 	if (chdir(argv[1]) == -1)
 	{
-		ft_putstr("cd: no such file or directory: ");
-		ft_putstr(argv[1]);
-		ft_putchar('\n');
+		perror("cd:");
+		//ft_putstr("cd: no such file or directory: ");
+		//ft_putstr(argv[1]);
+		//ft_putchar('\n');
 		exit(1);
 	}
 	return (1);	
