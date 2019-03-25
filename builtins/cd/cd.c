@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 17:01:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/25 14:03:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static uint8_t	check_request(int argc, char  **argv, char **environ)
 		ft_putstr("cd: no such file or directory: ");
 		ft_putstr(argv[1]);
 		ft_putchar('\n');
-		exit(-1);
+		exit(1);
 	}
 	return (1);	
 }
@@ -44,7 +44,7 @@ static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 			ft_putstr(argv[1]);
 			ft_putchar('\n');
 		}
-		exit (-1);
+		exit(1);
 	}
 	else
 		check_request(argc, argv, environ);

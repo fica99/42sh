@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/23 15:51:43 by aashara-         ###   ########.fr        #
+#    Updated: 2019/03/25 14:35:42 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ LS=ls
 LS_SRCS=builtins/ls
 
 SRCS=srcs/get.c\
-	srcs/flags.c
+	srcs/flags.c\
+	srcs/make.c
  
 INCLUDES=includes
 
@@ -50,7 +51,7 @@ all:$(NAME) $(CD) $(ECHO) $(LS) $(ENV) $(SETENV) $(UNSETENV)
 $(NAME):
 			mkdir bin
 			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c  -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
 
 $(ECHO) :
 			make re -C $(LIB)
