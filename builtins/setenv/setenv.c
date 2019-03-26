@@ -3,41 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 18:40:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:25:25 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t ft_setenv(int argc, char **argv, char **environ)
+void ft_setenv(int argc, char **argv, char **environ)
 {
-    int	j;
+	int	j;
 	int	i;
-    
-    if (argc == 1)
-        print_environ(environ);
-    else
-    {
-        j = 0;
-        i = 0;
-        while (environ[i])
-            i++;
-        while (argv[++j])
-        {
-            if (!(ft_strchr(argv[j], '=')))
-                continue ;
-            else
+
+	if (argc == 1)
+		print_environ(environ);
+	else
+	{
+		j = 0;
+		i = 0;
+		while (environ[i])
+			i++;
+		while (argv[++j])
+		{
+			if (!(ft_strchr(argv[j], '=')))
+				continue ;
+			else
 				environ[i++] = argv[j];
 		}
-    }
-    return (0);
+	}
+	exit(0);
 }
 
-int     main(int argc, char **argv, char **environ)
+char	**set_env(char **environ, char *name, char *new_value)
 {
-    ft_setenv(argc, argv, environ);
-    return (0);
+	unsigned short	j;
+
+	j = get_count_var(name, environ);
+	free(environ[j]);
+	environ[j] = ft_strjoin(name, new_value);
+	return (environ);
 }

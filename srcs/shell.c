@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 21:58:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:45:29 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	shell_start(void)
 {
 	pid_t	p;
 	int		status;
-	
+
 	while (RUNNING)
 	{
 		print_message();
-    	p = fork();
+		p = fork();
 		if (p < 0)
 		{
 			perror("Fork() error");
@@ -30,16 +30,31 @@ void	shell_start(void)
 			waitpid(p, &status, 0);
 		else
 			read_prompt();
+		if (WIFEXITED(status))
+			break ;
 	}
 }
 
-void	find_command(char *args)
+void	find_command(char **args)
 {
-	char	*path;
-	
 	if (ft_strncmp(args[0], "ls", 2) == 0)
-		path = ft_strdup("/bin/ls");
+		execve("/bin/ls", args, env_cp);
 	else if (ft_strncmp(args[0], "cd", 2) == 0)
-		path = ft_strdup("/bin/cd");
-	execve(path, args, env_cp);
+		cd(double_arr_len(args), args, env_cp);
+	else if (ft_strncmp(args[0], "echo", 4) == 0)
+		echo(double_arr_len(args), args, env_cp);
+	else if (ft_strncmp(args[0], "env", 3) == 0)
+		env(double_arr_len(args), args, env_cp);
+	else if (ft_strncmp(args[0], "setenv", 6) == 0)
+		ft_setenv(double_arr_len(args), args, env_cp);
+	else if (ft_strncmp(args[0], "unsetenv", 8) == 0)
+		ft_unsetenv(double_arr_len(args), args, env_cp);
+	else if (ft_strncmp(args[0], "exit", 4) == 0)
+		exit(0);
+	else
+	{
+		ft_putstr("minishell: command not found: ");
+		ft_putstr(args[0]);
+		ft_putchar('\n');
+	}
 }

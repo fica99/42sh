@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 21:56:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:41:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	read_prompt(void)
 	char	*arr;
 	char	*arr1;
 	uint8_t	nb;
-	
+
 	arr = NULL;
 	while ((nb = read(0, buf, PROMPT_LEN)) > 0)
-	{	
+	{
 		buf[nb] = '\0';
 		if (!arr)
 			arr = ft_strdup(buf);

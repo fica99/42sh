@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 15:06:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:03:41 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-unsigned short	double_arr_len(char **arr)
-{
-	unsigned short	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
 
 char			**copy_double_arr(char **arr)
 {

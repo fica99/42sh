@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 21:51:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:24:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # define MAXDIR 4097
 
-static uint8_t	check_request(int argc, char  **argv, char **environ)
+uint8_t	check_request(int argc, char  **argv, char **environ)
 {
 	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
 		argv[1] = (get_var("HOME", environ));
@@ -33,7 +33,7 @@ static uint8_t	check_request(int argc, char  **argv, char **environ)
 	return (1);	
 }
 
-static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
+uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 {
 	if (argc >= 3)
 	{
@@ -52,19 +52,14 @@ static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 	return (1);
 }
 
-uint8_t	cd(int argc, char **argv, char **environ)
+void	cd(int argc, char **argv, char **environ)
 {
 	char	buf[MAXDIR];
 
 	check_ch_dir(argc, argv, environ);
 	getcwd(buf, MAXDIR);
-	set_env(environ, "OLDPWD", get_var("PWD", environ));
-	set_env(environ, "PWD", buf);
-	return (0);
+	environ = set_env(environ, "OLDPWD", get_var("PWD", environ));
+	environ = set_env(environ, "PWD", buf);
+	exit(0);
 }
 
-int		main(int argc, char **argv, char **environ)
-{
-	cd(argc, argv, environ);
-	return (0);
-}

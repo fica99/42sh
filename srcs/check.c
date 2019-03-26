@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 21:56:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/26 11:03:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ char	*check_new_line(char *arr)
 		ft_memdel((void**)&arr);
 	}
 	return (arr1);
+}
+
+unsigned short	double_arr_len(char **arr)
+{
+	unsigned short	i;
+
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
