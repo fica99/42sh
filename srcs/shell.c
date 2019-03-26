@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 11:45:29 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 12:59:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	shell_start(void)
 			waitpid(p, &status, 0);
 		else
 			read_prompt();
-		if (WIFEXITED(status))
+		if (WEXITSTATUS(status) == 2)
 			break ;
 	}
 }
@@ -40,17 +40,19 @@ void	find_command(char **args)
 	if (ft_strncmp(args[0], "ls", 2) == 0)
 		execve("/bin/ls", args, env_cp);
 	else if (ft_strncmp(args[0], "cd", 2) == 0)
-		cd(double_arr_len(args), args, env_cp);
+		cd(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "echo", 4) == 0)
-		echo(double_arr_len(args), args, env_cp);
+		echo(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "env", 3) == 0)
-		env(double_arr_len(args), args, env_cp);
+		env(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "setenv", 6) == 0)
-		ft_setenv(double_arr_len(args), args, env_cp);
+		ft_setenv(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "unsetenv", 8) == 0)
-		ft_unsetenv(double_arr_len(args), args, env_cp);
+		ft_unsetenv(double_arr_len(args), args);
+	else if (ft_strncat(args[0], "pwd", 3) == 0)
+		execve("/bin/pwd", args, env_cp);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
-		exit(0);
+		exit(2);
 	else
 	{
 		ft_putstr("minishell: command not found: ");

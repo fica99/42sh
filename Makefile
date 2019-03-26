@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/26 11:01:33 by filip            ###   ########.fr        #
+#    Updated: 2019/03/26 13:01:04 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,8 @@ LIB=libft
 all:$(NAME)
 
 $(NAME):
-			mkdir bin
 			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc -g $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
 
 clean:
 			make clean -C $(LIB)
@@ -47,6 +46,5 @@ clean:
 fclean: clean
 			make fclean -C $(LIB)
 			rm -f $(NAME)
-			rm -rf ./bin/
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 11:24:13 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 12:58:11 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 
 # define MAXDIR 4097
 
-uint8_t	check_request(int argc, char  **argv, char **environ)
+void	check_request(int argc, char  **argv)
 {
+	char	*path;
+
+	path = NULL;
 	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
-		argv[1] = (get_var("HOME", environ));
-	if (ft_strcmp(argv[1], "-") == 0)
-		argv[1] = get_var("OLDPWD", environ);
+		path = get_var("HOME", env_cp);
+	else if (ft_strcmp(argv[1], "-") == 0)
+		path = get_var("OLDPWD", env_cp);
+	if (path)
+		argv[1] = path;
 	if (chdir(argv[1]) == -1)
 	{
 		perror("cd: ");
@@ -30,10 +35,9 @@ uint8_t	check_request(int argc, char  **argv, char **environ)
 		//ft_putchar('\n');
 		exit(1);
 	}
-	return (1);	
 }
 
-uint8_t	check_ch_dir(int argc , char **argv, char **environ)
+void	check_ch_dir(int argc , char **argv)
 {
 	if (argc >= 3)
 	{
@@ -48,18 +52,17 @@ uint8_t	check_ch_dir(int argc , char **argv, char **environ)
 		exit(1);
 	}
 	else
-		check_request(argc, argv, environ);
-	return (1);
+		check_request(argc, argv);
 }
 
-void	cd(int argc, char **argv, char **environ)
+void	cd(int argc, char **argv)
 {
 	char	buf[MAXDIR];
 
-	check_ch_dir(argc, argv, environ);
+	check_ch_dir(argc, argv);
 	getcwd(buf, MAXDIR);
-	environ = set_env(environ, "OLDPWD", get_var("PWD", environ));
-	environ = set_env(environ, "PWD", buf);
+	set_env("OLDPWD", get_var("PWD", env_cp));
+	set_env("PWD", buf);
 	exit(0);
 }
 
