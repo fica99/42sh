@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:59:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 13:42:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	find_command(char **args)
 {
 	if (ft_strncmp(args[0], "ls", 2) == 0)
 		execve("/bin/ls", args, env_cp);
-	else if (ft_strncmp(args[0], "cd", 2) == 0)
+	else if (ft_strncmp(args[0], "cd", 2) == 0)\
 		cd(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "echo", 4) == 0)
 		echo(double_arr_len(args), args);
@@ -49,7 +49,7 @@ void	find_command(char **args)
 		ft_setenv(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "unsetenv", 8) == 0)
 		ft_unsetenv(double_arr_len(args), args);
-	else if (ft_strncat(args[0], "pwd", 3) == 0)
+	else if (ft_strncmp(args[0], "pwd", 3) == 0)
 		execve("/bin/pwd", args, env_cp);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		exit(2);
