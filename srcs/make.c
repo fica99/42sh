@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 13:01:47 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 18:55:44 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ char			**copy_double_arr(char **arr)
 	char			**arr1;
 
 	if (!(arr1 = (char **)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
+	{
+		perror("malloc error");
 		exit(1);
+	}
 	i = 0;
 	while (arr[i])
 	{

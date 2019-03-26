@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:53:05 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 19:17:09 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_setenv(int argc, char **argv)
 	int	i;
 
 	if (argc == 1)
-		print_environ(env_cp);
+		print_environ();
 	else
 	{
 		j = 0;
@@ -34,14 +34,4 @@ void ft_setenv(int argc, char **argv)
 		}
 	}
 	exit(0);
-}
-
-void	set_env(char *name, char *new_value)
-{
-	unsigned short	j;
-
-	j = get_count_var(name, env_cp);
-	free(env_cp[j]);
-	name = ft_strjoin(name, "=");
-	env_cp[j] = ft_strjoin(name, new_value);
 }

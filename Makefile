@@ -6,13 +6,13 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/26 13:01:04 by filip            ###   ########.fr        #
+#    Updated: 2019/03/26 19:43:21 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-SRCS=srcs/get.c\
+SRCS=srcs/env_make.c\
 	srcs/flags.c\
 	srcs/make.c\
 	srcs/print.c\
@@ -38,7 +38,7 @@ all:$(NAME)
 
 $(NAME):
 			make re -C $(LIB)
-			gcc -g $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
 
 clean:
 			make clean -C $(LIB)

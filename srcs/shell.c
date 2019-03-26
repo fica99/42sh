@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 13:42:13 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 18:57:43 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,31 @@ void	shell_start(void)
 		if (WEXITSTATUS(status) == 2)
 			break ;
 	}
+}
+
+void	read_prompt(void)
+{
+	char	buf[PROMPT_LEN + 1];
+	char	*arr;
+	char	*arr1;
+	uint8_t	nb;
+
+	arr = NULL;
+	while ((nb = read(0, buf, PROMPT_LEN)) > 0)
+	{
+		buf[nb] = '\0';
+		if (!arr)
+			arr = ft_strdup(buf);
+		else
+		{
+			arr1 = ft_strjoin(arr, buf);
+			ft_memdel((void**)&arr);
+			arr = arr1;
+		}
+		if ((arr1 = check_new_line(arr)) != NULL)
+			break;
+	}
+	parse_string(arr1);
 }
 
 void	find_command(char **args)

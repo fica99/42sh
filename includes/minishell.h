@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:51:50 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 19:16:27 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ char			**env_cp;
 
 
 //get.c
-short			get_count_var(char *arr, char **environ);
-char			*get_var(char *arr, char **environ);
+short			get_count_var(char *arr);
+char			*get_var(char *arr);
 //print.c
-void			print_environ(char **environ);
+void			print_environ(void);
 void	        print_message(void);
 //make.c
 char			**copy_double_arr(char **arr);
@@ -42,7 +42,6 @@ char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-//main.c
 void	        read_prompt(void);
 //parse.c
 void			parse_string(char *buf);

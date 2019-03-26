@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 11:03:51 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 19:01:25 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*check_new_line(char *arr)
 {
 	char	*stop;
 	char	*arr1;
-	
+
 	arr1 = NULL;
 	if ((stop = ft_strchr(arr, '\n')) != NULL)
 	{

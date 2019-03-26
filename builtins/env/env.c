@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:49:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/26 19:16:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void env(int argc, char **argv)
 	j = 0;
 	if (check_set(argv))
 		exit (1);
-	print_environ(env_cp);
+	print_environ();
 	if (argc != 1)
 	{
 		j = 0;
