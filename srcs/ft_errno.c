@@ -3,12 +3,10 @@
 
 void ft_perror(char *str)
 {
-	int	len;
-
+	ft_putstr(str);
 	if (errno_f)
 	{
-		len = ft_strlen(str);
-		write(2, str, len);
+		ft_putstr(str);
 		if (errno_f >= EPERM && errno_f <= EPIPE)
 			pr_gen_perror();
 		else if (errno_f >= EDOM && errno_f <= ERANGE)
@@ -133,7 +131,7 @@ void pr_gen_perror(void)
 		err += EMLINK;
 	else
 		err += EPIPE;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ms_perror(void)
@@ -148,7 +146,7 @@ void pr_ms_perror(void)
 		err += EDOM;
 	else
 		err += ERANGE;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_nonb_perror(void)
@@ -166,7 +164,7 @@ void pr_nonb_perror(void)
 		err += EINPROGRESS;
 	else
 		err += EALREADY;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ns_arg_err_perror(void)
@@ -211,7 +209,7 @@ void pr_ns_arg_err_perror(void)
 		err += EADDRINUSE;
 	else
 		err += EADDRNOTAVAIL;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ns_op_err_perror(void)
@@ -262,7 +260,7 @@ void pr_ns_op_err_perror(void)
 		err += ELOOP;
 	else
 		err += ENAMETOOLONG;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_rearr_perror(void)
@@ -280,7 +278,7 @@ void pr_rearr_perror(void)
 		err += EHOSTUNREACH;
 	else
 		err += ENOTEMPTY;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_qm_perror(void)
@@ -298,7 +296,7 @@ void pr_qm_perror(void)
 		err += EUSERS;
 	else
 		err += EDQUOT;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_nfs_perror(void)
@@ -343,7 +341,7 @@ void pr_nfs_perror(void)
 		err += EAUTH;
 	else
 		err += ENEEDAUTH;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ide_perror(void)
@@ -424,5 +422,5 @@ void pr_ide_perror(void)
 		err += EQFULL;
 	else
 		err += ELAST;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }

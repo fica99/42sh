@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 18:33:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:44:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ uint8_t	check_set(char **argv)
 	{
 		if (!(ft_strchr(argv[j], '=')))
 		{
-			print_error(argv[0], argv[j], "No such file or directory", 0);
+			print_error(argv[0], argv[1], "No such file or directory", 0);
 			return (0);
 		}
 	}
