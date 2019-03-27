@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:13:25 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:40:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,7 @@ void	check_request(int argc, char  **argv)
 	if (path)
 		argv[1] = path;
 	if (chdir(argv[1]) == -1)
-	{
-		perror("cd: chdir() error");
-		//ft_putstr("cd: no such file or directory: ");
-		//ft_putstr(argv[1]);
-		//ft_putchar('\n');
-		exit(1);
-	}
+		print_error("Chdir() error", 9);
 }
 
 void	check_ch_dir(int argc , char **argv)
@@ -42,14 +36,13 @@ void	check_ch_dir(int argc , char **argv)
 	if (argc >= 3)
 	{
 		if (argc > 3)
-			ft_putstr("cd: too many arguments\n");
+			print_error("cd: too many arguments\n", 8);
 		else
 		{
-			ft_putstr("cd: string not in pwd: ");
+			ft_putstr("cd:  ");
 			ft_putstr(argv[1]);
-			ft_putchar('\n');
+			print_error("string not in pwd", 10);
 		}
-		exit(1);
 	}
 	else
 		check_request(argc, argv);
@@ -63,6 +56,5 @@ void	cd(int argc, char **argv)
 	getcwd(buf, MAXDIR);
 	set_env("OLDPWD", get_var("PWD"));
 	set_env("PWD", buf);
-	exit(0);
 }
 

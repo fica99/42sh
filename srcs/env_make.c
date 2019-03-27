@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_make.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:29:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:25:50 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:52:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,23 @@
 void	set_env(char *name, char *new_value)
 {
 	short	j;
-	char	*name1;
+	char	**envp;
 
 	if ((j = get_count_var(name)) >= 0)
 	{
 		free(env_cp[j]);
-		name1 = ft_strjoin(name, "=");
-		env_cp[j] = ft_strjoin(name1, new_value);
+		env_cp[j]= join_env(name, new_value);
+	}
+	else
+	{
+		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(env_cp) + 2))))
+			print_error("Malloc() error", 5);
+		while(env_cp[++j])
+			envp[j] = env_cp[j];
+		envp[j] = join_env(name, new_value);
+		envp[++j] = NULL;
+		free(env_cp);
+		env_cp = envp;
 	}
 }
 

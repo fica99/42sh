@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:16:14 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:11:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,10 @@ void	print_environ(void)
 		ft_putstr(env_cp[i]);
 		ft_putchar('\n');
 	}
+}
+
+void	print_error(char *str, int p)
+{
+	perror(str);
+	exit(p);
 }

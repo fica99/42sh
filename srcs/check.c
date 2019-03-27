@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:01:25 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 15:58:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*check_new_line(char *arr)
 	if ((stop = ft_strchr(arr, '\n')) != NULL)
 	{
 		*stop = '\0';
-		arr1 = ft_strdup(arr);
+		if (!(arr1 = ft_strdup(arr)))
+			print_error("Malloc() error", 5);
 		ft_memdel((void**)&arr);
 	}
 	return (arr1);

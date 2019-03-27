@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:18:02 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 17:11:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,35 @@
 
 void	ft_unsetenv(int argc, char **argv)
 {
-	short  i;
+	short	i;
+	short	j;
+	char	**envp;
 
 	if (argc == 2)
 	{
 		if ((i = get_count_var(argv[1])) >= 0)
 		{
-			while (env_cp[i + 1])
+			if (!(envp = (char**)malloc(sizeof(char *) * double_arr_len(env_cp))))
+				print_error("Malloc() error", 5);
+			j = -1;
+			while (env_cp[++j])
 			{
-				env_cp[i] = env_cp[i + 1];
-				i++;
+				if (j == i)
+				{
+					ft_memdel((void**)&(env_cp[j]));
+					continue;
+				}
+				envp[j] = env_cp[j];
 			}
-			env_cp[i] = NULL;
-			i = -1;
-			while (env_cp[++i])
-			{
-				ft_putstr(env_cp[i]);
-				ft_putchar('\n');
-			}
+			envp[j] = NULL;
+			free(env_cp);
+			env_cp = envp;
 		}
+		else
+			print_error("No env", 11);
 	}
-	exit(0);
+	else if (argc > 2)
+		print_error("Too many arguments", 8);
+	else
+		print_environ();
 }

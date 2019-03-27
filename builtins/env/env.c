@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:16:51 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:45:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t	check_set(char **argv)
+void	check_set(char **argv)
 {
 	short	j;
 
@@ -23,11 +23,9 @@ uint8_t	check_set(char **argv)
 		{
 			ft_putstr("env: ");
 			ft_putstr(argv[j]);
-			ft_putstr(": No such file or directory\n");
-			return (1);
+			print_error("No such file or directory", 9);
 		}
 	}
-	return (0);
 }
 
 void env(int argc, char **argv)
@@ -35,8 +33,7 @@ void env(int argc, char **argv)
 	short	j;
 
 	j = 0;
-	if (check_set(argv))
-		exit (1);
+	check_set(argv);
 	print_environ();
 	if (argc != 1)
 	{
@@ -47,5 +44,4 @@ void env(int argc, char **argv)
 				ft_putchar('\n');
 		}
 	}
-	exit(0);
 }

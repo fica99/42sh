@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 12:36:01 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 15:18:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,4 @@ void	echo(int argc, char **argv)
 	}
 	if (!(is_flags(flags, 'n')) || argc == 1)
 		ft_putchar('\n');
-	exit(0);
 }

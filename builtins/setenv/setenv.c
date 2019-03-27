@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:17:09 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:56:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 void ft_setenv(int argc, char **argv)
 {
-	int	j;
-	int	i;
+	ushort	j;
+	char	*value;
 
+	value = NULL;
+	j = 0;
 	if (argc == 1)
 		print_environ();
 	else
 	{
-		j = 0;
-		i = 0;
-		while (env_cp[i])
-			i++;
 		while (argv[++j])
 		{
-			if (!(ft_strchr(argv[j], '=')))
+			if (!(value = ft_strchr(argv[j], '=')))
+			{
+				print_error("No such file or directory", 9);
 				continue ;
+			}
 			else
-				env_cp[i++] = argv[j];
+			{
+				*value = '\0';
+				set_env(argv[j], ++value);
+			}
 		}
 	}
-	exit(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 18:57:43 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:18:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,40 @@
 
 void	shell_start(void)
 {
-	pid_t	p;
 	int		status;
+	ushort	i;
 
+	i = 0;
 	while (RUNNING)
 	{
 		print_message();
-		p = fork();
-		if (p < 0)
-		{
-			perror("Fork() error");
-			exit(1);
-		}
-		if (p)
-			waitpid(p, &status, 0);
-		else
-			read_prompt();
-		if (WEXITSTATUS(status) == 2)
+		make_new_process(++i, &status);
+		if (WEXITSTATUS(status) == 100)
 			break ;
+		if (WEXITSTATUS(status) != 100 && status != -123)
+			i = 0;
 	}
 }
 
-void	read_prompt(void)
+void	make_new_process(ushort i, int *status)
+{
+	pid_t	p;
+	
+	if (i == 1)
+	{
+		p = fork();
+		if (p < 0)
+			print_error("Fork() error", 4);
+		if (p)
+			waitpid(p, status, 0);
+		else
+			find_command(read_prompt());
+	}
+	else
+		*status = -123;
+}
+
+char	**read_prompt(void)
 {
 	char	buf[PROMPT_LEN + 1];
 	char	*arr;
@@ -47,17 +59,23 @@ void	read_prompt(void)
 	{
 		buf[nb] = '\0';
 		if (!arr)
-			arr = ft_strdup(buf);
+		{
+			if (!(arr = ft_strdup(buf)))
+				print_error("Malloc() error", 5);
+		}
 		else
 		{
-			arr1 = ft_strjoin(arr, buf);
+			if (!(arr1 = ft_strjoin(arr, buf)))
+				print_error("Malloc() error", 5);	
 			ft_memdel((void**)&arr);
 			arr = arr1;
 		}
 		if ((arr1 = check_new_line(arr)) != NULL)
 			break;
 	}
-	parse_string(arr1);
+	if (nb < 0)
+		print_error("Read() error", 6);
+	return (parse_string(arr1));
 }
 
 void	find_command(char **args)
@@ -77,11 +95,12 @@ void	find_command(char **args)
 	else if (ft_strncmp(args[0], "pwd", 3) == 0)
 		execve("/bin/pwd", args, env_cp);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
-		exit(2);
+		exit(100);
 	else
 	{
 		ft_putstr("minishell: command not found: ");
 		ft_putstr(args[0]);
 		ft_putchar('\n');
+		exit(7);
 	}
 }

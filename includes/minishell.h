@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 19:16:27 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 16:49:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,14 @@
 # include <sys/wait.h>
 # include <stdint.h> //lib for uint8_t
 # include <stdio.h> //errors
-
-
+//exit(5) malloc error
+//exit(4) fork error
+//exit(6) read error
+//exit(7) command not found
+//exit(9) chdir error
+//exit(8) cd too many arg
+//exit(9) env no such file or dir
+//exit(10) cd string not in pwd
 char			**env_cp;
 
 # define RUNNING 1
@@ -33,18 +39,21 @@ char			*get_var(char *arr);
 //print.c
 void			print_environ(void);
 void	        print_message(void);
+void			print_error(char *str, int p);
 //make.c
 char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
+char			*join_env(char *name, char *new_value);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-void	        read_prompt(void);
+char	        **read_prompt(void);
+void			make_new_process(ushort i, int *status);
 //parse.c
-void			parse_string(char *buf);
+char	**parse_string(char *buf);
 //flags.c
 uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
 uint8_t			is_flags(uint8_t flags, char flag);
@@ -58,7 +67,7 @@ void			echo(int argc, char **argv);
 uint8_t			flag_n(char s);
 //env.c
 void 			env(int argc, char **argv);
-uint8_t			check_set(char **argv);
+void			check_set(char **argv);
 //setenv.c
 void 			ft_setenv(int argc, char **argv);
 void	        set_env(char *name, char *new_value);

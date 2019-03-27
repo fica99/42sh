@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/26 11:40:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/03/27 15:30:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_string(char *buf)
+char	**parse_string(char *buf)
 {
 	char	**args;
 
 	args = ft_strsplit(buf, ' ');
-	find_command(args);
+	return (args);
 }
