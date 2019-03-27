@@ -6,7 +6,6 @@ void ft_perror(char *str)
 	ft_putstr(str);
 	if (errno_f)
 	{
-		ft_putstr(str);
 		if (errno_f >= EPERM && errno_f <= EPIPE)
 			pr_gen_perror();
 		else if (errno_f >= EDOM && errno_f <= ERANGE)

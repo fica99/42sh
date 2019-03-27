@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 18:16:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 21:43:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	check_request(int argc, char  **argv)
 		path = get_var("OLDPWD");
 	if (path)
 		argv[1] = path;
+	if (access(argv[1], F_OK))
+		print_error(argv[0], NULL, argv[1], 2);
+	if (access(argv[1], R_OK | X_OK))
+		print_error(argv[0], NULL, argv[1], 13);
 	if (chdir(argv[1]) == -1)
-		print_error(argv[0], "chdir() error", argv[1], 13);
+		print_error(argv[0], "chdir() error", argv[1], 0);
 }
 
 void	check_ch_dir(int argc , char **argv)
