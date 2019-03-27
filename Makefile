@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/26 19:43:21 by filip            ###   ########.fr        #
+#    Updated: 2019/03/27 18:24:48 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRCS=srcs/env_make.c\
 	srcs/print.c\
 	srcs/parse.c\
 	srcs/shell.c\
-	srcs/check.c
+	srcs/check.c\
+	srcs/ft_errno.c
 
 BUILTINS=builtins/cd/cd.c\
 		builtins/echo/echo.c\

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 16:18:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:05:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	make_new_process(ushort i, int *status)
 	{
 		p = fork();
 		if (p < 0)
-			print_error("Fork() error", 4);
+			print_error("minishell", "fork() error", NULL, 35);
 		if (p)
 			waitpid(p, status, 0);
 		else
@@ -61,12 +61,12 @@ char	**read_prompt(void)
 		if (!arr)
 		{
 			if (!(arr = ft_strdup(buf)))
-				print_error("Malloc() error", 5);
+				print_error("minishell", "malloc() error", NULL, 12);
 		}
 		else
 		{
 			if (!(arr1 = ft_strjoin(arr, buf)))
-				print_error("Malloc() error", 5);	
+				print_error("minishell", "malloc() error", NULL, 12);	
 			ft_memdel((void**)&arr);
 			arr = arr1;
 		}
@@ -74,7 +74,7 @@ char	**read_prompt(void)
 			break;
 	}
 	if (nb < 0)
-		print_error("Read() error", 6);
+		print_error("minishell", "read() error", NULL, 12);
 	return (parse_string(arr1));
 }
 
@@ -97,10 +97,5 @@ void	find_command(char **args)
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		exit(100);
 	else
-	{
-		ft_putstr("minishell: command not found: ");
-		ft_putstr(args[0]);
-		ft_putchar('\n');
-		exit(7);
-	}
+		print_error("minishell", "command not found", args[0], 0);
 }

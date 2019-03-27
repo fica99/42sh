@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 16:45:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:33:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	check_set(char **argv)
+uint8_t	check_set(char **argv)
 {
 	short	j;
 
@@ -21,11 +21,11 @@ void	check_set(char **argv)
 	{
 		if (!(ft_strchr(argv[j], '=')))
 		{
-			ft_putstr("env: ");
-			ft_putstr(argv[j]);
-			print_error("No such file or directory", 9);
+			print_error(argv[0], argv[j], "No such file or directory", 0);
+			return (0);
 		}
 	}
+	return (1);
 }
 
 void env(int argc, char **argv)
@@ -33,7 +33,8 @@ void env(int argc, char **argv)
 	short	j;
 
 	j = 0;
-	check_set(argv);
+	if (!(check_set(argv)))
+		return ;
 	print_environ();
 	if (argc != 1)
 	{

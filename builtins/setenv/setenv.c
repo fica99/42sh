@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 16:56:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:20:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_setenv(int argc, char **argv)
 		{
 			if (!(value = ft_strchr(argv[j], '=')))
 			{
-				print_error("No such file or directory", 9);
+				print_error(argv[0], argv[j], "No such file or directory", 0);
 				continue ;
 			}
 			else

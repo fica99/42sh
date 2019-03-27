@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 16:11:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:31:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,20 @@ void	print_environ(void)
 	}
 }
 
-void	print_error(char *str, int p)
-{
-	perror(str);
-	exit(p);
+void	print_error(char *name, char *str, char *command, int p)
+{	
+	errno_f = p;
+	ft_putstr(name);
+	if (str)
+	{
+		ft_putstr(": ");
+		ft_perror(str);
+	}
+	if (command)
+	{
+		ft_putstr(": ");
+		ft_putstr(command);
+	}
+	ft_putchar('\n');
+	exit(0);
 }

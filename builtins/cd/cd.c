@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 16:40:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 18:16:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	check_request(int argc, char  **argv)
 	if (path)
 		argv[1] = path;
 	if (chdir(argv[1]) == -1)
-		print_error("Chdir() error", 9);
+		print_error(argv[0], "chdir() error", argv[1], 13);
 }
 
 void	check_ch_dir(int argc , char **argv)
@@ -36,13 +36,9 @@ void	check_ch_dir(int argc , char **argv)
 	if (argc >= 3)
 	{
 		if (argc > 3)
-			print_error("cd: too many arguments\n", 8);
+			print_error(argv[0], "too many arguments", NULL, 0);
 		else
-		{
-			ft_putstr("cd:  ");
-			ft_putstr(argv[1]);
-			print_error("string not in pwd", 10);
-		}
+			print_error(argv[0], "string not in pwd", argv[1], 0);
 	}
 	else
 		check_request(argc, argv);
