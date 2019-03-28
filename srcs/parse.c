@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/28 14:31:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:53:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,27 @@ void	parse_string(char *buf)
 {
 	char	**args;
 	char	*new_command;
+	pid_t	p;
+	int		status;
 
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		*new_command = '\0';
 		args = ft_strsplit(buf, ' ');
 		args = spec_symbols(args);
-		find_command(args);
+		p = make_process();
+		if (!p)
+			find_command(args);
+		else
+			waitpid(p, &status, 0);
 		buf = ++new_command;
 	}
 	args = ft_strsplit(buf, ' ');
 	args = spec_symbols(args);
+	if (!p)
+		find_command(args);
+	else
+		waitpid(p, &status, 0);
 	find_command(args);
 }
 
@@ -41,13 +51,7 @@ char	**spec_symbols(char **args)
 			args[i] = get_var("HOME");
 		if (*args[i] == '$' && ft_strlen(args[i]) != 1)
 		{
-			if (args[i][1] == '(' && args[i][ft_strlen(args[i]) - 1] == ')')
-			{
-				args[i] = &(args[i][2]);
-				args[i][ft_strlen(args[i]) - 1] = '\0';
-			}
-			else
-				args[i] = &(args[i][1]);
+			args[i] = &(args[i][1]);
 			args[i] = get_var(args[i]);
 		}
 	}

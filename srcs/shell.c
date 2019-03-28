@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/28 14:31:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:53:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,10 @@ void	read_prompt(void)
 
 void	exec_command(char **args)
 {
-	pid_t	p;
-	int		status;
-
 	if (ft_strncmp(args[0], "ls", 2) == 0)
-	{
-		p = make_process();
-		if (p)
-			waitpid(p, &status, 0);
-		else
-			execve("/bin/ls", args, env_cp);
-	}
-	else if (ft_strncmp(args[0], "pwd", 3) == 0)
-	{
-		p = make_process();
-		if (p)
-			waitpid(p, &status, 0);
-		else
-			execve("/bin/pwd", args, env_cp);
-	}
+		execve("/bin/ls", args, env_cp);
+	else
+		execve("/bin/pwd", args, env_cp);
 }
 
 void	find_command(char **args)
