@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 18:05:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 14:31:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,20 @@ void	shell_start(void)
 void	make_new_process(ushort i, int *status)
 {
 	pid_t	p;
-	
+
 	if (i == 1)
 	{
-		p = fork();
-		if (p < 0)
-			print_error("minishell", "fork() error", NULL, 35);
+		p = make_process();
 		if (p)
 			waitpid(p, status, 0);
 		else
-			find_command(read_prompt());
+			read_prompt();
 	}
 	else
 		*status = -123;
 }
 
-char	**read_prompt(void)
+void	read_prompt(void)
 {
 	char	buf[PROMPT_LEN + 1];
 	char	*arr;
@@ -66,7 +64,7 @@ char	**read_prompt(void)
 		else
 		{
 			if (!(arr1 = ft_strjoin(arr, buf)))
-				print_error("minishell", "malloc() error", NULL, 12);	
+				print_error("minishell", "malloc() error", NULL, 12);
 			ft_memdel((void**)&arr);
 			arr = arr1;
 		}
@@ -75,14 +73,35 @@ char	**read_prompt(void)
 	}
 	if (nb < 0)
 		print_error("minishell", "read() error", NULL, 12);
-	return (parse_string(arr1));
+	parse_string(arr1);
+}
+
+void	exec_command(char **args)
+{
+	pid_t	p;
+	int		status;
+
+	if (ft_strncmp(args[0], "ls", 2) == 0)
+	{
+		p = make_process();
+		if (p)
+			waitpid(p, &status, 0);
+		else
+			execve("/bin/ls", args, env_cp);
+	}
+	else if (ft_strncmp(args[0], "pwd", 3) == 0)
+	{
+		p = make_process();
+		if (p)
+			waitpid(p, &status, 0);
+		else
+			execve("/bin/pwd", args, env_cp);
+	}
 }
 
 void	find_command(char **args)
 {
-	if (ft_strncmp(args[0], "ls", 2) == 0)
-		execve("/bin/ls", args, env_cp);
-	else if (ft_strncmp(args[0], "cd", 2) == 0)\
+	if (ft_strncmp(args[0], "cd", 2) == 0)\
 		cd(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "echo", 4) == 0)
 		echo(double_arr_len(args), args);
@@ -92,10 +111,10 @@ void	find_command(char **args)
 		ft_setenv(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "unsetenv", 8) == 0)
 		ft_unsetenv(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "pwd", 3) == 0)
-		execve("/bin/pwd", args, env_cp);
 	else if (ft_strncmp(args[0], "exit", 4) == 0)
 		exit(100);
+	else if (!(ft_strncmp(args[0],"ls", 2)) || !(ft_strncmp(args[0],"pwd", 3)))
+		exec_command(args);
 	else
 		print_error("minishell", "command not found", args[0], 0);
 }

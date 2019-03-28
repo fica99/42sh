@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 18:27:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 14:22:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,21 @@ void			free_double_arr(char **arr)
 	ft_memdel((void**)arr);
 }
 
+pid_t	make_process(void)
+{
+	pid_t	p;
+
+	p = fork();
+	if (p < 0)
+		print_error("minishell", "fork() error", NULL, 35);
+	return (p);
+}
+
 char	*join_env(char *name, char *new_value)
 {
 	char *name1;
 	char *name2;
-	
+
 	if (!(name1 = ft_strjoin(name, "=")))
 		print_error("setenv", "malloc() error", NULL, 12);
 	if (!(name2 = ft_strjoin(name1, new_value)))

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 18:33:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 14:31:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,19 @@ void	        print_error(char *name, char *str, char *command, int p);
 char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
+pid_t			make_process(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-char	        **read_prompt(void);
+void			read_prompt(void);
 void			make_new_process(ushort i, int *status);
+void			exec_command(char **args);
 //parse.c
-char	**parse_string(char *buf);
+void			parse_string(char *buf);
+char			**spec_symbols(char **args);
 //flags.c
 uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
 uint8_t			is_flags(uint8_t flags, char flag);

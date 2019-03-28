@@ -6,18 +6,34 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 21:42:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 14:31:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**parse_string(char *buf)
+void	parse_string(char *buf)
 {
 	char	**args;
-	int		i;
+	char	*new_command;
 
+	while ((new_command = ft_strchr(buf, ';')) != NULL)
+	{
+		*new_command = '\0';
+		args = ft_strsplit(buf, ' ');
+		args = spec_symbols(args);
+		find_command(args);
+		buf = ++new_command;
+	}
 	args = ft_strsplit(buf, ' ');
+	args = spec_symbols(args);
+	find_command(args);
+}
+
+char	**spec_symbols(char **args)
+{
+	short	i;
+
 	i = -1;
 	while (args[++i])
 	{
