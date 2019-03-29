@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 16:44:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:51:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,13 @@ char	*join_env(char *name, char *new_value)
 	if (!(name2 = ft_strjoin(name1, new_value)))
 		print_error("setenv", "malloc() error", NULL, ENOMEM);
 	return(name2);
+}
+
+void	stop_program(int sign)
+{
+	if (sign == SIGINT)
+	{
+		ft_putchar('\n');
+		signal(SIGINT, stop_program);
+	}
 }

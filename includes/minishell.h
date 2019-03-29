@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 19:12:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:51:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,8 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include <stdint.h> //lib for uint8_t
-//exit(6) read error
-//exit(7) command not found
-//exit(9) chdir error
-//exit(9) env no such file or dir
-
-//comand not found
-//too many arguments
-//string not in pwd
 char			**env_cp;
 
 # define RUNNING 1
@@ -45,6 +38,7 @@ char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
+void			stop_program(int sign);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

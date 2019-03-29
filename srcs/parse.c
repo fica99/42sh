@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 19:12:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:48:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	make_command(char *buf)
 	args = spec_symbols(args);
 	p = make_process();
 	if (!p)
+	{
+		signal(SIGINT, stop_program);
 		find_command(args);
+	}
 	else
 		waitpid(p, &status, 0);
 	if (WEXITSTATUS(status) == 100)
