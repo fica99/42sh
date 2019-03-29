@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 17:49:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 16:47:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*check_new_line(char *arr)
 	{
 		*stop = '\0';
 		if (!(arr1 = ft_strdup(arr)))
-			print_error("minishell", "malloc() error", NULL, 12);
+			print_error("minishell", "malloc() error", NULL, ENOMEM);
 		ft_memdel((void**)&arr);
 	}
 	return (arr1);

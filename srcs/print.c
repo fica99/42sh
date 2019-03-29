@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 21:23:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:06:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	print_message(void)
 {
+	ft_putstr("\033[0;36m");
 	ft_putstr(get_var("PWD"));
-	ft_putchar(':');
-}
+	ft_putstr("\033[0;35m");
+	ft_putstr(" $> ");
+	ft_putstr("\033[0m");
+	}
 
 void	print_environ(void)
 {
@@ -31,7 +34,7 @@ void	print_environ(void)
 }
 
 void	print_error(char *name, char *str, char *command, int p)
-{	
+{
 	errno_f = p;
 	ft_putstr(name);
 		if (str)

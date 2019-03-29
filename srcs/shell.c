@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/28 15:53:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:12:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,18 @@ void	read_prompt(void)
 		if (!arr)
 		{
 			if (!(arr = ft_strdup(buf)))
-				print_error("minishell", "malloc() error", NULL, 12);
+				print_error("minishell", "malloc() error", NULL, ENOMEM);
 		}
 		else
 		{
 			if (!(arr1 = ft_strjoin(arr, buf)))
-				print_error("minishell", "malloc() error", NULL, 12);
+				print_error("minishell", "malloc() error", NULL, ENOMEM);
 			ft_memdel((void**)&arr);
 			arr = arr1;
 		}
 		if ((arr1 = check_new_line(arr)) != NULL)
 			break;
 	}
-	if (nb < 0)
-		print_error("minishell", "read() error", NULL, 12);
 	parse_string(arr1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/28 14:31:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/29 19:12:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 char			**env_cp;
 
 # define RUNNING 1
-#define PROMPT_LEN 100
+#define PROMPT_LEN 1
 
 
 //get.c
@@ -57,6 +57,7 @@ void			exec_command(char **args);
 //parse.c
 void			parse_string(char *buf);
 char			**spec_symbols(char **args);
+void			make_command(char *buf);
 //flags.c
 uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
 uint8_t			is_flags(uint8_t flags, char flag);
