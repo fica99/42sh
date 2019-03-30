@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 20:53:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/30 22:35:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@
 # include <sys/wait.h>
 # include <signal.h>
 # include <stdint.h> //lib for uint8_t
+# include <fcntl.h>
+# include <termios.h>
+
 char			**env_cp;
+struct termios	savetty;
 
 # define RUNNING 1
 #define PROMPT_LEN 1
 
-
+//reading.c
+char			*read_prompt(void);
 //get.c
 short			get_count_var(char *arr);
 char			*get_var(char *arr);
@@ -45,7 +50,6 @@ char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-char			*read_prompt(void);
 void			make_new_process(int *status);
 void			exec_command(char **args);
 //parse.c

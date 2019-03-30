@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 21:09:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/30 22:42:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,6 @@ void	make_new_process(int *status)
 	*status = 0;
 	arr = read_prompt();
 	parse_string(arr);
-}
-
-char	*read_prompt(void)
-{
-	char	buf[PROMPT_LEN + 1];
-	char	*arr;
-	char	*arr1;
-	uint8_t	nb;
-
-	arr = NULL;
-	while ((nb = read(0, buf, PROMPT_LEN)) > 0)
-	{
-		buf[nb] = '\0';
-		if (!arr)
-		{
-			if (!(arr = ft_strdup(buf)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
-		}
-		else
-		{
-			if (!(arr1 = ft_strjoin(arr, buf)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-			arr = arr1;
-		}
-		if ((arr1 = check_new_line(arr)) != NULL)
-			break;
-	}
-	return (arr1);
 }
 
 void	exec_command(char **args)

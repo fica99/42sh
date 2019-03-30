@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/27 18:24:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/03/30 22:35:21 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRCS=srcs/env_make.c\
 	srcs/parse.c\
 	srcs/shell.c\
 	srcs/check.c\
-	srcs/ft_errno.c
+	srcs/ft_errno.c\
+	srcs/reading.c\
 
 BUILTINS=builtins/cd/cd.c\
 		builtins/echo/echo.c\
