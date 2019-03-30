@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 19:51:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/30 21:09:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,38 +15,38 @@
 void	shell_start(void)
 {
 	int		status;
-	ushort	i;
+	pid_t	p;
+	int		i;
 
-	i = 0;
+	i = 1;
 	while (RUNNING)
 	{
 		signal(SIGINT, stop_program);
 		print_message();
-		make_new_process(++i, &status);
+		if (i)
+			p = make_process();
+		if (p)
+		{
+			waitpid(p, &status, 0);
+			i = 1;
+		}
+		else
+			make_new_process(&i);
 		if (WEXITSTATUS(status) == 100)
 			break ;
-		if (WEXITSTATUS(status) != 100 && status != -123)
-			i = 0;
 	}
 }
 
-void	make_new_process(ushort i, int *status)
+void	make_new_process(int *status)
 {
-	pid_t	p;
+	char	*arr;
 
-	if (i == 1)
-	{
-		p = make_process();
-		if (p)
-			waitpid(p, status, 0);
-		else
-			read_prompt();
-	}
-	else
-		*status = -123;
+	*status = 0;
+	arr = read_prompt();
+	parse_string(arr);
 }
 
-void	read_prompt(void)
+char	*read_prompt(void)
 {
 	char	buf[PROMPT_LEN + 1];
 	char	*arr;
@@ -72,7 +72,7 @@ void	read_prompt(void)
 		if ((arr1 = check_new_line(arr)) != NULL)
 			break;
 	}
-	parse_string(arr1);
+	return (arr1);
 }
 
 void	exec_command(char **args)
@@ -85,7 +85,7 @@ void	exec_command(char **args)
 
 void	find_command(char **args)
 {
-	if (ft_strncmp(args[0], "cd", 2) == 0)\
+	if (ft_strncmp(args[0], "cd", 2) == 0)
 		cd(double_arr_len(args), args);
 	else if (ft_strncmp(args[0], "echo", 4) == 0)
 		echo(double_arr_len(args), args);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 19:51:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/30 20:53:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-void			read_prompt(void);
-void			make_new_process(ushort i, int *status);
+char			*read_prompt(void);
+void			make_new_process(int *status);
 void			exec_command(char **args);
 //parse.c
 void			parse_string(char *buf);

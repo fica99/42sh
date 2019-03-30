@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/29 19:48:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/30 21:09:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 void	parse_string(char *buf)
 {
 	char	*new_command;
+	pid_t	p;
+	int		status;
 
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		*new_command = '\0';
-		make_command(buf);
+		p = make_process();
+		if (!p)
+			break ;
+		else
+			waitpid(p, &status, 0);
 		buf = ++new_command;
 	}
 	make_command(buf);
@@ -27,23 +33,12 @@ void	parse_string(char *buf)
 
 void	make_command(char *buf)
 {
-	int		status;
-	pid_t	p;
 	char	**args;
 
 	if (!(args = ft_strsplit(buf, ' ')))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	args = spec_symbols(args);
-	p = make_process();
-	if (!p)
-	{
-		signal(SIGINT, stop_program);
-		find_command(args);
-	}
-	else
-		waitpid(p, &status, 0);
-	if (WEXITSTATUS(status) == 100)
-		exit(100);
+	find_command(args);
 }
 
 char	**spec_symbols(char **args)
