@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 21:08:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:32:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t	check_set(char **argv)
+char	check_set(char **argv)
 {
 	short	j;
 
@@ -22,7 +22,7 @@ uint8_t	check_set(char **argv)
 		if (!(ft_strchr(argv[j], '=')))
 		{
 			print_error(argv[0], argv[1], NULL, 2);
-			return (0);
+			return (-1);
 		}
 	}
 	return (1);
@@ -33,7 +33,7 @@ void env(int argc, char **argv)
 	short	j;
 
 	j = 0;
-	if (!(check_set(argv)))
+	if (check_set(argv) < 0)
 		return ;
 	print_environ();
 	if (argc != 1)

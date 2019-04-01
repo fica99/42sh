@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 22:35:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/01 16:42:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@
 # include <stdint.h> //lib for uint8_t
 # include <fcntl.h>
 # include <termios.h>
+# include <limits.h>
 
 char			**env_cp;
 struct termios	savetty;
 
 # define RUNNING 1
-#define PROMPT_LEN 1
 
+//signal.c
+void			signalling(char i);
+void			signal_handler(int sign);
 //reading.c
 char			*read_prompt(void);
 //get.c
@@ -43,14 +46,12 @@ char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
-void			stop_program(int sign);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-void			make_new_process(int *status);
 void			exec_command(char **args);
 //parse.c
 void			parse_string(char *buf);
@@ -62,14 +63,14 @@ uint8_t			is_flags(uint8_t flags, char flag);
 uint8_t			find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
 //cd.c
 void			cd(int argc, char **argv);
-void			check_ch_dir(int argc , char **argv);
-void			check_request(int argc, char  **argv);
+char			check_ch_dir(int argc , char **argv);
+char			check_request(int argc, char  **argv);
 //echo.c
 void			echo(int argc, char **argv);
 uint8_t			flag_n(char s);
 //env.c
 void 			env(int argc, char **argv);
-uint8_t         check_set(char **argv);
+char			check_set(char **argv);
 //setenv.c
 void 			ft_setenv(int argc, char **argv);
 void	        set_env(char *name, char *new_value);

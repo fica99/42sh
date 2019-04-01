@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 19:57:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/01 14:20:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,4 @@ void	print_error(char *name, char *str, char *command, int p)
 		ft_putstr(command);
 	}
 	ft_putchar('\n');
-	exit(1);
 }

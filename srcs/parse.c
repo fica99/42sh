@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 21:09:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/01 16:53:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,11 @@
 void	parse_string(char *buf)
 {
 	char	*new_command;
-	pid_t	p;
-	int		status;
 
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		*new_command = '\0';
-		p = make_process();
-		if (!p)
-			break ;
-		else
-			waitpid(p, &status, 0);
+		make_command(buf);
 		buf = ++new_command;
 	}
 	make_command(buf);

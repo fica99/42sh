@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 22:39:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/01 17:04:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,29 @@ void	set_input_mode(void)
 		print_error("minishell", "stdin not terminal\n", NULL, 0); //EBADF, ENOTTY
 	tcgetattr(STDIN_FILENO, &savetty);//Save the terminal attributes so we can restore them later
 	 /*  Set the funny terminal modes. */
-     tcgetattr(STDIN_FILENO, &tty);
-	 tty.c_lflag &= ~(ICANON|ECHO); /*  Clear ICANON and ECHO. */
-	 tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty);
+     tcgetattr(STDIN_FILENO, &tty);// must check for err
+	 tty.c_lflag &= ~(ICANON| ECHO); /*  Clear ICANON and ECHO. */
+	 tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty);// must check
 }
 
 char	*read_prompt(void)
 {
-	char	buf[PROMPT_LEN + 1];
+	char	buf;
 	char	*arr;
-	char	*arr1;
+	ushort	nb;
+	ushort	i;
 
-	arr = NULL;
 	set_input_mode();
+	i = 0;
+	arr = ft_strnew(LINE_MAX + 1);
 	while (RUNNING)
 	{
-		read(STDIN_FILENO, &buf, PROMPT_LEN);
-		buf[PROMPT_LEN] = '\0';
-		ft_putstr(buf);
-		if (!arr)
-		{
-			if (!(arr = ft_strdup(buf)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
-		}
-		else
-		{
-			if (!(arr1 = ft_strjoin(arr, buf)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-			arr = arr1;
-		}
-		if ((arr1 = check_new_line(arr)) != NULL)
+		nb = read(STDIN_FILENO, &buf, 1);
+		ft_putchar(buf);
+		if (buf == '\n' || ft_strlen(arr) != 0)
 			break;
+		arr[i++] = buf;
 	}
 	reset_input_mode();
-	return (arr1);
+	return (arr);
 }
