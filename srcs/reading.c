@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 17:04:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 12:32:30 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,29 @@ void	set_input_mode(void)
 		print_error("minishell", "stdin not terminal\n", NULL, 0); //EBADF, ENOTTY
 	tcgetattr(STDIN_FILENO, &savetty);//Save the terminal attributes so we can restore them later
 	 /*  Set the funny terminal modes. */
-     tcgetattr(STDIN_FILENO, &tty);// must check for err
+    tcgetattr(STDIN_FILENO, &tty);// must check for err
 	 tty.c_lflag &= ~(ICANON| ECHO); /*  Clear ICANON and ECHO. */
-	 tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty);// must check
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty);// must check
 }
 
 char	*read_prompt(void)
 {
-	char	buf;
-	char	*arr;
-	ushort	nb;
-	ushort	i;
+	char	*buf;
+	char	c;
+	short	i;
 
 	set_input_mode();
-	i = 0;
-	arr = ft_strnew(LINE_MAX + 1);
+	i = -1;
+	buf = ft_strnew(LINE_MAX);
 	while (RUNNING)
 	{
-		nb = read(STDIN_FILENO, &buf, 1);
-		ft_putchar(buf);
-		if (buf == '\n' || ft_strlen(arr) != 0)
+		read(STDIN_FILENO, &c, 1);
+		ft_putchar(c);
+		if (c == '\n')
 			break;
-		arr[i++] = buf;
+		buf[++i] = c;
 	}
-	reset_input_mode();
-	return (arr);
+	if (i == -1)
+		ft_memdel((void**)&buf);
+	return (buf);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 16:36:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 12:34:40 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	shell_start(void)
 
 	while (RUNNING)
 	{
-		signalling(0);
+		signalling();
 		print_message();
-		arr = read_prompt();
-
+		if (!(arr = read_prompt()))
+			continue;
 		parse_string(arr);
 	}
 }
@@ -34,11 +34,10 @@ void	exec_command(char **args)
 	p = make_process();
 	if (!p)
 	{
-		if (ft_strncmp(args[0], "ls", 2) == 0)
+		if (ft_strcmp(args[0], "ls") == 0)
 			execve("/bin/ls", args, env_cp);
-		else if (ft_strncmp(args[0], "pwd", 3) == 0)
+		else if (ft_strcmp(args[0], "pwd") == 0)
 			execve("/bin/pwd", args, env_cp);
-		signalling(1);
 	}
 	else
 		waitpid(p, &status, 0);
@@ -46,19 +45,19 @@ void	exec_command(char **args)
 
 void	find_command(char **args)
 {
-	if (ft_strncmp(args[0], "cd", 2) == 0)
+	if (ft_strcmp(args[0], "cd") == 0)
 		cd(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "echo", 4) == 0)
+	else if (ft_strcmp(args[0], "echo") == 0)
 		echo(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "env", 3) == 0)
+	else if (ft_strcmp(args[0], "env") == 0)
 		env(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "setenv", 6) == 0)
+	else if (ft_strcmp(args[0], "setenv") == 0)
 		ft_setenv(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "unsetenv", 8) == 0)
+	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(double_arr_len(args), args);
-	else if (ft_strncmp(args[0], "exit", 4) == 0)
+	else if (ft_strcmp(args[0], "exit") == 0)
 		exit(0);
-	else if (!(ft_strncmp(args[0], "ls", 2)) || !(ft_strncmp(args[0], "pwd", 3)))
+	else if (!(ft_strcmp(args[0], "ls")) || !(ft_strcmp(args[0], "pwd")))
 		exec_command(args);
 	else
 		print_error("minishell", "command not found", args[0], 0);

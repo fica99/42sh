@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 16:42:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 11:08:09 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ struct termios	savetty;
 # define RUNNING 1
 
 //signal.c
-void			signalling(char i);
+void			signalling(void);
 void			signal_handler(int sign);
 //reading.c
 char			*read_prompt(void);

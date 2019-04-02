@@ -18,12 +18,18 @@ char			**copy_double_arr(char **arr)
 	char			**arr1;
 
 	if (!(arr1 = (char **)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
+	{
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		exit(1);
+	}
 	i = 0;
 	while (arr[i])
 	{
 		if (!(arr1[i] = ft_strdup(arr[i])))
+		{
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
+			exit(1);
+		}
 		i++;
 	}
 	arr1[i] = NULL;
@@ -49,7 +55,10 @@ pid_t	make_process(void)
 
 	p = fork();
 	if (p < 0)
-		print_error("minishell", "fork() error", NULL, 35);//EAGAIN, ENOMEM, ENOSYS, ERESTARTNOINTR
+	{
+		print_error("minishell", "fork() error", NULL, 0);//EAGAIN, ENOMEM, ENOSYS, ERESTARTNOINTR
+		exit(1);
+	}
 	return (p);
 }
 
