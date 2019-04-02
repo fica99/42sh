@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 14:35:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:44:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_unsetenv(int argc, char **argv)
 		{
 			if (!(envp = (char**)malloc(sizeof(char *) * double_arr_len(env_cp))))
 			{
-				print_error("unsetenv", "malloc() error", NULL, 12);
-				return ;
+				print_error("unsetenv", "malloc() error", NULL, ENOMEM);
+				exit(1);
 			}
 			j = -1;
 			while (env_cp[++j])

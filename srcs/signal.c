@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 11:23:03 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/02 18:54:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,24 @@ void	signalling(void)
 
 void	signal_handler(int sign)
 {
+	char	*arr;
 
 	if (sign == SIGINT)
+	{
 		ft_putchar('\n');
+		return ;
+	}
 	if (sign == SIGSEGV)
-		print_error("Segmentation fault (core dumped)\n", NULL, NULL, 0);
+		arr = "Segmentation fault (core dumped)\n";
 	if (sign == SIGABRT)
-		print_error("Aborted\n", NULL, NULL, 0);
+		arr = "Aborted\n";
 	if (sign == SIGFPE)
-		print_error("Floating point exception (core dumped)", NULL, NULL, 0);
+		arr = "Floating point exception (core dumped)";
 	if (sign == SIGTERM)
+	{
+		ft_putstr("Killed");
 		exit(1);
+	}
+	print_error(arr, NULL, NULL, 0);
+
 }

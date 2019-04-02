@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 14:31:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:43:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char	check_request(int argc, char  **argv)
 	else if (access(argv[1], R_OK | X_OK))
 		print_error(argv[0], NULL, argv[1], 13);
 	else if (chdir(argv[1]) == -1)
-		print_error(argv[0], "chdir() error", argv[1], 0);
+	{
+		print_error("cd", "chdir() error", argv[1], 0);
+		exit(1);
+	}
 	else
 		return (1);
 	return (-1);
@@ -62,7 +65,11 @@ void	cd(int argc, char **argv)
 
 	if (check_ch_dir(argc, argv) < 0)
 		return;
-	getcwd(buf, MAXDIR);
+	if (!(getcwd(buf, MAXDIR)))
+	{
+		print_error("cd", "getcwd() error", argv[1], 0);
+		exit(1);
+	}
 	set_env("OLDPWD", get_var("PWD"));
 	set_env("PWD", buf);
 }

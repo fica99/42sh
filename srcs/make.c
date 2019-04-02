@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/01 13:57:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:36:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char			**copy_double_arr(char **arr)
 	unsigned short	i;
 	char			**arr1;
 
-	if (!(arr1 = (char **)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
+	if (!(arr1 = (char**)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
 	{
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 		exit(1);
@@ -56,7 +56,7 @@ pid_t	make_process(void)
 	p = fork();
 	if (p < 0)
 	{
-		print_error("minishell", "fork() error", NULL, 0);//EAGAIN, ENOMEM, ENOSYS, ERESTARTNOINTR
+		print_error("minishell", "fork() error", NULL, ENOMEM);//EAGAIN, ENOMEM
 		exit(1);
 	}
 	return (p);

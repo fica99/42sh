@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 12:34:40 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/02 18:48:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ void	exec_command(char **args)
 	if (!p)
 	{
 		if (ft_strcmp(args[0], "ls") == 0)
-			execve("/bin/ls", args, env_cp);
-		else if (ft_strcmp(args[0], "pwd") == 0)
-			execve("/bin/pwd", args, env_cp);
+			if (execve("/bin/ls", args, env_cp) < 0)
+				print_error("minishell", "execve() error", args[0], 0);
+		if (ft_strcmp(args[0], "pwd") == 0)
+			if (execve("/bin/pwd", args, env_cp) < 0)
+				print_error("minishell", "execve error", args[0], 0);
 	}
 	else
 		waitpid(p, &status, 0);

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 12:50:45 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/02 18:46:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	reset_input_mode (void)
 {
-	tcsetattr (STDIN_FILENO, TCSANOW, &savetty);
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &savetty) < 0)
+	{
+		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
+		exit(1);
+	}
 }
 
 void	set_input_mode(void)
@@ -22,14 +26,22 @@ void	set_input_mode(void)
 	struct termios	tty;
 
 	if (!isatty(0))
+	{
 		print_error("minishell", "stdin not terminal\n", NULL, 0);
+		exit(1);
+	}
 	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
-		print_error("minishell", "tcgetattr() error", NULL, 0);//EBADF, ENOTTY
-	//Save the terminal attributes so we can restore them later
-	 /*  Set the funny terminal modes. */
+	{
+		print_error("minishell", "tcgetattr() error", NULL, ENOTTY);//EBADF, ENOTTY
+		exit(1);
+	}
 	tty = savetty;
-	 tty.c_lflag &= ~(ICANON| ECHO); /*  Clear ICANON and ECHO. */
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty);// must check
+	 tty.c_lflag &= ~(ICANON| ECHO| ECHOE); /*  Clear ICANON and ECHO. */
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
+	{
+		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
+		exit(1);
+	}
 }
 
 char	*read_prompt(void)
@@ -43,7 +55,7 @@ char	*read_prompt(void)
 	if (!(buf = ft_strnew(LINE_MAX)))
 	{
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
-		return (NULL);
+		exit(1);
 	}
 	while (RUNNING)
 	{

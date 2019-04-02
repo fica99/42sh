@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:29:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/30 18:04:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 18:32:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	set_env(char *name, char *new_value)
 	else
 	{
 		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(env_cp) + 2))))
+		{
 			print_error("setenv", "malloc() error", NULL, ENOMEM);
+			exit(1);
+		}
 		while(env_cp[++j])
 			envp[j] = env_cp[j];
 		envp[j] = join_env(name, new_value);
