@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 20:52:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 23:02:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ char	*join_env(char *name, char *new_value)
 		print_error("setenv", "malloc() error", NULL, ENOMEM);
 	if (!(name2 = ft_strjoin(name1, new_value)))
 		print_error("setenv", "malloc() error", NULL, ENOMEM);
+	ft_memdel((void**)&name1);
 	return(name2);
 }
