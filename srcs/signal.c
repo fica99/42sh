@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:54:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 20:08:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	signalling(void)
 	signal(SIGABRT, signal_handler);
 	signal(SIGTERM, signal_handler);
 	signal(SIGFPE, signal_handler);
-
 }
 
 void	signal_handler(int sign)
@@ -36,12 +35,11 @@ void	signal_handler(int sign)
 	if (sign == SIGABRT)
 		arr = "Aborted\n";
 	if (sign == SIGFPE)
-		arr = "Floating point exception (core dumped)";
+		arr = "Floating point exception (core dumped)\n";
 	if (sign == SIGTERM)
 	{
-		ft_putstr("Killed");
+		ft_putstr("Killed\n");
 		exit(1);
 	}
 	print_error(arr, NULL, NULL, 0);
-
 }

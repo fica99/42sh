@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:48:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 21:05:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	shell_start(void)
 		if (!(arr = read_prompt()))
 			continue;
 		parse_string(arr);
+		ft_memdel((void**)&arr);
 	}
 }
 
@@ -63,5 +64,4 @@ void	find_command(char **args)
 		exec_command(args);
 	else
 		print_error("minishell", "command not found", args[0], 0);
-
 }

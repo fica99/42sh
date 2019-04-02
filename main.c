@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:02:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 20:53:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int		main(int argc, char **argv, char **environ)
 	env_cp = copy_double_arr(environ);
 	shell_start();
 	free_double_arr(env_cp);
-	return (100);
+	return (0);
 }

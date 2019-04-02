@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:46:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/02 20:38:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*read_prompt(void)
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 		exit(1);
 	}
-	while (RUNNING)
+	while (RUNNING && i < LINE_MAX)
 	{
 		read(STDIN_FILENO, &c, 1);
 		ft_putchar(c);
@@ -65,7 +65,7 @@ char	*read_prompt(void)
 			break;
 		buf[++i] = c;
 	}
-	if (i == -1)
+	if (i == -1 || i >= LINE_MAX)
 		ft_memdel((void**)&buf);
 	return (buf);
 }
