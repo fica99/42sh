@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:43:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/03 20:14:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,18 @@ char	check_request(int argc, char  **argv)
 {
 	char	*path;
 
-	path = NULL;
+	path = argv[1];
 	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
 		path = get_var("HOME");
 	else if (ft_strcmp(argv[1], "-") == 0)
 		path = get_var("OLDPWD");
-	if (path)
-		argv[1] = path;
-	if (access(argv[1], F_OK))
-		print_error(argv[0], NULL, argv[1], 2);
-	else if (access(argv[1], R_OK | X_OK))
-		print_error(argv[0], NULL, argv[1], 13);
-	else if (chdir(argv[1]) == -1)
+	if (access(path, F_OK))
+		print_error(argv[0], NULL, path, 2);
+	else if (access(path, R_OK | X_OK))
+		print_error(argv[0], NULL, path, 13);
+	else if (chdir(path) == -1)
 	{
-		print_error("cd", "chdir() error", argv[1], 0);
+		print_error("cd", "chdir() error", path, 0);
 		exit(1);
 	}
 	else
