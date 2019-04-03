@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 18:43:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/03 16:53:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void ft_setenv(int argc, char **argv)
 		while (argv[++j])
 		{
 			if (!(value = ft_strchr(argv[j], '=')))
-			{
-				print_error(argv[0], argv[j], NULL, 2);
 				continue ;
-			}
 			else
 			{
 				*value = '\0';

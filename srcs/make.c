@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 23:02:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/03 18:24:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void			free_double_arr(char **arr)
 	i = -1;
 	while (arr[++i])
 		ft_memdel((void**)&(arr[i]));
-	ft_memdel((void**)arr);
+	free(arr);
+	arr = NULL;
 }
 
 pid_t	make_process(void)

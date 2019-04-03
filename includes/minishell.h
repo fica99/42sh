@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 11:08:09 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/03 16:38:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void 			ft_setenv(int argc, char **argv);
 void	        set_env(char *name, char *new_value);
 //unsetenv.c
 void			ft_unsetenv(int argc, char **argv);
+char			**copy_new_arr(short i);
 #endif
