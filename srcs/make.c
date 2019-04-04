@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 13:47:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:20:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ char			**copy_double_arr(char **arr)
 	return (arr1);
 }
 
+char			*strjoin_realloc(char *str, char *new_str)
+{
+	char	*arr;
+
+	arr = str;
+	if (!(str = ft_strjoin(arr, new_str)))
+	{
+		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		exit(1);
+	}
+	ft_memdel((void**)&arr);
+	return (str);
+}
 void			free_double_arr(char **arr)
 {
 	short	i;

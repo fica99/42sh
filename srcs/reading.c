@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 15:37:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:17:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,25 +81,27 @@ t_tc	*init_termcap(void)
 char	*reading(t_tc *tc)
 {
 	char	*buf;
-	char	c;
-	short	i;
+	char	c[2];
+	int		i;
 
+	ft_memdel((void**)&tc);
 	i = -1;
 	if (!(buf = ft_strnew(LINE_MAX)))
 	{
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("minishell", "could not access to termcap database", NULL, 0);
 		exit(1);
 	}
-	tc = NULL;
-	while (RUNNING && i < LINE_MAX)
+	while (RUNNING)
 	{
-		read(STDIN_FILENO, &c, LINE_MAX);
-		ft_putchar(c);
-		if (c == '\n')
+		read(STDIN_FILENO, &c, 1);
+		c[1] = '\0';
+		ft_putchar(c[0]);
+		if (c[0] == '\n')
 			break;
-		buf[++i] = c;
+		(++i < LINE_MAX) ? (buf[i] = c[0]) :
+			(int)(buf = strjoin_realloc(buf, c));
 	}
-	if (i == -1 || i >= LINE_MAX)
+	if (i == -1)
 		ft_memdel((void**)&buf);
 	return (buf);
 }

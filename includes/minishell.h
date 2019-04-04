@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 15:37:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 17:56:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
+char			*strjoin_realloc(char *str, char *new_str);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);
