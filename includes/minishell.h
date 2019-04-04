@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 17:56:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:21:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 # include <stdint.h> //lib for uint8_t
 # include <fcntl.h>
 # include <termios.h>
-# include <limits.h>
 # include <termcap.h>
 
 char			**env_cp;
 struct termios	savetty;
 
 # define RUNNING 1
+# define NORMAL_LINE 100
 # define HOST_NAME_MAX 255
 //colors
 # define STANDART "\033[0m"

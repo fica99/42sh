@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 18:17:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 18:21:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*reading(t_tc *tc)
 
 	ft_memdel((void**)&tc);
 	i = -1;
-	if (!(buf = ft_strnew(LINE_MAX)))
+	if (!(buf = ft_strnew(NORMAL_LINE)))
 	{
 		print_error("minishell", "could not access to termcap database", NULL, 0);
 		exit(1);
@@ -98,7 +98,7 @@ char	*reading(t_tc *tc)
 		ft_putchar(c[0]);
 		if (c[0] == '\n')
 			break;
-		(++i < LINE_MAX) ? (buf[i] = c[0]) :
+		(++i < NORMAL_LINE) ? (buf[i] = c[0]) :
 			(int)(buf = strjoin_realloc(buf, c));
 	}
 	if (i == -1)
