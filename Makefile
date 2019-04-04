@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/01 14:05:55 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/04 14:46:25 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,13 @@ EXTRA_FLAGS=-Wall -Wextra -Werror
 
 LIB=libft
 
+TERMCAP=termcap
+
 all:$(NAME)
 
 $(NAME):
 			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft -l$(TERMCAP)
 
 clean:
 			make clean -C $(LIB)
