@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/03 20:14:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:50:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ char	check_request(int argc, char  **argv)
 
 	path = argv[1];
 	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
-		path = get_var("HOME");
+		path = ft_getenv("HOME");
 	else if (ft_strcmp(argv[1], "-") == 0)
-		path = get_var("OLDPWD");
+		path = ft_getenv("OLDPWD");
 	if (access(path, F_OK))
 		print_error(argv[0], NULL, path, 2);
 	else if (access(path, R_OK | X_OK))
@@ -68,7 +68,7 @@ void	cd(int argc, char **argv)
 		print_error("cd", "getcwd() error", argv[1], 0);
 		exit(1);
 	}
-	set_env("OLDPWD", get_var("PWD"));
+	set_env("OLDPWD", ft_getenv("PWD"));
 	set_env("PWD", buf);
 }
 

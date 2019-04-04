@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/03 18:45:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:57:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	shell_start(void)
 	while (RUNNING)
 	{
 		signalling();
-		print_message();
+		shell_prompt();
 		if (!(arr = read_prompt()))
 			continue;
 		parse_string(arr);
@@ -31,15 +31,19 @@ void	exec_command(char **args)
 {
 	pid_t	p;
 	int		status;
+	char	*ls;
+	char	*pwd;
 
 	p = make_process();
+	pwd = "/bin/pwd";
+	ls = "/bin/ls";
 	if (!p)
 	{
 		if (ft_strcmp(args[0], "ls") == 0)
-			if (execve("/bin/ls", args, env_cp) < 0)
+			if (execve(ls, args, env_cp) < 0)
 				print_error("minishell", "execve() error", args[0], 0);
 		if (ft_strcmp(args[0], "pwd") == 0)
-			if (execve("/bin/pwd", args, env_cp) < 0)
+			if (execve(pwd, args, env_cp) < 0)
 				print_error("minishell", "execve error", args[0], 0);
 	}
 	else

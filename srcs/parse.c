@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/03 20:14:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:52:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ char	**spec_symbols(char **args)
 	while (args[++i])
 	{
 		if (!(ft_strcmp(args[i], "~")))
-			args[i] = ft_strdup(get_var("HOME"));
+			args[i] = ft_strdup(ft_getenv("HOME"));
 		if (!(ft_strncmp(args[i], "$", 1)) && ft_strlen(args[i]) != 1)
-			args[i] = ft_strdup(get_var(&(args[i][1])));
+			args[i] = ft_strdup(ft_getenv(&(args[i][1])));
 	}
 	return (args);
 }

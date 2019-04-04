@@ -6,20 +6,38 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 23:03:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:49:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_message(void)
+void	shell_prompt(void)
 {
-	ft_putstr("\033[0;36m");
-	ft_putstr(get_var("PWD"));
-	ft_putstr("\033[0;35m");
+	char	hostname[HOST_NAME_MAX];
+	char	*path;
+
+	gethostname(hostname, HOST_NAME_MAX);
+	path = ft_strrchr(ft_getenv("PWD"), '/');
+	ft_isprint(*(path + 1)) == 1 ? path = path + 1 : path;
+	ft_putstr(RED);
+	ft_putchar('[');
+	ft_putstr(CYAN);
+	ft_putstr(ft_getenv("USER"));
+	ft_putstr(RED);
+	ft_putchar('@');
+	ft_putstr(GREEN);
+	ft_putstr(hostname);
+	ft_putstr(RED);
+	ft_putchar(' ');
+	ft_putstr(YELLOW);
+	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? ft_putchar('~') : ft_putstr(path);
+	ft_putstr(RED);
+	ft_putchar(']');
+	ft_putstr(PURPLE);
 	ft_putstr(" $> ");
-	ft_putstr("\033[0m");
-	}
+	ft_putstr(STANDART);
+}
 
 void	print_environ(void)
 {

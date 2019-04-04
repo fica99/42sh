@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:29:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/02 23:02:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:47:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	set_env(char *name, char *new_value)
 	{
 		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(env_cp) + 2))))
 		{
-			print_error("setenv", "malloc() error", NULL, ENOMEM);
+			print_error("minishell", "malloc() error", NULL, ENOMEM);
 			exit(1);
 		}
 		while(env_cp[++j])
@@ -53,7 +53,7 @@ short	get_count_var(char *arr)
 	return (-1);
 }
 
-char	*get_var(char *arr)
+char	*ft_getenv(char *arr)
 {
 	if (get_count_var(arr) == -1)
 		return (NULL);

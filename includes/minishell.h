@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/03 16:38:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/04 13:52:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ char			**env_cp;
 struct termios	savetty;
 
 # define RUNNING 1
+# define HOST_NAME_MAX 255
+//colors
+# define STANDART "\033[0m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
+# define WHITE "\033[0;37m"
 
 //signal.c
 void			signalling(void);
@@ -36,10 +46,10 @@ void			signal_handler(int sign);
 char			*read_prompt(void);
 //get.c
 short			get_count_var(char *arr);
-char			*get_var(char *arr);
+char			*ft_getenv(char *arr);
 //print.c
 void			print_environ(void);
-void	        print_message(void);
+void	        shell_prompt(void);
 void	        print_error(char *name, char *str, char *command, int p);
 //make.c
 char			**copy_double_arr(char **arr);
