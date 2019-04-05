@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 17:47:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/05 18:00:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*reading(t_tc *tc, char *buf)
 	i = -1;
 	n = 1;
 	tc = NULL;
+	set_input_mode();
 	while (RUNNING)
 	{
 		read(STDIN_FILENO, &c, 1);
@@ -90,9 +91,11 @@ char	*reading(t_tc *tc, char *buf)
 		if (++i >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
 		buf[i] = c;
+
 	}
 	if (i == -1)
 		ft_memdel((void**)&buf);
+	reset_input_mode();
 	return (buf);
 }
 
@@ -100,13 +103,11 @@ char	*read_prompt(t_tc *tc)
 {
 	char	*str;
 
-	set_input_mode();
 	if (!(str = ft_strnew(NORMAL_LINE)))
 	{
 		print_error("minishell", "could not access to termcap database", NULL, 0);
 		exit(1);
 	}
 	str = reading(tc, str);
-	reset_input_mode();
 	return (str);
 }
