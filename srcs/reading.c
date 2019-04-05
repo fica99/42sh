@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 14:01:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/05 17:47:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,13 @@ void	set_input_mode(void)
 		print_error("minishell", "stdin not terminal\n", NULL, 0);
 		exit(1);
 	}
-	if (!ft_getenv("TERM"))
-	{
-		print_error("minishell", "terminal type is not defined", NULL, 0);
-		exit(1);
-	}
 	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
 	{
 		print_error("minishell", "tcgetattr() error", NULL, ENOTTY);//EBADF, ENOTTY
 		exit(1);
 	}
 	tty = savetty;
-	 tty.c_lflag &= ~(ICANON| ECHO| ECHOE); /*  Clear ICANON and ECHO. */
+	tty.c_lflag &= ~(ICANON| ECHO| ECHOE); /*  Clear ICANON and ECHO. */
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
 	{
 		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
@@ -49,14 +44,13 @@ void	set_input_mode(void)
 	}
 }
 
-t_tc	*init_termcap(void)
+t_tc	*init_termcap(t_tc *tc)
 {
 	int 	success;
-	t_tc	*tc;
 
-	if (!(tc = (t_tc *)malloc(sizeof(t_tc))))
+	if (!ft_getenv("TERM"))
 	{
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("minishell", "terminal type is not defined", NULL, 0);
 		exit(1);
 	}
 	success = tgetent(NULL, ft_getenv("TERM"));
@@ -78,20 +72,15 @@ t_tc	*init_termcap(void)
 	return (tc);
 }
 
-char	*reading(t_tc *tc)
+char	*reading(t_tc *tc, char *buf)
 {
-	char	*buf;
 	char	c;
 	int		i;
 	uint8_t	n;
 
 	i = -1;
 	n = 1;
-	if (!(buf = ft_strnew(NORMAL_LINE)))
-	{
-		print_error("minishell", "could not access to termcap database", NULL, 0);
-		exit(1);
-	}
+	tc = NULL;
 	while (RUNNING)
 	{
 		read(STDIN_FILENO, &c, 1);
@@ -104,15 +93,20 @@ char	*reading(t_tc *tc)
 	}
 	if (i == -1)
 		ft_memdel((void**)&buf);
-	ft_memdel((void**)&tc);
 	return (buf);
 }
 
-char	*read_prompt(void)
+char	*read_prompt(t_tc *tc)
 {
-	t_tc	*tc;
+	char	*str;
 
 	set_input_mode();
-	tc = init_termcap();
-	return (reading(tc));
+	if (!(str = ft_strnew(NORMAL_LINE)))
+	{
+		print_error("minishell", "could not access to termcap database", NULL, 0);
+		exit(1);
+	}
+	str = reading(tc, str);
+	reset_input_mode();
+	return (str);
 }

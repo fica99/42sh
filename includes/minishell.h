@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 14:01:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/05 17:46:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ struct termios	savetty;
 # define WHITE "\033[0;37m"
 
 //termcaps
-/*# define LEFT 279168
+/*  # define LEFT 279168
 # define UP	279165
 # define RIGHT 279167
 # define DOWN 279166
-# define BSPC 127*/
-
+# define BSPC 127
+*/
 typedef struct	s_tc
 {
 	char	*up;
@@ -61,11 +61,11 @@ typedef struct	s_tc
 void			signalling(void);
 void			signal_handler(int sign);
 //reading.c
-char			*read_prompt(void);
-char			*reading(t_tc *tc);
+char			*read_prompt(t_tc *tc);
+char			*reading(t_tc *tc, char *buf);
 void			reset_input_mode(void);
 void			set_input_mode(void);
-t_tc			*init_termcap(void);
+t_tc			*init_termcap(t_tc *tc);
 //get.c
 short			get_count_var(char *arr);
 char			*ft_getenv(char *arr);
