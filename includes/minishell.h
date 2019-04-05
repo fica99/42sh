@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 18:21:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:01:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ struct termios	savetty;
 # define WHITE "\033[0;37m"
 
 //termcaps
-# define LEFT 279168
+/*# define LEFT 279168
 # define UP	279165
 # define RIGHT 279167
 # define DOWN 279166
-# define BSPC 127
+# define BSPC 127*/
 
 typedef struct	s_tc
 {
@@ -78,7 +78,7 @@ char			**copy_double_arr(char **arr);
 void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
-char			*strjoin_realloc(char *str, char *new_str);
+char			*strnew_realloc_buf(char *str, uint8_t *n);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

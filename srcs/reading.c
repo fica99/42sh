@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 18:21:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/05 14:01:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,19 @@ t_tc	*init_termcap(void)
 	tc->down = tgetstr("do", NULL);
 	tc->left = tgetstr("le", NULL);
 	tc->right = tgetstr("ri", NULL);
-	tc->bcsp = tgetstr("up", NULL);
+	tc->bcsp = tgetstr("kbs", NULL);
 	return (tc);
 }
 
 char	*reading(t_tc *tc)
 {
 	char	*buf;
-	char	c[2];
+	char	c;
 	int		i;
+	uint8_t	n;
 
-	ft_memdel((void**)&tc);
 	i = -1;
+	n = 1;
 	if (!(buf = ft_strnew(NORMAL_LINE)))
 	{
 		print_error("minishell", "could not access to termcap database", NULL, 0);
@@ -94,15 +95,16 @@ char	*reading(t_tc *tc)
 	while (RUNNING)
 	{
 		read(STDIN_FILENO, &c, 1);
-		c[1] = '\0';
-		ft_putchar(c[0]);
-		if (c[0] == '\n')
+		ft_putchar(c);
+		if (c == '\n')
 			break;
-		(++i < NORMAL_LINE) ? (buf[i] = c[0]) :
-			(int)(buf = strjoin_realloc(buf, c));
+		if (++i >= NORMAL_LINE * n)
+			buf = strnew_realloc_buf(buf, &n);
+		buf[i] = c;
 	}
 	if (i == -1)
 		ft_memdel((void**)&buf);
+	ft_memdel((void**)&tc);
 	return (buf);
 }
 
