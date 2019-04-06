@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 18:00:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/06 20:05:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	set_input_mode(void)
 		exit(1);
 	}
 	tty = savetty;
-	tty.c_lflag &= ~(ICANON| ECHO| ECHOE); /*  Clear ICANON and ECHO. */
+	tty.c_lflag &= ~(ICANON| ECHO| ISIG);
+	tty.c_cc[VTIME] = 0;
+	tty.c_cc[VMIN] = 1;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
 	{
 		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
@@ -67,35 +69,39 @@ t_tc	*init_termcap(t_tc *tc)
 	tc->up = tgetstr("up", NULL);
 	tc->down = tgetstr("do", NULL);
 	tc->left = tgetstr("le", NULL);
-	tc->right = tgetstr("ri", NULL);
+	tc->right = tgetstr("kc", NULL);
 	tc->bcsp = tgetstr("kbs", NULL);
 	return (tc);
 }
 
 char	*reading(t_tc *tc, char *buf)
 {
-	char	c;
-	int		i;
-	uint8_t	n;
+	char			c[LINE_MAX + 1];
+	uint8_t			n;
+	ushort			nb;
+	t_cord			*cord;
 
-	i = -1;
 	n = 1;
 	tc = NULL;
-	set_input_mode();
+	signal(SIGWINCH, signal_handler);
+	cord = get_term();
 	while (RUNNING)
 	{
-		read(STDIN_FILENO, &c, 1);
-		ft_putchar(c);
-		if (c == '\n')
+		nb = read(STDIN_FILENO, &c, LINE_MAX);
+		c[nb] = '\0';
+		ft_putstr_print(c);
+		if ((ft_strchr(c, '\n')))
 			break;
-		if (++i >= NORMAL_LINE * n)
+		if (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
-		buf[i] = c;
-
+		/*if (ft_strchr(c, '\t'))
+		{
+			while (!(autocom(buf, n * NORMAL_LINE)))
+				buf = strnew_realloc_buf(buf, &n);
+			continue ;
+		}*/
+		buf = ft_strcat_print(buf, c);
 	}
-	if (i == -1)
-		ft_memdel((void**)&buf);
-	reset_input_mode();
 	return (buf);
 }
 

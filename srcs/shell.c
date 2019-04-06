@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 17:59:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/06 19:45:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	shell_start(void)
 		exit(1);
 	}
 	tc = init_termcap(tc);
+	set_input_mode();
 	while (RUNNING)
 	{
 		signalling();
@@ -32,6 +33,7 @@ void	shell_start(void)
 		parse_string(arr);
 		ft_memdel((void**)&arr);
 	}
+	reset_input_mode();
 	ft_memdel((void**)&tc);
 }
 

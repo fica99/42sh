@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 17:46:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/06 20:04:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/ioctl.h>
 # include <signal.h>
 # include <stdint.h> //lib for uint8_t
 # include <fcntl.h>
 # include <termios.h>
 # include <termcap.h>
+# include <limits.h>
 
 char			**env_cp;
 struct termios	savetty;
@@ -47,6 +49,14 @@ struct termios	savetty;
 # define DOWN 279166
 # define BSPC 127
 */
+
+typedef struct	s_cord
+{
+	short	x;
+	short	y;
+	short	ws_col;
+}				t_cord;
+
 typedef struct	s_tc
 {
 	char	*up;
@@ -79,6 +89,10 @@ void			free_double_arr(char **arr);
 char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
 char			*strnew_realloc_buf(char *str, uint8_t *n);
+//make2.c
+char			*ft_strcat_print(char *arr, char *new_arr);
+void			ft_putstr_print(char *arr);
+t_cord			*get_term(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

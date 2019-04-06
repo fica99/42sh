@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/05 17:39:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/06 15:35:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n)
 	ft_memdel((void**)&arr);
 	return (str);
 }
+
 void			free_double_arr(char **arr)
 {
 	short	i;
