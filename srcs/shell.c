@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 14:17:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:35:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,21 @@
 
 void	shell_start(void)
 {
-	char	*arr;
-	t_tc	*tc;
+	char		*arr;
+	t_tc		tc;
 
-	if (!(tc = (t_tc*)malloc(sizeof(t_tc))))
-	{
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
-		exit(1);
-	}
-	tc = init_termcap(tc);
+	init_termcap(&tc);
 	set_input_mode();
 	while (RUNNING)
 	{
 		signalling();
 		shell_prompt();
-		if (!(arr = read_prompt(tc)))
+		if (!(arr = read_prompt(&tc)))
 			continue;
 		parse_string(arr);
 		ft_memdel((void**)&arr);
 	}
 	reset_input_mode();
-	ft_memdel((void**)&tc);
 }
 
 void	exec_command(char **args)

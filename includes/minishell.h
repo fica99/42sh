@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 14:24:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:14:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 
-//termcaps
-/*  # define LEFT 279168
-# define UP	279165
-# define RIGHT 279167
-# define DOWN 279166
-# define BSPC 127
-*/
+//termcap
+# define UP "\033[A"
+# define RIGHT "\033[C"
+# define LEFT "\033[D"
+# define DOWN "\033[B"
 
 typedef struct	s_cord
 {
@@ -60,6 +58,7 @@ typedef struct	s_tc
 	char	*down;
 	char	*left;
 	char	*right;
+	char	*k_right;
 	char	*bcsp;
 }				t_tc;
 
@@ -76,13 +75,13 @@ char			*read_prompt(t_tc *tc);
 char			*reading(t_tc *tc, char *buf);
 void			reset_input_mode(void);
 void			set_input_mode(void);
-t_tc			*init_termcap(t_tc *tc);
+void			init_termcap(t_tc *tc);
 //get.c
 short			get_count_var(char *arr);
 char			*ft_getenv(char *arr);
 //print.c
 void			print_environ(void);
-void			ft_putstr_print(char *arr);
+void			ft_putstr_print(char *arr, t_tc *tc);
 void	        shell_prompt(void);
 void	        print_error(char *name, char *str, char *command, int p);
 //make.c

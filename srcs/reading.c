@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 14:42:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:14:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	set_input_mode(void)
 	}
 }
 
-t_tc	*init_termcap(t_tc *tc)
+void	init_termcap(t_tc *tc)
 {
 	int 	success;
 
@@ -69,9 +69,8 @@ t_tc	*init_termcap(t_tc *tc)
 	tc->up = tgetstr("up", NULL);
 	tc->down = tgetstr("do", NULL);
 	tc->left = tgetstr("le", NULL);
-	tc->right = tgetstr("kc", NULL);
+	tc->k_right = ft_strdup(tgetstr("kr", NULL));
 	tc->bcsp = tgetstr("kbs", NULL);
-	return (tc);
 }
 
 char	*reading(t_tc *tc, char *buf)
@@ -87,9 +86,11 @@ char	*reading(t_tc *tc, char *buf)
 	{
 		nb = read(STDIN_FILENO, &c, LINE_MAX);
 		c[nb] = '\0';
-		ft_putstr_print(c);
 		if ((ft_strchr(c, '\n')))
 			break;
+		buf = ft_strcat_print(buf, c);
+		ft_putstr(c);
+//		ft_putstr_print(buf, tc);
 		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
 		/*if (ft_strchr(c, '\t'))
@@ -98,7 +99,6 @@ char	*reading(t_tc *tc, char *buf)
 				buf = strnew_realloc_buf(buf, &n);
 			continue ;
 		}*/
-		buf = ft_strcat_print(buf, c);
 	}
 	ft_putchar('\n');
 	return (buf);

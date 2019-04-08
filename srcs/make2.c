@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 14:23:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 15:52:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strcat_print(char *arr, char *new_arr)
 	{
 		if (ft_isprint(*new_arr))
 			arr[i] = *new_arr;
+		else if (*new_arr == 27)
+			new_arr += 2;
 		new_arr++;
 	}
 	return (arr);
