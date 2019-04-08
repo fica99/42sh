@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/06 19:46:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:24:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ void	signal_handler(int sign)
 		exit(1);
 	}
 	if (sign == SIGWINCH)
+	{
+		get_cord();
 		return;
+	}
 	print_error(arr, NULL, NULL, 0);
 }

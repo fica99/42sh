@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/06 20:04:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:24:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 # include <termios.h>
 # include <termcap.h>
 # include <limits.h>
-
-char			**env_cp;
-struct termios	savetty;
 
 # define RUNNING 1
 # define NORMAL_LINE 100
@@ -66,6 +63,10 @@ typedef struct	s_tc
 	char	*bcsp;
 }				t_tc;
 
+char			**env_cp;
+struct termios	savetty;
+struct s_cord		cord;
+
 
 //signal.c
 void			signalling(void);
@@ -81,6 +82,7 @@ short			get_count_var(char *arr);
 char			*ft_getenv(char *arr);
 //print.c
 void			print_environ(void);
+void			ft_putstr_print(char *arr);
 void	        shell_prompt(void);
 void	        print_error(char *name, char *str, char *command, int p);
 //make.c
@@ -91,8 +93,7 @@ pid_t			make_process(void);
 char			*strnew_realloc_buf(char *str, uint8_t *n);
 //make2.c
 char			*ft_strcat_print(char *arr, char *new_arr);
-void			ft_putstr_print(char *arr);
-t_cord			*get_term(void);
+void			get_cord(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

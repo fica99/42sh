@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/06 20:05:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:42:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ char	*reading(t_tc *tc, char *buf)
 	char			c[LINE_MAX + 1];
 	uint8_t			n;
 	ushort			nb;
-	t_cord			*cord;
+
 
 	n = 1;
 	tc = NULL;
-	signal(SIGWINCH, signal_handler);
-	cord = get_term();
 	while (RUNNING)
 	{
 		nb = read(STDIN_FILENO, &c, LINE_MAX);
@@ -92,7 +90,7 @@ char	*reading(t_tc *tc, char *buf)
 		ft_putstr_print(c);
 		if ((ft_strchr(c, '\n')))
 			break;
-		if (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
+		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
 		/*if (ft_strchr(c, '\t'))
 		{
@@ -102,6 +100,7 @@ char	*reading(t_tc *tc, char *buf)
 		}*/
 		buf = ft_strcat_print(buf, c);
 	}
+	ft_putchar('\n');
 	return (buf);
 }
 

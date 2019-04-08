@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 13:52:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 14:42:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ void	make_command(char *buf)
 	args = NULL;
 	if (ft_strlen(buf) != 0)
 	{
-		if (!(args = ft_strsplit(buf, ' ')))
+		if ((args = ft_strsplit(buf, ' ')))
 		{
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-			exit(1);
+			args = spec_symbols(args);
+			find_command(args);
+			free_double_arr(args);
 		}
-		args = spec_symbols(args);
-		find_command(args);
-		free_double_arr(args);
+		else
+			ft_putchar('\n');
 	}
 }
 
