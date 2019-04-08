@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 16:14:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/08 16:31:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	*reading(t_tc *tc, char *buf)
 
 	n = 1;
 	tc = NULL;
+	signal(SIGWINCH, signal_handler);
 	while (RUNNING)
 	{
 		nb = read(STDIN_FILENO, &c, LINE_MAX);
