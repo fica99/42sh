@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 14:42:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 13:07:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,19 @@ void	make_command(char *buf)
 char	**spec_symbols(char **args)
 {
 	short	i;
+	char	*path;
 
 	i = -1;
 	while (args[++i])
 	{
 		if (!(ft_strcmp(args[i], "~")))
-			args[i] = ft_strdup(ft_getenv("HOME"));
+			if ((path = ft_getenv("HOME")))
+				if (!(args[i] = ft_strdup(path)))
+					print_error("echo", "malloc() error", NULL, ENOMEM);
 		if (!(ft_strncmp(args[i], "$", 1)) && ft_strlen(args[i]) != 1)
-			args[i] = ft_strdup(ft_getenv(&(args[i][1])));
+			if ((path = ft_getenv(&(args[i][1]))))
+				if (!(args[i] = ft_strdup(path)))
+					print_error("echo", "malloc() error", NULL, ENOMEM);
 	}
 	return (args);
 }

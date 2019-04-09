@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 16:31:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 16:57:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ void	signal_handler(int sign)
 	if (sign == SIGFPE)
 		arr = "Floating point exception (core dumped)\n";
 	if (sign == SIGTERM)
-	{
-		ft_putstr("Killed\n");
-		exit(1);
-	}
+		arr = "Killed\n";
 	if (sign == SIGWINCH)
 	{
 		get_cord();
 		return;
 	}
 	print_error(arr, NULL, NULL, 0);
+	exit(1);
 }

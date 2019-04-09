@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 16:00:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 14:07:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ void	shell_prompt(void)
 	ft_putstr(RED);
 	ft_putchar(' ');
 	ft_putstr(YELLOW);
-	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? ft_putchar('~') : ft_putstr(path);
+	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
+	ft_putstr(path);
 	ft_putstr(RED);
 	ft_putchar(']');
 	ft_putstr(PURPLE);
 	ft_putstr(" $> ");
 	ft_putstr(STANDART);
+	cord.prompt += ft_strlen(hostname) + ft_strlen(path) +
+	ft_strlen(ft_getenv("USER")) + 8;
 }
 
 void	print_environ(void)
@@ -65,27 +68,3 @@ void	print_error(char *name, char *str, char *command, int p)
 	}
 	ft_putchar('\n');
 }
-
-/*void	ft_putstr_print(char *arr, t_tc *tc)
-{
-	int		i;
-
-	i = 0;
-	tc = NULL;
-	while (arr[i])
-	{
-		if (ft_isprint(arr[i]))
-			ft_putchar(arr[i]);
-		else if (arr[i] == 27)
-		{
-			if (ft_strstr(arr, RIGHT) && arr[i + 3])
-				ft_putstr(RIGHT);
-			else if (ft_strstr(arr, LEFT) && (cord.x != 0 && cord.y == 0))
-				ft_putstr(LEFT);
-			i += 2;
-			(cord.x) += 2;
-		}
-		i++;
-		(cord.x)++;
-	}
-}*/

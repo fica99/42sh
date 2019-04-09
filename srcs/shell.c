@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 16:31:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 17:33:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,14 @@
 void	shell_start(void)
 {
 	char		*arr;
-	t_tc		tc;
 
-	init_termcap(&tc);
 	set_input_mode();
 	while (RUNNING)
 	{
 		signalling();
+		cord.prompt = 0;
 		shell_prompt();
-		if (!(arr = read_prompt(&tc)))
+		if (!(arr = read_prompt()))
 			continue;
 		parse_string(arr);
 		ft_memdel((void**)&arr);

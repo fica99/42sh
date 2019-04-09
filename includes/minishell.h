@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 16:14:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 18:03:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,16 @@
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 
-//termcap
-# define UP "\033[A"
-# define RIGHT "\033[C"
-# define LEFT "\033[D"
-# define DOWN "\033[B"
-
 typedef struct	s_cord
 {
-	short	x;
-	short	y;
+	short	prompt;
+	short	x_cur;
 	short	ws_col;
 }				t_cord;
 
-typedef struct	s_tc
-{
-	char	*up;
-	char	*down;
-	char	*left;
-	char	*right;
-	char	*k_right;
-	char	*bcsp;
-}				t_tc;
+# define RIGHT "\033[C\0"
+# define LEFT "\033[D\0"
+# define BCSP "\033[P\0"
 
 char			**env_cp;
 struct termios	savetty;
@@ -71,17 +59,14 @@ struct s_cord		cord;
 void			signalling(void);
 void			signal_handler(int sign);
 //reading.c
-char			*read_prompt(t_tc *tc);
-char			*reading(t_tc *tc, char *buf);
-void			reset_input_mode(void);
-void			set_input_mode(void);
-void			init_termcap(t_tc *tc);
+char			*read_prompt();
+char			*reading(char *buf);
+char			*make_buf_print(char *buf, char *c, uint8_t *n);
 //get.c
 short			get_count_var(char *arr);
 char			*ft_getenv(char *arr);
 //print.c
 void			print_environ(void);
-void			ft_putstr_print(char *arr, t_tc *tc);
 void	        shell_prompt(void);
 void	        print_error(char *name, char *str, char *command, int p);
 //make.c
@@ -91,8 +76,10 @@ char			*join_env(char *name, char *new_value);
 pid_t			make_process(void);
 char			*strnew_realloc_buf(char *str, uint8_t *n);
 //make2.c
-char			*ft_strcat_print(char *arr, char *new_arr);
 void			get_cord(void);
+void			reset_input_mode(void);
+void			set_input_mode(void);
+char			*ft_stradd(char *buf, char s, size_t i);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

@@ -6,7 +6,7 @@
 /*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:36:49 by aashara-          #+#    #+#             */
-/*   Updated: 2018/11/23 20:49:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 15:41:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_strcat(char *destination, const char *arr)
 
 	pointer = destination;
 	i = 0;
+	if (!arr)
+		return (pointer);
 	while (pointer[i] != '\0')
 		i++;
 	j = 0;
