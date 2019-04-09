@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 18:49:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:58:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct	s_cord
 	short	ws_col;
 }				t_cord;
 
-# define RIGHT "\033[C\0"
-# define LEFT "\033[D\0"
+# define RIGHT "\033[C"
+# define LEFT "\033[D"
 
 char			**env_cp;
 struct termios	savetty;
@@ -78,7 +78,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n);
 void			get_cord(void);
 void			reset_input_mode(void);
 void			set_input_mode(void);
-char			*ft_stradd(char *buf, char s, size_t i);
+char			*ft_stradd(char *buf, char *s, size_t i);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 18:03:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 21:43:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,15 @@ void	set_input_mode(void)
 	}
 }
 
-char	*ft_stradd(char	*buf, char s, size_t i)
+char	*ft_stradd(char	*buf, char *s, size_t i)
 {
-	size_t	j;
-	char 	*str;
+	char	*str;
 
-	j = 0;
-	str = NULL;
-	while (buf[j] && j != i)
-		j++;
-	if (buf[j])
-		str = &(buf[j]);
-	else
-		str = NULL;
-	buf[j++] = s;
-	while (str)
-	{
-		buf[j++] = *str;
-		str++;
-	}
-	buf[j] = '\0';
+	if (i >= ft_strlen(buf))
+		return (ft_strcat(buf, s));
+	str = ft_strdup(buf + i);
+	*(buf + i) = '\0';
+	buf = ft_strcat(ft_strcat(buf, s), str);
+	ft_memdel((void**)&str);
 	return (buf);
 }

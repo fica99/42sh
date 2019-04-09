@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 14:07:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 22:56:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	shell_prompt(void)
 	gethostname(hostname, HOST_NAME_MAX);
 	path = ft_strrchr(ft_getenv("PWD"), '/');
 	ft_isprint(*(path + 1)) == 1 ? path = path + 1 : path;
+	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
 	ft_putstr(RED);
 	ft_putchar('[');
 	ft_putstr(CYAN);
@@ -31,7 +32,6 @@ void	shell_prompt(void)
 	ft_putstr(RED);
 	ft_putchar(' ');
 	ft_putstr(YELLOW);
-	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
 	ft_putstr(path);
 	ft_putstr(RED);
 	ft_putchar(']');

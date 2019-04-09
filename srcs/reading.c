@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 18:48:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 23:02:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,28 @@
 
 char	*make_buf_print(char *buf, char *c, uint8_t *n)
 {
+	int len;
+
 	*n = *n;
-	if (ft_isprint(*c) && cord.x_cur >= cord.prompt)
+	if (ft_isprint(*c))
 	{
-		buf = ft_stradd(buf, *c, cord.x_cur - cord.prompt);
-		ft_putstr(c);
-		cord.x_cur += ft_strlen(c);
+		len = cord.x_cur - cord.prompt;
+		buf = ft_stradd(buf, c, len);
+		ft_putstr(buf + len);
+		cord.x_cur += 1;
+		len = ft_strlen(buf + len);
+		while (--len)
+			ft_putstr(LEFT);
 	}
 		/*else if (*c == '\t'))
 			{
-			while (!(autocom(buf, (*n) * NORMAL_LINE)))
+			while (!(autocom(&buf, (*n) * NORMAL_LINE)))
 				buf = strnew_realloc_buf(buf, n);
 		}*/
 	if (!(ft_strcmp(c, LEFT)) && cord.x_cur > cord.prompt)
 	{
 		ft_putstr(LEFT);
-		cord.x_cur--;
+		(cord.x_cur)--;
 	}
 	if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) > cord.x_cur))
 	{
