@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 18:03:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 18:49:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_cord
 
 # define RIGHT "\033[C\0"
 # define LEFT "\033[D\0"
-# define BCSP "\033[P\0"
 
 char			**env_cp;
 struct termios	savetty;

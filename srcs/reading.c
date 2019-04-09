@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 18:03:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/09 18:48:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 	if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) > cord.x_cur))
 	{
 		ft_putstr(RIGHT);
-		cord.x_cur++;
-	}
-	if (!(ft_strcmp(c, BCSP)))
-	{
-		ft_putstr("Aaaaaaaaaaa");
-		ft_putstr(LEFT);
-		ft_putstr(BCSP);
 		cord.x_cur++;
 	}
 	return (buf);
