@@ -3,12 +3,9 @@
 
 void ft_perror(char *str)
 {
-	int	len;
-
+	ft_putstr(str);
 	if (errno_f)
 	{
-		len = ft_strlen(str);
-		write(2, str, len);
 		if (errno_f >= EPERM && errno_f <= EPIPE)
 			pr_gen_perror();
 		else if (errno_f >= EDOM && errno_f <= ERANGE)
@@ -35,38 +32,38 @@ void pr_gen_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Operation not permitted\n",
-			": No such file or directory\n",
-			": No such process\n",
-			": Interrupted system call\n",
-			": Input/output error\n",
-			": Device not configured\n",
-			": Argument list too long\n",
-			": Exec format error\n",
-			": Bad file descriptor\n",
-			": No child processes\n",
-			": Resource deadlock avoided\n",
-			": Cannot allocate memory\n",
-			": Permission denied\n",
-			": Bad address\n",
-			": Block device required\n",
-			": Device / Resource busy\n",
-			": File exists\n",
-			": Cross-device link\n",
-			": Operation not supported by device\n",
-			": Not a directory\n",
-			": Is a directory\n",
-			": Invalid argument\n",
-			": Too many open files in system\n",
-			": Too many open files\n",
-			": Inappropriate ioctl for device\n",
-			": Text file busy\n",
-			": File too large\n",
-			": No space left on device\n",
-			": Illegal seek\n",
-			": Read-only file system\n",
-			": Too many links\n",
-			": Broken pipe\n"
+			": Operation not permitted",
+			": No such file or directory",
+			": No such process",
+			": Interrupted system call",
+			": Input/output error",
+			": Device not configured",
+			": Argument list too long",
+			": Exec format error",
+			": Bad file descriptor",
+			": No child processes",
+			": Resource deadlock avoided",
+			": Cannot allocate memory",
+			": Permission denied",
+			": Bad address",
+			": Block device required",
+			": Device / Resource busy",
+			": File exists",
+			": Cross-device link",
+			": Operation not supported by device",
+			": Not a directory",
+			": Is a directory",
+			": Invalid argument",
+			": Too many open files in system",
+			": Too many open files",
+			": Inappropriate ioctl for device",
+			": Text file busy",
+			": File too large",
+			": No space left on device",
+			": Illegal seek",
+			": Read-only file system",
+			": Too many links",
+			": Broken pipe"
 	};
 	err = -1;
 	if (errno_f == EPERM)
@@ -133,31 +130,31 @@ void pr_gen_perror(void)
 		err += EMLINK;
 	else
 		err += EPIPE;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ms_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Numerical argument out of domain\n",
-			": Result too large\n"
+			": Numerical argument out of domain",
+			": Result too large"
 	};
 	err = -33;
 	if (errno_f == EDOM)
 		err += EDOM;
 	else
 		err += ERANGE;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_nonb_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Resource temporarily unavailable\n",
-			": Operation now in progress\n",
-			": Operation already in progress\n"
+			": Resource temporarily unavailable",
+			": Operation now in progress",
+			": Operation already in progress"
 	};
 	err = -35;
 	if (errno_f == EAGAIN)
@@ -166,25 +163,25 @@ void pr_nonb_perror(void)
 		err += EINPROGRESS;
 	else
 		err += EALREADY;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ns_arg_err_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Socket operation on non-socket\n",
-			": Destination address required\n",
-			": Message too long\n",
-			": Protocol wrong type for socket\n",
-			": Protocol not available\n",
-			": Protocol not supported\n",
-			": Socket type not supported\n",
-			": Operation not supported\n",
-			": Protocol family not supported\n",
-			": Address family not supported by protocol family\n",
-			": Address already in use\n",
-			": Can't assign requested address\n"
+			": Socket operation on non-socket",
+			": Destination address required",
+			": Message too long",
+			": Protocol wrong type for socket",
+			": Protocol not available",
+			": Protocol not supported",
+			": Socket type not supported",
+			": Operation not supported",
+			": Protocol family not supported",
+			": Address family not supported by protocol family",
+			": Address already in use",
+			": Can't assign requested address"
 	};
 	err = -38;
 	if (errno_f == ENOTSOCK)
@@ -211,27 +208,27 @@ void pr_ns_arg_err_perror(void)
 		err += EADDRINUSE;
 	else
 		err += EADDRNOTAVAIL;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ns_op_err_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Network is down\n",
-			": Network is unreachable\n",
-			": Network dropped connection on reset\n",
-			": Software caused connection abort\n",
-			": Connection reset by peer\n",
-			": No buffer space available\n",
-			": Socket is already connected\n",
-			": Socket is not connected\n",
-			": Can't send after socket shutdown\n",
-			": Too many references: can't splice\n",
-			": Operation timed out\n",
-			": Connection refused\n",
-			": Too many levels of symbolic links\n",
-			": File name too long\n"
+			": Network is down",
+			": Network is unreachable",
+			": Network dropped connection on reset",
+			": Software caused connection abort",
+			": Connection reset by peer",
+			": No buffer space available",
+			": Socket is already connected",
+			": Socket is not connected",
+			": Can't send after socket shutdown",
+			": Too many references: can't splice",
+			": Operation timed out",
+			": Connection refused",
+			": Too many levels of symbolic links",
+			": File name too long"
 	};
 	err = -50;
 	if (errno_f == ENETDOWN)
@@ -262,16 +259,16 @@ void pr_ns_op_err_perror(void)
 		err += ELOOP;
 	else
 		err += ENAMETOOLONG;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_rearr_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Host is down\n",
-			": No route to host\n",
-			": Directory not empty\n"
+			": Host is down",
+			": No route to host",
+			": Directory not empty"
 	};
 	err = -64;
 	if (errno_f == EHOSTDOWN)
@@ -280,16 +277,16 @@ void pr_rearr_perror(void)
 		err += EHOSTUNREACH;
 	else
 		err += ENOTEMPTY;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_qm_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Too many processes\n",
-			": Too many users\n",
-			": Disc quota exceeded\n"
+			": Too many processes",
+			": Too many users",
+			": Disc quota exceeded"
 	};
 	err = -67;
 	if (errno_f == EPROCLIM)
@@ -298,25 +295,25 @@ void pr_qm_perror(void)
 		err += EUSERS;
 	else
 		err += EDQUOT;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_nfs_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Stale NFS file handle\n",
-			": Too many levels of remote in path\n",
-			": RPC struct is bad\n",
-			": RPC version wrong\n",
-			": RPC prog. not avail\n",
-			": Program version wrong\n",
-			": Bad procedure for program\n",
-			": No locks available\n",
-			": Function not implemented\n",
-			": Inappropriate file type or format\n",
-			": Authentication error\n",
-			": Need authenticator\n"
+			": Stale NFS file handle",
+			": Too many levels of remote in path",
+			": RPC struct is bad",
+			": RPC version wrong",
+			": RPC prog. not avail",
+			": Program version wrong",
+			": Bad procedure for program",
+			": No locks available",
+			": Function not implemented",
+			": Inappropriate file type or format",
+			": Authentication error",
+			": Need authenticator"
 	};
 	err = -70;
 	if (errno_f == ESTALE)
@@ -343,37 +340,37 @@ void pr_nfs_perror(void)
 		err += EAUTH;
 	else
 		err += ENEEDAUTH;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }
 
 void pr_ide_perror(void)
 {
 	int err;
 	char *str[] = {
-			": Device power is off\n",
-			": Device error, e.g. paper out\n",
-			": Value too large to be stored in data type\n",
-			": Bad executable\n",
-			": Bad CPU type in executable\n",
-			": Shared library version mismatch\n",
-			": Malformed Macho file\n",
-			": Operation canceled\n",
-			": Identifier removed\n",
-			": No message of desired type\n",
-			": Illegal byte sequence\n",
-			": Attribute not found\n",
-			": Bad message\n",
-			": Reserved\n",
-			": No message available on STREAM\n",
-			": Reserved\n",
-			": No STREAM resources\n",
-			": Not a STREAM\n",
-			": Protocol error\n",
-			": STREAM ioctl timeout\n",
-			": Operation not supported on socket\n",
-			": No such policy registered\n",
-			": Interface output queue is full\n",
-			": Must be equal largest errno\n"
+			": Device power is off",
+			": Device error, e.g. paper out",
+			": Value too large to be stored in data type",
+			": Bad executable",
+			": Bad CPU type in executable",
+			": Shared library version mismatch",
+			": Malformed Macho file",
+			": Operation canceled",
+			": Identifier removed",
+			": No message of desired type",
+			": Illegal byte sequence",
+			": Attribute not found",
+			": Bad message",
+			": Reserved",
+			": No message available on STREAM",
+			": Reserved",
+			": No STREAM resources",
+			": Not a STREAM",
+			": Protocol error",
+			": STREAM ioctl timeout",
+			": Operation not supported on socket",
+			": No such policy registered",
+			": Interface output queue is full",
+			": Must be equal largest errno"
 	};
 	err = -82;
 	if (errno_f == EPWROFF)
@@ -424,5 +421,5 @@ void pr_ide_perror(void)
 		err += EQFULL;
 	else
 		err += ELAST;
-	write(2, str[err], ft_strlen(str[err]));
+	ft_putstr(str[err]);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 17:19:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/27 21:43:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,45 @@
 
 # define MAXDIR 4097
 
-static uint8_t	check_request(int argc, char  **argv, char **environ)
+void	check_request(int argc, char  **argv)
 {
+	char	*path;
+
+	path = NULL;
 	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
-		argv[1] = (get_var("HOME", environ));
-	if (ft_strcmp(argv[1], "-") == 0)
-		argv[1] = get_var("OLDPWD", environ);
+		path = get_var("HOME");
+	else if (ft_strcmp(argv[1], "-") == 0)
+		path = get_var("OLDPWD");
+	if (path)
+		argv[1] = path;
+	if (access(argv[1], F_OK))
+		print_error(argv[0], NULL, argv[1], 2);
+	if (access(argv[1], R_OK | X_OK))
+		print_error(argv[0], NULL, argv[1], 13);
 	if (chdir(argv[1]) == -1)
-	{
-		perror("cd:");
-		//ft_putstr("cd: no such file or directory: ");
-		//ft_putstr(argv[1]);
-		//ft_putchar('\n');
-		exit(1);
-	}
-	return (1);	
+		print_error(argv[0], "chdir() error", argv[1], 0);
 }
 
-static uint8_t	check_ch_dir(int argc , char **argv, char **environ)
+void	check_ch_dir(int argc , char **argv)
 {
 	if (argc >= 3)
 	{
 		if (argc > 3)
-			ft_putstr("cd: too many arguments\n");
+			print_error(argv[0], "too many arguments", NULL, 0);
 		else
-		{
-			ft_putstr("cd: string not in pwd: ");
-			ft_putstr(argv[1]);
-			ft_putchar('\n');
-		}
-		exit(1);
+			print_error(argv[0], "string not in pwd", argv[1], 0);
 	}
 	else
-		check_request(argc, argv, environ);
-	return (1);
+		check_request(argc, argv);
 }
 
-uint8_t	cd(int argc, char **argv, char **environ)
+void	cd(int argc, char **argv)
 {
 	char	buf[MAXDIR];
 
-	check_ch_dir(argc, argv, environ);
+	check_ch_dir(argc, argv);
 	getcwd(buf, MAXDIR);
-	environ[get_count_var("OLDPWD", environ)] = ft_strjoin("OLDPWD", get_var("PWD", environ));
-	environ[get_count_var("PWD", environ)] = ft_strjoin("PWD=", buf);
-	return (0);
+	set_env("OLDPWD", get_var("PWD"));
+	set_env("PWD", buf);
 }
 
-int		main(int argc, char **argv, char **environ)
-{
-	cd(argc, argv, environ);
-	return (0);
-}

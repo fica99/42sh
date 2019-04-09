@@ -1,44 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get.c                                              :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 14:29:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 18:25:16 by aashara-         ###   ########.fr       */
+/*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
+/*   Updated: 2019/03/27 17:49:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-short	get_count_var(char *arr, char **environ)
+char	*check_new_line(char *arr)
 {
-	uint8_t	i;
+	char	*stop;
+	char	*arr1;
+
+	arr1 = NULL;
+	if ((stop = ft_strchr(arr, '\n')) != NULL)
+	{
+		*stop = '\0';
+		if (!(arr1 = ft_strdup(arr)))
+			print_error("minishell", "malloc() error", NULL, 12);
+		ft_memdel((void**)&arr);
+	}
+	return (arr1);
+}
+
+unsigned short	double_arr_len(char **arr)
+{
+	unsigned short	i;
 
 	i = 0;
-	while (environ[i])
-	{
-		if (ft_strncmp(environ[i], arr, ft_strlen(arr)) == 0)
-			return (i);
+	while (arr[i])
 		i++;
-	}
-	return (-1);
-}
-
-char	*get_var(char *arr, char **environ)
-{
-	return (&(environ[get_count_var(arr, environ)][ft_strlen(arr) + 1]));
-}
-
-void	print_environ(char **environ)
-{
-	short	i;
-
-	i = -1;
-	while (environ[++i])
-	{
-		ft_putstr(environ[i]);
-		ft_putchar('\n');
-	}
+	return (i);
 }

@@ -1,0 +1,3 @@
+/Users/ggrimes/projects/msCLion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ggrimes/projects/msCLion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ggrimes/projects/msCLion/cmake-build-debug/CMakeFiles/main.dir

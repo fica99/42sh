@@ -6,33 +6,24 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/25 15:06:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/03/28 15:48:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned short	double_arr_len(char **arr)
-{
-	unsigned short	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
 char			**copy_double_arr(char **arr)
 {
 	unsigned short	i;
 	char			**arr1;
-	
+
 	if (!(arr1 = (char **)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
-		exit(1);
+		print_error("minishell", "malloc() error", NULL, 12);
 	i = 0;
 	while (arr[i])
 	{
-		arr1[i] = ft_strdup(arr[i]);
+		if (!(arr1[i] = ft_strdup(arr[i])))
+			print_error("minishell", "malloc() error", NULL, 12);
 		i++;
 	}
 	arr1[i] = NULL;
@@ -44,10 +35,32 @@ void			free_double_arr(char **arr)
 	unsigned short	i;
 
 	i = 0;
-	while (arr[i])	
+	while (arr[i])
 	{
 		ft_memdel((void**)&(arr[i]));
 		i++;
 	}
 	ft_memdel((void**)arr);
+}
+
+pid_t	make_process(void)
+{
+	pid_t	p;
+
+	p = fork();
+	if (p < 0)
+		print_error("minishell", "fork() error", NULL, 35);
+	return (p);
+}
+
+char	*join_env(char *name, char *new_value)
+{
+	char *name1;
+	char *name2;
+
+	if (!(name1 = ft_strjoin(name, "=")))
+		print_error("setenv", "malloc() error", NULL, 12);
+	if (!(name2 = ft_strjoin(name1, new_value)))
+		print_error("setenv", "malloc() error", NULL, 12);
+	return(name2);
 }

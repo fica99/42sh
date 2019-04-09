@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../includes/ft_errno.h
+
+../includes/minishell.h
+libft.h
+../includes/libft.h
+ft_errno.h
+../includes/ft_errno.h
+unistd.h
+-
+sys/types.h
+-
+sys/wait.h
+-
+stdint.h
+-
+
+../libft/includes/get_next_line.h
+unistd.h
+-
+stdlib.h
+-
+
+../libft/includes/libft.h
+stdlib.h
+-
+unistd.h
+-
+string.h
+-
+get_next_line.h
+../libft/includes/get_next_line.h
+
+/Users/ggrimes/projects/msCLion/srcs/autocom.c
+minishell.h
+/Users/ggrimes/projects/msCLion/srcs/minishell.h
+
