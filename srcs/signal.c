@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:36:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 20:09:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	signalling(void)
 	signal(SIGABRT, signal_handler);
 	signal(SIGTERM, signal_handler);
 	signal(SIGFPE, signal_handler);
+	signal(SIGWINCH, signal_handler);
 }
 
 void	signal_handler(int sign)
@@ -28,6 +29,9 @@ void	signal_handler(int sign)
 	if (sign == SIGINT)
 	{
 		ft_putchar('\n');
+		shell_prompt();
+		g_flags |= SHELL_SIG;
+		cord.x_cur = cord.prompt;
 		return ;
 	}
 	if (sign == SIGSEGV)

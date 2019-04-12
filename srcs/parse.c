@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:46:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 20:09:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	make_command(char *buf)
 			find_command(args);
 			free_double_arr(args);
 		}
-		else
-			ft_putchar('\n');
 	}
 }
 

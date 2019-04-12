@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:43:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 20:33:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ char	*reading(char *buf)
 
 
 	n = 1;
-	signal(SIGWINCH, signal_handler);
 	cord.x_cur = cord.prompt;
 	while (RUNNING)
 	{
+		set_input_mode();
 		nb = read(STDIN_FILENO, &c, LINE_MAX);
 		c[nb] = '\0';
+		signalling();
+		reset_input_mode();
+		if (g_flags & SHELL_SIG)
+		{
+			ft_strclr(buf);
+			g_flags &= ~SHELL_SIG;
+			continue;
+		}
 		if ((ft_strchr(c, '\n')))
 			break;
 		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:53:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 20:34:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ void	shell_start(void)
 {
 	char		*arr;
 
-	set_input_mode();
 	while (RUNNING)
 	{
-		signalling();
 		cord.prompt = 0;
 		shell_prompt();
 		arr = read_prompt();
@@ -36,6 +34,8 @@ char	*exec_command(char **args)
 	uint8_t	i;
 	char	*file_path;
 
+
+
 	if (!(path = ft_strsplit(ft_getenv("PATH"), ':')))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	i = -1;
@@ -43,7 +43,7 @@ char	*exec_command(char **args)
 	{
 		if (!(file_path = ft_strjoin(ft_strcat(path[i], "/"), args[0])))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		if (!access(file_path, F_OK))
+		if (!access(file_path, F_OK | X_OK))
 		{
 			p = make_process();
 			if (!p)
@@ -56,12 +56,39 @@ char	*exec_command(char **args)
 				waitpid(p, &status, 0);
 				ft_memdel((void**)&file_path);
 				free_double_arr(path);
-				return ("1");
+				return (SOMETHING);
 			}
 		}
 		ft_memdel((void**)&file_path);
 	}
 	free_double_arr(path);
+	return (NULL);
+}
+
+char	*check_command(char **args)
+{
+	pid_t		p;
+	int			status;
+	struct stat	buf;
+
+	if (!access(args[0], F_OK | X_OK))
+	{
+		if (lstat(args[0], &buf) < 0)
+			print_error("minishell", "lstat() error", NULL, 0);
+		if (!S_ISREG(buf.st_mode))
+			return (SOMETHING);
+		p = make_process();
+		if (!p)
+		{
+			if (execve(args[0], args, env_cp) < 0)
+				print_error("minishell", "execve() error", args[0], 0);
+		}
+		else
+		{
+			waitpid(p, &status, 0);
+			return (SOMETHING);
+		}
+	}
 	return (NULL);
 }
 
@@ -80,9 +107,8 @@ void	find_command(char **args)
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		free_double_arr(env_cp);
-		reset_input_mode();
 		exit(0);
 	}
-	else if (!exec_command(args))
+	else if (!check_command(args)  && !exec_command(args))
 		print_error_withoutexit("minishell", "command not found", args[0], 0);
 }

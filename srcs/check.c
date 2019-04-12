@@ -41,7 +41,7 @@ void			check_key(char *c, char *buf)
 	}
 	if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) >
 				cord.x_cur))
-	{
+		{
 		ft_putstr(RIGHT);
 		cord.x_cur++;
 	}
