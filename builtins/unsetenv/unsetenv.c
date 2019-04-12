@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 13:51:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:53:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_unsetenv(int argc, char **argv)
 	char	**envp;
 
 	if (argc < 2)
-		print_error("unsetenv", NULL, "not enough arguments", 0);
+		print_error_withoutexit("unsetenv", NULL, "not enough arguments", 0);
 	else
 	{
 		j = 0;
@@ -40,10 +40,7 @@ char	**copy_new_arr(short i)
 	short	j;
 
 	if (!(envp = (char**)malloc(sizeof(char *) * (double_arr_len(env_cp)))))
-	{
 		print_error("unsetenv", "malloc() error", NULL, ENOMEM);
-		exit(1);
-	}
 	j = -1;
 	while (env_cp[++j])
 	{

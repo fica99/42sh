@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 19:53:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:36:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,4 @@ void	signal_handler(int sign)
 		return;
 	}
 	print_error(arr, NULL, NULL, 0);
-	exit(1);
 }

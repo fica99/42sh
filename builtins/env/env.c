@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/04 13:50:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:51:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	check_set(char **argv)
 	{
 		if (!(ft_strchr(argv[j], '=')))
 		{
-			print_error(argv[0], argv[1], NULL, 2);
+			print_error_withoutexit(argv[0], argv[1], NULL, 2);
 			return (-1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 22:56:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:52:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,30 @@
 
 void	shell_prompt(void)
 {
-	char	hostname[HOST_NAME_MAX];
 	char	*path;
+	char	hostname[HOST_NAME_MAX];
 
 	gethostname(hostname, HOST_NAME_MAX);
-	path = ft_strrchr(ft_getenv("PWD"), '/');
-	ft_isprint(*(path + 1)) == 1 ? path = path + 1 : path;
-	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
-	ft_putstr(RED);
+	RED;
 	ft_putchar('[');
-	ft_putstr(CYAN);
+	CYAN;
 	ft_putstr(ft_getenv("USER"));
-	ft_putstr(RED);
+	RED;
 	ft_putchar('@');
-	ft_putstr(GREEN);
+	GREEN;
 	ft_putstr(hostname);
-	ft_putstr(RED);
+	RED;
 	ft_putchar(' ');
-	ft_putstr(YELLOW);
+	YELLOW;
+	path = check_path();
 	ft_putstr(path);
-	ft_putstr(RED);
+	RED;
 	ft_putchar(']');
-	ft_putstr(PURPLE);
+	PURPLE;
 	ft_putstr(" $> ");
-	ft_putstr(STANDART);
-	cord.prompt += ft_strlen(hostname) + ft_strlen(path) +
-	ft_strlen(ft_getenv("USER")) + 8;
+	STANDART;
+	cord.prompt += ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
+		ft_strlen(hostname) + 8;
 }
 
 void	print_environ(void)
@@ -58,9 +56,27 @@ void	print_error(char *name, char *str, char *command, int p)
 {
 	errno_f = p;
 	ft_putstr(name);
-		if (str)
-			ft_putstr(": ");
-		ft_perror(str);
+	if (str)
+		ft_putstr(": ");
+	ft_perror(str);
+	if (command)
+	{
+		ft_putstr(": ");
+		ft_putstr(command);
+	}
+	ft_putchar('\n');
+	reset_input_mode();
+	exit(1);
+}
+
+
+void	print_error_withoutexit(char *name, char *str, char *command, int p)
+{
+	errno_f = p;
+	ft_putstr(name);
+	if (str)
+		ft_putstr(": ");
+	ft_perror(str);
 	if (command)
 	{
 		ft_putstr(": ");

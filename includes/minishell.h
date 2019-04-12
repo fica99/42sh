@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/09 21:58:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/12 16:51:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,20 @@
 # include <stdint.h> //lib for uint8_t
 # include <fcntl.h>
 # include <termios.h>
-# include <termcap.h>
-# include <limits.h>
 
 # define RUNNING 1
 # define NORMAL_LINE 100
 # define HOST_NAME_MAX 255
+# define LINE_MAX 2048
 //colors
-# define STANDART "\033[0m"
-# define RED "\033[0;31m"
-# define GREEN "\033[0;32m"
-# define YELLOW "\033[0;33m"
-# define BLUE "\033[0;34m"
-# define PURPLE "\033[0;35m"
-# define CYAN "\033[0;36m"
-# define WHITE "\033[0;37m"
+# define STANDART ft_putstr("\033[0m")
+# define RED ft_putstr("\033[0;31m")
+# define GREEN ft_putstr("\033[0;32m")
+# define YELLOW ft_putstr("\033[0;33m")
+# define BLUE ft_putstr("\033[0;34m")
+# define PURPLE ft_putstr("\033[0;35m")
+# define CYAN ft_putstr("\033[0;36m")
+
 
 typedef struct	s_cord
 {
@@ -67,6 +66,7 @@ char			*ft_getenv(char *arr);
 //print.c
 void			print_environ(void);
 void	        shell_prompt(void);
+void	        print_error_withoutexit(char *name, char *str, char *command, int p);
 void	        print_error(char *name, char *str, char *command, int p);
 //make.c
 char			**copy_double_arr(char **arr);
@@ -82,10 +82,12 @@ char			*ft_stradd(char *buf, char *s, size_t i);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char	        *check_new_line(char *arr);
+char			*check_path(void);
+void			check_key(char *c, char *buf);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
-void			exec_command(char **args);
+char			*exec_command(char **args);
 //parse.c
 void			parse_string(char *buf);
 char			**spec_symbols(char **args);
