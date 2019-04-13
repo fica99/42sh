@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:49:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 14:18:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ char			**copy_double_arr(char **arr)
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (arr[++i])
-	{
 		if (!(arr1[i] = ft_strdup(arr[i])))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
-	}
 	arr1[i] = NULL;
 	return (arr1);
 }
@@ -36,7 +34,10 @@ char			*strnew_realloc_buf(char *str, uint8_t *n)
 	arr = str;
 	(*n)++;
 	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
+	{
+		reset_input_mode();
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
+	}
 	str = ft_strcat(str, arr);
 	ft_memdel((void**)&arr);
 	return (str);

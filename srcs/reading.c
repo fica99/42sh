@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 20:33:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:34:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,24 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 	return (buf);
 }
 
+void	read_handler(char *c)
+{
+	unsigned short	nb;
+
+	nb = read(STDIN_FILENO, c, LINE_MAX);
+	c[nb] = '\0';
+}
+
 char	*reading(char *buf)
 {
 	char			c[LINE_MAX + 1];
 	uint8_t			n;
-	uint8_t			nb;
-
 
 	n = 1;
-	cord.x_cur = cord.prompt;
+	set_input_mode();
 	while (RUNNING)
 	{
-		set_input_mode();
-		nb = read(STDIN_FILENO, &c, LINE_MAX);
-		c[nb] = '\0';
-		signalling();
-		reset_input_mode();
+		read_handler(c);
 		if (g_flags & SHELL_SIG)
 		{
 			ft_strclr(buf);
@@ -64,6 +66,7 @@ char	*reading(char *buf)
 			buf = strnew_realloc_buf(buf, &n);
 		buf = make_buf_print(buf , c, &n);
 	}
+	reset_input_mode();
 	ft_putchar('\n');
 	return (buf);
 }
@@ -73,6 +76,6 @@ char	*read_prompt()
 	char	*str;
 
 	if (!(str = ft_strnew(NORMAL_LINE)))
-		print_error("minishell", "malloc() error", NULL, 0);
+		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	return (reading(str));
 }

@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 20:09:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:39:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	signalling(void)
+  void	signalling(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGSEGV, signal_handler);
@@ -26,15 +26,15 @@ void	signal_handler(int sign)
 {
 	char	*arr;
 
+	arr = NULL;
 	if (sign == SIGINT)
-	{
 		ft_putchar('\n');
-		shell_prompt();
-		g_flags |= SHELL_SIG;
-		cord.x_cur = cord.prompt;
+	if (sign == SIGWINCH)
+	{
+		get_cord();
 		return ;
 	}
-	if (sign == SIGSEGV)
+ 	if (sign == SIGSEGV)
 		arr = "Segmentation fault (core dumped)\n";
 	if (sign == SIGABRT)
 		arr = "Aborted\n";
@@ -42,10 +42,9 @@ void	signal_handler(int sign)
 		arr = "Floating point exception (core dumped)\n";
 	if (sign == SIGTERM)
 		arr = "Killed\n";
-	if (sign == SIGWINCH)
-	{
-		get_cord();
-		return;
-	}
-	print_error(arr, NULL, NULL, 0);
+	if (arr)
+		print_error(arr, NULL, NULL, 0);
+	shell_prompt();
+	g_flags |= SHELL_SIG;
 }
+

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 20:31:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:27:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ struct termios	savetty;
 struct s_cord	cord;
 unsigned short	g_flags;
 
-
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
 //reading.c
 char			*read_prompt();
 char			*reading(char *buf);
+void			read_hander(char *c);
 char			*make_buf_print(char *buf, char *c, uint8_t *n);
 //get.c
 short			get_count_var(char *arr);

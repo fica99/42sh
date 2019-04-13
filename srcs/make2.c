@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 18:38:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:21:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_cord(void)
 	struct winsize	size;
 
 	if (ioctl(0, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);
+		print_error("minishell", "ioctl() error", NULL, 0);//EBADF, EINVAL, ENNOTY
 	cord.ws_col = size.ws_col;
 }
 
@@ -50,7 +50,10 @@ char	*ft_stradd(char	*buf, char *s, size_t i)
 	if (i >= ft_strlen(buf))
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
+	{
+		reset_input_mode();
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
+	}
 	*(buf + i) = '\0';
 	buf = ft_strcat(ft_strcat(buf, s), str);
 	ft_memdel((void**)&str);

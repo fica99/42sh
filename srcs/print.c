@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:52:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:14:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	shell_prompt(void)
 	STANDART;
 	cord.prompt += ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
 		ft_strlen(hostname) + 8;
+	cord.x_cur = cord.prompt;
 }
 
 void	print_environ(void)
@@ -65,7 +66,6 @@ void	print_error(char *name, char *str, char *command, int p)
 		ft_putstr(command);
 	}
 	ft_putchar('\n');
-	reset_input_mode();
 	exit(1);
 }
 

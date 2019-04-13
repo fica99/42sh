@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 20:34:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:34:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ void	shell_start(void)
 
 	while (RUNNING)
 	{
-		cord.prompt = 0;
-		shell_prompt();
-		arr = read_prompt();
-		parse_string(arr);
-		ft_memdel((void**)&arr);
+		signalling();
+		if (g_flags & SHELL_SIG)
+			g_flags &= ~SHELL_SIG;
+		else
+			shell_prompt();
+		if ((arr = read_prompt()))
+		{
+			parse_string(arr);
+			ft_memdel((void**)&arr);
+		}
 	}
 }
 
@@ -34,10 +39,7 @@ char	*exec_command(char **args)
 	uint8_t	i;
 	char	*file_path;
 
-
-
-	if (!(path = ft_strsplit(ft_getenv("PATH"), ':')))
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+	path = ft_strsplit(ft_getenv("PATH"), ':');
 	i = -1;
 	while (path[++i])
 	{
@@ -49,7 +51,7 @@ char	*exec_command(char **args)
 			if (!p)
 			{
 				if (execve(file_path, args, env_cp) < 0)
-					print_error("minishell", "execve() error", args[0], 0);
+					print_error("minishell", "execve() error", args[0], 0);//errno
 			}
 			else
 			{
@@ -61,7 +63,8 @@ char	*exec_command(char **args)
 		}
 		ft_memdel((void**)&file_path);
 	}
-	free_double_arr(path);
+	if (path)
+		free_double_arr(path);
 	return (NULL);
 }
 
@@ -74,14 +77,14 @@ char	*check_command(char **args)
 	if (!access(args[0], F_OK | X_OK))
 	{
 		if (lstat(args[0], &buf) < 0)
-			print_error("minishell", "lstat() error", NULL, 0);
+			print_error("minishell", "lstat() error", NULL, 0);//errno
 		if (!S_ISREG(buf.st_mode))
 			return (SOMETHING);
 		p = make_process();
 		if (!p)
 		{
 			if (execve(args[0], args, env_cp) < 0)
-				print_error("minishell", "execve() error", args[0], 0);
+				print_error("minishell", "execve() error", args[0], 0);//errno
 		}
 		else
 		{
