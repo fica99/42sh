@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 10:18:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:46:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			check_key(char *c, char *buf)
 	}
 	if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) >
 				cord.x_cur))
-		{
+	{
 		ft_putstr(RIGHT);
 		cord.x_cur++;
 	}

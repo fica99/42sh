@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 10:11:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 13:04:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ char	check_request(int argc, char  **argv)
 	else if (!ft_strcmp(argv[1], "."))
 		path = ft_getenv("PWD");
 	if (access(path, F_OK))
-		print_error_withoutexit(argv[0], NULL, path, 2);
+		print_error_withoutexit(argv[0], NULL, path, ENOENT);
 	else if (access(path, R_OK | X_OK))
-		print_error_withoutexit(argv[0], NULL, path, 13);
+		print_error_withoutexit(argv[0], NULL, path, EACCES);
 	else if (chdir(path) == -1)
 		print_error("cd", "chdir() error", path, 0);
 	else

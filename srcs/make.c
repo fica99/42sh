@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 11:38:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:52:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ pid_t	make_process(void)
 	p = fork();
 	if (p < 0)
 	{
-		print_error("minishell", "fork() error", NULL, ENOMEM);//EAGAIN, ENOMEM
+		print_error("minishell", "fork() error", NULL, 0);
 		exit(1);
 	}
 	return (p);

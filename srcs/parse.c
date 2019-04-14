@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:28:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:46:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	parse_string(char *buf)
 {
 	char	*new_command;
 
+	if (!buf)
+		return;
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		if (buf == new_command)
@@ -36,7 +38,7 @@ void	make_command(char *buf)
 	char	**args;
 
 	args = NULL;
-	if (ft_strlen(buf) != 0)
+	if (*buf != '\0')
 	{
 		if ((args = ft_strsplit(buf, ' ')))
 		{

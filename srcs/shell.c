@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:35:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:48:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	shell_start(void)
 			g_flags &= ~SHELL_SIGINT;
 		else
 			shell_prompt();
-		if ((arr = read_prompt()))
-		{
-			parse_string(arr);
-			ft_memdel((void**)&arr);
-		}
+		arr = read_prompt();
+		parse_string(arr);
+		ft_memdel((void**)&arr);
 	}
 }
 

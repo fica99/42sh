@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 11:13:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:58:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "ft_errno.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -40,7 +39,10 @@
 # define BLUE ft_putstr("\033[0;34m")
 # define PURPLE ft_putstr("\033[0;35m")
 # define CYAN ft_putstr("\033[0;36m")
-
+//errno
+#define	ENOENT		2		/* No such file or directory */
+#define	ENOMEM		12		/* Cannot allocate memory */
+#define	EACCES		13		/* Permission denied */
 
 typedef struct	s_cord
 {
@@ -56,7 +58,11 @@ char			**env_cp;
 struct termios	savetty;
 struct s_cord	cord;
 unsigned short	g_flags;
+int 			errno_f;
 
+//ft_errno.c
+void 			ft_perror(char *str);
+void 			pr_gen_perror(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);

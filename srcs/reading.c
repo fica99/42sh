@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:27:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:55:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 		while (--len)
 			ft_putstr(LEFT);
 	}
-	/*if (*c == '\t'))
-	{
-		while (!(autocom(&buf, (*n) * NORMAL_LINE)))
-			buf = strnew_realloc_buf(buf, n);
-	}*/
 	check_key(c, buf);
 	return (buf);
 }
@@ -50,27 +45,22 @@ char	*reading(char *buf)
 	uint8_t			n;
 
 	n = 1;
-	set_input_mode();
 	while (RUNNING)
 	{
 		read_handler(c);
-		if (g_flags & SHELL_SIGINT)
+		if (g_flags & SHELL_SIGINT || g_flags & SHELL_SIGQUIT)
 		{
-			ft_strclr(buf);
-			g_flags &= ~SHELL_SIGINT;
-			continue;
-		}
-		if (g_flags & SHELL_SIGQUIT)
-		{
-			g_flags &= ~SHELL_SIGQUIT;
+			if (g_flags & SHELL_SIGINT)
+			{
+				ft_strclr(buf);
+				g_flags &= ~SHELL_SIGINT;
+			}
+			else
+				g_flags &= ~SHELL_SIGQUIT;
 			continue;
 		}
 		if ((ft_strchr(c, '\n')))
-		{
-			reset_input_mode();
-			ft_putchar('\n');
 			break;
-		}
 		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
 		buf = make_buf_print(buf , c, &n);
@@ -84,5 +74,9 @@ char	*read_prompt()
 
 	if (!(str = ft_strnew(NORMAL_LINE)))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
-	return (reading(str));
+	set_input_mode();
+	str = reading(str);
+	reset_input_mode();
+	ft_putchar('\n');
+	return (str);
 }
