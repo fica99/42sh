@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 11:43:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:35:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	get_cord(void)
 void	reset_input_mode (void)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &savetty) < 0)
-		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
+		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
 void	set_input_mode(void)
@@ -34,13 +34,13 @@ void	set_input_mode(void)
 	if (!isatty(0))
 		print_error("minishell", "stdin not terminal\n", NULL, 0);
 	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
-		print_error("minishell", "tcgetattr() error", NULL, ENOTTY);//EBADF, ENOTTY
+		print_error("minishell", "tcgetattr() error", NULL, 0);
 	tty = savetty;
 	tty.c_lflag &= ~(ICANON | ECHO);
 	tty.c_cc[VTIME] = 0;
 	tty.c_cc[VMIN] = 1;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
-		print_error("minishell", "tcsetattr() error", NULL, EINVAL);//EBADF, ENOTTY, EINVAL
+		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
 char	*ft_stradd(char	*buf, char *s, size_t i)

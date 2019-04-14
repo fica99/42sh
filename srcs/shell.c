@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:26:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 12:35:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ void	shell_start(void)
 	while (RUNNING)
 	{
 		signalling();
-		if (g_flags & SHELL_SIGQUIT)
-		{
-			g_flags &= ~SHELL_SIGQUIT;
-			ft_putchar('\n');
-		}
 		if (g_flags & SHELL_SIGINT)
 			g_flags &= ~SHELL_SIGINT;
 		else
@@ -61,6 +56,11 @@ char	*exec_command(char **args)
 			else
 			{
 				waitpid(p, &status, 0);
+				if (g_flags & SHELL_SIGQUIT)
+				{
+					g_flags &= ~SHELL_SIGQUIT;
+					ft_putchar('\n');
+				}
 				ft_memdel((void**)&file_path);
 				free_double_arr(path);
 				return (SOMETHING);
