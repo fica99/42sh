@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:48:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 13:11:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	find_command(char **args)
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		free_double_arr(env_cp);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else if (!check_command(args)  && !exec_command(args))
 		print_error_withoutexit("minishell", "command not found", args[0], 0);
