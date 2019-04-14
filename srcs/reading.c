@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 13:16:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:20:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	read_handler(char *c)
 
 char	*reading(char *buf)
 {
-	char			c[LINE_MAX + 1];
-	uint8_t			n;
+	char	c[LINE_MAX + 1];
+	uint8_t	n;
 
 	n = 1;
 	while (RUNNING)

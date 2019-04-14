@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 13:11:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 14:46:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ char	*exec_command(char **args)
 	{
 		if (!(file_path = ft_strjoin(ft_strcat(path[i], "/"), args[0])))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		if (!access(file_path, F_OK | X_OK))
+		if (!access(file_path, F_OK | X_OK) && !ft_strcmp(ft_strrchr(file_path, '/') + 1, args[0]))
 		{
 			p = make_process();
 			if (!p)
 			{
 				if (execve(file_path, args, env_cp) < 0)
-					print_error("minishell", "execve() error", args[0], 0);//errno
+					print_error("minishell", "execve() error", args[0], 0);
 			}
 			else
 			{
@@ -80,14 +80,14 @@ char	*check_command(char **args)
 	if (!access(args[0], F_OK | X_OK))
 	{
 		if (lstat(args[0], &buf) < 0)
-			print_error("minishell", "lstat() error", NULL, 0);//errno
+			print_error("minishell", "lstat() error", NULL, 0);
 		if (!S_ISREG(buf.st_mode))
 			return (SOMETHING);
 		p = make_process();
 		if (!p)
 		{
 			if (execve(args[0], args, env_cp) < 0)
-				print_error("minishell", "execve() error", args[0], 0);//errno
+				print_error("minishell", "execve() error", args[0], 0);
 		}
 		else
 		{
