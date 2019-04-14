@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 15:33:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:13:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 		{
 			ft_putstr(LEFT);
 			ft_putchar(BCSP);
-			ft_putstr(LEFT);
 			cord.x_cur--;
-			buf[--len] = '\0';
+			buf = ft_strdel_el(buf, --len);
 			ft_putstr(buf + len);
+			ft_putstr(LEFT);
 		}
 	}
 	else if (ft_isprint(*c))
@@ -67,7 +67,6 @@ char	*reading(char *buf)
 				ft_strclr(buf);
 			g_flags &= ~SHELL_SIGINT;
 			g_flags &= ~SHELL_SIGQUIT;
-			continue;
 		}
 		if ((ft_strchr(c, '\n')))
 			break;

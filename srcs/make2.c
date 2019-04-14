@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 15:26:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 17:04:46 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,28 @@ char	*ft_stradd(char	*buf, char *s, size_t i)
 	}
 	*(buf + i) = '\0';
 	buf = ft_strcat(ft_strcat(buf, s), str);
+	ft_memdel((void**)&str);
+	return (buf);
+}
+
+
+char	*ft_strdel_el(char	*buf, size_t i)
+{
+	char	*str;
+
+	if (i >= ft_strlen(buf))
+		return (buf);
+	str = NULL;
+	if (buf + i + 1)
+	{
+		if (!(str = ft_strdup(buf + i + 1)))
+		{
+			reset_input_mode();
+			print_error("minishell", "malloc() error", NULL, ENOMEM);
+		}
+	}
+	*(buf + i) = '\0';
+	buf = ft_strcat(buf, str);
 	ft_memdel((void**)&str);
 	return (buf);
 }
