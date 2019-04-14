@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:50:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 10:11:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,15 @@ char	check_request(int argc, char  **argv)
 	char	*path;
 
 	path = argv[1];
-	if (argc == 1 || ft_strcmp(argv[1], "--") == 0)
+	if (argc == 1 || !ft_strcmp(argv[1], "--"))
 		path = ft_getenv("HOME");
-	else if (ft_strcmp(argv[1], "-") == 0)
-		path = ft_getenv("OLDPWD");
+	else if (!ft_strcmp(argv[1], "-"))
+	{
+		ft_putstr(path = ft_getenv("OLDPWD"));
+		ft_putchar('\n');
+	}
+	else if (!ft_strcmp(argv[1], "."))
+		path = ft_getenv("PWD");
 	if (access(path, F_OK))
 		print_error_withoutexit(argv[0], NULL, path, 2);
 	else if (access(path, R_OK | X_OK))

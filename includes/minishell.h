@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:27:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 11:13:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@
 # include <termios.h>
 
 # define RUNNING 1
-# define SHELL_SIG (1 << 1)
+# define SHELL_SIGINT (1 << 1)
+# define SHELL_SIGQUIT (1 << 2)
 # define NORMAL_LINE 100
 # define HOST_NAME_MAX 255
 # define LINE_MAX 2048

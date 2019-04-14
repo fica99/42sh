@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:21:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 11:43:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_cord(void)
 	struct winsize	size;
 
 	if (ioctl(0, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);//EBADF, EINVAL, ENNOTY
+		print_error("minishell", "ioctl() error", NULL, 0);
 	cord.ws_col = size.ws_col;
 }
 

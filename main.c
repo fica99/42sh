@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:12:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 11:39:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ int		main(int argc, char **argv, char **environ)
 	get_cord();
 	g_flags = 0;
 	shell_start();
-	return (0);
+	return (EXIT_SUCCESS);
 }

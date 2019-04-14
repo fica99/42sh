@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:34:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 11:43:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	shell_start(void)
 	while (RUNNING)
 	{
 		signalling();
-		if (g_flags & SHELL_SIG)
-			g_flags &= ~SHELL_SIG;
+		if (g_flags & SHELL_SIGINT)
+			g_flags &= ~SHELL_SIGINT;
 		else
 			shell_prompt();
 		if ((arr = read_prompt()))

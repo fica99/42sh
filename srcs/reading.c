@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/13 15:34:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 11:47:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,28 @@ char	*reading(char *buf)
 	while (RUNNING)
 	{
 		read_handler(c);
-		if (g_flags & SHELL_SIG)
+		if (g_flags & SHELL_SIGINT)
 		{
 			ft_strclr(buf);
-			g_flags &= ~SHELL_SIG;
+			g_flags &= ~SHELL_SIGINT;
+			continue;
+		}
+		if (g_flags & SHELL_SIGQUIT)
+		{
+			g_flags &= ~SHELL_SIGQUIT;
+			ft_putchar('\n');
 			continue;
 		}
 		if ((ft_strchr(c, '\n')))
+		{
+			reset_input_mode();
+			ft_putchar('\n');
 			break;
+		}
 		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
 			buf = strnew_realloc_buf(buf, &n);
 		buf = make_buf_print(buf , c, &n);
 	}
-	reset_input_mode();
-	ft_putchar('\n');
 	return (buf);
 }
 
