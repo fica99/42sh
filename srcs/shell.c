@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 14:46:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/14 15:10:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ char	*check_command(char **args)
 	{
 		if (lstat(args[0], &buf) < 0)
 			print_error("minishell", "lstat() error", NULL, 0);
-		if (!S_ISREG(buf.st_mode))
-			return (SOMETHING);
+		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
+			return (NULL);
 		p = make_process();
 		if (!p)
 		{
