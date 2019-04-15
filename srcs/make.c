@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:52:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:56:46 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ pid_t	make_process(void)
 
 	p = fork();
 	if (p < 0)
-	{
 		print_error("minishell", "fork() error", NULL, 0);
-		exit(1);
-	}
 	return (p);
 }
 

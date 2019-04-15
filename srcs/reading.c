@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 18:50:37 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 19:44:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,17 @@
 
 char	*make_buf_print(char *buf, char *c, uint8_t *n)
 {
-	int len;
-	int	i;
-
 	*n = *n;
-	len = cord.x_cur - cord.prompt;
-	if (*c == BCSP)
+	if (!(ft_strcmp(c, LEFT)) && cord.x_cur > cord.prompt)
 	{
-		if (cord.x_cur > cord.prompt)
-		{
-			ft_putstr(LEFT);
-			cord.x_cur--;
-			buf = ft_strdel_el(buf, --len);
-			i = ft_strlen(buf + len) + 1;
-			ft_putstr(buf + len);
-				ft_putchar(' ');
-			while (i--)
-				ft_putstr(LEFT);
-		}
+		ft_putstr(LEFT);
+		(cord.x_cur)--;
 	}
-	else if (ft_isprint(*c))
+	else if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) >
+				cord.x_cur))
 	{
-		buf = ft_stradd(buf, c, len);
-		ft_putstr(buf + len);
-		cord.x_cur += ft_strlen(c);
-		len = ft_strlen(buf + len);
-		while (--len)
-			ft_putstr(LEFT);
+		ft_putstr(RIGHT);
+		cord.x_cur++;
 	}
 	else
 		check_key(c, buf);

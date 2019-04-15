@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 15:33:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/15 19:45:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,27 @@ char			*check_path(void)
 
 void			check_key(char *c, char *buf)
 {
-	if (!(ft_strcmp(c, LEFT)) && cord.x_cur > cord.prompt)
+	int	len;
+	
+	len = cord.x_cur - cord.prompt;
+	if (*c == BCSP && cord.x_cur > cord.prompt)
 	{
+		buf = ft_strdel_el(buf, --len);
 		ft_putstr(LEFT);
-		(cord.x_cur)--;
+		ft_putstr(buf + len);
+		ft_putchar(' ');
+		cord.x_cur -= ft_strlen(c);
+		len = ft_strlen(buf + len) + 1;
+		while (len--)
+			ft_putstr(LEFT);
 	}
-	if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) >
-				cord.x_cur))
+	else if (ft_isprint(*c))
 	{
-		ft_putstr(RIGHT);
-		cord.x_cur++;
+		buf = ft_stradd(buf, c, len);
+		ft_putstr(buf + len);
+		cord.x_cur += ft_strlen(c);
+		len = ft_strlen(buf + len) - 1;
+		while (len--)
+			ft_putstr(LEFT);
 	}
 }
