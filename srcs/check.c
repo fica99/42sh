@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:46:57 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 23:02:48 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ void			check_key(char *c, char *buf)
 	int	len;
 
 	len = cord.x_cur - cord.prompt;
-	if (*c == BCSP && cord.x_cur > cord.prompt)
+	if (*c == BCSP && len)
 	{
 		buf = ft_strdel_el(buf, --len);
 		ft_putstr(LEFT);
 		ft_putstr(buf + len);
 		ft_putchar(' ');
-		cord.x_cur -= ft_strlen(c);
+		(cord.x_cur)--;
 		len = ft_strlen(buf + len) + 1;
 		while (len--)
 			ft_putstr(LEFT);
 	}
-	else if (ft_isprint(*c))
+	else if (ft_isprint(*c) && *c != BCSP)
 	{
 		buf = ft_stradd(buf, c, len);
 		ft_putstr(buf + len);

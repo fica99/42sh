@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 13:14:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/15 22:59:47 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	shell_prompt(void)
 	PURPLE;
 	ft_putstr(" $> ");
 	STANDART;
-	cord.prompt += ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
+	cord.prompt = ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
 		ft_strlen(hostname) + 8;
 	cord.x_cur = cord.prompt;
 }
