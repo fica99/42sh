@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 17:13:42 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 18:50:37 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*make_buf_print(char *buf, char *c, uint8_t *n)
 {
 	int len;
+	int	i;
 
 	*n = *n;
 	len = cord.x_cur - cord.prompt;
@@ -23,11 +24,13 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 		if (cord.x_cur > cord.prompt)
 		{
 			ft_putstr(LEFT);
-			ft_putchar(BCSP);
 			cord.x_cur--;
 			buf = ft_strdel_el(buf, --len);
+			i = ft_strlen(buf + len) + 1;
 			ft_putstr(buf + len);
-			ft_putstr(LEFT);
+				ft_putchar(' ');
+			while (i--)
+				ft_putstr(LEFT);
 		}
 	}
 	else if (ft_isprint(*c))
