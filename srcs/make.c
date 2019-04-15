@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 18:56:46 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 19:47:57 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n)
 	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
 	{
 		reset_input_mode();
+		ft_putchar('\n');
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	}
 	str = ft_strcat(str, arr);

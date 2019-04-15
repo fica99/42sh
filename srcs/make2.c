@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:31:06 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 19:48:54 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_stradd(char	*buf, char *s, size_t i)
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
 	{
+		ft_putchar('\n');
 		reset_input_mode();
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	}
@@ -72,6 +73,7 @@ char	*ft_strdel_el(char	*buf, size_t i)
 	{
 		if (!(str = ft_strdup(buf + i + 1)))
 		{
+			ft_putchar('\n');
 			reset_input_mode();
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
 		}

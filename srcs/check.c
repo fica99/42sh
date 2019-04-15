@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:45:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/15 19:46:57 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char			*check_path(void)
 void			check_key(char *c, char *buf)
 {
 	int	len;
-	
+
 	len = cord.x_cur - cord.prompt;
 	if (*c == BCSP && cord.x_cur > cord.prompt)
 	{
