@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/16 22:06:36 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 23:17:40 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,26 @@ char			*check_path(void)
 	return (path);
 }
 
-void			check_cord(void)
+void			check_cord(char *buf)
 {
 	int	i;
 
 	i = cord.ws_col;
 	if (cord.x_cur > cord.ws_col)
 	{
-		cord.x_cur = 0;
+		buf = buf;
+		cord.x_cur = 1;
 		(cord.y_cur)++;
+		ft_putstr(DOWN);
+		while(--i)
+			ft_putstr(LEFT);
 	}
 	else if (cord.x_cur < 0)
 	{
 		(cord.y_cur)--;
-		cord.x_cur = cord.ws_col;
+		cord.x_cur = cord.ws_col - 1;
 		ft_putstr(UP);
-		while (i--)
+		while (--i)
 			ft_putstr(RIGHT);
 	}
 }

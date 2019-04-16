@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/16 22:03:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 23:01:56 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char			*ft_strdel_el(char	*buf, size_t i);
 unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
 void			check_key(char *c, char *buf, int len);
-void			check_cord(void);
+void			check_cord(char *buf);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);

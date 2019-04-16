@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/16 21:57:16 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 23:03:47 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 	}
 	else
 		check_key(c, buf, len);
-	check_cord();
+	check_cord(buf);
 	return (buf);
 }
 
