@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 22:45:43 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 21:57:16 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,23 @@
 
 char	*make_buf_print(char *buf, char *c, uint8_t *n)
 {
+	int	len;
+
 	*n = *n;
-	if (!(ft_strcmp(c, LEFT)) && cord.x_cur > cord.prompt)
+	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
+	if (!(ft_strcmp(c, LEFT)) && len > 0)
 	{
 		ft_putstr(LEFT);
 		(cord.x_cur)--;
 	}
-	else if (!(ft_strcmp(c, RIGHT)) && (cord.prompt + (short)ft_strlen(buf) >
-				cord.x_cur))
+	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
 	{
 		ft_putstr(RIGHT);
 		(cord.x_cur)++;
 	}
 	else
-		check_key(c, buf);
+		check_key(c, buf, len);
+	check_cord();
 	return (buf);
 }
 
@@ -45,7 +48,7 @@ char	*reading(char *buf)
 	uint8_t	n;
 
 	n = 1;
-	while (RUNNING)
+	while (READING)
 	{
 		read_handler(c);
 		if (g_flags & SHELL_SIGINT || g_flags & SHELL_SIGQUIT)

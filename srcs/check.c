@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 23:02:48 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 22:06:36 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,28 @@ char			*check_path(void)
 	return (path);
 }
 
-void			check_key(char *c, char *buf)
+void			check_cord(void)
 {
-	int	len;
+	int	i;
 
-	len = cord.x_cur - cord.prompt;
+	i = cord.ws_col;
+	if (cord.x_cur > cord.ws_col)
+	{
+		cord.x_cur = 0;
+		(cord.y_cur)++;
+	}
+	else if (cord.x_cur < 0)
+	{
+		(cord.y_cur)--;
+		cord.x_cur = cord.ws_col;
+		ft_putstr(UP);
+		while (i--)
+			ft_putstr(RIGHT);
+	}
+}
+
+void			check_key(char *c, char *buf, int len)
+{
 	if (*c == BCSP && len)
 	{
 		buf = ft_strdel_el(buf, --len);

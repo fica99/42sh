@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:38:24 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/16 22:03:32 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define HOST_NAME_MAX 255
 # define LINE_MAX 2048
 # define SOMETHING "1"
+# define READING 1
 //colors
 # define STANDART ft_putstr("\033[0m")
 # define RED ft_putstr("\033[0;31m")
@@ -48,11 +49,14 @@ typedef struct	s_cord
 {
 	short	prompt;
 	short	x_cur;
+	short	y_cur;
 	short	ws_col;
 }				t_cord;
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
+# define UP "\033[A"
+# define DOWN "\033[B"
 # define BCSP 127
 
 char			**env_cp;
@@ -94,9 +98,9 @@ char			*ft_stradd(char *buf, char *s, size_t i);
 char			*ft_strdel_el(char	*buf, size_t i);
 //check.c
 unsigned short	double_arr_len(char **arr);
-char	        *check_new_line(char *arr);
 char			*check_path(void);
-void			check_key(char *c, char *buf);
+void			check_key(char *c, char *buf, int len);
+void			check_cord(void);
 //shell.c
 void	        shell_start(void);
 void	        find_command(char **args);
