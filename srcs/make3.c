@@ -6,33 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/17 18:10:50 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 18:44:21 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*ft_strdel_el(char	*buf, size_t i)
-{
-	char	*str;
-
-	if (i >= ft_strlen(buf))
-		return (buf);
-	str = NULL;
-	if (buf + i + 1)
-	{
-		if (!(str = ft_strdup(buf + i + 1)))
-		{
-			ft_putchar_fd('\n', STDERR_FILENO);
-			reset_input_mode();
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		}
-	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(buf, str);
-	ft_memdel((void**)&str);
-	return (buf);
-}
 
 void    ft_putstr_cord(char *str)
 {
@@ -99,4 +77,17 @@ void	ft_setenv(char *name, char *new_value)
 		free(env_cp);
 		env_cp = envp;
 	}
+}
+
+char	*join_env(char *name, char *new_value)
+{
+	char *name1;
+	char *name2;
+
+	if (!(name1 = ft_strjoin(name, "=")))
+		print_error("setenv", "malloc() error", NULL, ENOMEM);
+	if (!(name2 = ft_strjoin(name1, new_value)))
+		print_error("setenv", "malloc() error", NULL, ENOMEM);
+	ft_memdel((void**)&name1);
+	return(name2);
 }
