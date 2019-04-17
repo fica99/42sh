@@ -3,26 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/09 22:37:46 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/17 17:50:51 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-SRCS=srcs/env_make.c\
-	srcs/flags.c\
-	srcs/make.c\
-	srcs/print.c\
-	srcs/parse.c\
-	srcs/shell.c\
+SRCS=srcs/make.c\
 	srcs/check.c\
+	srcs/print.c\
 	srcs/ft_errno.c\
-	srcs/reading.c\
+	srcs/shell.c\
 	srcs/signal.c\
-	srcs/make2.c
+	srcs/reading.c\
+	srcs/make2.c\
+	srcs/make3.c\
+	srcs/parse.c\
+	srcs/make4.c\
+	srcs/flags.c
 
 BUILTINS=builtins/cd/cd.c\
 		builtins/echo/echo.c\
@@ -37,7 +38,6 @@ INCLUDES_LIB=libft/includes
 EXTRA_FLAGS=-Wall -Wextra -Werror
 
 LIB=libft
-
 
 all:$(NAME)
 

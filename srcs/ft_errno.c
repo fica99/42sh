@@ -2,7 +2,7 @@
 
 void ft_perror(char *str)
 {
-	ft_putstr(str);
+	ft_putstr_fd(str, STDERR_FILENO);
 	if (errno_f)
 		pr_gen_perror();
 }
@@ -22,5 +22,5 @@ void pr_gen_perror(void)
 		err = 1;
 	else
 		err = 2;
-	ft_putstr(str[err]);
+	ft_putstr_fd(str[err], STDERR_FILENO);
 }

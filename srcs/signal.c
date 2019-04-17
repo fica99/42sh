@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/16 23:00:58 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 16:27:53 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	signal_handler(int sign)
 	}
 	if (sign == SIGINT)
 	{
-		ft_putchar('\n');
+		ft_putchar_fd('\n', STDIN_FILENO);
 		g_flags |= SHELL_SIGINT;
 	}
 	shell_prompt();

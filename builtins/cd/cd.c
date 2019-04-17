@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 14:39:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:50:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	cd(int argc, char **argv)
 		return;
 	if (!(getcwd(buf, MAXDIR)))
 		print_error("cd", "getcwd() error", argv[1], 0);
-	set_env("OLDPWD", ft_getenv("PWD"));
-	set_env("PWD", buf);
+	ft_setenv("OLDPWD", ft_getenv("PWD"));
+	ft_setenv("PWD", buf);
 }
 

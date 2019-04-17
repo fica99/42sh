@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:47:57 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 17:07:06 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,53 +27,50 @@ char			**copy_double_arr(char **arr)
 	return (arr1);
 }
 
-char			*strnew_realloc_buf(char *str, uint8_t *n)
+void	get_cord(void)
 {
-	char	*arr;
+	struct winsize	size;
 
-	arr = str;
-	(*n)++;
-	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
+		print_error("minishell", "ioctl() error", NULL, 0);
+	cord.ws_col = size.ws_col;
+}
+
+char	*ft_getenv(char *arr)
+{
+	if (get_count_var(arr) == -1)
+		return (NULL);
+	else
+		return (&(env_cp[get_count_var(arr)][ft_strlen(arr) + 1]));
+}
+
+short	get_count_var(char *arr)
+{
+	uint8_t	i;
+
+	i = 0;
+	while (env_cp[i])
 	{
-		reset_input_mode();
-		ft_putchar('\n');
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		if (ft_strncmp(env_cp[i], arr, ft_strlen(arr)) == 0
+				&& env_cp[i][ft_strlen(arr)] == '=')
+			return (i);
+		i++;
 	}
-	str = ft_strcat(str, arr);
-	ft_memdel((void**)&arr);
-	return (str);
+	return (-1);
 }
 
-void			free_double_arr(char **arr)
+void	set_input_mode(void)
 {
-	short	i;
+	struct termios	tty;
 
-	i = -1;
-	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
-}
-
-pid_t	make_process(void)
-{
-	pid_t	p;
-
-	p = fork();
-	if (p < 0)
-		print_error("minishell", "fork() error", NULL, 0);
-	return (p);
-}
-
-char	*join_env(char *name, char *new_value)
-{
-	char *name1;
-	char *name2;
-
-	if (!(name1 = ft_strjoin(name, "=")))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
-	if (!(name2 = ft_strjoin(name1, new_value)))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
-	ft_memdel((void**)&name1);
-	return(name2);
+	if (!isatty(0))
+		print_error("minishell", "stdin not terminal\n", NULL, 0);
+	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
+		print_error("minishell", "tcgetattr() error", NULL, 0);
+	tty = savetty;
+	tty.c_lflag &= ~(ICANON | ECHO);
+	tty.c_cc[VTIME] = 0;
+	tty.c_cc[VMIN] = 1;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
+		print_error("minishell", "tcsetattr() error", NULL, 0);
 }

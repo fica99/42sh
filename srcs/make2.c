@@ -6,19 +6,27 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/15 19:48:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 18:13:58 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	get_cord(void)
+char			*strnew_realloc_buf(char *str, uint8_t *n)
 {
-	struct winsize	size;
+	char	*arr;
 
-	if (ioctl(0, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);
-	cord.ws_col = size.ws_col;
+	arr = str;
+	(*n)++;
+	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
+	{
+		ft_putchar_fd('\n', STDERR_FILENO);
+		reset_input_mode();
+		print_error("minishell", "malloc() error", NULL, ENOMEM);
+	}
+	str = ft_strcat(str, arr);
+	ft_memdel((void**)&arr);
+	return (str);
 }
 
 void	reset_input_mode (void)
@@ -27,59 +35,42 @@ void	reset_input_mode (void)
 		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
-void	set_input_mode(void)
+void	go_left(void)
 {
-	struct termios	tty;
+	int	len;
 
-	if (!isatty(0))
-		print_error("minishell", "stdin not terminal\n", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
-		print_error("minishell", "tcgetattr() error", NULL, 0);
-	tty = savetty;
-	tty.c_lflag &= ~(ICANON | ECHO);
-	tty.c_cc[VTIME] = 0;
-	tty.c_cc[VMIN] = 1;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
-		print_error("minishell", "tcsetattr() error", NULL, 0);
+	if (cord.x_cur > 0)
+	{
+		ft_putstr_fd(LEFT, STDIN_FILENO);
+		(cord.x_cur)--;
+	}
+	else
+	{
+		(cord.y_cur)--;
+		cord.x_cur = cord.ws_col - 1;
+		ft_putstr_fd(UP, STDIN_FILENO);
+		len = cord.ws_col;
+		while (--len)
+			ft_putstr_fd(RIGHT, STDIN_FILENO);
+	}
 }
 
-char	*ft_stradd(char	*buf, char *s, size_t i)
+void	go_right(void)
 {
-	char	*str;
+	int	len;
 
-	if (i >= ft_strlen(buf))
-		return (ft_strcat(buf, s));
-	if (!(str = ft_strdup(buf + i)))
+	if (cord.x_cur == cord.ws_col)
 	{
-		ft_putchar('\n');
-		reset_input_mode();
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		(cord.y_cur)++;
+		cord.x_cur = 0;
+		ft_putstr_fd(DOWN, STDIN_FILENO);
+		len = cord.ws_col;
+		while (--len)
+			ft_putstr_fd(LEFT, STDIN_FILENO);
 	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(ft_strcat(buf, s), str);
-	ft_memdel((void**)&str);
-	return (buf);
-}
-
-
-char	*ft_strdel_el(char	*buf, size_t i)
-{
-	char	*str;
-
-	if (i >= ft_strlen(buf))
-		return (buf);
-	str = NULL;
-	if (buf + i + 1)
+	else
 	{
-		if (!(str = ft_strdup(buf + i + 1)))
-		{
-			ft_putchar('\n');
-			reset_input_mode();
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		}
+		ft_putstr_fd(RIGHT, STDIN_FILENO);
+		(cord.x_cur)++;
 	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(buf, str);
-	ft_memdel((void**)&str);
-	return (buf);
 }
