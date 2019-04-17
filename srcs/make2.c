@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 19:28:11 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 21:59:32 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	go_left(void)
 {
 	int	len;
 
-	if (cord.x_cur > 0)
+	if (cord.x_cur > 1)
 	{
 		ft_putstr_fd(LEFT, STDIN_FILENO);
 		(cord.x_cur)--;
@@ -47,10 +47,10 @@ void	go_left(void)
 	else
 	{
 		(cord.y_cur)--;
-		cord.x_cur = cord.ws_col -1;
+		cord.x_cur = cord.ws_col;
 		ft_putstr_fd(UP, STDIN_FILENO);
 		len = cord.ws_col;
-		while (len--)
+		while (--len)
 			ft_putstr_fd(RIGHT, STDIN_FILENO);
 	}
 }
@@ -59,10 +59,10 @@ void	go_right(void)
 {
 	int	len;
 
-	if (cord.x_cur == cord.ws_col - 1)
+	if (cord.x_cur == cord.ws_col)
 	{
 		(cord.y_cur)++;
-		cord.x_cur = 0;
+		cord.x_cur = 1;
 		ft_putstr_fd(DOWN, STDIN_FILENO);
 		len = cord.ws_col;
 		while (--len)

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/17 18:44:21 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/17 22:00:59 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void    ft_putstr_cord(char *str)
 {
-    while (str && *str != '\0')
+	while (str && *str != '\0')
     {
-		if (cord.x_cur == cord.ws_col)
+		if (cord.x_cur == cord.ws_col + 1)
 		{
 			ft_putchar_fd('\n', STDIN_FILENO);
-			cord.x_cur = 0;
+			cord.x_cur = 1;
 			(cord.y_cur)++;
 		}
         ft_putchar_fd(*str, STDIN_FILENO);
