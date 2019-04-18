@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 22:05:25 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/18 13:09:33 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct	s_cord
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
-# define UP "\033[A"
-# define DOWN "\033[B"
+# define PREV_LINE "\033[F"
+# define NEXT_LINE "\033[E"
 # define BCSP 127
 
 char			**env_cp;

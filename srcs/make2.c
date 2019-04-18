@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 21:59:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/18 13:03:07 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,42 +37,29 @@ void	reset_input_mode (void)
 
 void	go_left(void)
 {
-	int	len;
-
-	if (cord.x_cur > 1)
-	{
+	if (cord.x_cur > 0)
 		ft_putstr_fd(LEFT, STDIN_FILENO);
-		(cord.x_cur)--;
-	}
 	else
 	{
+		ft_putstr_fd(PREV_LINE, STDIN_FILENO);
+		ft_putstr_fd("\033[1000C", STDIN_FILENO);
 		(cord.y_cur)--;
 		cord.x_cur = cord.ws_col;
-		ft_putstr_fd(UP, STDIN_FILENO);
-		len = cord.ws_col;
-		while (--len)
-			ft_putstr_fd(RIGHT, STDIN_FILENO);
 	}
+	(cord.x_cur)--;
 }
 
 void	go_right(void)
 {
-	int	len;
-
-	if (cord.x_cur == cord.ws_col)
+	if (cord.x_cur == cord.ws_col - 1)
 	{
+		cord.x_cur = -1;
 		(cord.y_cur)++;
-		cord.x_cur = 1;
-		ft_putstr_fd(DOWN, STDIN_FILENO);
-		len = cord.ws_col;
-		while (--len)
-			ft_putstr_fd(LEFT, STDIN_FILENO);
+		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
 	}
 	else
-	{
 		ft_putstr_fd(RIGHT, STDIN_FILENO);
-		(cord.x_cur)++;
-	}
+	(cord.x_cur)++;
 }
 
 char	*ft_strdel_el(char	*buf, size_t i)
