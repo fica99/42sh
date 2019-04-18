@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/18 13:03:07 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/18 13:30:35 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	go_left(void)
 	else
 	{
 		ft_putstr_fd(PREV_LINE, STDIN_FILENO);
-		ft_putstr_fd("\033[1000C", STDIN_FILENO);
+		ft_putstr_fd("\033[", STDIN_FILENO);
+		ft_putnbr_fd(cord.ws_col, STDIN_FILENO);
+		ft_putchar_fd('C',STDIN_FILENO);
 		(cord.y_cur)--;
 		cord.x_cur = cord.ws_col;
 	}
