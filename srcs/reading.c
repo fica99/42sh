@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:13:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 22:35:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,17 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 
 void			check_key(char *c, char *buf, short len)
 {
-	short	i;
-
-	if ((*c == BCSP && len) || !ft_strcmp(c, DEL))
+	if ((*c == BCSP && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
 	{
 		if (*c == BCSP)
+		{
 			go_left();
-		else
-			len++;
-		buf = ft_strdel_el(buf, --len);
-		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
-		CLEAN_SCREEN(STDIN_FILENO);
-		ft_putstr_fd(buf + len, STDIN_FILENO);
-		ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
+			len--;
+		}
+		if (!ft_strlen(buf) && *c == CTRL_D)
+			exit(EXIT_SUCCESS);
+		del_symb(buf, len);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
-	{
-		buf = ft_stradd(buf, c, len);
-		CLEAN_SCREEN(STDIN_FILENO);
-		ft_putstr_cord(buf + len);
-		i = ft_strlen(buf + len);
-		while (--i)
-			go_left();
-	}
+		print_symb(c, buf, len);
 }

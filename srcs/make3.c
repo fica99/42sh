@@ -6,11 +6,32 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/19 17:29:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 22:31:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void			del_symb(char *buf, short len)
+{
+	buf = ft_strdel_el(buf, len);
+	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
+	CLEAN_SCREEN(STDIN_FILENO);
+	ft_putstr_fd(buf + len, STDIN_FILENO);
+	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
+}
+
+void			print_symb(char *c, char *buf, short len)
+{
+	short	i;
+
+	buf = ft_stradd(buf, c, len);
+	CLEAN_SCREEN(STDIN_FILENO);
+	ft_putstr_cord(buf + len);
+	i = ft_strlen(buf + len);
+	while (--i)
+			go_left();
+}
 
 char	*ft_strdel_el(char	*buf, size_t i)
 {
@@ -60,40 +81,4 @@ pid_t	make_process(void)
 	if (p < 0)
 		print_error("minishell", "fork() error", NULL, 0);
 	return (p);
-}
-
-void	ft_setenv(char *name, char *new_value)
-{
-	short	j;
-	char	**envp;
-
-	if ((j = get_count_var(name)) >= 0)
-	{
-		free(env_cp[j]);
-		env_cp[j]= join_env(name, new_value);
-	}
-	else
-	{
-		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(env_cp) + 2))))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		while(env_cp[++j])
-			envp[j] = env_cp[j];
-		envp[j] = join_env(name, new_value);
-		envp[++j] = NULL;
-		free(env_cp);
-		env_cp = envp;
-	}
-}
-
-char	*join_env(char *name, char *new_value)
-{
-	char *name1;
-	char *name2;
-
-	if (!(name1 = ft_strjoin(name, "=")))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
-	if (!(name2 = ft_strjoin(name1, new_value)))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
-	ft_memdel((void**)&name1);
-	return(name2);
 }

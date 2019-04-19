@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:24:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 22:34:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct	s_cord
 # define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define BCSP 127
 # define CTRL_H 8
+# define CTRL_D 4
 # define DEL "\033[3~"
 
 char			**env_cp;
@@ -108,24 +109,26 @@ void			go_left(void);
 void			go_to_end(void);
 void			go_right(void);
 //make3.c
+void			del_symb(char *buf, short len);
+void			print_symb(char *c, char *buf, short len);
 char			*ft_strdel_el(char	*buf, size_t i);
 char			*ft_stradd(char	*buf, char *s, size_t i);
 pid_t			make_process(void);
+//parse.c
+void			parse_string(char *buf);
+void			make_command(char *buf);
+char			**spec_symbols(char **args);
+void			find_command(char **args);
+char			*check_command(char **args);
+char			*exec_command(char **args);
+//make4.c
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
-//parse.c
-void	parse_string(char *buf);
-void	make_command(char *buf);
-char	**spec_symbols(char **args);
-void	find_command(char **args);
-char	*check_command(char **args);
-char	*exec_command(char **args);
-//make4.c
 void			free_double_arr(char **arr);
 //flags.c
-uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t	is_flags(uint8_t flags, char flag);
-uint8_t	find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
+uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
+uint8_t			is_flags(uint8_t flags, char flag);
+uint8_t			find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
 //cd.c
 void			cd(int argc, char **argv);
 char			check_ch_dir(int argc , char **argv);
