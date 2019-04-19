@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/18 13:09:33 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/19 12:49:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define LINE_MAX 2048
 # define SOMETHING "1"
 # define READING 1
+# define INIT_FLAGS 0
 //colors
 # define STANDART(fd) ft_putstr_fd("\033[0m", fd)
 # define RED(fd) ft_putstr_fd("\033[0;31m", fd)
