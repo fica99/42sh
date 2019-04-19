@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 12:38:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 20:43:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	read_handler(char *c)
 
 char	*make_buf_print(char *buf, char *c, uint8_t *n)
 {
-	int	len;
+	short	len;
 
 	*n = *n;
 	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
@@ -72,22 +72,32 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
 		go_right();
 	else
-		check_key(c, buf, len);
+		check_key(c, buf);
 	return (buf);
 }
 
-void			check_key(char *c, char *buf, int len)
+void			check_key(char *c, char *buf)
 {
+	short	len;
+	short	i;
+
+	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
 	if (*c == BCSP && len)
 	{
-		buf = ft_strdel_el(buf, --len);
+		buf = ft_strdel_el(buf, len - 1);
 		go_left();
-		ft_putstr_cord(buf + len);
-		ft_putstr_cord(" ");
+		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
+		CLEAN_SCREEN(STDIN_FILENO);
+		ft_putstr_fd(buf + len - 1, STDIN_FILENO);
+		ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
 	{
 		buf = ft_stradd(buf, c, len);
-		ft_putstr_cord(c);
+		CLEAN_SCREEN(STDIN_FILENO);
+		ft_putstr_cord(buf + len);
+		i = ft_strlen(buf + len);
+		while (--i)
+			go_left();
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 12:36:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 19:39:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,23 @@ void	go_left(void)
 	else
 	{
 		ft_putstr_fd(PREV_LINE, STDIN_FILENO);
-		ft_putstr_fd("\033[", STDIN_FILENO);
-		ft_putnbr_fd(cord.ws_col, STDIN_FILENO);
-		ft_putchar_fd('C',STDIN_FILENO);
+		go_to_end();
 		(cord.y_cur)--;
 		cord.x_cur = cord.ws_col;
 	}
 	(cord.x_cur)--;
 }
 
+void	go_to_end(void)
+{
+	ft_putstr_fd("\033[", STDIN_FILENO);
+	ft_putnbr_fd(cord.ws_col, STDIN_FILENO);
+	ft_putchar_fd('C',STDIN_FILENO);
+}
+
 void	go_right(void)
 {
-	if (cord.x_cur == cord.ws_col - 1)
+	if (cord.x_cur >= cord.ws_col - 1)
 	{
 		cord.x_cur = -1;
 		(cord.y_cur)++;
@@ -62,26 +67,4 @@ void	go_right(void)
 	else
 		ft_putstr_fd(RIGHT, STDIN_FILENO);
 	(cord.x_cur)++;
-}
-
-char	*ft_strdel_el(char	*buf, size_t i)
-{
-	char	*str;
-
-	if (i >= ft_strlen(buf))
-		return (buf);
-	str = NULL;
-	if (buf + i + 1)
-	{
-		if (!(str = ft_strdup(buf + i + 1)))
-		{
-			ft_putchar_fd('\n', STDERR_FILENO);
-			reset_input_mode();
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		}
-	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(buf, str);
-	ft_memdel((void**)&str);
-	return (buf);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 12:49:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 20:43:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,16 @@ typedef struct	s_cord
 	short	x_cur;
 	short	y_cur;
 	short	ws_col;
+	short	ws_row;
 }				t_cord;
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
+# define SAVE_CUR "\0337"
+# define RESTORE_CUR "\0338"
+# define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define BCSP 127
 
 char			**env_cp;
@@ -77,7 +81,7 @@ char			*read_prompt();
 char			*reading(char *buf);
 void			read_handler(char *c);
 char			*make_buf_print(char *buf, char *c, uint8_t *n);
-void			check_key(char *c, char *buf, int len);
+void			check_key(char *c, char *buf);
 //print.c
 void			print_environ(void);
 void	        shell_prompt(void);
@@ -93,6 +97,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n);
 void			get_cord(void);
 void			go_left(void);
 void			go_right(void);
+void			go_to_end(void);
 void			reset_input_mode(void);
 void			set_input_mode(void);
 char			*ft_stradd(char *buf, char *s, size_t i);

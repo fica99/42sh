@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 12:50:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 19:39:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,21 @@ void	shell_prompt(void)
 		ft_strlen(hostname) + 8;
 	cord.x_cur = cord.prompt;
 	cord.y_cur = 0;
+}
+
+void    ft_putstr_cord(char *str)
+{
+	while (str && *str)
+    {
+       	if (cord.x_cur > cord.ws_col - 1)
+		{
+			cord.x_cur = 0;
+			(cord.y_cur)++;
+		}
+		ft_putchar_fd(*str, STDIN_FILENO);
+        (cord.x_cur)++;
+        str++;
+    }
 }
 
 void	print_environ(void)

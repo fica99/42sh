@@ -3,28 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   make3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/18 12:48:22 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/19 17:29:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    ft_putstr_cord(char *str)
+char	*ft_strdel_el(char	*buf, size_t i)
 {
-	while (str && *str != '\0')
-    {
-        ft_putchar_fd(*str, STDIN_FILENO);
-        cord.x_cur++;
-		if (cord.x_cur == cord.ws_col)
+	char	*str;
+
+	if (i >= ft_strlen(buf))
+		return (buf);
+	str = NULL;
+	if (buf + i + 1)
+	{
+		if (!(str = ft_strdup(buf + i + 1)))
 		{
-			cord.x_cur = 0;
-			(cord.y_cur)++;
+			ft_putchar_fd('\n', STDERR_FILENO);
+			reset_input_mode();
+			print_error("minishell", "malloc() error", NULL, ENOMEM);
 		}
-        str++;
-    }
+	}
+	*(buf + i) = '\0';
+	buf = ft_strcat(buf, str);
+	ft_memdel((void**)&str);
+	return (buf);
 }
 
 char	*ft_stradd(char	*buf, char *s, size_t i)
