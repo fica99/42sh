@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:43:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:04:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,16 @@ void			check_key(char *c, char *buf)
 	short	i;
 
 	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
-	if (*c == BCSP && len)
+	if ((*c == BCSP && len) || !ft_strcmp(c, DEL))
 	{
-		buf = ft_strdel_el(buf, len - 1);
-		go_left();
+		if (*c == BCSP)
+			go_left();
+		else
+			len++;
+		buf = ft_strdel_el(buf, --len);
 		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
 		CLEAN_SCREEN(STDIN_FILENO);
-		ft_putstr_fd(buf + len - 1, STDIN_FILENO);
+		ft_putstr_fd(buf + len, STDIN_FILENO);
 		ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
