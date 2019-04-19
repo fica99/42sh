@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/19 22:31:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 23:41:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void			print_symb(char *c, char *buf, short len)
 	buf = ft_stradd(buf, c, len);
 	CLEAN_SCREEN(STDIN_FILENO);
 	ft_putstr_cord(buf + len);
-	i = ft_strlen(buf + len);
-	while (--i)
-			go_left();
+	i = ft_strlen(buf + len) - 1;
+	if (i)
+		go_left(i);
 }
 
 char	*ft_strdel_el(char	*buf, size_t i)

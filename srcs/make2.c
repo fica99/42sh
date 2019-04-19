@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 19:39:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:13:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,31 @@ void	reset_input_mode (void)
 		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
-void	go_left(void)
+void	go_left(short i)
 {
-	if (cord.x_cur > 0)
-		ft_putstr_fd(LEFT, STDIN_FILENO);
+	short	change;
+
+	ft_putstr_fd("\033[", STDIN_FILENO);
+	ft_putnbr_fd(i, STDIN_FILENO);
+	ft_putchar_fd('D',STDIN_FILENO);
+	if (cord.x_cur - i >= 0)
+		cord.x_cur -= i;
 	else
 	{
-		ft_putstr_fd(PREV_LINE, STDIN_FILENO);
-		go_to_end();
-		(cord.y_cur)--;
-		cord.x_cur = cord.ws_col;
+		change = cord.x_cur;
+		while (change < i)
+		{
+			change += cord.ws_col;
+			cord.y_cur--;
+		}
+		cord.x_cur = change - i;
 	}
-	(cord.x_cur)--;
 }
 
-void	go_to_end(void)
+void	go_to(short i)
 {
 	ft_putstr_fd("\033[", STDIN_FILENO);
-	ft_putnbr_fd(cord.ws_col, STDIN_FILENO);
+	ft_putnbr_fd(cord.ws_col - i, STDIN_FILENO);
 	ft_putchar_fd('C',STDIN_FILENO);
 }
 

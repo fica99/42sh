@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 22:34:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 01:13:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct	s_cord
 # define CTRL_H 8
 # define CTRL_D 4
 # define DEL "\033[3~"
+# define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
 
 char			**env_cp;
 struct termios	savetty;
@@ -105,8 +106,8 @@ void			check_key(char *c, char *buf, short len);
 //make2.c
 char			*strnew_realloc_buf(char *str, uint8_t *n);
 void			reset_input_mode (void);
-void			go_left(void);
-void			go_to_end(void);
+void			go_left(short i);
+void			go_to(short i);
 void			go_right(void);
 //make3.c
 void			del_symb(char *buf, short len);
