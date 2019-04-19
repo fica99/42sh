@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:53:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:09:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct	s_cord
 # define RESTORE_CUR "\0338"
 # define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define BCSP 127
+# define CTRL_H 8
 # define DEL "\033[3~"
 
 char			**env_cp;

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:04:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:09:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 
 	*n = *n;
 	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
+	if (*c == CTRL_H)
+		*c = BCSP;
 	if (!(ft_strcmp(c, LEFT)) && len)
 		go_left();
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
