@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:09:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:13:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,14 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
 		go_right();
 	else
-		check_key(c, buf);
+		check_key(c, buf, len);
 	return (buf);
 }
 
-void			check_key(char *c, char *buf)
+void			check_key(char *c, char *buf, short len)
 {
-	short	len;
 	short	i;
 
-	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
 	if ((*c == BCSP && len) || !ft_strcmp(c, DEL))
 	{
 		if (*c == BCSP)

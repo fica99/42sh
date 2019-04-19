@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:41:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:15:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char			**copy_double_arr(char **arr)
+char	**copy_double_arr(char **arr)
 {
 	short	i;
 	char	**arr1;

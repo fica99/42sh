@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:09:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/19 21:24:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,26 @@ struct s_cord	cord;
 unsigned short	g_flags;
 int 			errno_f;
 
+//make.c
+char			**copy_double_arr(char **arr);
+void			get_cord(void);
+char			*ft_getenv(char *arr);
+short			get_count_var(char *arr);
+void			set_input_mode(void);
+//check.c
+unsigned short	double_arr_len(char **arr);
+char			*check_path(void);
+//print.c
+void			print_error(char *name, char *str, char *command, int p);
+void			shell_prompt(void);
+void  			ft_putstr_cord(char *str);
+void			print_environ(void);
+void			print_error_withoutexit(char *name, char *str, char *command, int p);
 //ft_errno.c
 void 			ft_perror(char *str);
 void 			pr_gen_perror(void);
+//shell.c
+void	        shell_start(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
@@ -83,49 +100,32 @@ char			*read_prompt();
 char			*reading(char *buf);
 void			read_handler(char *c);
 char			*make_buf_print(char *buf, char *c, uint8_t *n);
-void			check_key(char *c, char *buf);
-//print.c
-void			print_environ(void);
-void	        shell_prompt(void);
-void	        print_error_withoutexit(char *name, char *str, char *command, int p);
-void	        print_error(char *name, char *str, char *command, int p);
-//make.c
-char			**copy_double_arr(char **arr);
-void			free_double_arr(char **arr);
-char			*join_env(char *name, char *new_value);
-pid_t			make_process(void);
-char			*strnew_realloc_buf(char *str, uint8_t *n);
+void			check_key(char *c, char *buf, short len);
 //make2.c
-void			get_cord(void);
+char			*strnew_realloc_buf(char *str, uint8_t *n);
+void			reset_input_mode (void);
 void			go_left(void);
-void			go_right(void);
 void			go_to_end(void);
-void			reset_input_mode(void);
-void			set_input_mode(void);
-char			*ft_stradd(char *buf, char *s, size_t i);
-char			*ft_strdel_el(char	*buf, size_t i);
+void			go_right(void);
 //make3.c
-short			get_count_var(char *arr);
-char			*ft_getenv(char *arr);
-void	        ft_setenv(char *name, char *new_value);
-void			ft_putstr_cord(char *str);
-//check.c
-unsigned short	double_arr_len(char **arr);
-char			*check_path(void);
-void			check_cord(char *buf);
-//shell.c
-void	        shell_start(void);
-void	        find_command(char **args);
-char			*exec_command(char **args);
-char			*check_command(char **args);
+char			*ft_strdel_el(char	*buf, size_t i);
+char			*ft_stradd(char	*buf, char *s, size_t i);
+pid_t			make_process(void);
+void			ft_setenv(char *name, char *new_value);
+char			*join_env(char *name, char *new_value);
 //parse.c
-void			parse_string(char *buf);
-char			**spec_symbols(char **args);
-void			make_command(char *buf);
+void	parse_string(char *buf);
+void	make_command(char *buf);
+char	**spec_symbols(char **args);
+void	find_command(char **args);
+char	*check_command(char **args);
+char	*exec_command(char **args);
+//make4.c
+void			free_double_arr(char **arr);
 //flags.c
-uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t			is_flags(uint8_t flags, char flag);
-uint8_t			find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
+uint8_t	add_flag(uint8_t flags, char flag, uint8_t i);
+uint8_t	is_flags(uint8_t flags, char flag);
+uint8_t	find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
 //cd.c
 void			cd(int argc, char **argv);
 char			check_ch_dir(int argc , char **argv);
