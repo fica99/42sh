@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 16:50:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/20 14:06:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ char	check_request(int argc, char  **argv)
 		path = ft_getenv("HOME");
 	else if (!ft_strcmp(argv[1], "-"))
 	{
-		ft_putstr(path = ft_getenv("OLDPWD"));
-		ft_putchar('\n');
+		ft_putstr_fd(path = ft_getenv("OLDPWD"), STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 	else if (!ft_strcmp(argv[1], "."))
 		path = ft_getenv("PWD");

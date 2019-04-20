@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 13:39:02 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/20 14:08:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,22 @@ void	print_environ(void)
 	i = -1;
 	while (env_cp[++i])
 	{
-		ft_putstr(env_cp[i]);
-		ft_putchar('\n');
+		ft_putstr_fd(env_cp[i],STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 }
 
 void	print_error_withoutexit(char *name, char *str, char *command, int p)
 {
 	errno_f = p;
-	ft_putstr(name);
+	ft_putstr_fd(name, STDERR_FILENO);
 	if (str)
-		ft_putstr(": ");
+		ft_putstr_fd(": ", STDERR_FILENO);
 	ft_perror(str);
 	if (command)
 	{
-		ft_putstr(": ");
-		ft_putstr(command);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(command, STDERR_FILENO);
 	}
-	ft_putchar('\n');
+	ft_putchar_fd('\n', STDERR_FILENO);
 }

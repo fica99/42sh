@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 01:13:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 14:03:00 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,12 @@ char			*exec_command(char **args);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			free_double_arr(char **arr);
-//flags.c
-uint8_t			add_flag(uint8_t flags, char flag, uint8_t i);
-uint8_t			is_flags(uint8_t flags, char flag);
-uint8_t			find_flags(char **argv, unsigned short *i, uint8_t (fun)(char s));
 //cd.c
 void			cd(int argc, char **argv);
 char			check_ch_dir(int argc , char **argv);
 char			check_request(int argc, char  **argv);
 //echo.c
 void			echo(int argc, char **argv);
-uint8_t			flag_n(char s);
 //env.c
 void 			env(int argc, char **argv);
 char			check_set(char **argv);

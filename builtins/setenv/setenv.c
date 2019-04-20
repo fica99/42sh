@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 16:44:53 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/20 14:09:27 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void set_env(int argc, char **argv)
 {
-	ushort	j;
+	short	j;
 	char	*value;
 
 	value = NULL;

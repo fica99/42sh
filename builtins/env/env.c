@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:50:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 14:06:44 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void env(int argc, char **argv)
 		j = 0;
 		while (argv[++j])
 		{
-				ft_putstr(argv[j]);
-				ft_putchar('\n');
+				ft_putstr_fd(argv[j], STDOUT_FILENO);
+				ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 	}
 }
