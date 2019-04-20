@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 14:03:00 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/20 14:31:52 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_cord
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_D 4
+# define TAB 9
 # define DEL "\033[3~"
 # define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
 

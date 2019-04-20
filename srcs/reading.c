@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 22:55:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 14:32:26 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,7 @@ void			check_key(char *c, char *buf, short len)
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
 		print_symb(c, buf, len);
+/*	else if (*c == TAB)
+		while (!(autocom(buf, n * NORMAL_LINE)))
+			buf = strnew_realloc_buf(buf, &n);*/
 }
