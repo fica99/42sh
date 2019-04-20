@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 19:39:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 13:39:02 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void    ft_putstr_cord(char *str)
 {
 	while (str && *str)
     {
-       	if (cord.x_cur > cord.ws_col - 1)
+		if (cord.x_cur > cord.ws_col - 1)
 		{
+			ft_putchar('\n');
 			cord.x_cur = 0;
 			(cord.y_cur)++;
 		}

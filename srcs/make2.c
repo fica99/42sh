@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 01:13:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 13:42:53 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,31 @@ void	go_left(short i)
 {
 	short	change;
 
-	ft_putstr_fd("\033[", STDIN_FILENO);
-	ft_putnbr_fd(i, STDIN_FILENO);
-	ft_putchar_fd('D',STDIN_FILENO);
 	if (cord.x_cur - i >= 0)
+	{
 		cord.x_cur -= i;
+		ft_putstr_fd("\033[", STDIN_FILENO);
+		ft_putnbr_fd(i, STDIN_FILENO);
+		ft_putchar_fd('D',STDIN_FILENO);
+	}
 	else
 	{
 		change = cord.x_cur;
 		while (change < i)
 		{
 			change += cord.ws_col;
+			ft_putstr_fd(PREV_LINE, STDIN_FILENO);
 			cord.y_cur--;
 		}
 		cord.x_cur = change - i;
+		go_to(cord.x_cur);
 	}
 }
 
 void	go_to(short i)
 {
 	ft_putstr_fd("\033[", STDIN_FILENO);
-	ft_putnbr_fd(cord.ws_col - i, STDIN_FILENO);
+	ft_putnbr_fd(i, STDIN_FILENO);
 	ft_putchar_fd('C',STDIN_FILENO);
 }
 
