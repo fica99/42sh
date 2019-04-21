@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 14:08:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 00:08:20 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	print_error(char *name, char *str, char *command, int p)
 void	shell_prompt(void)
 {
 	char	*path;
-	char	hostname[HOST_NAME_MAX];
+	char	hostname[FT_HOST_NAME_MAX];
 
-	gethostname(hostname, HOST_NAME_MAX);
+	gethostname(hostname, FT_HOST_NAME_MAX);
 	RED(STDERR_FILENO);
 	ft_putchar_fd('[', STDERR_FILENO);
 	CYAN(STDIN_FILENO);

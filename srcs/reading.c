@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 14:32:26 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 00:10:26 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 		go_left(1);
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
 		go_right();
+/*	else if (*c == TAB)
+		while (!(autocom(&buf, *n * NORMAL_LINE)))
+			buf = strnew_realloc_buf(buf, n);*/
 	else
 		check_key(c, buf, len);
 	return (buf);
@@ -93,7 +96,4 @@ void			check_key(char *c, char *buf, short len)
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
 		print_symb(c, buf, len);
-/*	else if (*c == TAB)
-		while (!(autocom(buf, n * NORMAL_LINE)))
-			buf = strnew_realloc_buf(buf, &n);*/
 }

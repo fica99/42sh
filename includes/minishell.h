@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/20 14:31:52 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 00:08:27 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include <unistd.h>
 # include <sys/types.h>
+# include <dirent.h>
 # include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <sys/stat.h>
@@ -28,7 +29,7 @@
 # define SHELL_SIGINT (1 << 1)
 # define SHELL_SIGQUIT (1 << 2)
 # define NORMAL_LINE 100
-# define HOST_NAME_MAX 255
+# define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
 # define SOMETHING "1"
 # define READING 1
@@ -127,6 +128,20 @@ char			*exec_command(char **args);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			free_double_arr(char **arr);
+//autocom.c
+char			**get_arr_matches(char **start, int prog);
+char			**match_selection(char *arg, char **arr_mat);
+char			**get_dirs_arr(char *path, int flag);
+char  			*get_autocom_part(char **com_arr, char *arg);
+char			**get_prog_arr(char *arg);
+char 			**ft_strarr_add(char **dest, char **src, char **exc);
+int 			ft_strarr_len(char **str_arr);
+int 			ft_cheak_exc(char *str, char **exc);
+char			get_type(mode_t mode);
+int 			autocom(char **buf);
+char 			*get_start_com(char *buf, int *prog);
+int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
+void 			print_arr(char **arr);
 //cd.c
 void			cd(int argc, char **argv);
 char			check_ch_dir(int argc , char **argv);

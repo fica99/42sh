@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/20 14:03:15 by filip            ###   ########.fr        #
+#    Updated: 2019/04/21 23:56:09 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS=srcs/make.c\
 	srcs/make3.c\
 	srcs/parse.c\
 	srcs/make4.c\
+	srcs/autocom.c\
 
 BUILTINS=builtins/cd/cd.c\
 		builtins/echo/echo.c\
