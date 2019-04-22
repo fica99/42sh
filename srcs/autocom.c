@@ -8,21 +8,34 @@
  * Обработать malloc ft_strdup;
  * */
 
-int autocom(char **buf)
+int autocom(char **buf, uint8_t len)
 {
 	char	*start;
 	int		prog;
 	char	**arr_mat;
 	char	*rest_add;
+	int		len_am;
 
 	start = get_start_com(*buf, &prog);
 	arr_mat = get_arr_matches(&start, prog);
 	rest_add = get_autocom_part(arr_mat, start);
-	print_arr(arr_mat);
-	ft_putstr("-----------------------------------------------\n");
-	ft_putstr(rest_add);
-	ft_putchar('\n');
-	return (0);
+	len_am = ft_strarr_len(arr_mat);
+	CLEAN_SCREEN(STDIN_FILENO);
+	if (rest_add)
+		print_read(rest_add, &len);
+	if (len_am)
+	{
+		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
+		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
+		print_arr(arr_mat);
+		ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
+
+	}
+	if (rest_add)
+		free(rest_add);
+	if (arr_mat)
+		free_double_arr(arr_mat);
+	return (1);
 }
 
 char *get_start_com(char *buf, int *prog)
@@ -153,7 +166,7 @@ char **get_prog_arr(char *arg)
 	int i;
 
 	(void)arg;
-	if (!(path_arr = ft_strsplit(get_var("PATH"), ':')))
+	if (!(path_arr = ft_strsplit(ft_getenv("PATH"), ':')))
 		return (NULL);
 	i = -1;
 	prog_arr = NULL;

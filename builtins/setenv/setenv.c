@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 21:08:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 14:09:27 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_setenv(int argc, char **argv)
+void set_env(int argc, char **argv)
 {
-	ushort	j;
+	short	j;
 	char	*value;
 
 	value = NULL;
@@ -26,14 +26,11 @@ void ft_setenv(int argc, char **argv)
 		while (argv[++j])
 		{
 			if (!(value = ft_strchr(argv[j], '=')))
-			{
-				print_error(argv[0], argv[j], NULL, 2);
 				continue ;
-			}
 			else
 			{
 				*value = '\0';
-				set_env(argv[j], ++value);
+				ft_setenv(argv[j], ++value);
 			}
 		}
 	}

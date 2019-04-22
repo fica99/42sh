@@ -3,24 +3,27 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/27 18:24:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/21 23:56:09 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-SRCS=srcs/env_make.c\
-	srcs/flags.c\
-	srcs/make.c\
-	srcs/print.c\
-	srcs/parse.c\
-	srcs/shell.c\
+SRCS=srcs/make.c\
 	srcs/check.c\
+	srcs/print.c\
+	srcs/ft_errno.c\
+	srcs/shell.c\
+	srcs/signal.c\
+	srcs/reading.c\
+	srcs/make2.c\
+	srcs/make3.c\
+	srcs/parse.c\
+	srcs/make4.c\
 	srcs/autocom.c\
-	srcs/ft_errno.c
 
 BUILTINS=builtins/cd/cd.c\
 		builtins/echo/echo.c\

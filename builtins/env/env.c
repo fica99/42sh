@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 21:08:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/20 14:06:44 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-uint8_t	check_set(char **argv)
+char	check_set(char **argv)
 {
 	short	j;
 
@@ -21,8 +21,8 @@ uint8_t	check_set(char **argv)
 	{
 		if (!(ft_strchr(argv[j], '=')))
 		{
-			print_error(argv[0], argv[1], NULL, 2);
-			return (0);
+			print_error_withoutexit(argv[0], argv[1], NULL, ENOENT);
+			return (-1);
 		}
 	}
 	return (1);
@@ -33,7 +33,7 @@ void env(int argc, char **argv)
 	short	j;
 
 	j = 0;
-	if (!(check_set(argv)))
+	if (check_set(argv) < 0)
 		return ;
 	print_environ();
 	if (argc != 1)
@@ -41,8 +41,8 @@ void env(int argc, char **argv)
 		j = 0;
 		while (argv[++j])
 		{
-				ft_putstr(argv[j]);
-				ft_putchar('\n');
+				ft_putstr_fd(argv[j], STDOUT_FILENO);
+				ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 	}
 }

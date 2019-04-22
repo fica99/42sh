@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_make.c                                         :+:      :+:    :+:   */
+/*   make4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 14:29:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/12 16:51:19 by aashara-         ###   ########.fr       */
+/*   Created: 2019/04/17 17:48:56 by filip             #+#    #+#             */
+/*   Updated: 2019/04/19 22:25:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	set_env(char *name, char *new_value)
+void	ft_setenv(char *name, char *new_value)
 {
 	short	j;
 	char	**envp;
@@ -35,25 +35,26 @@ void	set_env(char *name, char *new_value)
 	}
 }
 
-short	get_count_var(char *arr)
+char	*join_env(char *name, char *new_value)
 {
-	uint8_t	i;
+	char *name1;
+	char *name2;
 
-	i = 0;
-	while (env_cp[i])
-	{
-		if (ft_strncmp(env_cp[i], arr, ft_strlen(arr)) == 0
-				&& env_cp[i][ft_strlen(arr)] == '=')
-			return (i);
-		i++;
-	}
-	return (-1);
+	if (!(name1 = ft_strjoin(name, "=")))
+		print_error("setenv", "malloc() error", NULL, ENOMEM);
+	if (!(name2 = ft_strjoin(name1, new_value)))
+		print_error("setenv", "malloc() error", NULL, ENOMEM);
+	ft_memdel((void**)&name1);
+	return(name2);
 }
 
-char	*ft_getenv(char *arr)
+void			free_double_arr(char **arr)
 {
-	if (get_count_var(arr) == -1)
-		return (NULL);
-	else
-		return (&(env_cp[get_count_var(arr)][ft_strlen(arr) + 1]));
+	short	i;
+
+	i = -1;
+	while (arr[++i])
+		ft_memdel((void**)&(arr[i]));
+	free(arr);
+	arr = NULL;
 }

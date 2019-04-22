@@ -6,27 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/27 17:49:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/22 15:13:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*check_new_line(char *arr)
-{
-	char	*stop;
-	char	*arr1;
-
-	arr1 = NULL;
-	if ((stop = ft_strchr(arr, '\n')) != NULL)
-	{
-		*stop = '\0';
-		if (!(arr1 = ft_strdup(arr)))
-			print_error("minishell", "malloc() error", NULL, 12);
-		ft_memdel((void**)&arr);
-	}
-	return (arr1);
-}
 
 unsigned short	double_arr_len(char **arr)
 {
@@ -36,4 +20,21 @@ unsigned short	double_arr_len(char **arr)
 	while (arr[i])
 		i++;
 	return (i);
+}
+
+char			*check_path(void)
+{
+	char	*path;
+
+	path = ft_strrchr(ft_getenv("PWD"), '/');
+	ft_isprint(*(path + 1)) == 1 ? path = path + 1 : path;
+	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
+	return (path);
+}
+
+void			check_flags(void)
+{
+	g_flags &= ~SHELL_SIGINT;
+	g_flags &= ~SHELL_SIGQUIT;
+	g_flags &= ~SHELL_SIGWINCH;
 }
