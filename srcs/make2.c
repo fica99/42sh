@@ -6,19 +6,18 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:24:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/22 23:22:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char			*strnew_realloc_buf(char *str, uint8_t *n)
+char			*strnew_realloc_buf(char *str, short len)
 {
 	char	*arr;
 
 	arr = str;
-	(*n)++;
-	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
+	if (!(str = ft_strnew(len)))
 	{
 		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
@@ -31,7 +30,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n)
 
 void	reset_input_mode (void)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &savetty) < 0)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &(cord.savetty)) < 0)
 		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 

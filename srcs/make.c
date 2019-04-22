@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:46:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/22 23:18:18 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	set_input_mode(void)
 
 	if (!isatty(0))
 		print_error("minishell", "stdin not terminal\n", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, &savetty) < 0)
+	if (tcgetattr(STDIN_FILENO, &(cord.savetty)) < 0)
 		print_error("minishell", "tcgetattr() error", NULL, 0);
-	tty = savetty;
+	tty = cord.savetty;
 	tty.c_lflag &= ~(ICANON | ECHO);
 	tty.c_cc[VTIME] = 0;
 	tty.c_cc[VMIN] = 1;

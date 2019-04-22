@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:32:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/22 23:27:54 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	parse_string(void)
 	char	*new_command;
 	char	*buf;
 
-	if (!buffer)
+	if (!cord.buffer)
 		return;
-	buf = buffer;
+	buf = cord.buffer;
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		if (buf == new_command)

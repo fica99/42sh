@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 16:05:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 00:10:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@
 
 typedef struct	s_cord
 {
-	short	prompt;
-	short	x_cur;
-	short	y_cur;
-	short	ws_col;
+	short			prompt;
+	short			x_cur;
+	short			y_cur;
+	short			ws_col;
+	char			*buffer;
+	struct termios	savetty;
+	short			malloc_len;
 }				t_cord;
 
 # define RIGHT "\033[C"
@@ -71,11 +74,9 @@ typedef struct	s_cord
 # define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
 
 char			**env_cp;
-struct termios	savetty;
 struct s_cord	cord;
 unsigned short	g_flags;
 int 			errno_f;
-char			*buffer;
 
 //make.c
 char			**copy_double_arr(char **arr);
@@ -86,7 +87,6 @@ void			set_input_mode(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
-void			check_flags(void);
 //print.c
 void			print_error(char *name, char *str, char *command, int p);
 void			shell_prompt(void);
@@ -106,10 +106,10 @@ void			sigwinch_handler(int sign);
 void			read_prompt(void);
 void			reading(void);
 void			read_handler(char *c);
-void			print_read(char *c, uint8_t *n);
-void			print_read2(char *c, short len);
+void			print_read(char *c);
+void			print_read_other(char *c, short len);
 //make2.c
-char			*strnew_realloc_buf(char *str, uint8_t *n);
+char			*strnew_realloc_buf(char *str, short len);
 void			reset_input_mode (void);
 void			go_left(short i);
 void			go_to(short i);
