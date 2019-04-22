@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 00:08:27 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 16:05:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define RUNNING 1
 # define SHELL_SIGINT (1 << 1)
 # define SHELL_SIGQUIT (1 << 2)
+# define SHELL_SIGWINCH (1 << 3)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
@@ -53,7 +54,6 @@ typedef struct	s_cord
 	short	x_cur;
 	short	y_cur;
 	short	ws_col;
-	short	ws_row;
 }				t_cord;
 
 # define RIGHT "\033[C"
@@ -75,6 +75,7 @@ struct termios	savetty;
 struct s_cord	cord;
 unsigned short	g_flags;
 int 			errno_f;
+char			*buffer;
 
 //make.c
 char			**copy_double_arr(char **arr);
@@ -85,6 +86,7 @@ void			set_input_mode(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
+void			check_flags(void);
 //print.c
 void			print_error(char *name, char *str, char *command, int p);
 void			shell_prompt(void);
@@ -99,12 +101,13 @@ void	        shell_start(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
+void			sigwinch_handler(int sign);
 //reading.c
-char			*read_prompt();
-char			*reading(char *buf);
+void			read_prompt(void);
+void			reading(void);
 void			read_handler(char *c);
-char			*make_buf_print(char *buf, char *c, uint8_t *n);
-void			check_key(char *c, char *buf, short len);
+void			print_read(char *c, uint8_t *n);
+void			print_read2(char *c, short len);
 //make2.c
 char			*strnew_realloc_buf(char *str, uint8_t *n);
 void			reset_input_mode (void);
@@ -118,7 +121,7 @@ char			*ft_strdel_el(char	*buf, size_t i);
 char			*ft_stradd(char	*buf, char *s, size_t i);
 pid_t			make_process(void);
 //parse.c
-void			parse_string(char *buf);
+void			parse_string(void);
 void			make_command(char *buf);
 char			**spec_symbols(char **args);
 void			find_command(char **args);
@@ -138,7 +141,7 @@ char 			**ft_strarr_add(char **dest, char **src, char **exc);
 int 			ft_strarr_len(char **str_arr);
 int 			ft_cheak_exc(char *str, char **exc);
 char			get_type(mode_t mode);
-int 			autocom(char **buf);
+int 			autocom(char **buf, short len);
 char 			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void 			print_arr(char **arr);

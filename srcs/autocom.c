@@ -8,13 +8,14 @@
  * Обработать malloc ft_strdup;
  * */
 
-int autocom(char **buf)
+int autocom(char **buf, short len)
 {
 	char	*start;
 	int		prog;
 	char	**arr_mat;
 	char	*rest_add;
 
+	len = 0;
 	start = get_start_com(*buf, &prog);
 	arr_mat = get_arr_matches(&start, prog);
 	rest_add = get_autocom_part(arr_mat, start);

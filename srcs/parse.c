@@ -6,18 +6,20 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/17 17:31:36 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 15:32:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_string(char *buf)
+void	parse_string(void)
 {
 	char	*new_command;
+	char	*buf;
 
-	if (!buf)
+	if (!buffer)
 		return;
+	buf = buffer;
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		if (buf == new_command)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 00:10:26 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/22 16:10:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 #include<stdio.h>
 
-char	*read_prompt()
+void	read_prompt(void)
 {
-	char	*str;
-
-	if (!(str = ft_strnew(NORMAL_LINE)))
+	if (!(buffer = ft_strnew(NORMAL_LINE)))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	set_input_mode();
-	str = reading(str);
+	reading();
 	reset_input_mode();
 	ft_putchar_fd('\n', STDIN_FILENO);
-	return (str);
 }
 
-char	*reading(char *buf)
+void	reading(void)
 {
 	char	c[LINE_MAX + 1];
 	uint8_t	n;
@@ -36,20 +33,14 @@ char	*reading(char *buf)
 	while (READING)
 	{
 		read_handler(c);
-		if (g_flags & SHELL_SIGINT || g_flags & SHELL_SIGQUIT)
-		{
-			if (g_flags & SHELL_SIGINT)
-				ft_strclr(buf);
-			g_flags &= ~SHELL_SIGINT;
-			g_flags &= ~SHELL_SIGQUIT;
-		}
+		if (g_flags)
+			check_flags();
 		if ((ft_strchr(c, '\n')))
 			break;
-		while (ft_strlen(buf) + ft_strlen(c) >= NORMAL_LINE * n)
-			buf = strnew_realloc_buf(buf, &n);
-		buf = make_buf_print(buf , c, &n);
+		while (ft_strlen(buffer) + ft_strlen(c) >= NORMAL_LINE * n)
+			buffer = strnew_realloc_buf(buffer, &n);
+		print_read(c, &n);
 	}
-	return (buf);
 }
 
 void	read_handler(char *c)
@@ -61,7 +52,7 @@ void	read_handler(char *c)
 	c[nb] = '\0';
 }
 
-char	*make_buf_print(char *buf, char *c, uint8_t *n)
+void	print_read(char *c, uint8_t *n)
 {
 	short	len;
 
@@ -71,17 +62,16 @@ char	*make_buf_print(char *buf, char *c, uint8_t *n)
 		*c = BCSP;
 	if (!(ft_strcmp(c, LEFT)) && len)
 		go_left(1);
-	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buf) > len))
+	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buffer) > len))
 		go_right();
 /*	else if (*c == TAB)
-		while (!(autocom(&buf, *n * NORMAL_LINE)))
-			buf = strnew_realloc_buf(buf, n);*/
+		while (!(autocom( *n * NORMAL_LINE)))
+			buffer = strnew_realloc_buf(buffer, n);*/
 	else
-		check_key(c, buf, len);
-	return (buf);
+		print_read2(c, len);
 }
 
-void			check_key(char *c, char *buf, short len)
+void	print_read2(char *c, short len)
 {
 	if ((*c == BCSP && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
 	{
@@ -90,10 +80,10 @@ void			check_key(char *c, char *buf, short len)
 			go_left(1);
 			len--;
 		}
-		if (!ft_strlen(buf) && *c == CTRL_D)
+		if (!ft_strlen(buffer) && *c == CTRL_D)
 			exit(EXIT_SUCCESS);
-		del_symb(buf, len);
+		del_symb(buffer, len);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
-		print_symb(c, buf, len);
+		print_symb(c, buffer, len);
 }

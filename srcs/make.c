@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 21:15:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/22 15:46:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	get_cord(void)
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
 		print_error("minishell", "ioctl() error", NULL, 0);
 	cord.ws_col = size.ws_col;
-	cord.ws_row = size.ws_row;
 }
 
 char	*ft_getenv(char *arr)
