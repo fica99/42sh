@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 22:25:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:01:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ void			read_prompt(void);
 void			reading(void);
 void			read_handler(char *c);
 void			print_read(char *c);
-void			print_read_other(char *c, short len);
+void			print_read_other(char *c);
 //make2.c
 char			*strnew_realloc_buf(char *str, short len);
 void			reset_input_mode (void);
 void			go_left(short i);
 void			go_to(short i);
-void			go_right(void);
+void			go_right(short i);
 //make3.c
 void			del_symb(char *buf, short len);
 void			print_symb(char *c, char *buf, short len);

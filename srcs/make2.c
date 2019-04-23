@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 22:40:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:01:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,22 @@ void	go_to(short i)
 	ft_putchar_fd('C',STDIN_FILENO);
 }
 
-void	go_right(void)
+void	go_right(short i)
 {
-	if (g_term.x_cur >= g_term.ws_col - 1)
+	short len;
+	if (g_term.x_cur + i > g_term.ws_col - 1)
 	{
-		g_term.x_cur = -1;
-		(g_term.y_cur)++;
-		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
+		len = (g_term.x_cur + i) / g_term.ws_col ;
+		while (len--)
+		{
+			ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
+			g_term.y_cur++;
+		}
+		go_to(g_term.x_cur = (g_term.x_cur + i) % g_term.ws_col);
 	}
 	else
-		ft_putstr_fd(RIGHT, STDIN_FILENO);
-	(g_term.x_cur)++;
+	{
+		go_to(i);
+		g_term.x_cur += i;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 22:40:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 23:01:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	print_read(char *c)
 	short	len;
 
 	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
-	if (*c == CTRL_H)
-		*c = BCSP;
 	if (!(ft_strcmp(c, LEFT)) && len)
 		go_left(1);
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(g_term.buffer) > len))
@@ -69,21 +67,21 @@ void	print_read(char *c)
 	//else if (*c == TAB)
 		//autocom();
 	else
-		print_read_other(c, len);
+		print_read_other(c);
 }
 
-void	print_read_other(char *c, short len)
+void	print_read_other(char *c)
 {
-	if ((*c == BCSP && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
+	short len;
+
+	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
+	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
 	{
-		if (*c == BCSP)
-		{
+		if (*c == BCSP || *c == CTRL_H)
 			go_left(1);
-			len--;
-		}
 		if (!ft_strlen(g_term.buffer) && *c == CTRL_D)
 			exit(EXIT_SUCCESS);
-		del_symb(g_term.buffer, len);
+		del_symb(g_term.buffer, --len);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
 		print_symb(c, g_term.buffer, len);
