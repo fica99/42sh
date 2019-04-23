@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 23:27:38 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/23 22:02:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	shell_start(void)
 	while (RUNNING)
 	{
 		signalling();
-		if (g_flags & SHELL_SIGINT)
-			g_flags &= ~SHELL_SIGINT;
-		else
-			shell_prompt();
+		term_prompt();
 		read_prompt();
-		parse_string();
-		ft_memdel((void**)&(cord.buffer));
+		if (!(g_flags & TERM_SIGINT))
+				parse_string();
+		else
+			g_flags &= ~TERM_SIGINT;
+		ft_memdel((void**)&(g_term.buffer));
 	}
 }

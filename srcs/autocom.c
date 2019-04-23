@@ -16,7 +16,7 @@ int autocom(char **buf, short len)
 	char	*rest_add;
 	int		len_am;
 
-	len = len;
+	len = len + 1;
 	start = get_start_com(*buf, &prog);
 	arr_mat = get_arr_matches(&start, prog);
 	rest_add = get_autocom_part(arr_mat, start);

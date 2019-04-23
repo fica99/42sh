@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 00:10:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/23 22:25:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <termios.h>
 
 # define RUNNING 1
-# define SHELL_SIGINT (1 << 1)
-# define SHELL_SIGQUIT (1 << 2)
-# define SHELL_SIGWINCH (1 << 3)
+# define TERM_SIGINT (1 << 1)
+# define TERM_SIGQUIT (1 << 2)
+# define TERM_SIGWINCH (1 << 3)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
@@ -48,16 +48,17 @@
 #define	ENOMEM		12		/* Cannot allocate memory */
 #define	EACCES		13		/* Permission denied */
 
-typedef struct	s_cord
+typedef struct	s_term
 {
-	short			prompt;
+	short			prompt_len;
 	short			x_cur;
 	short			y_cur;
 	short			ws_col;
 	char			*buffer;
+	char			**env_cp;
 	struct termios	savetty;
 	short			malloc_len;
-}				t_cord;
+}				t_term;
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
@@ -69,18 +70,18 @@ typedef struct	s_cord
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_D 4
+# define CTRL_C 3
 # define TAB 9
 # define DEL "\033[3~"
 # define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
 
-char			**env_cp;
-struct s_cord	cord;
+struct s_term	g_term;
 unsigned short	g_flags;
 int 			errno_f;
 
 //make.c
 char			**copy_double_arr(char **arr);
-void			get_cord(void);
+void			get_win_size(void);
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			set_input_mode(void);
@@ -89,7 +90,7 @@ unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
 //print.c
 void			print_error(char *name, char *str, char *command, int p);
-void			shell_prompt(void);
+void			term_prompt(void);
 void  			ft_putstr_cord(char *str);
 void			print_environ(void);
 void			print_error_withoutexit(char *name, char *str, char *command, int p);
@@ -101,7 +102,6 @@ void	        shell_start(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
-void			sigwinch_handler(int sign);
 //reading.c
 void			read_prompt(void);
 void			reading(void);

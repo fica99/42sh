@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 00:08:20 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/23 22:28:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_error(char *name, char *str, char *command, int p)
 }
 
 
-void	shell_prompt(void)
+void	term_prompt(void)
 {
 	char	*path;
 	char	hostname[FT_HOST_NAME_MAX];
@@ -53,26 +53,26 @@ void	shell_prompt(void)
 	PURPLE(STDIN_FILENO);
 	ft_putstr_fd(" $> ", STDIN_FILENO);
 	STANDART(STDIN_FILENO);
-	cord.prompt = ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
+	g_term.prompt_len = ft_strlen(path) + ft_strlen(ft_getenv("USER")) +
 		ft_strlen(hostname) + 8;
-	cord.x_cur = cord.prompt;
-	cord.y_cur = 0;
+	g_term.x_cur = g_term.prompt_len;
+	g_term.y_cur = 0;
 }
 
 void    ft_putstr_cord(char *str)
 {
 	while (str && *str)
-    {
-		if (cord.x_cur > cord.ws_col - 1)
+	{
+		if (g_term.x_cur > g_term.ws_col - 1)
 		{
 			ft_putchar('\n');
-			cord.x_cur = 0;
-			(cord.y_cur)++;
+			g_term.x_cur = 0;
+			(g_term.y_cur)++;
 		}
 		ft_putchar_fd(*str, STDIN_FILENO);
-        (cord.x_cur)++;
-        str++;
-    }
+		(g_term.x_cur)++;
+		str++;
+	}
 }
 
 void	print_environ(void)
@@ -80,9 +80,9 @@ void	print_environ(void)
 	short	i;
 
 	i = -1;
-	while (env_cp[++i])
+	while (g_term.env_cp[++i])
 	{
-		ft_putstr_fd(env_cp[i],STDOUT_FILENO);
+		ft_putstr_fd(g_term.env_cp[i],STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 }

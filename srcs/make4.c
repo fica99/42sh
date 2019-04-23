@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 17:48:56 by filip             #+#    #+#             */
-/*   Updated: 2019/04/19 22:25:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:27:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ void	ft_setenv(char *name, char *new_value)
 
 	if ((j = get_count_var(name)) >= 0)
 	{
-		free(env_cp[j]);
-		env_cp[j]= join_env(name, new_value);
+		free(g_term.env_cp[j]);
+		g_term.env_cp[j]= join_env(name, new_value);
 	}
 	else
 	{
-		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(env_cp) + 2))))
+		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(g_term.env_cp) + 2))))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		while(env_cp[++j])
-			envp[j] = env_cp[j];
+		while(g_term.env_cp[++j])
+			envp[j] = g_term.env_cp[j];
 		envp[j] = join_env(name, new_value);
 		envp[++j] = NULL;
-		free(env_cp);
-		env_cp = envp;
+		free(g_term.env_cp);
+		g_term.env_cp = envp;
 	}
 }
 
