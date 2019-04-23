@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 00:37:53 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/23 15:25:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ void	sigwinch_handler(int sign)
 		g_flags |= SHELL_SIGWINCH;
 		len = cord.x_cur + cord.y_cur * cord.ws_col;
 		get_cord();
-		go_to(len % cord.ws_col);
+		go_left(len % cord.ws_col);
 		cord.x_cur = cord.prompt;
-		cord.y_cur = len / cord.ws_col;
+		cord.y_cur = len / cord.ws_col - 1;
 		while ((cord.y_cur)-- > 0)
 			ft_putstr_fd(PREV_LINE, STDIN_FILENO);
 		go_to(cord.prompt);
 		cord.y_cur = 0;
 		CLEAN_SCREEN(STDIN_FILENO);
-		ft_putstr_cord(cord.buffer);
+		//ft_putstr_cord(cord.buffer);
+	//	go_left(ft_strlen(cord.buffer) - len);
 	}
 }
 
