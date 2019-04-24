@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 17:40:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/24 22:29:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	go_right(short i)
 		}
 		change = (g_term.x_cur + i) % g_term.ws_col;
 		g_term.x_cur = 0;
-		if (change)
+		if (change > 0)
 			go_right(change);
 	}
 	else
