@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 21:21:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:43:15 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ char	check_ch_dir(int argc , char **argv)
 	return (1);
 }
 
-void	cd(int argc, char **argv)
+void	cd(int argc, char **argv, char **env_cp)
 {
 	char	buf[MAXDIR];
 
+	(void)env_cp;
 	if (check_ch_dir(argc, argv) < 0)
 		return;
 	if (!(getcwd(buf, MAXDIR)))

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 21:40:37 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/24 22:37:38 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,17 +146,17 @@ char 			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void 			print_arr(char **arr);
 //cd.c
-void			cd(int argc, char **argv);
+void			cd(int argc, char **argv, char **env_cp);
 char			check_ch_dir(int argc , char **argv);
 char			check_request(int argc, char  **argv);
 //echo.c
-void			echo(int argc, char **argv);
+void			echo(int argc, char **argv, char **env_cp);
 //env.c
-void 			env(int argc, char **argv);
+void 			env(int argc, char **argv, char **env_cp);
 char			check_set(char **argv);
 //setenv.c
-void 			set_env(int argc, char **argv);
+void 			set_env(int argc, char **argv, char **env_cp);
 //unsetenv.c
-void			ft_unsetenv(int argc, char **argv);
+void			ft_unsetenv(int argc, char **argv, char **env_cp);
 char			**copy_new_arr(short i);
 #endif

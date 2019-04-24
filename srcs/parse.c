@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 21:41:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:36:17 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,17 @@ char	**spec_symbols(char **args)
 void	find_command(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-		cd(double_arr_len(args), args);
+		cd(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		echo(double_arr_len(args), args);
+		echo(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "env") == 0)
-		env(double_arr_len(args), args);
+		env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "setenv") == 0)
-		set_env(double_arr_len(args), args);
+		set_env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
-		ft_unsetenv(double_arr_len(args), args);
+		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "exit") == 0)
-	{
-		free_double_arr(g_term.env_cp);
 		exit(EXIT_SUCCESS);
-	}
 	else if (!check_command(args)  && !exec_command(args))
 		print_error_withoutexit("minishell", "command not found", args[0], 0);
 }

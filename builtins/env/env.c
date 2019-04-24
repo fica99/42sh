@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 21:21:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:39:44 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ char	check_set(char **argv)
 	return (1);
 }
 
-void env(int argc, char **argv)
+void env(int argc, char **argv, char **env_cp)
 {
 	short	j;
 
 	j = 0;
+	(void)env_cp;
 	if (check_set(argv) < 0)
 		return ;
 	print_environ();

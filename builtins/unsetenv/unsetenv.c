@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 21:30:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 22:41:58 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_unsetenv(int argc, char **argv)
+void	ft_unsetenv(int argc, char **argv, char **env_cp)
 {
 	short	i;
 	short	j;
 	char	**envp;
 
+	(void)env_cp;
 	if (argc < 2)
 		print_error_withoutexit("unsetenv", NULL, "not enough arguments", 0);
 	else
