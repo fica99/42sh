@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 16:31:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:43:25 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 
 void	read_prompt(void)
 {
-	if (!(buffer = ft_strnew(NORMAL_LINE)))
+	if (!(g_term.buffer = ft_strnew(NORMAL_LINE)))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
+	g_term.malloc_len = NORMAL_LINE;
 	set_input_mode();
 	reading();
 	reset_input_mode();
@@ -27,63 +28,64 @@ void	read_prompt(void)
 void	reading(void)
 {
 	char	c[LINE_MAX + 1];
-	uint8_t	n;
 
-	n = 1;
 	while (READING)
 	{
-		read_handler(c);
-		if (g_flags)
-			check_flags();
-		if ((ft_strchr(c, '\n')))
+		read_handler(c, STDIN_FILENO);
+		if ((ft_strchr(c, CTRL_C)) || (ft_strchr(c, '\n')))
+		{
+			if (ft_strchr(c, CTRL_C))
+				g_flags |= TERM_SIGINT;
 			break;
-		while (ft_strlen(buffer) + ft_strlen(c) >= NORMAL_LINE * n)
-			buffer = strnew_realloc_buf(buffer, &n);
-		print_read(c, &n);
+		}
+		while (ft_strlen(g_term.buffer) + ft_strlen(c) >= (unsigned)g_term.malloc_len)
+			g_term.buffer = strnew_realloc_buf(g_term.buffer, g_term.malloc_len += NORMAL_LINE);
+		print_read(c);
 	}
 }
 
-void	read_handler(char *c)
+void	read_handler(char *c, int fd)
 {
 	short	nb;
 
-	if ((nb = read(STDIN_FILENO, c, LINE_MAX)) < 0)
-			print_error("minishell", "read() error", NULL, 0);
+	if ((nb = read(fd, c, LINE_MAX)) < 0)
+	{
+		reset_input_mode();
+		print_error("minishell", "read() error", NULL, 0);
+	}
 	c[nb] = '\0';
 }
-
-void	print_read(char *c, uint8_t *n)
+void	print_read(char *c)
 {
 	short	len;
 
-	*n = *n;
-	len = cord.x_cur - cord.prompt + (cord.y_cur * cord.ws_col);
-	if (*c == CTRL_H)
-		*c = BCSP;
+	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
 	if (!(ft_strcmp(c, LEFT)) && len)
 		go_left(1);
-	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(buffer) > len))
-		go_right();
-	else if (*c == TAB)
-		while (!(autocom(&buffer, *n * NORMAL_LINE)))
-			buffer = strnew_realloc_buf(buffer, n);
+	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(g_term.buffer) > len))
+		go_right(1);
+	//else if (*c == TAB)
+		//autocom();
 	else
-		print_read2(c, len);
+		print_read_other(c);
 }
 
-void	print_read2(char *c, short len)
+void	print_read_other(char *c)
 {
-	if ((*c == BCSP && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
+	short len;
+
+	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
+	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
 	{
-		if (*c == BCSP)
+		if (*c == BCSP || *c == CTRL_H)
 		{
 			go_left(1);
 			len--;
 		}
-		if (!ft_strlen(buffer) && *c == CTRL_D)
+		if (!ft_strlen(g_term.buffer) && *c == CTRL_D)
 			exit(EXIT_SUCCESS);
-		del_symb(buffer, len);
+		del_symb(g_term.buffer, len);
 	}
 	else if (ft_isprint(*c) && *c != BCSP)
-		print_symb(c, buffer, len);
+		print_symb(c, g_term.buffer, len);
 }

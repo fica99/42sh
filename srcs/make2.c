@@ -6,19 +6,18 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:24:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:40:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char			*strnew_realloc_buf(char *str, uint8_t *n)
+char			*strnew_realloc_buf(char *str, short len)
 {
 	char	*arr;
 
 	arr = str;
-	(*n)++;
-	if (!(str = ft_strnew(NORMAL_LINE * (*n))))
+	if (!(str = ft_strnew(len)))
 	{
 		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
@@ -31,7 +30,7 @@ char			*strnew_realloc_buf(char *str, uint8_t *n)
 
 void	reset_input_mode (void)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &savetty) < 0)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &(g_term.savetty)) < 0)
 		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
@@ -39,43 +38,46 @@ void	go_left(short i)
 {
 	short	change;
 
-	if (cord.x_cur - i >= 0)
+	if (g_term.x_cur - i >= 0)
 	{
-		cord.x_cur -= i;
-		ft_putstr_fd("\033[", STDIN_FILENO);
-		ft_putnbr_fd(i, STDIN_FILENO);
-		ft_putchar_fd('D',STDIN_FILENO);
+		g_term.x_cur -= i;
+		GO_LEFT(i);
 	}
 	else
 	{
-		change = cord.x_cur;
+		change = g_term.x_cur;
 		while (change < i)
 		{
-			change += cord.ws_col;
+			change += g_term.ws_col;
 			ft_putstr_fd(PREV_LINE, STDIN_FILENO);
-			cord.y_cur--;
+			g_term.y_cur--;
 		}
-		cord.x_cur = change - i;
-		go_to(cord.x_cur);
+		g_term.x_cur = change - i;
+		GO_RIGHT(g_term.x_cur);
 	}
 }
 
-void	go_to(short i)
+void	go_right(short i)
 {
-	ft_putstr_fd("\033[", STDIN_FILENO);
-	ft_putnbr_fd(i, STDIN_FILENO);
-	ft_putchar_fd('C',STDIN_FILENO);
-}
+	short change;
 
-void	go_right(void)
-{
-	if (cord.x_cur >= cord.ws_col - 1)
+	if (g_term.x_cur + i >= g_term.ws_col)
 	{
-		cord.x_cur = -1;
-		(cord.y_cur)++;
-		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
+		change = g_term.x_cur;
+		while (change < g_term.x_cur + i)
+		{
+			change += g_term.ws_col;
+			ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
+			g_term.y_cur++;
+		}
+		change = (g_term.x_cur + i) % g_term.ws_col;
+		g_term.x_cur = 0;
+		if (change)
+			go_right(change);
 	}
 	else
-		ft_putstr_fd(RIGHT, STDIN_FILENO);
-	(cord.x_cur)++;
+	{
+		GO_RIGHT(i);
+		g_term.x_cur += i;
+	}
 }

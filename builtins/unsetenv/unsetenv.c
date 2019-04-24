@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/14 12:51:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:30:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	ft_unsetenv(int argc, char **argv)
 			if ((i = get_count_var(argv[j])) < 0)
 				continue;
 			envp = copy_new_arr(i);
-			free(env_cp);
-			env_cp = envp;
+			free(g_term.env_cp);
+			g_term.env_cp = envp;
 		}
 	}
 }
@@ -39,19 +39,19 @@ char	**copy_new_arr(short i)
 	char	**envp;
 	short	j;
 
-	if (!(envp = (char**)malloc(sizeof(char *) * (double_arr_len(env_cp)))))
+	if (!(envp = (char**)malloc(sizeof(char *) * (double_arr_len(g_term.env_cp)))))
 		print_error("unsetenv", "malloc() error", NULL, ENOMEM);
 	j = -1;
-	while (env_cp[++j])
+	while (g_term.env_cp[++j])
 	{
 		if (j >= i)
 		{
 			if (j == i)
-				ft_memdel((void**)&(env_cp[j]));
-			envp[j] = env_cp[j + 1];
+				ft_memdel((void**)&(g_term.env_cp[j]));
+			envp[j] = g_term.env_cp[j + 1];
 		}
 		else
-			envp[j] = env_cp[j];
+			envp[j] = g_term.env_cp[j];
 	}
 	return (envp);
 }

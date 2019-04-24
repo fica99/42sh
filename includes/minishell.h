@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 16:05:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:59:39 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@
 # include <termios.h>
 
 # define RUNNING 1
-# define SHELL_SIGINT (1 << 1)
-# define SHELL_SIGQUIT (1 << 2)
-# define SHELL_SIGWINCH (1 << 3)
+# define TERM_SIGINT (1 << 1)
+# define TERM_SIGQUIT (1 << 2)
+# define TERM_SIGWINCH (1 << 3)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
@@ -48,16 +48,22 @@
 #define	ENOMEM		12		/* Cannot allocate memory */
 #define	EACCES		13		/* Permission denied */
 
-typedef struct	s_cord
+typedef struct	s_term
 {
-	short	prompt;
-	short	x_cur;
-	short	y_cur;
-	short	ws_col;
-}				t_cord;
+	short			prompt_len;
+	short			x_cur;
+	short			y_cur;
+	short			ws_col;
+	char			*buffer;
+	char			**env_cp;
+	struct termios	savetty;
+	short			malloc_len;
+}				t_term;
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
+# define GO_RIGHT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('C',STDIN_FILENO)
+# define GO_LEFT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('D',STDIN_FILENO)
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
 # define SAVE_CUR "\0337"
@@ -66,30 +72,26 @@ typedef struct	s_cord
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_D 4
+# define CTRL_C 3
 # define TAB 9
 # define DEL "\033[3~"
-# define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
-
-char			**env_cp;
-struct termios	savetty;
-struct s_cord	cord;
+# define CUR_CORD "\033[6n"
+struct s_term	g_term;
 unsigned short	g_flags;
 int 			errno_f;
-char			*buffer;
 
 //make.c
 char			**copy_double_arr(char **arr);
-void			get_cord(void);
+void			get_win_size(void);
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			set_input_mode(void);
 //check.c
 unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
-void			check_flags(void);
 //print.c
 void			print_error(char *name, char *str, char *command, int p);
-void			shell_prompt(void);
+void			term_prompt(void);
 void  			ft_putstr_cord(char *str);
 void			print_environ(void);
 void			print_error_withoutexit(char *name, char *str, char *command, int p);
@@ -98,22 +100,21 @@ void 			ft_perror(char *str);
 void 			pr_gen_perror(void);
 //shell.c
 void	        shell_start(void);
+void			get_cur_cord(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
-void			sigwinch_handler(int sign);
 //reading.c
 void			read_prompt(void);
 void			reading(void);
-void			read_handler(char *c);
-void			print_read(char *c, uint8_t *n);
-void			print_read2(char *c, short len);
+void			read_handler(char *c, int fd);
+void			print_read(char *c);
+void			print_read_other(char *c);
 //make2.c
-char			*strnew_realloc_buf(char *str, uint8_t *n);
+char			*strnew_realloc_buf(char *str, short len);
 void			reset_input_mode (void);
 void			go_left(short i);
-void			go_to(short i);
-void			go_right(void);
+void			go_right(short i);
 //make3.c
 void			del_symb(char *buf, short len);
 void			print_symb(char *c, char *buf, short len);
@@ -141,7 +142,7 @@ char 			**ft_strarr_add(char **dest, char **src, char **exc);
 int 			ft_strarr_len(char **str_arr);
 int 			ft_cheak_exc(char *str, char **exc);
 char			get_type(mode_t mode);
-int 			autocom(char **buf, uint8_t len);
+int 			autocom(char **buf, short len);
 char 			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void 			print_arr(char **arr);

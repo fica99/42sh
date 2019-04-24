@@ -8,7 +8,7 @@
  * Обработать malloc ft_strdup;
  * */
 
-int autocom(char **buf, uint8_t len)
+int autocom(char **buf, short len)
 {
 	char	*start;
 	int		prog;
@@ -16,13 +16,14 @@ int autocom(char **buf, uint8_t len)
 	char	*rest_add;
 	int		len_am;
 
+	len = len + 1;
 	start = get_start_com(*buf, &prog);
 	arr_mat = get_arr_matches(&start, prog);
 	rest_add = get_autocom_part(arr_mat, start);
 	len_am = ft_strarr_len(arr_mat);
 	CLEAN_SCREEN(STDIN_FILENO);
 	if (rest_add)
-		print_read(rest_add, &len);
+		print_read(rest_add);
 	if (len_am)
 	{
 		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);

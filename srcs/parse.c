@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:32:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 21:41:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	parse_string(void)
 	char	*new_command;
 	char	*buf;
 
-	if (!buffer)
+	if (!g_term.buffer)
 		return;
-	buf = buffer;
+	buf = g_term.buffer;
 	while ((new_command = ft_strchr(buf, ';')) != NULL)
 	{
 		if (buf == new_command)
@@ -85,7 +85,7 @@ void	find_command(char **args)
 		ft_unsetenv(double_arr_len(args), args);
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
-		free_double_arr(env_cp);
+		free_double_arr(g_term.env_cp);
 		exit(EXIT_SUCCESS);
 	}
 	else if (!check_command(args)  && !exec_command(args))
@@ -107,7 +107,7 @@ char	*check_command(char **args)
 		p = make_process();
 		if (!p)
 		{
-			if (execve(args[0], args, env_cp) < 0)
+			if (execve(args[0], args, g_term.env_cp) < 0)
 				print_error("minishell", "execve() error", args[0], 0);
 		}
 		else
@@ -138,15 +138,15 @@ char	*exec_command(char **args)
 			p = make_process();
 			if (!p)
 			{
-				if (execve(file_path, args, env_cp) < 0)
+				if (execve(file_path, args, g_term.env_cp) < 0)
 					print_error("minishell", "execve() error", args[0], 0);
 			}
 			else
 			{
 				waitpid(p, &status, 0);
-				if (g_flags & SHELL_SIGQUIT)
+				if (g_flags & TERM_SIGQUIT)
 				{
-					g_flags &= ~SHELL_SIGQUIT;
+					g_flags &= ~TERM_SIGQUIT;
 					ft_putchar('\n');
 				}
 				ft_memdel((void**)&file_path);

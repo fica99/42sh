@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/22 15:56:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/23 20:18:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		main(int argc, char **argv, char **environ)
 {
 	(void)argc;
 	(void)argv;
-	env_cp = copy_double_arr(environ);
-	get_cord();
+	g_term.env_cp = copy_double_arr(environ);
+	get_win_size();
 	g_flags = INIT_FLAGS;
 	shell_start();
 	return (EXIT_SUCCESS);
