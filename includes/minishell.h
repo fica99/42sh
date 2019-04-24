@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 23:01:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:59:39 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct	s_term
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
+# define GO_RIGHT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('C',STDIN_FILENO)
+# define GO_LEFT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('D',STDIN_FILENO)
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
 # define SAVE_CUR "\0337"
@@ -73,7 +75,6 @@ typedef struct	s_term
 # define CTRL_C 3
 # define TAB 9
 # define DEL "\033[3~"
-# define FT_ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
 
 struct s_term	g_term;
 unsigned short	g_flags;
@@ -112,7 +113,6 @@ void			print_read_other(char *c);
 char			*strnew_realloc_buf(char *str, short len);
 void			reset_input_mode (void);
 void			go_left(short i);
-void			go_to(short i);
 void			go_right(short i);
 //make3.c
 void			del_symb(char *buf, short len);

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:53:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 22:28:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:26:29 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void    ft_putstr_cord(char *str)
 	{
 		if (g_term.x_cur > g_term.ws_col - 1)
 		{
-			ft_putchar('\n');
+			ft_putchar_fd('\n', STDIN_FILENO);
 			g_term.x_cur = 0;
 			(g_term.y_cur)++;
 		}
