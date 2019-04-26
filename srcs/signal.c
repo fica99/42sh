@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 21:48:24 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 22:11:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	signal_handler(int sign)
 	{
 		len = ft_strlen(g_term.buffer) - (g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col));
 		get_win_size();
-		ft_putstr_fd("\033[", STDIN_FILENO);
-		ft_putnbr_fd(g_term.y_start, STDIN_FILENO);
-		ft_putchar_fd(';', STDIN_FILENO);
-		ft_putnbr_fd(g_term.x_start, STDIN_FILENO);
-		ft_putchar_fd('H', STDIN_FILENO);
+		HOME(STDIN_FILENO);
 		CLEAN_SCREEN(STDIN_FILENO);
-		g_term.x_cur = g_term.x_start;
-		g_term.y_cur = g_term.y_start;
+		term_prompt();
+		get_cur_cord();
+		g_term.x_start = g_term.x_cur;
+		g_term.y_start = g_term.y_cur;
 		ft_putstr_cord(g_term.buffer);
 		go_left(len);
 	}

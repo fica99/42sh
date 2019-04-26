@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 19:09:40 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 22:13:14 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ typedef struct	s_term
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
+# define SAVE_CUR(fd) ft_putstr_fd("\0337", fd)
+# define RESTORE_CUR(fd) ft_putstr_fd("\0338", fd)
+# define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
+# define HOME(fd) ft_putstr_fd("\033[H", fd)
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
-# define SAVE_CUR "\0337"
-# define RESTORE_CUR "\0338"
-# define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_D 4

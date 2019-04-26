@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/26 19:59:51 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 22:10:40 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void			del_symb(char *buf, short len)
 {
 	buf = ft_strdel_el(buf, len);
-	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
+	SAVE_CUR(STDIN_FILENO);
 	CLEAN_SCREEN(STDIN_FILENO);
 	ft_putstr_fd(buf + len, STDIN_FILENO);
-	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
+	RESTORE_CUR(STDIN_FILENO);
 }
 
 void			print_symb(char *c, char *buf, short len)
