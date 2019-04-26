@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 22:13:14 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 01:49:32 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
-# define TERM_SIGQUIT (1 << 2)
-# define TERM_SIGWINCH (1 << 3)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048

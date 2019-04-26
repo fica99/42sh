@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/26 15:59:54 by filip            ###   ########.fr        #
+#    Updated: 2019/04/27 01:41:49 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ SRC=  srcs/ft_strlen.c\
 	  srcs/ft_lstiter.c\
 	  srcs/ft_lstmap.c\
 	  srcs/get_next_line.c\
-	  srcs/double_arr_len.c
+	  srcs/double_arr_len.c\
+	  srcs/free_double_arr.c
 
 FLAGS=-Wall -Werror -Wextra
 

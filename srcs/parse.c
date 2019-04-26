@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 22:36:17 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 01:49:53 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,6 @@ char	*exec_command(char **args)
 			else
 			{
 				waitpid(p, &status, 0);
-				if (g_flags & TERM_SIGQUIT)
-				{
-					g_flags &= ~TERM_SIGQUIT;
-					ft_putchar('\n');
-				}
 				ft_memdel((void**)&file_path);
 				free_double_arr(path);
 				return (SOMETHING);

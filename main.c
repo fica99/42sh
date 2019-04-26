@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 16:01:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 01:58:47 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int		main(int argc, char **argv, char **environ)
 	(void)argv;
 	g_term.env_cp = copy_double_arr(environ);
 	get_win_size();
-	g_flags = INIT_FLAGS;
 	shell_start();
+	free_double_arr(g_term.env_cp);
 	return (EXIT_SUCCESS);
 }
 

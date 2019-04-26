@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 16:09:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 02:01:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	print_read_other(char *c)
 			len--;
 		}
 		if (!ft_strlen(g_term.buffer) && *c == CTRL_D)
+		{
+			ft_putchar_fd('\n', STDOUT_FILENO);
 			exit(EXIT_SUCCESS);
+		}
 		del_symb(g_term.buffer, len);
 	}
 	else if (ft_isprint(*c))

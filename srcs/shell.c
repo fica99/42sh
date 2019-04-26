@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:55:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/26 19:57:35 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 01:59:05 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	shell_start(void)
 {
 	while (RUNNING)
 	{
+		g_flags = INIT_FLAGS;
 		signalling();
 		term_prompt();
 		get_cur_cord();
@@ -24,8 +25,6 @@ void	shell_start(void)
 		read_prompt();
 		if (!(g_flags & TERM_SIGINT))
 			parse_string();
-		else
-			g_flags &= ~TERM_SIGINT;
 		ft_memdel((void**)&(g_term.buffer));
 	}
 }
