@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 21:18:53 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 19:48:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,14 @@ void	signalling(void)
 
 void	signal_handler(int sign)
 {
-	short	len;
-
 	if (sign == SIGQUIT)
 		g_flags |= TERM_SIGQUIT;
 	if (sign == SIGINT)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	if (sign == SIGWINCH)
 	{
-		len = g_term.x_cur + g_term.y_cur * g_term.ws_col;
 		get_win_size();
 		g_flags |= TERM_SIGWINCH;
-		if (len >= g_term.ws_col)
-		{
-
-		}
 	}
 }
 

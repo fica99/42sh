@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/09 17:09:37 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/26 15:59:54 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,8 @@ SRC=  srcs/ft_strlen.c\
 	  srcs/ft_lstadd.c\
 	  srcs/ft_lstiter.c\
 	  srcs/ft_lstmap.c\
-	  srcs/get_next_line.c
+	  srcs/get_next_line.c\
+	  srcs/double_arr_len.c
 
 FLAGS=-Wall -Werror -Wextra
 

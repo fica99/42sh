@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 22:20:26 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 16:09:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	reading(void)
 
 	while (READING)
 	{
-		read_handler(c);
-		if ((ft_strchr(c, CTRL_C)) || (ft_strchr(c, '\n')))
+		read_handler(c, STDIN_FILENO);
+		if (*c == CTRL_C || *c == '\n')
 		{
-			if (ft_strchr(c, CTRL_C))
+			if (*c == CTRL_C)
 				g_flags |= TERM_SIGINT;
 			break;
 		}
@@ -44,12 +44,13 @@ void	reading(void)
 	}
 }
 
-void	read_handler(char *c)
+void	read_handler(char *c, int fd)
 {
 	short	nb;
 
-	if ((nb = read(STDIN_FILENO, c, LINE_MAX)) < 0)
+	if ((nb = read(fd, c, LINE_MAX)) < 0)
 	{
+		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
 		print_error("minishell", "read() error", NULL, 0);
 	}
@@ -57,9 +58,9 @@ void	read_handler(char *c)
 }
 void	print_read(char *c)
 {
-	short	len;
+	short len;
 
-	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
+	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col);
 	if (!(ft_strcmp(c, LEFT)) && len)
 		go_left(1);
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(g_term.buffer) > len))
@@ -74,7 +75,7 @@ void	print_read_other(char *c)
 {
 	short len;
 
-	len = g_term.x_cur - g_term.prompt_len + (g_term.y_cur * g_term.ws_col);
+	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col);
 	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, DEL) || *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
@@ -86,6 +87,6 @@ void	print_read_other(char *c)
 			exit(EXIT_SUCCESS);
 		del_symb(g_term.buffer, len);
 	}
-	else if (ft_isprint(*c) && *c != BCSP)
+	else if (ft_isprint(*c))
 		print_symb(c, g_term.buffer, len);
 }

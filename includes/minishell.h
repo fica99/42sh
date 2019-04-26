@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 22:37:38 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 19:09:40 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@
 
 typedef struct	s_term
 {
-	short			prompt_len;
+	short			x_start;
+	short			y_start;
 	short			x_cur;
 	short			y_cur;
 	short			ws_col;
+	short			ws_row;
 	char			*buffer;
 	char			**env_cp;
 	struct termios	savetty;
@@ -62,8 +64,6 @@ typedef struct	s_term
 
 # define RIGHT "\033[C"
 # define LEFT "\033[D"
-# define GO_RIGHT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('C',STDIN_FILENO)
-# define GO_LEFT(i) ft_putstr_fd("\033[", STDIN_FILENO); ft_putnbr_fd(i, STDIN_FILENO); ft_putchar_fd('D',STDIN_FILENO)
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
 # define SAVE_CUR "\0337"
@@ -75,23 +75,23 @@ typedef struct	s_term
 # define CTRL_C 3
 # define TAB 9
 # define DEL "\033[3~"
+# define CUR_CORD "\033[6n"
 
 struct s_term	g_term;
 unsigned short	g_flags;
 int 			errno_f;
 
-//make.c
+//main.c
 char			**copy_double_arr(char **arr);
 void			get_win_size(void);
+//make.c
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			set_input_mode(void);
 //check.c
-unsigned short	double_arr_len(char **arr);
 char			*check_path(void);
 //print.c
 void			print_error(char *name, char *str, char *command, int p);
-void			term_prompt(void);
 void  			ft_putstr_cord(char *str);
 void			print_environ(void);
 void			print_error_withoutexit(char *name, char *str, char *command, int p);
@@ -100,13 +100,15 @@ void 			ft_perror(char *str);
 void 			pr_gen_perror(void);
 //shell.c
 void	        shell_start(void);
+void			term_prompt(void);
+void			get_cur_cord(void);
 //signal.c
 void			signalling(void);
 void			signal_handler(int sign);
 //reading.c
 void			read_prompt(void);
 void			reading(void);
-void			read_handler(char *c);
+void			read_handler(char *c, int fd);
 void			print_read(char *c);
 void			print_read_other(char *c);
 //make2.c

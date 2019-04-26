@@ -6,35 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 14:19:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/23 22:01:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/26 15:56:11 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**copy_double_arr(char **arr)
-{
-	short	i;
-	char	**arr1;
-
-	if (!(arr1 = (char**)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
-	i = -1;
-	while (arr[++i])
-		if (!(arr1[i] = ft_strdup(arr[i])))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-	arr1[i] = NULL;
-	return (arr1);
-}
-
-void	get_win_size(void)
-{
-	struct winsize	size;
-
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);
-	g_term.ws_col = size.ws_col;
-}
 
 char	*ft_getenv(char *arr)
 {

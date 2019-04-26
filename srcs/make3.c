@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/24 21:52:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 19:59:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void			print_symb(char *c, char *buf, short len)
 	buf = ft_stradd(buf, c, len);
 	CLEAN_SCREEN(STDIN_FILENO);
 	ft_putstr_cord(buf + len);
-	i = ft_strlen(buf + len) - 1;
-	if (i)
-		go_left(i);
+	i = ft_strlen(buf + len);
+	go_left(i - 1);
 }
 
 char	*ft_strdel_el(char	*buf, size_t i)

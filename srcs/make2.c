@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/06 15:35:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/24 22:29:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/26 21:01:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,30 @@ void	reset_input_mode (void)
 
 void	go_left(short i)
 {
-	short	change;
-
-	if (g_term.x_cur - i >= 0)
+	g_term.x_cur -= i;
+	while (g_term.x_cur <= 0)
 	{
-		g_term.x_cur -= i;
-		GO_LEFT(i);
+		g_term.x_cur += g_term.ws_col;
+		g_term.y_cur--;
 	}
-	else
-	{
-		change = g_term.x_cur;
-		while (change < i)
-		{
-			change += g_term.ws_col;
-			ft_putstr_fd(PREV_LINE, STDIN_FILENO);
-			g_term.y_cur--;
-		}
-		g_term.x_cur = change - i;
-		GO_RIGHT(g_term.x_cur);
-	}
+	ft_putstr_fd("\033[", STDIN_FILENO);
+	ft_putnbr_fd(g_term.y_cur, STDIN_FILENO);
+	ft_putchar_fd(';', STDIN_FILENO);
+	ft_putnbr_fd(g_term.x_cur, STDIN_FILENO);
+	ft_putchar_fd('H', STDIN_FILENO);
 }
 
 void	go_right(short i)
 {
-	short change;
-
-	if (g_term.x_cur + i >= g_term.ws_col)
+	g_term.x_cur += i;
+	while (g_term.x_cur > g_term.ws_col)
 	{
-		change = g_term.x_cur;
-		while (change < g_term.x_cur + i)
-		{
-			change += g_term.ws_col;
-			ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
-			g_term.y_cur++;
-		}
-		change = (g_term.x_cur + i) % g_term.ws_col;
-		g_term.x_cur = 0;
-		if (change > 0)
-			go_right(change);
+		g_term.x_cur -= g_term.ws_col;
+		g_term.y_cur++;
 	}
-	else
-	{
-		GO_RIGHT(i);
-		g_term.x_cur += i;
-	}
+	ft_putstr_fd("\033[", STDIN_FILENO);
+	ft_putnbr_fd(g_term.y_cur, STDIN_FILENO);
+	ft_putchar_fd(';', STDIN_FILENO);
+	ft_putnbr_fd(g_term.x_cur, STDIN_FILENO);
+	ft_putchar_fd('H', STDIN_FILENO);
 }
