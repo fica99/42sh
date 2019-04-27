@@ -6,30 +6,40 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/26 19:24:52 by filip            ###   ########.fr        #
+#    Updated: 2019/04/28 01:08:18 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-SRCS=srcs/make.c\
-	srcs/check.c\
-	srcs/print.c\
-	srcs/ft_errno.c\
-	srcs/shell.c\
-	srcs/signal.c\
-	srcs/reading.c\
-	srcs/make2.c\
-	srcs/make3.c\
-	srcs/parse.c\
-	srcs/make4.c\
-	srcs/autocom.c\
+ERROR=srcs/error/ft_errno.c\
 
-BUILTINS=builtins/cd/cd.c\
-		builtins/echo/echo.c\
-		builtins/env/env.c\
-		builtins/setenv/setenv.c\
-		builtins/unsetenv/unsetenv.c\
+LINE_EDITING=srcs/line_editing/autocom.c\
+			srcs/line_editing/check_symb.c\
+			srcs/line_editing/line_editing.c\
+			srcs/line_editing/line_editing2.c\
+
+MAKE=srcs/make/buff_editing.c\
+	srcs/make/env.c\
+	srcs/make/env2.c\
+	srcs/make/process.c\
+	srcs/make/term_make.c\
+
+PARSER=srcs/parser/parse.c\
+
+READING=srcs/reading/reading.c\
+
+SIGNAL=srcs/signal/signal.c\
+
+TERM=srcs/term/term.c\
+
+BUILTINS=srcs/builtins/cd/cd.c\
+		srcs/builtins/echo/echo.c\
+		srcs/builtins/env/env.c\
+		srcs/builtins/setenv/setenv.c\
+		srcs/builtins/unsetenv/unsetenv.c\
+
+SRCS=$(ERROR) $(LINE_EDITING) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(BUILTINS)
 
 INCLUDES=includes
 
@@ -43,7 +53,7 @@ all:$(NAME)
 
 $(NAME):
 			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc $(EXTRA_FLAGS) -o $(NAME) $(SRCS) -I $(INCLUDES) -I $(INCLUDES_LIB) -L $(LIB) -lft
 
 clean:
 			make clean -C $(LIB)
