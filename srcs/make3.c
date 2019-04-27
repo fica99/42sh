@@ -6,20 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 16:02:53 by filip             #+#    #+#             */
-/*   Updated: 2019/04/26 22:10:40 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 15:41:33 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void			del_symb(char *buf, short len)
-{
-	buf = ft_strdel_el(buf, len);
-	SAVE_CUR(STDIN_FILENO);
-	CLEAN_SCREEN(STDIN_FILENO);
-	ft_putstr_fd(buf + len, STDIN_FILENO);
-	RESTORE_CUR(STDIN_FILENO);
-}
 
 void			print_symb(char *c, char *buf, short len)
 {
@@ -80,4 +71,27 @@ pid_t	make_process(void)
 	if (p < 0)
 		print_error("minishell", "fork() error", NULL, 0);
 	return (p);
+}
+
+void	ft_setenv(char *name, char *new_value)
+{
+	short	j;
+	char	**envp;
+
+	if ((j = get_count_var(name)) >= 0)
+	{
+		free(g_term.env_cp[j]);
+		g_term.env_cp[j]= join_env(name, new_value);
+	}
+	else
+	{
+		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(g_term.env_cp) + 2))))
+			print_error("minishell", "malloc() error", NULL, ENOMEM);
+		while(g_term.env_cp[++j])
+			envp[j] = g_term.env_cp[j];
+		envp[j] = join_env(name, new_value);
+		envp[++j] = NULL;
+		free(g_term.env_cp);
+		g_term.env_cp = envp;
+	}
 }

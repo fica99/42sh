@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/27 12:58:16 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 15:42:58 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct	s_term
 # define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define HOME "\033[H"
 # define END "\033[F"
+# define CTRL_RIGHT "\033[1;5C"
+# define CTRL_LEFT "\033[1;5D"
 # define PREV_LINE "\033[F"
 # define NEXT_LINE "\033[E"
 # define BCSP 127
@@ -88,6 +90,8 @@ void			get_win_size(void);
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			set_input_mode(void);
+char			*strnew_realloc_buf(char *str, short len);
+void			reset_input_mode (void);
 //check.c
 char			*check_path(void);
 //print.c
@@ -112,16 +116,17 @@ void			read_handler(char *c, int fd);
 void			print_read(char *c);
 void			print_read_other(char *c);
 //make2.c
-char			*strnew_realloc_buf(char *str, short len);
-void			reset_input_mode (void);
 void			go_left(short i);
 void			go_right(short i);
-//make3.c
+void			prev_word(char *buf, short len);
+void			next_word(char *buf);
 void			del_symb(char *buf, short len);
+//make3.c
 void			print_symb(char *c, char *buf, short len);
 char			*ft_strdel_el(char	*buf, size_t i);
 char			*ft_stradd(char	*buf, char *s, size_t i);
 pid_t			make_process(void);
+void			ft_setenv(char *name, char *new_value);
 //parse.c
 void			parse_string(void);
 void			make_command(char *buf);
@@ -130,9 +135,7 @@ void			find_command(char **args);
 char			*check_command(char **args);
 char			*exec_command(char **args);
 //make4.c
-void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
-void			free_double_arr(char **arr);
 //autocom.c
 char			**get_arr_matches(char **start, int prog);
 char			**match_selection(char *arg, char **arr_mat);

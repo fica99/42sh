@@ -6,34 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 17:48:56 by filip             #+#    #+#             */
-/*   Updated: 2019/04/27 01:40:46 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 15:41:39 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_setenv(char *name, char *new_value)
-{
-	short	j;
-	char	**envp;
-
-	if ((j = get_count_var(name)) >= 0)
-	{
-		free(g_term.env_cp[j]);
-		g_term.env_cp[j]= join_env(name, new_value);
-	}
-	else
-	{
-		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(g_term.env_cp) + 2))))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		while(g_term.env_cp[++j])
-			envp[j] = g_term.env_cp[j];
-		envp[j] = join_env(name, new_value);
-		envp[++j] = NULL;
-		free(g_term.env_cp);
-		g_term.env_cp = envp;
-	}
-}
 
 char	*join_env(char *name, char *new_value)
 {
