@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/27 16:14:57 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 17:32:35 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ void	print_read(char *c)
 		!(ft_strcmp(c, RIGHT)) ? go_right(1) : go_right(ft_strlen(g_term.buffer) - len);
 	else if (!(ft_strcmp(c, CTRL_LEFT)) || !(ft_strcmp(c, CTRL_RIGHT)))
 		!(ft_strcmp(c, CTRL_RIGHT)) ? next_word(g_term.buffer + len) : prev_word(g_term.buffer, len);
+	else if (!(ft_strcmp(c, CTRL_UP)) && len - g_term.ws_col >= 0)
+		go_left(g_term.ws_col);
+	else if (!(ft_strcmp(c, CTRL_DOWN)) && (len + g_term.ws_col <= (short)ft_strlen(g_term.buffer)))
+		go_right(g_term.ws_col);
 	//else if (*c == TAB)
 		//autocom();
 	else

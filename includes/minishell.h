@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/27 15:42:58 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/27 17:22:53 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct	s_term
 # define CLEAN_SCREEN(fd) ft_putstr_fd("\033[0J", fd)
 # define HOME "\033[H"
 # define END "\033[F"
+# define CTRL_UP "\033[1;5A"
+# define CTRL_DOWN "\033[1;5B"
 # define CTRL_RIGHT "\033[1;5C"
 # define CTRL_LEFT "\033[1;5D"
 # define PREV_LINE "\033[F"
