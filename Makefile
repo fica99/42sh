@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/28 01:08:18 by filip            ###   ########.fr        #
+#    Updated: 2019/04/28 20:45:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,11 @@ NAME=minishell
 
 ERROR=srcs/error/ft_errno.c\
 
-LINE_EDITING=srcs/line_editing/autocom.c\
-			srcs/line_editing/check_symb.c\
+LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/line_editing.c\
 			srcs/line_editing/line_editing2.c\
+
+AUTOCOM=srcs/autocom/autocom.c\
 
 MAKE=srcs/make/buff_editing.c\
 	srcs/make/env.c\
@@ -39,7 +40,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/setenv/setenv.c\
 		srcs/builtins/unsetenv/unsetenv.c\
 
-SRCS=$(ERROR) $(LINE_EDITING) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(BUILTINS)
+SRCS=$(ERROR) $(LINE_EDITING) $(AUTOCOM) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(BUILTINS)
 
 INCLUDES=includes
 

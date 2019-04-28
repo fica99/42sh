@@ -6,15 +6,16 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/28 01:03:53 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/28 20:35:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "term.h"
 
-char	check_request(int argc, char  **argv)
+char	check_request(int argc, char **argv)
 {
-	char	*path;
+	char		*path;
+	struct stat	buf;
 
 	path = argv[1];
 	if (argc == 1 || !ft_strcmp(argv[1], "--"))
@@ -26,7 +27,11 @@ char	check_request(int argc, char  **argv)
 	}
 	else if (!ft_strcmp(argv[1], "."))
 		path = ft_getenv("PWD");
-	if (access(path, F_OK))
+	if (lstat(path, &buf) < 0)
+		print_error("minishell", "lstat() error", NULL, 0);
+	if (!S_ISDIR(buf.st_mode))
+		print_error_withoutexit(argv[0], "not a directory", path, 0);
+	else if (access(path, F_OK))
 		print_error_withoutexit(argv[0], NULL, path, ENOENT);
 	else if (access(path, R_OK | X_OK))
 		print_error_withoutexit(argv[0], NULL, path, EACCES);
