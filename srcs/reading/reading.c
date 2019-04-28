@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/28 00:13:07 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/28 13:46:48 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 void	read_prompt(void)
 {
+	short	len;
+
 	if (!(g_term.buffer = ft_strnew(NORMAL_LINE)))
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	g_term.malloc_len = NORMAL_LINE;
+	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col);
 	set_input_mode();
 	reading();
+	go_right(ft_strlen(g_term.buffer) - len);
 	reset_input_mode();
 	ft_putchar_fd('\n', STDIN_FILENO);
 }
