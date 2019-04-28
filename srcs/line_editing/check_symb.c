@@ -6,11 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 20:47:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/28 21:10:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+#include "term.h"
 
 void	print_read(char *c)
 {
@@ -45,7 +45,7 @@ void	print_read_other(char *c)
 	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start)
 			* g_term.ws_col);
 	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, DEL)
-			|| *c == CTRL_D)
+		|| *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
 		{

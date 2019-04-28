@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 20:46:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/28 21:16:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	prev_word(char *buf, short len)
 	i = len;
 	while (--i >= 0)
 	{
-		if ((i == 0 || buf[i - 1] == ' ')  &&
+		if ((i == 0 || buf[i - 1] == ' ') &&
 		(ft_isalpha(buf[i]) || ft_isdigit(buf[i])))
 		{
 			go_left(len - i);
-			break;
+			break ;
 		}
 	}
 }
@@ -70,13 +70,13 @@ void	next_word(char *buf)
 		if (buf[i] == ' ')
 			flag = 1;
 		if ((ft_isalpha(buf[i]) || ft_isdigit(buf[i])) && flag)
-			break;
+			break ;
 		i++;
 	}
 	go_right(i);
 }
 
-void			del_symb(char *buf, short len)
+void	del_symb(char *buf, short len)
 {
 	buf = ft_strdel_el(buf, len);
 	SAVE_CUR(STDIN_FILENO);

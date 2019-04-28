@@ -6,11 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:12:06 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/28 21:10:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+#include "term.h"
 
 void			print_symb(char *c, char *buf, short len)
 {
