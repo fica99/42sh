@@ -26,17 +26,54 @@ int autocom(char **buf, short len)
 		print_read(rest_add);
 	if (len_am)
 	{
-		ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
-		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
-		print_arr(arr_mat);
-		ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
-
+		//get_autocom_params(get_max_len(arr_mat), len_am);
+		//ft_putnbr(g_term.autocom_cols);
+		//ft_putchar('\n');
+		//ft_putnbr(g_term.autocom_rows);
+		//ft_putchar('\n');
 	}
 	if (rest_add)
 		free(rest_add);
 	if (arr_mat)
 		free_double_arr(arr_mat);
 	return (1);
+}
+
+int		get_max_len(char **arr_mat)
+{
+	int	max_len;
+	int	len;
+
+	max_len = 0;
+	if (!arr_mat)
+		return (0);
+	while (arr_mat)
+	{
+		if ((len = ft_strlen(*(arr_mat++))) > max_len)
+			max_len = len;
+	}
+	return (max_len);
+}
+
+void	get_autocom_params(int max_len, int cnt_arr_mat)
+{
+	int cnt;
+	int	cols;
+	int delta_cols;
+	int rows;
+	int delta_rows;
+
+	cnt = cnt_arr_mat;
+	while ((cnt * (max_len + 1)) > g_term.ws_col)
+		cnt /= 2;
+	cols = g_term.ws_col / (cnt * (max_len + 1));
+	delta_cols = (g_term.ws_col % (cnt * (max_len + 1)) == 0) ? 0 : 1;
+	cols += delta_cols;
+	g_term.autocom_cols = cols;
+	rows = cnt_arr_mat / cols;
+	delta_rows = (cnt_arr_mat % cols == 0) ? 0 : 1;
+	rows += delta_rows;
+	g_term.autocom_rows = rows;
 }
 
 char *get_start_com(char *buf, int *prog)

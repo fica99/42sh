@@ -24,6 +24,8 @@
 # include <stdint.h> //lib for uint8_t
 # include <fcntl.h>
 # include <termios.h>
+# include <termcap.h>
+# include <term.h>
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
@@ -51,6 +53,8 @@
 typedef struct	s_term
 {
 	short			prompt_len;
+	short			status_x;
+	short			status_y;
 	short			x_cur;
 	short			y_cur;
 	short			ws_col;
@@ -58,6 +62,8 @@ typedef struct	s_term
 	char			**env_cp;
 	struct termios	savetty;
 	short			malloc_len;
+	short			autocom_rows;
+	short			autocom_cols;
 }				t_term;
 
 # define RIGHT "\033[C"
@@ -80,6 +86,8 @@ struct s_term	g_term;
 unsigned short	g_flags;
 int 			errno_f;
 
+//main.c
+int				is_termcap();
 //make.c
 char			**copy_double_arr(char **arr);
 void			get_win_size(void);
@@ -146,6 +154,8 @@ int 			autocom(char **buf, short len);
 char 			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void 			print_arr(char **arr);
+int				get_max_len(char **arr_mat);
+void			get_autocom_params(int max_len, int cnt_arr_mat);
 //cd.c
 void			cd(int argc, char **argv);
 char			check_ch_dir(int argc , char **argv);

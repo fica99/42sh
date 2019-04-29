@@ -43,12 +43,12 @@ void		get_cur_cord()
 		return ; // обработать!
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.y_cur = num;
+	g_term.status_y = num;
 	num = 0;
 	if (!(pos = ft_strchr(cur_cord, (int)';')))
 		return ; // обработать!i
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.x_cur = num;
+	g_term.status_x = num;
 }
 

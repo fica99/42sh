@@ -43,7 +43,7 @@ all:$(NAME)
 
 $(NAME):
 			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) $(BUILTINS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft -ltermcap
 
 clean:
 			make clean -C $(LIB)

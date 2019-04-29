@@ -64,8 +64,8 @@ void	print_read(char *c)
 		go_left(1);
 	else if (!(ft_strcmp(c, RIGHT)) && ((short)ft_strlen(g_term.buffer) > len))
 		go_right(1);
-	//else if (*c == TAB)
-		//autocom();
+	else if (*c == TAB)
+		autocom(&g_term.buffer, 0);
 	else
 		print_read_other(c);
 }
