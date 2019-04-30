@@ -2,7 +2,7 @@
 // Created by Guy Grimes on 2019-03-30.
 //
 
-#include "term.h"
+#include "42sh.h"
 
 /*
  * Обработать malloc ft_strdup;

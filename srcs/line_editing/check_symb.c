@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 21:10:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:20:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "term.h"
+#include "42sh.h"
 
 void	print_read(char *c)
 {
@@ -54,6 +54,7 @@ void	print_read_other(char *c)
 		}
 		if (!ft_strlen(g_term.buffer) && *c == CTRL_D)
 		{
+			reset_input_mode();
 			ft_putchar_fd('\n', STDOUT_FILENO);
 			exit(EXIT_SUCCESS);
 		}

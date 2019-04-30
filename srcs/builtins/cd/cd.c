@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/28 20:35:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:47:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+# include "42sh.h"
 
 char	check_request(int argc, char **argv)
 {
@@ -27,19 +27,20 @@ char	check_request(int argc, char **argv)
 	}
 	else if (!ft_strcmp(argv[1], "."))
 		path = ft_getenv("PWD");
-	if (lstat(path, &buf) < 0)
-		print_error("minishell", "lstat() error", NULL, 0);
-	if (!S_ISDIR(buf.st_mode))
-		print_error_withoutexit(argv[0], "not a directory", path, 0);
-	else if (access(path, F_OK))
+	if (access(path, F_OK))
 		print_error_withoutexit(argv[0], NULL, path, ENOENT);
 	else if (access(path, R_OK | X_OK))
 		print_error_withoutexit(argv[0], NULL, path, EACCES);
-	else if (chdir(path) == -1)
-		print_error("cd", "chdir() error", path, 0);
 	else
-		return (1);
-	return (-1);
+	{
+		if (lstat(path, &buf) < 0)
+			print_error("minishell", "lstat() error", NULL, 0);
+		if (!S_ISDIR(buf.st_mode))
+			print_error_withoutexit(argv[0], "not a directory", path, 0);
+		else if (chdir(path) == -1)
+			print_error("cd", "chdir() error", path, 0);
+	}
+	return (1);
 }
 
 char	check_ch_dir(int argc , char **argv)

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/27 01:41:49 by filip            ###   ########.fr        #
+#    Updated: 2019/04/30 17:34:02 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=libft.a
 
-SRC=  srcs/ft_strlen.c\
+SRC_SEARCH =srcs/ft_strlen.c\
 	  srcs/ft_strdup.c\
 	  srcs/ft_strcmp.c\
 	  srcs/ft_memset.c\
@@ -74,21 +74,29 @@ SRC=  srcs/ft_strlen.c\
 	  srcs/double_arr_len.c\
 	  srcs/free_double_arr.c
 
-FLAGS=-Wall -Werror -Wextra
+SRC = $(wildcard $(SRC_SEARCH))
 
-INCLUDES= includes
+OBJ = $(SRC:.c=.o)
 
-OBJ=*.o
+INCLUDES = -I includes
 
 all: $(NAME)
 
-$(NAME):
-	@gcc $(FLAGS) -c $(SRC) -I $(INCLUDES)
-	@ar -urc $(NAME) $(OBJ)
-	@ranlib $(NAME)
-clean:
-	@rm  -f $(OBJ)
+$(NAME): $(OBJ)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
-fclean: clean
-	@rm -f $(NAME)
+%.o: %.c
+	gcc -c $< -o $@ -Wall -Wextra -Werror $(INCLUDES)
+
+.PHONY: clean
+clean:
+	rm -rf $(OBJ)
+
+.PHONY: fclean
+fclean:	clean
+	rm -rf $(NAME)
+
+.PHONY: re
 re: fclean all
+

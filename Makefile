@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/28 20:45:52 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/30 17:30:45 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,13 @@ BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/setenv/setenv.c\
 		srcs/builtins/unsetenv/unsetenv.c\
 
-SRCS=$(ERROR) $(LINE_EDITING) $(AUTOCOM) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(BUILTINS)
+EXEC=srcs/exec/exec.c
+
+SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(AUTOCOM) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+
+SRC = $(wildcard $(SRC_SEARCH))
+
+OBJ = $(SRC:.c=.o)
 
 INCLUDES=includes
 
@@ -52,15 +58,22 @@ LIB=libft
 
 all:$(NAME)
 
-$(NAME):
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) $(SRCS) -I $(INCLUDES) -I $(INCLUDES_LIB) -L $(LIB) -lft
+$(NAME): $(OBJ) libft
+	gcc $(OBJ) -o $@ -L $(LIB) -lft
+
+%.o: %.c
+	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)
+
+.PHONY: libft
+libft:
+	make -C libft
 
 clean:
-			make clean -C $(LIB)
+	make clean -C $(LIB)
+	rm -rf $(OBJ)
 
 fclean: clean
-			make fclean -C $(LIB)
-			rm -f $(NAME)
+	make fclean -C $(LIB)
+	rm -rf $(NAME)
 
 re: fclean all

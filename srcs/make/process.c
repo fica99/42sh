@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:12:38 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/30 16:02:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+# include "42sh.h"
 
 pid_t	make_process(void)
 {

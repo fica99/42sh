@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   term_make.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:12:46 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/30 16:02:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+# include "42sh.h"
 
 void	get_win_size(void)
 {

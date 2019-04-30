@@ -6,7 +6,7 @@
 /*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 12:25:02 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/08 13:58:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:52:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		ft_cnt_parts(const char *s, char c)
 
 	in_substring = 0;
 	cnt = 0;
-	while (*s != '\0')
+	while (s && *s != '\0')
 	{
 		if (in_substring == 1 && *s == c)
 			in_substring = 0;

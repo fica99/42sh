@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   buff_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:12:16 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/30 16:20:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "term.h"
+# include "42sh.h"
 
 char	**copy_double_arr(char **arr)
 {
@@ -36,8 +36,8 @@ char			*strnew_realloc_buf(char *str, short len)
 	arr = str;
 	if (!(str = ft_strnew(len)))
 	{
-		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
+		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	}
 	str = ft_strcat(str, arr);
@@ -56,8 +56,8 @@ char	*ft_strdel_el(char	*buf, size_t i)
 	{
 		if (!(str = ft_strdup(buf + i + 1)))
 		{
-			ft_putchar_fd('\n', STDERR_FILENO);
 			reset_input_mode();
+			ft_putchar_fd('\n', STDERR_FILENO);
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
 		}
 	}
@@ -75,8 +75,8 @@ char	*ft_stradd(char	*buf, char *s, size_t i)
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
 	{
-		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
+		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("minishell", "malloc() error", NULL, ENOMEM);
 	}
 	*(buf + i) = '\0';

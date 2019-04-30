@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/28 01:04:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/30 16:01:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "term.h"
+#include "42sh.h"
 
 char	check_set(char **argv)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errno.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:11:28 by filip            ###   ########.fr       */
+/*   Updated: 2019/04/30 16:01:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "term.h"
+#include "42sh.h"
 
 void ft_perror(char *str)
 {
