@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 16:13:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 19:37:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ pid_t			make_process(void);
 void			ft_setenv(char *name, char *new_value);
 void			parse_string(void);
 void			make_command(char *buf);
-char			**spec_symbols(char **args);
+char			*spec_symbols(char *args);
 void			find_command(char **args);
 char			*check_command(char **args);
 char			*exec_command(char **args);
