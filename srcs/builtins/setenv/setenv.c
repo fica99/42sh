@@ -6,38 +6,33 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 18:40:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:01:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
-uint8_t ft_setenv(int argc, char **argv, char **environ)
+void set_env(int argc, char **argv, char **env_cp)
 {
-    int	j;
-	int	i;
-    
-    if (argc == 1)
-        print_environ(environ);
-    else
-    {
-        j = 0;
-        i = 0;
-        while (environ[i])
-            i++;
-        while (argv[++j])
-        {
-            if (!(ft_strchr(argv[j], '=')))
-                continue ;
-            else
-				environ[i++] = argv[j];
+	short	j;
+	char	*value;
+
+	(void)env_cp;
+	value = NULL;
+	j = 0;
+	if (argc == 1)
+		print_environ();
+	else
+	{
+		while (argv[++j])
+		{
+			if (!(value = ft_strchr(argv[j], '=')))
+				continue ;
+			else
+			{
+				*value = '\0';
+				ft_setenv(argv[j], ++value);
+			}
 		}
-    }
-    return (0);
-}
-
-int     main(int argc, char **argv, char **environ)
-{
-    ft_setenv(argc, argv, environ);
-    return (0);
+	}
 }

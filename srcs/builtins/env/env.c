@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/03/23 18:26:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/04/30 16:01:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "42sh.h"
 
-uint8_t	check_set(char **argv)
+char	check_set(char **argv)
 {
 	short	j;
 
@@ -21,37 +21,29 @@ uint8_t	check_set(char **argv)
 	{
 		if (!(ft_strchr(argv[j], '=')))
 		{
-			ft_putstr("env: ");
-			ft_putstr(argv[j]);
-			ft_putstr(": No such file or directory\n");
-			return (1);
+			print_error_withoutexit(argv[0], argv[1], NULL, ENOENT);
+			return (-1);
 		}
 	}
-	return (0);
+	return (1);
 }
 
-uint8_t env(int argc, char **argv, char **environ)
+void env(int argc, char **argv, char **env_cp)
 {
 	short	j;
 
 	j = 0;
-	if (check_set(argv))
-		return (1);
-	print_environ(environ);
+	(void)env_cp;
+	if (check_set(argv) < 0)
+		return ;
+	print_environ();
 	if (argc != 1)
 	{
 		j = 0;
 		while (argv[++j])
 		{
-				ft_putstr(argv[j]);
-				ft_putchar('\n');
+				ft_putstr_fd(argv[j], STDOUT_FILENO);
+				ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 	}
-	return (0);
-}
-
-int main(int argc, char **argv, char **environ)
-{
-    env(argc, argv, environ);
-    return (0);
 }

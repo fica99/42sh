@@ -6,34 +6,48 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/03/25 17:20:50 by aashara-         ###   ########.fr        #
+#    Updated: 2019/04/30 17:30:45 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-ECHO=echo
+ERROR=srcs/error/ft_errno.c\
 
-ECHO_SRCS=builtins/echo/echo.c
-CD=cd
+LINE_EDITING=srcs/line_editing/check_symb.c\
+			srcs/line_editing/line_editing.c\
+			srcs/line_editing/line_editing2.c\
 
-CD_SRCS=builtins/cd/cd.c
-ENV=env
+AUTOCOM=srcs/autocom/autocom.c\
 
-ENV_SRCS=builtins/env/env.c
+MAKE=srcs/make/buff_editing.c\
+	srcs/make/env.c\
+	srcs/make/env2.c\
+	srcs/make/process.c\
+	srcs/make/term_make.c\
 
-SETENV=setenv
+PARSER=srcs/parser/parse.c\
 
-SETENV_SRCS=builtins/setenv/setenv.c
+READING=srcs/reading/reading.c\
 
-UNSETENV=unsetenv
+SIGNAL=srcs/signal/signal.c\
 
-UNSETENV_SRCS=builtins/unsetenv/unsetenv.c
+TERM=srcs/term/term.c\
 
-SRCS=srcs/get.c\
-	srcs/flags.c\
-	srcs/make.c
- 
+BUILTINS=srcs/builtins/cd/cd.c\
+		srcs/builtins/echo/echo.c\
+		srcs/builtins/env/env.c\
+		srcs/builtins/setenv/setenv.c\
+		srcs/builtins/unsetenv/unsetenv.c\
+
+EXEC=srcs/exec/exec.c
+
+SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(AUTOCOM) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+
+SRC = $(wildcard $(SRC_SEARCH))
+
+OBJ = $(SRC:.c=.o)
+
 INCLUDES=includes
 
 INCLUDES_LIB=libft/includes
@@ -42,43 +56,24 @@ EXTRA_FLAGS=-Wall -Wextra -Werror
 
 LIB=libft
 
-all:$(NAME) $(CD) $(ECHO) $(ENV) $(SETENV) $(UNSETENV)
+all:$(NAME)
 
-$(NAME):
-			mkdir bin
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(NAME) main.c $(SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
+$(NAME): $(OBJ) libft
+	gcc $(OBJ) -o $@ -L $(LIB) -lft
 
-$(ECHO) :
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(ECHO) $(SRCS) $(ECHO_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
-			mv $(ECHO) ./bin/echo
+%.o: %.c
+	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)
 
-$(CD):
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(CD) $(SRCS) $(CD_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft			
-			mv $(CD) ./bin/cd
+.PHONY: libft
+libft:
+	make -C libft
 
-$(ENV) :
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(ENV) $(SRCS) $(ENV_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
-			mv $(ENV) ./bin/env
-
-$(SETENV) :
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(SETENV) $(SRCS) $(SETENV_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
-			mv $(SETENV) ./bin/setenv
-
-$(UNSETENV) :
-			make re -C $(LIB)
-			gcc $(EXTRA_FLAGS) -o $(UNSETENV) $(SRCS) $(UNSETENV_SRCS) -I $(INCLUDES_LIB) -I $(INCLUDES) -L $(LIB) -lft
-			mv $(UNSETENV) ./bin/unsetenv
 clean:
-			make clean -C $(LIB)
+	make clean -C $(LIB)
+	rm -rf $(OBJ)
 
 fclean: clean
-			make fclean -C $(LIB)
-			rm -f $(NAME)
-			rm -rf ./bin/
-			
+	make fclean -C $(LIB)
+	rm -rf $(NAME)
+
 re: fclean all

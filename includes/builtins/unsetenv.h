@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   unsetenv.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 19:41:50 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:03:03 by aashara-         ###   ########.fr       */
+/*   Created: 2019/04/28 00:04:46 by filip             #+#    #+#             */
+/*   Updated: 2019/04/28 00:40:59 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef UNSETENV_H
+# define UNSETENV_H
 
-void	ft_putstr_fd(char const *s, int fd)
-{
-	int	i;
+# include "libft.h"
 
-	if (s)
-	{
-		i = ft_strlen(s);
-		write(fd, s, i);
-	}
-}
+void			ft_unsetenv(int argc, char **argv, char **env_cp);
+char			**copy_new_arr(short i);
+#endif

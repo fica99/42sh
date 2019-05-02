@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   colour.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 19:41:50 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:03:03 by aashara-         ###   ########.fr       */
+/*   Created: 2019/04/27 23:44:46 by filip             #+#    #+#             */
+/*   Updated: 2019/04/27 23:52:10 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef COLOUR_H
+# define COLOUR_H
 
-void	ft_putstr_fd(char const *s, int fd)
-{
-	int	i;
+# define STANDART(fd) ft_putstr_fd("\033[0m", fd)
+# define RED(fd) ft_putstr_fd("\033[0;31m", fd)
+# define GREEN(fd) ft_putstr_fd("\033[0;32m", fd)
+# define YELLOW(fd) ft_putstr_fd("\033[0;33m", fd)
+# define BLUE(fd) ft_putstr_fd("\033[0;34m", fd)
+# define PURPLE(fd) ft_putstr_fd("\033[0;35m", fd)
+# define CYAN(fd) ft_putstr_fd("\033[0;36m", fd)
 
-	if (s)
-	{
-		i = ft_strlen(s);
-		write(fd, s, i);
-	}
-}
+#endif

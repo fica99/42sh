@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   double_arr_len.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 19:41:50 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/19 20:03:03 by aashara-         ###   ########.fr       */
+/*   Created: 2019/04/26 15:58:51 by filip             #+#    #+#             */
+/*   Updated: 2019/04/26 15:59:07 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char const *s, int fd)
+unsigned short	double_arr_len(char **arr)
 {
-	int	i;
+	unsigned short	i;
 
-	if (s)
-	{
-		i = ft_strlen(s);
-		write(fd, s, i);
-	}
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
