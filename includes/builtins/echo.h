@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:57:50 by filip             #+#    #+#             */
-/*   Updated: 2019/04/28 00:40:40 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/08 18:15:35 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 # define ECHO_H
 # include "libft.h"
 
-void			echo(int argc, char **argv, char **env_cp);
+void			ft_echo(int argc, char **argv, char **env_cp);
 #endif

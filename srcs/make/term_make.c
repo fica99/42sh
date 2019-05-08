@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/04/30 16:02:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:21:07 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,21 @@
 
 void	get_win_size(void)
 {
-	struct winsize	size;
+	if ((g_term.ws_col = tigetnum("cols")) == -2 ||
+	(g_term.ws_row = tigetnum("lines")) == -2)
+	print_error("minishell", "tigetnum() error", "no correct defenitions", 0);
+}
 
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);
-	g_term.ws_col = size.ws_col;
-	g_term.ws_row = size.ws_row;
+void	init_term()
+{
+	char	*smkx_mode;
+
+	setupterm(ft_getenv("TERM"), STDIN_FILENO, (int*)0);
+	if ((smkx_mode = tigetstr("smkx")) != (char*)-1)
+		tputs(smkx_mode, 1, putchar);
+//	if (tigetflag("bw") == -1 || tigetflag("am") == -1
+//	|| tigetflag("da") == -1 || tigetflag("db") == -1 || tigetflag("msgr") == -1)
+//		print_error("minishell", "tigetflag() error", "no correct defenitions", 0);
 }
 
 void		get_cur_cord(void)
@@ -69,21 +78,3 @@ void	reset_input_mode (void)
 		print_error("minishell", "tcsetattr() error", NULL, 0);
 }
 
-void    ft_putstr_cord(char *str)
-{
-	while (str && *str)
-	{
-		ft_putchar_fd(*str, STDIN_FILENO);
-		(g_term.x_cur)++;
-		str++;
-		if (g_term.x_cur > g_term.ws_col)
-		{
-			ft_putchar_fd('\n', STDIN_FILENO);
-			g_term.x_cur = 1;
-			if (g_term.y_cur >= g_term.ws_row)
-				(g_term.y_start)--;
-			else
-				(g_term.y_cur)++;
-		}
-	}
-}

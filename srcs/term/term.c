@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 18:59:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:26:46 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ int		main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	g_term.env_cp = copy_double_arr(environ);
+	init_term();
 	get_win_size();
 	term_start();
 	free_double_arr(g_term.env_cp);
+	reset_term();
 	return (EXIT_SUCCESS);
 }
 
@@ -36,6 +38,8 @@ void	term_start(void)
 		read_prompt();
 		if (!(g_flags & TERM_SIGINT))
 			parse_string();
+		if (g_flags & TERM_EXIT)
+			break;
 		ft_memdel((void**)&(g_term.buffer));
 	}
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/04/30 17:30:45 by aashara-         ###   ########.fr        #
+#    Updated: 2019/05/02 11:57:28 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ MAKE=srcs/make/buff_editing.c\
 	srcs/make/env2.c\
 	srcs/make/process.c\
 	srcs/make/term_make.c\
-
+	srcs/make/term_make2.c\
+	
 PARSER=srcs/parser/parse.c\
 
 READING=srcs/reading/reading.c\
@@ -59,7 +60,7 @@ LIB=libft
 all:$(NAME)
 
 $(NAME): $(OBJ) libft
-	gcc $(OBJ) -o $@ -L $(LIB) -lft
+	gcc $(OBJ) -o $@ -L $(LIB) -lft -lncurses
 
 %.o: %.c
 	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)

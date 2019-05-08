@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 19:37:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:23:48 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	find_command(char **args)
 	if (ft_strcmp(args[0], "cd") == 0)
 		cd(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		echo(double_arr_len(args), args, g_term.env_cp);
+		ft_echo(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "env") == 0)
 		env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "setenv") == 0)
@@ -25,7 +25,10 @@ void	find_command(char **args)
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "exit") == 0)
-		exit(EXIT_SUCCESS);
+	{
+		g_flags |= TERM_EXIT;
+		return;
+	}
 	else if (!check_command(args)  && !exec_command(args))
 		print_error_withoutexit("minishell", "command not found", args[0], 0);
 }

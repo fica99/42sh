@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   42sh.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 19:37:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:26:30 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <sys/wait.h>
-# include <sys/ioctl.h>
 # include <sys/stat.h>
 # include <signal.h>
 # include <stdint.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <curses.h>
+# include <term.h>
 # include "macro/colour.h"
 # include "macro/command.h"
 # include "macro/error.h"
@@ -35,12 +36,14 @@
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
+# define TERM_EXIT (1 << 2)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
 # define SOMETHING "1"
 # define READING 1
 # define INIT_FLAGS 0
+
 
 typedef struct	s_term
 {
@@ -56,12 +59,12 @@ typedef struct	s_term
 	short			malloc_len;
 }				t_term;
 
-
 struct s_term	g_term;
 unsigned short	g_flags;
 int 			errno_f;
 
 char			**copy_double_arr(char **arr);
+void			init_term();
 void			get_win_size(void);
 void	        term_start(void);
 void			signalling(void);
@@ -117,4 +120,5 @@ int 			autocom(char **buf, short len);
 char 			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void 			print_arr(char **arr);
+void			reset_term(void);
 #endif
