@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/17 23:22:21 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 00:55:41 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,23 @@ void	term_prompt(void)
 	char	hostname[FT_HOST_NAME_MAX];
 
 	gethostname(hostname, FT_HOST_NAME_MAX);
-	RED(STDERR_FILENO);
+	RED(STDIN_FILENO);
 	ft_putchar_fd('[', STDERR_FILENO);
 	CYAN(STDIN_FILENO);
-	ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
-	RED(STDIN_FILENO);
-	ft_putchar_fd('@', STDIN_FILENO);
+	if (ft_getenv("USER"))
+	{
+		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
+		RED(STDIN_FILENO);
+		ft_putchar_fd('@', STDIN_FILENO);
+	}
 	GREEN(STDIN_FILENO);
 	ft_putstr_fd(hostname, STDIN_FILENO);
-	RED(STDIN_FILENO);
-	ft_putchar_fd(' ', STDIN_FILENO);
-	YELLOW(STDIN_FILENO);
-	path = check_path();
-	ft_putstr_fd(path, STDIN_FILENO);
+	if ((path = check_path()))
+	{
+		ft_putchar_fd(' ', STDIN_FILENO);
+		YELLOW(STDIN_FILENO);
+		ft_putstr_fd(path, STDIN_FILENO);
+	}
 	RED(STDIN_FILENO);
 	ft_putchar_fd(']', STDIN_FILENO);
 	PURPLE(STDIN_FILENO);

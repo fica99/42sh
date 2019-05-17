@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 00:41:59 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 00:46:52 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,10 @@ void	cd(int argc, char **argv, char **env_cp)
 		return;
 	if (!(getcwd(buf, MAXDIR)))
 		print_error("cd", "getcwd() error", argv[1], 0);
-	ft_setenv("OLDPWD", ft_getenv("PWD"));
-	ft_setenv("PWD", buf);
+	if (ft_getenv("PWD"))
+	{
+		ft_setenv("OLDPWD", ft_getenv("PWD"));
+		ft_setenv("PWD", buf);
+	}
 }
 
