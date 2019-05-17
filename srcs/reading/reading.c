@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/17 18:59:57 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 23:22:33 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void	read_prompt(void)
 {
+	get_cur_cord();
+	g_term.x_start = g_term.x_cur;
+	g_term.y_start = g_term.y_cur;
 	if (!(g_term.buffer = ft_strnew(NORMAL_LINE)))
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	g_term.malloc_len = NORMAL_LINE;
 	set_input_mode();
 	reading();
@@ -56,7 +59,7 @@ void	read_handler(char *c, int fd)
 	{
 		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode();
-		print_error("minishell", "read() error", NULL, 0);
+		print_error("42sh", "read() error", NULL, 0);
 	}
 	c[nb] = '\0';
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 19:31:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/17 23:19:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*spec_symbols(char *args)
 		{
 			arr = args;
 			if (!(args = ft_strjoin(path, arr + 1)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
 			ft_memdel((void**)&arr);
 		}
 	}
@@ -65,7 +65,7 @@ char	*spec_symbols(char *args)
 		{
 			arr = args;
 			if (!(args = ft_strdup(path)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
 			ft_memdel((void**)&arr);
 		}
 	}

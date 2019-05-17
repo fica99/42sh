@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 18:38:19 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 23:21:38 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    ft_putstr_cord(char *str)
 	}
 }
 
-void	reset_term()
+void	reset_term(void)
 {
 	char	*rmkx_mode;
 

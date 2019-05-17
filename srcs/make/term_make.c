@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 19:18:09 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 23:14:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	get_win_size(void)
 	struct winsize	size;
 
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
-		print_error("minishell", "ioctl() error", NULL, 0);
+		print_error("42sh", "ioctl() error", NULL, 0);
 	g_term.ws_col = size.ws_col;
 	g_term.ws_row = size.ws_row;
 }
@@ -30,7 +30,7 @@ void	init_term()
 
 	if ((term = ft_getenv("TERM")) == NULL ||
 	(setupterm(term, STDIN_FILENO, &err) == ERR))
-	print_error("minishell", "setupterm() error", NULL, 0);
+	print_error("42sh", "setupterm() error", NULL, 0);
 	if ((smkx_mode = tigetstr("smkx")) != (char*)-1 && tigetstr("u7") != (char*)-1
 	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1
 	&& tigetstr("kcuf1") != (char*)-1 && tigetstr("kend") != (char*)-1
@@ -39,7 +39,7 @@ void	init_term()
 	&& tigetstr("clear") != (char*)-1 && tigetstr("kdch1") != (char*)-1)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
-		print_error("minishell", "no correct capabilities", NULL, 0);
+		print_error("42sh", "no correct capabilities", NULL, 0);
 }
 
 void		get_cur_cord(void)
@@ -71,21 +71,20 @@ void	set_input_mode(void)
 	struct termios	tty;
 
 	if (!isatty(0))
-		print_error("minishell", "stdin not terminal\n", NULL, 0);
+		print_error("4sh", "stdin not terminal\n", NULL, 0);
 	if (tcgetattr(STDIN_FILENO, &(g_term.savetty)) < 0)
-		print_error("minishell", "tcgetattr() error", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, &tty) < 0)
-		print_error("minishell", "tcgetattr() error", NULL, 0);
+		print_error("42sh", "tcgetattr() error", NULL, 0);
+	tty = g_term.savetty;
 	tty.c_lflag &= ~(ICANON | ECHO | ISIG);
 	tty.c_cc[VTIME] = 0;
 	tty.c_cc[VMIN] = 1;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
-		print_error("minishell", "tcsetattr() error", NULL, 0);
+		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
 
 void	reset_input_mode (void)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &(g_term.savetty)) < 0)
-		print_error("minishell", "tcsetattr() error", NULL, 0);
+		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
 

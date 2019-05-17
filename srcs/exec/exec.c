@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/08 18:23:48 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 23:20:02 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	find_command(char **args)
 		return;
 	}
 	else if (!check_command(args)  && !exec_command(args))
-		print_error_withoutexit("minishell", "command not found", args[0], 0);
+		print_error_withoutexit("42sh", "command not found", args[0], 0);
 }
 
 char	*check_command(char **args)
@@ -42,14 +42,14 @@ char	*check_command(char **args)
 	if (!access(args[0], F_OK | X_OK))
 	{
 		if (lstat(args[0], &buf) < 0)
-			print_error("minishell", "lstat() error", NULL, 0);
+			print_error("42sh", "lstat() error", NULL, 0);
 		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
 		if (!p)
 		{
 			if (execve(args[0], args, g_term.env_cp) < 0)
-				print_error("minishell", "execve() error", args[0], 0);
+				print_error("42sh", "execve() error", args[0], 0);
 		}
 		else
 		{
@@ -74,14 +74,14 @@ char	*exec_command(char **args)
 	while (path[++i])
 	{
 		if (!(file_path = ft_strjoin(ft_strcat(path[i], "/"), args[0])))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
 		if (!access(file_path, F_OK | X_OK) && !ft_strcmp(ft_strrchr(file_path, '/') + 1, args[0]))
 		{
 			p = make_process();
 			if (!p)
 			{
 				if (execve(file_path, args, g_term.env_cp) < 0)
-					print_error("minishell", "execve() error", args[0], 0);
+					print_error("42sh", "execve() error", args[0], 0);
 			}
 			else
 			{

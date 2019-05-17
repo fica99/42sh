@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/12 19:26:48 by filip            ###   ########.fr        #
+#    Updated: 2019/05/17 23:41:46 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(ERROR) $(LINE_EDITING)  $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 
