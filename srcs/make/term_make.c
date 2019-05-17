@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/08 19:21:07 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 18:48:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,22 @@ void	get_win_size(void)
 
 void	init_term()
 {
+	char	*term;
+	int		err;
 	char	*smkx_mode;
 
-	setupterm(ft_getenv("TERM"), STDIN_FILENO, (int*)0);
-	if ((smkx_mode = tigetstr("smkx")) != (char*)-1)
-		tputs(smkx_mode, 1, putchar);
-//	if (tigetflag("bw") == -1 || tigetflag("am") == -1
-//	|| tigetflag("da") == -1 || tigetflag("db") == -1 || tigetflag("msgr") == -1)
-//		print_error("minishell", "tigetflag() error", "no correct defenitions", 0);
+	if ((term = ft_getenv("TERM")) == NULL ||
+	(setupterm(term, STDIN_FILENO, &err) == ERR))
+	print_error("minishell", "setupterm() error", NULL, 0);
+	if ((smkx_mode = tigetstr("smkx")) != (char*)-1 && tigetstr("u7") != (char*)-1
+	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1
+	&& tigetstr("kcuf1") != (char*)-1 && tigetstr("kend") != (char*)-1
+	&& tigetstr("cup") != (char*)-1 && tigetstr("sc") != (char*)-1
+	&& tigetstr("rc") != (char*)-1 && tigetstr("ed") != (char*)-1
+	&& tigetstr("clear") != (char*)-1 && tigetstr("kdch1") != (char*)-1)
+		ft_putstr_fd(smkx_mode, STDIN_FILENO);
+	else
+		print_error("minishell", "no correct capabilities", NULL, 0);
 }
 
 void		get_cur_cord(void)
@@ -39,20 +47,20 @@ void		get_cur_cord(void)
 
 	num = 0;
 	set_input_mode();
-	ft_putstr_fd(CUR_CORD, STDIN_FILENO);
+	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
 	reset_input_mode();
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ; // обработать!
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.y_cur = num;
+	g_term.y_cur = num - 1;
 	num = 0;
 	if (!(pos = ft_strchr(cur_cord, (int)';')))
 		return ; // обработать!i
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.x_cur = num;
+	g_term.x_cur = num - 1;
 }
 
 void	set_input_mode(void)

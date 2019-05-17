@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/04/30 16:19:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/13 19:38:34 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void			print_symb(char *c, char *buf, short len)
 	short	i;
 
 	buf = ft_stradd(buf, c, len);
-	CLEAN_SCREEN(STDIN_FILENO);
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buf + len);
-	i = ft_strlen(buf + len);
-	go_left(i - 1);
+	i = ft_strlen(buf + len) - 1;
+	go_left(i);
 }

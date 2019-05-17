@@ -26,10 +26,10 @@ int autocom(char **buf, short len)
 		print_read(rest_add);
 	if (len_am)
 	{
-		SAVE_CUR(STDIN_FILENO);
+ft_putstr_fd(tigetstr("sc"), STDIN_FILENO);
 		ft_putstr_fd(NEXT_LINE, STDIN_FILENO);
 		print_arr(arr_mat);
-		RESTORE_CUR(STDIN_FILENO);
+	ft_putstr_fd(tigetstr("rc"), STDIN_FILENO);
 
 	}
 	if (rest_add)

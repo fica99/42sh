@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 16:03:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/12 19:31:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ void	signal_handler(int sign)
 	{
 		len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col);
 		get_win_size();
-		ft_putstr_fd(HOME, STDIN_FILENO);
-		CLEAN_SCREEN(STDIN_FILENO);
+		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
 		term_prompt();
 		get_cur_cord();
 		g_term.x_start = g_term.x_cur;
