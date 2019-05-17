@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 18:48:42 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 19:18:09 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	get_win_size(void)
 {
-	if ((g_term.ws_col = tigetnum("cols")) == -2 ||
-	(g_term.ws_row = tigetnum("lines")) == -2)
-	print_error("minishell", "tigetnum() error", "no correct defenitions", 0);
+	struct winsize	size;
+
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
+		print_error("minishell", "ioctl() error", NULL, 0);
+	g_term.ws_col = size.ws_col;
+	g_term.ws_row = size.ws_row;
 }
 
 void	init_term()

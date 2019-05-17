@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/12 19:31:55 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 19:17:35 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	signal_handler(int sign)
 	if (sign == SIGWINCH)
 	{
 		len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start) * g_term.ws_col);
+		ft_putnbr(g_term.ws_col);
 		get_win_size();
+		ft_putnbr(g_term.ws_col);
 		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
 		term_prompt();
 		get_cur_cord();

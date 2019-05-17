@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/08 19:26:30 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/17 19:18:53 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
+# include <sys/ioctl.h>
 # include "macro/colour.h"
 # include "macro/command.h"
 # include "macro/error.h"
