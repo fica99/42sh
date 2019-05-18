@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:17:04 by filip             #+#    #+#             */
-/*   Updated: 2019/04/30 16:46:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:15:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
 char	*ft_getenv(char *arr)
 {
@@ -42,13 +42,14 @@ void	ft_setenv(char *name, char *new_value)
 	if ((j = get_count_var(name)) >= 0)
 	{
 		free(g_term.env_cp[j]);
-		g_term.env_cp[j]= join_env(name, new_value);
+		g_term.env_cp[j] = join_env(name, new_value);
 	}
 	else
 	{
-		if (!(envp = (char**)malloc(sizeof(char*) * (double_arr_len(g_term.env_cp) + 2))))
+		if (!(envp = (char**)malloc(sizeof(char*) *
+						(double_arr_len(g_term.env_cp) + 2))))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		while(g_term.env_cp[++j])
+		while (g_term.env_cp[++j])
 			envp[j] = g_term.env_cp[j];
 		envp[j] = join_env(name, new_value);
 		envp[++j] = NULL;
@@ -67,7 +68,7 @@ char	*join_env(char *name, char *new_value)
 	if (!(name2 = ft_strjoin(name1, new_value)))
 		print_error("setenv", "malloc() error", NULL, ENOMEM);
 	ft_memdel((void**)&name1);
-	return(name2);
+	return (name2);
 }
 
 void	print_environ(void)
@@ -77,7 +78,7 @@ void	print_environ(void)
 	i = -1;
 	while (g_term.env_cp[++i])
 	{
-		ft_putstr_fd(g_term.env_cp[i],STDOUT_FILENO);
+		ft_putstr_fd(g_term.env_cp[i], STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 }

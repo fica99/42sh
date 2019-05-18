@@ -6,31 +6,32 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/04/30 16:01:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:18:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
-void ft_perror(char *str)
+void	ft_perror(char *str)
 {
 	ft_putstr_fd(str, STDERR_FILENO);
-	if (errno_f)
+	if (g_errno_f)
 		pr_gen_perror();
 }
 
-void pr_gen_perror(void)
+void	pr_gen_perror(void)
 {
-	int err;
-	char *str[] = {
+	int		err;
+	char	*str[] = {
 			": No such file or directory",
 			": Cannot allocate memory",
 			": Permission denied",
 	};
+
 	err = -1;
-	if (errno_f == ENOENT)
+	if (g_errno_f == ENOENT)
 		err = 0;
-	else if (errno_f == ENOMEM)
+	else if (g_errno_f == ENOMEM)
 		err = 1;
 	else
 		err = 2;
@@ -39,7 +40,7 @@ void pr_gen_perror(void)
 
 void	print_error(char *name, char *str, char *command, int p)
 {
-	errno_f = p;
+	g_errno_f = p;
 	ft_putstr_fd(name, STDERR_FILENO);
 	if (str)
 		ft_putstr_fd(": ", STDERR_FILENO);
@@ -55,7 +56,7 @@ void	print_error(char *name, char *str, char *command, int p)
 
 void	print_error_withoutexit(char *name, char *str, char *command, int p)
 {
-	errno_f = p;
+	g_errno_f = p;
 	ft_putstr_fd(name, STDERR_FILENO);
 	if (str)
 		ft_putstr_fd(": ", STDERR_FILENO);

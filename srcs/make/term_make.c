@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 23:14:55 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:16:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
-void	get_win_size(void)
+void		get_win_size(void)
 {
 	struct winsize	size;
 
@@ -22,7 +22,7 @@ void	get_win_size(void)
 	g_term.ws_row = size.ws_row;
 }
 
-void	init_term()
+void		init_term(void)
 {
 	char	*term;
 	int		err;
@@ -30,8 +30,9 @@ void	init_term()
 
 	if ((term = ft_getenv("TERM")) == NULL ||
 	(setupterm(term, STDIN_FILENO, &err) == ERR))
-	print_error("42sh", "setupterm() error", NULL, 0);
-	if ((smkx_mode = tigetstr("smkx")) != (char*)-1 && tigetstr("u7") != (char*)-1
+		print_error("42sh", "setupterm() error", NULL, 0);
+	if ((smkx_mode = tigetstr("smkx")) != (char*)-1
+		&& tigetstr("u7") != (char*)-1
 	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1
 	&& tigetstr("kcuf1") != (char*)-1 && tigetstr("kend") != (char*)-1
 	&& tigetstr("cup") != (char*)-1 && tigetstr("sc") != (char*)-1
@@ -54,19 +55,19 @@ void		get_cur_cord(void)
 	read_handler(cur_cord, STDOUT_FILENO);
 	reset_input_mode();
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
-		return ; // обработать!
+		return ;
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
 	g_term.y_cur = num - 1;
 	num = 0;
 	if (!(pos = ft_strchr(cur_cord, (int)';')))
-		return ; // обработать!i
+		return ;
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
 	g_term.x_cur = num - 1;
 }
 
-void	set_input_mode(void)
+void		set_input_mode(void)
 {
 	struct termios	tty;
 
@@ -82,9 +83,8 @@ void	set_input_mode(void)
 		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
 
-void	reset_input_mode (void)
+void		reset_input_mode(void)
 {
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &(g_term.savetty)) < 0)
 		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
-

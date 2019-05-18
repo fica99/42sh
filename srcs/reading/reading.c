@@ -6,11 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/17 23:22:33 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:17:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 void	read_prompt(void)
 {
@@ -47,7 +47,7 @@ void	reading(void)
 					g_term.malloc_len += NORMAL_LINE);
 		print_read(c);
 		if (g_flags & TERM_EXIT)
-			break;
+			break ;
 	}
 }
 

@@ -6,12 +6,12 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/17 19:18:53 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:09:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef SH42_H
-# define SH42_H
+#ifndef FT_SHELL_H
+# define FT_SHELL_H
 
 # include "libft.h"
 # include <unistd.h>
@@ -45,7 +45,6 @@
 # define READING 1
 # define INIT_FLAGS 0
 
-
 typedef struct	s_term
 {
 	short			x_start;
@@ -62,12 +61,12 @@ typedef struct	s_term
 
 struct s_term	g_term;
 unsigned short	g_flags;
-int 			errno_f;
+int				g_errno_f;
 
 char			**copy_double_arr(char **arr);
 void			init_term();
 void			get_win_size(void);
-void	        term_start(void);
+void			term_start(void);
 void			signalling(void);
 void			signal_handler(int sign);
 void			term_prompt(void);
@@ -76,7 +75,7 @@ void			set_input_mode(void);
 void			reset_input_mode (void);
 void			term_prompt(void);
 void			get_cur_cord(void);
-void  			ft_putstr_cord(char *str);
+void			ft_putstr_cord(char *str);
 void			read_prompt(void);
 void			reading(void);
 void			read_handler(char *c, int fd);
@@ -96,9 +95,10 @@ short			get_count_var(char *arr);
 char			*check_path(void);
 void			print_error(char *name, char *str, char *command, int p);
 void			print_environ(void);
-void			print_error_withoutexit(char *name, char *str, char *command, int p);
-void 			ft_perror(char *str);
-void 			pr_gen_perror(void);
+void			print_error_withoutexit(char *name, char *str, char *command,
+				int p);
+void			ft_perror(char *str);
+void			pr_gen_perror(void);
 pid_t			make_process(void);
 void			ft_setenv(char *name, char *new_value);
 void			parse_string(void);
@@ -111,15 +111,15 @@ char			*join_env(char *name, char *new_value);
 char			**get_arr_matches(char **start, int prog);
 char			**match_selection(char *arg, char **arr_mat);
 char			**get_dirs_arr(char *path, int flag);
-char  			*get_autocom_part(char **com_arr, char *arg);
+char			*get_autocom_part(char **com_arr, char *arg);
 char			**get_prog_arr(char *arg);
-char 			**ft_strarr_add(char **dest, char **src, char **exc);
-int 			ft_strarr_len(char **str_arr);
-int 			ft_cheak_exc(char *str, char **exc);
+char			**ft_strarr_add(char **dest, char **src, char **exc);
+int				ft_strarr_len(char **str_arr);
+int				ft_cheak_exc(char *str, char **exc);
 char			get_type(mode_t mode);
-int 			autocom(char **buf, short len);
-char 			*get_start_com(char *buf, int *prog);
+int				autocom(char **buf, short len);
+char			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
-void 			print_arr(char **arr);
+void			print_arr(char **arr);
 void			reset_term(void);
 #endif

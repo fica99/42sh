@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 23:21:38 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:16:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
-void    ft_putstr_cord(char *str)
+void	ft_putstr_cord(char *str)
 {
 	while (str && *str)
 	{
@@ -37,5 +37,4 @@ void	reset_term(void)
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
-	reset_shell_mode();
 }

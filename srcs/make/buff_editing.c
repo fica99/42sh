@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 23:18:12 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:15:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
-char	**copy_double_arr(char **arr)
+char		**copy_double_arr(char **arr)
 {
 	short	i;
 	char	**arr1;
@@ -29,7 +29,7 @@ char	**copy_double_arr(char **arr)
 	return (arr1);
 }
 
-char			*strnew_realloc_buf(char *str, short len)
+char		*strnew_realloc_buf(char *str, short len)
 {
 	char	*arr;
 
@@ -45,7 +45,7 @@ char			*strnew_realloc_buf(char *str, short len)
 	return (str);
 }
 
-char	*ft_strdel_el(char	*buf, size_t i)
+char		*ft_strdel_el(char *buf, size_t i)
 {
 	char	*str;
 
@@ -67,7 +67,7 @@ char	*ft_strdel_el(char	*buf, size_t i)
 	return (buf);
 }
 
-char	*ft_stradd(char	*buf, char *s, size_t i)
+char		*ft_stradd(char *buf, char *s, size_t i)
 {
 	char	*str;
 

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:55:40 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 00:22:42 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:03:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # define MAXDIR 4097
 
 void			cd(int argc, char **argv, char **env_cp);
-char			check_ch_dir(int argc , char **argv);
-char			check_request(char  **argv, char *path);
+char			check_ch_dir(int argc, char **argv);
+char			check_request(char **argv, char *path);
 #endif

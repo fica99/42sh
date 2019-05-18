@@ -6,11 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 00:46:52 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:10:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
 char	check_request(char **argv, char *path)
 {
@@ -34,7 +34,7 @@ char	check_request(char **argv, char *path)
 	return (-1);
 }
 
-char	check_ch_dir(int argc , char **argv)
+char	check_ch_dir(int argc, char **argv)
 {
 	char	*path;
 
@@ -67,7 +67,7 @@ void	cd(int argc, char **argv, char **env_cp)
 
 	(void)env_cp;
 	if (check_ch_dir(argc, argv) < 0)
-		return;
+		return ;
 	if (!(getcwd(buf, MAXDIR)))
 		print_error("cd", "getcwd() error", argv[1], 0);
 	if (ft_getenv("PWD"))
@@ -76,4 +76,3 @@ void	cd(int argc, char **argv, char **env_cp)
 		ft_setenv("PWD", buf);
 	}
 }
-

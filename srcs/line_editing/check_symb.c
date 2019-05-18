@@ -6,11 +6,11 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/05/17 18:55:14 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:14:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 void	print_read(char *c)
 {
@@ -18,9 +18,11 @@ void	print_read(char *c)
 
 	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start)
 			* g_term.ws_col);
-	if ((!(ft_strcmp(c, tigetstr("kcub1"))) || !(ft_strcmp(c, tigetstr("khome")))) && len)
+	if ((!(ft_strcmp(c, tigetstr("kcub1"))) ||
+				!(ft_strcmp(c, tigetstr("khome")))) && len)
 		!(ft_strcmp(c, tigetstr("kcub1"))) ? go_left(1) : go_left(len);
-	else if ((!(ft_strcmp(c, tigetstr("kcuf1"))) || !(ft_strcmp(c, tigetstr("kend")))) &&
+	else if ((!(ft_strcmp(c, tigetstr("kcuf1"))) ||
+				!(ft_strcmp(c, tigetstr("kend")))) &&
 			((short)ft_strlen(g_term.buffer) > len))
 		!(ft_strcmp(c, tigetstr("kcuf1"))) ? go_right(1) :
 			go_right(ft_strlen(g_term.buffer) - len);
@@ -44,7 +46,8 @@ void	print_read_other(char *c)
 
 	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start)
 			* g_term.ws_col);
-	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, tigetstr("kdch1"))
+	if (((*c == BCSP || *c == CTRL_H) && len) ||
+			!ft_strcmp(c, tigetstr("kdch1"))
 		|| *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
@@ -55,7 +58,7 @@ void	print_read_other(char *c)
 		if (!ft_strlen(g_term.buffer) && *c == CTRL_D)
 		{
 			g_flags |= TERM_EXIT;
-			return;
+			return ;
 		}
 		del_symb(g_term.buffer, len);
 	}

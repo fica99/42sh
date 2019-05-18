@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 16:01:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:13:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 void	ft_unsetenv(int argc, char **argv, char **env_cp)
 {
@@ -40,7 +40,8 @@ char	**copy_new_arr(short i)
 	char	**envp;
 	short	j;
 
-	if (!(envp = (char**)malloc(sizeof(char *) * (double_arr_len(g_term.env_cp)))))
+	if (!(envp = (char**)malloc(sizeof(char *)
+					* (double_arr_len(g_term.env_cp)))))
 		print_error("unsetenv", "malloc() error", NULL, ENOMEM);
 	j = -1;
 	while (g_term.env_cp[++j])

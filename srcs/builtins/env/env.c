@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 14:55:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 16:01:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/18 17:11:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 char	check_set(char **argv)
 {
@@ -28,7 +28,7 @@ char	check_set(char **argv)
 	return (1);
 }
 
-void env(int argc, char **argv, char **env_cp)
+void	env(int argc, char **argv, char **env_cp)
 {
 	short	j;
 
@@ -42,8 +42,8 @@ void env(int argc, char **argv, char **env_cp)
 		j = 0;
 		while (argv[++j])
 		{
-				ft_putstr_fd(argv[j], STDOUT_FILENO);
-				ft_putchar_fd('\n', STDOUT_FILENO);
+			ft_putstr_fd(argv[j], STDOUT_FILENO);
+			ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 	}
 }

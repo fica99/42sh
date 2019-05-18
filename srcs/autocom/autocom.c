@@ -2,7 +2,7 @@
 // Created by Guy Grimes on 2019-03-30.
 //
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 /*
  * Обработать malloc ft_strdup;

@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:35:55 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 00:51:12 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/18 17:15:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
-char			*check_path(void)
+char		*check_path(void)
 {
 	char	*path;
 
