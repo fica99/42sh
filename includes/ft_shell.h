@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/19 18:23:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/19 18:47:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ int				autocom(char **buf, short len);
 char			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void			print_arr(char **arr);
-void			free_hash_table(void);
 void			reset_term(void);
 
 #endif
