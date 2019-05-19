@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/17 23:41:46 by filip            ###   ########.fr        #
+#    Updated: 2019/05/19 18:25:16 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ MAKE=srcs/make/buff_editing.c\
 	srcs/make/process.c\
 	srcs/make/term_make.c\
 	srcs/make/term_make2.c\
-	
+
+HASH_TABLE=srcs/hash_table/hash_table.c\
+		   srcs/hash_table/hash_table2.c\
+
 PARSER=srcs/parser/parse.c\
 
 READING=srcs/reading/reading.c\
@@ -43,7 +46,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   42sh.h                                             :+:      :+:    :+:   */
+/*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 17:09:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/19 18:23:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "builtins/echo.h"
 # include "builtins/setenv.h"
 # include "builtins/unsetenv.h"
+# include "hash_table.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
@@ -57,6 +58,8 @@ typedef struct	s_term
 	char			**env_cp;
 	struct termios	savetty;
 	short			malloc_len;
+	unsigned short	hash_table_size;
+	t_hash			*hash_table;
 }				t_term;
 
 struct s_term	g_term;
@@ -121,5 +124,7 @@ int				autocom(char **buf, short len);
 char			*get_start_com(char *buf, int *prog);
 int				ft_strcmp_mod(const char *str1, const char *str2, int flag);
 void			print_arr(char **arr);
+void			free_hash_table(void);
 void			reset_term(void);
+
 #endif

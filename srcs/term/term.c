@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 17:17:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/19 17:37:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ int		main(int argc, char **argv, char **environ)
 	g_term.env_cp = copy_double_arr(environ);
 	init_term();
 	get_win_size();
+	make_hash_table();
 	term_start();
 	free_double_arr(g_term.env_cp);
+	free_hash_table();
 	reset_term();
 	return (EXIT_SUCCESS);
 }
