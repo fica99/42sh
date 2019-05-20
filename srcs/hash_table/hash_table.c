@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/20 00:42:10 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/20 14:07:36 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,24 @@ void			make_hash_table(void)
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	g_term.hash_table_size = get_hash_table_size(path);
 	g_term.hash_table = make_table(path);
-	//free_double_arr(path);
-
+	free_double_arr(path);
 }
 
-size_t	get_hash_table_size(char **path)
+unsigned short	get_hash_table_size(char **path)
 {
 	DIR				*folder;
-	size_t			i;
+	unsigned short	i;
+	short			j;
 	struct dirent	*file;
 
 	i = 0;
-	while (*path)
+	j = -1;
+	while (path[++j])
 	{
-		folder = check_open(*path);
+		folder = check_open(path[j]);
 		while ((file = readdir(folder)) != NULL)
 			i++;
 		check_close(folder);
-		path++;
 	}
 	return (i);
 }
@@ -64,7 +64,7 @@ void			check_close(DIR *folder)
 		print_error("42sh", "opendir() error", NULL, 0);
 }
 
-size_t	hash_index(size_t key)
+unsigned short	hash_index(unsigned short key)
 {
 	return (key % g_term.hash_table_size);
 }

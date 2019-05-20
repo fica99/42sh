@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/19 18:25:16 by aashara-         ###   ########.fr        #
+#    Updated: 2019/05/20 14:10:39 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ MAKE=srcs/make/buff_editing.c\
 	srcs/make/term_make2.c\
 
 HASH_TABLE=srcs/hash_table/hash_table.c\
-		   srcs/hash_table/hash_table2.c\
+		srcs/hash_table/hash_table2.c\
+		srcs/hash_table/hash_table3.c\
 
 PARSER=srcs/parser/parse.c\
 

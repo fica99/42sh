@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/19 18:47:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/20 13:25:30 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct	s_term
 	struct termios	savetty;
 	short			malloc_len;
 	unsigned short	hash_table_size;
-	t_hash			*hash_table;
+	t_hash			**hash_table;
 }				t_term;
 
 struct s_term	g_term;
