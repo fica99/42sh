@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/20 23:49:57 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 00:26:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ t_hash	**write_hash(char *str, char *path, t_hash **table)
 
 	index = hash_index(hashing(str));
 	copy = init_hash();
-	copy_path = ft_strdup(path);
+	if (!(copy_path = ft_strnew(ft_strlen(path) + 1)))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	copy_path = ft_strcpy(copy_path, path);
 	copy->name = ft_strdup(str);
 	copy->path = ft_strjoin(ft_strcat(copy_path, "/"), str);
 	copy->index = index;
