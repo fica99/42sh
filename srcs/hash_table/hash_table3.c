@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/05/20 14:14:29 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/20 23:51:50 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	free_hash_table(void)
 	table = g_term.hash_table;
 	while (++i < g_term.hash_table_size)
 	{
-        while (table[i])
+        next = table[i];
+        while (next)
         {
-            ft_memdel((void**)&(table[i]->name));
-            ft_memdel((void**)&(table[i]->path));
+            ft_memdel((void**)&(next->name));
+            ft_memdel((void**)&(next->path));
             next = table[i]->next;
             ft_memdel((void**)&(table[i]));
-            table[i] = next;
         }
 	}
 	ft_memdel((void**)g_term.hash_table);

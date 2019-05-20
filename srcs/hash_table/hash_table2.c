@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/20 14:10:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/20 23:49:57 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,8 @@ t_hash	**init_table(void)
 	if (!(table = (t_hash**)malloc(sizeof(t_hash*) * (g_term.hash_table_size + 1))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
-	while (++i < g_term.hash_table_size)
-		table[i] = init_hash();
-	table[i] = NULL;
+	while (++i <= g_term.hash_table_size)
+		table[i] = NULL;
 	return (table);
 }
 
@@ -62,17 +61,19 @@ t_hash	**write_hash(char *str, char *path, t_hash **table)
 	unsigned short	index;
 	t_hash			*copy;
 	char			*copy_path;
+	t_hash			*next;
 
 	index = hash_index(hashing(str));
-	copy = table[index];
+	copy = init_hash();
 	copy_path = ft_strdup(path);
-	while (copy->name)
-		copy = copy->next;
 	copy->name = ft_strdup(str);
 	copy->path = ft_strjoin(ft_strcat(copy_path, "/"), str);
 	copy->index = index;
-	copy->next = init_hash();
 	ft_memdel((void**)&copy_path);
+	next = table[index];
+	while (next)
+		next = next->next;
+	next = copy;
 	return (table);
 }
 
