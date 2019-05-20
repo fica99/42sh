@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/21 00:26:42 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 00:41:37 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,14 @@ t_hash	**write_hash(char *str, char *path, t_hash **table)
 	copy->path = ft_strjoin(ft_strcat(copy_path, "/"), str);
 	copy->index = index;
 	ft_memdel((void**)&copy_path);
-	next = table[index];
-	while (next)
-		next = next->next;
-	next = copy;
+	if (!(next = table[index]))
+		table[index] = copy;
+	else
+	{
+		while (next)
+			next = next->next;
+		next = copy;
+	}
 	return (table);
 }
 

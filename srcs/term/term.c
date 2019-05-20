@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/20 23:52:27 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 00:37:37 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		main(int argc, char **argv, char **environ)
 	init_term();
 	get_win_size();
 	make_hash_table();
-	//term_start();
+//	term_start();
 	free_double_arr(g_term.env_cp);
 	free_hash_table();
 	reset_term();
