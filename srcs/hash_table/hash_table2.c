@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/21 01:09:44 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 12:34:25 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_hash	**make_table(char **path)
 	{
 		folder = check_open(path[j]);
 		while ((file = readdir(folder)) != NULL)
-			table = write_hash(file->d_name, path[j], table);
+			write_hash(file->d_name, path[j], table);
 		check_close(folder);
 	}
     return (table);
@@ -34,7 +34,7 @@ t_hash	**make_table(char **path)
 t_hash	**init_table(void)
 {
 	t_hash			**table;
-	unsigned short	i;
+	short			i;
 
 	if (!(table = (t_hash**)malloc(sizeof(t_hash*) * (g_term.hash_table_size + 1))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
@@ -56,7 +56,7 @@ t_hash	*init_hash(void)
 	return (hash);
 }
 
-t_hash	**write_hash(char *str, char *path, t_hash **table)
+void	write_hash(char *str, char *path, t_hash **table)
 {
 	unsigned short	index;
 	t_hash			*copy;
@@ -80,7 +80,6 @@ t_hash	**write_hash(char *str, char *path, t_hash **table)
 			next = next->next;
 		next->next = copy;
 	}
-	return (table);
 }
 
 unsigned short	hashing(char *str)
