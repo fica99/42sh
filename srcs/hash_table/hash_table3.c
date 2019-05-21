@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/05/21 12:37:10 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 14:29:24 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ void	free_hash_table(void)
 			ft_memdel((void**)&(copy));
         }
 	}
-	ft_memdel((void**)table);
 	g_term.hash_table_size = 0;
 }
