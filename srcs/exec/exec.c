@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/19 18:02:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/21 15:13:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,50 +51,35 @@ char	*check_command(char **args)
 			if (execve(args[0], args, g_term.env_cp) < 0)
 				print_error("42sh", "execve() error", args[0], 0);
 		}
-		else
-		{
-			waitpid(p, &status, 0);
-			return (SOMETHING);
-		}
+		waitpid(p, &status, 0);
+		return (SOMETHING);
 	}
 	return (NULL);
 }
 
 char	*exec_command(char **args)
 {
-	pid_t	p;
-	int		status;
-	char	**path;
-	uint8_t	i;
-	char	*file_path;
+	pid_t			p;
+	int				status;
+	t_hash			*hash;
 
-	if (!(path = ft_strsplit(ft_getenv("PATH"), ':')))
-		return (NULL);
-	i = -1;
-	while (path[++i])
+	hash = g_term.hash_table[hash_index(hashing(args[0]))];
+	while (hash)
 	{
-		if (!(file_path = ft_strjoin(ft_strcat(path[i], "/"), args[0])))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
-		if (!access(file_path, F_OK | X_OK) && !ft_strcmp(ft_strrchr(file_path, '/') + 1, args[0]))
-		{
-			p = make_process();
-			if (!p)
-			{
-				if (execve(file_path, args, g_term.env_cp) < 0)
-					print_error("42sh", "execve() error", args[0], 0);
-			}
-			else
-			{
-				waitpid(p, &status, 0);
-				ft_memdel((void**)&file_path);
-				free_double_arr(path);
-				return (SOMETHING);
-			}
-		}
-		ft_memdel((void**)&file_path);
+		if (!ft_strcmp(hash->name, args[0]))
+			break;
+		hash = hash->next;
 	}
-	if (path)
-		free_double_arr(path);
-	return (NULL);
+	if (!hash)
+		return (NULL);
+	p = make_process();
+	if (!p)
+	{
+		if (execve(hash->path, args, g_term.env_cp) < 0)
+			print_error("42sh", "execve() error", args[0], 0);
+	}
+	else
+		waitpid(p, &status, 0);
+	return (SOMETHING);
 }
 

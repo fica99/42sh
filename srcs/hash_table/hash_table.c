@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/20 14:07:36 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/21 15:09:46 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ unsigned short	get_hash_table_size(char **path)
 	{
 		folder = check_open(path[j]);
 		while ((file = readdir(folder)) != NULL)
+		{
+			if (!ft_strcmp(file->d_name, ".") || !ft_strcmp(file->d_name, ".."))
+				continue ;
 			i++;
+		}
 		check_close(folder);
 	}
 	return (i);
