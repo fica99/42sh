@@ -1,5 +1,5 @@
 /.vscode
-/.DS_STORE
+*.DS_STORE
 /minishell
 *.o
 *.a
