@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/21 15:13:55 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/25 11:40:20 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	find_command(char **args)
 		set_env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
+	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
+		print_hash_table();
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		g_flags |= TERM_EXIT;
@@ -47,10 +49,8 @@ char	*check_command(char **args)
 			return (NULL);
 		p = make_process();
 		if (!p)
-		{
 			if (execve(args[0], args, g_term.env_cp) < 0)
 				print_error("42sh", "execve() error", args[0], 0);
-		}
 		waitpid(p, &status, 0);
 		return (SOMETHING);
 	}
@@ -74,12 +74,9 @@ char	*exec_command(char **args)
 		return (NULL);
 	p = make_process();
 	if (!p)
-	{
 		if (execve(hash->path, args, g_term.env_cp) < 0)
 			print_error("42sh", "execve() error", args[0], 0);
-	}
-	else
-		waitpid(p, &status, 0);
+	waitpid(p, &status, 0);
 	return (SOMETHING);
 }
 

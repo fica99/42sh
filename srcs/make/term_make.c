@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/19 16:48:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/24 23:06:26 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		set_input_mode(void)
 	struct termios	tty;
 
 	if (!isatty(0))
-		print_error("4sh", "stdin not terminal\n", NULL, 0);
+		print_error("42sh", "stdin not terminal\n", NULL, 0);
 	if (tcgetattr(STDIN_FILENO, &(g_term.savetty)) < 0)
 		print_error("42sh", "tcgetattr() error", NULL, 0);
 	tty = g_term.savetty;

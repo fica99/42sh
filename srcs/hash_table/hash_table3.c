@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/05/21 15:07:15 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/22 22:04:41 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,26 @@ void	free_hash_table(void)
         }
 	}
 	g_term.hash_table_size = 0;
+}
+
+void	print_hash_table(void)
+{
+	short	i;
+	t_hash	**table;
+	t_hash	*hash;
+
+	i = -1;
+	table = g_term.hash_table;
+	while (++i < g_term.hash_table_size)
+	{
+		hash = table[i];
+		while (hash)
+		{
+			ft_putstr_fd(hash->name, STDOUT_FILENO);
+			ft_putchar_fd('=', STDOUT_FILENO);
+			ft_putstr_fd(hash->path, STDOUT_FILENO);
+			ft_putchar_fd('\n', STDOUT_FILENO);
+			hash = hash->next;
+		}
+	}
 }
