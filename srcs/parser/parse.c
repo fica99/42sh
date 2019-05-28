@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/19 16:50:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 19:39:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	make_command(char *buf)
 	short	i;
 
 	if (!buf || !(*buf) || !(args = ft_strsplit(buf, ' ')))
-		return;
+		return ;
 	i = -1;
 	while (args[++i])
-		args[i]	= spec_symbols(args[i]);
+		args[i] = spec_symbols(args[i]);
 	find_command(args);
 	free_double_arr(args);
 }

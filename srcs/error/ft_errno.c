@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:20:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 19:29:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void	ft_perror(char *str)
 void	pr_gen_perror(void)
 {
 	int		err;
-	char	*str[] = {
-			": No such file or directory",
-			": Cannot allocate memory",
-			": Permission denied",
-	};
+	char	*str[3];
 
+	str[0] = ": No such file or directory";
+	str[1] = ": Cannot allocate memory";
+	str[2] = ": Permission denied";
 	err = -1;
 	if (g_errno_f == ENOENT)
 		err = 0;

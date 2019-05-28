@@ -6,22 +6,22 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/21 15:10:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/28 19:35:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_hash	**make_table(char **path)
+t_hash				**make_table(char **path)
 {
-    t_hash  		**table;
+	t_hash			**table;
 	DIR				*folder;
 	struct dirent	*file;
 	short			j;
 
 	table = init_table();
 	j = -1;
-    while (path[++j])
+	while (path[++j])
 	{
 		folder = check_open(path[j]);
 		while ((file = readdir(folder)) != NULL)
@@ -32,15 +32,16 @@ t_hash	**make_table(char **path)
 		}
 		check_close(folder);
 	}
-    return (table);
+	return (table);
 }
 
-t_hash	**init_table(void)
+t_hash				**init_table(void)
 {
 	t_hash			**table;
 	short			i;
 
-	if (!(table = (t_hash**)malloc(sizeof(t_hash*) * (g_term.hash_table_size + 1))))
+	if (!(table = (t_hash**)malloc(sizeof(t_hash*) *
+					(g_term.hash_table_size + 1))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (++i <= g_term.hash_table_size)
@@ -48,9 +49,9 @@ t_hash	**init_table(void)
 	return (table);
 }
 
-t_hash	*init_hash(void)
+t_hash				*init_hash(void)
 {
-	t_hash	*hash;
+	t_hash			*hash;
 
 	if (!(hash = (t_hash*)malloc(sizeof(t_hash))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
@@ -60,7 +61,7 @@ t_hash	*init_hash(void)
 	return (hash);
 }
 
-void	write_hash(char *str, char *path, t_hash **table)
+void				write_hash(char *str, char *path, t_hash **table)
 {
 	unsigned short	index;
 	t_hash			*copy;
@@ -86,19 +87,19 @@ void	write_hash(char *str, char *path, t_hash **table)
 	}
 }
 
-unsigned short	hashing(char *str)
+unsigned short		hashing(char *str)
 {
-	char			 ret_size;
+	char			ret_size;
 	unsigned short	ret;
-    char			per_char;
+	char			per_char;
 
 	ret_size = 16;
 	ret = 0x5555;
 	per_char = 7;
-    while (*str)
+	while (*str)
 	{
 		ret ^= *str++;
 		ret = ((ret << per_char) | (ret >> (ret_size - per_char)));
 	}
-	return ret;
+	return (ret);
 }

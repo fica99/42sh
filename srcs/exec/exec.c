@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/25 11:40:20 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/28 20:48:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	find_command(char **args)
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		g_flags |= TERM_EXIT;
-		return;
+		return ;
 	}
-	else if (!check_command(args)  && !exec_command(args))
+	else if (!check_command(args) && !exec_command(args))
 		print_error_withoutexit("42sh", "command not found", args[0], 0);
 }
 
@@ -41,8 +41,13 @@ char	*check_command(char **args)
 	int			status;
 	struct stat	buf;
 
-	if (!access(args[0], F_OK | X_OK))
+	if (!access(args[0], F_OK))
 	{
+		if (access(args[0], X_OK))
+		{
+			print_error_withoutexit("42sh", NULL, args[0], 13);
+			return (SOMETHING);
+		}
 		if (lstat(args[0], &buf) < 0)
 			print_error("42sh", "lstat() error", NULL, 0);
 		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
@@ -63,11 +68,13 @@ char	*exec_command(char **args)
 	int				status;
 	t_hash			*hash;
 
+	if (!g_term.hash_table)
+		return (NULL);
 	hash = g_term.hash_table[hash_index(hashing(args[0]))];
 	while (hash)
 	{
 		if (!ft_strcmp(hash->name, args[0]))
-			break;
+			break ;
 		hash = hash->next;
 	}
 	if (!hash)
@@ -79,4 +86,3 @@ char	*exec_command(char **args)
 	waitpid(p, &status, 0);
 	return (SOMETHING);
 }
-

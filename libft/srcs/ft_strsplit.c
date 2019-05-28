@@ -6,11 +6,12 @@
 /*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 12:25:02 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 16:52:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 19:45:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 static int		ft_cnt_parts(const char *s, char c)
 {
 	int		cnt;

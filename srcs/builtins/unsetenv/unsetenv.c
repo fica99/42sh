@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 17:13:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:12:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_unsetenv(int argc, char **argv, char **env_cp)
 			envp = copy_new_arr(i);
 			free(g_term.env_cp);
 			g_term.env_cp = envp;
+			if (!ft_strncmp(argv[j], "PATH", 4))
+				free_hash_table();
 		}
 	}
 }
