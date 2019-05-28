@@ -3,31 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 19:37:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:48:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 void	find_command(char **args)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
 		cd(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		echo(double_arr_len(args), args, g_term.env_cp);
+		ft_echo(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "env") == 0)
 		env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "setenv") == 0)
 		set_env(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
+	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
+		print_hash_table();
 	else if (ft_strcmp(args[0], "exit") == 0)
-		exit(EXIT_SUCCESS);
-	else if (!check_command(args)  && !exec_command(args))
-		print_error_withoutexit("minishell", "command not found", args[0], 0);
+	{
+		g_flags |= TERM_EXIT;
+		return ;
+	}
+	else if (!check_command(args) && !exec_command(args))
+		print_error_withoutexit("42sh", "command not found", args[0], 0);
 }
 
 char	*check_command(char **args)
@@ -36,62 +41,48 @@ char	*check_command(char **args)
 	int			status;
 	struct stat	buf;
 
-	if (!access(args[0], F_OK | X_OK))
+	if (!access(args[0], F_OK))
 	{
+		if (access(args[0], X_OK))
+		{
+			print_error_withoutexit("42sh", NULL, args[0], 13);
+			return (SOMETHING);
+		}
 		if (lstat(args[0], &buf) < 0)
-			print_error("minishell", "lstat() error", NULL, 0);
+			print_error("42sh", "lstat() error", NULL, 0);
 		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
 		if (!p)
-		{
 			if (execve(args[0], args, g_term.env_cp) < 0)
-				print_error("minishell", "execve() error", args[0], 0);
-		}
-		else
-		{
-			waitpid(p, &status, 0);
-			return (SOMETHING);
-		}
+				print_error("42sh", "execve() error", args[0], 0);
+		waitpid(p, &status, 0);
+		return (SOMETHING);
 	}
 	return (NULL);
 }
 
 char	*exec_command(char **args)
 {
-	pid_t	p;
-	int		status;
-	char	**path;
-	uint8_t	i;
-	char	*file_path;
+	pid_t			p;
+	int				status;
+	t_hash			*hash;
 
-	if (!(path = ft_strsplit(ft_getenv("PATH"), ':')))
+	if (!g_term.hash_table)
 		return (NULL);
-	i = -1;
-	while (path[++i])
+	hash = g_term.hash_table[hash_index(hashing(args[0]))];
+	while (hash)
 	{
-		if (!(file_path = ft_strjoin(ft_strcat(path[i], "/"), args[0])))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
-		if (!access(file_path, F_OK | X_OK) && !ft_strcmp(ft_strrchr(file_path, '/') + 1, args[0]))
-		{
-			p = make_process();
-			if (!p)
-			{
-				if (execve(file_path, args, g_term.env_cp) < 0)
-					print_error("minishell", "execve() error", args[0], 0);
-			}
-			else
-			{
-				waitpid(p, &status, 0);
-				ft_memdel((void**)&file_path);
-				free_double_arr(path);
-				return (SOMETHING);
-			}
-		}
-		ft_memdel((void**)&file_path);
+		if (!ft_strcmp(hash->name, args[0]))
+			break ;
+		hash = hash->next;
 	}
-	if (path)
-		free_double_arr(path);
-	return (NULL);
+	if (!hash)
+		return (NULL);
+	p = make_process();
+	if (!p)
+		if (execve(hash->path, args, g_term.env_cp) < 0)
+			print_error("42sh", "execve() error", args[0], 0);
+	waitpid(p, &status, 0);
+	return (SOMETHING);
 }
-

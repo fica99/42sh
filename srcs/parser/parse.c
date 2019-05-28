@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 19:31:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 19:39:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 void	parse_string(void)
 {
@@ -36,10 +36,10 @@ void	make_command(char *buf)
 	short	i;
 
 	if (!buf || !(*buf) || !(args = ft_strsplit(buf, ' ')))
-		return;
+		return ;
 	i = -1;
 	while (args[++i])
-		args[i]	= spec_symbols(args[i]);
+		args[i] = spec_symbols(args[i]);
 	find_command(args);
 	free_double_arr(args);
 }
@@ -55,7 +55,7 @@ char	*spec_symbols(char *args)
 		{
 			arr = args;
 			if (!(args = ft_strjoin(path, arr + 1)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
 			ft_memdel((void**)&arr);
 		}
 	}
@@ -65,7 +65,7 @@ char	*spec_symbols(char *args)
 		{
 			arr = args;
 			if (!(args = ft_strdup(path)))
-				print_error("minishell", "malloc() error", NULL, ENOMEM);
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
 			ft_memdel((void**)&arr);
 		}
 	}

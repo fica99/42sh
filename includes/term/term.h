@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:57:50 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:02:03 by aashara-         ###   ########.fr       */
+/*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
+/*   Updated: 2019/05/28 19:44:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
-# include "libft.h"
+#ifndef TERM_H
+# define TERM_H
 
-void			ft_echo(int argc, char **argv, char **env_cp);
+# include <unistd.h>
+
+void	term_start(void);
+void	term_prompt(void);
 #endif

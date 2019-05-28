@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   buff_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/04/30 16:20:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:01:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "42sh.h"
+#include "ft_shell.h"
 
-char	**copy_double_arr(char **arr)
+char		**copy_double_arr(char **arr)
 {
 	short	i;
 	char	**arr1;
@@ -20,16 +20,16 @@ char	**copy_double_arr(char **arr)
 	if (!arr)
 		return (NULL);
 	if (!(arr1 = (char**)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (arr[++i])
 		if (!(arr1[i] = ft_strdup(arr[i])))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
 	arr1[i] = NULL;
 	return (arr1);
 }
 
-char			*strnew_realloc_buf(char *str, short len)
+char		*strnew_realloc_buf(char *str, short len)
 {
 	char	*arr;
 
@@ -38,14 +38,14 @@ char			*strnew_realloc_buf(char *str, short len)
 	{
 		reset_input_mode();
 		ft_putchar_fd('\n', STDERR_FILENO);
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
 	str = ft_strcat(str, arr);
 	ft_memdel((void**)&arr);
 	return (str);
 }
 
-char	*ft_strdel_el(char	*buf, size_t i)
+char		*ft_strdel_el(char *buf, size_t i)
 {
 	char	*str;
 
@@ -58,7 +58,7 @@ char	*ft_strdel_el(char	*buf, size_t i)
 		{
 			reset_input_mode();
 			ft_putchar_fd('\n', STDERR_FILENO);
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
 	}
 	*(buf + i) = '\0';
@@ -67,7 +67,7 @@ char	*ft_strdel_el(char	*buf, size_t i)
 	return (buf);
 }
 
-char	*ft_stradd(char	*buf, char *s, size_t i)
+char		*ft_stradd(char *buf, char *s, size_t i)
 {
 	char	*str;
 
@@ -77,7 +77,7 @@ char	*ft_stradd(char	*buf, char *s, size_t i)
 	{
 		reset_input_mode();
 		ft_putchar_fd('\n', STDERR_FILENO);
-		print_error("minishell", "malloc() error", NULL, ENOMEM);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
 	*(buf + i) = '\0';
 	buf = ft_strcat(ft_strcat(buf, s), str);

@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   line_editing.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:57:50 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:02:03 by aashara-         ###   ########.fr       */
+/*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
+/*   Updated: 2019/05/28 19:42:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
-# include "libft.h"
+#ifndef LINE_EDITING_H
+# define LINE_EDITING_H
 
-void			ft_echo(int argc, char **argv, char **env_cp);
+void			print_read(char *c);
+void			print_read_other(char *c);
+void			go_left(short i);
+void			go_right(short i);
+void			prev_word(char *buf, short len);
+void			next_word(char *buf);
+void			del_symb(char *buf, short len);
+void			print_symb(char *c, char *buf, short len);
 #endif

@@ -6,13 +6,13 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/04/27 01:40:50 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/28 19:45:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
-void			free_double_arr(char **arr)
+void		free_double_arr(char **arr)
 {
 	short	i;
 

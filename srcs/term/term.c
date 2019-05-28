@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/04/30 18:59:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:12:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "ft_shell.h"
 
 int		main(int argc, char **argv, char **environ)
 {
 	(void)argc;
 	(void)argv;
 	g_term.env_cp = copy_double_arr(environ);
+	init_term();
 	get_win_size();
+	make_hash_table();
 	term_start();
 	free_double_arr(g_term.env_cp);
+	free_hash_table();
+	reset_term();
 	return (EXIT_SUCCESS);
 }
 
@@ -30,35 +34,37 @@ void	term_start(void)
 		g_flags = INIT_FLAGS;
 		signalling();
 		term_prompt();
-		get_cur_cord();
-		g_term.x_start = g_term.x_cur;
-		g_term.y_start = g_term.y_cur;
 		read_prompt();
-		if (!(g_flags & TERM_SIGINT))
+		if (!g_flags)
 			parse_string();
 		ft_memdel((void**)&(g_term.buffer));
+		if (g_flags & TERM_EXIT)
+			break ;
 	}
 }
 
 void	term_prompt(void)
 {
-	char	*path;
 	char	hostname[FT_HOST_NAME_MAX];
 
 	gethostname(hostname, FT_HOST_NAME_MAX);
-	RED(STDERR_FILENO);
+	RED(STDIN_FILENO);
 	ft_putchar_fd('[', STDERR_FILENO);
 	CYAN(STDIN_FILENO);
-	ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
-	RED(STDIN_FILENO);
-	ft_putchar_fd('@', STDIN_FILENO);
+	if (ft_getenv("USER"))
+	{
+		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
+		RED(STDIN_FILENO);
+		ft_putchar_fd('@', STDIN_FILENO);
+	}
 	GREEN(STDIN_FILENO);
 	ft_putstr_fd(hostname, STDIN_FILENO);
-	RED(STDIN_FILENO);
-	ft_putchar_fd(' ', STDIN_FILENO);
-	YELLOW(STDIN_FILENO);
-	path = check_path();
-	ft_putstr_fd(path, STDIN_FILENO);
+	if ((check_path()))
+	{
+		ft_putchar_fd(' ', STDIN_FILENO);
+		YELLOW(STDIN_FILENO);
+		ft_putstr_fd(check_path(), STDIN_FILENO);
+	}
 	RED(STDIN_FILENO);
 	ft_putchar_fd(']', STDIN_FILENO);
 	PURPLE(STDIN_FILENO);
