@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:40:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 20:55:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	check_request(char **argv, char *path)
 		print_error_withoutexit(argv[0], NULL, path, ENOENT);
 	else
 	{
-		if (lstat(path, &buf) < 0)
+		if (stat(path, &buf) < 0)
 			print_error("42sh", "lstat() error", NULL, 0);
 		if (!S_ISDIR(buf.st_mode))
 			print_error_withoutexit(argv[0], "not a directory", path, 0);
