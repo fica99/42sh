@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_editing2.c                                    :+:      :+:    :+:   */
+/*   history.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 23:13:53 by aashara-         ###   ########.fr       */
+/*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
+/*   Updated: 2019/05/28 23:16:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#ifndef HISTORY_H
+# define HISTORY_H
 
-void			print_symb(char *c, char *buf, short len)
-{
-	short	i;
+# include <fcntl.h>
+# include <unistd.h>
 
-	buf = ft_stradd(buf, c, len);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_cord(buf + len);
-	i = ft_strlen(buf + len) - 1;
-	go_left(i);
-}
+# define HISTORY_SIZE 300
+
+void	make_history_buff(void);
+void	go_history(char *c);
+#endif

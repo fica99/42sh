@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/25 11:35:20 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/28 23:12:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "term/term.h"
 # include "make/make.h"
 # include "line_editing/line_editing.h"
+# include "history/history.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
@@ -55,6 +56,7 @@ typedef struct	s_term
 	short			malloc_len;
 	unsigned short	hash_table_size;
 	t_hash			**hash_table;
+	char			**history;
 }				t_term;
 
 struct s_term	g_term;
