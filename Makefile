@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/28 22:47:58 by aashara-         ###   ########.fr        #
+#    Updated: 2019/05/29 20:20:50 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table2.c\
 		srcs/hash_table/hash_table3.c\
 
-HISTORY=srcs/history/history.c\
+HISTORY=srcs/history/make_history.c\
+		srcs/history/write_history.c\
 
 PARSER=srcs/parser/parse.c\
 

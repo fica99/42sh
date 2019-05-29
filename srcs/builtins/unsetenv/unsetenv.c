@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:12:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/29 21:18:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	ft_unsetenv(int argc, char **argv, char **env_cp)
 			free(g_term.env_cp);
 			g_term.env_cp = envp;
 			if (!ft_strncmp(argv[j], "PATH", 4))
+			{
 				free_hash_table();
+				g_term.hash_table = NULL;
+			}
 		}
 	}
 }

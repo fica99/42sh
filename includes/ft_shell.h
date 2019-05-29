@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 23:12:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/29 16:36:17 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_term
 	unsigned short	hash_table_size;
 	t_hash			**hash_table;
 	char			**history;
+	short			history_index;
 }				t_term;
 
 struct s_term	g_term;

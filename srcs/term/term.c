@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 22:49:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/29 20:38:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ void	term_start(void)
 		signalling();
 		term_prompt();
 		read_prompt();
+		add_to_historybuf();
 		if (!g_flags)
 			parse_string();
-		ft_memdel((void**)&(g_term.buffer));
+		//ft_memdel((void**)&(g_term.buffer));
+		g_term.buffer = NULL;
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
