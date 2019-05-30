@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/29 20:53:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/30 15:26:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,15 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/uio.h>
 
-# define HISTORY_SIZE 300
-# define DEL_HISTORY_INDEX 0
-# define INIT_HISTORY_INDEX 0
+# define HISTORY_SIZE 100
+
+typedef struct	s_history
+{
+    char		**history_buff;
+	short		history_index;
+}				t_history;
 
 void	make_history_buff(void);
 void	go_history(char *c);
@@ -29,4 +34,8 @@ void	history_down(short len);
 void	change_buf(void);
 void    add_to_historybuf(void);
 char	check_print_arr(char *arr);
+void	write_history(void);
+void	rewrite_file(short len);
+void	add_to_file(short len);
+void    free_history(void);
 #endif

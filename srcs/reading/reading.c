@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/29 20:59:34 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/30 15:04:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ void	reading(void)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if (*c == CTRL_C || *c == '\n')
+		if (*c == '\n')
+			break;
+		if (*c == CTRL_C)
 		{
-			if (*c == CTRL_C)
-				g_flags |= TERM_SIGINT;
-			break ;
+			g_flags |= TERM_SIGINT;
+			return ;
 		}
 		while (ft_strlen(g_term.buffer) + ft_strlen(c) >=
 				(unsigned)g_term.malloc_len)

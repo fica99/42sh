@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/29 20:20:50 by filip            ###   ########.fr        #
+#    Updated: 2019/05/30 15:24:14 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table3.c\
 
 HISTORY=srcs/history/make_history.c\
-		srcs/history/write_history.c\
+		srcs/history/make_history2.c\
+		srcs/history/make_history3.c\
 
 PARSER=srcs/parser/parse.c\
 

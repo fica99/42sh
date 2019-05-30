@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 20:01:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/30 14:17:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ void	reset_term(void)
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
+}
+
+void	get_bin_path(void)
+{
+	g_term.home_path = ft_strjoin(ft_getenv("PWD"), "/.history");
 }
