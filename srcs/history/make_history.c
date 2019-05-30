@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 00:54:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/31 01:10:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,19 @@ void		change_buf(void)
 	short	len;
 
 	len = double_arr_len(g_term.history->history_buff);
-	g_term.history->history_index = len;
 	if (g_flags)
+	{
+		g_term.history->history_index = len;
 		return ;
+	}
 	if (g_term.history->history_index != len)
 	{
 		ft_memdel((void**)&g_term.buffer);
 		g_term.buffer = ft_strdup(g_term.history->history_buff[g_term.history->history_index]);
 	}
-	if (len < HISTORY_SIZE)
+	if (len >= HISTORY_SIZE)
+		g_term.history->history_index = len;
+	else
 	{
 		if (check_print_arr(g_term.buffer))
 			g_term.history->history_index = ++len;
