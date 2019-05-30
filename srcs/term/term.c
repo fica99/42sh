@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/30 15:27:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 00:55:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		main(int argc, char **argv, char **environ)
 	term_start();
 	free_double_arr(g_term.env_cp);
 	free_hash_table();
-	ft_memdel((void**)&g_term.home_path);
+	ft_memdel((void**)&g_term.history_path);
 	free_history();
 	reset_term();
 	return (EXIT_SUCCESS);

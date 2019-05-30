@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/05/30 14:17:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/30 23:28:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	reset_term(void)
 
 void	get_bin_path(void)
 {
-	g_term.home_path = ft_strjoin(ft_getenv("PWD"), "/.history");
+	g_term.history_path = ft_strjoin(ft_getenv("PWD"), "/.history");
 }

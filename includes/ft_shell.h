@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/30 14:21:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/30 23:28:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct	s_term
 	unsigned short	hash_table_size;
 	t_hash			**hash_table;
 	t_history		*history;
-	char			*home_path;
+	char			*history_path;
 }				t_term;
 
 struct s_term	g_term;
