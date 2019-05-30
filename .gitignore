@@ -3,4 +3,4 @@
 /minishell
 *.o
 *.a
-*.history
+*history
