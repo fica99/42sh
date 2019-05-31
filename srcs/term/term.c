@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:12:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 18:16:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ int		main(int argc, char **argv, char **environ)
 	g_term.env_cp = copy_double_arr(environ);
 	init_term();
 	get_win_size();
+	get_bin_path();
 	make_hash_table();
+	make_history_buff();
 	term_start();
 	free_double_arr(g_term.env_cp);
 	free_hash_table();
+	ft_memdel((void**)&g_term.history_path);
+	free_history();
 	reset_term();
 	return (EXIT_SUCCESS);
 }
@@ -35,9 +39,15 @@ void	term_start(void)
 		signalling();
 		term_prompt();
 		read_prompt();
+		if (g_flags & TERM_SIGINT)
+		{
+			ft_memdel((void**)&g_term.buffer);
+			continue ;
+		}
+		write_history();
 		if (!g_flags)
 			parse_string();
-		ft_memdel((void**)&(g_term.buffer));
+		ft_memdel((void**)&g_term.buffer);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

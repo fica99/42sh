@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 19:42:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/30 14:17:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void			reset_input_mode (void);
 void			ft_putstr_cord(char *str);
 void			reset_term(void);
 pid_t			make_process(void);
+void	        get_bin_path(void);
 #endif

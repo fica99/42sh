@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 19:35:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/30 13:52:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_hash				**make_table(char **path)
 	while (path[++j])
 	{
 		folder = check_open(path[j]);
-		while ((file = readdir(folder)) != NULL)
+		while ((file = readdir(folder)))
 		{
 			if (!ft_strcmp(file->d_name, ".") || !ft_strcmp(file->d_name, ".."))
 				continue ;

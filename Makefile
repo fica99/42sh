@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/21 01:15:35 by filip            ###   ########.fr        #
+#    Updated: 2019/05/31 18:18:14 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table2.c\
 		srcs/hash_table/hash_table3.c\
 
+HISTORY=srcs/history/make_history.c\
+		srcs/history/make_history2.c\
+		srcs/history/make_history3.c\
+
 PARSER=srcs/parser/parse.c\
 
 READING=srcs/reading/reading.c\
@@ -47,7 +51,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(ERROR) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+SRC_SEARCH =$(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 

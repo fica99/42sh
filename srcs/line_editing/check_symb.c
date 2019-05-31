@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/05/19 16:08:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/28 23:13:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	print_read_other(char *c)
 
 	len = g_term.x_cur - g_term.x_start + ((g_term.y_cur - g_term.y_start)
 			* g_term.ws_col);
-	if (((*c == BCSP || *c == CTRL_H) && len) ||
+	if (!(ft_strcmp(c, tigetstr("kcuu1"))) ||
+			!(ft_strcmp(c, tigetstr("kcud1"))))
+		go_history(c);
+	else if (((*c == BCSP || *c == CTRL_H) && len) ||
 			!ft_strcmp(c, tigetstr("kdch1"))
 		|| *c == CTRL_D)
 	{

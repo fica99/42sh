@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 19:26:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 19:50:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	read_prompt(void)
 	reading();
 	go_right(ft_strlen(g_term.buffer) - g_term.x_cur - g_term.x_start +
 			((g_term.y_cur - g_term.y_start) * g_term.ws_col));
+	change_buf();
 	reset_input_mode();
 	ft_putchar_fd('\n', STDIN_FILENO);
 }
@@ -35,7 +36,7 @@ void	reading(void)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if (*c == CTRL_C || *c == '\n')
+		if (*c == '\n' || *c == CTRL_C)
 		{
 			if (*c == CTRL_C)
 				g_flags |= TERM_SIGINT;
