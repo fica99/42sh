@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 01:10:13 by filip            ###   ########.fr       */
+/*   Updated: 2019/05/31 18:14:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	make_history_buff(void)
 	short		len;
 	t_history	*history;
 
-	if (!(history = (t_history*)malloc(sizeof(t_history*))))
+	if (!(history = (t_history*)malloc(sizeof(t_history))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	if ((fd = open(g_term.history_path, O_RDONLY | O_CREAT , S_IRUSR | S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
