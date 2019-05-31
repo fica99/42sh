@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 18:10:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 21:27:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct	s_history
 {
-    char		**history_buff;
+	char		**history_buff;
 	short		history_index;
 }				t_history;
 
@@ -38,4 +38,5 @@ void	write_history(void);
 void	rewrite_file(short len);
 void	add_to_file(short len);
 void    free_history(void);
+void	find_history(void);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:53:51 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:06:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 21:23:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define CTRL_DOWN "\033[1;5B"
 # define CTRL_RIGHT "\033[1;5C"
 # define CTRL_LEFT "\033[1;5D"
+# define CTRL_R 18
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_D 4

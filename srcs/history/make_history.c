@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 18:14:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/05/31 21:26:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	go_history(char *c)
 		history_up();
 	else if (!(ft_strcmp(c, tigetstr("kcud1"))) && g_term.history->history_index != len)
 		history_down(len);
+	else if (*c == CTRL_R && len)
+		find_history();
 }
 
 void		history_up(void)
