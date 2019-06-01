@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/05/31 20:20:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:34:28 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		init_term(void)
 	&& tigetstr("rc") != (char*)-1 && tigetstr("ed") != (char*)-1
 	&& tigetstr("clear") != (char*)-1 && tigetstr("kdch1") != (char*)-1
 	&& tigetstr("kcuu1") != (char*)-1 && tigetstr("kcud1") != (char*)-1
-	&& tigetstr("kLFT") != (char*)-1 && tigetstr("kRIT") != (char*)-1) 
+	&& tigetstr("kLFT") != (char*)-1 && tigetstr("kRIT") != (char*)-1)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);

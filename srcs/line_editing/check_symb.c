@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/05/31 21:23:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/01 16:17:19 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_read(char *c)
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) ||
 			!ft_strcmp(c, tigetstr("kend"))) &&
 			((short)ft_strlen(g_term.buffer) > len))
-		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1) : 
+		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1) :
 		go_right(ft_strlen(g_term.buffer) - len);
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
 		!ft_strcmp(c, CTRL_RIGHT) ? next_word(g_term.buffer + len) :
@@ -34,7 +34,8 @@ void	print_read(char *c)
 	else if (!ft_strcmp(c, CTRL_DOWN) && (len + g_term.ws_col
 			<= (short)ft_strlen(g_term.buffer)))
 		go_right(g_term.ws_col);
-	else if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")))
+	else if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
+	*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
 		cut_copy_paste(c, len);
 	else
 		print_read_other(c, len);
@@ -68,6 +69,19 @@ void	print_read_other(char *c, short len)
 
 void	cut_copy_paste(char *c, short len)
 {
+	static short	x_cur;
+	static short	y_cur;
+	char			*copy_buf;
+	short			start;
+
+	if (*c == CTRL_B && ((!x_cur && !y_cur) ||
+	(x_cur == g_term.x_cur && y_cur == g_term.y_cur)))
+		return ;
+	if (!x_cur && !y_cur)
+	{
+		x_cur = g_term.x_cur;
+		y_cur = g_term.y_cur;
+	}
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
 	{
 		go_left(1);
@@ -76,5 +90,9 @@ void	cut_copy_paste(char *c, short len)
 			((short)ft_strlen(g_term.buffer) > len))
 	{
 		go_right(1);
+	}
+	else if (*c == CTRL_B)
+	{
+		
 	}
 }

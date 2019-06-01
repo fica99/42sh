@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/30 23:28:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/01 16:10:34 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct	s_term
 	short			ws_col;
 	short			ws_row;
 	char			*buffer;
+	char			*copy_buff;
 	char			**env_cp;
 	struct termios	savetty;
 	short			malloc_len;
