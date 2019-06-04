@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/29 21:18:55 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 13:33:47 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ void	ft_unsetenv(int argc, char **argv, char **env_cp)
 			envp = copy_new_arr(i);
 			free(g_term.env_cp);
 			g_term.env_cp = envp;
-			if (!ft_strncmp(argv[j], "PATH", 4))
+			if (!ft_strcmp(argv[j], "PATH"))
 			{
-				free_hash_table();
+				free_hash_table(g_term.hash_table, g_term.hash_table_size);
+				g_term.hash_table_size = 0;
 				g_term.hash_table = NULL;
 			}
 		}

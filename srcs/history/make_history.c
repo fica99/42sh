@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 21:26:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:15:13 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	make_history_buff(void)
+t_history	*make_history_buff(void)
 {
 	int			fd;
 	char		**buff;
@@ -21,7 +21,8 @@ void	make_history_buff(void)
 
 	if (!(history = (t_history*)malloc(sizeof(t_history))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	if ((fd = open(g_term.history_path, O_RDONLY | O_CREAT , S_IRUSR | S_IWUSR)) == -1)
+	history->history_path = get_bin_path();
+	if ((fd = open(history->history_path, O_RDONLY | O_CREAT , S_IRUSR | S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
 	len = 0;
 	if (!(buff = (char**)malloc(sizeof(char*) * (HISTORY_SIZE + 1))))
@@ -33,69 +34,71 @@ void	make_history_buff(void)
 		print_error("42sh", "close() error", NULL, 0);
 	history->history_buff = buff;
 	history->history_index = double_arr_len(buff);
-	g_term.history = history;
+	return (history);
 }
 
-void	go_history(char *c)
+void	go_history(char *c, t_history *history, t_cord *cord, char *buffer)
 {
 	short	len;
 
-	len = double_arr_len(g_term.history->history_buff);
-	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && g_term.history->history_index)
-		history_up();
-	else if (!(ft_strcmp(c, tigetstr("kcud1"))) && g_term.history->history_index != len)
-		history_down(len);
-	else if (*c == CTRL_R && len)
-		find_history();
+	len = double_arr_len(history->history_buff);
+	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)
+		history_up(history, cord);
+	else if (!(ft_strcmp(c, tigetstr("kcud1"))) && history->history_index != len)
+		history_down(history, cord, len, buffer);
+//	else if (*c == CTRL_R && len)
+//		find_history();
 }
 
-void		history_up(void)
+void		history_up(t_history *history, t_cord *cord)
 {
 	char	*cursor;
 
 	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, g_term.y_start, g_term.x_start), STDIN_FILENO);
+	ft_putstr_fd(tparm(cursor, cord->y_start, cord->x_start), STDIN_FILENO);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	g_term.x_cur = g_term.x_start;
-	g_term.y_cur = g_term.y_start;
-	ft_putstr_cord((g_term.history->history_buff)[--(g_term.history->history_index)]);
+	cord->x_cur = cord->x_start;
+	cord->y_cur = cord->y_start;
+	ft_putstr_cord((history->history_buff)[--(history->history_index)]);
 }
 
-void		history_down(short len)
+void		history_down(t_history *history, t_cord *cord, short len, char *buffer)
 {
 	char	*cursor;
 
 	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, g_term.y_start, g_term.x_start), STDIN_FILENO);
+	ft_putstr_fd(tparm(cursor, cord->y_start, cord->x_start), STDIN_FILENO);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	g_term.x_cur = g_term.x_start;
-	g_term.y_cur = g_term.y_start;
-	if (++(g_term.history->history_index) == len)
-		ft_putstr_cord(g_term.buffer);
+	cord->x_cur = cord->x_start;
+	cord->y_cur = cord->y_start;
+	if (++(history->history_index) == len)
+		ft_putstr_cord(buffer);
 	else
-		ft_putstr_cord(g_term.history->history_buff[g_term.history->history_index]);
+		ft_putstr_cord(history->history_buff[history->history_index]);
 }
 
-void		change_buf(void)
+void		change_buf(t_history *history, char **buffer)
 {
 	short	len;
+	char	*buff;
 
-	len = double_arr_len(g_term.history->history_buff);
+	len = double_arr_len(history->history_buff);
 	if (g_flags)
 	{
-		g_term.history->history_index = len;
+		history->history_index = len;
 		return ;
 	}
-	if (g_term.history->history_index != len)
+	if (history->history_index != len)
 	{
-		ft_memdel((void**)&g_term.buffer);
-		g_term.buffer = ft_strdup(g_term.history->history_buff[g_term.history->history_index]);
+		buff = *buffer;
+		ft_memdel((void**)&buff);
+		*buffer = ft_strdup(history->history_buff[history->history_index]);
 	}
 	if (len >= HISTORY_SIZE)
-		g_term.history->history_index = len;
+		history->history_index = len;
 	else
 	{
-		if (check_print_arr(g_term.buffer))
-			g_term.history->history_index = ++len;
+		if (check_print_arr(*buffer))
+			history->history_index = ++len;
 	}
 }

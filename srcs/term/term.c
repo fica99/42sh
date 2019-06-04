@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 18:16:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:16:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int		main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	g_term.env_cp = copy_double_arr(environ);
-	init_term();
-	get_win_size();
-	get_bin_path();
+	g_term.cord = init_term();
+	get_win_size(g_term.cord);
 	make_hash_table();
-	make_history_buff();
+	g_term.history = make_history_buff();
 	term_start();
 	free_double_arr(g_term.env_cp);
-	free_hash_table();
-	ft_memdel((void**)&g_term.history_path);
+	free_hash_table(g_term.hash_table, g_term.hash_table_size);
+	g_term.hash_table = NULL;
+	g_term.hash_table_size = 0;
 	free_history();
 	reset_term();
 	return (EXIT_SUCCESS);

@@ -6,22 +6,20 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/05/29 21:19:00 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 13:33:37 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	free_hash_table(void)
+void	free_hash_table(t_hash **table, unsigned short len)
 {
 	short	i;
-	t_hash	**table;
 	t_hash	*next;
 	t_hash	*copy;
 
 	i = -1;
-	table = g_term.hash_table;
-	while (++i < g_term.hash_table_size)
+	while (++i < len)
 	{
 		next = table[i];
 		while (next)
@@ -33,20 +31,19 @@ void	free_hash_table(void)
 			ft_memdel((void**)&(copy));
 		}
 	}
-	g_term.hash_table_size = 0;
 }
 
-void	print_hash_table(void)
+void	print_hash_table(t_hash **table, unsigned short len)
 {
 	short	i;
-	t_hash	**table;
+	t_hash	**table_copy;
 	t_hash	*hash;
 
 	i = -1;
-	table = g_term.hash_table;
-	while (++i < g_term.hash_table_size)
+	table_copy = table;
+	while (++i < len)
 	{
-		hash = table[i];
+		hash = table_copy[i];
 		while (hash)
 		{
 			ft_putstr_fd(hash->name, STDOUT_FILENO);

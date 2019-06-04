@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/31 01:08:48 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 12:41:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			make_hash_table(void)
 	if (!(path = ft_strsplit((ft_getenv("PATH")), ':')))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	g_term.hash_table_size = get_hash_table_size(path);
-	g_term.hash_table = make_table(path);
+	g_term.hash_table = make_table(path, g_term.hash_table_size);
 	free_double_arr(path);
 }
 
@@ -68,7 +68,7 @@ void			check_close(DIR *folder)
 		print_error("42sh", "opendir() error", NULL, 0);
 }
 
-unsigned short	hash_index(unsigned short key)
+unsigned short	hash_index(unsigned short key, unsigned short len)
 {
-	return (key % g_term.hash_table_size);
+	return (key % len);
 }

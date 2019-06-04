@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/05/30 14:17:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:11:25 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			print_environ(void);
 char			*check_path(void);
-void			get_win_size(void);
-void			init_term();
-void			get_cur_cord(void);
+void			get_win_size(t_cord *cord);
+t_cord		    *init_term(void);
+void			get_cur_cord(t_cord *cord);
 void			set_input_mode(void);
 void			reset_input_mode (void);
-void			ft_putstr_cord(char *str);
+void			ft_putstr_cord(char *str, t_cord *cord);
 void			reset_term(void);
 pid_t			make_process(void);
-void	        get_bin_path(void);
+char			*get_bin_path(void);
 #endif

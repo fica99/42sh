@@ -6,27 +6,28 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/06/01 15:34:28 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 14:20:48 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void		get_win_size(void)
+void		get_win_size(t_cord *cord)
 {
 	struct winsize	size;
 
 	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
 		print_error("42sh", "ioctl() error", NULL, 0);
-	g_term.ws_col = size.ws_col;
-	g_term.ws_row = size.ws_row;
+	cord->ws_col = size.ws_col;
+	cord->ws_row = size.ws_row;
 }
 
-void		init_term(void)
+t_cord		*init_term(void)
 {
 	char	*term;
 	int		err;
 	char	*smkx_mode;
+	t_cord	*cord;
 
 	if ((term = ft_getenv("TERM")) == NULL ||
 	(setupterm(term, STDIN_FILENO, &err) == ERR))
@@ -43,9 +44,12 @@ void		init_term(void)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);
+	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	return (cord);
 }
 
-void		get_cur_cord(void)
+void		get_cur_cord(t_cord *cord)
 {
 	char	cur_cord[NORMAL_LINE];
 	char	*pos;
@@ -60,13 +64,13 @@ void		get_cur_cord(void)
 		return ;
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.y_cur = num - 1;
+	cord->y_cur = num - 1;
 	num = 0;
 	if (!(pos = ft_strchr(cur_cord, (int)';')))
 		return ;
 	while (ft_isdigit(*(++pos)))
 		num = num * 10 + (int)*pos - 48;
-	g_term.x_cur = num - 1;
+	cord->x_cur = num - 1;
 }
 
 void		set_input_mode(void)

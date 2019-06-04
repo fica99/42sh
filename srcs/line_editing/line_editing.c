@@ -6,41 +6,41 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 23:12:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:55:07 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	go_left(short i)
+void	go_left(short i, t_cord *cord)
 {
 	char	*cursor;
 
-	g_term.x_cur -= i;
-	while (g_term.x_cur < 0)
+	cord->x_cur -= i;
+	while (cord->x_cur < 0)
 	{
-		g_term.x_cur += g_term.ws_col;
-		g_term.y_cur--;
+		cord->x_cur += cord->ws_col;
+		cord->y_cur--;
 	}
 	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, g_term.y_cur, g_term.x_cur), STDIN_FILENO);
+	ft_putstr_fd(tparm(cursor, cord->y_cur, cord->x_cur), STDIN_FILENO);
 }
 
-void	go_right(short i)
+void	go_right(short i, t_cord *cord)
 {
 	char	*cursor;
 
-	g_term.x_cur += i;
-	while (g_term.x_cur >= g_term.ws_col)
+	cord->x_cur += i;
+	while (cord->x_cur >= cord->ws_col)
 	{
-		g_term.x_cur -= g_term.ws_col;
-		g_term.y_cur++;
+		cord->x_cur -= cord->ws_col;
+		cord->y_cur++;
 	}
 	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, g_term.y_cur, g_term.x_cur), STDIN_FILENO);
+	ft_putstr_fd(tparm(cursor, cord->y_cur, cord->x_cur), STDIN_FILENO);
 }
 
-void	prev_word(char *buf, short len)
+void	prev_word(char *buf, short len, t_cord *cord)
 {
 	short	i;
 
@@ -50,13 +50,13 @@ void	prev_word(char *buf, short len)
 		if ((i == 0 || buf[i - 1] == ' ') &&
 		(ft_isalpha(buf[i]) || ft_isdigit(buf[i])))
 		{
-			go_left(len - i);
+			go_left(len - i, cord);
 			break ;
 		}
 	}
 }
 
-void	next_word(char *buf)
+void	next_word(char *buf, t_cord *cord)
 {
 	short	i;
 	char	flag;
@@ -71,7 +71,7 @@ void	next_word(char *buf)
 			break ;
 		i++;
 	}
-	go_right(i);
+	go_right(i, cord);
 }
 
 void	del_symb(char *buf, short len)

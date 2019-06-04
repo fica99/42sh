@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:48:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/02 12:52:52 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	find_command(char **args)
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
 	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
-		print_hash_table();
+		print_hash_table(g_term.hash_table, g_term.hash_table_size);
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		g_flags |= TERM_EXIT;
@@ -70,7 +70,7 @@ char	*exec_command(char **args)
 
 	if (!g_term.hash_table)
 		return (NULL);
-	hash = g_term.hash_table[hash_index(hashing(args[0]))];
+	hash = g_term.hash_table[hash_index(hashing(args[0]), g_term.hash_table_size)];
 	while (hash)
 	{
 		if (!ft_strcmp(hash->name, args[0]))

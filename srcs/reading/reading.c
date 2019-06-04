@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/01 16:04:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 15:15:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,29 @@
 
 void	read_prompt(void)
 {
-	get_cur_cord();
-	g_term.x_start = g_term.x_cur;
-	g_term.y_start = g_term.y_cur;
-	if (!(g_term.buffer = ft_strnew(NORMAL_LINE)))
+	t_cord	*cord;
+	char	*buffer;
+	short	malloc_len;
+
+	cord = g_term.cord;
+	get_cur_cord(cord);
+	cord->x_start = cord->x_cur;
+	cord->y_start = cord->y_cur;
+	if (!(buffer = ft_strnew(NORMAL_LINE)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	g_term.malloc_len = NORMAL_LINE;
+	malloc_len = NORMAL_LINE;
 	set_input_mode();
-	reading();
-	go_right(ft_strlen(g_term.buffer) - g_term.x_cur - g_term.x_start +
-			((g_term.y_cur - g_term.y_start) * g_term.ws_col));
-	change_buf();
+	reading(&buffer, &malloc_len, cord);
+	change_buf(g_term.history, &buffer);
+	go_right(ft_strlen(buffer) - cord->x_cur - cord->x_start +
+			((cord->y_cur - cord->y_start) * cord->ws_col));
 	reset_input_mode();
+	g_term.buffer = buffer;
+	g_term.malloc_len = malloc_len;
 	ft_putchar_fd('\n', STDIN_FILENO);
 }
 
-void	reading(void)
+void	reading(char **buffer, short *malloc_len, t_cord *cord)
 {
 	char	c[LINE_MAX + 1];
 
@@ -42,11 +49,11 @@ void	reading(void)
 				g_flags |= TERM_SIGINT;
 			break ;
 		}
-		while (ft_strlen(g_term.buffer) + ft_strlen(c) >=
-				(unsigned)g_term.malloc_len)
-			g_term.buffer = strnew_realloc_buf(g_term.buffer,
-					g_term.malloc_len += NORMAL_LINE);
-		print_read(c);
+		while (ft_strlen(*buffer) + ft_strlen(c) >=
+				(unsigned)*malloc_len)
+			*buffer = strnew_realloc_buf(*buffer,
+					*malloc_len += NORMAL_LINE);
+		print_read(c, *buffer, cord);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

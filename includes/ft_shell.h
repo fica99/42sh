@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/01 16:10:34 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/02 14:11:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include "error/error.h"
 # include "signal/signal.h"
 # include "term/term.h"
-# include "make/make.h"
 # include "line_editing/line_editing.h"
+# include "make/make.h"
 # include "history/history.h"
 
 # define RUNNING 1
@@ -44,21 +44,14 @@
 
 typedef struct	s_term
 {
-	short			x_start;
-	short			y_start;
-	short			x_cur;
-	short			y_cur;
-	short			ws_col;
-	short			ws_row;
 	char			*buffer;
-	char			*copy_buff;
 	char			**env_cp;
 	struct termios	savetty;
 	short			malloc_len;
 	unsigned short	hash_table_size;
+	t_cord			*cord;
 	t_hash			**hash_table;
 	t_history		*history;
-	char			*history_path;
 }				t_term;
 
 struct s_term	g_term;
