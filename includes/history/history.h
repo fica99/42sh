@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 21:56:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/04 22:32:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void		write_history(t_term *term);
 void		rewrite_file(short len, t_term *term);
 void		add_to_file(short len, t_term *term);
 void		free_history(t_history **history);
-//void		find_history(void);
+void	    find_history(char **buffer, t_cord *cord, t_history *history);
 #endif

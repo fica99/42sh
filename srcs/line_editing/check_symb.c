@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 21:43:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/04 22:32:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	print_read_two(char *c, char *buffer, t_cord *cord, t_history *history)
 	//		cut_copy_paste(c, len);
 	//else if (*c == TAB)
 		//autocom();
-	if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1")) || *c == CTRL_R)
+	if (*c == CTRL_R)
+		find_history(&buffer, cord, history);
+	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1")) || *c == CTRL_R)
 		go_history(c, history, cord, buffer);
 	print_read_three(c, buffer, len, cord);
 }

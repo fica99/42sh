@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 21:35:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/04 22:19:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	read_prompt(t_term *term)
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	malloc_len = NORMAL_LINE;
 	set_input_mode(&(term->savetty));
-	
 	reading(&buffer, &malloc_len, cord, term->history);
 	change_buf(term->history, &buffer);
 	go_right(ft_strlen(buffer) - cord->x_cur - cord->x_start +
