@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   make_history2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/05/31 00:51:43 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 21:55:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void    add_to_historybuf(void)
+void    add_to_historybuf(t_term *term)
 {
 	short	len;
 	short	i;
 
-	len = double_arr_len(g_term.history->history_buff);
+	len = double_arr_len(term->history->history_buff);
 	if (len >= HISTORY_SIZE)
 	{
 		i = -1;
 		while (++i < len - 1)
-			g_term.history->history_buff[i] = g_term.history->history_buff[i + 1];
-		g_term.history->history_buff[i] = ft_strdup(g_term.buffer);
+			term->history->history_buff[i] = term->history->history_buff[i + 1];
+		term->history->history_buff[i] = ft_strdup(term->buffer);
 	}
 	else
-		g_term.history->history_buff[len++] = ft_strdup(g_term.buffer);
-	g_term.history->history_buff[len] = NULL;
+		term->history->history_buff[len++] = ft_strdup(term->buffer);
+	term->history->history_buff[len] = NULL;
 }
 
 char	check_print_arr(char *arr)
@@ -43,41 +43,41 @@ char	check_print_arr(char *arr)
 	return (0);
 }
 
-void	write_history(void)
+void	write_history(t_term *term)
 {
 	short	len;
 
-	if (!check_print_arr(g_term.buffer))
+	if (!check_print_arr(term->buffer))
 		return ;
-	add_to_historybuf();
-	len = double_arr_len(g_term.history->history_buff);
-	len < HISTORY_SIZE ? add_to_file(len) : rewrite_file(len);
+	add_to_historybuf(term);
+	len = double_arr_len(term->history->history_buff);
+	len < HISTORY_SIZE ? add_to_file(len, term) : rewrite_file(len, term);
 }
 
-void	rewrite_file(short len)
+void	rewrite_file(short len, t_term *term)
 {
 	int		fd;
 	short	i;
 
-	if ((fd = open(g_term.history_path, O_RDWR | O_TRUNC)) == -1)
+	if ((fd = open(term->history->history_path, O_RDWR | O_TRUNC)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
 	i = -1;
 	while (++i < len)
 	{
-		ft_putstr_fd(g_term.history->history_buff[i], fd);
+		ft_putstr_fd(term->history->history_buff[i], fd);
 		ft_putchar_fd('\n', fd);
 	}
 	if (close(fd) == -1)
 		print_error("42sh", "close() error", NULL, 0);
 }
 
-void	add_to_file(short len)
+void	add_to_file(short len, t_term *term)
 {
 	int	fd;
 
-	if ((fd = open(g_term.history_path, O_RDWR | O_APPEND)) == -1)
+	if ((fd = open(term->history->history_path, O_RDWR | O_APPEND)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
-	ft_putstr_fd(g_term.history->history_buff[len - 1], fd);
+	ft_putstr_fd(term->history->history_buff[len - 1], fd);
 	ft_putchar_fd('\n', fd);
 	if (close(fd) == -1)
 		print_error("42sh", "close() error", NULL, 0);

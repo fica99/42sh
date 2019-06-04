@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buff_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 20:01:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/04 20:49:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		*strnew_realloc_buf(char *str, short len)
 	arr = str;
 	if (!(str = ft_strnew(len)))
 	{
-		reset_input_mode();
+		reset_input_mode(&g_term.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
@@ -56,7 +56,7 @@ char		*ft_strdel_el(char *buf, size_t i)
 	{
 		if (!(str = ft_strdup(buf + i + 1)))
 		{
-			reset_input_mode();
+			reset_input_mode(&g_term.savetty);
 			ft_putchar_fd('\n', STDERR_FILENO);
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
@@ -75,7 +75,7 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
 	{
-		reset_input_mode();
+		reset_input_mode(&g_term.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}

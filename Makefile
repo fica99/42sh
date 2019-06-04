@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/31 18:18:14 by aashara-         ###   ########.fr        #
+#    Updated: 2019/06/04 20:02:37 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+SRC_SEARCH =$(TERM) $(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/02 15:15:13 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 19:33:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		history_up(t_history *history, t_cord *cord)
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;
-	ft_putstr_cord((history->history_buff)[--(history->history_index)]);
+	ft_putstr_cord((history->history_buff)[--(history->history_index)], cord);
 }
 
 void		history_down(t_history *history, t_cord *cord, short len, char *buffer)
@@ -72,9 +72,9 @@ void		history_down(t_history *history, t_cord *cord, short len, char *buffer)
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;
 	if (++(history->history_index) == len)
-		ft_putstr_cord(buffer);
+		ft_putstr_cord(buffer, cord);
 	else
-		ft_putstr_cord(history->history_buff[history->history_index]);
+		ft_putstr_cord(history->history_buff[history->history_index], cord);
 }
 
 void		change_buf(t_history *history, char **buffer)

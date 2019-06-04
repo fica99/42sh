@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 14:20:48 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 20:49:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void		get_cur_cord(t_cord *cord)
 	short	num;
 
 	num = 0;
-	set_input_mode();
+	set_input_mode(&(g_term.savetty));
 	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
-	reset_input_mode();
+	reset_input_mode(&(g_term.savetty));
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;
 	while (ft_isdigit(*(++pos)))
@@ -73,15 +73,15 @@ void		get_cur_cord(t_cord *cord)
 	cord->x_cur = num - 1;
 }
 
-void		set_input_mode(void)
+void		set_input_mode(struct termios *savetty)
 {
 	struct termios	tty;
 
 	if (!isatty(0))
 		print_error("42sh", "stdin not terminal\n", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, &(g_term.savetty)) < 0)
+	if (tcgetattr(STDIN_FILENO, savetty) < 0)
 		print_error("42sh", "tcgetattr() error", NULL, 0);
-	tty = g_term.savetty;
+	tty = *savetty;
 	tty.c_lflag &= ~(ICANON | ECHO | ISIG);
 	tty.c_cc[VTIME] = 0;
 	tty.c_cc[VMIN] = 1;
@@ -89,8 +89,8 @@ void		set_input_mode(void)
 		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
 
-void		reset_input_mode(void)
+void		reset_input_mode(struct termios *savetty)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &(g_term.savetty)) < 0)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, savetty) < 0)
 		print_error("42sh", "tcsetattr() error", NULL, 0);
 }

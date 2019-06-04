@@ -3,17 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/02 14:11:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 21:54:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SHELL_H
 # define FT_SHELL_H
 
+# include <termios.h>
+
+typedef struct		s_cord
+{
+	short			x_start;
+	short			y_start;
+	short			x_cur;
+	short			y_cur;
+	short			ws_col;
+	short			ws_row;
+}					t_cord;
+
+typedef struct		s_hash
+{
+	char			*path;
+	unsigned short	index;
+	char			*name;
+	struct s_hash	*next;
+}					t_hash;
+
+typedef struct	s_history
+{
+	char		**history_buff;
+	short		history_index;
+	char		*history_path;
+}				t_history;
+
+typedef struct		s_term
+{
+	char			*buffer;
+	char			**env_cp;
+	struct termios	savetty;
+	short			malloc_len;
+	unsigned short	hash_table_size;
+	t_cord			*cord;
+	t_hash			**hash_table;
+	t_history		*history;
+}					t_term;
+
+
 # include "libft.h"
+# include "make/make.h"
+# include "error/error.h"
+# include "hash_table/hash_table.h"
+# include "history/history.h"
+# include "term/term.h"
+# include "line_editing/line_editing.h"
 # include "macro/colour.h"
 # include "macro/command.h"
 # include "builtins/cd.h"
@@ -21,16 +67,10 @@
 # include "builtins/echo.h"
 # include "builtins/setenv.h"
 # include "builtins/unsetenv.h"
-# include "hash_table/hash_table.h"
 # include "exec/exec.h"
 # include "reading/reading.h"
 # include "parser/parser.h"
-# include "error/error.h"
 # include "signal/signal.h"
-# include "term/term.h"
-# include "line_editing/line_editing.h"
-# include "make/make.h"
-# include "history/history.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
@@ -41,18 +81,6 @@
 # define SOMETHING "1"
 # define READING 1
 # define INIT_FLAGS 0
-
-typedef struct	s_term
-{
-	char			*buffer;
-	char			**env_cp;
-	struct termios	savetty;
-	short			malloc_len;
-	unsigned short	hash_table_size;
-	t_cord			*cord;
-	t_hash			**hash_table;
-	t_history		*history;
-}				t_term;
 
 struct s_term	g_term;
 unsigned short	g_flags;

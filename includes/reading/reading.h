@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 14:40:31 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 21:34:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 
-void	read_prompt(void);
-void	reading(char **buffer, short *malloc_len, t_cord *cord);
+void	read_prompt(t_term *term);
+void	reading(char **buffer, short *malloc_len, t_cord *cord, t_history *history);
 void	read_handler(char *c, int fd);
 #endif

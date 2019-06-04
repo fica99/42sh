@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 13:33:37 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 20:09:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+void	free_my_table(void)
+{
+	free_hash_table(g_term.hash_table, g_term.hash_table_size);
+	g_term.hash_table_size = 0;
+}
 
 void	free_hash_table(t_hash **table, unsigned short len)
 {

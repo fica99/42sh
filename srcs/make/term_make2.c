@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 15:10:58 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 19:41:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void	ft_putstr_cord(char *str, t_cord *cord)
 	}
 }
 
-void	reset_term(void)
+void	reset_term(t_cord **cord)
 {
 	char	*rmkx_mode;
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
+	ft_memdel((void**)cord);
 }
 
 char	*get_bin_path(void)

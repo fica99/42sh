@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 15:09:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/04 21:43:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	print_read(char *c, char *buffer, t_cord *cord)
+void	print_read(char *c, char *buffer, t_cord *cord, t_history *history)
 {
 	short len;
 
@@ -34,22 +34,30 @@ void	print_read(char *c, char *buffer, t_cord *cord)
 	else if (!ft_strcmp(c, CTRL_DOWN) && (len + cord->ws_col
 			<= (short)ft_strlen(buffer)))
 		go_right(cord->ws_col, cord);
-//	else if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
-//	*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
-//		cut_copy_paste(c, len);
 	else
-		print_read_other(c, buffer, len, cord);
+		print_read_two(c, buffer, cord, history);
 }
 
-void	print_read_other(char *c, char *buffer, short len, t_cord *cord)
+void	print_read_two(char *c, char *buffer, t_cord *cord, t_history *history)
 {
-	//if (*c == TAB)
+	short len;
+
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+			* cord->ws_col);
+	//if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
+	//	*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
+	//		cut_copy_paste(c, len);
+	//else if (*c == TAB)
 		//autocom();
 	if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1")) || *c == CTRL_R)
-		go_history(c, g_term.history, cord, buffer);
-	else if (((*c == BCSP || *c == CTRL_H) && len) ||
-			!ft_strcmp(c, tigetstr("kdch1"))
-		|| *c == CTRL_D)
+		go_history(c, history, cord, buffer);
+	print_read_three(c, buffer, len, cord);
+}
+
+void	print_read_three(char *c, char *buffer, short len, t_cord *cord)
+{
+	if (((*c == BCSP || *c == CTRL_H) && len) ||
+			!ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
 		{
