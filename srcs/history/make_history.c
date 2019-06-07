@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 15:55:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 22:36:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_history	*make_history_buff(void)
 
 void	go_history(char *c, t_history *history, t_cord *cord, char *buffer)
 {
-	short	len;
+	short		len;
 
 	len = double_arr_len(history->history_buff);
 	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)

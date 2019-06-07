@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 15:45:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 22:26:30 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,11 @@ void	term_start(t_term *term)
 			ft_memdel((void**)&(term->buffer));
 			continue ;
 		}
-		write_history(term);
 		if (!g_flags)
+		{
+			write_history(term);
 			parse_string(term);
+		}
 		ft_memdel((void**)&term->buffer);
 		if (g_flags & TERM_EXIT)
 			break ;

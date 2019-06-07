@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 16:07:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 22:32:36 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	read_prompt(t_term *term)
 	set_input_mode(&(term->savetty));
 	reading(&buffer, &malloc_len, cord, term->history);
 	change_buf(term->history, &buffer);
-	go_right(ft_strlen(buffer) - cord->x_cur - cord->x_start +
-			((cord->y_cur - cord->y_start) * cord->ws_col), cord);
+	go_right(ft_strlen(buffer) - (cord->x_cur - cord->x_start +
+			((cord->y_cur - cord->y_start) * cord->ws_col)), cord);
 	reset_input_mode(&(g_term.savetty));
 	term->buffer = buffer;
 	term->malloc_len = malloc_len;
