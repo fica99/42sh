@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 20:49:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:34:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ void		get_win_size(t_cord *cord)
 	cord->ws_row = size.ws_row;
 }
 
-t_cord		*init_term(void)
+void		init_term(void)
 {
 	char	*term;
 	int		err;
 	char	*smkx_mode;
-	t_cord	*cord;
 
 	if ((term = ft_getenv("TERM")) == NULL ||
 	(setupterm(term, STDIN_FILENO, &err) == ERR))
@@ -44,9 +43,6 @@ t_cord		*init_term(void)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);
-	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	return (cord);
 }
 
 void		get_cur_cord(t_cord *cord)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 22:19:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 16:07:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	reading(char **buffer, short *malloc_len, t_cord *cord, t_history *history)
 			*buffer = strnew_realloc_buf(*buffer,
 					*malloc_len += NORMAL_LINE);
 		print_read(c, *buffer, cord, history);
-		if (g_flags & TERM_EXIT)
+		if (g_flags)
 			break ;
 	}
 }

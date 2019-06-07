@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 20:49:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:45:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <sys/types.h>
 
 char			**copy_double_arr(char **arr);
-t_cord		    *init_term(void);
+void			init_term(void);
+t_cord			*init_cord(void);
 char			*ft_getenv(char *arr);
 void			get_win_size(t_cord *cord);
 char			*strnew_realloc_buf(char *str, short len);
@@ -37,7 +38,7 @@ void			get_cur_cord(t_cord *cord);
 void			set_input_mode(struct termios *savetty);
 void			reset_input_mode(struct termios *savetty);
 void			ft_putstr_cord(char *str, t_cord *cord);
-void	        reset_term(t_cord **cord);
+void	        reset_term(void);
 pid_t			make_process(void);
-char			*get_bin_path(void);
+char			*get_history_file_path(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 19:33:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:55:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ t_history	*make_history_buff(void)
 
 	if (!(history = (t_history*)malloc(sizeof(t_history))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	history->history_path = get_bin_path();
-	if ((fd = open(history->history_path, O_RDONLY | O_CREAT , S_IRUSR | S_IWUSR)) == -1)
+	history->history_path = get_history_file_path();
+	if ((fd = open(history->history_path, O_RDONLY | O_CREAT , S_IRUSR
+	| S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
 	len = 0;
 	if (!(buff = (char**)malloc(sizeof(char*) * (HISTORY_SIZE + 1))))
@@ -97,8 +98,6 @@ void		change_buf(t_history *history, char **buffer)
 	if (len >= HISTORY_SIZE)
 		history->history_index = len;
 	else
-	{
 		if (check_print_arr(*buffer))
 			history->history_index = ++len;
-	}
 }

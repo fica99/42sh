@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/02 12:49:16 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/07 15:48:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_hash				**make_table(char **path, unsigned short len)
+t_hash				**make_hash_table(char **path, unsigned short len)
 {
 	t_hash			**table;
 	DIR				*folder;

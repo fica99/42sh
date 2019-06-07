@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 20:09:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:41:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	free_my_table(void)
+void	free_my_hash_table(void)
 {
 	free_hash_table(g_term.hash_table, g_term.hash_table_size);
 	g_term.hash_table_size = 0;

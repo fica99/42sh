@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 19:41:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/07 15:45:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,27 @@ void	ft_putstr_cord(char *str, t_cord *cord)
 	}
 }
 
-void	reset_term(t_cord **cord)
+void	reset_term(void)
 {
 	char	*rmkx_mode;
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
-	ft_memdel((void**)cord);
 }
 
-char	*get_bin_path(void)
+char	*get_history_file_path(void)
 {
 	if (ft_getenv("PWD"))
 		return (ft_strjoin(ft_getenv("PWD"), "/.history"));
 	return (NULL);
+}
+
+t_cord	*init_cord(void)
+{
+	t_cord	*cord;
+	
+	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	get_win_size(cord);
+	return (cord);
 }
