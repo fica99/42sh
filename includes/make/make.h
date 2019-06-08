@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/07 15:45:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 14:53:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void			ft_putstr_cord(char *str, t_cord *cord);
 void	        reset_term(void);
 pid_t			make_process(void);
 char			*get_history_file_path(void);
+t_buff	        *init_buff(void);
 #endif

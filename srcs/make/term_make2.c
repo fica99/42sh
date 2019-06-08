@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/07 15:45:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:32:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,15 @@ t_cord	*init_cord(void)
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	get_win_size(cord);
 	return (cord);
+}
+
+t_buff	*init_buff(void)
+{
+	t_buff	*buff;
+
+	if (!(buff = (t_buff*)malloc(sizeof(t_buff))))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	buff->buffer = NULL;
+	buff->save_buff = NULL;
+	return (buff);
 }

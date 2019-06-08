@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 21:54:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 14:41:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef struct		s_cord
 	short			ws_row;
 }					t_cord;
 
+typedef struct		s_buff
+{
+	char			*buffer;
+	short			malloc_len;
+	char			*save_buff;
+}					t_buff;
+
 typedef struct		s_hash
 {
 	char			*path;
@@ -42,14 +49,13 @@ typedef struct	s_history
 
 typedef struct		s_term
 {
-	char			*buffer;
 	char			**env_cp;
 	struct termios	savetty;
-	short			malloc_len;
 	unsigned short	hash_table_size;
 	t_cord			*cord;
 	t_hash			**hash_table;
 	t_history		*history;
+	t_buff			*buffer;
 }					t_term;
 
 

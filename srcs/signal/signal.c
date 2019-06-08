@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 20:35:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:15:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	signal_handler(int sign)
 		get_cur_cord(g_term.cord);
 		g_term.cord->x_start = g_term.cord->x_cur;
 		g_term.cord->y_start = g_term.cord->y_cur;
-		ft_putstr_cord(g_term.buffer, g_term.cord);
-		go_left(ft_strlen(g_term.buffer) - len, g_term.cord);
+		ft_putstr_cord(g_term.buffer->buffer, g_term.cord);
+		go_left(ft_strlen(g_term.buffer->buffer) - len, g_term.cord);
 	}
 }

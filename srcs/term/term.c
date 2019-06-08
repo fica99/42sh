@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 22:26:30 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:31:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ int		main(int argc, char **argv, char **environ)
 	g_term.cord = init_cord();
 	init_hash_table();
 	g_term.history = make_history_buff();
+	g_term.buffer = init_buff();
 	term_start(&g_term);
 	free_double_arr(g_term.env_cp);
 	free_my_hash_table();
 	free_history(&(g_term.history));
 	reset_term();
 	ft_memdel((void**)&(g_term.cord));
+	ft_memdel((void**)&(g_term.buffer));
 	return (EXIT_SUCCESS);
 }
 
@@ -40,7 +42,9 @@ void	term_start(t_term *term)
 		read_prompt(term);
 		if (g_flags & TERM_SIGINT)
 		{
-			ft_memdel((void**)&(term->buffer));
+			ft_memdel((void**)&(term->buffer->buffer));
+			if (g_term.buffer->save_buff) 
+				ft_memdel((void**)&(g_term.buffer->save_buff));
 			continue ;
 		}
 		if (!g_flags)
@@ -48,7 +52,9 @@ void	term_start(t_term *term)
 			write_history(term);
 			parse_string(term);
 		}
-		ft_memdel((void**)&term->buffer);
+		ft_memdel((void**)&(term->buffer->buffer));	
+		if (g_term.buffer->save_buff) 
+			ft_memdel((void**)&(g_term.buffer->save_buff));
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

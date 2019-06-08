@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/04 22:03:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 14:56:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse_string(t_term *term)
 	char	*new_command;
 	char	*buf;
 
-	buf = term->buffer;
+	buf = term->buffer->buffer;
 	while ((new_command = ft_strchr(buf, ';')))
 	{
 		if (buf != new_command)

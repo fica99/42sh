@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/07 16:12:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/08 14:45:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <stdlib.h>
 
-void	        print_read(char *c, char *buffer, t_cord *cord, t_history *history);
-void	        print_read_two(char *c, char *buffer, t_cord *cord, t_history *history);
+void	        print_read(char *c, t_buff *buffer, t_cord *cord, t_history *history);
+void	        print_read_two(char *c, t_buff *buffer, t_cord *cord, t_history *history);
 void	        print_read_three(char *c, char *buffer, short len, t_cord *cord);
 void			go_left(short i, t_cord *cord);
 void			go_right(short i, t_cord *cord);

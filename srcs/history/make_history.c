@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 22:36:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/08 15:55:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,22 @@ t_history	*make_history_buff(void)
 	return (history);
 }
 
-void	go_history(char *c, t_history *history, t_cord *cord, char *buffer)
+void	go_history(char *c, t_history *history, t_cord *cord, t_buff *buffer)
 {
 	short		len;
-
+	
 	len = double_arr_len(history->history_buff);
+	if (history->history_index == len)
+		buffer->save_buff = ft_strdup(buffer->buffer);
 	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)
-		history_up(history, cord);
+		history_up(history, cord, buffer);
 	else if (!(ft_strcmp(c, tigetstr("kcud1"))) && history->history_index != len)
 		history_down(history, cord, len, buffer);
 //	else if (*c == CTRL_R && len)
 //		find_history();
 }
 
-void		history_up(t_history *history, t_cord *cord)
+void		history_up(t_history *history, t_cord *cord, t_buff *buffer)
 {
 	char	*cursor;
 
@@ -60,10 +62,15 @@ void		history_up(t_history *history, t_cord *cord)
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;
-	ft_putstr_cord((history->history_buff)[--(history->history_index)], cord);
+	while (ft_strlen(history->history_buff[--(history->history_index)]) >=
+				(unsigned)buffer->malloc_len)
+			buffer->buffer = strnew_realloc_buf(buffer->buffer,
+					buffer->malloc_len += NORMAL_LINE);
+	buffer->buffer = ft_strcat(NULL, history->history_buff[(history->history_index)]);
+	ft_putstr_cord(buffer->buffer, cord);
 }
 
-void		history_down(t_history *history, t_cord *cord, short len, char *buffer)
+void		history_down(t_history *history, t_cord *cord, short len, t_buff *buffer)
 {
 	char	*cursor;
 
@@ -72,32 +79,19 @@ void		history_down(t_history *history, t_cord *cord, short len, char *buffer)
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;
+	ft_memdel((void**)&buffer->buffer);
 	if (++(history->history_index) == len)
-		ft_putstr_cord(buffer, cord);
-	else
-		ft_putstr_cord(history->history_buff[history->history_index], cord);
-}
-
-void		change_buf(t_history *history, char **buffer)
-{
-	short	len;
-	char	*buff;
-
-	len = double_arr_len(history->history_buff);
-	if (g_flags)
 	{
-		history->history_index = len;
-		return ;
+		ft_memdel((void**)&buffer->buffer);
+		buffer->buffer = ft_strdup(buffer->save_buff);
 	}
-	if (history->history_index != len)
-	{
-		buff = *buffer;
-		ft_memdel((void**)&buff);
-		*buffer = ft_strdup(history->history_buff[history->history_index]);
-	}
-	if (len >= HISTORY_SIZE)
-		history->history_index = len;
 	else
-		if (check_print_arr(*buffer))
-			history->history_index = ++len;
+	{
+		while (ft_strlen(history->history_buff[(history->history_index)]) >=
+				(unsigned)buffer->malloc_len)
+			buffer->buffer = strnew_realloc_buf(buffer->buffer,
+					buffer->malloc_len += NORMAL_LINE);
+		buffer->buffer = ft_strcat(NULL, history->history_buff[(history->history_index)]);
+	}
+	ft_putstr_cord(buffer->buffer, cord);
 }
