@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/09 13:56:31 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/09 14:12:55 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int		main(int argc, char **argv, char **environ)
 	init_term();
 	g_term.cord = init_cord();
 	init_hash_table();
-	g_term.history = make_history_buff();
+	//g_term.history = make_history_buff();
 	g_term.buffer = init_buff();
-	//term_start(&g_term);
+	// //term_start(&g_term);
 	free_my_hash_table();
-	free_history(&(g_term.history));
+	//free_history(&(g_term.history));
 	reset_term();
 	ft_memdel((void**)&(g_term.cord));
 	ft_memdel((void**)&(g_term.buffer));
