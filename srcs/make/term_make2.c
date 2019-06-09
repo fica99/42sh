@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/08 15:32:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/09 13:05:17 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*get_history_file_path(void)
 t_cord	*init_cord(void)
 {
 	t_cord	*cord;
-	
+
 	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	get_win_size(cord);

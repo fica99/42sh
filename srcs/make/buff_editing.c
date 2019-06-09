@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buff_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 20:49:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/09 12:22:12 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char		*strnew_realloc_buf(char *str, short len)
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
-	str = ft_strcat(str, arr);
+	if (arr)
+		str = ft_strcat(str, arr);
 	ft_memdel((void**)&arr);
 	return (str);
 }
