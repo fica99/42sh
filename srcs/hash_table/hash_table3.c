@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/05/29 21:19:00 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/11 19:08:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	free_hash_table(void)
 		}
 	}
 	g_term.hash_table_size = 0;
+	ft_memdel((void**)&g_term.hash_table);
 }
 
 void	print_hash_table(void)
