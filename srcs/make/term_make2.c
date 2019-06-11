@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term_make2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/09 13:05:17 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/11 18:08:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ t_buff	*init_buff(void)
 	if (!(buff = (t_buff*)malloc(sizeof(t_buff))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	buff->buffer = NULL;
+	buff->malloc_len = 0;
 	buff->save_buff = NULL;
+	buff->save_malloc_len = 0;
 	return (buff);
 }

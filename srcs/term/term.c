@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 17:53:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:12:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	term_start(t_term *term)
 		if (g_flags & TERM_SIGINT)
 		{
 			ft_memdel((void**)&(term->buffer->buffer));
-			if (term->buffer->save_buff)
-				ft_memdel((void**)&(term->buffer->save_buff));
+			ft_memdel((void**)&(term->buffer->save_buff));
 			continue ;
 		}
 		if (!g_flags)
@@ -53,8 +52,7 @@ void	term_start(t_term *term)
 			parse_string(term);
 		}
 		ft_memdel((void**)&(term->buffer->buffer));
-		if (g_term.buffer->save_buff)
-			ft_memdel((void**)&(term->buffer->save_buff));
+		ft_memdel((void**)&(term->buffer->save_buff));
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

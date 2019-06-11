@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/02 14:55:07 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/11 18:51:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,24 @@
 
 void	go_left(short i, t_cord *cord)
 {
-	char	*cursor;
-
 	cord->x_cur -= i;
 	while (cord->x_cur < 0)
 	{
 		cord->x_cur += cord->ws_col;
 		cord->y_cur--;
 	}
-	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, cord->y_cur, cord->x_cur), STDIN_FILENO);
+	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 }
 
 void	go_right(short i, t_cord *cord)
 {
-	char	*cursor;
-
 	cord->x_cur += i;
 	while (cord->x_cur >= cord->ws_col)
 	{
 		cord->x_cur -= cord->ws_col;
 		cord->y_cur++;
 	}
-	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, cord->y_cur, cord->x_cur), STDIN_FILENO);
+	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 }
 
 void	prev_word(char *buf, short len, t_cord *cord)

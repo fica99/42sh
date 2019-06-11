@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 18:05:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:57:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ void	go_history(char *c, t_history *history, t_cord *cord, t_buff *buffer)
 
 void		history_up(t_history *history, t_cord *cord, short len, t_buff *buffer)
 {
-	char	*cursor;
-
-	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, cord->y_start, cord->x_start), STDIN_FILENO);
+	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;
@@ -72,20 +69,15 @@ void		history_up(t_history *history, t_cord *cord, short len, t_buff *buffer)
 		ft_memdel((void**)&buffer->buffer);
 		buffer->malloc_len = 0;
 	}
-	while (ft_strlen(history->history_buff[history->history_index]) >=
-				(unsigned)buffer->malloc_len)
-			buffer->buffer = strnew_realloc_buf(buffer->buffer,
-					buffer->malloc_len += NORMAL_LINE);
+	while (ft_strlen(history->history_buff[history->history_index]) >= (unsigned)buffer->malloc_len)
+			buffer->buffer = strnew_realloc_buf(buffer->buffer, buffer->malloc_len += NORMAL_LINE);
 	ft_strcat(buffer->buffer, history->history_buff[(history->history_index)]);
 	ft_putstr_cord(buffer->buffer, cord);
 }
 
 void		history_down(t_history *history, t_cord *cord, short len, t_buff *buffer)
 {
-	char	*cursor;
-
-	cursor = tigetstr("cup");
-	ft_putstr_fd(tparm(cursor, cord->y_start, cord->x_start), STDIN_FILENO);
+	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	cord->x_cur = cord->x_start;
 	cord->y_cur = cord->y_start;

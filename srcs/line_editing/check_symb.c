@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 17:53:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:40:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,16 @@ void	print_read(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 {
 	short len;
 
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-			* cord->ws_col);
-	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
-	&& len)
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
+	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome"))) && len)
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len, cord);
-	else if ((!ft_strcmp(c, tigetstr("kcuf1")) ||
-			!ft_strcmp(c, tigetstr("kend"))) &&
-			((short)ft_strlen(buffer->buffer) > len))
-		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1, cord) :
-		go_right(ft_strlen(buffer->buffer) - len, cord);
+	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c, tigetstr("kend"))) && ((short)ft_strlen(buffer->buffer) > len))
+		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1, cord) : go_right(ft_strlen(buffer->buffer) - len, cord);
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
-		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer->buffer + len, cord) :
-		prev_word(buffer->buffer, len, cord);
+		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer->buffer + len, cord) : prev_word(buffer->buffer, len, cord);
 	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0)
 		go_left(cord->ws_col, cord);
-	else if (!ft_strcmp(c, CTRL_DOWN) && (len + cord->ws_col
-			<= (short)ft_strlen(buffer->buffer)))
+	else if (!ft_strcmp(c, CTRL_DOWN) && (len + cord->ws_col <= (short)ft_strlen(buffer->buffer)))
 		go_right(cord->ws_col, cord);
 	else
 		print_read_two(c, buffer, cord, history);
@@ -42,8 +35,7 @@ void	print_read_two(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 {
 	short len;
 
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-			* cord->ws_col);
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	//if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
 	//	*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
 	//		cut_copy_paste(c, len);
@@ -57,8 +49,7 @@ void	print_read_two(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 
 void	print_read_three(char *c, char *buffer, short len, t_cord *cord)
 {
-	if (((*c == BCSP || *c == CTRL_H) && len) ||
-			!ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
+	if (((*c == BCSP || *c == CTRL_H) && len) || !ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
 		{

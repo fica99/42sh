@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/06/08 14:55:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:26:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void    add_to_historybuf(t_term *term)
 	if (len >= HISTORY_SIZE)
 	{
 		i = -1;
+		ft_memdel((void**)&(term->history->history_buff[0]));
 		while (++i < len - 1)
 			term->history->history_buff[i] = term->history->history_buff[i + 1];
 		term->history->history_buff[i] = ft_strdup(term->buffer->buffer);

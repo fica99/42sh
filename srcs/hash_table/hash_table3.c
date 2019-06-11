@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/06/07 15:41:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 18:30:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_my_hash_table(void)
 {
 	free_hash_table(g_term.hash_table, g_term.hash_table_size);
+	ft_memdel((void**)&(g_term.hash_table));
 	g_term.hash_table_size = 0;
 }
 
