@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 18:57:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 21:23:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_history	*make_history_buff(void)
 	if (close(fd) == -1)
 		print_error("42sh", "close() error", NULL, 0);
 	history->history_buff = buff;
-	history->history_index = double_arr_len(buff);
+	history->history_index = len;
 	return (history);
 }
 
