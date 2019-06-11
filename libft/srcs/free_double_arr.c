@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_double_arr.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/09 13:53:10 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/11 17:51:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		free_double_arr(char **arr)
 {
 	short	i;
 
+	if (!arr || !(*arr))
+		return ;
 	i = -1;
 	while (arr[++i])
 		ft_memdel((void**)&(arr[i]));
