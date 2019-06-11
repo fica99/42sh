@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 13:08:38 by aashara-          #+#    #+#             */
-/*   Updated: 2018/12/17 21:43:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 21:26:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char	*find_new_line(char **arr, int *end)
 	arr1 = ft_strdup(*arr + i);
 	free(*arr);
 	*arr = arr1;
+	if (**arr == '\0')
+		ft_memdel((void**)arr);
 	return (arr_new);
 }
 
