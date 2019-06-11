@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 18:15:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		free_double_arr(char **arr)
 {
 	short	i;
 
-	if (!arr || !(*arr))
+	if (!arr)
 		return ;
 	i = -1;
 	while (arr[++i])
