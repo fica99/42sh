@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/12 18:28:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 22:35:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	        *print_move(char *c, t_buff *buffer, t_cord *cord, t_history *history);
 char	        *print_symbols(char *c, t_buff *buffer, t_cord *cord, t_history *history);
-void	        print_read(char *c, char *buffer, t_cord *cord);
+char	        *print_read(char *c, char *buffer, t_cord *cord);
 void			go_left(short i, t_cord *cord);
 void			go_right(short i, t_cord *cord);
 void			prev_word(char *buf, short len, t_cord *cord);

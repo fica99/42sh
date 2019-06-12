@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/04 20:02:37 by aashara-         ###   ########.fr        #
+#    Updated: 2019/06/12 22:25:15 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ LIB=libft
 all:$(NAME)
 
 $(NAME): $(OBJ) libft
-	gcc $(OBJ) -o $@ -L $(LIB) -lft -lncurses
+	gcc -g $(OBJ) -o $@ -L $(LIB) -lft -lncurses
 
 %.o: %.c
 	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)

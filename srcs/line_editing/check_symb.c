@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/12 20:34:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 22:43:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*print_symbols(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 	return (SOMETHING);
 }
 
-void	print_read(char *c, char *buffer, t_cord *cord)
+char	*print_read(char *c, char *buffer, t_cord *cord)
 {
 	short len;
 
@@ -62,12 +62,15 @@ void	print_read(char *c, char *buffer, t_cord *cord)
 		if (!ft_strlen(buffer) && *c == CTRL_D)
 		{
 			g_flags |= TERM_EXIT;
-			return ;
+			return (SOMETHING);
 		}
 		del_symb(buffer, len);
 	}
 	else if (ft_isprint(*c))
 		print_symb(c, buffer, len, cord);
+	else
+		return (NULL);
+	return (SOMETHING);
 }
 
 /*void	cut_copy_paste(char *c, short len)
