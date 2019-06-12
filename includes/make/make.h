@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/08 14:53:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:16:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char			*check_path(void);
 void			get_cur_cord(t_cord *cord);
 void			set_input_mode(struct termios *savetty);
 void			reset_input_mode(struct termios *savetty);
-void			ft_putstr_cord(char *str, t_cord *cord);
 void	        reset_term(void);
 pid_t			make_process(void);
 char			*get_history_file_path(void);

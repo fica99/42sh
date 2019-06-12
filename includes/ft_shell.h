@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/09 12:02:09 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/12 18:55:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ typedef struct		s_cord
 	short			y_cur;
 	short			ws_col;
 	short			ws_row;
+	short			prompt_len;
 }					t_cord;
 
 typedef struct		s_buff
 {
 	char			*buffer;
+	char			*history_search;
+	short			history_search_malloc_len;
 	short			malloc_len;
 	char			*save_buff;
 	short			save_malloc_len;
@@ -82,6 +85,7 @@ typedef struct		s_term
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
 # define TERM_EXIT (1 << 2)
+# define HISTORY_SEARCH (1 << 3)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048

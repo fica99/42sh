@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 21:23:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:36:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,23 @@ void	go_history(char *c, t_history *history, t_cord *cord, t_buff *buffer)
 	short		len;
 
 	len = double_arr_len(history->history_buff);
-	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)
+	if ((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH))
+	{
+		go_left(cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col), cord);
+		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		if (!(g_flags & HISTORY_SEARCH))
+		{
+			ft_putstr_cord("(History search)'", cord);
+			cord->x_start = cord->x_cur;
+			cord->y_start = cord->y_cur;
+			g_flags |= HISTORY_SEARCH;
+		}
+		find_history(c, buffer, cord, history);
+	}
+	else if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)
 		history_up(history, cord, len, buffer);
 	else if (!(ft_strcmp(c, tigetstr("kcud1"))) && history->history_index != len)
 		history_down(history, cord, len, buffer);
-//	else if (*c == CTRL_R && len)
-//		find_history();
 }
 
 void		history_up(t_history *history, t_cord *cord, short len, t_buff *buffer)

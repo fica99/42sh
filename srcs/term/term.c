@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 21:23:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 19:06:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,18 @@ int		main(int argc, char **argv, char **environ)
 
 void	term_start(t_term *term)
 {
+	t_cord	*cord;
+	
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
 		signalling();
 		term_prompt();
+		cord = term->cord;
+		get_cur_cord(cord);
+		cord->prompt_len = (cord->x_cur + (cord->y_cur * cord->ws_col)) + 1;
 		read_prompt(term);
-		if (g_flags & TERM_SIGINT)
-		{
-			ft_memdel((void**)&(term->buffer->buffer));
-			ft_memdel((void**)&(term->buffer->save_buff));
-			continue ;
-		}
-		if (!g_flags)
+		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		{
 			write_history(term);
 			parse_string(term);

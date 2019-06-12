@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/09 12:14:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/12 16:28:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void		write_history(t_term *term);
 void	    rewrite_file(short len, t_history *history);
 void	    add_to_file(short len, t_history *history);
 void		free_history(t_history **history);
-//void	    find_history(char **buffer, t_cord *cord, t_history *history);
+void	    find_history(char *symbol, t_buff *buffer, t_cord *cord, t_history *history);
 #endif

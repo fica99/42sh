@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/09 12:19:56 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/12 19:00:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ void	read_prompt(t_term *term)
 	t_buff	*buffer;
 
 	cord = term->cord;
-	get_cur_cord(cord);
-	buffer = term->buffer;
 	cord->x_start = cord->x_cur;
 	cord->y_start = cord->y_cur;
+	term->history->history_index = double_arr_len(term->history->history_buff);
+	buffer = term->buffer;
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	buffer->malloc_len = NORMAL_LINE;
 	set_input_mode(&(term->savetty));
-	term->history->history_index = double_arr_len(term->history->history_buff);
+	buffer->history_search = NULL;
 	reading(buffer, cord, term->history);
+	ft_memdel((void**)&(buffer->history_search));
 	go_right(ft_strlen(buffer->buffer) - (cord->x_cur - cord->x_start +
 			((cord->y_cur - cord->y_start) * cord->ws_col)), cord);
 	reset_input_mode(&(g_term.savetty));
@@ -51,8 +52,10 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 				(unsigned)buffer->malloc_len)
 			buffer->buffer = strnew_realloc_buf(buffer->buffer,
 					buffer->malloc_len += NORMAL_LINE);
-		print_read(c, buffer, cord, history);
-		if (g_flags)
+		if (!print_symbols(c, buffer, cord, history))
+			if (!print_move(c, buffer, cord, history))
+				print_read(c, buffer->buffer, cord);
+		if ((g_flags & TERM_SIGINT) || (g_flags & TERM_EXIT))
 			break ;
 	}
 }

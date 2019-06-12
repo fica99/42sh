@@ -6,30 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 18:08:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 18:15:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-void	ft_putstr_cord(char *str, t_cord *cord)
-{
-	while (str && *str)
-	{
-		ft_putchar_fd(*str, STDIN_FILENO);
-		(cord->x_cur)++;
-		str++;
-		if (cord->x_cur >= cord->ws_col)
-		{
-			ft_putchar_fd('\n', STDIN_FILENO);
-			cord->x_cur = 0;
-			if (cord->y_cur >= cord->ws_row - 1)
-				(cord->y_start)--;
-			else
-				(cord->y_cur)++;
-		}
-	}
-}
 
 void	reset_term(void)
 {
