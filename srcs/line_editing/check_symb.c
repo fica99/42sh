@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/12 19:28:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/12 20:34:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@ char	*print_move(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	(void)history;
-	// if (g_flags & HISTORY_SEARCH)
-	// {
-	// 	g_flags &= ~HISTORY_SEARCH;
-	// 	// go_left(len + (cord->x_start - cord->prompt_len), cord);
-	// 	// get_cur_cord(cord);
-	// 	// cord->x_start = cord->x_cur;
-	// 	// cord->y_start = cord->y_cur;
-	// 	// ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	// 	// ft_putstr_cord(buffer->buffer, cord);
-	// }
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome"))) && len)
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len, cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c, tigetstr("kend"))) && ((short)ft_strlen(buffer->buffer) > len))
