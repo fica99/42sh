@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 15:25:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/12 22:44:29 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/13 14:55:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void    free_history(t_history **history)
 
 void	find_history(char *symbol, t_buff *buffer, t_cord *cord, t_history *history)
 {
-	short	i;
 	if (!(buffer->history_search))
 	{
 		if (!(buffer->history_search = ft_strnew(NORMAL_LINE)))
@@ -34,17 +33,25 @@ void	find_history(char *symbol, t_buff *buffer, t_cord *cord, t_history *history
 	ft_putstr_cord(buffer->history_search, cord);
 	if (!print_read(symbol, buffer->history_search, cord) && *symbol != CTRL_R)
 	{
-		short len;
-
-		len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 		g_flags &= ~HISTORY_SEARCH;
-		go_left(len, cord);
-		go_left(cord->x_cur - cord->prompt_len, cord);
+		go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
+		get_cur_cord(cord);
+		go_left(17, cord);
+		cord->x_start = cord->x_cur;
+		cord->y_start = cord->y_cur;
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		ft_putstr_cord(buffer->buffer, cord);
 		print_move(symbol, buffer, cord, history);
 		return ;
 	}
-	ft_putstr_cord("': ", cord);
+	ft_putstr_cord("': ", cord);	
+	ft_putstr_cord(check_history(history, buffer), cord);
+}
+
+char	*check_history(t_history *history, t_buff *buffer)
+{
+	short	i;
+
 	i = -1;
 	while (history->history_buff[++i])
 	{
@@ -57,5 +64,5 @@ void	find_history(char *symbol, t_buff *buffer, t_cord *cord, t_history *history
 			break;
 		}
 	}
-	ft_putstr_cord(buffer->buffer, cord);
+	return (buffer->buffer);	
 }

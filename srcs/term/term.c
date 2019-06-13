@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/12 22:46:42 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/13 14:26:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	term_start(t_term *term)
 		term_prompt();
 		cord = term->cord;
 		get_cur_cord(cord);
-		cord->prompt_len = (cord->x_cur + (cord->y_cur * cord->ws_col)) + 1;
 		read_prompt(term);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		{

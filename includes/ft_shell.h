@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/12 18:55:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 14:26:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct		s_cord
 	short			y_cur;
 	short			ws_col;
 	short			ws_row;
-	short			prompt_len;
 }					t_cord;
 
 typedef struct		s_buff
