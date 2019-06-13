@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 15:41:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:47:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_hash				**make_hash_table(char **path, unsigned short len);
 t_hash				**init_table(unsigned short len);
 t_hash				*init_hash(void);
 unsigned short		hashing(char *str);
-void				write_hash(char *str, char *path, t_hash **table, unsigned short len);
+void				write_hash(char *str, char *path, t_hash **table,
+unsigned short len);
 void				print_hash_table(t_hash **table, unsigned short len);
 void				free_my_hash_table(void);
 void				free_hash_table(t_hash **table, unsigned short len);

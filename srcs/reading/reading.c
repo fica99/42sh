@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/12 19:00:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:28:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	read_prompt(t_term *term)
 	t_buff	*buffer;
 
 	cord = term->cord;
-	cord->x_start = cord->x_cur;
-	cord->y_start = cord->y_cur;
+	set_start_cord(cord);
 	term->history->history_index = double_arr_len(term->history->history_buff);
 	buffer = term->buffer;
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))

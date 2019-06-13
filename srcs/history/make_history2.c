@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 18:26:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:16:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void    add_to_historybuf(t_term *term)
+void	add_to_historybuf(t_term *term)
 {
 	short	len;
 	short	i;
@@ -52,7 +52,8 @@ void	write_history(t_term *term)
 		return ;
 	add_to_historybuf(term);
 	len = double_arr_len(term->history->history_buff);
-	len < HISTORY_SIZE ? add_to_file(len, term->history) : rewrite_file(len, term->history);
+	len < HISTORY_SIZE ? add_to_file(len, term->history) :
+	rewrite_file(len, term->history);
 }
 
 void	rewrite_file(short len, t_history *history)

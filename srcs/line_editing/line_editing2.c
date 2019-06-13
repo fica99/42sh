@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/12 18:15:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:32:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void			print_symb(char *c, char *buf, short len, t_cord * cord)
+void		print_symb(char *c, char *buf, short len, t_cord *cord)
 {
 	short	i;
 
@@ -23,7 +23,7 @@ void			print_symb(char *c, char *buf, short len, t_cord * cord)
 	go_left(i, cord);
 }
 
-void			go_to_cord(short x, short y, int fd)
+void		go_to_cord(short x, short y, int fd)
 {
 	char	*cursor;
 
@@ -31,7 +31,7 @@ void			go_to_cord(short x, short y, int fd)
 	ft_putstr_fd(tparm(cursor, y, x), fd);
 }
 
-void	ft_putstr_cord(char *str, t_cord *cord)
+void		ft_putstr_cord(char *str, t_cord *cord)
 {
 	while (str && *str)
 	{

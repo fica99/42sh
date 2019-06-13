@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 15:48:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:08:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ t_hash				*init_hash(void)
 	return (hash);
 }
 
-void				write_hash(char *str, char *path, t_hash **table, unsigned short len)
+void				write_hash(char *str, char *path, t_hash **table,
+unsigned short len)
 {
 	unsigned short	index;
 	t_hash			*copy;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/12 18:15:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 15:25:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,10 @@ t_buff	*init_buff(void)
 	buff->save_buff = NULL;
 	buff->save_malloc_len = 0;
 	return (buff);
+}
+
+void	set_start_cord(t_cord *cord)
+{
+	cord->x_start = cord->x_cur;
+	cord->y_start = cord->y_cur;
 }
