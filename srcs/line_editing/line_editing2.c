@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 15:32:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:51:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,22 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 			else
 				(cord->y_cur)++;
 		}
+	}
+}
+
+void		ft_putstr_highlight(char *str, short index, t_cord *cord)
+{
+	short	i;
+	char	symb;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (i == index)
+			HIGHLIGHT(STDIN_FILENO);
+		else
+			STANDART(STDIN_FILENO);
+		symb = str[i];
+		ft_putstr_cord(&symb, cord);
 	}
 }

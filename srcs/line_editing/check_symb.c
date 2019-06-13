@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 15:30:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:53:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ char	*print_move(char *c, t_buff *buffer, t_cord *cord, t_history *history)
 char	*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history)
 {
-	//if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
-	//	*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
-	//		cut_copy_paste(c, len);
+	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
+		*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)	
+		cut_copy_paste(c, buffer, cord);
 	//else if (*c == TAB)
 		//autocom();
-	if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
+	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
 	|| *c == CTRL_R || (g_flags & HISTORY_SEARCH))
 		go_history(c, history, cord, buffer);
 	else
@@ -84,33 +84,28 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 	return (SOMETHING);
 }
 
-/*void	cut_copy_paste(char *c, short len)
+void	cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
 	static short	x_cur;
 	static short	y_cur;
-//	char			*copy_buf;
-//	short			start;
+	short			len;
 
-	if (*c == CTRL_B && ((!x_cur && !y_cur) ||
-	(x_cur == g_term.x_cur && y_cur == g_term.y_cur)))
-		return ;
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+	* cord->ws_col);
 	if (!x_cur && !y_cur)
 	{
-		x_cur = g_term.x_cur;
-		y_cur = g_term.y_cur;
+		x_cur = cord->x_cur;
+		y_cur = cord->y_cur;
 	}
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
 	{
-		go_left(1);
+		go_left(len, cord);
+		ft_putstr_highlight(buffer->buffer, len, cord);
+		go_left(ft_strlen(buffer->buffer) - len, cord);
 	}
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
-			((short)ft_strlen(g_term.buffer) > len))
+	((short)ft_strlen(buffer->buffer) > len))
 	{
-		go_right(1);
-	}
-	else if (*c == CTRL_B)
-	{
-		
+		go_right(1, cord);
 	}
 }
-*/
