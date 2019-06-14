@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 18:51:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:12:26 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,22 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 	}
 }
 
-void		ft_putstr_highlight(char *str, short index, t_cord *cord)
+void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 {
 	short	i;
-	char	symb;
+	char	*symb;
 
 	i = -1;
+	symb = ft_strnew(1);
 	while (str[++i])
 	{
-		if (i == index)
+		if (i == start)
 			HIGHLIGHT(STDIN_FILENO);
-		else
+		if (i == end)
 			STANDART(STDIN_FILENO);
-		symb = str[i];
-		ft_putstr_cord(&symb, cord);
+		symb[0] = str[i];
+		ft_putstr_cord(symb, cord);
 	}
+	ft_memdel((void**)&symb);
+	STANDART(STDIN_FILENO);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 18:51:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/14 00:58:26 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void			print_symb(char *c, char *buf, short len, t_cord *cord);
 void			go_to_cord(short x, short y, int fd);
 void			ft_putstr_cord(char *str, t_cord *cord);
 void	        cut_copy_paste(char *c, t_buff *buffer, t_cord *cord);
-void		    ft_putstr_highlight(char *str, short index, t_cord *cord);
+void		    ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
 #endif

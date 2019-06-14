@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 18:53:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:20:56 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history)
 {
 	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
-		*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)	
+		*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
 		cut_copy_paste(c, buffer, cord);
 	//else if (*c == TAB)
 		//autocom();
@@ -86,26 +86,27 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 
 void	cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
-	static short	x_cur;
-	static short	y_cur;
 	short			len;
+	static short	pos;
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
-	if (!x_cur && !y_cur)
-	{
-		x_cur = cord->x_cur;
-		y_cur = cord->y_cur;
-	}
+	if (!pos)
+		pos = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+	* cord->ws_col);
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
 	{
 		go_left(len, cord);
-		ft_putstr_highlight(buffer->buffer, len, cord);
-		go_left(ft_strlen(buffer->buffer) - len, cord);
+		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		ft_putstr_highlight(buffer->buffer, len - 1,  pos, cord);
+		go_left(ft_strlen(buffer->buffer) - (len - 1), cord);
 	}
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))
 	{
-		go_right(1, cord);
+		go_left(len, cord);
+		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		ft_putstr_highlight(buffer->buffer, pos,  len + 1, cord);
+		go_left(ft_strlen(buffer->buffer) - (len + 1), cord);
 	}
 }
