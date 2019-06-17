@@ -3,68 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 13:08:38 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/11 21:23:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/17 14:13:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*find_new_line(char **arr, int *end)
+static t_list			*get_buflist(const int fd, t_list **list)
 {
-	int		i;
-	char	*arr_new;
-	char	*arr1;
+	t_list				*plist;
 
-	i = 0;
-	if (**arr == '\0' || *arr == NULL)
+	plist = *list;
+	while (plist)
 	{
-		*end = 0;
+		if (plist->content_size == (size_t)fd)
+			return (plist);
+		plist = plist->next;
+	}
+	if (!(plist = ft_lstnew(NULL, 0)))
+		return (NULL);
+	if (!(plist->content = ft_strnew(0)))
+	{
+		free(plist);
 		return (NULL);
 	}
-	while (*(*arr + i) && *(*arr + i) != '\n')
-		i++;
-	if (*(*arr + i) == '\n')
-	{
-		*(*arr + i) = '\0';
-		i++;
-	}
-	arr_new = ft_strdup(*arr);
-	arr1 = ft_strdup(*arr + i);
-	free(*arr);
-	*arr = arr1;
-	if (**arr == '\0')
-		ft_memdel((void**)arr);
-	return (arr_new);
+	plist->content_size = (size_t)fd;
+	ft_lstadd(list, plist);
+	return (plist);
 }
 
-int			get_next_line(const int fd, char **line)
+static int				read_line(char **buf, int fd)
 {
-	int			end;
-	int			nb;
-	char		buf[BUFF_SIZE + 1];
-	static char	*arr[1];
-	char		*arr1;
+	int					readbytes;
+	char				*copy_buf;
+	char				*readbuf;
 
-	if (fd < 0 || line == NULL)
+	if (!(readbuf = ft_strnew(BUFF_SIZE)))
 		return (-1);
-	end = 1;
-	while ((nb = read(fd, buf, BUFF_SIZE)) > 0)
+	while ((readbytes = read(fd, readbuf, BUFF_SIZE)))
 	{
-		if (!arr[fd])
-			arr[fd] = ft_strnew(1);
-		buf[nb] = '\0';
-		arr1 = ft_strjoin(arr[fd], buf);
-		free(arr[fd]);
-		arr[fd] = arr1;
-		arr1 = NULL;
-		if (ft_strchr(arr[fd], '\n') != NULL)
+		if (readbytes == -1)
+			return (-1);
+		readbuf[readbytes] = '\0';
+		if (!(copy_buf = ft_strjoin(*buf, readbuf)))
+			return (-1);
+		free(*buf);
+		*buf = copy_buf;
+		if (ft_strchr(readbuf, 10))
 			break ;
 	}
-	if (nb < 0 || (nb == 0 && arr[fd] == NULL))
+	free(readbuf);
+	return (readbytes);
+}
+
+static char				*get_line(char **buf, char *pos_chr)
+{
+	char				*copy_buf;
+	char				*line;
+
+	if (pos_chr)
+		*pos_chr = '\0';
+	if (!(line = ft_strdup(*buf)))
+		return (NULL);
+	if (!(copy_buf = ft_strdup(!pos_chr ? ft_strchr(*buf, 0) : pos_chr + 1)))
+	{
+		free(line);
+		return (NULL);
+	}
+	free(*buf);
+	*buf = copy_buf;
+	return (line);
+}
+
+int						get_next_line(const int fd, char **line)
+{
+	static t_list		*list;
+	t_list				*buflist;
+	char				*pos_chr;
+	int					fr;
+
+	if (fd == -1)
 		return (-1);
-	*line = find_new_line(&arr[fd], &end);
-	return (end);
+	buflist = get_buflist(fd, &list);
+	if ((pos_chr = ft_strchr((char *)buflist->content, 10)))
+	{
+		if (!(*line = get_line((char **)&(buflist->content), pos_chr)))
+			return (-1);
+		return (1);
+	}
+	if ((fr = read_line((char **)&(buflist->content), fd)) == -1)
+		return (-1);
+	if (!*((char *)buflist->content) && !fr)
+		return (0);
+	if (!(*line = get_line((char **)&(buflist->content),
+					ft_strchr((char *)buflist->content, 10))))
+		return (-1);
+	return (1);
 }

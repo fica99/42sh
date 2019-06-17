@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/17 12:28:59 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/17 13:55:20 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void	term_prompt(void)
 	gethostname(hostname, FT_HOST_NAME_MAX);
 	RED(STDIN_FILENO);
 	ft_putchar_fd('[', STDERR_FILENO);
-	CYAN(STDIN_FILENO);
 	if (ft_getenv("USER"))
 	{
+		CYAN(STDIN_FILENO);
 		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
 		RED(STDIN_FILENO);
 		ft_putchar_fd('@', STDIN_FILENO);
