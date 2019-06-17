@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 15:25:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/13 15:25:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/17 16:05:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_history *history)
 		set_start_cord(cord);
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		ft_putstr_cord(buffer->buffer, cord);
-		print_move(symbol, buffer, cord, history);
+		print_move(symbol, buffer, cord);
 		return ;
 	}
 	ft_putstr_cord("': ", cord);

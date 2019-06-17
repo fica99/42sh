@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/13 15:28:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/17 15:25:39 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 			buffer->buffer = strnew_realloc_buf(buffer->buffer,
 					buffer->malloc_len += NORMAL_LINE);
 		if (!print_symbols(c, buffer, cord, history))
-			if (!print_move(c, buffer, cord, history))
+			if (!print_move(c, buffer, cord))
 				print_read(c, buffer->buffer, cord);
 		if ((g_flags & TERM_SIGINT) || (g_flags & TERM_EXIT))
 			break ;

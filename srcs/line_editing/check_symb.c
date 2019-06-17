@@ -6,19 +6,20 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/14 19:38:16 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/17 15:56:28 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	*print_move(char *c, t_buff *buffer, t_cord *cord, t_history *history)
+char	*print_move(char *c, t_buff *buffer, t_cord *cord)
 {
 	short len;
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
-	(void)history;
+	if (g_flags & TERM_HIGHLIGHT)
+		disable_highlight(cord, buffer, len);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
 	&& len)
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len,
@@ -45,7 +46,10 @@ t_history *history)
 {
 	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
 		*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
+	{
+		g_flags |= TERM_HIGHLIGHT;
 		cut_copy_paste(c, buffer, cord);
+	}
 	//else if (*c == TAB)
 		//autocom();
 	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
@@ -86,13 +90,16 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 
 void	cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
-	short	len;
+	short			len;
 
+	if (!buffer->highlight_pos)
+		buffer->highlight_pos = cord->x_cur - cord->x_start +
+	((cord->y_cur - cord->y_start) * cord->ws_col);
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
-		highlight_left(buffer, cord);
+		highlight_left(buffer, cord, buffer->highlight_pos);
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))
-		highlight_right(buffer, cord);
+		highlight_right(buffer, cord, buffer->highlight_pos);
 }

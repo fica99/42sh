@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/14 19:37:14 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/17 16:08:11 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,16 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	STANDART(STDIN_FILENO);
 }
 
-void		highlight_left(t_buff *buffer, t_cord *cord)
+void		highlight_left(t_buff *buffer, t_cord *cord, short pos)
 {
 	short			len;
-	static short	pos;
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
-	if (!pos)
-		pos = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
 	go_left(len, cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_highlight(buffer->buffer, len - 1,  pos, cord);
+	if (pos >= len - 1)
+		ft_putstr_highlight(buffer->buffer, len - 1,  pos, cord);
+	else
+		ft_putstr_highlight(buffer->buffer, pos,  len - 1, cord);
 	go_left(ft_strlen(buffer->buffer) - (len - 1), cord);
 }

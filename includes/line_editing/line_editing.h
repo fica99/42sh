@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/14 19:36:10 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/17 15:56:12 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 # include <stdlib.h>
 
-char			*print_move(char *c, t_buff *buffer, t_cord *cord,
-t_history *history);
+char			*print_move(char *c, t_buff *buffer, t_cord *cord);
 char			*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history);
 char			*print_read(char *c, char *buffer, t_cord *cord);
@@ -30,6 +29,7 @@ void			go_to_cord(short x, short y, int fd);
 void			ft_putstr_cord(char *str, t_cord *cord);
 void	        cut_copy_paste(char *c, t_buff *buffer, t_cord *cord);
 void		    ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
-void			highlight_left(t_buff *buffer, t_cord *cord);
-void			highlight_right(t_buff *buffer, t_cord *cord);
+void			highlight_left(t_buff *buffer, t_cord *cord, short pos);
+void			highlight_right(t_buff *buffer, t_cord *cord, short pos);
+void			disable_highlight(t_cord *cord, t_buff *buffer, short len);
 #endif
