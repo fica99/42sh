@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/14 00:53:15 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/17 12:28:59 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	term_start(t_term *term)
 	{
 		g_flags = INIT_FLAGS;
 		signalling();
-		//term_prompt();
+		term_prompt();
 		cord = term->cord;
 		get_cur_cord(cord);
 		read_prompt(term);

@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/14 13:20:56 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/14 19:38:16 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,27 +86,13 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 
 void	cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
-	short			len;
-	static short	pos;
+	short	len;
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
-	if (!pos)
-		pos = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
-	{
-		go_left(len, cord);
-		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-		ft_putstr_highlight(buffer->buffer, len - 1,  pos, cord);
-		go_left(ft_strlen(buffer->buffer) - (len - 1), cord);
-	}
+		highlight_left(buffer, cord);
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))
-	{
-		go_left(len, cord);
-		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-		ft_putstr_highlight(buffer->buffer, pos,  len + 1, cord);
-		go_left(ft_strlen(buffer->buffer) - (len + 1), cord);
-	}
+		highlight_right(buffer, cord);
 }

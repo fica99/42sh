@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/12 22:25:15 by filip            ###   ########.fr        #
+#    Updated: 2019/06/14 19:36:28 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ ERROR=srcs/error/ft_errno.c\
 LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/line_editing.c\
 			srcs/line_editing/line_editing2.c\
+			srcs/line_editing/line_editing3.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 
