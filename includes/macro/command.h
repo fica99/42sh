@@ -21,7 +21,6 @@
 # define BCSP 127
 # define CTRL_H 8
 # define CTRL_V 22
-# define CTRL_B 2
 # define CTRL_X 24
 # define CTRL_D 4
 # define CTRL_C 3

@@ -41,7 +41,7 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if (*c == '\n' || *c == CTRL_C)
+		if (*c == '\n' || (*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
 		{
 			if (*c == CTRL_C)
 				g_flags |= TERM_SIGINT;

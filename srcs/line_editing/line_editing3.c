@@ -65,16 +65,6 @@ void		copy_highlight(t_buff *buffer, t_cord *cord)
 		len, cord->highlight_pos);
 }
 
-char		*copy_from_buff(char *buffer, char *new_buffer, short start, short end)
-{
-	short	j;
-
-	j = 0;
-	while (start <= end)
-		new_buffer[j++] = buffer[start++];
-	return (new_buffer);
-}
-
 void		paste_highlight(t_buff *buffer, t_cord *cord)
 {
 	short	len;
@@ -87,4 +77,33 @@ void		paste_highlight(t_buff *buffer, t_cord *cord)
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer, cord);
 	go_left(ft_strlen(buffer->buffer) - len, cord);
+}
+
+void    cut_highlight(t_buff *buffer, t_cord *cord)
+{
+	short			len;
+	short           j;
+
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+	* cord->ws_col);
+	if ((len - cord->highlight_pos) >= 0)
+	{
+		j = cord->highlight_pos;
+		while (j++ <= len)
+			buffer->buffer = ft_strdel_el(buffer->buffer, cord->highlight_pos);
+	}
+	else
+	{
+		j = len;
+		while (j++ <= cord->highlight_pos)
+			buffer->buffer = ft_strdel_el(buffer->buffer, len);
+	}
+	go_left(len, cord);
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_cord(buffer->buffer, cord);
+	if ((len - cord->highlight_pos) < 0)
+		go_left(ft_strlen(buffer->buffer) - len, cord);
+	else
+		go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
+	cord->highlight_pos = 0;
 }

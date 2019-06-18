@@ -44,7 +44,7 @@ char	*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history)
 {
 	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
-		*c == CTRL_V || *c == CTRL_B || *c == CTRL_X)
+		*c == CTRL_V || *c == CTRL_C || *c == CTRL_X)
 		cut_copy_paste(c, buffer, cord);
 	//else if (*c == TAB)
 		//autocom();
@@ -99,7 +99,7 @@ char	*cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))
 		highlight_right(buffer, cord, cord->highlight_pos);
-	else if (*c == CTRL_B && (g_flags & TERM_HIGHLIGHT))
+	else if (*c == CTRL_C && (g_flags & TERM_HIGHLIGHT))
 		copy_highlight(buffer, cord);
 	else if (*c == CTRL_V && buffer->copy_buff)
 		paste_highlight(buffer, cord);

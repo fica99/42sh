@@ -18,11 +18,11 @@ LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/line_editing.c\
 			srcs/line_editing/line_editing2.c\
 			srcs/line_editing/line_editing3.c\
-			srcs/line_editing/line_editing4.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 
 MAKE=srcs/make/buff_editing.c\
+	srcs/make/buff_editing2.c\
 	srcs/make/env.c\
 	srcs/make/env2.c\
 	srcs/make/process.c\
