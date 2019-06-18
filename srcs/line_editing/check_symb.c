@@ -18,8 +18,7 @@ char	*print_move(char *c, t_buff *buffer, t_cord *cord)
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
-	if (g_flags & TERM_HIGHLIGHT)
-		disable_highlight(cord, buffer, len);
+	disable_highlight(cord, buffer, len);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
 	&& len)
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len,
