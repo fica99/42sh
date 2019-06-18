@@ -45,11 +45,8 @@ char	*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history)
 {
 	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
-		*c == CTRL_V || *c == CTRL_B || *c == CTRL_N)
-	{
-		g_flags |= TERM_HIGHLIGHT;
+		*c == CTRL_V || *c == CTRL_B || *c == CTRL_X)
 		cut_copy_paste(c, buffer, cord);
-	}
 	//else if (*c == TAB)
 		//autocom();
 	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
@@ -88,18 +85,31 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 	return (SOMETHING);
 }
 
-void	cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
+char	*cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
 	short			len;
 
-	if (!buffer->highlight_pos)
-		buffer->highlight_pos = cord->x_cur - cord->x_start +
-	((cord->y_cur - cord->y_start) * cord->ws_col);
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
+	if (!cord->highlight_pos && !(g_flags & START_POS))
+		cord->highlight_pos = len;
+	if (!cord->highlight_pos)
+		g_flags |= START_POS;
 	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
-		highlight_left(buffer, cord, buffer->highlight_pos);
+		highlight_left(buffer, cord, cord->highlight_pos);
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))
-		highlight_right(buffer, cord, buffer->highlight_pos);
+		highlight_right(buffer, cord, cord->highlight_pos);
+	else if (*c == CTRL_B && (g_flags & TERM_HIGHLIGHT))
+		copy_highlight(buffer, cord);
+	else if (*c == CTRL_V && buffer->copy_buff)
+		paste_highlight(buffer, cord);
+	else if (*c == CTRL_X)
+	{
+		copy_highlight(buffer, cord);
+		cut_highlight(buffer, cord);
+	}
+	else
+		return (NULL);
+	return (SOMETHING);
 }

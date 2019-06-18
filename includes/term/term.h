@@ -23,17 +23,19 @@ typedef struct		s_cord
 	short			y_cur;
 	short			ws_col;
 	short			ws_row;
+	short			highlight_pos;
 }					t_cord;
 
 typedef struct		s_buff
 {
 	char			*buffer;
+	short			malloc_len;
 	char			*history_search;
 	short			history_search_malloc_len;
-	short			malloc_len;
 	char			*save_buff;
 	short			save_malloc_len;
-	short			highlight_pos;
+	char			*copy_buff;
+	short			copy_malloc_len;
 }					t_buff;
 
 typedef struct		s_hash

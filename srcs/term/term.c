@@ -27,6 +27,7 @@ int		main(int argc, char **argv, char **environ)
 	free_history(&(g_term.history));
 	reset_term();
 	ft_memdel((void**)&(g_term.cord));
+	ft_memdel((void**)&(g_term.buffer->copy_buff));
 	ft_memdel((void**)&(g_term.buffer));
 	free_double_arr(g_term.env_cp);
 	return (EXIT_SUCCESS);

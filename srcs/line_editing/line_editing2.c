@@ -57,14 +57,16 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 
 	i = -1;
 	symb = ft_strnew(1);
+	if (start <= i)
+		HIGHLIGHT(STDIN_FILENO);	
 	while (str[++i])
 	{
 		if (i == start)
 			HIGHLIGHT(STDIN_FILENO);
-		if (i == end)
-			STANDART(STDIN_FILENO);
 		symb[0] = str[i];
 		ft_putstr_cord(symb, cord);
+		if (i == end)
+			STANDART(STDIN_FILENO);
 	}
 	ft_memdel((void**)&symb);
 	STANDART(STDIN_FILENO);
@@ -76,9 +78,10 @@ void		highlight_left(t_buff *buffer, t_cord *cord, short pos)
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
+	g_flags |= TERM_HIGHLIGHT;
 	go_left(len, cord);
 	if (pos >= len - 1)
-		ft_putstr_highlight(buffer->buffer, len - 1,  pos, cord);
+		ft_putstr_highlight(buffer->buffer, len - 1, pos, cord);
 	else
 		ft_putstr_highlight(buffer->buffer, pos,  len - 1, cord);
 	go_left(ft_strlen(buffer->buffer) - (len - 1), cord);

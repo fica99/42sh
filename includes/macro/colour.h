@@ -20,5 +20,5 @@
 # define BLUE(fd) ft_putstr_fd("\033[0;34m", fd)
 # define PURPLE(fd) ft_putstr_fd("\033[0;35m", fd)
 # define CYAN(fd) ft_putstr_fd("\033[0;36m", fd)
-# define HIGHLIGHT(fd) ft_putstr_fd("\033[1;40m", fd)
+# define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
 #endif

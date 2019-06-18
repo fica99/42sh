@@ -47,6 +47,10 @@ t_buff	*init_buff(void)
 	buff->malloc_len = 0;
 	buff->save_buff = NULL;
 	buff->save_malloc_len = 0;
+	buff->copy_buff = NULL;
+	buff->copy_malloc_len = 0;
+	buff->history_search = NULL;
+	buff->history_search_malloc_len = 0;
 	return (buff);
 }
 

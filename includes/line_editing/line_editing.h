@@ -27,9 +27,14 @@ void			del_symb(char *buf, short len);
 void			print_symb(char *c, char *buf, short len, t_cord *cord);
 void			go_to_cord(short x, short y, int fd);
 void			ft_putstr_cord(char *str, t_cord *cord);
-void	        cut_copy_paste(char *c, t_buff *buffer, t_cord *cord);
+char	        *cut_copy_paste(char *c, t_buff *buffer, t_cord *cord);
 void		    ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
 void			highlight_left(t_buff *buffer, t_cord *cord, short pos);
 void			highlight_right(t_buff *buffer, t_cord *cord, short pos);
 void			disable_highlight(t_cord *cord, t_buff *buffer, short len);
+void			copy_highlight(t_buff *buffer, t_cord *cord);
+void		    paste_highlight(t_buff *buffer, t_cord *cord);
+void    		cut_highlight(t_buff *buffer, t_cord *cord);
+char		    *copy_from_buff(char *buffer, char *new_buffer,
+short start, short end);
 #endif

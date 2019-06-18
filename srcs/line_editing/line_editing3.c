@@ -18,6 +18,7 @@ void		highlight_right(t_buff *buffer, t_cord *cord, short pos)
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 	* cord->ws_col);
+	g_flags |= TERM_HIGHLIGHT;
 	go_left(len, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (pos >= len + 1)
@@ -30,8 +31,53 @@ void		highlight_right(t_buff *buffer, t_cord *cord, short pos)
 void		disable_highlight(t_cord *cord, t_buff *buffer, short len)
 {
 	g_flags &= ~TERM_HIGHLIGHT;
-	buffer->highlight_pos = 0;
+	if (g_flags & START_POS)
+		g_flags &= ~START_POS;
+	cord->highlight_pos = 0;
 	go_left(len, cord);
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer, cord);
 	go_left(ft_strlen(buffer->buffer) - len, cord);
+}
+
+void		copy_highlight(t_buff *buffer, t_cord *cord)
+{
+	short			len;
+
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+	* cord->ws_col);
+	ft_memdel((void**)&(buffer->copy_buff));
+	buffer->copy_malloc_len = buffer->malloc_len;
+	if (!(buffer->copy_buff = ft_strnew(buffer->copy_malloc_len)))
+	{
+		reset_input_mode(&g_term.savetty);
+		ft_putchar_fd('\n', STDERR_FILENO);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	}
+	if ((len - cord->highlight_pos) >= 0)
+		buffer->copy_buff = copy_from_buff(buffer->buffer, buffer->copy_buff,
+		cord->highlight_pos, len - 1);
+	else
+		buffer->copy_buff = copy_from_buff(buffer->buffer, buffer->copy_buff,
+		len + 1, cord->highlight_pos);
+}
+
+char		*copy_from_buff(char *buffer, char *new_buffer, short start, short end)
+{
+	short	j;
+
+	j = 0;
+	while (start <= end)
+		new_buffer[j++] = buffer[start++];
+	return (new_buffer);
+}
+
+void		paste_highlight(t_buff *buffer, t_cord *cord)
+{
+	short	len;
+
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+	* cord->ws_col);
+	buffer->buffer = ft_stradd(buffer->buffer, buffer->copy_buff, len);
+	disable_highlight(cord, buffer, len);
 }

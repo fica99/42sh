@@ -38,6 +38,7 @@
 # define TERM_EXIT (1 << 2)
 # define HISTORY_SEARCH (1 << 3)
 # define TERM_HIGHLIGHT (1 << 4)
+# define START_POS (1 << 5)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
