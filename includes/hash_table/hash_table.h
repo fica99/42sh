@@ -27,7 +27,6 @@ t_hash				*init_hash(void);
 unsigned short		hashing(char *str);
 void				write_hash(char *str, char *path, t_hash **table,
 unsigned short len);
-void				print_hash_table(t_hash **table, unsigned short len);
 void				free_my_hash_table(void);
 void				free_hash_table(t_hash **table, unsigned short len);
 #endif

@@ -24,10 +24,7 @@ void	signal_handler(int sign)
 	int	len;
 
 	if (sign == SIGINT || sign == SIGQUIT)
-	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
-		exit(EXIT_FAILURE);
-	}
 	if (sign == SIGWINCH)
 	{
 		len = g_term.cord->x_cur - g_term.cord->x_start +

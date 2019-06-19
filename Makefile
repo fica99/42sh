@@ -50,10 +50,12 @@ BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/env/env.c\
 		srcs/builtins/setenv/setenv.c\
 		srcs/builtins/unsetenv/unsetenv.c\
+		srcs/builtins/hash/hash.c\
+		srcs/builtins/history/history.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(TERM) $(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(EXEC) $(BUILTINS)
+SRC_SEARCH =$(TERM) $(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(BUILTINS) $(EXEC) 
 
 SRC = $(wildcard $(SRC_SEARCH))
 

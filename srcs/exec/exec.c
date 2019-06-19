@@ -26,6 +26,8 @@ void	find_command(char **args, t_term *term)
 		ft_unsetenv(double_arr_len(args), args, term->env_cp);
 	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
 		print_hash_table(term->hash_table, term->hash_table_size);
+	 else if (ft_strcmp(args[0], "history") == 0)
+		print_history(term->history->history_buff);
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		g_flags |= TERM_EXIT;

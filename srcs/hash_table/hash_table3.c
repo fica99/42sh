@@ -39,25 +39,3 @@ void	free_hash_table(t_hash **table, unsigned short len)
 		}
 	}
 }
-
-void	print_hash_table(t_hash **table, unsigned short len)
-{
-	short	i;
-	t_hash	**table_copy;
-	t_hash	*hash;
-
-	i = -1;
-	table_copy = table;
-	while (++i < len)
-	{
-		hash = table_copy[i];
-		while (hash)
-		{
-			ft_putstr_fd(hash->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putstr_fd(hash->path, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			hash = hash->next;
-		}
-	}
-}
