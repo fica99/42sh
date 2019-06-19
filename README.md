@@ -44,10 +44,10 @@ Description in the file minishell.en.pdf
 
 ## Usage
 ```
-Usage: ./42sh [option] [script-file] [script arguments...]
+<!-- Usage: ./minishell [option] [script-file] [script arguments...]
 ush options:
-	--help: this *useful* help message!
-ush keymap:
+	--help: this *useful* help message! -->
+minishell keymap:
 	<home>: Go to begin of line.
 	<end>: Go to end of line.
 	<!-- <ctrl+V>: Enter visual mode.
