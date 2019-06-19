@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/17 16:08:11 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/19 18:22:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,16 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 	while (str && *str)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
-		(cord->x_cur)++;
+		if (*str == '\n')
+		{
+			cord->x_cur = 0;
+			if (cord->y_cur >= cord->ws_row - 1)
+				(cord->y_start)--;
+			else
+				(cord->y_cur)++;
+		}
+		else
+			(cord->x_cur)++;
 		str++;
 		if (cord->x_cur >= cord->ws_col)
 		{
@@ -58,7 +67,7 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	i = -1;
 	symb = ft_strnew(1);
 	if (start <= i)
-		HIGHLIGHT(STDIN_FILENO);	
+		HIGHLIGHT(STDIN_FILENO);
 	while (str[++i])
 	{
 		if (i == start)

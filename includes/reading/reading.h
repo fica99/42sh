@@ -18,4 +18,7 @@
 void	read_prompt(t_term *term);
 void	reading(t_buff *buffer, t_cord *cord, t_history *history);
 void	read_handler(char *c, int fd);
+char	*check_quotes(char	*str, t_cord *cord);
+char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets,
+t_cord *cord);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/17 15:25:39 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/19 19:48:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if (*c == '\n' || (*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
+		if (*c == '\n' && !check_quotes(buffer->buffer, cord))
+			break ;
+		if (*c == '\n')
+			continue;
+		if ((*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
 		{
-			if (*c == CTRL_C)
-				g_flags |= TERM_SIGINT;
+			g_flags |= TERM_SIGINT;
 			break ;
 		}
 		while (ft_strlen(buffer->buffer) + ft_strlen(c) >=
@@ -70,4 +73,52 @@ void	read_handler(char *c, int fd)
 		print_error("42sh", "read() error", NULL, 0);
 	}
 	c[nb] = '\0';
+}
+
+char	*check_quotes(char	*str, t_cord *cord)
+{
+	short	i;
+	short	dquotes;
+	short	quotes;
+	short	brackets;
+
+	i = -1;
+	quotes = 0;
+	dquotes = 0;
+	brackets = 0;
+	while (str[++i])
+	{
+		if (str[i] == 39)
+			quotes++;
+		else if (str[i] == 34)
+			dquotes++;
+		else if (str[i] == '(')
+			brackets++;
+		else if (str[i] == ')')
+			brackets--;
+	}
+	if (((quotes % 2) != 0 || (dquotes % 2) != 0 || brackets != 0)
+	&& !quotes_dquotes_brackets(quotes, dquotes, brackets, cord))
+		return (SOMETHING);
+	return (NULL);
+}
+
+char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets, t_cord *cord)
+{
+	short	x;
+	short	y;
+
+	x = cord->x_cur;
+	y = cord->y_cur;
+	if ((quotes % 2) != 0)
+		ft_putstr_cord("\nThe number of quotes is incorrect", cord);
+	else if ((dquotes % 2) != 0)
+		ft_putstr_cord("\nThe number of double quotes is incorrect", cord);
+	else if (brackets != 0)
+		ft_putstr_cord("\nThe number of brackets is incorrect", cord);
+	if (y >= cord->ws_row - 1)
+			y--;
+	go_to_cord(x, y, STDIN_FILENO);
+	get_cur_cord(cord);
+	return (NULL);
 }
