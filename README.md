@@ -44,25 +44,17 @@ Description in the file minishell.en.pdf
 
 ## Usage
 ```
-<!-- Usage: ./minishell [option] [script-file] [script arguments...]
-ush options:
-	--help: this *useful* help message! -->
+Usage: ./minishell
 minishell keymap:
 	<home>: Go to begin of line.
 	<end>: Go to end of line.
-	<!-- <ctrl+V>: Enter visual mode.
-	<ctrl+Y>: Yank in visual mode. --> 
 	<ctrl+V>: Paste.
 	<ctrl+D>: Exit.
+    <ctrl+X>: Cut.
 	<ctrl+C>: Cancel line edition/Copy.
-	<!-- <ctrl+L>: Clear the screen. -->
 	<ctrl+[left|right]>: Move per word.
     <shift+[left|right]>: Highlighting text.
 	<ctrl+[up|down]>: Move per line.
 	<up>: Go up in the history.
 	<down>: Go down in the history.
     <ctrl+R>: Histroy search.
-	<!-- !!: Retype the last command.
-	!n: Retype the n command from the begin of history.
-	!-n: Retype the -n command from the last command.
-	!name: Search for a command beginning with name. -->
