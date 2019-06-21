@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/17 13:55:20 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/21 13:41:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	term_start(t_term *term)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		signalling();
+		signal(SIGWINCH, signal_handler);
 		term_prompt();
 		cord = term->cord;
 		get_cur_cord(cord);
