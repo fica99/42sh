@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 16:19:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:08:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void		set_input_mode(struct termios *savetty)
 		print_error("42sh", "stdin not terminal\n", NULL, 0);
 	if (tcgetattr(STDIN_FILENO, savetty) < 0)
 		print_error("42sh", "tcgetattr() error", NULL, 0);
-	tty = *savetty;
+	if (tcgetattr(STDIN_FILENO, &tty) < 0)
+		print_error("42sh", "tcgetattr() error", NULL, 0);
 	tty.c_lflag &= ~(ICANON | ECHO | ISIG);
 	tty.c_cc[VTIME] = 0;
 	tty.c_cc[VMIN] = 1;

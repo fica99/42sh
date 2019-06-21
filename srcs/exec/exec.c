@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/21 13:41:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 15:05:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*check_command(char **args, t_term *term)
 		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
-//		signalling();
+		signalling();
 		if (!p)
 			if (execve(args[0], args, term->env_cp) < 0)
 				print_error("42sh", "execve() error", args[0], 0);
@@ -84,7 +84,7 @@ char	*exec_command(char **args, t_term *term)
 	if (!hash)
 		return (NULL);
 	p = make_process();
-//	signalling();
+	signalling();
 	if (!p)
 		if (execve(hash->path, args, term->env_cp) < 0)
 			print_error("42sh", "execve() error", args[0], 0);
