@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 16:23:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 23:13:38 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct		s_cord
 	short			ws_col;
 	short			ws_row;
 	short			highlight_pos;
-	short			save_len;
+	short			pos;
 }					t_cord;
 
 typedef struct		s_buff

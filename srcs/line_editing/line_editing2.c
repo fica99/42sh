@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 16:11:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 23:59:31 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void		print_symb(char *c, char *buf, short len, t_cord *cord)
+void		print_symb(char *c, char *buf, t_cord *cord)
 {
 	short	i;
 
-	buf = ft_stradd(buf, c, len);
+	buf = ft_stradd(buf, c, cord->pos);
 	if (*c == '\n')
 		return ;
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_cord(buf + len, cord);
-	i = ft_strlen(buf + len) - 1;
+	ft_putstr_cord(buf + cord->pos, cord);
+	i = ft_strlen(buf + cord->pos) - 1;
 	go_left(i, cord);
 }
 
@@ -58,6 +58,7 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 			else
 				(cord->y_cur)++;
 		}
+		cord->pos++;
 	}
 }
 
@@ -85,13 +86,9 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 
 void		highlight_left(t_buff *buffer, t_cord *cord, short pos)
 {
-	short			len;
-
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
 	g_flags |= TERM_HIGHLIGHT;
-	go_left(len, cord);
-	if (pos >= len - 1)
+	go_left(cord->pos, cord);
+	if (pos >= cord->pos - 1)
 		ft_putstr_highlight(buffer->buffer, len - 1, pos, cord);
 	else
 		ft_putstr_highlight(buffer->buffer, pos,  len - 1, cord);

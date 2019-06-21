@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 18:51:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 23:57:54 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	go_left(short i, t_cord *cord)
 {
 	cord->x_cur -= i;
+	cord->pos -= i;
 	while (cord->x_cur < 0)
 	{
 		cord->x_cur += cord->ws_col;
@@ -26,6 +27,7 @@ void	go_left(short i, t_cord *cord)
 void	go_right(short i, t_cord *cord)
 {
 	cord->x_cur += i;
+	cord->pos += i;
 	while (cord->x_cur >= cord->ws_col)
 	{
 		cord->x_cur -= cord->ws_col;
@@ -34,17 +36,17 @@ void	go_right(short i, t_cord *cord)
 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 }
 
-void	prev_word(char *buf, short len, t_cord *cord)
+void	prev_word(char *buf, t_cord *cord)
 {
 	short	i;
 
-	i = len;
+	i = cord->pos;
 	while (--i >= 0)
 	{
 		if ((i == 0 || buf[i - 1] == ' ') &&
 		(ft_isalpha(buf[i]) || ft_isdigit(buf[i])))
 		{
-			go_left(len - i, cord);
+			go_left(cord->pos - i, cord);
 			break ;
 		}
 	}

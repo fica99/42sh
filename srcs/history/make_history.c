@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/17 14:08:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/22 00:28:41 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ t_buff *buffer)
 	len = double_arr_len(history->history_buff);
 	if ((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH))
 	{
-		go_left(cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-		* cord->ws_col), cord);
+		go_left(cord->pos, cord);
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		if (!(g_flags & HISTORY_SEARCH))
 		{

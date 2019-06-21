@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 17:14:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 23:58:32 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,21 @@
 
 char	*print_move(char *c, t_buff *buffer, t_cord *cord)
 {
-	short len;
-
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
-	disable_highlight(cord, buffer, len);
+	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
-	&& len)
-		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len,
+	&& cord->pos)
+		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(cord->pos,
 		cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
-	tigetstr("kend"))) && ((short)ft_strlen(buffer->buffer) > len))
+	tigetstr("kend"))) && ((short)ft_strlen(buffer->buffer) > cord->pos))
 		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1, cord) :
-		go_right(ft_strlen(buffer->buffer) - len, cord);
+		go_right(ft_strlen(buffer->buffer) - cord->pos, cord);
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
-		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer->buffer + len, cord) :
-		prev_word(buffer->buffer, len, cord);
-	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0)
+		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer->buffer + cord->pos, cord) :
+		prev_word(buffer->buffer, cord);
+	else if (!(ft_strcmp(c, CTRL_UP)) && cord->pos - cord->ws_col >= 0)
 		go_left(cord->ws_col, cord);
-	else if (!ft_strcmp(c, CTRL_DOWN) && (len + cord->ws_col <=
+	else if (!ft_strcmp(c, CTRL_DOWN) && (cord->pos + cord->ws_col <=
 	(short)ft_strlen(buffer->buffer)))
 		go_right(cord->ws_col, cord);
 	else
@@ -58,27 +54,20 @@ t_history *history)
 
 char	*print_read(char *c, char *buffer, t_cord *cord)
 {
-	short 			len;
-
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col) + cord->save_len;
-	if (((*c == BCSP || *c == CTRL_H) && len) ||
+	if (((*c == BCSP || *c == CTRL_H) && cord->pos) ||
 	!ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
-		{
 			go_left(1, cord);
-			len--;
-		}
 		if (!ft_strlen(buffer) && *c == CTRL_D)
 		{
 			g_flags |= TERM_EXIT;
 			return (SOMETHING);
 		}
-		del_symb(buffer, len);
+		del_symb(buffer, cord->pos);
 	}
 	else if (ft_isprint(*c) || *c == '\n')
-		print_symb(c, buffer, len, cord);
+		print_symb(c, buffer, cord);
 	else
 		return (NULL);
 	return (SOMETHING);
@@ -86,15 +75,11 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 
 char	*cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 {
-	short			len;
-
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
 	if (!cord->highlight_pos && !(g_flags & START_POS))
-		cord->highlight_pos = len;
+		cord->highlight_pos = cord->pos;
 	if (!cord->highlight_pos)
 		g_flags |= START_POS;
-	if (!ft_strcmp(c, tigetstr("kLFT")) && len)
+	if (!ft_strcmp(c, tigetstr("kLFT")) && cord->pos)
 		highlight_left(buffer, cord, cord->highlight_pos);
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
 	((short)ft_strlen(buffer->buffer) > len))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/21 16:36:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 23:13:58 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	read_prompt(t_term *term)
 
 	cord = term->cord;
 	set_start_cord(cord);
-	cord->save_len = 0;
+	cord->pos = 0;
 	term->history->history_index = double_arr_len(term->history->history_buff);
 	buffer = term->buffer;
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))
