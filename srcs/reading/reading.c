@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/19 19:48:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:36:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	read_prompt(t_term *term)
 
 	cord = term->cord;
 	set_start_cord(cord);
+	cord->save_len = 0;
 	term->history->history_index = double_arr_len(term->history->history_buff);
 	buffer = term->buffer;
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))
@@ -41,10 +42,6 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if (*c == '\n' && !check_quotes(buffer->buffer, cord))
-			break ;
-		if (*c == '\n')
-			continue;
 		if ((*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
 		{
 			g_flags |= TERM_SIGINT;
@@ -54,10 +51,12 @@ void	reading(t_buff *buffer, t_cord *cord, t_history *history)
 				(unsigned)buffer->malloc_len)
 			buffer->buffer = strnew_realloc_buf(buffer->buffer,
 					buffer->malloc_len += NORMAL_LINE);
+		if (*c == '\n' && !check_quotes(buffer->buffer, cord))
+			break ;
 		if (!print_symbols(c, buffer, cord, history))
 			if (!print_move(c, buffer, cord))
 				print_read(c, buffer->buffer, cord);
-		if ((g_flags & TERM_SIGINT) || (g_flags & TERM_EXIT))
+		if (g_flags & TERM_EXIT)
 			break ;
 	}
 }
@@ -105,20 +104,14 @@ char	*check_quotes(char	*str, t_cord *cord)
 
 char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets, t_cord *cord)
 {
-	short	x;
-	short	y;
-
-	x = cord->x_cur;
-	y = cord->y_cur;
+	cord->save_len = ft_strlen(g_term.buffer->buffer) + 1;
 	if ((quotes % 2) != 0)
-		ft_putstr_cord("\nThe number of quotes is incorrect", cord);
+		ft_putstr_fd("\nquotes> ", STDIN_FILENO);
 	else if ((dquotes % 2) != 0)
-		ft_putstr_cord("\nThe number of double quotes is incorrect", cord);
+		ft_putstr_fd("\ndquotes> ", STDIN_FILENO);
 	else if (brackets != 0)
-		ft_putstr_cord("\nThe number of brackets is incorrect", cord);
-	if (y >= cord->ws_row - 1)
-			y--;
-	go_to_cord(x, y, STDIN_FILENO);
+		ft_putstr_fd("\nbrackets> ", STDIN_FILENO);
 	get_cur_cord(cord);
+	set_start_cord(cord);
 	return (NULL);
 }

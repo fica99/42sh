@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/17 15:56:28 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/21 17:14:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ t_history *history)
 
 char	*print_read(char *c, char *buffer, t_cord *cord)
 {
-	short len;
+	short 			len;
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col);
+	* cord->ws_col) + cord->save_len;
 	if (((*c == BCSP || *c == CTRL_H) && len) ||
 	!ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
 	{
@@ -77,7 +77,7 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 		}
 		del_symb(buffer, len);
 	}
-	else if (ft_isprint(*c))
+	else if (ft_isprint(*c) || *c == '\n')
 		print_symb(c, buffer, len, cord);
 	else
 		return (NULL);

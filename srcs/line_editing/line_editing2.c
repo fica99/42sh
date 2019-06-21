@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/19 18:22:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/21 16:11:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		print_symb(char *c, char *buf, short len, t_cord *cord)
 	short	i;
 
 	buf = ft_stradd(buf, c, len);
+	if (*c == '\n')
+		return ;
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buf + len, cord);
 	i = ft_strlen(buf + len) - 1;
