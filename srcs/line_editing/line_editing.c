@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 23:57:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/23 12:37:20 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ void	next_word(char *buf, t_cord *cord)
 	go_right(i, cord);
 }
 
-void	del_symb(char *buf, short len)
+void	del_symb(char *buf, t_cord *cord)
 {
-	buf = ft_strdel_el(buf, len);
-	ft_putstr_fd(tigetstr("sc"), STDIN_FILENO);
+	short	pos;
+
+	buf = ft_strdel_el(buf, cord->pos);
+	pos = cord->pos;
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_fd(buf + len, STDIN_FILENO);
-	ft_putstr_fd(tigetstr("rc"), STDIN_FILENO);
+	ft_putstr_cord(buf + cord->pos, cord);
+	go_left(cord->pos - pos, cord);
 }

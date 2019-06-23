@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 23:59:31 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/23 14:05:58 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 void		print_symb(char *c, char *buf, t_cord *cord)
 {
-	short	i;
+	short	pos;
 
 	buf = ft_stradd(buf, c, cord->pos);
 	if (*c == '\n')
+	{
+		cord->pos++;
 		return ;
+	}
+	pos = cord->pos;
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buf + cord->pos, cord);
-	i = ft_strlen(buf + cord->pos) - 1;
-	go_left(i, cord);
+	go_left(cord->pos - pos, cord);
+	go_right(ft_strlen(c), cord);
 }
 
 void		go_to_cord(short x, short y, int fd)
@@ -68,7 +72,12 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	char	*symb;
 
 	i = -1;
-	symb = ft_strnew(1);
+	if (!(symb = ft_strnew(1)))
+	{
+		reset_input_mode(&g_term.savetty);
+		ft_putchar_fd('\n', STDERR_FILENO);
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	}
 	if (start <= i)
 		HIGHLIGHT(STDIN_FILENO);
 	while (str[++i])
@@ -84,13 +93,20 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	STANDART(STDIN_FILENO);
 }
 
-void		highlight_left(t_buff *buffer, t_cord *cord, short pos)
+void		highlight_left(t_buff *buffer, t_cord *cord)
 {
+
+	short	position;
+	short	len;
+
+	position = cord->pos;
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	g_flags |= TERM_HIGHLIGHT;
-	go_left(cord->pos, cord);
-	if (pos >= cord->pos - 1)
-		ft_putstr_highlight(buffer->buffer, len - 1, pos, cord);
+	go_left(len, cord);
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	if (cord->highlight_pos >= position - 1)
+		ft_putstr_highlight(buffer->buffer + cord->pos, position - 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
 	else
-		ft_putstr_highlight(buffer->buffer, pos,  len - 1, cord);
-	go_left(ft_strlen(buffer->buffer) - (len - 1), cord);
+		ft_putstr_highlight(buffer->buffer + cord->pos, cord->highlight_pos - cord->pos,  position - 1 - cord->pos, cord);
+	go_left(cord->pos - (position - 1), cord);
 }

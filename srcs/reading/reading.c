@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/21 23:13:58 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/22 22:40:29 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	read_prompt(t_term *term)
 	cord = term->cord;
 	set_start_cord(cord);
 	cord->pos = 0;
+	cord->highlight_pos = 0;
 	term->history->history_index = double_arr_len(term->history->history_buff);
 	buffer = term->buffer;
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))
@@ -29,8 +30,7 @@ void	read_prompt(t_term *term)
 	buffer->history_search = NULL;
 	reading(buffer, cord, term->history);
 	ft_memdel((void**)&(buffer->history_search));
-	go_right(ft_strlen(buffer->buffer) - (cord->x_cur - cord->x_start +
-			((cord->y_cur - cord->y_start) * cord->ws_col)), cord);
+	go_right(ft_strlen(buffer->buffer) - cord->pos, cord);
 	reset_input_mode(&(g_term.savetty));
 	ft_putchar_fd('\n', STDIN_FILENO);
 }
@@ -104,7 +104,7 @@ char	*check_quotes(char	*str, t_cord *cord)
 
 char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets, t_cord *cord)
 {
-	cord->save_len = ft_strlen(g_term.buffer->buffer) + 1;
+	go_right(ft_strlen(g_term.buffer->buffer) - cord->pos,cord);
 	if ((quotes % 2) != 0)
 		ft_putstr_fd("\nquotes> ", STDIN_FILENO);
 	else if ((dquotes % 2) != 0)

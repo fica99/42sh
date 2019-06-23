@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/30 15:25:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/17 16:05:51 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/23 00:33:14 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,23 @@ t_history *history)
 	(size_t)buffer->history_search_malloc_len)
 		buffer->history_search = strnew_realloc_buf(buffer->history_search,
 		buffer->history_search_malloc_len += NORMAL_LINE);
-	ft_putstr_cord(buffer->history_search, cord);
+	ft_putstr_cord(buffer->history_search, STDIN_FILENO);
 	if (!print_read(symbol, buffer->history_search, cord) && *symbol != CTRL_R)
 	{
 		g_flags &= ~HISTORY_SEARCH;
 		go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
-		get_cur_cord(cord);
 		go_left(17, cord);
+		get_cur_cord(cord);
 		set_start_cord(cord);
+		cord->pos = 0;
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		ft_putstr_cord(buffer->buffer, cord);
 		print_move(symbol, buffer, cord);
 		return ;
 	}
-	ft_putstr_cord("': ", cord);
+	ft_putstr_fd("': ", STDIN_FILENO);
+	get_cur_cord(cord);
+	cord->pos = 0;
 	ft_putstr_cord(check_history(history, buffer), cord);
 }
 

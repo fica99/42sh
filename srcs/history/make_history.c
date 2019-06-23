@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/22 00:28:41 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/23 00:32:52 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ t_buff *buffer)
 	short		len;
 
 	len = double_arr_len(history->history_buff);
+	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
+	get_cur_cord(cord);
+	cord->pos = 0;
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if ((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH))
 	{
-		go_left(cord->pos, cord);
-		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		if (!(g_flags & HISTORY_SEARCH))
 		{
 			ft_putstr_cord("(History search)'", cord);
+			get_cur_cord(cord);
 			set_start_cord(cord);
 			g_flags |= HISTORY_SEARCH;
 		}
@@ -66,10 +69,6 @@ t_buff *buffer)
 void			history_up(t_history *history, t_cord *cord, short len,
 t_buff *buffer)
 {
-	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	cord->x_cur = cord->x_start;
-	cord->y_cur = cord->y_start;
 	if (--(history->history_index) == len - 1)
 	{
 		buffer->save_buff = buffer->buffer;
@@ -93,10 +92,6 @@ t_buff *buffer)
 void			history_down(t_history *history, t_cord *cord, short len,
 t_buff *buffer)
 {
-	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	cord->x_cur = cord->x_start;
-	cord->y_cur = cord->y_start;
 	if (++(history->history_index) == len)
 	{
 		ft_memdel((void**)&buffer->buffer);

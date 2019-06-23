@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 23:58:32 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/23 12:38:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*print_move(char *c, t_buff *buffer, t_cord *cord)
 {
 	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
-	&& cord->pos)
+	&& !is_start_pos(cord))
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(cord->pos,
 		cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
@@ -54,7 +54,7 @@ t_history *history)
 
 char	*print_read(char *c, char *buffer, t_cord *cord)
 {
-	if (((*c == BCSP || *c == CTRL_H) && cord->pos) ||
+	if (((*c == BCSP || *c == CTRL_H) && !is_start_pos(cord)) ||
 	!ft_strcmp(c, tigetstr("kdch1")) || *c == CTRL_D)
 	{
 		if (*c == BCSP || *c == CTRL_H)
@@ -64,7 +64,7 @@ char	*print_read(char *c, char *buffer, t_cord *cord)
 			g_flags |= TERM_EXIT;
 			return (SOMETHING);
 		}
-		del_symb(buffer, cord->pos);
+		del_symb(buffer, cord);
 	}
 	else if (ft_isprint(*c) || *c == '\n')
 		print_symb(c, buffer, cord);
@@ -79,11 +79,11 @@ char	*cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 		cord->highlight_pos = cord->pos;
 	if (!cord->highlight_pos)
 		g_flags |= START_POS;
-	if (!ft_strcmp(c, tigetstr("kLFT")) && cord->pos)
-		highlight_left(buffer, cord, cord->highlight_pos);
+	if (!ft_strcmp(c, tigetstr("kLFT")) && !is_start_pos(cord))
+		highlight_left(buffer, cord);
 	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
-	((short)ft_strlen(buffer->buffer) > len))
-		highlight_right(buffer, cord, cord->highlight_pos);
+	((short)ft_strlen(buffer->buffer) > cord->pos))
+		highlight_right(buffer, cord);
 	else if (*c == CTRL_C && (g_flags & TERM_HIGHLIGHT))
 		copy_highlight(buffer, cord);
 	else if (*c == CTRL_V && buffer->copy_buff)
@@ -96,4 +96,11 @@ char	*cut_copy_paste(char *c, t_buff *buffer, t_cord *cord)
 	else
 		return (NULL);
 	return (SOMETHING);
+}
+
+short	is_start_pos(t_cord *cord)
+{
+	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
+		return (1);
+	return (0);
 }
