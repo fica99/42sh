@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/23 00:32:52 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/24 16:38:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,77 +38,62 @@ t_history		*make_history_buff(void)
 	return (history);
 }
 
-void			go_history(char *c, t_history *history, t_cord *cord,
-t_buff *buffer)
+void	add_to_historybuf(t_term *term)
 {
-	short		len;
+	short	len;
+	short	i;
 
-	len = double_arr_len(history->history_buff);
-	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
-	get_cur_cord(cord);
-	cord->pos = 0;
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	if ((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH))
+	len = double_arr_len(term->history->history_buff);
+	if (len >= HISTORY_SIZE)
 	{
-		if (!(g_flags & HISTORY_SEARCH))
-		{
-			ft_putstr_cord("(History search)'", cord);
-			get_cur_cord(cord);
-			set_start_cord(cord);
-			g_flags |= HISTORY_SEARCH;
-		}
-		find_history(c, buffer, cord, history);
-	}
-	else if (!(ft_strcmp(c, tigetstr("kcuu1"))) && history->history_index)
-		history_up(history, cord, len, buffer);
-	else if (!(ft_strcmp(c, tigetstr("kcud1"))) &&
-	history->history_index != len)
-		history_down(history, cord, len, buffer);
-}
-
-void			history_up(t_history *history, t_cord *cord, short len,
-t_buff *buffer)
-{
-	if (--(history->history_index) == len - 1)
-	{
-		buffer->save_buff = buffer->buffer;
-		buffer->save_malloc_len = buffer->malloc_len;
-		buffer->malloc_len = 0;
-		buffer->buffer = NULL;
+		i = -1;
+		ft_memdel((void**)&(term->history->history_buff[0]));
+		while (++i < len - 1)
+			term->history->history_buff[i] = term->history->history_buff[i + 1];
+		term->history->history_buff[i] = ft_strdup(term->buffer->buffer);
 	}
 	else
-	{
-		ft_memdel((void**)&buffer->buffer);
-		buffer->malloc_len = 0;
-	}
-	while (ft_strlen(history->history_buff[history->history_index]) >=
-	(unsigned)buffer->malloc_len)
-		buffer->buffer = strnew_realloc_buf(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
-	ft_strcat(buffer->buffer, history->history_buff[(history->history_index)]);
-	ft_putstr_cord(buffer->buffer, cord);
+		term->history->history_buff[len++] = ft_strdup(term->buffer->buffer);
+	term->history->history_buff[len] = NULL;
 }
 
-void			history_down(t_history *history, t_cord *cord, short len,
-t_buff *buffer)
+void	write_history(t_term *term)
 {
-	if (++(history->history_index) == len)
+	short	len;
+
+	if (!check_print_arr(term->buffer->buffer))
+		return ;
+	add_to_historybuf(term);
+	len = double_arr_len(term->history->history_buff);
+	len < HISTORY_SIZE ? add_to_file(len, term->history) :
+	rewrite_file(len, term->history);
+}
+
+void	rewrite_file(short len, t_history *history)
+{
+	int		fd;
+	short	i;
+
+	if ((fd = open(history->history_path, O_RDWR | O_TRUNC)) == -1)
+		print_error("42sh", "open() error", NULL, 0);
+	i = -1;
+	while (++i < len)
 	{
-		ft_memdel((void**)&buffer->buffer);
-		buffer->buffer = buffer->save_buff;
-		buffer->malloc_len = buffer->save_malloc_len;
-		buffer->save_buff = NULL;
-		buffer->save_malloc_len = 0;
+		ft_putstr_fd(history->history_buff[i], fd);
+		ft_putchar_fd('\n', fd);
 	}
-	else
-	{
-		ft_memdel((void**)&buffer->buffer);
-		buffer->malloc_len = 0;
-	}
-	while (ft_strlen(history->history_buff[(history->history_index)]) >=
-	(unsigned)buffer->malloc_len)
-		buffer->buffer = strnew_realloc_buf(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
-	ft_strcat(buffer->buffer, history->history_buff[(history->history_index)]);
-	ft_putstr_cord(buffer->buffer, cord);
+	if (close(fd) == -1)
+		print_error("42sh", "close() error", NULL, 0);
+}
+
+void	add_to_file(short len, t_history *history)
+{
+	int	fd;
+
+	if ((fd = open(history->history_path, O_RDWR | O_APPEND)) == -1)
+		print_error("42sh", "open() error", NULL, 0);
+	ft_putstr_fd(history->history_buff[len - 1], fd);
+	ft_putchar_fd('\n', fd);
+	if (close(fd) == -1)
+		print_error("42sh", "close() error", NULL, 0);
 }

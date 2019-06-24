@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 15:47:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:02:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,7 @@ pid_t			make_process(void);
 char			*get_history_file_path(void);
 t_buff			*init_buff(void);
 void			set_start_cord(t_cord *cord);
+char			check_print_arr(char *arr);
+void			unset_start_pos(t_cord	*cord);
+short			is_start_pos(t_cord *cord);;
 #endif

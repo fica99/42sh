@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_editing.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/22 23:49:15 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/24 17:02:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 char			*print_move(char *c, t_buff *buffer, t_cord *cord);
 char			*print_symbols(char *c, t_buff *buffer, t_cord *cord,
 t_history *history);
-char			*print_read(char *c, char *buffer, t_cord *cord);
+char			*print_printable(char *c, char *buffer, t_cord *cord);
 void			go_left(short i, t_cord *cord);
 void			go_right(short i, t_cord *cord);
 void			prev_word(char *buf, t_cord *cord);
@@ -37,5 +37,13 @@ void		    paste_highlight(t_buff *buffer, t_cord *cord);
 void    		cut_highlight(t_buff *buffer, t_cord *cord);
 char		    *copy_from_buff(char *buffer, char *new_buffer,
 short start, short end);
-short			is_start_pos(t_cord *cord);
+void			go_history(char *c, t_history *history, t_cord *cord,
+t_buff *buffer);
+void			history_up(t_history *history, t_cord *cord, short len,
+t_buff *buffer);
+void			history_down(t_history *history, t_cord *cord, short len,
+t_buff *buffer);
+void			find_history(char *symbol, t_buff *buffer, t_cord *cord,
+t_history *history);
+char			*check_history(t_history *history, t_buff *buffer);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/21 16:26:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/24 17:10:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,20 @@
 # include "error/error.h"
 # include "hash_table/hash_table.h"
 # include "history/history.h"
-# include "builtins/his.h"
-# include "line_editing/line_editing.h"
 # include "macro/colour.h"
 # include "macro/command.h"
+# include "line_editing/line_editing.h"
+# include "signal/signal.h"
+# include "reading/reading.h"
+# include "parser/parser.h"
+# include "exec/exec.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"
 # include "builtins/echo.h"
 # include "builtins/setenv.h"
 # include "builtins/unsetenv.h"
 # include "builtins/hash.h"
-# include "exec/exec.h"
-# include "reading/reading.h"
-# include "parser/parser.h"
-# include "signal/signal.h"
+# include "builtins/his.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)

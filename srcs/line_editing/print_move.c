@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_editing.c                                     :+:      :+:    :+:   */
+/*   print_move.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/23 12:37:20 by filip            ###   ########.fr       */
+/*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
+/*   Updated: 2019/06/24 17:44:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
+void		go_to_cord(short x, short y, int fd)
+{
+	char	*cursor;
+
+	cursor = tigetstr("cup");
+	ft_putstr_fd(tparm(cursor, y, x), fd);
+}
+
 void	go_left(short i, t_cord *cord)
 {
+	short	len;
+
+	if (!i)
+		return ;
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+			* cord->ws_col);
+	if (i > len)
+		i = len;
 	cord->x_cur -= i;
 	cord->pos -= i;
 	while (cord->x_cur < 0)
@@ -26,6 +42,8 @@ void	go_left(short i, t_cord *cord)
 
 void	go_right(short i, t_cord *cord)
 {
+	if (!i)
+		return ;
 	cord->x_cur += i;
 	cord->pos += i;
 	while (cord->x_cur >= cord->ws_col)
@@ -68,15 +86,4 @@ void	next_word(char *buf, t_cord *cord)
 		i++;
 	}
 	go_right(i, cord);
-}
-
-void	del_symb(char *buf, t_cord *cord)
-{
-	short	pos;
-
-	buf = ft_strdel_el(buf, cord->pos);
-	pos = cord->pos;
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_cord(buf + cord->pos, cord);
-	go_left(cord->pos - pos, cord);
 }

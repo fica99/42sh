@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/14 19:36:28 by filip            ###   ########.fr        #
+#    Updated: 2019/06/24 17:16:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,12 @@ NAME=minishell
 ERROR=srcs/error/ft_errno.c\
 
 LINE_EDITING=srcs/line_editing/check_symb.c\
-			srcs/line_editing/line_editing.c\
-			srcs/line_editing/line_editing2.c\
-			srcs/line_editing/line_editing3.c\
+			srcs/line_editing/quotes.c\
+			srcs/line_editing/cut_copy_paste.c\
+			srcs/line_editing/highlight.c\
+			srcs/line_editing/print_printable.c\
+			srcs/line_editing/print_move.c\
+			srcs/line_editing/history.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 
@@ -35,7 +38,6 @@ HASH_TABLE=srcs/hash_table/hash_table.c\
 
 HISTORY=srcs/history/make_history.c\
 		srcs/history/make_history2.c\
-		srcs/history/make_history3.c\
 
 PARSER=srcs/parser/parse.c\
 
@@ -55,7 +57,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(TERM) $(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(BUILTINS) $(EXEC) 
+SRC_SEARCH = $(TERM) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 
