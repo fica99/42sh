@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/25 21:25:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 21:55:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*check_quotes(char	*str, t_cord *cord)
 		else if (str[i] == ')')
 			brackets--;
 	}
-	if (((quotes % 2) != 0 || (dquotes % 2) != 0 || brackets != 0)
+	if (((quotes % 2) != 0 || (dquotes % 2) != 0 || brackets != 0 || str[i - 1] == '\\')
 	&& !quotes_dquotes_brackets(quotes, dquotes, brackets, cord))
 		return (SOMETHING);
 	return (NULL);
@@ -53,6 +53,8 @@ char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets, t_cor
 		ft_putstr_fd("\ndquotes> ", STDIN_FILENO);
 	else if (brackets != 0)
 		ft_putstr_fd("\nbrackets> ", STDIN_FILENO);
+	else
+		ft_putstr_fd("\n> ", STDIN_FILENO);
 	get_cur_cord(cord);
 	set_start_cord(cord);
 	return (NULL);
