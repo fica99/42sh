@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/24 17:10:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 20:52:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define HISTORY_SEARCH (1 << 3)
 # define TERM_HIGHLIGHT (1 << 4)
 # define START_POS (1 << 5)
+# define TERM_QUOTES (1 << 6)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048

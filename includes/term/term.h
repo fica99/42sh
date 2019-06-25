@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 23:13:38 by filip            ###   ########.fr       */
+/*   Updated: 2019/06/25 20:31:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct		s_buff
 	short			save_malloc_len;
 	char			*copy_buff;
 	short			copy_malloc_len;
+	char			*prev_line;
+	short			prev_line_len;
 }					t_buff;
 
 typedef struct		s_hash
@@ -67,4 +69,6 @@ typedef struct		s_term
 
 void				term_start(t_term *term);
 void				term_prompt(void);
+void				init_term(void);
+void				reset_term(void);
 #endif

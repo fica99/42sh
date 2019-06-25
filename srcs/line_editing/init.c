@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_make2.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/21 16:24:06 by aashara-         ###   ########.fr       */
+/*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
+/*   Updated: 2019/06/25 20:31:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-void	reset_term(void)
-{
-	char	*rmkx_mode;
-
-	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
-		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
-}
-
-char	*get_history_file_path(void)
-{
-	if (ft_getenv("PWD"))
-		return (ft_strjoin(ft_getenv("PWD"), "/.history"));
-	return (NULL);
-}
 
 t_cord	*init_cord(void)
 {
@@ -51,11 +36,24 @@ t_buff	*init_buff(void)
 	buff->copy_malloc_len = 0;
 	buff->history_search = NULL;
 	buff->history_search_malloc_len = 0;
+	buff->prev_line = NULL;
+	buff->prev_line_len = 0;
 	return (buff);
+}
+
+void	unset_start_pos(t_cord	*cord)
+{
+	cord->x_start = 0;
+	cord->y_start = 0;
 }
 
 void	set_start_cord(t_cord *cord)
 {
 	cord->x_start = cord->x_cur;
 	cord->y_start = cord->y_cur;
+}
+
+void	free_cord(t_cord **cord)
+{
+	ft_memdel((void**)cord);
 }

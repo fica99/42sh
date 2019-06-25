@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/24 20:56:08 by aashara-         ###   ########.fr        #
+#    Updated: 2019/06/25 17:29:05 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/print_printable.c\
 			srcs/line_editing/print_move.c\
 			srcs/line_editing/history.c\
+			srcs/line_editing/get_and_check.c\
+			srcs/line_editing/init.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 
@@ -29,8 +31,6 @@ MAKE=srcs/make/buff_editing.c\
 	srcs/make/env.c\
 	srcs/make/env2.c\
 	srcs/make/process.c\
-	srcs/make/term_make.c\
-	srcs/make/term_make2.c\
 
 HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table2.c\

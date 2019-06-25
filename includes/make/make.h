@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/24 17:02:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:24:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@
 # include <sys/types.h>
 
 char			**copy_double_arr(char **arr);
-void			init_term(void);
-t_cord			*init_cord(void);
 char			*ft_getenv(char *arr);
-void			get_win_size(t_cord *cord);
 char			*strnew_realloc_buf(char *str, short len);
 char			*ft_strdel_el(char	*buf, size_t i);
 char			*ft_stradd(char	*buf, char *s, size_t i);
@@ -34,15 +31,6 @@ void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			print_environ(void);
 char			*check_path(void);
-void			get_cur_cord(t_cord *cord);
-void			set_input_mode(struct termios *savetty);
-void			reset_input_mode(struct termios *savetty);
-void			reset_term(void);
 pid_t			make_process(void);
-char			*get_history_file_path(void);
-t_buff			*init_buff(void);
-void			set_start_cord(t_cord *cord);
 char			check_print_arr(char *arr);
-void			unset_start_pos(t_cord	*cord);
-short			is_start_pos(t_cord *cord);;
 #endif

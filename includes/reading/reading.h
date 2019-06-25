@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/06/08 14:39:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:23:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,6 @@ void	read_handler(char *c, int fd);
 char	*check_quotes(char	*str, t_cord *cord);
 char	*quotes_dquotes_brackets(short quotes, short dquotes, short brackets,
 t_cord *cord);
+void	set_input_mode(struct termios *savetty);
+void	reset_input_mode(struct termios *savetty);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/06/24 17:02:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 18:52:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,13 @@ t_buff *buffer);
 void			find_history(char *symbol, t_buff *buffer, t_cord *cord,
 t_history *history);
 char			*check_history(t_history *history, t_buff *buffer);
+void			unset_start_pos(t_cord	*cord);
+short			is_start_pos(t_cord *cord);
+char			*get_history_file_path(void);
+t_buff			*init_buff(void);
+void			set_start_cord(t_cord *cord);
+void			get_cur_cord(t_cord *cord);
+void			get_win_size(t_cord *cord);
+t_cord			*init_cord(void);
+void			free_cord(t_cord **cord);
 #endif

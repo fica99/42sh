@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/06/24 16:53:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/25 17:20:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,14 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 	buf = ft_strcat(ft_strcat(buf, s), str);
 	ft_memdel((void**)&str);
 	return (buf);
+}
+
+char		*copy_from_buff(char *buffer, char *new_buffer, short start, short end)
+{
+	short	j;
+
+	j = 0;
+	while (start <= end)
+		new_buffer[j++] = buffer[start++];
+	return (new_buffer);
 }
