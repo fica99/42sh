@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/06/25 20:31:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 13:21:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_cord
 	short			ws_row;
 	short			highlight_pos;
 	short			pos;
+	struct s_cord	*nl;
 }					t_cord;
 
 typedef struct		s_buff
@@ -37,8 +38,6 @@ typedef struct		s_buff
 	short			save_malloc_len;
 	char			*copy_buff;
 	short			copy_malloc_len;
-	char			*prev_line;
-	short			prev_line_len;
 }					t_buff;
 
 typedef struct		s_hash

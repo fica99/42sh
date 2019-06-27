@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/25 20:15:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 14:59:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		main(int argc, char **argv, char **environ)
 	g_term.env_cp = copy_double_arr(environ);
 	init_term();
 	g_term.cord = init_cord();
+	get_win_size(g_term.cord);
 	init_hash_table();
 	g_term.history = make_history_buff();
 	g_term.buffer = init_buff();
@@ -26,7 +27,7 @@ int		main(int argc, char **argv, char **environ)
 	free_my_hash_table();
 	free_history(&(g_term.history));
 	reset_term();
-	free_cord(&(g_term.cord));
+	ft_memdel((void**)&(g_term.cord));
 	ft_memdel((void**)&(g_term.buffer->copy_buff));
 	ft_memdel((void**)&(g_term.buffer));
 	free_double_arr(g_term.env_cp);
@@ -48,6 +49,7 @@ void	term_start(t_term *term)
 		}
 		ft_memdel((void**)&(term->buffer->buffer));
 		ft_memdel((void**)&(term->buffer->save_buff));
+		free_cord(&(term->cord->nl));
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

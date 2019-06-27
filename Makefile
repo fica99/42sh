@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/25 17:29:05 by aashara-         ###   ########.fr        #
+#    Updated: 2019/06/27 15:18:48 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/highlight.c\
 			srcs/line_editing/print_printable.c\
 			srcs/line_editing/print_move.c\
+			srcs/line_editing/print_move2.c\
 			srcs/line_editing/history.c\
 			srcs/line_editing/get_and_check.c\
 			srcs/line_editing/init.c\
