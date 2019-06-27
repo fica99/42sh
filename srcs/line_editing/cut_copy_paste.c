@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/24 16:35:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 12:37:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		paste_highlight(t_buff *buffer, t_cord *cord)
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
 		* cord->ws_col);
 	go_left(len, cord);
-	ft_putstr_cord(buffer->buffer, cord);
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	go_left(cord->pos - position, cord);
 }
 
@@ -72,7 +73,7 @@ void    cut_highlight(t_buff *buffer, t_cord *cord)
 			* cord->ws_col);
 	go_left(len, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-	ft_putstr_cord(buffer->buffer, cord);
+	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos, cord) :
 	go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
 	cord->highlight_pos = 0;
