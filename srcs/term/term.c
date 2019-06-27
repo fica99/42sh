@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/27 14:59:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/28 00:06:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,29 @@ int		main(int argc, char **argv, char **environ)
 	(void)argv;
 	g_term.env_cp = copy_double_arr(environ);
 	init_term();
-	g_term.cord = init_cord();
-	get_win_size(g_term.cord);
 	init_hash_table();
 	g_term.history = make_history_buff();
-	g_term.buffer = init_buff();
-	term_start(&g_term);
+	term_start(g_term);
+	ft_memdel((void**)&g_term.copy_line.buffer);
 	free_my_hash_table();
 	free_history(&(g_term.history));
 	reset_term();
-	ft_memdel((void**)&(g_term.cord));
-	ft_memdel((void**)&(g_term.buffer->copy_buff));
-	ft_memdel((void**)&(g_term.buffer));
 	free_double_arr(g_term.env_cp);
 	return (EXIT_SUCCESS);
 }
 
-void	term_start(t_term *term)
+void	term_start(t_term term)
 {
+	char	*buffer;
+
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, signal_handler);
 		term_prompt();
-		read_prompt(term);
+		buffer = read_prompt(term);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
-		{
-			write_history(term);
-			parse_string(term);
-		}
-		ft_memdel((void**)&(term->buffer->buffer));
-		ft_memdel((void**)&(term->buffer->save_buff));
-		free_cord(&(term->cord->nl));
+			parse_string(buffer, term.hash_table, term.hash_table_size, term.history);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}

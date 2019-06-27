@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/27 15:18:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/06/27 21:00:35 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/history.c\
 			srcs/line_editing/get_and_check.c\
 			srcs/line_editing/init.c\
+			srcs/line_editing/free.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 

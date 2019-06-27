@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/06/24 16:53:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:58:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		disable_highlight(t_cord *cord, t_buff *buffer)
 	}
 }
 
-void		highlight_left(t_buff *buffer, t_cord *cord)
+void		highlight_left(char *buffer, t_cord *cord)
 {
 
 	short	position;
@@ -43,13 +43,13 @@ void		highlight_left(t_buff *buffer, t_cord *cord)
 	go_left(len, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (cord->highlight_pos >= position - 1)
-		ft_putstr_highlight(buffer->buffer + cord->pos, position - 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
+		ft_putstr_highlight(buffer + cord->pos, position - 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
 	else
-		ft_putstr_highlight(buffer->buffer + cord->pos, cord->highlight_pos - cord->pos,  position - 1 - cord->pos, cord);
+		ft_putstr_highlight(buffer + cord->pos, cord->highlight_pos - cord->pos,  position - 1 - cord->pos, cord);
 	go_left(cord->pos - (position - 1), cord);
 }
 
-void		highlight_right(t_buff *buffer, t_cord *cord)
+void		highlight_right(char *buffer, t_cord *cord)
 {
 	short	position;
 	short	len;
@@ -60,9 +60,9 @@ void		highlight_right(t_buff *buffer, t_cord *cord)
 	go_left(len, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (cord->highlight_pos >= position + 1)
-		ft_putstr_highlight(buffer->buffer + cord->pos, position + 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
+		ft_putstr_highlight(buffer + cord->pos, position + 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
 	else
-		ft_putstr_highlight(buffer->buffer + cord->pos, cord->highlight_pos - cord->pos,  position + 1 - cord->pos, cord);
+		ft_putstr_highlight(buffer + cord->pos, cord->highlight_pos - cord->pos,  position + 1 - cord->pos, cord);
 	go_left(cord->pos - (position + 1), cord);
 }
 
@@ -74,8 +74,8 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	i = -1;
 	if (!(symb = ft_strnew(1)))
 	{
-		go_right(ft_strlen(g_term.buffer->buffer) - cord->pos, cord);
-		reset_input_mode(&g_term.savetty);
+		go_right(ft_strlen(g_term.line.buffer.buffer) - cord->pos, cord);
+		reset_input_mode(&g_term.line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}

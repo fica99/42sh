@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 15:18:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/27 15:21:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 22:48:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ short	check_nl_left(t_cord *cord, short i)
 	new_line = cord;
 	while ((new_line = new_line->nl))
 	{
-		if (cord->x_cur > new_line->x_cur && (cord->y_start + new_line->y_cur) == cord->y_cur)
+		if (cord->x_cur > new_line->x_cur && (cord->y_start + new_line->y_cur)
+		== cord->y_cur)
 			break;
 	}
 	cord->x_cur = x;
 	cord->y_cur = y;
 	if (new_line)
-		i = (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col)) -
-		(new_line->x_cur - cord->x_start + new_line->y_cur * cord->ws_col);
+		i = (cord->x_cur + ((cord->y_cur - cord->y_start) * cord->ws_col)) -
+		(new_line->x_cur + new_line->y_cur * cord->ws_col);
 	return (i);
 }
 
@@ -57,7 +58,8 @@ short	check_nl_right(t_cord *cord, short i)
 	new_line = cord;
 	while ((new_line = new_line->nl))
 	{
-		if (cord->x_cur > new_line->x_cur && (cord->y_start + new_line->y_cur) == cord->y_cur)
+		if (cord->x_cur > new_line->x_cur && (cord->y_start + new_line->y_cur)
+		== cord->y_cur)
 			break;
 	}
 	cord->x_cur = x;

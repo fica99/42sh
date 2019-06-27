@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 14:59:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 22:52:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,30 +19,15 @@ t_cord	*init_cord(void)
 	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	cord->nl = NULL;
-	return (cord);
-}
-
-t_buff	*init_buff(void)
-{
-	t_buff	*buff;
-
-	if (!(buff = (t_buff*)malloc(sizeof(t_buff))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	buff->buffer = NULL;
-	buff->malloc_len = 0;
-	buff->save_buff = NULL;
-	buff->save_malloc_len = 0;
-	buff->copy_buff = NULL;
-	buff->copy_malloc_len = 0;
-	buff->history_search = NULL;
-	buff->history_search_malloc_len = 0;
-	return (buff);
-}
-
-void	unset_start_pos(t_cord	*cord)
-{
+	cord->x_cur = 0;
 	cord->x_start = 0;
+	cord->ws_col = 0;
+	cord->ws_row = 0;
+	cord->y_cur = 0;
 	cord->y_start = 0;
+	cord->pos = 0;
+	cord->highlight_pos = 0;
+	return (cord);
 }
 
 void	set_start_cord(t_cord *cord)
@@ -51,17 +36,10 @@ void	set_start_cord(t_cord *cord)
 	cord->y_start = cord->y_cur;
 }
 
-void	free_cord(t_cord **cord)
+t_buff	init_buff(t_buff buffer)
 {
-	t_cord	*copy;
-	t_cord	*nl;
-
-	nl = *cord;
-	while(nl)
-	{
-		copy = nl;
-		nl = nl->nl;
-		ft_memdel((void**)&copy);
-	}
-	*cord = NULL;
+	if (!(buffer.buffer = ft_strnew(NORMAL_LINE)))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	buffer.malloc_len = NORMAL_LINE;
+	return (buffer);
 }

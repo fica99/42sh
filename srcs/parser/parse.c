@@ -6,31 +6,31 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/08 14:56:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:45:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	parse_string(t_term *term)
+void	parse_string(char *buf, t_hash **hash_table, short hash_table_size,
+t_history *history)
 {
 	char	*new_command;
-	char	*buf;
 
-	buf = term->buffer->buffer;
 	while ((new_command = ft_strchr(buf, ';')))
 	{
 		if (buf != new_command)
 		{
 			*new_command = '\0';
-			make_command(buf, term);
+			make_command(buf, hash_table, hash_table_size, history);
 		}
 		buf = ++new_command;
 	}
-	make_command(buf, term);
+	make_command(buf, hash_table, hash_table_size, history);
 }
 
-void	make_command(char *buf, t_term *term)
+void	make_command(char *buf, t_hash **hash_table, short hash_table_size,
+t_history *history)
 {
 	char	**args;
 	short	i;
@@ -40,7 +40,7 @@ void	make_command(char *buf, t_term *term)
 	i = -1;
 	while (args[++i])
 		args[i] = spec_symbols(args[i]);
-	find_command(args, term);
+	find_command(args, hash_table, hash_table_size, history);
 	free_double_arr(args);
 }
 

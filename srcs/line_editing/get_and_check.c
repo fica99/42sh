@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/25 17:29:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/28 00:26:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void		get_cur_cord(t_cord *cord)
 	short	num;
 
 	num = 0;
-	set_input_mode(&(g_term.savetty));
+	set_input_mode(&(g_term.line.savetty));
 	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
-	reset_input_mode(&(g_term.savetty));
+	reset_input_mode(&(g_term.line.savetty));
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;
 	while (ft_isdigit(*(++pos)))
@@ -46,16 +46,17 @@ void		get_win_size(t_cord *cord)
 	cord->ws_row = size.ws_row;
 }
 
-char	*get_history_file_path(void)
-{
-	if (ft_getenv("PWD"))
-		return (ft_strjoin(ft_getenv("PWD"), "/.history"));
-	return (NULL);
-}
-
 short	is_start_pos(t_cord *cord)
 {
 	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
 		return (1);
 	return (0);
+}
+
+void	check_end_window(t_cord *cord)
+{
+	if (cord->y_cur >= cord->ws_row - 1)
+		(cord->y_start)--;
+	else
+		(cord->y_cur)++;
 }

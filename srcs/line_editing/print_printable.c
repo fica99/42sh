@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 15:08:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/28 00:28:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,20 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 {
 	t_cord	*new_line;
 
+	new_line = cord->nl;
+	free_cord(&(new_line));
 	while (str && *str)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
 		if (*str == '\n')
 		{
-			new_line = cord;
-			while (new_line->nl)
+			while (new_line)
 				new_line = new_line->nl;
 			new_line->nl = init_cord();
 			new_line->nl->x_cur = cord->x_cur;
 			new_line->nl->y_cur = cord->y_cur - cord->y_start;
 			cord->x_cur = 0;
-			if (cord->y_cur >= cord->ws_row - 1)
-				(cord->y_start)--;
-			else
-				(cord->y_cur)++;
+			check_end_window(cord);
 		}
 		else
 			(cord->x_cur)++;
@@ -67,10 +65,7 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 		{
 			ft_putchar_fd('\n', STDIN_FILENO);
 			cord->x_cur = 0;
-			if (cord->y_cur >= cord->ws_row - 1)
-				(cord->y_start)--;
-			else
-				(cord->y_cur)++;
+			check_end_window(cord);
 		}
 		str++;
 		cord->pos++;

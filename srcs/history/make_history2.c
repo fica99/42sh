@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/06/24 16:38:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 22:50:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,9 @@ void	free_history(t_history **history)
 	ft_memdel((void**)history);
 }
 
+char	*get_history_file_path(void)
+{
+	if (ft_getenv("PWD"))
+		return (ft_strjoin(ft_getenv("PWD"), "/.history"));
+	return (NULL);
+}

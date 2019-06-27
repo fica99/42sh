@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/24 16:38:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/27 23:08:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,35 +38,38 @@ t_history		*make_history_buff(void)
 	return (history);
 }
 
-void	add_to_historybuf(t_term *term)
+void	add_to_historybuf(char *buffer, t_history *history)
 {
 	short	len;
 	short	i;
 
-	len = double_arr_len(term->history->history_buff);
+	len = double_arr_len(history->history_buff);
 	if (len >= HISTORY_SIZE)
 	{
 		i = -1;
-		ft_memdel((void**)&(term->history->history_buff[0]));
+		ft_memdel((void**)&(history->history_buff[0]));
 		while (++i < len - 1)
-			term->history->history_buff[i] = term->history->history_buff[i + 1];
-		term->history->history_buff[i] = ft_strdup(term->buffer->buffer);
+			history->history_buff[i] = history->history_buff[i + 1];
+		if (!(history->history_buff[i] = ft_strdup(buffer)))
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
+
 	}
 	else
-		term->history->history_buff[len++] = ft_strdup(term->buffer->buffer);
-	term->history->history_buff[len] = NULL;
+		if (!(history->history_buff[len++] = ft_strdup(buffer)))
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
+	history->history_buff[len] = NULL;
 }
 
-void	write_history(t_term *term)
+void	write_history(char *buffer, t_history *history)
 {
 	short	len;
 
-	if (!check_print_arr(term->buffer->buffer))
+	if (!check_print_arr(buffer))
 		return ;
-	add_to_historybuf(term);
-	len = double_arr_len(term->history->history_buff);
-	len < HISTORY_SIZE ? add_to_file(len, term->history) :
-	rewrite_file(len, term->history);
+	add_to_historybuf(buffer, history);
+	len = double_arr_len(history->history_buff);
+	len < HISTORY_SIZE ? add_to_file(len, history) :
+	rewrite_file(len, history);
 }
 
 void	rewrite_file(short len, t_history *history)

@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 23:14:23 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 23:45:20 by aashara-         ###   ########.fr       */
+/*   Created: 2019/06/27 21:00:13 by aashara-          #+#    #+#             */
+/*   Updated: 2019/06/27 21:50:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "ft_shell.h"
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
+void	free_cord(t_cord **cord)
+{
+	t_cord	*copy;
+	t_cord	*nl;
 
-void	find_command(char **args, t_hash **hash_table, short hash_table_size,
-t_history *history);
-char	*check_command(char **args);
-char	*exec_command(char **args, t_hash **hash_table, short hash_table_size);
-#endif
+	if (!*cord)
+		return ;
+	nl = *cord;
+	while(nl)
+	{
+		copy = nl;
+		nl = nl->nl;
+		ft_memdel((void**)&copy);
+	}
+	*cord = NULL;
+}
+
+void	unset_start_pos(t_cord	*cord)
+{
+	cord->x_start = 0;
+	cord->y_start = 0;
+}
