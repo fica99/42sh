@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/28 00:04:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/29 10:44:48 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,29 @@
 
 char	*read_prompt(t_term term)
 {
-	t_line	line;
 	char	*buffer;
 
-	g_term.line = line;
-	line.cord = init_cord();
-	get_win_size(line.cord);
-	get_cur_cord(line.cord);
-	set_start_cord(line.cord);
-	line.copy_buff = term.copy_line;
+	term.line.cord = init_cord();
+	get_win_size(term.line.cord);
+	get_cur_cord(term.line.cord);
+	set_start_cord(term.line.cord);
+	term.line.copy_buff = term.copy_line;
 	term.history->history_index = double_arr_len(term.history->history_buff);
-	line.buffer = init_buff(line.buffer);
-	line.save_buff = init_buff(line.save_buff);
-	line.history_search = init_buff(line.history_search);
-	set_input_mode(&(line.savetty));
-	reading(line, term.history);
-	if (!(buffer = ft_strdup(line.buffer.buffer)))
+	term.line.buffer = init_buff(term.line.buffer);
+	term.line.save_buff = init_buff(term.line.save_buff);
+	term.line.history_search = init_buff(term.line.history_search);
+	set_input_mode(&(term.line.savetty));
+	reading(term.line, term.history);
+	if (!(buffer = ft_strdup(term.line.buffer.buffer)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	go_right(ft_strlen(buffer) - line.cord->pos, line.cord);
+	go_right(ft_strlen(buffer) - term.line.cord->pos, term.line.cord);
 	ft_putchar_fd('\n', STDIN_FILENO);
-	reset_input_mode(&(line.savetty));
-	term.copy_line = line.copy_buff;
-	ft_memdel((void**)&(line.save_buff.buffer));
-	ft_memdel((void**)&(line.history_search.buffer));
-	ft_memdel((void**)&(line.buffer.buffer));
-	free_cord(&(line.cord));
+	reset_input_mode(&(term.line.savetty));
+	term.copy_line = term.line.copy_buff;
+	ft_memdel((void**)&(term.line.save_buff.buffer));
+	ft_memdel((void**)&(term.line.history_search.buffer));
+	ft_memdel((void**)&(term.line.buffer.buffer));
+	free_cord(&(term.line.cord));
 	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		write_history(buffer, term.history);
 	return (buffer);
@@ -63,7 +61,7 @@ void	reading(t_line line, t_history *history)
 		if (*c == '\n' && !check_quotes(line))
 			break ;
 		if (!print_symbols(c, line, history))
-			if (!print_move(c, line))
+			if (!print_move(c, line.buffer.buffer, line.cord))
 				print_printable(c, line.buffer.buffer, line.cord);
 		if (g_flags & TERM_EXIT)
 			break ;

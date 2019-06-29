@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 22:29:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/29 10:36:18 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	*print_move(char *c, t_buff *buffer, t_cord *cord)
+char	*print_move(char *c, char *buffer, t_cord *cord)
 {
 	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
-	 && !is_start_pos(cord))
+	&& !is_start_pos(cord))
 		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(cord->pos,
 		cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
-	tigetstr("kend"))) && ((short)ft_strlen(buffer->buffer) > cord->pos))
+	tigetstr("kend"))) && ((short)ft_strlen(buffer) > cord->pos))
 		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1, cord) :
-		go_right(ft_strlen(buffer->buffer) - cord->pos, cord);
+		go_right(ft_strlen(buffer) - cord->pos, cord);
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
-		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer->buffer + cord->pos, cord) :
-		prev_word(buffer->buffer, cord);
+		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer + cord->pos, cord) :
+		prev_word(buffer, cord);
 	else if (!(ft_strcmp(c, CTRL_UP)) && cord->pos - cord->ws_col >= 0)
 		go_left(cord->ws_col, cord);
 	else if (!ft_strcmp(c, CTRL_DOWN) && (cord->pos + cord->ws_col <=
-	(short)ft_strlen(buffer->buffer)))
+	(short)ft_strlen(buffer)))
 		go_right(cord->ws_col, cord);
 	else
 		return (NULL);

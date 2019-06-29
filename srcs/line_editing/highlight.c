@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   highlight.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 23:58:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/29 10:31:43 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_shell.h"
 
-void		disable_highlight(t_cord *cord, t_buff *buffer)
+void		disable_highlight(t_cord *cord, char *buffer)
 {
 	short	pos;
 	short	len;
@@ -26,7 +26,7 @@ void		disable_highlight(t_cord *cord, t_buff *buffer)
 		len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 		pos = cord->pos;
 		go_left(len, cord);
-		ft_putstr_cord(buffer->buffer + cord->pos, cord);
+		ft_putstr_cord(buffer + cord->pos, cord);
 		go_left(cord->pos - pos, cord);
 	}
 }

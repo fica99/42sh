@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/27 22:40:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/29 10:47:15 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void		go_history(char *c, t_history *history, t_line line)
 	len = double_arr_len(history->history_buff);
 	if (((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH)) && !(g_flags & TERM_QUOTES))
 	{
-		go_left(line.cord->x_cur - line.cord->x_start + ((line.cord->y_cur - line.cord->y_start)
-		* line.cord->ws_col), line.cord);
-		line.cord->pos = 0;
+		go_left(line.cord->x_cur - line.cord->x_start + ((line.cord->y_cur -
+		line.cord->y_start) * line.cord->ws_col), line.cord);
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		if (!(g_flags & HISTORY_SEARCH))
 		{
@@ -41,21 +40,10 @@ void		go_history(char *c, t_history *history, t_line line)
 
 void	find_history(char *symbol, t_line line, t_history *history)
 {
-	if (!(line.history_search.buffer))
-	{
-		if (!(line.history_search.buffer = ft_strnew(line.history_search.malloc_len = NORMAL_LINE)))
-		{
-			go_right(ft_strlen(line.buffer.buffer) - line.cord->pos, line.cord);
-			ft_putchar_fd('\n', STDERR_FILENO);
-			reset_input_mode(&(line.savetty));
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
-		}
-	}
 	while (ft_strlen(line.history_search.buffer) + ft_strlen(symbol) >=
 	(size_t)line.history_search.malloc_len)
 		line.history_search.buffer = strnew_realloc_buf(line.history_search.buffer,
 		line.history_search.malloc_len += NORMAL_LINE);
-	line.cord->pos = 0;
 	ft_putstr_cord(line.history_search.buffer, line.cord);
 	if (!print_printable(symbol, line.history_search.buffer, line.cord) && *symbol != CTRL_R)
 	{
@@ -68,78 +56,83 @@ void	find_history(char *symbol, t_line line, t_history *history)
 		line.cord->pos = 0;
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 		ft_putstr_cord(line.buffer.buffer, line.cord);
-		print_move(symbol, line);
+		print_move(symbol, line.buffer.buffer, line.cord);
 		return ;
 	}
 	ft_putstr_fd("': ", STDIN_FILENO);
 	get_cur_cord(line.cord);
 	line.cord->pos = 0;
-	ft_putstr_cord(check_history(history, line), line.cord);
+	ft_putstr_cord(check_history(history, line.buffer, line.history_search), line.cord);
 }
 
-char	*check_history(t_history *history, t_line line)
+char	*check_history(t_history *history, t_buff buffer, t_buff history_search)
 {
 	short	i;
 
 	i = -1;
 	while (history->history_buff[++i])
 	{
-		if (ft_strstr(history->history_buff[i], line.history_search.buffer) &&
-		*(line.history_search.buffer) != '\0')
+		if (ft_strstr(history->history_buff[i], history_search.buffer) &&
+		*(history_search.buffer) != '\0')
 		{
 			while (ft_strlen(history->history_buff[i]) >=
-			(size_t)line.buffer.malloc_len)
-				line.buffer.buffer = strnew_realloc_buf(line.buffer.buffer,
-				line.buffer.malloc_len += NORMAL_LINE);
-			ft_strclr(line.buffer.buffer);
-			ft_strcat(line.buffer.buffer, history->history_buff[i]);
+			(size_t)buffer.malloc_len)
+				buffer.buffer = strnew_realloc_buf(buffer.buffer,
+				buffer.malloc_len += NORMAL_LINE);
+			ft_strclr(buffer.buffer);
+			ft_strcat(buffer.buffer, history->history_buff[i]);
 			break ;
 		}
 	}
-	return (line.buffer.buffer);
+	return (buffer.buffer);
 }
 
 void			history_up(t_history *history, t_line line, short len)
 {
-	go_left(line.cord->x_cur - line.cord->x_start + ((line.cord->y_cur - cord->y_start)
-	* cord->ws_col), cord);
+	go_left(line.cord->x_cur - line.cord->x_start + ((line.cord->y_cur -
+	line.cord->y_start) * line.cord->ws_col), line.cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (--(history->history_index) == len - 1)
 	{
-		buffer->save_buff = ft_strdup(buffer->buffer + cord->pos);
-		buffer->save_malloc_len = ft_strlen(buffer->buffer + cord->pos);
-		ft_strclr(buffer->buffer + cord->pos);
+		if (!(line.save_buff.buffer = ft_strdup(line.buffer.buffer + line.cord->pos)))
+		{
+			go_right(ft_strlen(line.buffer.buffer) - line.cord->pos, line.cord);
+			ft_putchar_fd('\n', STDERR_FILENO);
+			reset_input_mode(&(line.savetty));
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
+		}
+		line.save_buff.malloc_len = ft_strlen(line.buffer.buffer + line.cord->pos);
+		ft_strclr(line.buffer.buffer + line.cord->pos);
 	}
 	else
-		ft_strclr(buffer->buffer + cord->pos);
+		ft_strclr(line.buffer.buffer + line.cord->pos);
 	while (ft_strlen(history->history_buff[history->history_index]) >=
-	(unsigned)buffer->malloc_len)
-		buffer->buffer = strnew_realloc_buf(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
-	ft_strcat(buffer->buffer + cord->pos, history->history_buff[(history->history_index)]);
-	ft_putstr_cord(buffer->buffer + cord->pos, cord);
+	(unsigned)line.buffer.malloc_len)
+		line.buffer.buffer = strnew_realloc_buf(line.buffer.buffer,
+		line.buffer.malloc_len += NORMAL_LINE);
+	ft_strcat(line.buffer.buffer + line.cord->pos, history->history_buff[(history->history_index)]);
+	ft_putstr_cord(line.buffer.buffer + line.cord->pos, line.cord);
 }
 
-void			history_down(t_history *history, t_cord *cord, short len,
-t_buff *buffer)
+void			history_down(t_history *history, t_line line, short len)
 {
-	go_left(cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	* cord->ws_col), cord);
+	go_left(line.cord->x_cur - line.cord->x_start + ((line.cord->y_cur -
+	line.cord->y_start) * line.cord->ws_col), line.cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (++(history->history_index) == len)
 	{
-		ft_memdel((void**)&buffer->buffer);
-		buffer->buffer = buffer->save_buff;
-		buffer->malloc_len = buffer->save_malloc_len;
-		buffer->save_buff = NULL;
-		buffer->save_malloc_len = 0;
+		ft_memdel((void**)&(line.buffer.buffer));
+		line.buffer.buffer = line.save_buff.buffer;
+		line.buffer.malloc_len = line.save_buff.malloc_len;
+		line.save_buff.buffer = NULL;
+		line.save_buff.malloc_len = 0;
 	}
 	else
-		ft_strclr(buffer->buffer + cord->pos);
+		ft_strclr(line.buffer.buffer + line.cord->pos);
 	while (ft_strlen(history->history_buff[(history->history_index)]) >=
-	(unsigned)buffer->malloc_len)
-		buffer->buffer = strnew_realloc_buf(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
-	ft_strcat(buffer->buffer + cord->pos, history->history_buff[history->history_index]);
-	ft_putstr_cord(buffer->buffer + cord->pos, cord);
+	(unsigned)line.buffer.malloc_len)
+		line.buffer.buffer = strnew_realloc_buf(line.buffer.buffer,
+		line.buffer.malloc_len += NORMAL_LINE);
+	ft_strcat(line.buffer.buffer + line.cord->pos, history->history_buff[history->history_index]);
+	ft_putstr_cord(line.buffer.buffer + line.cord->pos, line.cord);
 }

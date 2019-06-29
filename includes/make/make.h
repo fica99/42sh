@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/06/25 17:24:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/29 10:46:03 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void			print_environ(void);
 char			*check_path(void);
 pid_t			make_process(void);
 char			check_print_arr(char *arr);
+char			*copy_from_buff(char *buffer, char *new_buffer, short start, short end);
 #endif
