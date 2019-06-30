@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/28 00:06:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 01:08:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	term_start(t_term term)
 			parse_string(buffer, term.hash_table, term.hash_table_size, term.history);
 		if (g_flags & TERM_EXIT)
 			break ;
+		ft_memdel((void**)&buffer);
 	}
 }
 

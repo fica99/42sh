@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/29 10:44:48 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/01 01:10:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 char	*read_prompt(t_term term)
 {
-	char	*buffer;
-
 	term.line.cord = init_cord();
 	get_win_size(term.line.cord);
 	get_cur_cord(term.line.cord);
@@ -23,23 +21,20 @@ char	*read_prompt(t_term term)
 	term.line.copy_buff = term.copy_line;
 	term.history->history_index = double_arr_len(term.history->history_buff);
 	term.line.buffer = init_buff(term.line.buffer);
-	term.line.save_buff = init_buff(term.line.save_buff);
 	term.line.history_search = init_buff(term.line.history_search);
+	term.line.save_buff = init_buff(term.line.save_buff);
 	set_input_mode(&(term.line.savetty));
 	reading(term.line, term.history);
-	if (!(buffer = ft_strdup(term.line.buffer.buffer)))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	go_right(ft_strlen(buffer) - term.line.cord->pos, term.line.cord);
+	go_right(ft_strlen(term.line.buffer.buffer) - term.line.cord->pos, term.line.cord);
 	ft_putchar_fd('\n', STDIN_FILENO);
 	reset_input_mode(&(term.line.savetty));
 	term.copy_line = term.line.copy_buff;
-	ft_memdel((void**)&(term.line.save_buff.buffer));
 	ft_memdel((void**)&(term.line.history_search.buffer));
-	ft_memdel((void**)&(term.line.buffer.buffer));
+	ft_memdel((void**)&(term.line.save_buff.buffer));
 	free_cord(&(term.line.cord));
 	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
-		write_history(buffer, term.history);
-	return (buffer);
+		write_history(term.line.buffer.buffer, term.history);
+	return (term.line.buffer.buffer);
 }
 
 void	reading(t_line line, t_history *history)
