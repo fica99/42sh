@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 01:08:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:22:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,42 @@
 
 int		main(int argc, char **argv, char **environ)
 {
+	t_term	term;
+
 	(void)argc;
 	(void)argv;
-	g_term.env_cp = copy_double_arr(environ);
+	g_env = copy_double_arr(environ);
 	init_term();
-	init_hash_table();
-	g_term.history = make_history_buff();
-	term_start(g_term);
-	ft_memdel((void**)&g_term.copy_line.buffer);
-	free_my_hash_table();
-	free_history(&(g_term.history));
+	init_hash_table(&term);
+	make_history_buff(&(term.history));
+	term.buffer = NULL;
+	term.copy_line = NULL;
+	term_start(&term);
+	ft_memdel((void**)&term.copy_line);
+	free_my_hash_table(term.hash_table, &term.hash_table_size);
+	free_history(&(term.history));
 	reset_term();
-	free_double_arr(g_term.env_cp);
+	free_double_arr(g_env);
 	return (EXIT_SUCCESS);
 }
 
-void	term_start(t_term term)
+void	term_start(t_term *term)
 {
-	char	*buffer;
-
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, signal_handler);
 		term_prompt();
-		buffer = read_prompt(term);
-		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
-			parse_string(buffer, term.hash_table, term.hash_table_size, term.history);
+		read_prompt(term);
+		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
+			parse_string(term);
+		if (g_flags & TERM_INIT_HASH)
+			init_hash_table(term);
+		if (g_flags & TERM_FREE_HASH)
+			free_my_hash_table(term->hash_table, &term->hash_table_size);
+		ft_memdel((void**)&term->buffer);
 		if (g_flags & TERM_EXIT)
 			break ;
-		ft_memdel((void**)&buffer);
 	}
 }
 

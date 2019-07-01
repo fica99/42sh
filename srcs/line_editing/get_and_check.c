@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/06/28 00:26:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:07:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void		get_cur_cord(t_cord *cord)
 {
-	char	cur_cord[NORMAL_LINE];
+	char	cur_cord[LINE_MAX + 1];
 	char	*pos;
 	short	num;
 
 	num = 0;
-	set_input_mode(&(g_term.line.savetty));
+	set_input_mode(&(g_line.savetty));
 	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
-	reset_input_mode(&(g_term.line.savetty));
+	reset_input_mode(&(g_line.savetty));
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;
 	while (ft_isdigit(*(++pos)))

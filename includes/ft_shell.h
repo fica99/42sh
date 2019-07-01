@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/25 20:52:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 18:19:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define TERM_HIGHLIGHT (1 << 4)
 # define START_POS (1 << 5)
 # define TERM_QUOTES (1 << 6)
+# define TERM_INIT_HASH (1 << 7)
+# define TERM_FREE_HASH (1 << 8)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
@@ -49,7 +51,8 @@
 # define READING 1
 # define INIT_FLAGS 0
 
-struct s_term	g_term;
+struct s_line	g_line;
 unsigned short	g_flags;
 int				g_errno_f;
+char			**g_env;
 #endif

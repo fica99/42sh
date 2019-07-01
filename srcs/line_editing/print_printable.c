@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/06/28 00:28:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 20:36:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 		{
 			while (new_line)
 				new_line = new_line->nl;
-			new_line->nl = init_cord();
-			new_line->nl->x_cur = cord->x_cur;
-			new_line->nl->y_cur = cord->y_cur - cord->y_start;
+			new_line = init_cord();
+			new_line->x_cur = cord->x_cur;
+			new_line->y_cur = cord->y_cur - cord->y_start;
 			cord->x_cur = 0;
 			check_end_window(cord);
 		}

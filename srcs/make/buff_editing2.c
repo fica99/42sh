@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 21:35:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/30 23:50:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 19:28:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char		check_print_arr(char *arr)
 {
 	short	i;
 
-	if (!arr)
+	if (!arr || !*arr)
 		return (0);
 	i = -1;
 	while (arr[++i])

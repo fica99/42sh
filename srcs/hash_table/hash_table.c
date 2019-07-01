@@ -6,27 +6,27 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/07 15:46:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 18:12:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void			init_hash_table(void)
+void			init_hash_table(t_term *term)
 {
 	char	*env_path;
 	char	**path;
 
 	if (!(env_path = ft_getenv("PATH")))
 	{
-		g_term.hash_table_size = 0;
-		g_term.hash_table = NULL;
+		term->hash_table_size = 0;
+		term->hash_table = NULL;
 		return ;
 	}
 	if (!(path = ft_strsplit((ft_getenv("PATH")), ':')))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	g_term.hash_table_size = get_hash_table_size(path);
-	g_term.hash_table = make_hash_table(path, g_term.hash_table_size);
+	term->hash_table_size = get_hash_table_size(path);
+	term->hash_table = make_hash_table(path, term->hash_table_size);
 	free_double_arr(path);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/02 13:33:47 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/01 18:20:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,10 @@ void	ft_unsetenv(int argc, char **argv, char **env_cp)
 			if ((i = get_count_var(argv[j])) < 0)
 				continue;
 			envp = copy_new_arr(i);
-			free(g_term.env_cp);
-			g_term.env_cp = envp;
+			free(g_env);
+			g_env = envp;
 			if (!ft_strcmp(argv[j], "PATH"))
-			{
-				free_hash_table(g_term.hash_table, g_term.hash_table_size);
-				g_term.hash_table_size = 0;
-				g_term.hash_table = NULL;
-			}
+				g_flags &= TERM_FREE_HASH;
 		}
 	}
 }
@@ -47,19 +43,19 @@ char	**copy_new_arr(short i)
 	short	j;
 
 	if (!(envp = (char**)malloc(sizeof(char *)
-					* (double_arr_len(g_term.env_cp)))))
+					* (double_arr_len(g_env)))))
 		print_error("unsetenv", "malloc() error", NULL, ENOMEM);
 	j = -1;
-	while (g_term.env_cp[++j])
+	while (g_env[++j])
 	{
 		if (j >= i)
 		{
 			if (j == i)
-				ft_memdel((void**)&(g_term.env_cp[j]));
-			envp[j] = g_term.env_cp[j + 1];
+				ft_memdel((void**)&(g_env[j]));
+			envp[j] = g_env[j + 1];
 		}
 		else
-			envp[j] = g_term.env_cp[j];
+			envp[j] = g_env[j];
 	}
 	return (envp);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/06/28 00:35:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 18:10:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char		*strnew_realloc_buf(char *str, short len)
 	arr = str;
 	if (!(str = ft_strnew(len)))
 	{
-		go_right(ft_strlen(g_term.line.buffer.buffer) - g_term.line.cord->pos,
-		g_term.line.cord);
-		reset_input_mode(&g_term.line.savetty);
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
+		reset_input_mode(&g_line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
@@ -59,9 +59,9 @@ char		*ft_strdel_el(char *buf, size_t i)
 	{
 		if (!(str = ft_strdup(buf + i + 1)))
 		{
-			go_right(ft_strlen(g_term.line.buffer.buffer) - g_term.line.cord->pos,
-			g_term.line.cord);
-			reset_input_mode(&g_term.line.savetty);
+			go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+			g_line.cord);
+			reset_input_mode(&g_line.savetty);
 			ft_putchar_fd('\n', STDERR_FILENO);
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
@@ -80,9 +80,9 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
 	{
-		go_right(ft_strlen(g_term.line.buffer.buffer) - g_term.line.cord->pos,
-		g_term.line.cord);
-		reset_input_mode(&g_term.line.savetty);
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
+		reset_input_mode(&g_line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}

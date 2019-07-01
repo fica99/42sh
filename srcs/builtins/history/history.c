@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:22:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/19 15:22:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:53:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	print_history(char **history)
+void	print_history(t_history *history_buff)
 {
 	short	i;
+	char	**history;
 
 	i = -1;
+	history = history_buff->history_buff;
 	while (history[++i])
 	{
 		ft_putnbr_fd(i + 1, STDOUT_FILENO);

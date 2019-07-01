@@ -6,17 +6,17 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/06/13 15:17:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:26:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	free_my_hash_table(void)
+void	free_my_hash_table(t_hash **hash_table, unsigned short *hash_table_size)
 {
-	free_hash_table(g_term.hash_table, g_term.hash_table_size);
-	ft_memdel((void**)&(g_term.hash_table));
-	g_term.hash_table_size = 0;
+	free_hash_table(hash_table, *hash_table_size);
+	ft_memdel((void**)&(hash_table));
+	*hash_table_size = 0;
 }
 
 void	free_hash_table(t_hash **table, unsigned short len)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:00:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/27 21:50:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 21:04:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ void	unset_start_pos(t_cord	*cord)
 {
 	cord->x_start = 0;
 	cord->y_start = 0;
+}
+
+void	free_buffer(t_buff *buffer)
+{
+	if (buffer)
+	{
+		ft_memdel((void**)&buffer->buffer);
+		buffer->malloc_len = 0;
+	}
+}
+
+void	free_line(t_line *line)
+{
+	free_buffer(&line->buffer);
+	free_buffer(&line->history_search);
+	free_buffer(&line->save_buff);
+	free_buffer(&line->copy_buff);
+	free_cord(&line->cord);
 }

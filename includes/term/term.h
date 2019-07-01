@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/06/28 00:03:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 19:28:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef struct		s_buff
 	short			malloc_len;
 }					t_buff;
 
+typedef struct		s_history
+{
+	char			**history_buff;
+	short			history_index;
+	char			*history_path;
+}					t_history;
+
 typedef struct		s_line
 {
 	t_buff			buffer;
@@ -41,6 +48,7 @@ typedef struct		s_line
 	t_buff			save_buff;
 	t_buff			copy_buff;
 	t_cord			*cord;
+	t_history		history;
 	struct termios	savetty;
 }					t_line;
 
@@ -52,24 +60,16 @@ typedef struct		s_hash
 	struct s_hash	*next;
 }					t_hash;
 
-typedef struct		s_history
-{
-	char			**history_buff;
-	short			history_index;
-	char			*history_path;
-}					t_history;
-
 typedef struct		s_term
 {
-	char			**env_cp;
-	t_buff			copy_line;
+	char			*copy_line;
 	unsigned short	hash_table_size;
 	t_hash			**hash_table;
-	t_history		*history;
-	t_line			line;
+	t_history		history;
+	char			*buffer;
 }					t_term;
 
-void				term_start(t_term term);
+void				term_start(t_term *term);
 void				term_prompt(void);
 void				init_term(void);
 void				reset_term(void);

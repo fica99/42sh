@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/21 01:14:59 by filip            ###   ########.fr        #
+#    Updated: 2019/07/01 20:06:35 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ $(NAME): $(OBJ)
 	ranlib $(NAME)
 
 %.o: %.c
-	gcc -c $< -o $@ -Wall -Wextra -Werror $(INCLUDES)
+	gcc -c -g $< -o $@ -Wall -Wextra -Werror $(INCLUDES)
 
 .PHONY: clean
 clean:

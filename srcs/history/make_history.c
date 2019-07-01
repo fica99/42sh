@@ -6,21 +6,18 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/30 23:52:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 19:24:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_history		*make_history_buff(void)
+void		make_history_buff(t_history *history)
 {
 	int			fd;
 	char		**buff;
 	short		len;
-	t_history	*history;
 
-	if (!(history = (t_history*)malloc(sizeof(t_history))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	history->history_path = get_history_file_path();
 	if ((fd = open(history->history_path, O_RDONLY | O_CREAT,
 	S_IRUSR | S_IWUSR)) == -1)
@@ -35,7 +32,6 @@ t_history		*make_history_buff(void)
 		print_error("42sh", "close() error", NULL, 0);
 	history->history_buff = buff;
 	history->history_index = len;
-	return (history);
 }
 
 void	add_to_historybuf(char *buffer, t_history *history)
