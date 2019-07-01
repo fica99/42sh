@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 21:11:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 21:23:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ char	*cut_copy_paste(char *c, t_line *line);
 void	ft_putstr_cord(char *str, t_cord *cord);
 void	check_end_window(t_cord *cord);
 void	paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord);
-void	go_history(char *c, t_history *history, t_line *line);
-void	history_up(t_history *history, t_line *line, short len);
-void	history_down(t_history *history, t_line *line, short len);
+void	go_history(char *c, t_line *line);
+void	history_up(t_line *line, short len);
+void	history_down(t_line *line, short len);
 void	find_history(char *symbol, t_line *line, t_history *history);
 char	*check_history(t_history *history, t_buff *buffer, t_buff *history_search);
 void	disable_highlight(t_cord *cord, char *buffer);
