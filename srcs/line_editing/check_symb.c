@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 17:50:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 21:11:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 	return (SOMETHING);
 }
 
-char	*print_symbols(char *c, t_line *line, t_history *history)
+char	*print_symbols(char *c, t_line *line)
 {
 	if (!ft_strcmp(c, tigetstr("kLFT")) || !ft_strcmp(c, tigetstr("kRIT")) ||
 		*c == CTRL_V || *c == CTRL_C || *c == CTRL_X)
 		cut_copy_paste(c, line);
 	//else if (*c == TAB)
 		//autocom();
-	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
-	|| *c == CTRL_R || (g_flags & HISTORY_SEARCH))
-		go_history(c, history, line);
+	// else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
+	// || *c == CTRL_R || (g_flags & HISTORY_SEARCH))
+	// 	go_history(c, line);
 	else
 		return (NULL);
 	return (SOMETHING);

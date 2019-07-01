@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 21:04:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 21:11:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ short	check_nl_left(t_cord *cord, short i);
 void	go_to_cord(short x, short y, int fd);
 void	go_right(short i, t_cord *cord);
 short	check_nl_right(t_cord *cord, short i);
-char	*print_symbols(char *c, t_line *line, t_history *history);
+char	*print_symbols(char *c, t_line *line);
 char	*cut_copy_paste(char *c, t_line *line);
 void	highlight_left(char *buffer, t_cord *cord);
 void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
