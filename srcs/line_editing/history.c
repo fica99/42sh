@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 15:44:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:16:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ char	*check_history(t_history *history, t_buff *buffer, t_buff *history_search)
 
 void			history_up(t_line *line, short len)
 {
-	go_left(line->cord->x_cur - line->cord->x_start + ((line->cord->y_cur -
-	line->cord->y_start) * line->cord->ws_col), line->cord);
+	go_left(line->cord->pos, line->cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (--(line->history.history_index) == len - 1)
 		ft_strcat(line->save_buff.buffer, line->buffer.buffer + line->cord->pos);
@@ -108,8 +107,7 @@ void			history_down(t_line *line, short len)
 {
 	char	*history_buffer;
 
-	go_left(line->cord->x_cur - line->cord->x_start + ((line->cord->y_cur -
-	line->cord->y_start) * line->cord->ws_col), line->cord);
+	go_left(line->cord->pos, line->cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (++(line->history.history_index) == len)
 		history_buffer = line->save_buff.buffer;
