@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 22:08:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:16:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void		go_history(char *c, t_line *line)
 			ft_putstr_fd("(History search)'", STDIN_FILENO);
 			g_flags |= HISTORY_SEARCH;
 		}
-		get_cur_cord(line->cord);
+		get_cur_cord(line->cord, 0);
 		set_start_cord(line->cord);
 		line->cord->pos = 0;
 		find_history(c, line);
@@ -50,7 +50,7 @@ void	find_history(char *symbol, t_line *line)
 		g_flags &= ~HISTORY_SEARCH;
 		go_to_cord(line->cord->x_start, line->cord->y_start, STDIN_FILENO);
 		unset_start_pos(line->cord);
-		get_cur_cord(line->cord);
+		get_cur_cord(line->cord, 0);
 		go_left(17, line->cord);
 		set_start_cord(line->cord);
 		line->cord->pos = 0;
@@ -58,11 +58,10 @@ void	find_history(char *symbol, t_line *line)
 		ft_putstr_cord(line->buffer.buffer, line->cord);
 		print_move(symbol, line->buffer.buffer, line->cord);
 		ft_strclr(line->history_search.buffer);
-		
 		return ;
 	}
 	ft_putstr_fd("': ", STDIN_FILENO);
-	get_cur_cord(line->cord);
+	get_cur_cord(line->cord, 0);
 	line->cord->pos = 0;
 	ft_putstr_cord(check_history(&line->history, &line->buffer, &line->history_search), line->cord);
 }

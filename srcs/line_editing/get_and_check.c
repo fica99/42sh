@@ -6,23 +6,25 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 20:07:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:13:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void		get_cur_cord(t_cord *cord)
+void		get_cur_cord(t_cord *cord, char flag)
 {
 	char	cur_cord[LINE_MAX + 1];
 	char	*pos;
 	short	num;
 
 	num = 0;
-	set_input_mode(&(g_line.savetty));
+	if (flag)
+		set_input_mode(&(g_line.savetty));
 	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
-	reset_input_mode(&(g_line.savetty));
+	if (flag)
+		reset_input_mode(&(g_line.savetty));
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;
 	while (ft_isdigit(*(++pos)))
