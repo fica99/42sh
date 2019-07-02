@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 17:22:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:21:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void		print_symb(char *c, char *buf, t_cord *cord)
 
 void		ft_putstr_cord(char *str, t_cord *cord)
 {
-	t_cord *new_line;
+	t_cord	*new_line;
+	t_cord	*copy;
 
 	while (str && *str)
 	{
@@ -50,8 +51,16 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 		 if (*str == '\n')
 		 {
 			new_line = cord;
-			while (new_line->nl)
+			while (new_line && new_line->nl)
+			{
+				if (new_line->nl->y_cur == cord->y_cur)
+				{
+					copy = new_line->nl;
+					new_line->nl = copy->nl;
+					ft_memdel((void**)&(copy));
+				}
 				new_line = new_line->nl;
+			}
 			new_line->nl = init_cord();
 			new_line->nl->x_cur = cord->x_cur;
 			new_line->nl->y_cur = cord->y_cur - cord->y_start;

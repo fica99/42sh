@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 18:10:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 19:40:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
 	&& !is_start_pos(cord))
-		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len,
+		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(cord->pos,
 		cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
 	tigetstr("kend"))) && ((short)ft_strlen(buffer) > cord->pos))

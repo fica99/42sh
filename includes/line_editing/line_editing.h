@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 17:35:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 20:16:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void	free_line(t_line *line);
 char	*check_quotes(t_line *line);
 char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line);
 void	go_left(short i, t_cord *cord);
-short	check_nl_left(t_cord *cord, short i);
+void	check_nl_left(t_cord *cord, short i);
 void	go_to_cord(short x, short y, int fd);
 void	go_right(short i, t_cord *cord);
-short	check_nl_right(t_cord *cord, short i);
+void	check_nl_right(t_cord *cord, short i);
 char	*print_symbols(char *c, t_line *line);
 char	*cut_copy_paste(char *c, t_line *line);
 void	highlight_left(char *buffer, t_cord *cord);
@@ -55,5 +55,4 @@ void	del_symb(char *buf, t_cord *cord);
 void	print_symb(char *c, char *buf, t_cord *cord);
 char	*print_move(char *c, char *buffer, t_cord *cord);
 void	free_buffer(t_buff *buffer);
-short	get_cord_nl_right(t_cord *cord, short i);
 #endif
