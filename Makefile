@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/06/27 21:00:35 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/02 23:22:24 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ LIB=libft
 all:$(NAME)
 
 $(NAME): $(OBJ) libft
-	gcc -g $(OBJ) -o $@ -L $(LIB) -lft -lncurses
+	gcc $(OBJ) -o $@ -L $(LIB) -lft -lncurses
 
 %.o: %.c
 	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)

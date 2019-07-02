@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 19:40:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:10:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
 		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer + cord->pos, cord) :
 		prev_word(buffer, cord);
-	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0)
+	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0 &&
+	!(g_flags & TERM_NL))
 		go_left(cord->ws_col, cord);
 	else if (!ft_strcmp(c, CTRL_DOWN) && (cord->pos + cord->ws_col <=
-	(short)ft_strlen(buffer)))
+	(short)ft_strlen(buffer)) && !(g_flags & TERM_NL))
 		go_right(cord->ws_col, cord);
 	else
 		return (NULL);

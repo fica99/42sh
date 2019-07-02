@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 18:19:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:10:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define TERM_QUOTES (1 << 6)
 # define TERM_INIT_HASH (1 << 7)
 # define TERM_FREE_HASH (1 << 8)
+# define TERM_NL (1 << 9)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
