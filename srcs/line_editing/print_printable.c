@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 15:49:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 17:22:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 {
 	t_cord *new_line;
 
-	free_cord(&(cord->nl));
 	while (str && *str)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
