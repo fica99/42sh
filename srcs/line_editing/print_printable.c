@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 19:21:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 23:01:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ void		print_symb(char *c, char *buf, t_cord *cord)
 	short	pos;
 
 	buf = ft_stradd(buf, c, cord->pos);
-	if (*c == '\n')
-	{
-		cord->pos++;
-		return ;
-	}
 	pos = cord->pos;
+	if (*c == '\n')
+		cord->pos++;
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buf + cord->pos, cord);
 	go_left(cord->pos - pos - ft_strlen(c), cord);
@@ -51,13 +48,14 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 		 if (*str == '\n')
 		 {
 			new_line = cord;
-			while (new_line && new_line->nl)
+			while (new_line->nl)
 			{
-				if (new_line->nl->y_cur == cord->y_cur)
+				if (new_line->nl->y_cur == (cord->y_cur - cord->y_start))
 				{
 					copy = new_line->nl;
 					new_line->nl = copy->nl;
 					ft_memdel((void**)&(copy));
+					continue ;
 				}
 				new_line = new_line->nl;
 			}
