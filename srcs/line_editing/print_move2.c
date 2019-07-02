@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 15:18:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 20:40:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:26:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,10 @@ void	check_nl_right(t_cord *cord, short i)
 			check_nl_right(cord, i);
 		}
 		new_line = new_line->nl;
+	}
+	while (cord->x_cur >= cord->ws_col)
+	{
+		cord->x_cur -= cord->ws_col;
+		cord->y_cur++;
 	}
 }
