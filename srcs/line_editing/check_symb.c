@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 15:46:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 18:10:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 char	*print_move(char *c, char *buffer, t_cord *cord)
 {
+	short	len;
+
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
 	&& !is_start_pos(cord))
-		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(cord->pos,
+		!ft_strcmp(c, tigetstr("kcub1")) ? go_left(1, cord) : go_left(len,
 		cord);
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
 	tigetstr("kend"))) && ((short)ft_strlen(buffer) > cord->pos))
@@ -26,7 +29,7 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
 		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer + cord->pos, cord) :
 		prev_word(buffer, cord);
-	else if (!(ft_strcmp(c, CTRL_UP)) && cord->pos - cord->ws_col >= 0)
+	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0)
 		go_left(cord->ws_col, cord);
 	else if (!ft_strcmp(c, CTRL_DOWN) && (cord->pos + cord->ws_col <=
 	(short)ft_strlen(buffer)))
