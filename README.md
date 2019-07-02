@@ -19,7 +19,7 @@
  <!-- and `\`. -->
 <!-- - [x] Advanced redirections: aggregation of file output and heredoc `<<`.
 - [x] Globbing: `*`, `?`, `[]`, `{}`, etc. -->
-- [x] Backquotes \`.
+- [x] Backquotes `\`.
 <!--- [x] Subshell with operand `()`.
 - [x] Local variable and builtin `unset` and `export`. -->
 - [x] History with builtin `history`.
