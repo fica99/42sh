@@ -15,13 +15,14 @@
 - [x] Separator `;`.
 
 
-<!-- - [x] Inhibitors `"`, `'`and `\`.
-- [x] Advanced redirections: aggregation of file output and heredoc `<<`.
-- [x] Globbing: `*`, `?`, `[]`, `{}`, etc.
+ - [x] Inhibitors `"`, `'`.
+ <!-- and `\`. -->
+<!-- - [x] Advanced redirections: aggregation of file output and heredoc `<<`.
+- [x] Globbing: `*`, `?`, `[]`, `{}`, etc. -->
 - [x] Backquotes \`.
-- [x] Subshell with operand `()`.
-- [x] Local variable and builtin `unset` and `export`.
-- [x] History with builtin `history`and `!` with options. -->
+<!--- [x] Subshell with operand `()`.
+- [x] Local variable and builtin `unset` and `export`. -->
+- [x] History with builtin `history`.
 
 <!-- - [x] File descriptors and builtin `read` with options.
 - [x] Dynamical autocompletion. -->
