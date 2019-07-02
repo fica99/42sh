@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 21:10:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:47:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	reading(t_line *line)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-
 		if ((*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
 		{
 			g_flags |= TERM_SIGINT;

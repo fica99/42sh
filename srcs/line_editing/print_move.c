@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/06/27 15:13:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 13:35:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	prev_word(char *buf, t_cord *cord)
 	i = cord->pos;
 	while (--i >= 0)
 	{
-		if ((i == 0 || buf[i - 1] == ' ') &&
+		if ((i == 0 || buf[i - 1] == ' ' || buf[i - 1] == '\n') &&
 		(ft_isalpha(buf[i]) || ft_isdigit(buf[i])))
 		{
 			go_left(cord->pos - i, cord);
@@ -81,7 +81,7 @@ void	next_word(char *buf, t_cord *cord)
 	flag = 0;
 	while (buf[i])
 	{
-		if (buf[i] == ' ')
+		if (buf[i] == ' ' || buf[i] == '\n')
 			flag = 1;
 		if ((ft_isalpha(buf[i]) || ft_isdigit(buf[i])) && flag)
 			break ;

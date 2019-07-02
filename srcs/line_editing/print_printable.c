@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 20:36:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 15:49:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,24 @@ void		print_symb(char *c, char *buf, t_cord *cord)
 
 void		ft_putstr_cord(char *str, t_cord *cord)
 {
-	t_cord	*new_line;
+	t_cord *new_line;
 
-	new_line = cord->nl;
-	free_cord(&(new_line));
+	free_cord(&(cord->nl));
 	while (str && *str)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
-		if (*str == '\n')
-		{
-			while (new_line)
+		 if (*str == '\n')
+		 {
+			new_line = cord;
+			while (new_line->nl)
 				new_line = new_line->nl;
-			new_line = init_cord();
-			new_line->x_cur = cord->x_cur;
-			new_line->y_cur = cord->y_cur - cord->y_start;
-			cord->x_cur = 0;
-			check_end_window(cord);
-		}
-		else
+			new_line->nl = init_cord();
+			new_line->nl->x_cur = cord->x_cur;
+			new_line->nl->y_cur = cord->y_cur - cord->y_start;
+		 	cord->x_cur = 0;
+		 	check_end_window(cord);
+		 }
+		 else
 			(cord->x_cur)++;
 		if (cord->x_cur >= cord->ws_col)
 		{
