@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 21:16:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/02 21:43:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		go_history(char *c, t_line *line)
 		line->cord->pos = 0;
 		find_history(c, line);
 	}
-	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && len)
+	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && len && line->history.history_index)
 		history_up(line, len);
 	else if (!(ft_strcmp(c, tigetstr("kcud1"))) &&
 	line->history.history_index != len)
