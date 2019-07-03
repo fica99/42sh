@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:12:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:25:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void		go_left(short i, t_cord *cord)
 
 	if (i <= 0)
 		return ;
-	 len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-	 		* cord->ws_col);
-	 if (i > len)
-	 	i = len;
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
+			* cord->ws_col);
+	if (i > len)
+		i = len;
 	cord->pos -= i;
 	check_nl_left(cord, i);
 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
