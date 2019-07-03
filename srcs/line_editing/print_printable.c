@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 14:14:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:20:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
 		if (*str == '\n')
-		{
-			if (save_cord(cord))
-				continue ;
-		}
+			save_cord(cord);
 		else
 			(cord->x_cur)++;
 		if (cord->x_cur >= cord->ws_col)
@@ -59,7 +56,7 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 	}
 }
 
-char		*save_cord(t_cord *cord)
+void		save_cord(t_cord *cord)
 {
 	t_cord	*new_line;
 	t_cord	*copy;
@@ -73,7 +70,7 @@ char		*save_cord(t_cord *cord)
 			copy = new_line->nl;
 			new_line->nl = copy->nl;
 			ft_memdel((void**)&(copy));
-			return (SOMETHING);
+			continue ;
 		}
 		new_line = new_line->nl;
 	}
@@ -82,5 +79,4 @@ char		*save_cord(t_cord *cord)
 	new_line->nl->y_cur = cord->y_cur - cord->y_start;
 	cord->x_cur = 0;
 	check_end_window(cord);
-	return (NULL);
 }
