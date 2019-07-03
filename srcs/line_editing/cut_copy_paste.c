@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 14:46:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:06:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void		copy_highlight(t_buff *copy_buff, t_buff *buffer, t_cord *cord)
 void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 {
 	short	position;
-	short	len;
-
+	
 	while (ft_strlen(buffer->buffer) + ft_strlen(copy_buff->buffer) >=
 				(unsigned)buffer->malloc_len)
 			buffer->buffer = strnew_realloc_buf(buffer->buffer,
@@ -44,9 +43,7 @@ void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 	buffer->buffer = ft_stradd(buffer->buffer, copy_buff->buffer, cord->pos);
 	cord->highlight_pos = 0;
 	position = cord->pos;
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-		* cord->ws_col);
-	go_left(len, cord);
+	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	go_left(cord->pos - position, cord);
@@ -56,7 +53,6 @@ void    cut_highlight(t_buff *buffer, t_cord *cord)
 {
 	short			pos;
 	short           j;
-	short			len;
 
 	pos = cord->pos;
 	if ((cord->pos - cord->highlight_pos) >= 0)
@@ -71,9 +67,7 @@ void    cut_highlight(t_buff *buffer, t_cord *cord)
 		while (j++ <= cord->highlight_pos)
 			buffer->buffer = ft_strdel_el(buffer->buffer, cord->pos);
 	}
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-			* cord->ws_col);
-	go_left(len, cord);
+	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos, cord) :

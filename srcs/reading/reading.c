@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 22:30:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:01:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	reading(t_line *line)
 					line->buffer.malloc_len += NORMAL_LINE);
 		if (*c == '\n' && !check_quotes(line))
 			break ;
+		if (ft_strchr(line->buffer.buffer, '\n'))
+			g_flags |= TERM_NL;
 		if (!print_symbols(c, line))
 			if (!print_move(c, line->buffer.buffer, line->cord))
 				print_printable(c, line->buffer.buffer, line->cord);

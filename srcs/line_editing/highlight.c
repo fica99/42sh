@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 14:46:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:19:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void		disable_highlight(t_cord *cord, char *buffer)
 {
 	short	pos;
-	short	len;
 
 	if (g_flags & TERM_HIGHLIGHT)
 	{
@@ -23,9 +22,8 @@ void		disable_highlight(t_cord *cord, char *buffer)
 		if (g_flags & START_POS)
 			g_flags &= ~START_POS;
 		cord->highlight_pos = 0;
-		len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 		pos = cord->pos;
-		go_left(len, cord);
+		go_left(cord->pos, cord);
 		ft_putstr_cord(buffer + cord->pos, cord);
 		go_left(cord->pos - pos, cord);
 	}
@@ -35,12 +33,10 @@ void		highlight_left(char *buffer, t_cord *cord)
 {
 
 	short	position;
-	short	len;
 
 	position = cord->pos;
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	g_flags |= TERM_HIGHLIGHT;
-	go_left(len, cord);
+	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (cord->highlight_pos >= position - 1)
 		ft_putstr_highlight(buffer + cord->pos, position - 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);
@@ -52,12 +48,10 @@ void		highlight_left(char *buffer, t_cord *cord)
 void		highlight_right(char *buffer, t_cord *cord)
 {
 	short	position;
-	short	len;
 
 	position = cord->pos;
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
 	g_flags |= TERM_HIGHLIGHT;
-	go_left(len, cord);
+	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (cord->highlight_pos >= position + 1)
 		ft_putstr_highlight(buffer + cord->pos, position + 1 - cord->pos,  cord->highlight_pos - cord->pos, cord);

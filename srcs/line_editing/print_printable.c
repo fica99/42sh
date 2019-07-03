@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 23:12:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:00:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 		ft_putchar_fd(*str, STDIN_FILENO);
 		 if (*str == '\n')
 		 {
-			g_flags |= TERM_NL;
 			new_line = cord;
 			while (new_line->nl)
 			{
