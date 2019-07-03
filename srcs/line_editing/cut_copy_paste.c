@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 13:06:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:21:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ void		copy_highlight(t_buff *copy_buff, t_buff *buffer, t_cord *cord)
 void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 {
 	short	position;
-	
+
 	while (ft_strlen(buffer->buffer) + ft_strlen(copy_buff->buffer) >=
 				(unsigned)buffer->malloc_len)
-			buffer->buffer = strnew_realloc_buf(buffer->buffer,
-					buffer->malloc_len += NORMAL_LINE);
+		buffer->buffer = strnew_realloc_buf(buffer->buffer,
+		buffer->malloc_len += NORMAL_LINE);
 	buffer->buffer = ft_stradd(buffer->buffer, copy_buff->buffer, cord->pos);
 	cord->highlight_pos = 0;
 	position = cord->pos;
@@ -49,10 +49,10 @@ void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 	go_left(cord->pos - position, cord);
 }
 
-void    cut_highlight(t_buff *buffer, t_cord *cord)
+void		cut_highlight(t_buff *buffer, t_cord *cord)
 {
-	short			pos;
-	short           j;
+	short	pos;
+	short	j;
 
 	pos = cord->pos;
 	if ((cord->pos - cord->highlight_pos) >= 0)
@@ -70,12 +70,12 @@ void    cut_highlight(t_buff *buffer, t_cord *cord)
 	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
-	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos, cord) :
-	go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
+	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos,
+	cord) : go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
 	cord->highlight_pos = 0;
 }
 
-char	*cut_copy_paste(char *c, t_line *line)
+char		*cut_copy_paste(char *c, t_line *line)
 {
 	if (!line->cord->highlight_pos && !(g_flags & START_POS))
 		line->cord->highlight_pos = line->cord->pos;

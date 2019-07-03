@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 20:22:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:25:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	reset_term(void)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
 }
 
-void		init_term(void)
+void	init_term(void)
 {
 	char	*term;
 	int		err;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 13:15:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:18:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*check_quotes(t_line *line)
 	short	q;
 	short	br;
 
-	if (!*(line->buffer.buffer))
-		return (NULL);
 	i = -1;
 	q = 0;
 	dq = 0;
@@ -37,7 +35,7 @@ char	*check_quotes(t_line *line)
 			br--;
 	}
 	if (((q % 2) != 0 || (dq % 2) != 0 || br != 0 || line->buffer.buffer[i - 1]
-	 == '\\') && !quotes_dquotes_brackets(q, dq, br, line))
+	== '\\') && !quotes_dquotes_brackets(q, dq, br, line))
 		return (SOMETHING);
 	return (NULL);
 }

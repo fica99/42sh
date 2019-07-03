@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 23:10:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:36:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 {
 	short	len;
 
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) * cord->ws_col);
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+	cord->ws_col);
 	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, tigetstr("kcub1")) || !ft_strcmp(c, tigetstr("khome")))
 	&& !is_start_pos(cord))
@@ -25,7 +26,7 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 	else if ((!ft_strcmp(c, tigetstr("kcuf1")) || !ft_strcmp(c,
 	tigetstr("kend"))) && ((short)ft_strlen(buffer) > cord->pos))
 		!ft_strcmp(c, tigetstr("kcuf1")) ? go_right(1, cord) :
-		go_right(ft_strlen(buffer) - cord->pos, cord);
+		go_right(ft_strlen(buffer + cord->pos), cord);
 	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
 		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer + cord->pos, cord) :
 		prev_word(buffer, cord);
@@ -47,7 +48,8 @@ char	*print_symbols(char *c, t_line *line)
 		cut_copy_paste(c, line);
 	//else if (*c == TAB)
 		//autocom();
-	else if (!ft_strcmp(c, tigetstr("kcuu1")) || !ft_strcmp(c, tigetstr("kcud1"))
+	else if (!ft_strcmp(c, tigetstr("kcuu1")) ||
+	!ft_strcmp(c, tigetstr("kcud1"))
 	|| *c == CTRL_R || (g_flags & HISTORY_SEARCH))
 		go_history(c, line);
 	else

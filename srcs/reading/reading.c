@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 13:01:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:35:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	read_prompt(t_term *term)
+void		read_prompt(t_term *term)
 {
 	g_line.copy_buff.buffer = term->copy_line;
 	g_line.copy_buff.malloc_len = ft_strlen(term->copy_line);
@@ -23,7 +23,8 @@ void	read_prompt(t_term *term)
 	reading(&g_line);
 	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
 	{
-		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos, g_line.cord);
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		{
 			write_history(g_line.buffer.buffer, &term->history);
@@ -33,14 +34,14 @@ void	read_prompt(t_term *term)
 	}
 	if (g_line.copy_buff.buffer)
 		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
 	ft_putchar_fd('\n', STDIN_FILENO);
 	reset_input_mode(&(g_line.savetty));
 	free_line(&g_line);
 	term->history = g_line.history;
 }
 
-void	reading(t_line *line)
+void		reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
 
@@ -58,8 +59,6 @@ void	reading(t_line *line)
 					line->buffer.malloc_len += NORMAL_LINE);
 		if (*c == '\n' && !check_quotes(line))
 			break ;
-		if (ft_strchr(line->buffer.buffer, '\n'))
-			g_flags |= TERM_NL;
 		if (!print_symbols(c, line))
 			if (!print_move(c, line->buffer.buffer, line->cord))
 				print_printable(c, line->buffer.buffer, line->cord);
@@ -68,13 +67,14 @@ void	reading(t_line *line)
 	}
 }
 
-void	read_handler(char *c, int fd)
+void		read_handler(char *c, int fd)
 {
 	short	nb;
 
 	if ((nb = read(fd, c, LINE_MAX)) < 0)
 	{
-		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos, g_line.cord);
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		reset_input_mode(&(g_line.savetty));
 		print_error("42sh", "read() error", NULL, 0);

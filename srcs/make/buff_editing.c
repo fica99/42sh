@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 18:10:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:39:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 	return (buf);
 }
 
-char		*copy_from_buff(char *buffer, char *new_buffer, short start, short end)
+char		*copy_from_buff(char *buffer, char *new_buffer, short start,
+short end)
 {
 	short	j;
 

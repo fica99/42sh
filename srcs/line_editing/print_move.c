@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 20:14:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:27:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		go_to_cord(short x, short y, int fd)
 	ft_putstr_fd(tparm(cursor, y, x), fd);
 }
 
-void	go_left(short i, t_cord *cord)
+void		go_left(short i, t_cord *cord)
 {
 	short	len;
 
@@ -35,7 +35,7 @@ void	go_left(short i, t_cord *cord)
 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 }
 
-void	go_right(short i, t_cord *cord)
+void		go_right(short i, t_cord *cord)
 {
 	if (i <= 0)
 		return ;
@@ -44,7 +44,7 @@ void	go_right(short i, t_cord *cord)
 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 }
 
-void	prev_word(char *buf, t_cord *cord)
+void		prev_word(char *buf, t_cord *cord)
 {
 	short	i;
 
@@ -60,7 +60,7 @@ void	prev_word(char *buf, t_cord *cord)
 	}
 }
 
-void	next_word(char *buf, t_cord *cord)
+void		next_word(char *buf, t_cord *cord)
 {
 	short	i;
 	char	flag;

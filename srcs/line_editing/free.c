@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:00:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 21:04:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:30:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_cord(t_cord **cord)
 	if (!*cord)
 		return ;
 	nl = *cord;
-	while(nl)
+	while (nl)
 	{
 		copy = nl;
 		nl = nl->nl;
@@ -29,7 +29,7 @@ void	free_cord(t_cord **cord)
 	*cord = NULL;
 }
 
-void	unset_start_pos(t_cord	*cord)
+void	unset_start_pos(t_cord *cord)
 {
 	cord->x_start = 0;
 	cord->y_start = 0;

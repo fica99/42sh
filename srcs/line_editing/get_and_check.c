@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/07/02 13:13:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:29:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void		get_win_size(t_cord *cord)
 	cord->ws_row = size.ws_row;
 }
 
-short	is_start_pos(t_cord *cord)
+short		is_start_pos(t_cord *cord)
 {
 	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
 		return (1);
 	return (0);
 }
 
-void	check_end_window(t_cord *cord)
+void		check_end_window(t_cord *cord)
 {
 	if (cord->y_cur >= cord->ws_row - 1)
 		(cord->y_start)--;

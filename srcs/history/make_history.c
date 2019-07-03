@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 19:24:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:28:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void		make_history_buff(t_history *history)
 {
-	int			fd;
-	char		**buff;
-	short		len;
+	int		fd;
+	char	**buff;
+	short	len;
 
 	history->history_path = get_history_file_path();
 	if ((fd = open(history->history_path, O_RDONLY | O_CREAT,
@@ -34,7 +34,7 @@ void		make_history_buff(t_history *history)
 	history->history_index = len;
 }
 
-void	add_to_historybuf(char *buffer, t_history *history)
+void		add_to_historybuf(char *buffer, t_history *history)
 {
 	short	len;
 	short	i;
@@ -48,15 +48,16 @@ void	add_to_historybuf(char *buffer, t_history *history)
 			history->history_buff[i] = history->history_buff[i + 1];
 		if (!(history->history_buff[i] = ft_strdup(buffer)))
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
-
 	}
 	else
+	{
 		if (!(history->history_buff[len++] = ft_strdup(buffer)))
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
+	}
 	history->history_buff[len] = NULL;
 }
 
-void	write_history(char *buffer, t_history *history)
+void		write_history(char *buffer, t_history *history)
 {
 	short	len;
 
@@ -68,7 +69,7 @@ void	write_history(char *buffer, t_history *history)
 	rewrite_file(len, history);
 }
 
-void	rewrite_file(short len, t_history *history)
+void		rewrite_file(short len, t_history *history)
 {
 	int		fd;
 	short	i;
@@ -85,9 +86,9 @@ void	rewrite_file(short len, t_history *history)
 		print_error("42sh", "close() error", NULL, 0);
 }
 
-void	add_to_file(short len, t_history *history)
+void		add_to_file(short len, t_history *history)
 {
-	int	fd;
+	int		fd;
 
 	if ((fd = open(history->history_path, O_RDWR | O_APPEND)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
