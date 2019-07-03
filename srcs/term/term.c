@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 13:25:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:57:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int		main(int argc, char **argv, char **environ)
 	term_start(&term);
 	ft_memdel((void**)&term.copy_line);
 	free_my_hash_table(term.hash_table, &term.hash_table_size);
+	term.hash_table = NULL;
 	free_history(&(term.history));
 	reset_term();
 	free_double_arr(g_env);
@@ -46,7 +47,10 @@ void	term_start(t_term *term)
 		if (g_flags & TERM_INIT_HASH)
 			init_hash_table(term);
 		if (g_flags & TERM_FREE_HASH)
+		{
 			free_my_hash_table(term->hash_table, &term->hash_table_size);
+			term->hash_table = NULL;
+		}
 		ft_memdel((void**)&term->buffer);
 		if (g_flags & TERM_EXIT)
 			break ;

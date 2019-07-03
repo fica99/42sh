@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 18:20:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:08:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_unsetenv(int argc, char **argv, char **env_cp)
 			free(g_env);
 			g_env = envp;
 			if (!ft_strcmp(argv[j], "PATH"))
-				g_flags &= TERM_FREE_HASH;
+				g_flags |= TERM_FREE_HASH;
 		}
 	}
 }
