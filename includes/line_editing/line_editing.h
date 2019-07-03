@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:20:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 15:36:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	get_cur_cord(t_cord *cord, char flag);
 void	set_start_cord(t_cord *cord);
 void	init_buff(t_buff *buffer);
 void	init_line(t_line *line);
-void	free_line(t_line *line);
+void	free_line(t_line *line, t_term *term);
 char	*check_quotes(t_line *line);
 char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line);
 void	go_left(short i, t_cord *cord);
