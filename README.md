@@ -24,8 +24,8 @@
 - [x] Local variable and builtin `unset` and `export`. -->
 - [x] History with builtin `history`.
 
-<!-- - [x] File descriptors and builtin `read` with options.
-- [x] Dynamical autocompletion. -->
+- [x] File descriptors and builtin `read` with options.
+- [x] Dynamical autocompletion.
 
 
 <!-- - [x] Job Control and builtins `job`, `fg`, `bg` and operand `&`.
