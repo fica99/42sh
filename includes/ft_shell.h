@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/02 23:10:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/04 23:16:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 # include "line_editing/line_editing.h"
 # include "signal/signal.h"
 # include "reading/reading.h"
+# include "autocom/autocom.h"
+# include "ftstr.h"
+# include "ftdir.h"
+# include "ftdar.h"
 # include "parser/parser.h"
 # include "exec/exec.h"
 # include "builtins/cd.h"

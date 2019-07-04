@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/02 23:22:24 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/04 22:58:41 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,14 @@ LINE_EDITING=srcs/line_editing/check_symb.c\
 			srcs/line_editing/init.c\
 			srcs/line_editing/free.c\
 
-AUTOCOM=srcs/autocom/autocom.c\
+AUTOCOM=srcs/autocom/ac_autocom.c\
+		srcs/autocom/ac_dir.c\
+		srcs/autocom/ac_parse.c\
+		srcs/autocom/ac_options.c\
+		srcs/autocom/ac_move_cursor.c\
+		srcs/autocom/ac_print_params.c\
+		srcs/autocom/ac_print.c\
+		srcs/autocom/ac_recalc_index.c\
 
 MAKE=srcs/make/buff_editing.c\
 	srcs/make/buff_editing2.c\
@@ -59,7 +66,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH = $(TERM) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS)
+SRC_SEARCH = $(TERM) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS) $(AUTOCOM)
 
 SRC = $(wildcard $(SRC_SEARCH))
 
@@ -67,31 +74,41 @@ OBJ = $(SRC:.c=.o)
 
 INCLUDES=includes
 
-INCLUDES_LIB=libft/includes
+INCLUDES_LIB=LibProjects42/libft/includes
+
+INCLUDES_FTSTR=LibProjects42/ftstr/includes
+
+INCLUDES_FTDIR=LibProjects42/ftdir/includes
+
+INCLUDES_FTDAR=LibProjects42/ftdar/includes
 
 EXTRA_FLAGS=-Wall -Wextra -Werror
 
-LIB=libft
+LIB1=LibProjects42/libft
+
+LIB2=LibProjects42/ftstr
+
+LIB3=LibProjects42/ftdir
+
+LIB4=LibProjects42/ftdar
+
+REPO=https://github.com/OlegMulko/LibProjects42.git
 
 all:$(NAME)
 
-$(NAME): $(OBJ) libft
-	gcc $(OBJ) -o $@ -L $(LIB) -lft -lncurses
+$(NAME): loadlib $(OBJ)
+	gcc $(OBJ) -o $@ -L $(LIB1) -L $(LIB2) -L $(LIB3) -L $(LIB4) -lft -lftstr -lftdir -lftdar -lncurses
 
 %.o: %.c
-	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)
+	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB) -I $(INCLUDES_FTSTR) -I $(INCLUDES_FTDIR) -I $(INCLUDES_FTDAR)
 
-.PHONY: libft
-
-libft:
-	make -C libft
+loadlib:
+	./LoadLibProjects42.sh $(REPO) LibProjects42
 
 clean:
-	make clean -C $(LIB)
 	rm -rf $(OBJ)
 
 fclean: clean
-	make fclean -C $(LIB)
 	rm -rf $(NAME)
 
 re: fclean all

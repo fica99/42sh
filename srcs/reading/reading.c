@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 15:52:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/04 22:46:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void		read_prompt(t_term *term)
 	g_line.history.history_index = double_arr_len(g_line.history.history_buff);
 	set_input_mode(&(g_line.savetty));
 	reading(&g_line);
+	autocomplite(NULL, NULL);
 	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
 	{
 		go_right(ft_strlen(g_line.buffer.buffer + g_line.cord->pos),
