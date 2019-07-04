@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/30 23:28:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/02 23:10:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,37 @@
 # define FT_SHELL_H
 
 # include "libft.h"
+# include <termios.h>
+# include "term/term.h"
+# include "make/make.h"
+# include "error/error.h"
+# include "hash_table/hash_table.h"
+# include "history/history.h"
 # include "macro/colour.h"
 # include "macro/command.h"
+# include "line_editing/line_editing.h"
+# include "signal/signal.h"
+# include "reading/reading.h"
+# include "parser/parser.h"
+# include "exec/exec.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"
 # include "builtins/echo.h"
 # include "builtins/setenv.h"
 # include "builtins/unsetenv.h"
-# include "hash_table/hash_table.h"
-# include "exec/exec.h"
-# include "reading/reading.h"
-# include "parser/parser.h"
-# include "error/error.h"
-# include "signal/signal.h"
-# include "term/term.h"
-# include "make/make.h"
-# include "line_editing/line_editing.h"
-# include "history/history.h"
+# include "builtins/hash.h"
+# include "builtins/his.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
 # define TERM_EXIT (1 << 2)
+# define HISTORY_SEARCH (1 << 3)
+# define TERM_HIGHLIGHT (1 << 4)
+# define START_POS (1 << 5)
+# define TERM_QUOTES (1 << 6)
+# define TERM_INIT_HASH (1 << 7)
+# define TERM_FREE_HASH (1 << 8)
+# define TERM_NL (1 << 9)
 # define NORMAL_LINE 100
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
@@ -42,25 +52,8 @@
 # define READING 1
 # define INIT_FLAGS 0
 
-typedef struct	s_term
-{
-	short			x_start;
-	short			y_start;
-	short			x_cur;
-	short			y_cur;
-	short			ws_col;
-	short			ws_row;
-	char			*buffer;
-	char			**env_cp;
-	struct termios	savetty;
-	short			malloc_len;
-	unsigned short	hash_table_size;
-	t_hash			**hash_table;
-	t_history		*history;
-	char			*history_path;
-}				t_term;
-
-struct s_term	g_term;
+struct s_line	g_line;
 unsigned short	g_flags;
 int				g_errno_f;
+char			**g_env;
 #endif

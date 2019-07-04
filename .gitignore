@@ -1,6 +1,7 @@
 /.vscode
 *DS_STORE
-*minishell*
+minishell
+*dSYM
 *.o
 *.a
 .history

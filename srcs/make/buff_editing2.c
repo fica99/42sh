@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   buff_editing2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
+/*   Created: 2019/06/18 21:35:22 by aashara-          #+#    #+#             */
+/*   Updated: 2019/07/01 19:28:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_shell.h"
 
-void		free_double_arr(char **arr)
+char		check_print_arr(char *arr)
 {
 	short	i;
 
-	if (!arr)
-		return ;
+	if (!arr || !*arr)
+		return (0);
 	i = -1;
 	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
+	{
+		if (ft_isprint(arr[i]) && arr[i] != ' ')
+			return (1);
+	}
+	return (0);
 }

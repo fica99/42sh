@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:44:46 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:06:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/06/14 13:03:59 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@
 # define BLUE(fd) ft_putstr_fd("\033[0;34m", fd)
 # define PURPLE(fd) ft_putstr_fd("\033[0;35m", fd)
 # define CYAN(fd) ft_putstr_fd("\033[0;36m", fd)
-
+# define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
 #endif

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
+/*   Created: 2019/06/19 15:18:04 by aashara-          #+#    #+#             */
+/*   Updated: 2019/06/19 15:18:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef HASH_H
+# define HASH_H
 
-void		free_double_arr(char **arr)
-{
-	short	i;
+# include "libft.h"
 
-	if (!arr)
-		return ;
-	i = -1;
-	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
-}
+void				print_hash_table(t_hash **table, unsigned short len);
+#endif

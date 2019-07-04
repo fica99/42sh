@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   ft_abs.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
+/*   Created: 2018/11/20 13:23:15 by aashara-          #+#    #+#             */
+/*   Updated: 2018/11/21 14:08:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void		free_double_arr(char **arr)
-{
-	short	i;
-
-	if (!arr)
-		return ;
-	i = -1;
-	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
-}
+#ifndef FT_ABS_H
+# define FT_ABS_H
+# define ABS(value) (value) < (0)?((value == -2147483648)?0:-value):(value)
+#endif

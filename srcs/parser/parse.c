@@ -3,44 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 19:39:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/01 16:47:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	parse_string(void)
+void	parse_string(t_term *term)
 {
 	char	*new_command;
-	char	*buf;
+	char	*buffer;
 
-	buf = g_term.buffer;
-	while ((new_command = ft_strchr(buf, ';')))
+	buffer = term->buffer;
+	while ((new_command = ft_strchr(buffer, ';')))
 	{
-		if (buf != new_command)
+		if (buffer != new_command)
 		{
 			*new_command = '\0';
-			make_command(buf);
+			make_command(buffer, term);
 		}
-		buf = ++new_command;
+		buffer = ++new_command;
 	}
-	make_command(buf);
+	make_command(buffer, term);
 }
 
-void	make_command(char *buf)
+void	make_command(char *buff, t_term *term)
 {
 	char	**args;
 	short	i;
 
-	if (!buf || !(*buf) || !(args = ft_strsplit(buf, ' ')))
+	if (!buff || !(*buff) || !(args = ft_strsplit(buff, ' ')))
 		return ;
 	i = -1;
 	while (args[++i])
 		args[i] = spec_symbols(args[i]);
-	find_command(args);
+	find_command(args, term);
 	free_double_arr(args);
 }
 

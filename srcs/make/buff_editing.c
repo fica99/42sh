@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   buff_editing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 20:01:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:39:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,14 @@ char		*strnew_realloc_buf(char *str, short len)
 	arr = str;
 	if (!(str = ft_strnew(len)))
 	{
-		reset_input_mode();
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
+		reset_input_mode(&g_line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
-	str = ft_strcat(str, arr);
+	if (arr)
+		str = ft_strcat(str, arr);
 	ft_memdel((void**)&arr);
 	return (str);
 }
@@ -56,7 +59,9 @@ char		*ft_strdel_el(char *buf, size_t i)
 	{
 		if (!(str = ft_strdup(buf + i + 1)))
 		{
-			reset_input_mode();
+			go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+			g_line.cord);
+			reset_input_mode(&g_line.savetty);
 			ft_putchar_fd('\n', STDERR_FILENO);
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
@@ -75,7 +80,9 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 		return (ft_strcat(buf, s));
 	if (!(str = ft_strdup(buf + i)))
 	{
-		reset_input_mode();
+		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
+		g_line.cord);
+		reset_input_mode(&g_line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
@@ -83,4 +90,15 @@ char		*ft_stradd(char *buf, char *s, size_t i)
 	buf = ft_strcat(ft_strcat(buf, s), str);
 	ft_memdel((void**)&str);
 	return (buf);
+}
+
+char		*copy_from_buff(char *buffer, char *new_buffer, short start,
+short end)
+{
+	short	j;
+
+	j = 0;
+	while (start <= end)
+		new_buffer[j++] = buffer[start++];
+	return (new_buffer);
 }

@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   his.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
+/*   Created: 2019/06/19 15:22:53 by aashara-          #+#    #+#             */
+/*   Updated: 2019/07/01 16:54:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef HIS_H
+# define HIS_H
 
-void		free_double_arr(char **arr)
-{
-	short	i;
+# include "libft.h"
 
-	if (!arr)
-		return ;
-	i = -1;
-	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
-}
+void	print_history(t_history *history_buff);
+#endif

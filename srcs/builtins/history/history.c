@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_double_arr.c                                  :+:      :+:    :+:   */
+/*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 01:40:31 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:10:40 by aashara-         ###   ########.fr       */
+/*   Created: 2019/06/19 15:22:29 by aashara-          #+#    #+#             */
+/*   Updated: 2019/07/01 16:53:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_shell.h"
 
-void		free_double_arr(char **arr)
+void	print_history(t_history *history_buff)
 {
 	short	i;
+	char	**history;
 
-	if (!arr)
-		return ;
 	i = -1;
-	while (arr[++i])
-		ft_memdel((void**)&(arr[i]));
-	free(arr);
-	arr = NULL;
+	history = history_buff->history_buff;
+	while (history[++i])
+	{
+		ft_putnbr_fd(i + 1, STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putstr_fd(history[i], STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
 }

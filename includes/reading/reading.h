@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/05/28 19:43:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 14:43:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <unistd.h>
 
-void	read_prompt(void);
-void	reading(void);
+void	read_prompt(t_term *term);
+void	reading(t_line *line);
 void	read_handler(char *c, int fd);
+void	set_input_mode(struct termios *savetty);
+void	reset_input_mode(struct termios *savetty);
 #endif

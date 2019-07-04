@@ -6,22 +6,27 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/06/11 19:08:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:56:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	free_hash_table(void)
+void	free_my_hash_table(t_hash **hash_table, unsigned short *hash_table_size)
+{
+	free_hash_table(hash_table, *hash_table_size);
+	ft_memdel((void**)&(hash_table));
+	*hash_table_size = 0;
+}
+
+void	free_hash_table(t_hash **table, unsigned short len)
 {
 	short	i;
-	t_hash	**table;
 	t_hash	*next;
 	t_hash	*copy;
 
 	i = -1;
-	table = g_term.hash_table;
-	while (++i < g_term.hash_table_size)
+	while (++i < len)
 	{
 		next = table[i];
 		while (next)
@@ -31,30 +36,6 @@ void	free_hash_table(void)
 			copy = next;
 			next = next->next;
 			ft_memdel((void**)&(copy));
-		}
-	}
-	g_term.hash_table_size = 0;
-	ft_memdel((void**)&g_term.hash_table);
-}
-
-void	print_hash_table(void)
-{
-	short	i;
-	t_hash	**table;
-	t_hash	*hash;
-
-	i = -1;
-	table = g_term.hash_table;
-	while (++i < g_term.hash_table_size)
-	{
-		hash = table[i];
-		while (hash)
-		{
-			ft_putstr_fd(hash->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putstr_fd(hash->path, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			hash = hash->next;
 		}
 	}
 }

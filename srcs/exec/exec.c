@@ -3,35 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:48:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 17:36:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	find_command(char **args)
+void	find_command(char **args, t_term *term)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-		cd(double_arr_len(args), args, g_term.env_cp);
+		cd(double_arr_len(args), args, g_env);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(double_arr_len(args), args, g_term.env_cp);
+		ft_echo(double_arr_len(args), args, g_env);
 	else if (ft_strcmp(args[0], "env") == 0)
-		env(double_arr_len(args), args, g_term.env_cp);
+		env(double_arr_len(args), args, g_env);
 	else if (ft_strcmp(args[0], "setenv") == 0)
-		set_env(double_arr_len(args), args, g_term.env_cp);
+		set_env(double_arr_len(args), args, g_env);
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
-		ft_unsetenv(double_arr_len(args), args, g_term.env_cp);
+		ft_unsetenv(double_arr_len(args), args, g_env);
 	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
-		print_hash_table();
+		print_hash_table(term->hash_table, term->hash_table_size);
+	else if (ft_strcmp(args[0], "history") == 0)
+		print_history(&term->history);
 	else if (ft_strcmp(args[0], "exit") == 0)
 	{
 		g_flags |= TERM_EXIT;
 		return ;
 	}
-	else if (!check_command(args) && !exec_command(args))
+	else if (!check_command(args) && !exec_command(args, term->hash_table,
+	term->hash_table_size))
 		print_error_withoutexit("42sh", "command not found", args[0], 0);
 }
 
@@ -53,8 +56,9 @@ char	*check_command(char **args)
 		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
+		signalling();
 		if (!p)
-			if (execve(args[0], args, g_term.env_cp) < 0)
+			if (execve(args[0], args, g_env) < 0)
 				print_error("42sh", "execve() error", args[0], 0);
 		waitpid(p, &status, 0);
 		return (SOMETHING);
@@ -62,15 +66,15 @@ char	*check_command(char **args)
 	return (NULL);
 }
 
-char	*exec_command(char **args)
+char	*exec_command(char **args, t_hash **hash_table, short hash_table_size)
 {
 	pid_t			p;
 	int				status;
 	t_hash			*hash;
 
-	if (!g_term.hash_table)
+	if (!hash_table)
 		return (NULL);
-	hash = g_term.hash_table[hash_index(hashing(args[0]))];
+	hash = hash_table[hash_index(hashing(args[0]), hash_table_size)];
 	while (hash)
 	{
 		if (!ft_strcmp(hash->name, args[0]))
@@ -80,8 +84,9 @@ char	*exec_command(char **args)
 	if (!hash)
 		return (NULL);
 	p = make_process();
+	signalling();
 	if (!p)
-		if (execve(hash->path, args, g_term.env_cp) < 0)
+		if (execve(hash->path, args, g_env) < 0)
 			print_error("42sh", "execve() error", args[0], 0);
 	waitpid(p, &status, 0);
 	return (SOMETHING);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/18 17:17:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/03 13:31:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,27 @@
 void	signalling(void)
 {
 	signal(SIGINT, signal_handler);
-	signal(SIGWINCH, signal_handler);
 	signal(SIGQUIT, signal_handler);
 }
 
 void	signal_handler(int sign)
 {
-	int	len;
+	short	pos;
 
 	if (sign == SIGINT || sign == SIGQUIT)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	if (sign == SIGWINCH)
 	{
-		len = g_term.x_cur - g_term.x_start +
-			((g_term.y_cur - g_term.y_start) * g_term.ws_col);
-		ft_putnbr(g_term.ws_col);
-		get_win_size();
-		ft_putnbr(g_term.ws_col);
+		pos = g_line.cord->pos;
+		reset_input_mode(&(g_line.savetty));
+		get_win_size(g_line.cord);
 		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
 		term_prompt();
-		get_cur_cord();
-		g_term.x_start = g_term.x_cur;
-		g_term.y_start = g_term.y_cur;
-		ft_putstr_cord(g_term.buffer);
-		go_left(ft_strlen(g_term.buffer) - len);
+		get_cur_cord(g_line.cord, 1);
+		set_start_cord(g_line.cord);
+		g_line.cord->pos = 0;
+		ft_putstr_cord(g_line.buffer.buffer, g_line.cord);
+		go_left(ft_strlen(g_line.buffer.buffer) - pos, g_line.cord);
+		set_input_mode(&(g_line.savetty));
 	}
 }

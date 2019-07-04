@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "get_next_line.h"
+# include "ft_abs.h"
 
 # define LLONG_MAX 9223372036854775807
 # define ULLONG_MAX 18446744073709551615ULL

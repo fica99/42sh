@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/05/31 18:18:14 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/02 23:22:24 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,17 +15,24 @@ NAME=minishell
 ERROR=srcs/error/ft_errno.c\
 
 LINE_EDITING=srcs/line_editing/check_symb.c\
-			srcs/line_editing/line_editing.c\
-			srcs/line_editing/line_editing2.c\
+			srcs/line_editing/quotes.c\
+			srcs/line_editing/cut_copy_paste.c\
+			srcs/line_editing/highlight.c\
+			srcs/line_editing/print_printable.c\
+			srcs/line_editing/print_move.c\
+			srcs/line_editing/print_move2.c\
+			srcs/line_editing/history.c\
+			srcs/line_editing/get_and_check.c\
+			srcs/line_editing/init.c\
+			srcs/line_editing/free.c\
 
 AUTOCOM=srcs/autocom/autocom.c\
 
 MAKE=srcs/make/buff_editing.c\
+	srcs/make/buff_editing2.c\
 	srcs/make/env.c\
 	srcs/make/env2.c\
 	srcs/make/process.c\
-	srcs/make/term_make.c\
-	srcs/make/term_make2.c\
 
 HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table2.c\
@@ -33,7 +40,6 @@ HASH_TABLE=srcs/hash_table/hash_table.c\
 
 HISTORY=srcs/history/make_history.c\
 		srcs/history/make_history2.c\
-		srcs/history/make_history3.c\
 
 PARSER=srcs/parser/parse.c\
 
@@ -48,10 +54,12 @@ BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/env/env.c\
 		srcs/builtins/setenv/setenv.c\
 		srcs/builtins/unsetenv/unsetenv.c\
+		srcs/builtins/hash/hash.c\
+		srcs/builtins/history/history.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH =$(ERROR) $(HISTORY) $(LINE_EDITING) $(HASH_TABLE) $(MAKE) $(PARSER) $(READING) $(SIGNAL) $(TERM) $(EXEC) $(BUILTINS)
+SRC_SEARCH = $(TERM) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS)
 
 SRC = $(wildcard $(SRC_SEARCH))
 
@@ -74,6 +82,7 @@ $(NAME): $(OBJ) libft
 	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB)
 
 .PHONY: libft
+
 libft:
 	make -C libft
 
