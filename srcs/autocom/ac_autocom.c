@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:12:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/04 23:16:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 16:41:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,9 @@ void	ac_complement_line(char *buffer, t_cord *cord, t_autocom *ac)
 		arg = ft_strjoin(ac->path, ac->options[ac->index]);
 	CHECKV(arg);
 	CHECKV(ac_rewrite_str(ac->start, arg));
-	move_cursor_pos(cord->y_start, cord->x_start);
-	cord->y_cur = cord->y_start;
-	cord->x_cur = cord->x_start;
-	cord->pos = 0;
+	go_left(cord->pos, cord);
 	ac_clear_options();
-	ft_putstr_cord(buffer, cord);
+	ft_putstr_cord(buffer + cord->pos, cord);
 	ft_memdel((void **)&arg);
 }
 

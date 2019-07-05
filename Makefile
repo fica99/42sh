@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/04 22:58:41 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/05 16:44:06 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ MAKE=srcs/make/buff_editing.c\
 
 HASH_TABLE=srcs/hash_table/hash_table.c\
 		srcs/hash_table/hash_table2.c\
-		srcs/hash_table/hash_table3.c\
+		srcs/hash_table/free_hash_table.c\
 
 HISTORY=srcs/history/make_history.c\
 		srcs/history/make_history2.c\
