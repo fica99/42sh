@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:36:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:07:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	find_command(char **args, t_term *term)
 {
 	if (ft_strcmp(args[0], "cd") == 0)
-		cd(double_arr_len(args), args, g_env);
+		cd(ft_darlen(args), args, g_env);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		ft_echo(double_arr_len(args), args, g_env);
+		ft_echo(ft_darlen(args), args, g_env);
 	else if (ft_strcmp(args[0], "env") == 0)
-		env(double_arr_len(args), args, g_env);
+		env(ft_darlen(args), args, g_env);
 	else if (ft_strcmp(args[0], "setenv") == 0)
-		set_env(double_arr_len(args), args, g_env);
+		set_env(ft_darlen(args), args, g_env);
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
-		ft_unsetenv(double_arr_len(args), args, g_env);
-	else if (ft_strcmp(args[0], "hash") == 0 && double_arr_len(args) == 1)
+		ft_unsetenv(ft_darlen(args), args, g_env);
+	else if (ft_strcmp(args[0], "hash") == 0 && ft_darlen(args) == 1)
 		print_hash_table(term->hash_table, term->hash_table_size);
 	else if (ft_strcmp(args[0], "history") == 0)
 		print_history(&term->history);

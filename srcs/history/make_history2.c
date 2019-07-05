@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 16:23:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:42:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_history(t_history *history)
 
 	buf = history->history_buff;
 	ft_memdel((void**)&(history->history_path));
-	free_double_arr(buf);
+	ft_free_dar(buf);
 }
 
 char	*get_history_file_path(void)

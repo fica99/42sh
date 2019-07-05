@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:17:04 by filip             #+#    #+#             */
-/*   Updated: 2019/07/01 16:14:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:06:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_setenv(char *name, char *new_value)
 	else
 	{
 		if (!(envp = (char**)malloc(sizeof(char*) *
-						(double_arr_len(g_env) + 2))))
+						(ft_darlen(g_env) + 2))))
 			print_error("minishell", "malloc() error", NULL, ENOMEM);
 		while (g_env[++j])
 			envp[j] = g_env[j];

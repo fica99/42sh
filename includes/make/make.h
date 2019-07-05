@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 14:43:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:28:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@
 # include <termios.h>
 # include <sys/types.h>
 
-char			**copy_double_arr(char **arr);
 char			*ft_getenv(char *arr);
-char			*strnew_realloc_buf(char *str, short len);
-char			*ft_strdel_el(char	*buf, size_t i);
-char			*ft_stradd(char	*buf, char *s, size_t i);
 short			get_count_var(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);

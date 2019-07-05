@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:27:38 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/04 23:06:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:54:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,9 @@ char	**ac_options_selection(char *arg, char **options)
 		if (ft_match(options[i], search_arg))
 			selection[++j] = ft_strdup(options[i]);
 	selection[++j] = NULL;
-	free_double_arr(options);
+	ft_free_dar(options);
 	ft_memdel((void **)&search_arg);
+	ft_memdel((void**)&arg);
 	return (selection);
 }
 
@@ -101,7 +102,7 @@ char	**ac_prog_options(void)
 	options = NULL;
 	while (paths[++i])
 		options = ac_add_options(paths[i], options);
-	free_double_arr(paths);
+	ft_free_dar(paths);
 	return (options);
 }
 
@@ -118,7 +119,7 @@ char	**ac_add_options(char *path, char **options)
 	exec[2] = NULL;
 	CHECK((content = ft_dir_content(path, 0)));
 	CHECK((new_options = ft_dar_add(options, content, exec)));
-	free_double_arr(content);
-	free_double_arr(options);
+	ft_free_dar(content);
+	ft_free_dar(options);
 	return (new_options);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/01 16:47:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:45:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	make_command(char *buff, t_term *term)
 	while (args[++i])
 		args[i] = spec_symbols(args[i]);
 	find_command(args, term);
-	free_double_arr(args);
+	ft_free_dar(args);
 }
 
 char	*spec_symbols(char *args)

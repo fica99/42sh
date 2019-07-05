@@ -6,91 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 14:39:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:29:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-char		**copy_double_arr(char **arr)
-{
-	short	i;
-	char	**arr1;
-
-	if (!arr)
-		return (NULL);
-	if (!(arr1 = (char**)malloc(sizeof(char*) * (double_arr_len(arr) + 1))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	i = -1;
-	while (arr[++i])
-		if (!(arr1[i] = ft_strdup(arr[i])))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
-	arr1[i] = NULL;
-	return (arr1);
-}
-
-char		*strnew_realloc_buf(char *str, short len)
-{
-	char	*arr;
-
-	arr = str;
-	if (!(str = ft_strnew(len)))
-	{
-		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
-		g_line.cord);
-		reset_input_mode(&g_line.savetty);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	}
-	if (arr)
-		str = ft_strcat(str, arr);
-	ft_memdel((void**)&arr);
-	return (str);
-}
-
-char		*ft_strdel_el(char *buf, size_t i)
-{
-	char	*str;
-
-	if (i >= ft_strlen(buf))
-		return (buf);
-	str = NULL;
-	if (buf + i + 1)
-	{
-		if (!(str = ft_strdup(buf + i + 1)))
-		{
-			go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
-			g_line.cord);
-			reset_input_mode(&g_line.savetty);
-			ft_putchar_fd('\n', STDERR_FILENO);
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
-		}
-	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(buf, str);
-	ft_memdel((void**)&str);
-	return (buf);
-}
-
-char		*ft_stradd(char *buf, char *s, size_t i)
-{
-	char	*str;
-
-	if (i >= ft_strlen(buf))
-		return (ft_strcat(buf, s));
-	if (!(str = ft_strdup(buf + i)))
-	{
-		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
-		g_line.cord);
-		reset_input_mode(&g_line.savetty);
-		ft_putchar_fd('\n', STDERR_FILENO);
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	}
-	*(buf + i) = '\0';
-	buf = ft_strcat(ft_strcat(buf, s), str);
-	ft_memdel((void**)&str);
-	return (buf);
-}
 
 char		*copy_from_buff(char *buffer, char *new_buffer, short start,
 short end)
@@ -101,4 +21,19 @@ short end)
 	while (start <= end)
 		new_buffer[j++] = buffer[start++];
 	return (new_buffer);
+}
+
+char		check_print_arr(char *arr)
+{
+	short	i;
+
+	if (!arr || !*arr)
+		return (0);
+	i = -1;
+	while (arr[++i])
+	{
+		if (ft_isprint(arr[i]) && arr[i] != ' ')
+			return (1);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/04 22:46:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 20:29:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		read_prompt(t_term *term)
 	g_line.copy_buff.malloc_len = ft_strlen(term->copy_line);
 	init_line(&g_line);
 	g_line.history = term->history;
-	g_line.history.history_index = double_arr_len(g_line.history.history_buff);
+	g_line.history.history_index = ft_darlen(g_line.history.history_buff);
 	set_input_mode(&(g_line.savetty));
 	reading(&g_line);
 	autocomplite(NULL, NULL);
@@ -56,7 +56,7 @@ void		reading(t_line *line)
 		}
 		while (ft_strlen(line->buffer.buffer) + ft_strlen(c) >=
 				(unsigned)line->buffer.malloc_len)
-			line->buffer.buffer = strnew_realloc_buf(line->buffer.buffer,
+			line->buffer.buffer = ft_strdup_realloc(line->buffer.buffer,
 					line->buffer.malloc_len += NORMAL_LINE);
 		if (*c == '\n' && !check_quotes(line))
 			break ;

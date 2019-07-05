@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:08:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:07:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**copy_new_arr(short i)
 	short	j;
 
 	if (!(envp = (char**)malloc(sizeof(char *)
-					* (double_arr_len(g_env)))))
+					* (ft_darlen(g_env)))))
 		print_error("unsetenv", "malloc() error", NULL, ENOMEM);
 	j = -1;
 	while (g_env[++j])

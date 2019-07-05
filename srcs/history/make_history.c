@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 13:28:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:42:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		add_to_historybuf(char *buffer, t_history *history)
 	short	len;
 	short	i;
 
-	len = double_arr_len(history->history_buff);
+	len = ft_darlen(history->history_buff);
 	if (len >= HISTORY_SIZE)
 	{
 		i = -1;
@@ -64,7 +64,7 @@ void		write_history(char *buffer, t_history *history)
 	if (!check_print_arr(buffer))
 		return ;
 	add_to_historybuf(buffer, history);
-	len = double_arr_len(history->history_buff);
+	len = ft_darlen(history->history_buff);
 	len < HISTORY_SIZE ? add_to_file(len, history) :
 	rewrite_file(len, history);
 }

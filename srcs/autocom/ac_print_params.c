@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 13:43:53 by olegmulko         #+#    #+#             */
-/*   Updated: 2019/07/04 23:12:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:02:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ac_get_rows_cols_count(char **options, t_cord *cord, t_autocom *ac)
 	if (!options || !cord)
 		return ;
 	ac->max_len = ac_get_max_word_len(options);
-	ac->opts_size = ft_dar_size(options);
+	ac->opts_size = ft_darlen(options);
 	cols = cord->ws_col / (ac->max_len + 1);
 	rows = ac_get_rows(ac->opts_size, cols);
 	ac->cols = cols;
@@ -89,7 +89,7 @@ void	ac_set_null_params(t_autocom *ac)
 	ac->start = NULL;
 	ft_memdel((void **)&ac->path);
 	ac->path = NULL;
-	free_double_arr(ac->options);
+	ft_free_dar(ac->options);
 	ac->options = NULL;
 	ac->scrolling = 0;
 	ac->cols = 0;

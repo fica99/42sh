@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:12:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:41:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void			init_hash_table(t_term *term)
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	term->hash_table_size = get_hash_table_size(path);
 	term->hash_table = make_hash_table(path, term->hash_table_size);
-	free_double_arr(path);
+	ft_free_dar(path);
 }
 
 unsigned short	get_hash_table_size(char **path)

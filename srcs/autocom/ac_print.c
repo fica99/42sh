@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ac_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 13:45:16 by olegmulko         #+#    #+#             */
-/*   Updated: 2019/07/03 13:46:23 by olegmulko        ###   ########.fr       */
+/*   Updated: 2019/07/05 19:09:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ac_clear_options()
 {
 	char	*esc;
 
-	if (!(esc = tigetstr("ed"))) //обработать ошибки
+	if (!(esc = tigetstr("ed")))
 		return ;
 	ft_putstr_fd(esc, STDIN_FILENO);
 }
@@ -67,7 +67,7 @@ void	ac_return_carriage(short count)
 	char	*esc;
 	short	i;
 
-	if (!(esc = tigetstr("cud1"))) //обработать ошибки
+	if (!(esc = tigetstr("cud1")))
 		return ;
 	i = -1;
 	while(++i < count)

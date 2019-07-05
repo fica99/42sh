@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:12:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/05 16:41:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 20:31:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	autocomplite(t_buff *buff, t_cord *cord)
 	{
 		ac_index_tracking(&ac);
 		ac_opts_tracking(&ac);
-		ac_complement_line(buff->buffer, cord, &ac);
+		ac_complement_line(buff, cord, &ac);
 		get_cur_cord(cord, 0);
 		ac_print_options(&ac, cord);
 		return ;
@@ -36,7 +36,7 @@ void	autocomplite(t_buff *buff, t_cord *cord)
 	return ;
 }
 
-void	ac_complement_line(char *buffer, t_cord *cord, t_autocom *ac)
+void	ac_complement_line(t_buff *buffer, t_cord *cord, t_autocom *ac)
 {
 	char	*arg;
 
@@ -46,10 +46,12 @@ void	ac_complement_line(char *buffer, t_cord *cord, t_autocom *ac)
 	else
 		arg = ft_strjoin(ac->path, ac->options[ac->index]);
 	CHECKV(arg);
+	//while (ft_strlen(arg) + ft_strlen(buffer->buffer) >= (unsigned)buffer->malloc_len)
+	//	buffer->buffer = ft_strdup_realloc(buffer->buffer, buffer->malloc_len += NORMAL_LINE);
 	CHECKV(ac_rewrite_str(ac->start, arg));
 	go_left(cord->pos, cord);
 	ac_clear_options();
-	ft_putstr_cord(buffer + cord->pos, cord);
+	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	ft_memdel((void **)&arg);
 }
 

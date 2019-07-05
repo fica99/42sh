@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 14:18:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:47:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 {
 	go_right(ft_strlen(line->buffer.buffer) - line->cord->pos, line->cord);
 	g_flags |= TERM_QUOTES;
-	line->history.history_index = double_arr_len(line->history.history_buff);
+	line->history.history_index = ft_darlen(line->history.history_buff);
 	if ((q % 2) != 0)
 		ft_putstr_fd("\nquotes> ", STDIN_FILENO);
 	else if ((dq % 2) != 0)

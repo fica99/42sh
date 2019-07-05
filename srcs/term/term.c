@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:57:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 18:41:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
-	g_env = copy_double_arr(environ);
+	g_env = ft_dardup(environ);
 	init_term();
 	init_hash_table(&term);
 	make_history_buff(&(term.history));
@@ -30,7 +30,7 @@ int		main(int argc, char **argv, char **environ)
 	term.hash_table = NULL;
 	free_history(&(term.history));
 	reset_term();
-	free_double_arr(g_env);
+	ft_free_dar(g_env);
 	return (EXIT_SUCCESS);
 }
 

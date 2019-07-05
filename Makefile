@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/05 16:44:06 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/05 18:29:05 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ AUTOCOM=srcs/autocom/ac_autocom.c\
 		srcs/autocom/ac_recalc_index.c\
 
 MAKE=srcs/make/buff_editing.c\
-	srcs/make/buff_editing2.c\
 	srcs/make/env.c\
 	srcs/make/env2.c\
 	srcs/make/process.c\

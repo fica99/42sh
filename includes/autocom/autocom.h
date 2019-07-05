@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 20:46:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/04 23:08:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/05 19:14:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct  s_autocom
 
 //ac_autocom.c
 void    autocomplite(t_buff *buff, t_cord *cord);
-void	ac_complement_line(char *buffer, t_cord *cord, t_autocom *ac);
+void	ac_complement_line(t_buff *buffer, t_cord *cord, t_autocom *ac);
 int     ac_rewrite_str(char *dest, char *src);
 // ac_parse
 char	**ac_parse_cmd_line(char *line, t_autocom *ac);
