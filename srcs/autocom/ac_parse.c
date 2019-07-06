@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ac_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 13:42:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2019/07/03 13:43:40 by olegmulko        ###   ########.fr       */
+/*   Updated: 2019/07/06 16:29:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	**ac_parse_cmd_line(char *line, t_autocom *ac)
+char		**ac_parse_cmd_line(char *line, t_autocom *ac)
 {
 	char	*position;
 	short	is_prog;
@@ -26,7 +26,7 @@ char	**ac_parse_cmd_line(char *line, t_autocom *ac)
 	return (ac_get_options(position, is_prog, ac));
 }
 
-char	*ac_parse_path(char *dirpath)
+char		*ac_parse_path(char *dirpath)
 {
 	char	*newpath;
 	char	*slesh_pos;
@@ -48,7 +48,7 @@ char	*ac_parse_path(char *dirpath)
 	return (newpath);
 }
 
-char	*ac_parse_arg(char *dirpath)
+char		*ac_parse_arg(char *dirpath)
 {
 	char	*arg;
 	char	*end_path;
@@ -58,18 +58,19 @@ char	*ac_parse_arg(char *dirpath)
 		return (NULL);
 	if ((end_path = ft_strrchr(line, '/')))
 	{
-		arg = (*(end_path + 1) == '\0') ? ft_strdup("*") : ft_strdup(end_path + 1);
+		arg = (*(end_path + 1) == '\0') ? ft_strdup("*") :
+		ft_strdup(end_path + 1);
 		if (!arg)
 			return (NULL);
 	}
-	else
-		if (!(arg = (*line == '~') ? ft_strdup("*") : ft_strdup(dirpath)))
-			return (NULL);
+	else if (!(arg = (*line == '~') ? ft_strdup("*") :
+	ft_strdup(dirpath)))
+		return (NULL);
 	ft_memdel((void **)&line);
 	return (arg);
 }
 
-char	*ac_tilda(char *dirpath)
+char		*ac_tilda(char *dirpath)
 {
 	char	*newpath;
 	char	*home;

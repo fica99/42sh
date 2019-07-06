@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 20:30:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:11:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 		buffer->buffer = ft_strdup_realloc(buffer->buffer,
 		buffer->malloc_len += NORMAL_LINE);
 	buffer->buffer = ft_stradd(buffer->buffer, copy_buff->buffer, cord->pos);
-	cord->highlight_pos = 0;
 	position = cord->pos;
 	go_left(cord->pos, cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
@@ -72,7 +71,6 @@ void		cut_highlight(t_buff *buffer, t_cord *cord)
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos,
 	cord) : go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
-	cord->highlight_pos = 0;
 }
 
 char		*cut_copy_paste(char *c, t_line *line)

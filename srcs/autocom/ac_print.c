@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 13:45:16 by olegmulko         #+#    #+#             */
-/*   Updated: 2019/07/05 19:09:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:31:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ac_print_options(t_autocom *ac, t_cord *cord)
 {
 	int	i;
 	int	j;
-
 
 	if (!ac || !cord)
 		return ;
@@ -29,7 +28,7 @@ void	ac_print_options(t_autocom *ac, t_cord *cord)
 		while (ac->options[i] && ++j < ac->rows)
 		{
 			if (i == ac->opts_print)
-			break;
+				break ;
 			if (i == ac->index && ac->first)
 				ac_select_option(ac->options[i]);
 			else
@@ -38,10 +37,10 @@ void	ac_print_options(t_autocom *ac, t_cord *cord)
 			move_cursor_down(1);
 		}
 		if (i == ac->opts_print)
-			break;
+			break ;
 		move_cursor_up(ac->rows);
 		move_cursor_right(ac->max_len + 1);
-		}
+	}
 	move_cursor_pos(cord->y_cur, cord->x_cur);
 	ac->first = 1;
 }
@@ -53,7 +52,7 @@ void	ac_select_option(char *option)
 	ft_putstr_fd("\033[0m", STDIN_FILENO);
 }
 
-void	ac_clear_options()
+void	ac_clear_options(void)
 {
 	char	*esc;
 
@@ -70,6 +69,6 @@ void	ac_return_carriage(short count)
 	if (!(esc = tigetstr("cud1")))
 		return ;
 	i = -1;
-	while(++i < count)
+	while (++i < count)
 		ft_putstr_fd(esc, STDIN_FILENO);
 }

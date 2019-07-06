@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:12:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/05 20:47:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:30:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	ac_complement_line(t_buff *buffer, t_cord *cord, t_autocom *ac)
 		arg = ft_strjoin(ac->path, ac->options[ac->index]);
 	CHECKV(arg);
 	i = ac->start - buffer->buffer;
-	while (ft_strlen(arg) + ft_strlen(buffer->buffer) >= (unsigned)buffer->malloc_len)
-		buffer->buffer = ft_strdup_realloc(buffer->buffer, buffer->malloc_len += NORMAL_LINE);
+	while (ft_strlen(arg) + ft_strlen(buffer->buffer) >=
+			(unsigned)buffer->malloc_len)
+		buffer->buffer = ft_strdup_realloc(buffer->buffer,
+				buffer->malloc_len += NORMAL_LINE);
 	ac->start = buffer->buffer + i;
 	CHECKV(ac_rewrite_str(ac->start, arg));
 	go_left(cord->pos, cord);

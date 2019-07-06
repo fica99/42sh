@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/05 18:29:05 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/06 16:27:29 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ AUTOCOM=srcs/autocom/ac_autocom.c\
 		srcs/autocom/ac_dir.c\
 		srcs/autocom/ac_parse.c\
 		srcs/autocom/ac_options.c\
+		srcs/autocom/ac_options2.c\
 		srcs/autocom/ac_move_cursor.c\
 		srcs/autocom/ac_print_params.c\
 		srcs/autocom/ac_print.c\

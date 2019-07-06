@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:27:38 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/05 18:54:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 16:26:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,22 +104,4 @@ char	**ac_prog_options(void)
 		options = ac_add_options(paths[i], options);
 	ft_free_dar(paths);
 	return (options);
-}
-
-char	**ac_add_options(char *path, char **options)
-{
-	char	**content;
-	char	**new_options;
-	char	*exec[3];
-
-	if (!path)
-		return (options);
-	exec[0] = ".";
-	exec[1] = "..";
-	exec[2] = NULL;
-	CHECK((content = ft_dir_content(path, 0)));
-	CHECK((new_options = ft_dar_add(options, content, exec)));
-	ft_free_dar(content);
-	ft_free_dar(options);
-	return (new_options);
 }
