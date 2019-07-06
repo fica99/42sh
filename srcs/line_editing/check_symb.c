@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 16:05:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:51:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*print_symbols(char *c, t_line *line)
 		*c == CTRL_V || *c == CTRL_C || *c == CTRL_X)
 		cut_copy_paste(c, line);
 	else if (*c == TAB && !(g_flags & HISTORY_SEARCH) &&
-	!(g_flags & TERM_QUOTES))
+	!(g_flags & TERM_QUOTES) && !(g_flags & TERM_HIGHLIGHT))
 		autocomplite(&line->buffer, line->cord);
 	else if (!ft_strcmp(c, tigetstr("kcuu1")) ||
 	!ft_strcmp(c, tigetstr("kcud1"))

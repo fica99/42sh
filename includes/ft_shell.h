@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/04 23:16:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 22:05:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@
 
 struct s_line	g_line;
 unsigned short	g_flags;
+struct termios	g_orig_mode;
+struct termios	g_raw_mode;
 int				g_errno_f;
 char			**g_env;
 #endif

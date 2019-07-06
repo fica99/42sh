@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/06 16:27:29 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/06 18:19:40 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ READING=srcs/reading/reading.c\
 SIGNAL=srcs/signal/signal.c\
 
 TERM=srcs/term/term.c\
+	srcs/term/canon_mode.c\
 
 BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/echo/echo.c\

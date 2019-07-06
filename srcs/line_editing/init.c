@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:35:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:39:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_line(t_line *line)
 {
 	line->cord = init_cord();
 	get_win_size(line->cord);
-	get_cur_cord(line->cord, 1);
+	get_cur_cord(line->cord);
 	set_start_cord(line->cord);
 	init_buff(&line->buffer);
 	init_buff(&line->history_search);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 17:19:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:11:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	if (!(symb = ft_strnew(1)))
 	{
 		go_right(ft_strlen(g_line.buffer.buffer) - cord->pos, cord);
-		reset_input_mode(&g_line.savetty);
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}

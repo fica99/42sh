@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 13:31:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:53:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	signal_handler(int sign)
 	if (sign == SIGWINCH)
 	{
 		pos = g_line.cord->pos;
-		reset_input_mode(&(g_line.savetty));
+		save_attr(&g_raw_mode);
 		get_win_size(g_line.cord);
 		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
 		term_prompt();
-		get_cur_cord(g_line.cord, 1);
+		get_cur_cord(g_line.cord);
 		set_start_cord(g_line.cord);
 		g_line.cord->pos = 0;
 		ft_putstr_cord(g_line.buffer.buffer, g_line.cord);
 		go_left(ft_strlen(g_line.buffer.buffer) - pos, g_line.cord);
-		set_input_mode(&(g_line.savetty));
+		set_input_mode(&g_raw_mode);
 	}
 }

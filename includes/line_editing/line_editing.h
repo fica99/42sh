@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:36:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:39:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 t_cord	*init_cord(void);
 void	get_win_size(t_cord *cord);
-void	get_cur_cord(t_cord *cord, char flag);
+void	get_cur_cord(t_cord *cord);
 void	set_start_cord(t_cord *cord);
 void	init_buff(t_buff *buffer);
 void	init_line(t_line *line);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 20:30:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:52:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		go_history(char *c, t_line *line)
 			ft_putstr_fd("(History search)'", STDIN_FILENO);
 			g_flags |= HISTORY_SEARCH;
 		}
-		get_cur_cord(line->cord, 0);
+		get_cur_cord(line->cord);
 		set_start_cord(line->cord);
 		line->cord->pos = 0;
 		find_history(c, line);
@@ -63,7 +63,7 @@ void		find_history(char *symbol, t_line *line)
 		return ;
 	}
 	ft_putstr_fd("': ", STDIN_FILENO);
-	get_cur_cord(line->cord, 0);
+	get_cur_cord(line->cord);
 	line->cord->pos = 0;
 	ft_putstr_cord(check_history(&line->history, &line->buffer,
 	&line->history_search), line->cord);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 16:04:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:52:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 		ft_putstr_fd("\nbrackets> ", STDIN_FILENO);
 	else
 		ft_putstr_fd("\n> ", STDIN_FILENO);
-	get_cur_cord(line->cord, 0);
+	get_cur_cord(line->cord);
 	set_start_cord(line->cord);
 	return (NULL);
 }

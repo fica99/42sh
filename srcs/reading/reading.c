@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 16:18:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:56:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void		read_prompt(t_term *term)
 {
+	set_input_mode(&g_raw_mode);
 	g_line.copy_buff.buffer = term->copy_line;
 	g_line.copy_buff.malloc_len = ft_strlen(term->copy_line);
 	init_line(&g_line);
 	g_line.history = term->history;
 	g_line.history.history_index = ft_darlen(g_line.history.history_buff);
-	set_input_mode(&(g_line.savetty));
 	reading(&g_line);
 	autocomplite(NULL, NULL);
 	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
@@ -37,7 +37,7 @@ void		read_prompt(t_term *term)
 		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
 			print_error("42sh", "malloc() error", NULL, ENOMEM);
 	ft_putchar_fd('\n', STDIN_FILENO);
-	reset_input_mode(&(g_line.savetty));
+	set_attr(&g_orig_mode);
 	free_line(&g_line, term);
 }
 
@@ -76,31 +76,7 @@ void		read_handler(char *c, int fd)
 		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
 		g_line.cord);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		reset_input_mode(&(g_line.savetty));
 		print_error("42sh", "read() error", NULL, 0);
 	}
 	c[nb] = '\0';
-}
-
-void		set_input_mode(struct termios *savetty)
-{
-	struct termios	tty;
-
-	if (!isatty(0))
-		print_error("42sh", "stdin not terminal\n", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, savetty) < 0)
-		print_error("42sh", "tcgetattr() error", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, &tty) < 0)
-		print_error("42sh", "tcgetattr() error", NULL, 0);
-	tty.c_lflag &= ~(ICANON | ECHO | ISIG);
-	tty.c_cc[VTIME] = 0;
-	tty.c_cc[VMIN] = 1;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &tty) < 0)
-		print_error("42sh", "tcsetattr() error", NULL, 0);
-}
-
-void		reset_input_mode(struct termios *savetty)
-{
-	if (tcsetattr(STDIN_FILENO, TCSANOW, savetty) < 0)
-		print_error("42sh", "tcsetattr() error", NULL, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 18:41:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:31:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	term_start(t_term *term)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
+		g_raw_mode = g_orig_mode;
 		signal(SIGWINCH, signal_handler);
 		term_prompt();
 		read_prompt(term);
@@ -92,6 +93,7 @@ void	reset_term(void)
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
+	set_attr(&g_orig_mode);
 }
 
 void	init_term(void)
@@ -115,4 +117,5 @@ void	init_term(void)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);
+	save_attr(&(g_orig_mode));
 }

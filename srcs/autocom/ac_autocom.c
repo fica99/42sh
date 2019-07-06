@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:12:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/06 16:30:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 21:51:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	autocomplite(t_buff *buff, t_cord *cord)
 		ac_index_tracking(&ac);
 		ac_opts_tracking(&ac);
 		ac_complement_line(buff, cord, &ac);
-		get_cur_cord(cord, 0);
+		get_cur_cord(cord);
 		ac_print_options(&ac, cord);
 		return ;
 	}
 	if (!(ac.options = ac_parse_cmd_line(buff->buffer, &ac)))
 		return (ac_set_null_params(&ac));
-	get_cur_cord(cord, 0);
+	get_cur_cord(cord);
 	ac_get_rows_cols_count(ac.options, cord, &ac);
 	ac_conversion_scrolling(ac.rows + 1, cord, &ac);
 	ac_print_options(&ac, cord);

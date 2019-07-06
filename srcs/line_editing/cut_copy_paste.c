@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 16:11:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 22:03:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void		copy_highlight(t_buff *copy_buff, t_buff *buffer, t_cord *cord)
 	{
 		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
 		g_line.cord);
-		reset_input_mode(&(g_line.savetty));
 		ft_putchar_fd('\n', STDERR_FILENO);
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	}
@@ -71,6 +70,7 @@ void		cut_highlight(t_buff *buffer, t_cord *cord)
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos,
 	cord) : go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
+	disable_highlight(cord, buffer->buffer);
 }
 
 char		*cut_copy_paste(char *c, t_line *line)
