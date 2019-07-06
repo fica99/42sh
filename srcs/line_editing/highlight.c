@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 14:28:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:17:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void		disable_highlight(t_cord *cord, char *buffer)
 	if (g_flags & TERM_HIGHLIGHT)
 	{
 		g_flags &= ~TERM_HIGHLIGHT;
-		if (g_flags & START_POS)
-			g_flags &= ~START_POS;
 		cord->highlight_pos = 0;
 		pos = cord->pos;
 		go_left(cord->pos, cord);
 		ft_putstr_cord(buffer + cord->pos, cord);
 		go_left(cord->pos - pos, cord);
 	}
+	if (g_flags & START_POS)
+			g_flags &= ~START_POS;
 }
 
 void		highlight_left(char *buffer, t_cord *cord)
