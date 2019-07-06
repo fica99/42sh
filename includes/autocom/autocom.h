@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocom.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 20:46:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/06 16:22:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:31:56 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ void			ac_return_carriage(short count);
 void			ac_clear_options(void);
 void			ac_index_tracking(t_autocom *ac);
 void			ac_opts_tracking(t_autocom *ac);
-
+void			ac_print_coll(t_autocom *ac, int *index);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/03 13:45:16 by olegmulko         #+#    #+#             */
-/*   Updated: 2019/07/06 16:31:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/06 17:38:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	ac_print_options(t_autocom *ac, t_cord *cord)
 {
 	int	i;
-	int	j;
 
 	if (!ac || !cord)
 		return ;
@@ -24,18 +23,7 @@ void	ac_print_options(t_autocom *ac, t_cord *cord)
 	move_cursor_up(ac->rows);
 	while (ac->options[i])
 	{
-		j = -1;
-		while (ac->options[i] && ++j < ac->rows)
-		{
-			if (i == ac->opts_print)
-				break ;
-			if (i == ac->index && ac->first)
-				ac_select_option(ac->options[i]);
-			else
-				ft_putstr_fd(ac->options[i], STDIN_FILENO);
-			move_cursor_left((int)ft_strlen(ac->options[i++]));
-			move_cursor_down(1);
-		}
+		ac_print_coll(ac, &i);
 		if (i == ac->opts_print)
 			break ;
 		move_cursor_up(ac->rows);
@@ -43,6 +31,24 @@ void	ac_print_options(t_autocom *ac, t_cord *cord)
 	}
 	move_cursor_pos(cord->y_cur, cord->x_cur);
 	ac->first = 1;
+}
+
+void	ac_print_coll(t_autocom *ac, int *index)
+{
+	int	j;
+
+	j = -1;
+	while (ac->options[*index] && ++j < ac->rows)
+	{
+		if (*index == ac->opts_print)
+			break ;
+		if (*index == ac->index && ac->first)
+			ac_select_option(ac->options[*index]);
+		else
+			ft_putstr_fd(ac->options[*index], STDIN_FILENO);
+		move_cursor_left((int)ft_strlen(ac->options[(*index)++]));
+		move_cursor_down(1);
+	}
 }
 
 void	ac_select_option(char *option)
