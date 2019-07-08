@@ -1,11 +1,11 @@
-# minishell
-- minishell project in school 21(school 42)
-- Description in the file minishell.en.pdf
+# 21sh
+- 21sh project in school 21(school 42)
+- Description in the file 21sh.en.pdf
 
 
 ## Subject:
 
-[Subject](https://cdn.intra.42.fr/pdf/pdf/1409/minishell.en.pdf)
+[Subject](https://cdn.intra.42.fr/pdf/pdf/967/21sh.en.pdf)
 
 - [x] Prompt with edition.
 - [x] Builtins `cd`, `echo`, `exit`, `env`, `setenv`, `unsetenv`, `hash`, `history` with there options.
@@ -43,7 +43,7 @@
 
 ## Usage
 ```
-Usage: ./minishell
+Usage: ./21sh
 minishell keymap:
 	<home>: Go to begin of line.
 	<end>: Go to end of line.

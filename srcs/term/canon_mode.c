@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canon_mode.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:19:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 21:19:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/07 14:12:51 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		set_attr(struct termios *savetty)
 {
-	if (tcsetattr(STDIN_FILENO, TCSANOW, savetty) < 0)
+	if (tcsetattr(STDIN_FILENO, TCSANOW, savetty) == -1)
 		print_error("42sh", "tcsetattr() error", NULL, 0);
 }
 
@@ -30,6 +30,6 @@ void		save_attr(struct termios *savetty)
 {
 	if (!isatty(0))
 		print_error("42sh", "stdin not terminal\n", NULL, 0);
-	if (tcgetattr(STDIN_FILENO, savetty) < 0)
+	if (tcgetattr(STDIN_FILENO, savetty) == -1)
 		print_error("42sh", "tcgetattr() error", NULL, 0);
 }

@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/06 18:19:40 by aashara-         ###   ########.fr        #
+#    Updated: 2019/07/08 12:02:28 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=minishell
+NAME=21sh
 
 ERROR=srcs/error/ft_errno.c\
 

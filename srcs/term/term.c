@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 21:31:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/07 18:54:01 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	term_start(t_term *term)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		g_raw_mode = g_orig_mode;
 		signal(SIGWINCH, signal_handler);
 		term_prompt();
 		read_prompt(term);
@@ -118,4 +117,5 @@ void	init_term(void)
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);
 	save_attr(&(g_orig_mode));
+	g_raw_mode = g_orig_mode;
 }
