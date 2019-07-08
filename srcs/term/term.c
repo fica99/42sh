@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/07 18:54:01 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/08 15:36:29 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,5 @@ void	init_term(void)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
 		print_error("42sh", "no correct capabilities", NULL, 0);
-	save_attr(&(g_orig_mode));
-	g_raw_mode = g_orig_mode;
+	save_attr(&g_orig_mode);
 }

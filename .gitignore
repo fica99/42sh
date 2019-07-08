@@ -1,6 +1,6 @@
 /.vscode
 *DS_STORE
-minishell
+21sh
 *dSYM
 *.o
 *.a
