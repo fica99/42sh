@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/08 15:36:29 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/08 17:46:19 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	reset_term(void)
 
 	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
-	set_attr(&g_orig_mode);
 }
 
 void	init_term(void)
