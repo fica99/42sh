@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/08 17:46:19 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/09 23:12:54 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		main(int argc, char **argv, char **environ)
 	(void)argc;
 	(void)argv;
 	g_env = ft_dardup(environ);
-	init_term();
+	save_attr(&g_orig_mode);
 	init_hash_table(&term);
 	make_history_buff(&(term.history));
 	term.buffer = NULL;
@@ -29,7 +29,6 @@ int		main(int argc, char **argv, char **environ)
 	free_my_hash_table(term.hash_table, &term.hash_table_size);
 	term.hash_table = NULL;
 	free_history(&(term.history));
-	reset_term();
 	ft_free_dar(g_env);
 	return (EXIT_SUCCESS);
 }
@@ -40,8 +39,10 @@ void	term_start(t_term *term)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, signal_handler);
+		init_terminfo();
 		term_prompt();
 		read_prompt(term);
+		reset_terminfo();
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
 			parse_string(term);
 		if (g_flags & TERM_INIT_HASH)
@@ -84,36 +85,4 @@ void	term_prompt(void)
 	PURPLE(STDIN_FILENO);
 	ft_putstr_fd(" $> ", STDIN_FILENO);
 	STANDART(STDIN_FILENO);
-}
-
-void	reset_term(void)
-{
-	char	*rmkx_mode;
-
-	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
-		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
-}
-
-void	init_term(void)
-{
-	char	*term;
-	int		err;
-	char	*smkx_mode;
-
-	if ((term = ft_getenv("TERM")) == NULL ||
-	(setupterm(term, STDIN_FILENO, &err) == ERR))
-		print_error("42sh", "setupterm() error", NULL, 0);
-	if ((smkx_mode = tigetstr("smkx")) != (char*)-1
-		&& tigetstr("u7") != (char*)-1
-	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1
-	&& tigetstr("kcuf1") != (char*)-1 && tigetstr("kend") != (char*)-1
-	&& tigetstr("cup") != (char*)-1 && tigetstr("sc") != (char*)-1
-	&& tigetstr("rc") != (char*)-1 && tigetstr("ed") != (char*)-1
-	&& tigetstr("clear") != (char*)-1 && tigetstr("kdch1") != (char*)-1
-	&& tigetstr("kcuu1") != (char*)-1 && tigetstr("kcud1") != (char*)-1
-	&& tigetstr("kLFT") != (char*)-1 && tigetstr("kRIT") != (char*)-1)
-		ft_putstr_fd(smkx_mode, STDIN_FILENO);
-	else
-		print_error("42sh", "no correct capabilities", NULL, 0);
-	save_attr(&g_orig_mode);
 }

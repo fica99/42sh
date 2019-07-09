@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/08 17:59:18 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/09 23:13:04 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,35 @@ void		read_handler(char *c, int fd)
 		print_error("42sh", "read() error", NULL, 0);
 	}
 	c[nb] = '\0';
+}
+
+void	reset_terminfo(void)
+{
+	char	*rmkx_mode;
+
+	if ((rmkx_mode = tigetstr("rmkx")) != (char*)-1)
+		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
+}
+
+void	init_terminfo(void)
+{
+	char	*term;
+	int		err;
+	char	*smkx_mode;
+
+	if ((term = ft_getenv("TERM")) == NULL ||
+	(setupterm(term, STDIN_FILENO, &err) == ERR))
+		print_error("42sh", "setupterm() error", NULL, 0);
+	if ((smkx_mode = tigetstr("smkx")) != (char*)-1
+		&& tigetstr("u7") != (char*)-1
+	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1
+	&& tigetstr("kcuf1") != (char*)-1 && tigetstr("kend") != (char*)-1
+	&& tigetstr("cup") != (char*)-1 && tigetstr("sc") != (char*)-1
+	&& tigetstr("rc") != (char*)-1 && tigetstr("ed") != (char*)-1
+	&& tigetstr("clear") != (char*)-1 && tigetstr("kdch1") != (char*)-1
+	&& tigetstr("kcuu1") != (char*)-1 && tigetstr("kcud1") != (char*)-1
+	&& tigetstr("kLFT") != (char*)-1 && tigetstr("kRIT") != (char*)-1)
+		ft_putstr_fd(smkx_mode, STDIN_FILENO);
+	else
+		print_error("42sh", "no correct capabilities", NULL, 0);
 }

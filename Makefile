@@ -6,7 +6,7 @@
 #    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/08 12:02:28 by filip            ###   ########.fr        #
+#    Updated: 2019/07/09 23:15:16 by filip            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,11 +51,11 @@ HISTORY=srcs/history/make_history.c\
 PARSER=srcs/parser/parse.c\
 
 READING=srcs/reading/reading.c\
+		srcs/reading/canon_mode.c\
 
 SIGNAL=srcs/signal/signal.c\
 
 TERM=srcs/term/term.c\
-	srcs/term/canon_mode.c\
 
 BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/echo/echo.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 19:02:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/09 23:14:28 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,4 @@ typedef struct		s_term
 
 void				term_start(t_term *term);
 void				term_prompt(void);
-void				init_term(void);
-void				reset_term(void);
-void				set_attr(struct termios *savetty);
-void				set_input_mode(struct termios *tty);
-void				save_attr(struct termios *savetty);
 #endif
