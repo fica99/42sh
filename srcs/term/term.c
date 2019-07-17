@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/09 23:12:54 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/18 01:19:18 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		main(int argc, char **argv, char **environ)
 
 	(void)argc;
 	(void)argv;
-	g_env = ft_dardup(environ);
+	if (!(g_env = ft_dardup(environ)))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	save_attr(&g_orig_mode);
 	init_hash_table(&term);
 	make_history_buff(&(term.history));
@@ -39,10 +40,8 @@ void	term_start(t_term *term)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, signal_handler);
-		init_terminfo();
 		term_prompt();
 		read_prompt(term);
-		reset_terminfo();
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
 			parse_string(term);
 		if (g_flags & TERM_INIT_HASH)
@@ -59,6 +58,14 @@ void	term_start(t_term *term)
 }
 
 void	term_prompt(void)
+{
+	if (ft_getenv("PS1"))
+		ft_putstr_fd(ft_getenv("PS1"), STDIN_FILENO);
+	else
+		standart_prompt();
+}
+
+void	standart_prompt(void)
 {
 	char	hostname[FT_HOST_NAME_MAX];
 

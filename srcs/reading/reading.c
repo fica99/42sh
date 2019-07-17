@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/09 23:13:04 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/11 02:09:49 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,8 @@
 void		read_prompt(t_term *term)
 {
 	set_input_mode(&g_raw_mode);
-	g_line.copy_buff.buffer = term->copy_line;
-	g_line.copy_buff.malloc_len = ft_strlen(term->copy_line);
-	init_line(&g_line);
-	g_line.history = term->history;
-	g_line.history.history_index = ft_darlen(g_line.history.history_buff);
+	init_terminfo();
+	init_line(&g_line, term);
 	reading(&g_line);
 	autocomplite(NULL, NULL);
 	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
@@ -34,11 +31,11 @@ void		read_prompt(t_term *term)
 		}
 	}
 	if (g_line.copy_buff.buffer)
-		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
+		term->copy_line = ft_strdup(g_line.copy_buff.buffer);
 	ft_putchar_fd('\n', STDIN_FILENO);
-	set_attr(&g_orig_mode);
 	free_line(&g_line, term);
+	reset_terminfo();
+	set_attr(&g_orig_mode);
 }
 
 void		reading(t_line *line)

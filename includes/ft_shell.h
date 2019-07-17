@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 22:05:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/10 20:01:16 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@
 # define SOMETHING "1"
 # define READING 1
 # define INIT_FLAGS 0
+# define PREV_CUR_DIR 2
 
 struct s_line	g_line;
 unsigned short	g_flags;

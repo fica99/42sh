@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 18:41:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/10 21:29:35 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,16 @@ void			init_hash_table(t_term *term)
 
 unsigned short	get_hash_table_size(char **path)
 {
-	DIR				*folder;
 	unsigned short	i;
 	short			j;
-	struct dirent	*file;
+	short			size;
 
 	i = 0;
 	j = -1;
 	while (path[++j])
 	{
-		folder = check_open(path[j]);
-		while ((file = readdir(folder)))
-		{
-			if (!ft_strcmp(file->d_name, ".") || !ft_strcmp(file->d_name, ".."))
-				continue ;
-			i++;
-		}
-		check_close(folder);
+		if ((size = ft_size_dir(path[j])))
+			i += size - PREV_CUR_DIR;
 	}
 	return (i);
 }

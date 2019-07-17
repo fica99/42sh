@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_printable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:20:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/13 20:24:52 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ void		print_symb(char *c, char *buf, t_cord *cord)
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	ft_putstr_cord(buf + cord->pos, cord);
 	go_left(cord->pos - pos - ft_strlen(c), cord);
+	if (*c == '\n' && buf[cord->pos - 2] == '\\')
+	{
+		buf = ft_strdel_el(buf, --cord->pos);
+		buf = ft_strdel_el(buf, --cord->pos);
+	}
 }
 
 void		ft_putstr_cord(char *str, t_cord *cord)

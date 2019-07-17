@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 21:39:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/11 02:10:23 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	init_buff(t_buff *buffer)
 	buffer->malloc_len = NORMAL_LINE;
 }
 
-void	init_line(t_line *line)
+void	init_line(t_line *line, t_term *term)
 {
+	line->copy_buff.buffer = term->copy_line;
+	line->copy_buff.malloc_len = ft_strlen(term->copy_line);
 	line->cord = init_cord();
 	get_win_size(line->cord);
 	get_cur_cord(line->cord);
@@ -52,4 +54,6 @@ void	init_line(t_line *line)
 	init_buff(&line->buffer);
 	init_buff(&line->history_search);
 	init_buff(&line->save_buff);
+	line->history = term->history;
+	line->history.history_index = ft_darlen(line->history.history_buff);
 }
