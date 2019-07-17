@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/07/18 01:18:26 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/18 01:39:02 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ typedef struct		s_term
 void				term_start(t_term *term);
 void				term_prompt(void);
 void				standart_prompt(void);
+void				init_term(void);
 #endif

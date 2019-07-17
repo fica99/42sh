@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/11 02:09:49 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/18 01:38:17 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,8 @@ void	reset_terminfo(void)
 
 void	init_terminfo(void)
 {
-	char	*term;
-	int		err;
 	char	*smkx_mode;
 
-	if ((term = ft_getenv("TERM")) == NULL ||
-	(setupterm(term, STDIN_FILENO, &err) == ERR))
-		print_error("42sh", "setupterm() error", NULL, 0);
 	if ((smkx_mode = tigetstr("smkx")) != (char*)-1
 		&& tigetstr("u7") != (char*)-1
 	&& tigetstr("kcub1") != (char*)-1 && tigetstr("khome") != (char*)-1

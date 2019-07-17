@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/18 01:19:18 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/18 01:39:44 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		main(int argc, char **argv, char **environ)
 	(void)argv;
 	if (!(g_env = ft_dardup(environ)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	init_term();
 	save_attr(&g_orig_mode);
 	init_hash_table(&term);
 	make_history_buff(&(term.history));
@@ -92,4 +93,14 @@ void	standart_prompt(void)
 	PURPLE(STDIN_FILENO);
 	ft_putstr_fd(" $> ", STDIN_FILENO);
 	STANDART(STDIN_FILENO);
+}
+
+void	init_term(void)
+{
+	char	*term;
+	int		err;
+
+	if ((term = ft_getenv("TERM")) == NULL ||
+	(setupterm(term, STDIN_FILENO, &err) == ERR))
+		print_error("42sh", "setupterm() error", NULL, 0);
 }
