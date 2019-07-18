@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/09 23:15:16 by filip            ###   ########.fr        #
+#    Updated: 2019/07/18 12:41:43 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ READING=srcs/reading/reading.c\
 SIGNAL=srcs/signal/signal.c\
 
 TERM=srcs/term/term.c\
+	srcs/term/prompt.c\
 
 BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/echo/echo.c\

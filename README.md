@@ -7,23 +7,22 @@
 
 [Subject](https://cdn.intra.42.fr/pdf/pdf/967/21sh.en.pdf)
 
-- [x] Prompt with edition.
+- [x] Prompt with edition($PS1, $PS2).
 - [x] Builtins `cd`, `echo`, `exit`, `env`, `setenv`, `unsetenv`, `hash`, `history` with there options.
 - [x] Executing simple commands with there parameters using `PATH`.
+- [x] Using `cd` command with there parameters using `CDPATH`.
 <!-- - [x] Support for redirection `>`, `>>`, `<`and `|`.
 - [x] Logical operand `&&`and `||`. -->
 - [x] Separator `;`.
 
-
- - [x] Inhibitors `"`, `'`.
- <!-- and `\`. -->
+<!--
+ - [x] Inhibitors `"`, `'` and `\`. -->
 <!-- - [x] Advanced redirections: aggregation of file output and heredoc `<<`.
 - [x] Globbing: `*`, `?`, `[]`, `{}`, etc. -->
 - [x] Backquotes `\`.
 <!--- [x] Subshell with operand `()`.
 - [x] Local variable and builtin `unset` and `export`. -->
 - [x] History with builtin `history`.
-
 - [x] File descriptors and builtin `read` with options.
 - [x] Dynamical autocompletion.
 
@@ -44,7 +43,7 @@
 ## Usage
 ```
 Usage: ./21sh
-minishell keymap:
+21sh keymap:
 	<home>: Go to begin of line.
 	<end>: Go to end of line.
 	<ctrl+V>: Paste.

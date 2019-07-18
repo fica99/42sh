@@ -6,7 +6,7 @@
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/18 01:39:44 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/18 12:36:42 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		main(int argc, char **argv, char **environ)
 {
 	t_term	term;
 
-	(void)argc;
 	(void)argv;
 	if (!(g_env = ft_dardup(environ)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
@@ -24,10 +23,8 @@ int		main(int argc, char **argv, char **environ)
 	save_attr(&g_orig_mode);
 	init_hash_table(&term);
 	make_history_buff(&(term.history));
-	term.buffer = NULL;
-	term.copy_line = NULL;
-	term_start(&term);
-	ft_memdel((void**)&term.copy_line);
+	if (argc == 1)
+		term_start(&term);
 	free_my_hash_table(term.hash_table, &term.hash_table_size);
 	term.hash_table = NULL;
 	free_history(&(term.history));
@@ -37,6 +34,8 @@ int		main(int argc, char **argv, char **environ)
 
 void	term_start(t_term *term)
 {
+	term->buffer = NULL;
+	term->copy_line = NULL;
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
@@ -56,43 +55,7 @@ void	term_start(t_term *term)
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
-}
-
-void	term_prompt(void)
-{
-	if (ft_getenv("PS1"))
-		ft_putstr_fd(ft_getenv("PS1"), STDIN_FILENO);
-	else
-		standart_prompt();
-}
-
-void	standart_prompt(void)
-{
-	char	hostname[FT_HOST_NAME_MAX];
-
-	gethostname(hostname, FT_HOST_NAME_MAX);
-	RED(STDIN_FILENO);
-	ft_putchar_fd('[', STDERR_FILENO);
-	if (ft_getenv("USER"))
-	{
-		CYAN(STDIN_FILENO);
-		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
-		RED(STDIN_FILENO);
-		ft_putchar_fd('@', STDIN_FILENO);
-	}
-	GREEN(STDIN_FILENO);
-	ft_putstr_fd(hostname, STDIN_FILENO);
-	if ((check_path()))
-	{
-		ft_putchar_fd(' ', STDIN_FILENO);
-		YELLOW(STDIN_FILENO);
-		ft_putstr_fd(check_path(), STDIN_FILENO);
-	}
-	RED(STDIN_FILENO);
-	ft_putchar_fd(']', STDIN_FILENO);
-	PURPLE(STDIN_FILENO);
-	ft_putstr_fd(" $> ", STDIN_FILENO);
-	STANDART(STDIN_FILENO);
+	ft_memdel((void**)&term->copy_line);
 }
 
 void	init_term(void)

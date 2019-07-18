@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/05/28 20:55:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/18 16:35:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	check_request(char **argv, char *path)
+char	*check_request(char **argv, char *path)
 {
 	struct stat	buf;
 
-	if (access(path, F_OK))
-		print_error_withoutexit(argv[0], NULL, path, ENOENT);
-	else
+	if (path && !access(path, F_OK))
 	{
 		if (stat(path, &buf) < 0)
 			print_error("42sh", "lstat() error", NULL, 0);
@@ -29,36 +27,63 @@ char	check_request(char **argv, char *path)
 		else if (chdir(path) == -1)
 			print_error("cd", "chdir() error", path, 0);
 		else
-			return (1);
+			return (SOMETHING);
 	}
-	return (-1);
+	return (NULL);
 }
 
-char	check_ch_dir(int argc, char **argv)
+void	check_ch_dir(int argc, char **argv)
 {
 	char	*path;
 
-	if (argc >= 3)
-	{
-		if (argc > 3)
-			print_error_withoutexit(argv[0], "too many arguments", NULL, 0);
-		else if (argc == 3)
-			print_error_withoutexit(argv[0], "string not in pwd", argv[1], 0);
-		return (-1);
-	}
-	path = argv[1];
-	if (argc == 1 || !ft_strcmp(argv[1], "--"))
+	if ((argc == 1 || !ft_strcmp(argv[1], "--")) && ft_getenv("HOME"))
 		path = ft_getenv("HOME");
-	else if (!ft_strcmp(argv[1], "-"))
+	else if (!ft_strcmp(argv[1], "-") && ft_getenv("OLDPWD"))
 	{
 		ft_putstr_fd(path = ft_getenv("OLDPWD"), STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 	else if (!ft_strcmp(argv[1], "."))
 		path = ft_getenv("PWD");
-	if (check_request(argv, path) < 0)
-		return (-1);
-	return (1);
+	else
+		path = argv[1];
+	if (!check_request(argv, path))
+	{
+		if (ft_getenv("CDPATH") && (path = check_cdpath(path)))
+		{
+			(!check_request(argv, path)) ? print_error_withoutexit(argv[0],
+			NULL, path, ENOENT) : ft_putstr_fd(ft_strcat(path, "\n"), STDOUT_FILENO);
+			ft_memdel((void**)&path);
+			return ;
+		}
+		print_error_withoutexit(argv[0], NULL, path, ENOENT);
+	}
+}
+
+char	*check_cdpath(char *path)
+{
+	char	**paths;
+	char	*final_path;
+	short	i;
+
+	if (!(paths = ft_strsplit(ft_getenv("CDPATH"), ':')))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	if (!(final_path = ft_strnew(500)))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	i = -1;
+	while (paths[++i])
+	{
+		ft_strcat(final_path, *paths);
+		ft_strcat(final_path, "/");
+		ft_strcat(final_path, path);
+		if (!access(final_path, F_OK))
+			break ;
+		ft_strclr(final_path);
+	}
+	ft_free_dar(paths);
+	if (*final_path == '\0')
+		ft_strcat(final_path, path);
+	return (final_path);
 }
 
 void	cd(int argc, char **argv, char **env_cp)
@@ -66,8 +91,15 @@ void	cd(int argc, char **argv, char **env_cp)
 	char	buf[MAXDIR];
 
 	(void)env_cp;
-	if (check_ch_dir(argc, argv) < 0)
-		return ;
+	if (argc >= 3)
+	{
+		if (argc > 3)
+			print_error_withoutexit(argv[0], "too many arguments", NULL, 0);
+		else if (argc == 3)
+			print_error_withoutexit(argv[0], "string not in pwd", argv[1], 0);
+	}
+	else
+		check_ch_dir(argc, argv);
 	if (!(getcwd(buf, MAXDIR)))
 		print_error("cd", "getcwd() error", argv[1], 0);
 	if (ft_getenv("PWD"))

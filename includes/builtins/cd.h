@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:55:40 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:03:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/18 15:31:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define MAXDIR 4097
 
 void			cd(int argc, char **argv, char **env_cp);
-char			check_ch_dir(int argc, char **argv);
-char			check_request(char **argv, char *path);
+void			check_ch_dir(int argc, char **argv);
+char			*check_request(char **argv, char *path);
+char			*check_cdpath(char *path);
 #endif
