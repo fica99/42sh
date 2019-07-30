@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:17:04 by filip             #+#    #+#             */
-/*   Updated: 2019/07/05 19:06:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:39:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ short	get_count_var(char *arr)
 	i = -1;
 	while (g_env[++i])
 	{
-		if (ft_strncmp(g_env[i], arr, ft_strlen(arr)) == 0
-				&& g_env[i][ft_strlen(arr)] == '=')
+		if (!ft_strncmp(g_env[i], arr, ft_strlen(arr)) &&
+		g_env[i][ft_strlen(arr)] == '=')
 			return (i);
 	}
 	return (-1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 21:53:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:52:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,22 @@
 
 void	signalling(void)
 {
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, signal_handler);
+	signal(SIGINT, break_handler);
+	signal(SIGQUIT, break_handler);
 }
 
-void	signal_handler(int sign)
+void	break_handler(int sign)
+{
+	if (sign == SIGINT)
+		ft_putchar_fd('\n', STDERR_FILENO);
+	if (sign == SIGQUIT)
+		ft_putstr_fd("\nquit (core dumped)\n", STDERR_FILENO);
+}
+
+void	win_handler(int sign)
 {
 	short	pos;
 
-	if (sign == SIGINT || sign == SIGQUIT)
-		ft_putchar_fd('\n', STDOUT_FILENO);
 	if (sign == SIGWINCH)
 	{
 		pos = g_line.cord->pos;

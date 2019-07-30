@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/18 01:38:17 by filip            ###   ########.fr       */
+/*   Updated: 2019/07/31 00:58:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void		read_prompt(t_term *term)
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		{
 			write_history(g_line.buffer.buffer, &term->history);
-			term->buffer = ft_strdup(g_line.buffer.buffer);
+			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
 	}
 	if (g_line.copy_buff.buffer)
-		term->copy_line = ft_strdup(g_line.copy_buff.buffer);
+		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
+			print_error("42sh", "malloc() error", NULL, ENOMEM);
 	ft_putchar_fd('\n', STDIN_FILENO);
 	free_line(&g_line, term);
 	reset_terminfo();

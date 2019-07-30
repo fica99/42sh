@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 19:07:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:23:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	find_command(char **args, t_term *term)
 		g_flags |= TERM_EXIT;
 		return ;
 	}
-	else if (!check_command(args) && !exec_command(args, term->hash_table,
-	term->hash_table_size))
+	else if (!check_bin(args, term->hash_table,
+	term->hash_table_size) && !check_command(args))
 		print_error_withoutexit("42sh", "command not found", args[0], 0);
 }
 
@@ -53,7 +53,7 @@ char	*check_command(char **args)
 		}
 		if (lstat(args[0], &buf) < 0)
 			print_error("42sh", "lstat() error", NULL, 0);
-		if (!ft_strchr(args[0], '/') || !S_ISREG(buf.st_mode))
+		if (!S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
 		signalling();
@@ -66,7 +66,7 @@ char	*check_command(char **args)
 	return (NULL);
 }
 
-char	*exec_command(char **args, t_hash **hash_table, short hash_table_size)
+char	*check_bin(char **args, t_hash **hash_table, short hash_table_size)
 {
 	pid_t			p;
 	int				status;

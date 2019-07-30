@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/06/04 19:46:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:11:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # define ENOENT 2
 # define ENOMEM 12
 # define EACCES 13
+# define EHRDCPY "the terminal is hardcopy, cannot be used for application"
+# define ENTFND "the terminal not found, having no information for application"
+# define ENOTERMINFO "the terminfo database could not be found"
 
 void			print_error(char *name, char *str, char *command, int p);
 void			ft_perror(char *str);

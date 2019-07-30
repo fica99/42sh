@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash_table3.c                                      :+:      :+:    :+:   */
+/*   free_hash_table.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 17:56:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/31 00:10:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 void	free_my_hash_table(t_hash **hash_table, unsigned short *hash_table_size)
 {
-	free_hash_table(hash_table, *hash_table_size);
-	ft_memdel((void**)&(hash_table));
-	*hash_table_size = 0;
+	if (hash_table)
+	{
+		free_hash_table(hash_table, *hash_table_size);
+		ft_memdel((void**)&(hash_table));
+		*hash_table_size = 0;
+	}
 }
 
 void	free_hash_table(t_hash **table, unsigned short len)

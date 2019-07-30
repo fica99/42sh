@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 18:42:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/30 01:06:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void		make_history_buff(t_history *history)
 	char	**buff;
 	short	len;
 
-	history->history_path = get_history_file_path();
+	if (!(history->history_path = get_history_file_path()))
+	{
+		history = NULL;
+		return ;
+	}
 	if ((fd = open(history->history_path, O_RDONLY | O_CREAT,
 	S_IRUSR | S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
@@ -31,7 +35,6 @@ void		make_history_buff(t_history *history)
 	if (close(fd) == -1)
 		print_error("42sh", "close() error", NULL, 0);
 	history->history_buff = buff;
-	history->history_index = len;
 }
 
 void		add_to_historybuf(char *buffer, t_history *history)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:47:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/30 00:53:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ unsigned short len)
 	copy_path = ft_strcpy(copy_path, path);
 	copy->name = ft_strdup(str);
 	copy->path = ft_strjoin(ft_strcat(copy_path, "/"), str);
-	copy->index = index;
 	ft_memdel((void**)&copy_path);
 	if (!(next = table[index]))
 		table[index] = copy;
