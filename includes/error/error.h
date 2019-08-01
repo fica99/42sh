@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/07/30 00:11:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/07/31 14:23:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define ENOENT 2
 # define ENOMEM 12
 # define EACCES 13
+# define EFAULT 14
 # define EHRDCPY "the terminal is hardcopy, cannot be used for application"
 # define ENTFND "the terminal not found, having no information for application"
 # define ENOTERMINFO "the terminfo database could not be found"

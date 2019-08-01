@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/07/18 12:41:43 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/01 14:35:13 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,9 @@ READING=srcs/reading/reading.c\
 SIGNAL=srcs/signal/signal.c\
 
 TERM=srcs/term/term.c\
-	srcs/term/prompt.c\
+
+PROMPT=srcs/prompt/prompt.c\
+	srcs/prompt/prompt_colour.c\
 
 BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/echo/echo.c\
@@ -68,7 +70,7 @@ BUILTINS=srcs/builtins/cd/cd.c\
 
 EXEC=srcs/exec/exec.c
 
-SRC_SEARCH = $(TERM) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS) $(AUTOCOM)
+SRC_SEARCH = $(TERM) $(PROMPT) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS) $(AUTOCOM)
 
 SRC = $(wildcard $(SRC_SEARCH))
 

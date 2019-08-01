@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/07/30 00:52:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/01 13:46:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,5 @@ typedef struct		s_term
 }					t_term;
 
 void				term_start(t_term *term);
-void				term_prompt(void);
-void				standart_prompt(void);
 void				init_term(void);
 #endif
