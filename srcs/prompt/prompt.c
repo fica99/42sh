@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/08/03 16:08:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/03 20:50:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,27 +106,15 @@ short	prompt_user_host(char *str, short i)
 short	prompt_time(char *str, short i)
 {
 	time_t		t;
+	short		j;
 	struct tm	*info;
-	char		buffer[TIME_SIZE];
 
 	time(&t);
 	if (t == -1)
 		print_error("42sh", "time() error", NULL, EFAULT);
 	info = localtime(&t);
-	if (!ft_strncmp(str + i, "\\A", 2))
-		strftime(buffer,TIME_SIZE, "%H:%M", info);
-	else if (!ft_strncmp(str + i, "\\t", 2))
-		strftime(buffer,TIME_SIZE, "%H:%M:%S", info);
-	else if (!ft_strncmp(str + i, "\\T", 2))
-		strftime(buffer,TIME_SIZE, "%I:%M:%S", info);
-	else if (!ft_strncmp(str + i, "\\@", 2))
-		strftime(buffer,TIME_SIZE, "%I:%M", info);
-	else
-	{
-		ft_strclr(buffer);
-		i--;
-	}
-	i++;
-	ft_putstr_fd(buffer, STDIN_FILENO);
+	j = check_time_flags(str, i, info);
+	if (j != i)
+		i = j;
 	return (i);
 }
