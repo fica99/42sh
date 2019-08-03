@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/03 00:50:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/04 00:18:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	win_handler(int sign)
 		save_attr(&g_raw_mode);
 		get_win_size(g_line.cord);
 		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
-		term_prompt(ft_darlen(g_line.history.history_buff));
+		term_prompt(ft_darlen(g_line.history.history_buff), g_argv[0]);
 		get_cur_cord(g_line.cord);
 		set_start_cord(g_line.cord);
 		g_line.cord->pos = 0;

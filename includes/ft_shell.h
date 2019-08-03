@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/02 19:10:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/04 00:17:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ struct termios	g_orig_mode;
 struct termios	g_raw_mode;
 int				g_errno_f;
 char			**g_env;
+char			**g_argv;
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/02 19:14:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/04 00:18:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int		main(int argc, char **argv, char **environ)
 {
 	t_term	term;
 
-	(void)argv;
 	save_attr(&g_orig_mode);
 	if (!(g_env = ft_dardup(environ)))
+		print_error("42sh", "malloc() error", NULL, ENOMEM);
+	if (!(g_argv = ft_dardup(argv)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	init_hash_table(&term);
 	if (argc == 1)
@@ -30,6 +31,7 @@ int		main(int argc, char **argv, char **environ)
 	}
 	free_my_hash_table(term.hash_table, &term.hash_table_size);
 	term.hash_table = NULL;
+	ft_free_dar(g_argv);
 	ft_free_dar(g_env);
 	return (EXIT_SUCCESS);
 }
@@ -42,7 +44,7 @@ void	term_start(t_term *term)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, win_handler);
-		term_prompt(ft_darlen(term->history.history_buff));
+		term_prompt(ft_darlen(term->history.history_buff), g_argv[0]);
 		read_prompt(term);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
 			parse_string(term);

@@ -6,16 +6,16 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/08/03 20:50:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/04 00:16:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	term_prompt(short history_len)
+void	term_prompt(short history_len, char *name)
 {
 	if (ft_getenv("PS1"))
-		write_prompt(ft_getenv("PS1"), history_len);
+		write_prompt(ft_getenv("PS1"), history_len, name);
 	else
 		standart_prompt();
 }
@@ -49,7 +49,7 @@ void	standart_prompt(void)
 	STANDART(STDIN_FILENO);
 }
 
-void	write_prompt(char *str, short history_len)
+void	write_prompt(char *str, short history_len, char *name)
 {
 	short	i;
 	short	j;
@@ -66,7 +66,7 @@ void	write_prompt(char *str, short history_len)
 			if (j == i)
 				j = prompt_dir_history(str, i, history_len);
 			if (j == i)
-				j = prompt_colour(str, i);
+				j = prompt_colour_name(str, i, name);
 		}
 		if (j == i)
 			ft_putchar_fd(str[i], STDIN_FILENO);
@@ -103,18 +103,31 @@ short	prompt_user_host(char *str, short i)
 	return (i);
 }
 
-short	prompt_time(char *str, short i)
+short	prompt_dir_history(char *str, short i, short history_len)
 {
-	time_t		t;
-	short		j;
-	struct tm	*info;
+	char	*path;
 
-	time(&t);
-	if (t == -1)
-		print_error("42sh", "time() error", NULL, EFAULT);
-	info = localtime(&t);
-	j = check_time_flags(str, i, info);
-	if (j != i)
-		i = j;
+	if (!ft_strncmp(str + i, "\\W", 2))
+	{
+		path = get_folder();
+		ft_putstr_fd(path, STDIN_FILENO);
+		ft_memdel((void**)&path);
+	}
+	else if (!ft_strncmp(str + i, "\\w", 2))
+	{
+		path = get_path();
+		ft_putstr_fd(path, STDIN_FILENO);
+		ft_memdel((void**)&path);
+	}
+	else if (!ft_strncmp(str + i, "\\$", 2))
+	{
+		(ft_getenv("USER") && !ft_strcmp(ft_getenv("USER"),"root")) ?
+		ft_putchar_fd('#', STDIN_FILENO) : ft_putchar_fd('$', STDIN_FILENO);
+	}
+	else if (!ft_strncmp(str + i, "\\!", 2) || !ft_strncmp(str + i, "\\#", 2))
+		ft_putnbr_fd(history_len, STDIN_FILENO);
+	else
+		i--;
+	i++;
 	return (i);
 }
