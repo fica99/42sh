@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/01 13:45:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/02 19:10:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "libft.h"
 # include <termios.h>
-# include "prompt/prompt.h"
 # include "term/term.h"
+# include "prompt/prompt.h"
 # include "make/make.h"
 # include "error/error.h"
 # include "hash_table/hash_table.h"

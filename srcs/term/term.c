@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/31 00:52:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/02 19:14:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	term_start(t_term *term)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, win_handler);
-		term_prompt();
+		term_prompt(ft_darlen(term->history.history_buff));
 		read_prompt(term);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
 			parse_string(term);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/07/05 18:28:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/03 00:26:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ short			get_count_var(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			print_environ(void);
-char			*check_path(void);
+char			*get_folder(void);
+char			*get_path(void);
 pid_t			make_process(void);
 char			check_print_arr(char *arr);
 char			*copy_from_buff(char *buffer, char *new_buffer, short start,

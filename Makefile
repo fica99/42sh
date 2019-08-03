@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/01 14:35:13 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/02 18:04:13 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SIGNAL=srcs/signal/signal.c\
 TERM=srcs/term/term.c\
 
 PROMPT=srcs/prompt/prompt.c\
-	srcs/prompt/prompt_colour.c\
+	srcs/prompt/prompt2.c\
 
 BUILTINS=srcs/builtins/cd/cd.c\
 		srcs/builtins/echo/echo.c\
