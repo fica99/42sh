@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:44:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/02 19:15:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/03 15:51:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <time.h>
 # include <unistd.h>
+
+# define TIME_SIZE 80
 
 void		term_prompt(short history_len);
 void		standart_prompt(void);

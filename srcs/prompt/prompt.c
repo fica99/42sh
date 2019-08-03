@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/08/03 00:49:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/03 16:08:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,28 @@ short	prompt_user_host(char *str, short i)
 
 short	prompt_time(char *str, short i)
 {
-	time_t	t;
-	short	j;
-	char	*str_time;
+	time_t		t;
+	struct tm	*info;
+	char		buffer[TIME_SIZE];
 
 	time(&t);
 	if (t == -1)
 		print_error("42sh", "time() error", NULL, EFAULT);
-	str_time = ctime(&t);
-	if (!ft_strncmp(str + i, "\\A", 2) || !ft_strncmp(str + i, "\\t", 2))
+	info = localtime(&t);
+	if (!ft_strncmp(str + i, "\\A", 2))
+		strftime(buffer,TIME_SIZE, "%H:%M", info);
+	else if (!ft_strncmp(str + i, "\\t", 2))
+		strftime(buffer,TIME_SIZE, "%H:%M:%S", info);
+	else if (!ft_strncmp(str + i, "\\T", 2))
+		strftime(buffer,TIME_SIZE, "%I:%M:%S", info);
+	else if (!ft_strncmp(str + i, "\\@", 2))
+		strftime(buffer,TIME_SIZE, "%I:%M", info);
+	else
 	{
-		j = 11;
-		while (j != 16)
-			ft_putchar_fd(str_time[j++],STDIN_FILENO);
-		if (!ft_strncmp(str + i, "\\t", 2))
-		{
-			while (j != 19)
-				ft_putchar_fd(str_time[j++],STDIN_FILENO);
-		}
-		i++;
+		ft_strclr(buffer);
+		i--;
 	}
+	i++;
+	ft_putstr_fd(buffer, STDIN_FILENO);
 	return (i);
 }
