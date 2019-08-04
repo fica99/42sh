@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 15:39:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/18 01:11:43 by filip            ###   ########.fr       */
+/*   Updated: 2019/08/04 14:08:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 		if (!ft_getenv("PS2"))
 			ft_putstr_fd("> ", STDIN_FILENO);
 		else
-			ft_putstr_fd(ft_getenv("PS2"), STDIN_FILENO);
+			write_prompt(ft_getenv("PS2"),
+			ft_darlen(line->history.history_buff), g_argv[0]);
 	}
 	get_cur_cord(line->cord);
 	set_start_cord(line->cord);
