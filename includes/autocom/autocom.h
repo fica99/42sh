@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocom.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 20:46:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/06 17:31:56 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/08/07 16:25:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define AUTOCOM_H
 
 # include "libft.h"
-# include "ftstr.h"
-# include "ftdir.h"
-# include "ftdar.h"
+# include "libstr.h"
+# include "libdir.h"
+# include "libdar.h"
 # define SUCCESS 1
 # define FUILURE 0
 # define CHECK(val) if (!val) return (0)

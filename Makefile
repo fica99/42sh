@@ -6,113 +6,180 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/02 18:04:13 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/09 13:07:55 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=21sh
+name = 21sh
 
-ERROR=srcs/error/ft_errno.c\
+lib_dir = libraries
 
-LINE_EDITING=srcs/line_editing/check_symb.c\
-			srcs/line_editing/quotes.c\
-			srcs/line_editing/cut_copy_paste.c\
-			srcs/line_editing/highlight.c\
-			srcs/line_editing/print_printable.c\
-			srcs/line_editing/print_move.c\
-			srcs/line_editing/print_move2.c\
-			srcs/line_editing/history.c\
-			srcs/line_editing/get_and_check.c\
-			srcs/line_editing/init.c\
-			srcs/line_editing/free.c\
+srcs_dir = srcs
 
-AUTOCOM=srcs/autocom/ac_autocom.c\
-		srcs/autocom/ac_dir.c\
-		srcs/autocom/ac_parse.c\
-		srcs/autocom/ac_options.c\
-		srcs/autocom/ac_options2.c\
-		srcs/autocom/ac_move_cursor.c\
-		srcs/autocom/ac_print_params.c\
-		srcs/autocom/ac_print.c\
-		srcs/autocom/ac_recalc_index.c\
+obj_dir = obj
 
-MAKE=srcs/make/buff_editing.c\
-	srcs/make/env.c\
-	srcs/make/env2.c\
-	srcs/make/process.c\
+inc_dir = includes
 
-HASH_TABLE=srcs/hash_table/hash_table.c\
-		srcs/hash_table/hash_table2.c\
-		srcs/hash_table/free_hash_table.c\
+load_script = LoadLibProjects42.sh
 
-HISTORY=srcs/history/make_history.c\
-		srcs/history/make_history2.c\
+lib_archive = $(addprefix $(lib_dir)/, lib_archive)
 
-PARSER=srcs/parser/parse.c\
+srcs_error = error/ft_errno.c\
 
-READING=srcs/reading/reading.c\
-		srcs/reading/canon_mode.c\
+srcs_line_editing = line_editing/check_symb.c\
+			line_editing/quotes.c\
+			line_editing/cut_copy_paste.c\
+			line_editing/highlight.c\
+			line_editing/print_printable.c\
+			line_editing/print_move.c\
+			line_editing/print_move2.c\
+			line_editing/history.c\
+			line_editing/get_and_check.c\
+			line_editing/init.c\
+			line_editing/free.c\
 
-SIGNAL=srcs/signal/signal.c\
+srcs_autocom = autocom/ac_autocom.c\
+		autocom/ac_parse.c\
+		autocom/ac_options.c\
+		autocom/ac_options2.c\
+		autocom/ac_move_cursor.c\
+		autocom/ac_print_params.c\
+		autocom/ac_print.c\
+		autocom/ac_recalc_index.c\
 
-TERM=srcs/term/term.c\
+srcs_make = make/buff_editing.c\
+		make/env.c\
+		make/env2.c\
+		make/process.c\
 
-PROMPT=srcs/prompt/prompt.c\
-	srcs/prompt/prompt2.c\
+srcs_hash_table = hash_table/hash_table.c\
+		hash_table/hash_table2.c\
+		hash_table/free_hash_table.c\
 
-BUILTINS=srcs/builtins/cd/cd.c\
-		srcs/builtins/echo/echo.c\
-		srcs/builtins/env/env.c\
-		srcs/builtins/setenv/setenv.c\
-		srcs/builtins/unsetenv/unsetenv.c\
-		srcs/builtins/hash/hash.c\
-		srcs/builtins/history/history.c\
+srcs_history = history/make_history.c\
+		history/make_history2.c\
 
-EXEC=srcs/exec/exec.c
+srcs_parser = parser/parse.c\
 
-SRC_SEARCH = $(TERM) $(PROMPT) $(MAKE) $(ERROR) $(HISTORY) $(HASH_TABLE) $(SIGNAL) $(READING) $(LINE_EDITING) $(PARSER) $(EXEC) $(BUILTINS) $(AUTOCOM)
+srcs_reading = reading/reading.c\
+		reading/canon_mode.c\
 
-SRC = $(wildcard $(SRC_SEARCH))
+srcs_signal = signal/signal.c\
 
-OBJ = $(SRC:.c=.o)
+srcs_term = term/term.c\
 
-INCLUDES=includes
+srcs_prompt = prompt/prompt.c\
+		prompt/prompt2.c\
 
-INCLUDES_LIB=LibProjects42/libft/includes
+srcs_builtins = builtins/cd/cd.c\
+		builtins/echo/echo.c\
+		builtins/env/ft_env.c\
+		builtins/setenv/setenv.c\
+		builtins/unsetenv/unsetenv.c\
+		builtins/hash/hash.c\
+		builtins/history/ft_history.c\
 
-INCLUDES_FTSTR=LibProjects42/ftstr/includes
+srcs_exec = exec/exec.c
 
-INCLUDES_FTDIR=LibProjects42/ftdir/includes
+srcs_files = $(srcs_term)\
+			$(srcs_prompt)\
+			$(srcs_make)\
+			$(srcs_error)\
+			$(srcs_history)\
+			$(srcs_hash_table)\
+			$(srcs_signal)\
+			$(srcs_reading)\
+			$(srcs_line_editing)\
+			$(srcs_parser)\
+			$(srcs_exec)\
+			$(srcs_builtins)\
+			$(srcs_autocom)
 
-INCLUDES_FTDAR=LibProjects42/ftdar/includes
+.LIBPATTERNS = "lib%.a"
 
-EXTRA_FLAGS=-Wall -Wextra -Werror
+obj_files = $(srcs_files:.c=.o)
 
-LIB1=LibProjects42/libft
+objects = $(addprefix $(obj_dir)/, $(obj_files))
 
-LIB2=LibProjects42/ftstr
+objs = $(addprefix $(obj_dir)/, $(notdir $(obj_files)))
 
-LIB3=LibProjects42/ftdir
+cc = gcc
 
-LIB4=LibProjects42/ftdar
+cflags = -Wall -Wextra -Werror
 
-REPO=https://github.com/OlegMulko/LibProjects42.git
+repo = https://github.com/OlegMulko/LibProjects42.git
 
-all:$(NAME)
+includes_libft = $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-$(NAME): loadlib $(OBJ)
-	gcc $(OBJ) -o $@ -L $(LIB1) -L $(LIB2) -L $(LIB3) -L $(LIB4) -lft -lftstr -lftdir -lftdar -lncurses
+includes_libstr = $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
-%.o: %.c
-	gcc -c $< -o $@ $(EXTRA_FLAGS) -I $(INCLUDES) -I $(INCLUDES_LIB) -I $(INCLUDES_FTSTR) -I $(INCLUDES_FTDIR) -I $(INCLUDES_FTDAR)
+includes_libdir = $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+
+includes_libdar = $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+
+includes_libstack = $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
+
+includes_libfifo = $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
+
+lib_flags = -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
+
+includes = -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
+	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr)
+
+.PHONY: all loadlib lall llall llclean llfclean lfclean oclean clean fclean re
+
+all: $(name)
+
+$(name): loadlib lall $(obj_dir)
+	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
+	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
+
+$(obj_dir):
+	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
+	@mkdir -p $(obj_dir)
+	@echo "\033[32m\033[1m--->Compile sources:\033[0m"
+	@$(MAKE) --no-print-directory $(objects)
+
+$(obj_dir)/%.o: $(srcs_dir)/%.c
+	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$(obj_dir)/$(notdir $@)\033[0m"
+	@$(cc) $(cflags) $(includes) -o $(obj_dir)/$(notdir $@) -c $<
 
 loadlib:
-	./LoadLibProjects42.sh $(REPO) LibProjects42
+	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
+	@./LoadLibProjects42.sh $(repo) $(lib_dir)
+	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
+
+lall:
+	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
+	@$(MAKE) all --no-print-directory -C $(lib_dir)
+	@echo "\033[0;30m\033[1m--->Finish libraries compilation\033[0m"
+	@echo "\033[0;30m\033[1m--->Finish getting libraries\033[0m"
+
+llall:
+	@$(MAKE) lall --no-print-directory -C $(lib_dir)
+
+llclean:
+	@$(MAKE) lclean --no-print-directory -C $(lib_dir)
+
+llfclean:
+	@$(MAKE) lfclean --no-print-directory -C $(lib_dir)
+
+lfclean:
+	@$(MAKE) fclean --no-print-directory -C $(lib_dir)
+
+oclean:
+	@echo "\033[36m\033[1m--->Remove $(CURDIR)/$(obj_dir)\033[0m"
+	@-rm -rf $(obj_dir)
 
 clean:
-	rm -rf $(OBJ)
+	@$(MAKE) --no-print-directory oclean
+	@$(MAKE) --no-print-directory lfclean
 
-fclean: clean
-	rm -rf $(NAME)
+fclean:
+	@$(MAKE) --no-print-directory clean
+	@echo "\033[36m\033[1m--->Remove $(CURDIR)/$(name)\033[0m"
+	@-rm -rf $(name)
 
-re: fclean all
+re:
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory all

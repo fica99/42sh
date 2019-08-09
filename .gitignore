@@ -2,7 +2,8 @@
 *DS_STORE
 21sh
 *dSYM
+obj/
 *.o
 *.a
 .history
-LibProjects42/
+libraries/

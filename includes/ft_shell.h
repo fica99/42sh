@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/04 00:17:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/09 00:04:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 # include "libft.h"
 # include <termios.h>
 # include "term/term.h"
+# include "libstr.h"
+# include "libdir.h"
+# include "libdar.h"
+# include "libfifo.h"
+# include "libstack.h"
 # include "prompt/prompt.h"
 # include "make/make.h"
 # include "error/error.h"
@@ -27,9 +32,6 @@
 # include "signal/signal.h"
 # include "reading/reading.h"
 # include "autocom/autocom.h"
-# include "ftstr.h"
-# include "ftdir.h"
-# include "ftdar.h"
 # include "parser/parser.h"
 # include "exec/exec.h"
 # include "builtins/cd.h"

@@ -9,9 +9,6 @@ repo=$1
 dirname=$2
 if [ -d $PWD/$dirname ]; then
 	cd $PWD/$dirname && git pull | grep "Already[- ]up[- ]to[- ]date";
-	if [ $? -eq 1 ]; then
-		make -C $PWD
-	fi
 else
-	git clone $repo -b master $dirname && make -C $PWD/$dirname
+	git clone $repo -b master $dirname
 fi
