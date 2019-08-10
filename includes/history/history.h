@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/30 01:05:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/10 18:59:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include <sys/stat.h>
 # include <sys/uio.h>
 
-# define HISTORY_SIZE 1000
+# define HISTSIZE 500
+# define HISTFILESIZE 500
 # define HISTORY_FILE "/.history"
 
 void		make_history_buff(t_history *history);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/30 01:06:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:08:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,22 @@ void		make_history_buff(t_history *history)
 	char	**buff;
 	short	len;
 
-	if (!(history->history_path = get_history_file_path()))
-	{
-		history = NULL;
-		return ;
-	}
+	history->history_path = get_history_file_path();
 	if ((fd = open(history->history_path, O_RDONLY | O_CREAT,
 	S_IRUSR | S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
 	len = 0;
-	if (!(buff = (char**)malloc(sizeof(char*) * (HISTORY_SIZE + 1))))
+	if (ft_getenv("HISTSIZE"))
+		history->histsize = ft_atoi(ft_getenv("HISTSIZE"));
+	else
+		history->histsize = HISTSIZE;
+	if (ft_getenv("HISTFILESIZE"))
+		history->histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"));
+	else
+		history->histfilesize = HISTFILESIZE;
+	if (!(buff = (char**)malloc(sizeof(char*) * (history->histsize + 1))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	while (len != HISTORY_SIZE && get_next_line(fd, &(buff[len])) > 0)
+	while (len != history->histsize && get_next_line(fd, &(buff[len])) > 0)
 		len++;
 	buff[len] = NULL;
 	if (close(fd) == -1)
@@ -43,7 +47,7 @@ void		add_to_historybuf(char *buffer, t_history *history)
 	short	i;
 
 	len = ft_darlen(history->history_buff);
-	if (len >= HISTORY_SIZE)
+	if (len >= history->histsize)
 	{
 		i = -1;
 		ft_memdel((void**)&(history->history_buff[0]));
@@ -68,7 +72,7 @@ void		write_history(char *buffer, t_history *history)
 		return ;
 	add_to_historybuf(buffer, history);
 	len = ft_darlen(history->history_buff);
-	len < HISTORY_SIZE ? add_to_file(len, history) :
+	len < history->histfilesize ? add_to_file(len, history) :
 	rewrite_file(len, history);
 }
 

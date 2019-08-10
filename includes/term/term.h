@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/08/04 00:17:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/10 19:00:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct		s_history
 	char			**history_buff;
 	short			history_index;
 	char			*history_path;
+	short			histsize;
+	short			histfilesize;
 }					t_history;
 
 typedef struct		s_line
