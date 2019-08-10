@@ -6,27 +6,27 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/09 13:07:55 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/09 19:20:56 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-name = 21sh
+name := 21sh
 
-lib_dir = libraries
+lib_dir := libraries
 
-srcs_dir = srcs
+srcs_dir := srcs
 
-obj_dir = obj
+obj_dir := obj
 
-inc_dir = includes
+inc_dir := includes
 
-load_script = LoadLibProjects42.sh
+load_script := LoadLibProjects42.sh
 
-lib_archive = $(addprefix $(lib_dir)/, lib_archive)
+lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
-srcs_error = error/ft_errno.c\
+srcs_error := error/ft_errno.c\
 
-srcs_line_editing = line_editing/check_symb.c\
+srcs_line_editing := line_editing/check_symb.c\
 			line_editing/quotes.c\
 			line_editing/cut_copy_paste.c\
 			line_editing/highlight.c\
@@ -38,7 +38,7 @@ srcs_line_editing = line_editing/check_symb.c\
 			line_editing/init.c\
 			line_editing/free.c\
 
-srcs_autocom = autocom/ac_autocom.c\
+srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
 		autocom/ac_options.c\
 		autocom/ac_options2.c\
@@ -47,31 +47,31 @@ srcs_autocom = autocom/ac_autocom.c\
 		autocom/ac_print.c\
 		autocom/ac_recalc_index.c\
 
-srcs_make = make/buff_editing.c\
+srcs_make := make/buff_editing.c\
 		make/env.c\
 		make/env2.c\
 		make/process.c\
 
-srcs_hash_table = hash_table/hash_table.c\
+srcs_hash_table := hash_table/hash_table.c\
 		hash_table/hash_table2.c\
 		hash_table/free_hash_table.c\
 
-srcs_history = history/make_history.c\
+srcs_history := history/make_history.c\
 		history/make_history2.c\
 
-srcs_parser = parser/parse.c\
+srcs_parser := parser/parse.c\
 
-srcs_reading = reading/reading.c\
+srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
 
-srcs_signal = signal/signal.c\
+srcs_signal := signal/signal.c\
 
-srcs_term = term/term.c\
+srcs_term := term/term.c\
 
-srcs_prompt = prompt/prompt.c\
+srcs_prompt := prompt/prompt.c\
 		prompt/prompt2.c\
 
-srcs_builtins = builtins/cd/cd.c\
+srcs_builtins := builtins/cd/cd.c\
 		builtins/echo/echo.c\
 		builtins/env/ft_env.c\
 		builtins/setenv/setenv.c\
@@ -81,7 +81,7 @@ srcs_builtins = builtins/cd/cd.c\
 
 srcs_exec = exec/exec.c
 
-srcs_files = $(srcs_term)\
+srcs_files := $(srcs_term)\
 			$(srcs_prompt)\
 			$(srcs_make)\
 			$(srcs_error)\
@@ -95,35 +95,35 @@ srcs_files = $(srcs_term)\
 			$(srcs_builtins)\
 			$(srcs_autocom)
 
-.LIBPATTERNS = "lib%.a"
+.LIBPATTERNS := "lib%.a"
 
-obj_files = $(srcs_files:.c=.o)
+obj_files := $(srcs_files:.c=.o)
 
-objects = $(addprefix $(obj_dir)/, $(obj_files))
+objects := $(addprefix $(obj_dir)/, $(obj_files))
 
-objs = $(addprefix $(obj_dir)/, $(notdir $(obj_files)))
+objs := $(addprefix $(obj_dir)/, $(notdir $(obj_files)))
 
-cc = gcc
+cc := gcc
 
-cflags = -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror
 
-repo = https://github.com/OlegMulko/LibProjects42.git
+repo := https://github.com/OlegMulko/LibProjects42.git
 
-includes_libft = $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
+includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-includes_libstr = $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
-includes_libdir = $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
 
-includes_libdar = $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_libstack = $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
+includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
 
-includes_libfifo = $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
+includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
 
-lib_flags = -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
+lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
 
-includes = -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
+includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr)
 
 .PHONY: all loadlib lall llall llclean llfclean lfclean oclean clean fclean re

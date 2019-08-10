@@ -8,7 +8,7 @@ fi
 repo=$1
 dirname=$2
 if [ -d $PWD/$dirname ]; then
-	cd $PWD/$dirname && git pull | grep "Already[- ]up[- ]to[- ]date";
+	cd $PWD/$dirname && git pull
 else
 	git clone $repo -b master $dirname
 fi
