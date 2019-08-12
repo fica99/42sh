@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/09 19:20:56 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/12 21:12:08 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ obj_dir := obj
 
 inc_dir := includes
 
-load_script := LoadLibProjects42.sh
+load_script := load_git_repo.sh
 
 lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
@@ -146,7 +146,7 @@ $(obj_dir)/%.o: $(srcs_dir)/%.c
 
 loadlib:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
-	@./LoadLibProjects42.sh $(repo) $(lib_dir)
+	@./$(load_script) $(repo) $(lib_dir)
 	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
 
 lall:
