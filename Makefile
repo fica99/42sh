@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/12 21:12:08 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/13 13:49:36 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,8 +152,8 @@ loadlib:
 lall:
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
 	@$(MAKE) all --no-print-directory -C $(lib_dir)
-	@echo "\033[0;30m\033[1m--->Finish libraries compilation\033[0m"
-	@echo "\033[0;30m\033[1m--->Finish getting libraries\033[0m"
+	@echo "\033[0;30m\033[1m--->Finish libraries archieve compilation\033[0m"
+	@echo "\033[0;30m\033[1m--->Finish getting libraries archieve\033[0m"
 
 llall:
 	@$(MAKE) lall --no-print-directory -C $(lib_dir)
