@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/13 13:49:36 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/15 22:03:17 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,8 @@ obj_files := $(srcs_files:.c=.o)
 
 objects := $(addprefix $(obj_dir)/, $(obj_files))
 
+srcs := $(addprefix $(srcs_dir)/, $(notdir $(srcs_files)))
+
 objs := $(addprefix $(obj_dir)/, $(notdir $(obj_files)))
 
 cc := gcc
@@ -126,11 +128,11 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
 includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr)
 
-.PHONY: all loadlib lall llall llclean llfclean lfclean oclean clean fclean re
+.PHONY: all loadlibs removelibs lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
 
-$(name): loadlib lall $(obj_dir)
+$(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
 	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
 
@@ -144,10 +146,17 @@ $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$(obj_dir)/$(notdir $@)\033[0m"
 	@$(cc) $(cflags) $(includes) -o $(obj_dir)/$(notdir $@) -c $<
 
-loadlib:
+$(lib_dir):
+	@$(MAKE) --no-print-directory loadlibs
+
+loadlibs:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
 	@./$(load_script) $(repo) $(lib_dir)
 	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
+
+removelibs:
+	@echo "\033[0;35m\033[1m--->Remove Libraries\033[0m"
+	@rm -rf $(lib_dir)
 
 lall:
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
