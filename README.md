@@ -33,10 +33,10 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 * Inhibitors `"`, `'` and `\`\.
 
 ### Line edition hotkeys:
-	<home>: Go to begin of line.
-	<end>: Go to end of line.
-	<ctrl+[up|down]>: Move per line.
-	<ctrl+[left|right]>: Move per word.
+	<home>: Go to the beginning of line.
+	<end>: Go to the end of line.
+	<ctrl+[up|down]>: Move cursor by display line.
+	<ctrl+[left|right]>: Move cursor per word.
 	<ctrl+D>: If there is a line, then work as well as delete; otherwise, force exit.
 	<ctrl+V>: Paste.
 	<ctrl+X>: Cut.

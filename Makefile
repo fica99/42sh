@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/15 22:03:17 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/16 15:54:48 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ srcs_reading := reading/reading.c\
 
 srcs_signal := signal/signal.c\
 
-srcs_term := term/term.c\
+srcs_term := term/ft_term.c\
 
 srcs_prompt := prompt/prompt.c\
 		prompt/prompt2.c\
@@ -80,6 +80,8 @@ srcs_builtins := builtins/cd/cd.c\
 		builtins/history/ft_history.c\
 
 srcs_exec = exec/exec.c
+
+builtins_dir := builtins
 
 srcs_files := $(srcs_term)\
 			$(srcs_prompt)\
@@ -101,9 +103,9 @@ obj_files := $(srcs_files:.c=.o)
 
 objects := $(addprefix $(obj_dir)/, $(obj_files))
 
-srcs := $(addprefix $(srcs_dir)/, $(notdir $(srcs_files)))
+dirs := $(dir $(srcs_files))
 
-objs := $(addprefix $(obj_dir)/, $(notdir $(obj_files)))
+obj_dirs := $(addprefix $(obj_dir)/, $(dirs))
 
 cc := gcc
 
@@ -134,17 +136,17 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
-	@mkdir -p $(obj_dir)
+	@mkdir -p $(obj_dir) $(obj_dir)/$(builtins_dir) $(obj_dirs)
 	@echo "\033[32m\033[1m--->Compile sources:\033[0m"
 	@$(MAKE) --no-print-directory $(objects)
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
-	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$(obj_dir)/$(notdir $@)\033[0m"
-	@$(cc) $(cflags) $(includes) -o $(obj_dir)/$(notdir $@) -c $<
+	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
+	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 	@$(MAKE) --no-print-directory loadlibs
