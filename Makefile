@@ -81,6 +81,8 @@ srcs_builtins := builtins/cd/cd.c\
 
 srcs_exec = exec/exec.c
 
+srcs_lexer = lexer/load_lexer.c
+
 srcs_files := $(srcs_term)\
 			$(srcs_prompt)\
 			$(srcs_make)\
@@ -93,7 +95,8 @@ srcs_files := $(srcs_term)\
 			$(srcs_parser)\
 			$(srcs_exec)\
 			$(srcs_builtins)\
-			$(srcs_autocom)
+			$(srcs_autocom)\
+			$(srcs_lexer)
 
 .LIBPATTERNS := "lib%.a"
 

@@ -41,6 +41,7 @@
 # include "builtins/unsetenv.h"
 # include "builtins/hash.h"
 # include "builtins/his.h"
+# include "lexer/lexer.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
