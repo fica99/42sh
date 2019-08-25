@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/04 00:18:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/31 14:11:06 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int		main(int argc, char **argv, char **environ)
 	if (!(g_argv = ft_dardup(argv)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	init_hash_table(&term);
+	if (!(g_lexer = load_lexer()))
+		print_error("42sh", "Error load lexor matrix", "./srcs/lexer/lexer_matrix", 0);
+	print_matrix(g_lexer->m_class);
+	ft_putstr("\n\n\n");
+	print_matrix(g_lexer->m_type);
 	if (argc == 1)
 	{
 		init_term();

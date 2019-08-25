@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/09 00:04:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/27 21:09:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # include "builtins/unsetenv.h"
 # include "builtins/hash.h"
 # include "builtins/his.h"
+# include "lexer/lexer.h"
 
 # define RUNNING 1
 # define TERM_SIGINT (1 << 1)
@@ -63,6 +64,7 @@ struct s_line	g_line;
 unsigned short	g_flags;
 struct termios	g_orig_mode;
 struct termios	g_raw_mode;
+struct s_lexer  *g_lexer;
 int				g_errno_f;
 char			**g_env;
 char			**g_argv;

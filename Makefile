@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/13 13:49:36 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/27 22:15:22 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,8 @@ srcs_builtins := builtins/cd/cd.c\
 
 srcs_exec = exec/exec.c
 
+srcs_lexer = lexer/load_lexer.c
+
 srcs_files := $(srcs_term)\
 			$(srcs_prompt)\
 			$(srcs_make)\
@@ -93,7 +95,8 @@ srcs_files := $(srcs_term)\
 			$(srcs_parser)\
 			$(srcs_exec)\
 			$(srcs_builtins)\
-			$(srcs_autocom)
+			$(srcs_autocom)\
+			$(srcs_lexer)
 
 .LIBPATTERNS := "lib%.a"
 
@@ -126,13 +129,15 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
 includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr)
 
+debug := -g -O0
+
 .PHONY: all loadlib lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
 
 $(name): loadlib lall $(obj_dir)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) $(debug) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -142,7 +147,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$(obj_dir)/$(notdir $@)\033[0m"
-	@$(cc) $(cflags) $(includes) -o $(obj_dir)/$(notdir $@) -c $<
+	@$(cc) $(debug) $(cflags) $(includes) -o $(obj_dir)/$(notdir $@) -c $<
 
 loadlib:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"

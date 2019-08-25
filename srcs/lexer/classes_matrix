@@ -1,0 +1,5 @@
+	classes	||	BEGIN=0	|	separators=1	|	numbers=2	|
+	NUL		||		-1	|			-1		|		-1		|
+	SOH		||		-2	|			-2		|		-2		|
+	STX		||		-2	|			-2		|		-2		|
+	ETX		||		-2	|			-2		|		-2		|
