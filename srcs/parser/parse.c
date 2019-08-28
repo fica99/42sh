@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/28 17:58:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:48:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,14 @@ t_node		*statement_list(t_string *str)
 	t_node	*ast;
 	short	copy;
 
+	ast = NULL;
 	while (LOOP)
 	{
 		token = NULL;
-		ast = statement(str);
+		if (ast)
+			ast = statement(str);
+		else
+			ast = init_node(ast, token, statement(str));
 		if (g_parser_flags & PARSER_ERROR)
 			break ;
 		copy = str->index;
@@ -132,7 +136,7 @@ t_node		*thread_statement(t_string *str)
 		free_token(&token);
 		return (ast);
 	}
-	ast = init_node(ast, token, pipe_op(str));
+	ast = init_node(ast, token, expr(str));
 	if (!(ast->right))
 		g_parser_flags |= PARSER_ERROR;
 	return (ast);
@@ -145,9 +149,14 @@ t_node		*pipe_op(t_string *str)
 	t_token	*token;
 	short	copy;
 
+	ast = NULL;
 	while (LOOP)
 	{
-		if (!(ast = expr(str)) || (g_parser_flags & PARSER_ERROR))
+		if (!ast)
+			ast = expr(str);
+		else
+			ast = init_node(ast, token, expr(str));
+		if (!ast || (g_parser_flags & PARSER_ERROR))
 			break ;
 		copy = str->index;
 		token = get_next_token(str);
@@ -165,21 +174,4 @@ t_node		*pipe_op(t_string *str)
 		ast = init_node(ast, token, expr(str));
 	}
 	return (ast);
-}
-
-t_node		*expr(t_string *str)
-{
-	t_node	*node;
-	t_token	*token;
-
-	token = get_next_token(str);
-	if (token_type(token, ERROR) || !token_type(token, EXPR))
-	{
-		if (token_type(token, ERROR))
-			g_parser_flags |= PARSER_ERROR;
-		free_token(&token);
-		return (NULL);
-	}
-	node = init_node(NULL, token, NULL);
-	return (node);
 }

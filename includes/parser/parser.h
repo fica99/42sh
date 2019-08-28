@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:38 by filip             #+#    #+#             */
-/*   Updated: 2019/08/28 17:42:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:49:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 char		*token_type(t_token *token, int type);
 char		*token_class(t_token *token, int class);
-void		*free_token(t_token **token)
+void		*free_token(t_token **token);
 
 /*
 TOKEN CLASS:
