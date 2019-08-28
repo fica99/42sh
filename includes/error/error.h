@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/07/31 14:23:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/27 15:11:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
+# define NOERROR 0
 # define ENOENT 2
 # define ENOMEM 12
 # define EACCES 13

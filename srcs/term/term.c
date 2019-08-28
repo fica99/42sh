@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/04 00:18:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/28 18:02:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		main(int argc, char **argv, char **environ)
 
 void	term_start(t_term *term)
 {
+	t_node	*ast;
 	term->buffer = NULL;
 	term->copy_line = NULL;
 	while (RUNNING)
@@ -47,7 +48,10 @@ void	term_start(t_term *term)
 		term_prompt(ft_darlen(term->history.history_buff), g_argv[0]);
 		read_prompt(term);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
-			parse_string(term);
+		{
+			ast = parser(term->buffer);
+			free_ast(&ast);
+		}
 		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
 		{
 			free_my_hash_table(term->hash_table, &term->hash_table_size);
