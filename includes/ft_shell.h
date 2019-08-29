@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/09 00:04:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/29 13:59:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "reading/reading.h"
 # include "autocom/autocom.h"
 # include "parser/parser.h"
+# include "interpretator/interpretator.h"
 # include "exec/exec.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"

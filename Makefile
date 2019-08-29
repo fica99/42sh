@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/29 13:36:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/08/29 13:57:33 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,8 @@ srcs_parser := parser/parse.c\
 		parser/init_free_parser.c\
 		parser/ast.c\
 
+srcs_interpretator := interpretator/interpretator.c\
+
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
 
@@ -101,6 +103,7 @@ srcs_files := $(srcs_term)\
 			$(srcs_autocom)\
 			$(srcs_lexer)\
 			$(srcs_parser)\
+			$(srcs_interpretator)\
 
 .LIBPATTERNS := "lib%.a"
 

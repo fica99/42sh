@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/29 13:48:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/29 18:40:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,8 @@ t_node		*statement_list(t_string *str)
 	while (LOOP)
 	{
 		token = NULL;
-		if (ast)
+		if (!ast)
 			ast = statement(str);
-		else
-			ast = init_node(ast, token, statement(str));
 		if (g_parser_flags & PARSER_ERROR)
 			break ;
 		copy = str->index;
@@ -113,8 +111,6 @@ t_node		*statement(t_string *str)
 	t_node	*ast;
 
 	ast = thread_statement(str);
-	if (g_parser_flags & PARSER_ERROR)
-		return (ast);
 	return (ast);
 }
 
@@ -124,7 +120,7 @@ t_node		*thread_statement(t_string *str)
 	t_token	*token;
 	short	copy;
 
-	if (!(ast = pipe_op(str)) || (g_parser_flags & PARSER_ERROR))
+	if (!(ast = pipe_ast(str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
 	token = get_next_token(str);
 	if (token_type(token, ERROR) || !token_class(token, REDIR))
@@ -142,7 +138,7 @@ t_node		*thread_statement(t_string *str)
 	return (ast);
 }
 
-t_node		*pipe_op(t_string *str)
+t_node		*pipe_ast(t_string *str)
 {
 	t_node	*ast;
 	t_node	*second;
@@ -154,8 +150,6 @@ t_node		*pipe_op(t_string *str)
 	{
 		if (!ast)
 			ast = expr(str);
-		else
-			ast = init_node(ast, token, expr(str));
 		if (!ast || (g_parser_flags & PARSER_ERROR))
 			break ;
 		copy = str->index;

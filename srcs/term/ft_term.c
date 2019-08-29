@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term.c                                             :+:      :+:    :+:   */
+/*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/28 18:02:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/29 18:30:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	term_start(t_term *term)
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && term->buffer)
 		{
 			ast = parser(term->buffer);
+			interpret_ast(ast, term);
 			free_ast(&ast);
 		}
 		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
