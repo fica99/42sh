@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_symb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 21:51:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 17:36:06 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*print_symbols(char *c, t_line *line)
 		cut_copy_paste(c, line);
 	else if (*c == TAB && !(g_flags & HISTORY_SEARCH) &&
 	!(g_flags & TERM_QUOTES) && !(g_flags & TERM_HIGHLIGHT))
-		autocomplite(&line->buffer, line->cord);
+		print_token((line->buffer).buffer);
 	else if (!ft_strcmp(c, tigetstr("kcuu1")) ||
 	!ft_strcmp(c, tigetstr("kcud1"))
 	|| *c == CTRL_R || (g_flags & HISTORY_SEARCH))

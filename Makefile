@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/27 22:15:22 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/09/01 17:35:18 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,8 @@ srcs_builtins := builtins/cd/cd.c\
 
 srcs_exec = exec/exec.c
 
-srcs_lexer = lexer/load_lexer.c
+srcs_lexer = lexer/load_lexer.c\
+		lexer/lexer.c
 
 srcs_files := $(srcs_term)\
 			$(srcs_prompt)\

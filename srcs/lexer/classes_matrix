@@ -1,5 +1,2 @@
-	classes	||	BEGIN=0	|	separators=1	|	numbers=2	|
-	NUL		||		-1	|			-1		|		-1		|
-	SOH		||		-2	|			-2		|		-2		|
-	STX		||		-2	|			-2		|		-2		|
-	ETX		||		-2	|			-2		|		-2		|
+			||	BEGIN=0	|	SEP=1	|	EOL=2	|	EXPRESS=3	|	LRED(<)=4	|	DLRED(<<)=5	|	RRED(>)=6	|	DRRED(>>)=7	|	PIPE(|)=8	|	BRK(')=9	|	DBRK(")=10	|	RBRK(`) = 11	|
+	classes	||		0	|		2	|		2	|		3		|		4		|		4		|		4		|		4		|		4		|		5		|		5		|			5		|

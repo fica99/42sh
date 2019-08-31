@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:18:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/08/31 14:12:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/08/31 17:06:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_lexer		*load_lexer(void)
 
 t_lexer		*new_lexer(void)
 {
-	t_lexer	*new_lexer;
+	t_lexer	*lexer;
 
-	if (!(new_lexer = (t_lexer *)malloc(sizeof(t_lexer))))
+	if (!(lexer = (t_lexer *)malloc(sizeof(t_lexer))))
 		return (NULL);
-	new_lexer->m_class = NULL;
-	new_lexer->m_type = NULL;
-	return (new_lexer);
+	lexer->m_class = NULL;
+	lexer->m_type = NULL;
+	return (lexer);
 }
 
 t_matrix	*get_matrix(char *path)
@@ -73,15 +73,15 @@ t_matrix	*load_matrix_from_file(int fd)
 
 t_matrix	*new_matrix(void)
 {
-	t_matrix	*new_matrix;
+	t_matrix	*matrix;
 
-	if (!(new_matrix = (t_matrix *)malloc(sizeof(t_matrix))))
+	if (!(matrix = (t_matrix *)malloc(sizeof(t_matrix))))
 		return (NULL);
-	if (!(new_matrix->data = create_lexer_matrix(LEXER_ROWS, LEXER_COLS)))
+	if (!(matrix->data = create_lexer_matrix(LEXER_ROWS, LEXER_COLS)))
 		return (NULL);
-	new_matrix->cols = 0;
-	new_matrix->rows = 0;
-	return (new_matrix);
+	matrix->cols = 0;
+	matrix->rows = 0;
+	return (matrix);
 }
 
 int			**create_lexer_matrix(int rows, int cols)
