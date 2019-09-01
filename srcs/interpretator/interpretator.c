@@ -6,73 +6,57 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/29 22:04:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 18:50:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	make_command(char *buff, t_term *term)
-{
-	char	**args;
-	short	i;
-
-	if (!buff || !(*buff) || !(args = ft_strsplit(buff, ' ')))
-		return ;
-	i = -1;
-	while (args[++i])
-		args[i] = spec_symbols(args[i]);
-	find_command(args, term);
-	ft_free_dar(args);
-}
-
-char	*spec_symbols(char *args)
-{
-	char	*path;
-	char	*arr;
-
-	if (*args == '~')
-	{
-		if ((path = ft_getenv("HOME")))
-		{
-			arr = args;
-			if (!(args = ft_strjoin(path, arr + 1)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
-	}
-	if (*args == '$' && args + 1)
-	{
-		if ((path = ft_getenv(args + 1)))
-		{
-			arr = args;
-			if (!(args = ft_strdup(path)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
-	}
-	return (args);
-}
-
 void	interpret_ast(t_node *ast, t_term *term)
 {
 	if (ast)
 	{
-		if (token_type(ast->token, SEP))
+		if (check_token_type(ast->token, SEP))
 		{
 			interpret_ast(ast->left, term);
 			interpret_ast(ast->right, term);
-			return ;
 		}
-		if (token_type(ast->token, PIPE))
+		if (check_token_type(ast->token, PIPE))
 			pipe_op(ast, term);
-		if (token_class(ast->token, REDIR))
+		if (check_token_class(ast->token, C_REDIR))
 			redir_op(ast, term);
-		if (token_type(ast->token, EXPR))
+		if (check_token_type(ast->token, EXPRESS))
 			make_command(ast->token->lexeme, term);
 	}
 }
 
+void	redir_op(t_node *ast, t_term *term)
+{
+	int		fd;
+	t_node	*expr;
+
+	expr = ast->right;
+	if (check_token_type(ast, LRED))
+		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
+		, LRED_OPEN, 0)))
+			return ;
+	if (check_token_type(ast, RRED))
+		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
+		, RRED_OPEN, PERM_MODE)))
+			return ;
+	if (check_token_type(ast, DRRED))
+		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
+		, DRRED_OPEN, PERM_MODE)))
+			return ;
+	if (check_token_type(ast, DRRED) || check_token_type(ast, LRED))
+		if (dup2(fd, STDOUT_FILENO) == -1)
+			print_error("42sh", "dup2() error", NULL, NOERROR);
+	if (check_token_type(ast, LRED))
+		if (dup2(fd, STDIN_FILENO) == -1)
+			print_error("42sh", "dup2() error", NULL, NOERROR);
+	interpret_ast(ast->left, term);
+	close(fd);
+}
 
 void	pipe_op(t_node *ast, t_term *term)
 {
@@ -83,18 +67,44 @@ void	pipe_op(t_node *ast, t_term *term)
 		print_error("42sh", "pipe() error", NULL, NOERROR);
 	if ((pid[0] = make_process()) == 0)
 	{
-		dup2(pipes[1], STDOUT_FILENO);
+		if (dup2(pipes[1], STDOUT_FILENO) == -1)
+			print_error("42sh", "dup2() error", NULL, NOERROR);
 		close(pipes[0]);
 		interpret_ast(ast->left, term);
 		exit(0);
 	}
 	if ((pid[1] = make_process()) == 0)
 	{
-		dup2(pipes[0], STDIN_FILENO);
+		if (dup2(pipes[0], STDOUT_FILENO) == -1)
+			print_error("42sh", "dup2() error", NULL, NOERROR);
 		close(pipes[1]);
 		interpret_ast(ast->right, term);
 		exit(0);
 	}
 	close(pipes[0]);
 	close(pipes[1]);
+	waitpid(pid[0], 0, 0);
+	waitpid(pid[1], 0, 0);
+}
+
+int		fd_red_file(char *name, int red_type, int acc, int mode)
+{
+	int	fd;
+
+	if (red_type == LRED)
+	{
+		if (access(name, F_OK))
+		{
+			print_error_withoutexit("42sh", NULL, name, ENOENT);
+			return (0);
+		}
+		if (access(name, R_OK))
+		{
+			print_error_withoutexit("42sh", NULL, name, EACCES);
+			return (0);
+		}
+	}
+	if ((fd = open(name, acc, mode)) == -1)
+		print_error("42sh", "open() error", NULL, 0);
+	return (fd);
 }

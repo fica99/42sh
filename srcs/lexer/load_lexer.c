@@ -28,19 +28,18 @@ t_lexer *load_lexer(char *path)
         row++;
     }
     lexer->rows = row;
-    return (lexer); 
+    return (lexer);
 }
 
 t_lexer *new_lexer(void)
 {
     t_lexer *new_lexer;
-    int **new_lexer_matrix;
 
     if (!(new_lexer = (t_lexer *)malloc(sizeof(t_lexer))))
         return (NULL);
     if (!(new_lexer->matrix = create_lexer_matrix(LEXER_ROWS, LEXER_COLS)))
         return (NULL);
-    return (new_lexer); 
+    return (new_lexer);
 }
 
 int **create_lexer_matrix(int rows, int cols)

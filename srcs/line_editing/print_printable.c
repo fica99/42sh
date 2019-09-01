@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_printable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/13 20:24:52 by filip            ###   ########.fr       */
+/*   Updated: 2019/08/30 23:08:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void		save_cord(t_cord *cord)
 	t_cord	*new_line;
 	t_cord	*copy;
 
-	g_flags |= TERM_NL;
+	g_line_flags |= TERM_NL;
 	new_line = cord;
 	while (new_line->nl)
 	{

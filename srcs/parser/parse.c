@@ -6,47 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/29 18:40:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 17:54:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-char		*token_type(t_token *token, int type)
-{
-	if (!token)
-		return (NULL);
-	if (token->type == type)
-		return (SOMETHING);
-	return (NULL);
-}
-
-char		*token_class(t_token *token, int class)
-{
-	if (!token)
-		return (NULL);
-	if (token->class == class)
-		return (SOMETHING);
-	return (NULL);
-}
-
-void		*free_token(t_token **token)
-{
-	if (token && *token)
-	{
-		ft_memdel((void**)&((*token)->lexeme));
-		ft_memdel((void**)token);
-		*token = NULL;
-	}
-}
-
-/*
-###############################################################################
-#                                                                             #
-#  PARSER                                                                     #
-#                                                                             #
-###############################################################################
-*/
 
 t_node		*parser(char *str)
 {
@@ -64,14 +28,14 @@ t_node		*parser(char *str)
 		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
 		return (NULL);
 	}
-	if (!token_type(token = get_next_token(str), EOL))
+	if (!check_token_type(token = get_next_token(str), EOL))
 	{
 		g_parser_flags |= PARSER_ERROR;
 		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
 		free_ast(&ast);
 		ast = NULL;
-		free_token(&token);
 	}
+	free_token(&token);
 	return (ast);
 }
 
@@ -90,13 +54,11 @@ t_node		*statement_list(t_string *str)
 		if (g_parser_flags & PARSER_ERROR)
 			break ;
 		copy = str->index;
-		if (token_type(token = get_next_token(str), ERROR))
+		if (check_token_type(token = get_next_token(str), FT_ERROR) ||
+		!check_token_class(token, C_SEP))
 		{
-			g_parser_flags |= PARSER_ERROR;
-			break ;
-		}
-		if (!token_type(token, SEP))
-		{
+			if (!check_token_type(token, FT_ERROR))
+				g_parser_flags |= PARSER_ERROR;
 			str->index = copy;
 			break ;
 		}
@@ -122,10 +84,11 @@ t_node		*thread_statement(t_string *str)
 
 	if (!(ast = pipe_ast(str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
+	copy = str->index;
 	token = get_next_token(str);
-	if (token_type(token, ERROR) || !token_class(token, REDIR))
+	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_REDIR))
 	{
-		if (token_type(token, ERROR))
+		if (check_token_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
 		else
 			str->index = copy;
@@ -141,7 +104,6 @@ t_node		*thread_statement(t_string *str)
 t_node		*pipe_ast(t_string *str)
 {
 	t_node	*ast;
-	t_node	*second;
 	t_token	*token;
 	short	copy;
 
@@ -153,15 +115,12 @@ t_node		*pipe_ast(t_string *str)
 		if (!ast || (g_parser_flags & PARSER_ERROR))
 			break ;
 		copy = str->index;
-		token = get_next_token(str);
-		second = expr(str);
-		if (token_type(token, ERROR) || !token_type(token, PIPE) || !second)
+		if (check_token_type(token = get_next_token(str), FT_ERROR) ||
+		!check_token_type(token, PIPE))
 		{
-			if (token_type(token, ERROR) || !second)
+			if (check_token_type(token, FT_ERROR))
 				g_parser_flags |= PARSER_ERROR;
-			else
-				str->index = copy;
-			free_ast(&second);
+			str->index = copy;
 			free_token(&token);
 			break ;
 		}

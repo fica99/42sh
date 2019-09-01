@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/29 13:57:33 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/01 17:36:41 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 srcs_error := error/ft_errno.c\
 
 srcs_line_editing := line_editing/check_symb.c\
-			line_editing/quotes.c\
 			line_editing/cut_copy_paste.c\
 			line_editing/highlight.c\
 			line_editing/print_printable.c\
@@ -37,6 +36,9 @@ srcs_line_editing := line_editing/check_symb.c\
 			line_editing/get_and_check.c\
 			line_editing/init.c\
 			line_editing/free.c\
+			line_editing/quotes.c\
+			line_editing/heredoc.c\
+
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
@@ -85,7 +87,8 @@ srcs_builtins := builtins/cd/cd.c\
 
 srcs_exec = exec/exec.c
 
-srcs_lexer = lexer/load_lexer.c
+srcs_lexer = lexer/load_lexer.c\
+		lexer/lexer.c
 
 builtins_dir := builtins
 

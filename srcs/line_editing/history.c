@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 21:52:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/30 23:06:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void		go_history(char *c, t_line *line)
 	short	len;
 
 	len = ft_darlen(line->history.history_buff);
-	if (((*c == CTRL_R && len) || (g_flags & HISTORY_SEARCH)) &&
-	!(g_flags & TERM_QUOTES))
+	if (((*c == CTRL_R && len) || (g_line_flags & HISTORY_SEARCH)) &&
+	!(g_line_flags & TERM_QUOTES))
 	{
 		go_to_cord(line->cord->x_start, line->cord->y_start, STDIN_FILENO);
 		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
-		if (!(g_flags & HISTORY_SEARCH))
+		if (!(g_line_flags & HISTORY_SEARCH))
 		{
 			ft_putstr_fd("(History search)'", STDIN_FILENO);
-			g_flags |= HISTORY_SEARCH;
+			g_line_flags |= HISTORY_SEARCH;
 		}
 		get_cur_cord(line->cord);
 		set_start_cord(line->cord);
@@ -50,7 +50,7 @@ void		find_history(char *symbol, t_line *line)
 	if (!print_printable(symbol, line->history_search.buffer, line->cord) &&
 	*symbol != CTRL_R)
 	{
-		g_flags &= ~HISTORY_SEARCH;
+		g_line_flags &= ~HISTORY_SEARCH;
 		unset_start_pos(line->cord);
 		go_left(line->cord->pos + 17, line->cord);
 		set_start_cord(line->cord);

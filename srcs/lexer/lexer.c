@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buff_editing.c                                     :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 17:22:16 by aashara-         ###   ########.fr       */
+/*   Created: 2019/08/30 19:40:00 by aashara-          #+#    #+#             */
+/*   Updated: 2019/08/30 19:45:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char		*copy_from_buff(char *buffer, char *new_buffer, short start,
-short end)
+char		*check_token_type(t_token *token, int type)
 {
-	short	j;
-
-	j = 0;
-	while (start <= end)
-		new_buffer[j++] = buffer[start++];
-	return (new_buffer);
+	if (!token)
+		return (NULL);
+	if (token->type == type)
+		return (SOMETHING);
+	return (NULL);
 }
 
-char		check_print_arr(char *arr)
+char		*check_token_class(t_token *token, int class)
 {
-	short	i;
+	if (!token)
+		return (NULL);
+	if (token->class == class)
+		return (SOMETHING);
+	return (NULL);
+}
 
-	if (!arr || !*arr)
-		return (0);
-	i = -1;
-	while (arr[++i])
+void		free_token(t_token **token)
+{
+	if (token && *token)
 	{
-		if (ft_isprint(arr[i]) && arr[i] != ' ')
-			return (1);
+		ft_memdel((void**)&((*token)->lexeme));
+		ft_memdel((void**)token);
+		*token = NULL;
 	}
-	return (0);
 }

@@ -3,31 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/30 00:48:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/31 17:09:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void			init_hash_table(t_term *term)
+t_hash	**init_hash_table(unsigned short *hash_table_size)
 {
 	char	*env_path;
 	char	**path;
+	t_hash	**hash_table;
 
+	*hash_table_size = 0;
 	if (!(env_path = ft_getenv("PATH")))
-	{
-		term->hash_table_size = 0;
-		term->hash_table = NULL;
-		return ;
-	}
+		return (NULL);
 	if (!(path = ft_strsplit((ft_getenv("PATH")), ':')))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	term->hash_table_size = get_hash_table_size(path);
-	term->hash_table = make_hash_table(path, term->hash_table_size);
+	*hash_table_size = get_hash_table_size(path);
+	hash_table = make_hash_table(path, *hash_table_size);
 	ft_free_dar(path);
+	return (hash_table);
 }
 
 unsigned short	get_hash_table_size(char **path)

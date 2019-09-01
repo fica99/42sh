@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/31 00:58:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 15:42:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		read_prompt(t_term *term)
 {
+	g_line_flags = INIT_FLAGS;
 	set_input_mode(&g_raw_mode);
 	init_terminfo();
 	init_line(&g_line, term);
@@ -47,17 +48,15 @@ void		reading(t_line *line)
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
-		if ((*c == CTRL_C && !(g_flags & TERM_HIGHLIGHT)))
+		if ((*c == CTRL_C && !(g_line_flags & TERM_HIGHLIGHT)))
 		{
 			g_flags |= TERM_SIGINT;
 			break ;
 		}
-		while (ft_strlen(line->buffer.buffer) + ft_strlen(c) >=
-				(unsigned)line->buffer.malloc_len)
-			line->buffer.buffer = ft_strdup_realloc(line->buffer.buffer,
-					line->buffer.malloc_len += NORMAL_LINE);
-		if (*c == '\n' && !check_quotes(line))
-			break ;
+		check_malloc_len_buffer(&(line->buffer), c);
+		check_new_line(line, c);
+		if (g_line_flags & BREAK_FLAG)
+			break;
 		if (!print_symbols(c, line))
 			if (!print_move(c, line->buffer.buffer, line->cord))
 				print_printable(c, line->buffer.buffer, line->cord);

@@ -6,43 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:38 by filip             #+#    #+#             */
-/*   Updated: 2019/08/29 18:34:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/30 19:38:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
-
-char		*token_type(t_token *token, int type);
-char		*token_class(t_token *token, int class);
-void		*free_token(t_token **token);
-
-/*
-TOKEN CLASS:
-REDIR
-ERROR
-EXPR
-OTHER
-
-TOKEN TYPE:
-EXPR// string
-ERROR// error
-SEP// ;
-EOL//\0
-LRED//<
-DLRED//<<
-RRED//>
-DRRED//>>
-PIPE//|
-*/
-
-/*
-###############################################################################
-#                                                                             #
-#  PARSER                                                                     #
-#                                                                             #
-###############################################################################
-*/
 
 # define LOOP 1
 # define PARSER_ERROR (1 << 1)
