@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/01 17:36:41 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/02 20:03:01 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ srcs_signal := signal/signal.c\
 srcs_term := term/ft_term.c\
 
 srcs_prompt := prompt/prompt.c\
-		prompt/prompt2.c\
+		prompt/prompt_other.c\
 
 srcs_builtins := builtins/cd/cd.c\
 		builtins/echo/echo.c\
@@ -147,7 +147,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -157,7 +157,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 		@$(MAKE) --no-print-directory loadlibs

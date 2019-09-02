@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/01 18:50:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 22:23:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ void	redir_op(t_node *ast, t_term *term)
 	t_node	*expr;
 
 	expr = ast->right;
-	if (check_token_type(ast, LRED))
+	if (check_token_type(ast->token, LRED))
 		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
 		, LRED_OPEN, 0)))
 			return ;
-	if (check_token_type(ast, RRED))
+	if (check_token_type(ast->token, RRED))
 		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
 		, RRED_OPEN, PERM_MODE)))
 			return ;
-	if (check_token_type(ast, DRRED))
+	if (check_token_type(ast->token, DRRED))
 		if (!(fd = fd_red_file(expr->token->lexeme, expr->token->type
 		, DRRED_OPEN, PERM_MODE)))
 			return ;
-	if (check_token_type(ast, DRRED) || check_token_type(ast, LRED))
-		if (dup2(fd, STDOUT_FILENO) == -1)
+	if (check_token_type(ast->token, DRRED) || check_token_type(ast->token, LRED))
+		if (dup2(STDOUT_FILENO, fd) == -1)
 			print_error("42sh", "dup2() error", NULL, NOERROR);
-	if (check_token_type(ast, LRED))
-		if (dup2(fd, STDIN_FILENO) == -1)
+	if (check_token_type(ast->token, LRED))
+		if (dup2(STDOUT_FILENO, STDIN_FILENO) == -1)
 			print_error("42sh", "dup2() error", NULL, NOERROR);
 	interpret_ast(ast->left, term);
 	close(fd);

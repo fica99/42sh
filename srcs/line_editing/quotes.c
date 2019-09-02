@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 17:35:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/01 17:35:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:45:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 void	print_quotes(short q, short dq, short br, t_line *line)
 {
 	go_right(ft_strlen(line->buffer.buffer) - line->cord->pos, line->cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	line->history.history_index = ft_darlen(line->history.history_buff);
 	if ((q % 2) != 0)
 		ft_putstr_fd("\nquotes> ", STDIN_FILENO);
@@ -69,7 +69,7 @@ void	print_quotes(short q, short dq, short br, t_line *line)
 		ft_putstr_fd("\nbrackets> ", STDIN_FILENO);
 	else
 	{
-		ft_putchar_fd('\n', STDIN_FILENO);
+		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 		if (!ft_getenv("PS2"))
 			ft_putstr_fd("> ", STDIN_FILENO);
 		else

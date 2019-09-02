@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/01 17:21:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 18:35:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "make/make.h"
 # include "error/error.h"
 # include "macro/colour.h"
-# include "macro/command.h"
 # include "line_editing/line_editing.h"
 # include "signal/signal.h"
 # include "reading/reading.h"
@@ -59,6 +58,7 @@
 unsigned char	g_flags;
 struct termios	g_orig_mode;
 struct termios	g_raw_mode;
+struct s_lexer  *g_lexer;
 int				g_errno_f;
 char			**g_env;
 char			**g_argv;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/30 23:05:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 21:01:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 {
 	short	position;
 
-	while (ft_strlen(buffer->buffer) + ft_strlen(copy_buff->buffer) >=
-				(unsigned)buffer->malloc_len)
-		buffer->buffer = ft_strdup_realloc(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
+	check_malloc_len_buffer(buffer, copy_buff->buffer);
 	buffer->buffer = ft_stradd(buffer->buffer, copy_buff->buffer, cord->pos);
 	position = cord->pos;
 	go_left(cord->pos, cord);

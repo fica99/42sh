@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_free.c                                        :+:      :+:    :+:   */
+/*   init_free_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:57:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/28 17:58:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 16:26:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_node		*init_node(void *left, t_token *token, void *right)
+t_node		*init_node(t_node *left, t_token *token, t_node *right)
 {
 	t_node	*node;
 
@@ -24,7 +24,7 @@ t_node		*init_node(void *left, t_token *token, void *right)
 	return (node);
 }
 
-void		*free_ast(t_node **ast)
+void		free_ast(t_node **ast)
 {
 	if (ast && *ast)
 	{
@@ -33,5 +33,33 @@ void		*free_ast(t_node **ast)
 		free_token(&((*ast)->token));
 		ft_memdel((void**)ast);
 		*ast = NULL;
+	}
+}
+
+char		*check_token_type(t_token *token, token_type type)
+{
+	if (!token)
+		return (NULL);
+	if (token->type == type)
+		return (SOMETHING);
+	return (NULL);
+}
+
+char		*check_token_class(t_token *token, token_class class)
+{
+	if (!token)
+		return (NULL);
+	if (token->class == class)
+		return (SOMETHING);
+	return (NULL);
+}
+
+void		free_token(t_token **token)
+{
+	if (token && *token)
+	{
+		ft_memdel((void**)&((*token)->lexeme));
+		ft_memdel((void**)token);
+		*token = NULL;
 	}
 }

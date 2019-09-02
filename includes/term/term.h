@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/08/31 16:45:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 18:35:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,16 @@ typedef struct		s_term
 	char			*buffer;
 }					t_term;
 
-struct s_line	g_line;
+typedef struct	s_string
+{
+	char	*str;
+	short	index;
+}				t_string;
+
+struct s_line		g_line;
 
 void				term_start(t_term *term);
 void				init_term(void);
+void				init_global_var(char **argv, char **environ);
+void				check_valid_string(t_term *term);
 #endif
