@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/02 21:11:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/03 20:08:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct	s_lexer
 	t_matrix	*m_class;
 }				t_lexer;
 
-enum	token_type
+enum    token_type
 {
 	EXPRESS = 3,
 	FT_ERROR = -2,
@@ -42,19 +42,24 @@ enum	token_type
 	PIPE = 8,
 	DBRK = 10,
 	BRK = 9,
-	RBRK = 11
+	RBRK = 11,
+	LARED = 12,
+	RARED = 13,
+	LCOPER = 15,
+	LAOPER = 16
 };
 
 typedef enum token_type		token_type;
 
-enum	token_class
+enum    token_class
 {
 	C_OTHER = 0,
 	C_FT_ERROR = 1,
 	C_SEP = 2,
 	C_EXPRESS = 3,
 	C_REDIR = 4,
-	C_BRK = 5
+	C_BRK = 5,
+	C_LOGOPER = 6
 };
 
 typedef enum	token_class	token_class;
