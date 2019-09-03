@@ -6,68 +6,112 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/05 18:45:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 21:41:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	parse_string(t_term *term)
+t_node		*parser(char *str)
 {
-	char	*new_command;
-	char	*buffer;
+	t_node		*ast;
+	t_token		*token;
+	t_string	string;
 
-	buffer = term->buffer;
-	while ((new_command = ft_strchr(buffer, ';')))
+	if (!str)
+		return (NULL);
+	g_parser_flags = INIT_FLAGS;
+	string.index = 0;
+	string.str = str;
+	ast = statement_list(&string);
+	if (g_parser_flags & PARSER_ERROR)
 	{
-		if (buffer != new_command)
-		{
-			*new_command = '\0';
-			make_command(buffer, term);
-		}
-		buffer = ++new_command;
+		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
+		return (ast);
 	}
-	make_command(buffer, term);
+	if (!check_token_type(token = get_next_token(&string, g_lexer), EOL))
+	{
+		g_parser_flags |= PARSER_ERROR;
+		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
+	}
+	free_token(&token);
+	return (ast);
 }
 
-void	make_command(char *buff, t_term *term)
+t_node		*statement_list(t_string *str)
 {
-	char	**args;
-	short	i;
+	t_token	*token;
+	t_node	*ast;
+	short	copy;
 
-	if (!buff || !(*buff) || !(args = ft_strsplit(buff, ' ')))
-		return ;
-	i = -1;
-	while (args[++i])
-		args[i] = spec_symbols(args[i]);
-	find_command(args, term);
-	ft_free_dar(args);
+	ast = statement(str);
+	if (g_parser_flags & PARSER_ERROR)
+		return (ast);
+	copy = str->index;
+	token = get_next_token(str, g_lexer);
+	if (check_token_type(token, FT_ERROR) ||
+	!check_token_type(token, SEP))
+	{
+		if (check_token_type(token, FT_ERROR))
+			g_parser_flags |= PARSER_ERROR;
+		str->index = copy;
+		free_token(&token);
+		return (ast);
+	}
+	return (init_node(ast, token, statement_list(str)));
 }
 
-char	*spec_symbols(char *args)
+t_node		*statement(t_string *str)
 {
-	char	*path;
-	char	*arr;
+	t_node	*ast;
 
-	if (*args == '~')
+	ast = thread_statement(str);
+	return (ast);
+}
+
+t_node		*thread_statement(t_string *str)
+{
+	t_node	*ast;
+	t_token	*token;
+	short	copy;
+
+	if (!(ast = pipe_ast(str)) || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	copy = str->index;
+	token = get_next_token(str, g_lexer);
+	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_REDIR))
 	{
-		if ((path = ft_getenv("HOME")))
-		{
-			arr = args;
-			if (!(args = ft_strjoin(path, arr + 1)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
+		if (check_token_type(token, FT_ERROR))
+			g_parser_flags |= PARSER_ERROR;
+		str->index = copy;
+		free_token(&token);
+		return (ast);
 	}
-	if (*args == '$' && args + 1)
+	ast = init_node(ast, token, expr(str));
+	if (!(ast->right))
+		g_parser_flags |= PARSER_ERROR;
+	return (ast);
+}
+
+t_node		*pipe_ast(t_string *str)
+{
+	t_node	*ast;
+	t_token	*token;
+	short	copy;
+
+	ast = expr(str);
+	if (!ast || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	copy = str->index;
+	token = get_next_token(str, g_lexer);
+	if (check_token_type(token, FT_ERROR) ||
+	!check_token_type(token, PIPE))
 	{
-		if ((path = ft_getenv(args + 1)))
-		{
-			arr = args;
-			if (!(args = ft_strdup(path)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
+		if (check_token_type(token, FT_ERROR))
+			g_parser_flags |= PARSER_ERROR;
+		str->index = copy;
+		free_token(&token);
+		return (ast);
 	}
-	return (args);
+	return (init_node(ast, token, pipe_ast(str)));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/08/04 00:16:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/01 20:32:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	term_prompt(short history_len, char *name)
 {
-	if (ft_getenv("PS1"))
-		write_prompt(ft_getenv("PS1"), history_len, name);
+	char	*prompt;
+	if ((prompt = ft_getenv("PS1")))
+		write_prompt(prompt, history_len, name);
 	else
 		standart_prompt();
 }

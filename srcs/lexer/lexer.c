@@ -3,37 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:29:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/01 18:41:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/02 21:58:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_shell.h"
 
-t_token		*get_next_token(char *str, short reset, t_lexer *lexer)
+t_token		*get_next_token(t_string *str, t_lexer *lexer)
 {
-	static int		start_index;
 	t_lexer_params	prm;
 
-	if (reset)
-		start_index = 0;
 	if (!str || !lexer)
 		return (NULL);
-	initial_lexer_params(&prm, start_index);
+	initial_lexer_params(&prm, str->index);
 	while (1)
 	{
 		prm.type = prm.state;
-		prm.state = next_state(str[prm.index], prm.state, lexer->m_type);
+		prm.state = next_state(str->str[prm.index], prm.state, lexer->m_type);
 		if (prm.state == -1)
-			return ready_token(str, &start_index, prm, lexer->m_class);
+			return (ready_token(str, prm, lexer->m_class));
 		if (prm.state == -2)
 			return token_error();
-		prm.index++;
+		if (str->str[prm.index])
+			prm.index++;
 	}
-	start_index = 0;
-	return eof_token();
 }
 
 void		initial_lexer_params(t_lexer_params *prm, int start_index)
@@ -65,7 +61,7 @@ t_token		*new_token(void)
 	return (token);
 }
 
-t_token		*ready_token(char *str, int *start_index, t_lexer_params prm, t_matrix *m_class)
+t_token		*ready_token(t_string *str, t_lexer_params prm, t_matrix *m_class)
 {
 	t_token *token;
 	int		len;
@@ -74,15 +70,12 @@ t_token		*ready_token(char *str, int *start_index, t_lexer_params prm, t_matrix 
 	if (!(token = new_token()))
 		return (NULL);
 	len = prm.index - prm.start_index;
-	token->lexeme = ft_strsub(str, prm.start_index, len);
+	token->lexeme = ft_strsub(str->str, prm.start_index, len);
 	token->type = prm.type;
 	if ((class = define_class(prm.type, m_class)) == -2)
 		return class_error(&token);
 	token->class = class;
-	if (token->type == EOL)
-		*start_index = 0;
-	else
-		*start_index = prm.index;
+	str->index = prm.index;
 	return (token);
 }
 
@@ -128,18 +121,18 @@ t_token		*eof_token(void)
 
 // debug
 
-void		print_token(char *str)
+void		print_token(t_string *str)
 {
 	t_token	*token;
 
-	if (!(token = get_next_token(str, 0, g_lexer)))
+	if (!(token = get_next_token(str, g_lexer)))
 		return ;
 	ft_putchar('\n');
 	ft_putstr(token->lexeme);
 	ft_putchar('\n');
 	while (token)
 	{
-		if (!(token = get_next_token(str, 0, g_lexer)))
+		if (!(token = get_next_token(str, g_lexer)))
 			return ;
 		if (token->type == FT_ERROR)
 		{

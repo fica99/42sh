@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buff_editing.c                                     :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 17:22:16 by aashara-         ###   ########.fr       */
+/*   Created: 2019/08/29 13:35:54 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/02 22:04:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char		*copy_from_buff(char *buffer, char *new_buffer, short start,
-short end)
+t_node		*expr(t_string *str)
 {
-	short	j;
+	t_node	*node;
+	t_token	*token;
+	short	copy;
 
-	j = 0;
-	while (start <= end)
-		new_buffer[j++] = buffer[start++];
-	return (new_buffer);
-}
-
-char		check_print_arr(char *arr)
-{
-	short	i;
-
-	if (!arr || !*arr)
-		return (0);
-	i = -1;
-	while (arr[++i])
+	copy = str->index;
+	token = get_next_token(str, g_lexer);
+	if (check_token_type(token, FT_ERROR) || !check_token_type(token, EXPRESS))
 	{
-		if (ft_isprint(arr[i]) && arr[i] != ' ')
-			return (1);
+		if (check_token_type(token, FT_ERROR))
+			g_parser_flags |= PARSER_ERROR;
+		str->index = copy;
+		free_token(&token);
+		return (NULL);
 	}
-	return (0);
+	node = init_node(NULL, token, NULL);
+	return (node);
 }

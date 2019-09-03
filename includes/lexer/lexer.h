@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/01 20:02:27 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/03 20:08:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 # define LEXER_COLS 100
 # define LEXER_ROWS 200
+# define LEXER_MATRIX_PATH "./srcs/lexer/lexer_matrix"
 
 typedef struct	s_matrix
 {
@@ -91,11 +92,11 @@ char		*get_start_position(char *line);
 int			check_coll(char *position);
 
 //lexer
-t_token		*get_next_token(char *str, short reset, t_lexer *lexer);
+t_token		*get_next_token(t_string *str, t_lexer *lexer);
 void		initial_lexer_params(t_lexer_params *prm, int start_index);
 int			next_state(char symbol, int state, t_matrix *m_type);
 t_token		*new_token(void);
-t_token		*ready_token(char *str, int *start_index, t_lexer_params prm, t_matrix *m_class);
+t_token		*ready_token(t_string *str, t_lexer_params prm, t_matrix *m_class);
 int			define_class(int type, t_matrix *m_class);
 t_token		*token_error(void);
 t_token		*class_error(t_token **token);
@@ -103,6 +104,6 @@ t_token		*eof_token(void);
 
 //debug
 void		print_matrix(t_matrix *matrix);
-void		print_token(char *str);
+void		print_token(t_string *str);
 
 #endif
