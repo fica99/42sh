@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/09/02 17:58:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/03 18:41:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,12 @@ char	*print_printable(char *c, char *buffer, t_cord *cord)
 		autocomplite(NULL, NULL);
 		if (*c == BCSP || *c == CTRL_H)
 			go_left(1, cord);
-		if (!ft_strlen(buffer) && *c == CTRL_D)
+		if ((!ft_strlen(buffer) || (g_line_flags & HEREDOC_FLAG))
+		&& *c == CTRL_D)
 		{
-			g_flags |= TERM_EXIT;
+			g_line_flags |= BREAK_FLAG;
+			if (!ft_strlen(buffer))
+				g_flags |= TERM_EXIT;
 			return (SOMETHING);
 		}
 		del_symb(buffer, cord);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/02 20:46:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/03 18:49:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		reading(t_line *line)
 		if (!print_symbols(c, line))
 			if (!print_move(c, line->buffer.buffer, line->cord))
 				print_printable(c, line->buffer.buffer, line->cord);
-		if (g_flags & TERM_EXIT)
+		if ((g_flags & TERM_EXIT) || (g_line_flags & BREAK_FLAG))
 			break ;
 	}
 }

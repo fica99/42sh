@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/02 20:03:01 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/03 20:22:25 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,13 @@ srcs_hash_table := hash_table/hash_table.c\
 srcs_history := history/make_history.c\
 		history/make_history2.c\
 
-srcs_parser := parser/parse.c\
+srcs_parser := parser/ast.c\
 		parser/init_free_parser.c\
-		parser/ast.c\
+		parser/ast_other.c\
 
 srcs_interpretator := interpretator/interpretator.c\
+		interpretator/redir.c\
+		interpretator/pipes.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
