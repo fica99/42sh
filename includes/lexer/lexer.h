@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/03 23:03:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/04 18:55:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef struct	s_lexer
 
 enum    token_type
 {
-	EXPRESS = 3,
 	FT_ERROR = -2,
 	SEP = 1,
 	EOL = 2,
+	EXPRESS = 3,
 	LRED = 4,
 	DLRED = 5,
 	RRED = 6,
@@ -48,7 +48,9 @@ enum    token_type
 	LCOPER = 15,
 	LAOPER = 16,
 	NUM = 17,
-	DEF = 18
+	DEF = 18,
+	ERRED = 19,
+	DERRED = 20
 };
 
 typedef enum token_type		token_type;

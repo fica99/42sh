@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:29:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/02 21:58:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/04 17:10:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,11 @@ void		print_token(t_string *str)
 	if (!(token = get_next_token(str, g_lexer)))
 		return ;
 	ft_putchar('\n');
+	ft_putstr("lexeme: ");
 	ft_putstr(token->lexeme);
+	ft_putchar('\n');
+	ft_putstr("type: ");
+	ft_putnbr(token->type);
 	ft_putchar('\n');
 	while (token)
 	{
@@ -146,7 +150,11 @@ void		print_token(t_string *str)
 			ft_putchar('\n');
 			return ;
 		}
+		ft_putstr("lexeme: ");
 		ft_putstr(token->lexeme);
+		ft_putchar('\n');
+		ft_putstr("type: ");
+		ft_putnbr(token->type);
 		ft_putchar('\n');
 	}
 	return ;

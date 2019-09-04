@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/03 23:16:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/04 19:12:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_node		*parser(char *str)
 	g_parser_flags = INIT_FLAGS;
 	string.index = 0;
 	string.str = str;
-	print_token(&string);
+//	print_token(&string);
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{
@@ -90,11 +90,9 @@ t_node		*thread_statement(t_string *str)
 		return (ast);
 	}
 	if (!(end = expr(str)))
-		end = aggr_fd(str);
-	ast = init_node(ast, token, end);
-	if (!(ast->right))
-		g_parser_flags |= PARSER_ERROR;
-	return (ast);
+		if (!(end = num_def(str)))
+			g_parser_flags |= PARSER_ERROR;
+	return (init_node(ast, token, end));
 }
 
 t_node		*pipe_ast(t_string *str)
