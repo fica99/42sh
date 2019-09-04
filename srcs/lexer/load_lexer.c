@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:18:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/01 19:05:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 15:36:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,4 +182,32 @@ void		print_matrix(t_matrix *matrix)
 		}
 		ft_putchar('\n');
 	}
+}
+
+void		clear_lexer(t_lexer **lexer)
+{
+	clear_matrix(&((*lexer)->m_type));
+	clear_matrix(&((*lexer)->m_class));
+	free(*lexer);
+	lexer = NULL;
+}
+
+void		clear_matrix(t_matrix **matrix)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < (*matrix)->rows)
+	{
+		j =0;
+		while (j < (*matrix)->cols)
+		{
+			(*matrix)->data[i][j++] = 0;
+		}
+		free((*matrix)->data[i++]);
+	}
+	free((*matrix)->data);
+	free(*matrix);
+	matrix = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/03 20:08:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:56:10 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LEXER_H
 # define LEXER_COLS 100
 # define LEXER_ROWS 200
+# define LEXER_STR_LEN 256
 # define LEXER_MATRIX_PATH "./srcs/lexer/lexer_matrix"
 
 typedef struct	s_matrix
@@ -31,22 +32,18 @@ typedef struct	s_lexer
 
 enum    token_type
 {
-	EXPRESS = 3,
 	FT_ERROR = -2,
 	SEP = 1,
 	EOL = 2,
+	EXPRESS = 3,
 	LRED = 4,
 	DLRED = 5,
 	RRED = 6,
 	DRRED = 7,
 	PIPE = 8,
-	DBRK = 10,
-	BRK = 9,
-	RBRK = 11,
-	LARED = 12,
-	RARED = 13,
-	LCOPER = 15,
-	LAOPER = 16
+	ARRED = 16,
+	ERRED = 18,
+	DERRED = 19
 };
 
 typedef enum token_type		token_type;
@@ -73,10 +70,11 @@ typedef struct	s_token
 
 typedef struct	s_lexer_params
 {
-	int	start_index;
-	int	index;
-	int	state;
-	int	type;
+	int		index;
+	int		state;
+	int		type;
+	int		s_index;
+	char	str[LEXER_STR_LEN];
 }				t_lexer_params;
 
 //load_matrix
@@ -90,11 +88,15 @@ int			**create_lexer_matrix(int rows, int cols);
 int			load_new_line(t_matrix *matrix, char *line);
 char		*get_start_position(char *line);
 int			check_coll(char *position);
+void		clear_lexer(t_lexer **lexer);
+void		clear_matrix(t_matrix **matrix);
 
 //lexer
 t_token		*get_next_token(t_string *str, t_lexer *lexer);
 void		initial_lexer_params(t_lexer_params *prm, int start_index);
 int			next_state(char symbol, int state, t_matrix *m_type);
+int			go_ahead(char *str, int up_index, int up_type, t_matrix *m_type);
+int			add_symbol(t_lexer_params *prm, char sym);
 t_token		*new_token(void);
 t_token		*ready_token(t_string *str, t_lexer_params prm, t_matrix *m_class);
 int			define_class(int type, t_matrix *m_class);
