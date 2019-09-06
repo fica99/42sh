@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/04 19:12:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/06 19:21:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_node		*parser(char *str)
 	g_parser_flags = INIT_FLAGS;
 	string.index = 0;
 	string.str = str;
-//	print_token(&string);
+	//print_token(&string);
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{
@@ -50,8 +50,8 @@ t_node		*statement_list(t_string *str)
 		return (ast);
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) ||
-	!check_token_type(token, SEP))
+	if (check_token_type(token, FT_ERROR) || check_token_type(token, EOL)
+	|| !check_token_class(token, C_SEP))
 	{
 		if (check_token_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
@@ -80,6 +80,7 @@ t_node		*thread_statement(t_string *str)
 	if (!(ast = pipe_ast(str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
 	copy = str->index;
+	end = NULL;
 	token = get_next_token(str, g_lexer);
 	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_REDIR))
 	{
@@ -89,10 +90,13 @@ t_node		*thread_statement(t_string *str)
 		free_token(&token);
 		return (ast);
 	}
-	if (!(end = expr(str)))
-		if (!(end = num_def(str)))
-			g_parser_flags |= PARSER_ERROR;
-	return (init_node(ast, token, end));
+	if (check_token_type(token, LARED) || check_token_type(token, RARED))
+		end = num_def(str);
+	if (!end && !(end = expr(str)))
+		g_parser_flags |= PARSER_ERROR;
+	if (end)
+		ast = init_node(ast, token, end);
+	return (ast);
 }
 
 t_node		*pipe_ast(t_string *str)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errno.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/07/31 14:27:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/06 20:02:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_perror(char *str)
 {
 	ft_putstr_fd(str, STDERR_FILENO);
+	if (g_errno_f && str)
+		ft_putstr_fd(": ", STDERR_FILENO);
 	if (g_errno_f)
 		pr_gen_perror();
 }
@@ -22,12 +24,14 @@ void	ft_perror(char *str)
 void	pr_gen_perror(void)
 {
 	int		err;
-	char	*str[4];
+	char	*str[5];
 
 	str[0] = ": No such file or directory";
 	str[1] = ": Cannot allocate memory";
 	str[2] = ": Bad address (POSIX.1-2001)";
 	str[3] = ": Permission denied";
+	str[4] = "Bad file descriptor";
+
 	err = -1;
 	if (g_errno_f == ENOENT)
 		err = 0;
@@ -35,6 +39,8 @@ void	pr_gen_perror(void)
 		err = 1;
 	else if (g_errno_f == EFAULT)
 		err = 2;
+	else if (g_errno_f == EBADF)
+		err = 4;
 	else
 		err = 3;
 	ft_putstr_fd(str[err], STDERR_FILENO);

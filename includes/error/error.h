@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/08/27 15:11:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/06 19:32:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define NOERROR 0
 # define ENOENT 2
+# define EBADF 9
 # define ENOMEM 12
 # define EACCES 13
 # define EFAULT 14
