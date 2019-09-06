@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/06 20:10:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/06 21:48:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,61 +18,42 @@ void	redir_op(t_node *ast, t_term *term)
 	int		back_fd;
 	int		new_fd;
 
-	new_fd = -1;
-	if ((fd = get_thread_fds(ast, &new_fd)) == -1)
+	if (check_token_type(ast->token, ERRED) ||
+	check_token_type(ast->token, DERRED))
+		new_fd = STDERR_FILENO;
+	else if (check_token_type(ast->token, RRED) ||
+	check_token_type(ast->token, DRRED))
+		new_fd = STDOUT_FILENO;
+	else if (check_token_type(ast->token, LRED) ||
+	check_token_type(ast->token, DLRED))
+		new_fd = STDIN_FILENO;
+	else
+	{
+		amp_red(ast, term);
 		return ;
+	}
+	if ((fd = get_expr_fd(ast)) == -1)
+		return ;
+	back_fd = copy_fd(fd, new_fd);
+	interpret_ast(ast->left, term);
+	restore_fd(back_fd, new_fd);
+}
+
+int		copy_fd(int fd, int new_fd)
+{
+	int	back_fd;
+
 	if ((back_fd = dup(new_fd)) == -1)
 		print_error("42sh", "dup() error", NULL, NOERROR);
 	if (dup2(fd, new_fd) == -1)
 		print_error("42sh", "dup2() error", NULL, NOERROR);
-	interpret_ast(ast->left, term);
+	return (back_fd);
+}
+
+void	restore_fd(int back_fd, int new_fd)
+{
 	if (dup2(back_fd, new_fd) == -1)
 		print_error("42sh", "dup2() error", NULL, NOERROR);
-}
-
-int		get_thread_fds(t_node *ast, int *new_fd)
-{
-	int		fd;
-
-	if (check_token_type(ast->token, ERRED) ||
-	check_token_type(ast->token, DERRED))
-		*new_fd = STDERR_FILENO;
-	if (check_token_type(ast->token, RARED) ||
-	check_token_type(ast->token, RRED) || check_token_type(ast->token, DRRED))
-		*new_fd = STDOUT_FILENO;
-	if (check_token_type(ast->token, LARED) ||
-	check_token_type(ast->token, LRED) || check_token_type(ast->token, DLRED))
-		*new_fd = STDIN_FILENO;
-	if ((fd = get_num_fd(ast)) == -1)
-		fd = get_expr_fd(ast);
-	return (fd);
-}
-
-int		get_num_fd(t_node *ast)
-{
-	int		fd;
-	t_node	*aggr;
-
-	aggr = ast->right;
-	fd = -1;
-	if (check_token_type(ast->token, RARED) || check_token_type(ast->token, LARED))
-	{
-		if (check_token_type(aggr->token, DEF))
-		{
-			if (!(fd = open("/dev/null", 0)))
-				print_error("42sh", "open() error", "/dev/null", 0);
-		}
-		else if (check_token_type(aggr->token, NUM))
-		{
-			fd = ft_atoi(aggr->token->lexeme);
-			if (fd < 0 || fd >= 3)
-			{
-				print_error_withoutexit("42sh", "Syntax error", NULL, EBADF);
-				return (-1);
-			}
-		}
-	}
-	return (fd);
 }
 
 int		get_expr_fd(t_node *ast)
@@ -84,19 +65,17 @@ int		get_expr_fd(t_node *ast)
 	fd = -1;
 	if (check_token_type(expr->token, EXPRESS))
 	{
-		if (check_token_type(ast->token, LRED) || check_token_type(ast->token, LARED))
-			if (!(fd = open_red_file(expr->token->lexeme,
-			ast->token->type, LRED_OPEN, 0)))
-				return (-1);
-		if (check_token_type(ast->token, RRED) || check_token_type(ast->token, ERRED)
-		|| check_token_type(ast->token, RARED))
-			if (!(fd = open_red_file(expr->token->lexeme,
-			ast->token->type, RRED_OPEN, PERM_MODE)))
-				return (-1);
-		if (check_token_type(ast->token, DRRED) || check_token_type(ast->token, DERRED))
-			if (!(fd = open_red_file(expr->token->lexeme,
-			ast->token->type, DRRED_OPEN, PERM_MODE)))
-				return (-1);
+		if (check_token_type(ast->token, LRED))
+			fd = open_red_file(expr->token->lexeme,
+			ast->token->type, LRED_OPEN, 0);
+		if (check_token_type(ast->token, RRED) ||
+		check_token_type(ast->token, ERRED))
+			fd = open_red_file(expr->token->lexeme,
+			ast->token->type, RRED_OPEN, PERM_MODE);
+		if (check_token_type(ast->token, DRRED) ||
+		check_token_type(ast->token, DERRED))
+			fd = open_red_file(expr->token->lexeme,
+			ast->token->type, DRRED_OPEN, PERM_MODE);
 	}
 	return (fd);
 }
@@ -110,12 +89,12 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 		if (access(name, F_OK))
 		{
 			print_error_withoutexit("42sh", NULL, name, ENOENT);
-			return (0);
+			return (-1);
 		}
 		if (access(name, R_OK))
 		{
 			print_error_withoutexit("42sh", NULL, name, EACCES);
-			return (0);
+			return (-1);
 		}
 	}
 	if ((fd = open(name, acc, mode)) == -1)

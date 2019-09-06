@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/03 20:22:25 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/06 22:02:56 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ srcs_parser := parser/ast.c\
 srcs_interpretator := interpretator/interpretator.c\
 		interpretator/redir.c\
 		interpretator/pipes.c\
+		interpretator/amp_redir.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\

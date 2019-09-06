@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/06 19:21:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/06 22:00:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ t_node		*thread_statement(t_string *str)
 		free_token(&token);
 		return (ast);
 	}
-	if (check_token_type(token, LARED) || check_token_type(token, RARED))
+	if (check_token_type(token, LREDA) || check_token_type(token, RREDA))
 		end = num_def(str);
-	if (!end && !(end = expr(str)))
+	else
+		end = expr(str);
+	if (!end)
 		g_parser_flags |= PARSER_ERROR;
-	if (end)
-		ast = init_node(ast, token, end);
-	return (ast);
+	return (init_node(ast, token, end));
 }
 
 t_node		*pipe_ast(t_string *str)
