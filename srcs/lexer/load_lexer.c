@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:18:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/01 19:05:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 19:21:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,4 +182,32 @@ void		print_matrix(t_matrix *matrix)
 		}
 		ft_putchar('\n');
 	}
+}
+
+void		clear_lexer(t_lexer **lexer)
+{
+	clear_matrix(&((*lexer)->m_type));
+	clear_matrix(&((*lexer)->m_class));
+	free(*lexer);
+	lexer = NULL;
+}
+
+void		clear_matrix(t_matrix **matrix)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < LEXER_ROWS)
+	{
+		j =0;
+		while (j < LEXER_COLS)
+		{
+			(*matrix)->data[i][j++] = 0;
+		}
+		free((*matrix)->data[i++]);
+	}
+	free((*matrix)->data);
+	free(*matrix);
+	matrix = NULL;
 }

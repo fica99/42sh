@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/07 17:29:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 19:18:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int argc, char **argv, char **environ)
 		free_history(&(term.history));
 	}
 	free_my_hash_table(term.hash_table, &term.hash_table_size);
+	clear_lexer(&g_lexer);
 	term.hash_table = NULL;
 	ft_free_dar(g_argv);
 	ft_free_dar(g_env);

@@ -1,2 +1,2 @@
-			||	BEGIN=0	|	SEP=1	|	EOL=2	|	EXPRESS=3	|	LRED(<)=4	|	DLRED(<<)=5	|	RRED(>)=6	|	DRRED(>>)=7	|	PIPE(|)=8	|	BRK(')=9	|	DBRK(")=10	|	RBRK(`)=11	|	LARED(<&)=12	|	RARED(>&)=13	|	(&)=14	|	LCOPER(&&)=15	|	LAOPER(||)=16	|	NUM=17	|	DEF(-)=18	|	ERRED(2>)=19	|	DERRED(2>>)=20	|
-	classes	||		0	|		2	|		0	|		3		|		4		|		4		|		4		|		4		|		0		|		5		|		5		|		5		|		4			|		4			|		0	|		6			|		6			|		3	|		0		|		4			|		4			|
+			||	BEGIN=0	|	SEP=1	|		EOL=2	|	EXPRESS=3	|	LRED(<)=4	|	DLRED(<<)=5	|	RRED(>)=6	| 	DRRED(>>)=7	|	PIPE(|)=8	|	BRKO(')=9	|	BRKC(')=10	|	DBRKO(")=11	|	DBRKC(")=12	|	RBRKO(`)=13	|	RBRKC(`)=14	|	(&)=15	|	ARRED(&>)=16	|	(2)=17	|	ERRED(2>)=18	|	DERRED(2>>)=19	|
+	classes	||		0	|		2	|		0		|		3		|		4		|		4		|		4		|		4		|		4		|		0		|		0		|		0		|		0		|		0		|		0		|		0	|		4			|		0	|		4			|		4			|

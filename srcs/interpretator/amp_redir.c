@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 21:25:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/07 17:06:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:56:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	amprred_op(t_node *ast, t_term *term)
 	int		back_fd;
 	int		fd;
 	int		back_fd_two;
+	t_node	*new_ast;
 	t_node	*expr;
 
 	expr = ast->right;
@@ -38,9 +39,11 @@ void	amprred_op(t_node *ast, t_term *term)
 			return ;
 		back_fd = copy_fd(fd, STDOUT_FILENO);
 		back_fd_two = copy_fd(fd, STDERR_FILENO);
-		interpret_ast(ast->left, term);
+		new_ast = exec_redir_command(ast, term);
 		restore_fd(back_fd, STDOUT_FILENO);
 		restore_fd(back_fd_two, STDERR_FILENO);
+		if (new_ast != ast)
+			interpret_ast(ast->left, term);
 	}
 }
 
