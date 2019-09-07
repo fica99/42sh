@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/06 22:00:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:21:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ t_node		*statement_list(t_string *str)
 		return (ast);
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) || check_token_type(token, EOL)
-	|| !check_token_class(token, C_SEP))
+	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_SEP))
 	{
 		if (check_token_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
@@ -73,14 +72,20 @@ t_node		*statement(t_string *str)
 t_node		*thread_statement(t_string *str)
 {
 	t_node	*ast;
+
+	ast = pipe_statement(str);
+	if (!ast || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	return (redir_statement(ast, str));
+}
+
+t_node		*redir_statement(t_node *ast, t_string *str)
+{
+	t_node	*right;
 	t_token	*token;
-	t_node	*end;
 	short	copy;
 
-	if (!(ast = pipe_ast(str)) || (g_parser_flags & PARSER_ERROR))
-		return (ast);
 	copy = str->index;
-	end = NULL;
 	token = get_next_token(str, g_lexer);
 	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_REDIR))
 	{
@@ -90,34 +95,11 @@ t_node		*thread_statement(t_string *str)
 		free_token(&token);
 		return (ast);
 	}
-	if (check_token_type(token, LREDA) || check_token_type(token, RREDA))
-		end = num_def(str);
-	else
-		end = expr(str);
-	if (!end)
-		g_parser_flags |= PARSER_ERROR;
-	return (init_node(ast, token, end));
-}
-
-t_node		*pipe_ast(t_string *str)
-{
-	t_node	*ast;
-	t_token	*token;
-	short	copy;
-
-	ast = expr(str);
-	if (!ast || (g_parser_flags & PARSER_ERROR))
-		return (ast);
-	copy = str->index;
-	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) ||
-	!check_token_type(token, PIPE))
+	if (!(right = expr(str)))
 	{
-		if (check_token_type(token, FT_ERROR))
-			g_parser_flags |= PARSER_ERROR;
-		str->index = copy;
 		free_token(&token);
 		return (ast);
 	}
-	return (init_node(ast, token, pipe_ast(str)));
+	ast = init_node(ast, token, right);
+	return (redir_statement(ast, str));
 }

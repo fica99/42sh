@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/06 21:54:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:10:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ void	right_child(int *pid, int *pipes, t_node *expr, t_term *term);
 **	redir.c
 */
 void	redir_op(t_node *ast, t_term *term);
+t_node	*exec_redir_command(t_node *ast, t_term *term);
+int		get_expr_fd(t_node *ast);
+int		open_red_file(char *name, token_type red_type, int acc, int mode);
+/*
+**	dup_fd.c
+*/
 int		copy_fd(int fd, int new_fd);
 void	restore_fd(int back_fd, int new_fd);
-int		open_red_file(char *name, token_type red_type, int acc, int mode);
-int		get_expr_fd(t_node *ast);
 /*
 **	fd_redir.c
 */

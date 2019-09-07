@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/04 18:55:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 17:06:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ enum    token_type
 	NUM = 17,
 	DEF = 18,
 	ERRED = 19,
-	DERRED = 20
+	DERRED = 20,
+	ARRED = 21
 };
 
 typedef enum token_type		token_type;

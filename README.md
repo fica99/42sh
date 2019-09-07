@@ -30,6 +30,10 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 ## Features
 
 * Separator `;`\.
+* Redirections `>`, `<`, `>>`, `2>`, `2>>` and `&>`\.
+* Several redirections `[command] [redirection] <filename> [redirection] <filename2> ...`\.
+* Pipe `|`\.
+* Several pipes `[command] [pipe] [command] [pipe] [command] ...`\.
 * Inhibitors `"`, `'` and `\`\.
 
 ### Line edition hotkeys:

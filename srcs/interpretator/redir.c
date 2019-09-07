@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/06 21:48:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/07 18:05:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	redir_op(t_node *ast, t_term *term)
 	int		fd;
 	int		back_fd;
 	int		new_fd;
+	t_node	*new_ast;
 
 	if (check_token_type(ast->token, ERRED) ||
 	check_token_type(ast->token, DERRED))
@@ -24,8 +25,7 @@ void	redir_op(t_node *ast, t_term *term)
 	else if (check_token_type(ast->token, RRED) ||
 	check_token_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
-	else if (check_token_type(ast->token, LRED) ||
-	check_token_type(ast->token, DLRED))
+	else if (check_token_type(ast->token, LRED))
 		new_fd = STDIN_FILENO;
 	else
 	{
@@ -35,25 +35,21 @@ void	redir_op(t_node *ast, t_term *term)
 	if ((fd = get_expr_fd(ast)) == -1)
 		return ;
 	back_fd = copy_fd(fd, new_fd);
-	interpret_ast(ast->left, term);
+	new_ast = exec_redir_command(ast, term);
 	restore_fd(back_fd, new_fd);
+	if (new_ast != ast)
+		interpret_ast(ast->left, term);
 }
 
-int		copy_fd(int fd, int new_fd)
+t_node	*exec_redir_command(t_node *ast, t_term *term)
 {
-	int	back_fd;
+	t_node *new_ast;
 
-	if ((back_fd = dup(new_fd)) == -1)
-		print_error("42sh", "dup() error", NULL, NOERROR);
-	if (dup2(fd, new_fd) == -1)
-		print_error("42sh", "dup2() error", NULL, NOERROR);
-	return (back_fd);
-}
-
-void	restore_fd(int back_fd, int new_fd)
-{
-	if (dup2(back_fd, new_fd) == -1)
-		print_error("42sh", "dup2() error", NULL, NOERROR);
+	new_ast = ast;
+	while (!check_token_type(new_ast->left->token, EXPRESS))
+		new_ast = new_ast->left;
+	interpret_ast(new_ast->left, term);
+	return (new_ast);
 }
 
 int		get_expr_fd(t_node *ast)
