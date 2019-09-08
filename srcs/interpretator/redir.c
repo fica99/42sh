@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/07 18:05:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 17:49:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ void	redir_op(t_node *ast, t_term *term)
 	int		new_fd;
 	t_node	*new_ast;
 
-	if (check_token_type(ast->token, ERRED) ||
-	check_token_type(ast->token, DERRED))
+	if (tk_type(ast->token, ERRED) || tk_type(ast->token, DERRED))
 		new_fd = STDERR_FILENO;
-	else if (check_token_type(ast->token, RRED) ||
-	check_token_type(ast->token, DRRED))
+	else if (tk_type(ast->token, RRED) || tk_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
-	else if (check_token_type(ast->token, LRED))
+	else if (tk_type(ast->token, LRED))
 		new_fd = STDIN_FILENO;
 	else
 	{
@@ -46,7 +44,7 @@ t_node	*exec_redir_command(t_node *ast, t_term *term)
 	t_node *new_ast;
 
 	new_ast = ast;
-	while (!check_token_type(new_ast->left->token, EXPRESS))
+	while (!tk_type(new_ast->left->token, EXPRESS))
 		new_ast = new_ast->left;
 	interpret_ast(new_ast->left, term);
 	return (new_ast);
@@ -59,17 +57,15 @@ int		get_expr_fd(t_node *ast)
 
 	expr = ast->right;
 	fd = -1;
-	if (check_token_type(expr->token, EXPRESS))
+	if (tk_type(expr->token, EXPRESS))
 	{
-		if (check_token_type(ast->token, LRED))
+		if (tk_type(ast->token, LRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, LRED_OPEN, 0);
-		if (check_token_type(ast->token, RRED) ||
-		check_token_type(ast->token, ERRED))
+		if (tk_type(ast->token, RRED) || tk_type(ast->token, ERRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, RRED_OPEN, PERM_MODE);
-		if (check_token_type(ast->token, DRRED) ||
-		check_token_type(ast->token, DERRED))
+		if (tk_type(ast->token, DRRED) || tk_type(ast->token, DERRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, DRRED_OPEN, PERM_MODE);
 	}

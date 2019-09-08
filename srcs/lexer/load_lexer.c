@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:18:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/07 19:21:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 13:26:26 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_lexer		*load_lexer(void)
 	if (!(lexer->m_type = get_matrix("srcs/lexer/types_matrix")))
 		return (NULL);
 	if (!(lexer->m_class = get_matrix("srcs/lexer/classes_matrix")))
+		return (NULL);
+	if (!(lexer->m_generalization = get_matrix("srcs/lexer/generalization_types_matrix")))
 		return (NULL);
 	return (lexer);
 }
@@ -58,6 +60,7 @@ t_matrix	*load_matrix_from_file(int fd)
 	res = get_next_line(fd, &line);
 	if (res == 0 || res == -1)
 		return (NULL);
+	free(line);
 	if (!(matrix = new_matrix()))
 		return (NULL);
 	while ((res = get_next_line(fd, &line)))
@@ -66,6 +69,7 @@ t_matrix	*load_matrix_from_file(int fd)
 			return (NULL);
 		if (!load_new_line(matrix, line))
 			return (NULL);
+		free(line);
 		matrix->rows++;
 	}
 	return (matrix);
@@ -188,6 +192,7 @@ void		clear_lexer(t_lexer **lexer)
 {
 	clear_matrix(&((*lexer)->m_type));
 	clear_matrix(&((*lexer)->m_class));
+	clear_matrix(&((*lexer)->m_generalization));
 	free(*lexer);
 	lexer = NULL;
 }
@@ -197,15 +202,13 @@ void		clear_matrix(t_matrix **matrix)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < LEXER_ROWS)
+	i = -1;
+	while (++i < LEXER_ROWS)
 	{
-		j =0;
-		while (j < LEXER_COLS)
-		{
-			(*matrix)->data[i][j++] = 0;
-		}
-		free((*matrix)->data[i++]);
+		j =-1;
+		while (++j < LEXER_COLS)
+			(*matrix)->data[i][j] = 0;
+		free((*matrix)->data[i]);
 	}
 	free((*matrix)->data);
 	free(*matrix);

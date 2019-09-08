@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:29:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/07 18:40:45 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/08 20:05:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ t_token		*get_next_token(t_string *str, t_lexer *lexer)
 	while (1)
 	{
 		prm.type = (prm.state == -3) ? prm.type : prm.state;
-		prm.state = next_state(str->str[prm.index], prm.type, lexer->m_type);
+		prm.state = next_state(str->str[prm.index], prm.type, lexer);
 		if (prm.state == -4)
-			prm.state = go_ahead(str->str, prm.index, prm.type, lexer->m_type);
+			prm.state = go_ahead(str->str, prm.index, prm.type, lexer);
 		if (prm.state > 0)
 			if (!(add_symbol(&prm, str->str[prm.index])))
 				return token_error();
 		if (prm.state == -1)
-			return (ready_token(str, prm, lexer->m_class));
+			return (ready_token(str, prm, lexer));
 		if (prm.state == -2)
 			return token_error();
 		if (str->str[prm.index])
@@ -46,32 +46,38 @@ void		initial_lexer_params(t_lexer_params *prm, int start_index)
 	prm->str[LEXER_STR_LEN - 1] = '\0';
 }
 
-int			go_ahead(char *str, int up_index, int up_type, t_matrix *m_type)
+int			go_ahead(char *str, int cur_index, int cur_type, t_lexer *lexer)
 {
 	int	index;
 	int	state;
 	int	type;
 
-	index = up_index;
+	index = cur_index;
 	state = 0;
 	type = 0;
-	if (!str || !m_type)
+	if (!str || !lexer->m_type)
 		return (-2);
 	while(1)
 	{
 		type = (state == -3) ? type : state;
-		state = next_state(str[index], type, m_type);
+		state = next_state(str[index], type, lexer);
 		if (state == -4)
-			state = go_ahead(str, index, type, m_type);
+			state = go_ahead(str, index, type, lexer);
 		if (state == -1)
-			return ((type == up_type) ? up_type : -1);
+		{
+			type = generalize_type(type, lexer->m_generalization);
+			return ((type == cur_type) ? cur_type : -1);
+		}
 		if (str[index])
 			index++;
 	}
 }
 
-int			next_state(char symbol, int state, t_matrix *m_type)
+int			next_state(char symbol, int state, t_lexer *lexer)
 {
+	t_matrix	*m_type;
+
+	m_type = lexer->m_type;
 	if (symbol < 0 && symbol >= m_type->rows)
 		return (-2);
 	if (state < 0 && state >= m_type->cols)
@@ -100,20 +106,28 @@ t_token		*new_token(void)
 	return (token);
 }
 
-t_token		*ready_token(t_string *str, t_lexer_params prm, t_matrix *m_class)
+t_token		*ready_token(t_string *str, t_lexer_params prm, t_lexer *lexer)
 {
 	t_token *token;
 	int		class;
 
 	if (!(token = new_token()))
 		return (NULL);
-	token->lexeme = ft_strdup(prm.str);
-	token->type = prm.type;
-	if ((class = define_class(prm.type, m_class)) == -2)
+	if (!(token->lexeme = ft_strtrim(prm.str)))
+		return (NULL);
+	token->type = generalize_type(prm.type, lexer->m_generalization);
+	if ((class = define_class(prm.type, lexer->m_class)) == -2)
 		return class_error(&token);
 	token->class = class;
 	str->index = prm.index;
 	return (token);
+}
+
+int			generalize_type(int type, t_matrix *m_generalization)
+{
+	if (type < 0 && type >= m_generalization->cols)
+		return (-2);
+	return (m_generalization->data[0][type]);
 }
 
 int			define_class(int type, t_matrix *m_class)

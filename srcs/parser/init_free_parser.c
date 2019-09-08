@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_free_parser.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:57:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/04 20:52:31 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/08 17:44:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		free_ast(t_node **ast)
 	}
 }
 
-char		*check_token_type(t_token *token, token_type type)
+char		*tk_type(t_token *token, token_type type)
 {
 	if (!token)
 		return (NULL);
@@ -45,7 +45,7 @@ char		*check_token_type(t_token *token, token_type type)
 	return (NULL);
 }
 
-char		*check_token_class(t_token *token, token_class class)
+char		*tk_class(t_token *token, token_class class)
 {
 	if (!token)
 		return (NULL);

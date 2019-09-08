@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/07 19:05:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 19:53:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 # define LEXER_COLS 100
 # define LEXER_ROWS 200
 # define LEXER_STR_LEN 256
-# define LEXER_MATRIX_PATH "./srcs/lexer/lexer_matrix"
+# define LEXER_SPACE 20
+# define LEXER_MATRIX_PATH "srcs/lexer/"
+
 
 typedef struct	s_matrix
 {
@@ -28,6 +30,7 @@ typedef struct	s_lexer
 {
 	t_matrix	*m_type;
 	t_matrix	*m_class;
+	t_matrix	*m_generalization;
 }				t_lexer;
 
 enum    token_type
@@ -43,7 +46,10 @@ enum    token_type
 	PIPE = 8,
 	ARRED = 16,
 	ERRED = 18,
-	DERRED = 19
+	DERRED = 19,
+	ADRRED = 21,
+	RREDA = 22,
+	DRREDA = 23
 };
 
 typedef enum token_type		token_type;
@@ -55,6 +61,7 @@ enum    token_class
 	C_SEP = 2,
 	C_EXPRESS = 3,
 	C_REDIR = 4,
+	C_CLOSE = 5
 };
 
 typedef enum	token_class	token_class;
@@ -92,11 +99,12 @@ void		clear_matrix(t_matrix **matrix);
 //lexer
 t_token		*get_next_token(t_string *str, t_lexer *lexer);
 void		initial_lexer_params(t_lexer_params *prm, int start_index);
-int			next_state(char symbol, int state, t_matrix *m_type);
-int			go_ahead(char *str, int up_index, int up_type, t_matrix *m_type);
+int			next_state(char symbol, int state, t_lexer *lexer);
+int			go_ahead(char *str, int cur_index, int cur_type, t_lexer *lexer);
 int			add_symbol(t_lexer_params *prm, char sym);
 t_token		*new_token(void);
-t_token		*ready_token(t_string *str, t_lexer_params prm, t_matrix *m_class);
+t_token		*ready_token(t_string *str, t_lexer_params prm, t_lexer *lexer);
+int			generalize_type(int type, t_matrix *m_generalization);
 int			define_class(int type, t_matrix *m_class);
 t_token		*token_error(void);
 t_token		*class_error(t_token **token);

@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/07 18:01:41 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/08 18:23:15 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ srcs_interpretator := interpretator/interpretator.c\
 		interpretator/pipes.c\
 		interpretator/amp_redir.c\
 		interpretator/dup_fd.c\
+		interpretator/closing_fd.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\

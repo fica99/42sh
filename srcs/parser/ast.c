@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/07 19:06:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 18:16:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_node		*parser(char *str)
 		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
 		return (ast);
 	}
-	if (!check_token_type(token = get_next_token(&string, g_lexer), EOL))
+	if (!tk_type(token = get_next_token(&string, g_lexer), EOL))
 	{
 		g_parser_flags |= PARSER_ERROR;
 		print_error_withoutexit("42sh", "Syntax error", NULL, NOERROR);
@@ -50,9 +50,9 @@ t_node		*statement_list(t_string *str)
 		return (ast);
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_SEP))
+	if (tk_type(token, FT_ERROR) || !tk_class(token, C_SEP))
 	{
-		if (check_token_type(token, FT_ERROR))
+		if (tk_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);
@@ -72,11 +72,23 @@ t_node		*statement(t_string *str)
 t_node		*thread_statement(t_string *str)
 {
 	t_node	*ast;
+	short	copy;
+	t_token	*token;
 
-	ast = pipe_statement(str);
-	if (!ast || (g_parser_flags & PARSER_ERROR))
+	if (!(ast = pipe_statement(str)) || (g_parser_flags & PARSER_ERROR) ||
+	!(ast = redir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
-	return (redir_statement(ast, str));
+	copy = str->index;
+	token = get_next_token(str, g_lexer);
+	if (tk_type(token, FT_ERROR) || !tk_class(token, C_CLOSE))
+	{
+		if (tk_type(token, FT_ERROR))
+			g_parser_flags |= PARSER_ERROR;
+		str->index = copy;
+		free_token(&token);
+		return (ast);
+	}
+	return (init_node(ast, token, NULL));
 }
 
 t_node		*redir_statement(t_node *ast, t_string *str)
@@ -87,9 +99,9 @@ t_node		*redir_statement(t_node *ast, t_string *str)
 
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_REDIR))
+	if (tk_type(token, FT_ERROR) || !tk_class(token, C_REDIR))
 	{
-		if (check_token_type(token, FT_ERROR))
+		if (tk_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);

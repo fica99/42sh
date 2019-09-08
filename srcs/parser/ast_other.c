@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:35:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/07 18:23:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 17:47:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ t_node		*pipe_statement(t_string *str)
 		return (ast);
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) ||
-	!check_token_type(token, PIPE))
+	if (tk_type(token, FT_ERROR) || !tk_type(token, PIPE))
 	{
-		if (check_token_type(token, FT_ERROR))
+		if (tk_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);
@@ -41,9 +40,9 @@ t_node		*expr(t_string *str)
 
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
-	if (check_token_type(token, FT_ERROR) || !check_token_class(token, C_EXPRESS))
+	if (tk_type(token, FT_ERROR) || !tk_class(token, C_EXPRESS))
 	{
-		if (check_token_type(token, FT_ERROR))
+		if (tk_type(token, FT_ERROR))
 			g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);
