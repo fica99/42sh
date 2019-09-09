@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/08 19:13:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 19:50:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	interpret_ast(t_node *ast, t_term *term)
 			redir_op(ast, term);
 		if (tk_type(ast->token, EXPRESS))
 			make_command(ast->token->lexeme, term);
-		// if (tk_class(ast->token, C_CLOSE))
-		// 	closing_fd(ast, term);
+		if (tk_class(ast->token, C_CLOSE))
+			closing_fd(ast, term);
 	}
 }

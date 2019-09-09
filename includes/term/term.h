@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/02 18:35:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:35:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ typedef struct	s_string
 
 struct s_line		g_line;
 
+/*
+**	ft_term.c
+*/
 void				term_start(t_term *term);
 void				init_term(void);
 void				init_global_var(char **argv, char **environ);

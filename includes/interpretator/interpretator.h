@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/08 18:24:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 20:10:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	amprred_op(t_node *ast, t_term *term);
 /*
 **	closing_fd.c
 */
-
-
+void	closing_fd(t_node *ast, t_term *term);
+void	get_close_fd(char *str, int *left_fd, int *right_fd);
 #endif

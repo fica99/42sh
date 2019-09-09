@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/08 18:16:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/08 21:52:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_node		*parser(char *str)
 	g_parser_flags = INIT_FLAGS;
 	string.index = 0;
 	string.str = str;
-	//print_token(&string);
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{

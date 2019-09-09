@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 17:22:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:50:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 # include <termios.h>
 # include <sys/types.h>
 
+/*
+**	buff_editing.c
+*/
+char			*copy_from_buff(char *buffer, char *new_buffer, short start,
+short end);
+char			check_print_arr(char *arr);
+
+
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			ft_setenv(char *name, char *new_value);
@@ -29,7 +37,4 @@ void			print_environ(void);
 char			*get_folder(void);
 char			*get_path(void);
 pid_t			make_process(void);
-char			check_print_arr(char *arr);
-char			*copy_from_buff(char *buffer, char *new_buffer, short start,
-short end);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/03 18:49:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:46:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void		read_prompt(t_term *term)
 {
-	g_line_flags = INIT_FLAGS;
 	set_input_mode(&g_raw_mode);
 	init_terminfo();
 	init_line(&g_line, term);
@@ -31,6 +30,7 @@ void		read_prompt(t_term *term)
 			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
 				print_error("42sh", "malloc() error", NULL, ENOMEM);
 		}
+		check_exist_hered(&term->buffer);
 	}
 	if (g_line.copy_buff.buffer)
 		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
@@ -92,7 +92,7 @@ void	init_terminfo(void)
 	char	*smkx_mode;
 
 	if ((smkx_mode = TRANSMIT_MODE) != (char*)-1
-		&& tigetstr("u7") != (char*)-1
+		&& CUR_CORD != (char*)-1
 	&& K_LFT != (char*)-1 && K_HOME != (char*)-1
 	&& K_RGHT != (char*)-1 && K_END != (char*)-1
 	&& SET_CUR != (char*)-1 && SAVE_CUR != (char*)-1

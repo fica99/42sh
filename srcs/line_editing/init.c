@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 17:22:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:46:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_buff(t_buff *buffer)
 
 void	init_line(t_line *line, t_term *term)
 {
+	g_line_flags = INIT_FLAGS;
 	line->copy_buff.buffer = term->copy_line;
 	line->copy_buff.malloc_len = ft_strlen(term->copy_line);
 	line->cord = init_cord();

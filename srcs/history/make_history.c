@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_history.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/10 19:08:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:40:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ void		make_history_buff(t_history *history)
 	S_IRUSR | S_IWUSR)) == -1)
 		print_error("42sh", "open() error", NULL, 0);
 	len = 0;
+	history->histsize = HISTSIZE;
 	if (ft_getenv("HISTSIZE"))
 		history->histsize = ft_atoi(ft_getenv("HISTSIZE"));
-	else
-		history->histsize = HISTSIZE;
+	history->histfilesize = HISTFILESIZE;
 	if (ft_getenv("HISTFILESIZE"))
 		history->histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"));
-	else
-		history->histfilesize = HISTFILESIZE;
 	if (!(buff = (char**)malloc(sizeof(char*) * (history->histsize + 1))))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
 	while (len != history->histsize && get_next_line(fd, &(buff[len])) > 0)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:29:29 by filip             #+#    #+#             */
-/*   Updated: 2019/07/03 15:25:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:57:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		go_to_cord(short x, short y, int fd)
 {
 	char	*cursor;
 
-	cursor = tigetstr("cup");
+	cursor = SET_CUR;
 	ft_putstr_fd(tparm(cursor, y, x), fd);
 }
 
