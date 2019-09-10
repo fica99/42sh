@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   dup_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/24 23:14:23 by filip             #+#    #+#             */
-/*   Updated: 2019/08/30 20:33:09 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/07 18:01:17 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/07 18:03:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+# include "ft_shell.h"
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
+int		copy_fd(int fd, int new_fd)
+{
+	int	back_fd;
 
-void	make_command(char *buff, t_term *term);
-char	*spec_symbols(char *args);
-void	find_command(char **args, t_term *term);
-char	*check_command(char **args);
-char	*check_bin(char **args, t_hash **hash_table, short hash_table_size);
-#endif
+	if ((back_fd = dup(new_fd)) == -1)
+		print_error("42sh", "dup() error", NULL, NOERROR);
+	if (dup2(fd, new_fd) == -1)
+		print_error("42sh", "dup2() error", NULL, NOERROR);
+	return (back_fd);
+}
+
+void	restore_fd(int back_fd, int new_fd)
+{
+	if (dup2(back_fd, new_fd) == -1)
+		print_error("42sh", "dup2() error", NULL, NOERROR);
+}

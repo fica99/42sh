@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/07/06 21:37:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 19:26:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		get_cur_cord(t_cord *cord)
 	short	num;
 
 	num = 0;
-	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
+	ft_putstr_fd(CUR_CORD, STDIN_FILENO);
 	read_handler(cur_cord, STDOUT_FILENO);
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;

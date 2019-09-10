@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/08/16 15:54:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/11 21:19:51 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,18 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 srcs_error := error/ft_errno.c\
 
 srcs_line_editing := line_editing/check_symb.c\
-			line_editing/quotes.c\
 			line_editing/cut_copy_paste.c\
 			line_editing/highlight.c\
 			line_editing/print_printable.c\
 			line_editing/print_move.c\
-			line_editing/print_move2.c\
+			line_editing/print_move_other.c\
 			line_editing/history.c\
 			line_editing/get_and_check.c\
 			line_editing/init.c\
 			line_editing/free.c\
+			line_editing/quotes.c\
+			line_editing/heredoc.c\
+
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
@@ -57,9 +59,18 @@ srcs_hash_table := hash_table/hash_table.c\
 		hash_table/free_hash_table.c\
 
 srcs_history := history/make_history.c\
-		history/make_history2.c\
+		history/make_history_other.c\
 
-srcs_parser := parser/parse.c\
+srcs_parser := parser/ast.c\
+		parser/init_free_parser.c\
+		parser/ast_other.c\
+
+srcs_interpretator := interpretator/interpretator.c\
+		interpretator/redir.c\
+		interpretator/pipes.c\
+		interpretator/amp_redir.c\
+		interpretator/dup_fd.c\
+		interpretator/closing_fd.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
@@ -69,7 +80,7 @@ srcs_signal := signal/signal.c\
 srcs_term := term/ft_term.c\
 
 srcs_prompt := prompt/prompt.c\
-		prompt/prompt2.c\
+		prompt/prompt_other.c\
 
 srcs_builtins := builtins/cd/cd.c\
 		builtins/echo/echo.c\
@@ -80,6 +91,13 @@ srcs_builtins := builtins/cd/cd.c\
 		builtins/history/ft_history.c\
 
 srcs_exec = exec/exec.c
+
+srcs_lexer = lexer/load_lexer.c\
+		lexer/lexer.c\
+		lexer/get_token.c\
+		lexer/get_token2.c\
+		lexer/error_token.c\
+		lexer/debug_lexer.c\
 
 builtins_dir := builtins
 
@@ -92,10 +110,12 @@ srcs_files := $(srcs_term)\
 			$(srcs_signal)\
 			$(srcs_reading)\
 			$(srcs_line_editing)\
-			$(srcs_parser)\
 			$(srcs_exec)\
 			$(srcs_builtins)\
-			$(srcs_autocom)
+			$(srcs_autocom)\
+			$(srcs_lexer)\
+			$(srcs_parser)\
+			$(srcs_interpretator)\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -136,7 +156,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -146,10 +166,10 @@ $(obj_dir):
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
-	@$(MAKE) --no-print-directory loadlibs
+		@$(MAKE) --no-print-directory loadlibs
 
 loadlibs:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"

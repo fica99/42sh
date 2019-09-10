@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/07/11 02:10:23 by filip            ###   ########.fr       */
+/*   Updated: 2019/09/09 22:46:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_buff(t_buff *buffer)
 
 void	init_line(t_line *line, t_term *term)
 {
+	g_line_flags = INIT_FLAGS;
 	line->copy_buff.buffer = term->copy_line;
 	line->copy_buff.malloc_len = ft_strlen(term->copy_line);
 	line->cord = init_cord();
@@ -54,6 +55,15 @@ void	init_line(t_line *line, t_term *term)
 	init_buff(&line->buffer);
 	init_buff(&line->history_search);
 	init_buff(&line->save_buff);
+	init_buff(&line->stop_buff);
 	line->history = term->history;
 	line->history.history_index = ft_darlen(line->history.history_buff);
+}
+
+void	check_malloc_len_buffer(t_buff *buffer, char *c)
+{
+	while (ft_strlen(buffer->buffer) + ft_strlen(c) >=
+			(unsigned)buffer->malloc_len)
+	buffer->buffer = ft_strdup_realloc(buffer->buffer,
+	buffer->malloc_len += NORMAL_LINE);
 }

@@ -3,14 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/31 00:23:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/30 20:32:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+void	make_command(char *buff, t_term *term)
+{
+	char	**args;
+	short	i;
+
+	if (!buff || !(*buff) || !(args = ft_strsplit(buff, ' ')))
+		return ;
+	i = -1;
+	while (args[++i])
+		args[i] = spec_symbols(args[i]);
+	find_command(args, term);
+	ft_free_dar(args);
+}
+
+char	*spec_symbols(char *args)
+{
+	char	*path;
+	char	*arr;
+
+	if (*args == '~')
+	{
+		if ((path = ft_getenv("HOME")))
+		{
+			arr = args;
+			if (!(args = ft_strjoin(path, arr + 1)))
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
+			ft_memdel((void**)&arr);
+		}
+	}
+	if (*args == '$' && args + 1)
+	{
+		if ((path = ft_getenv(args + 1)))
+		{
+			arr = args;
+			if (!(args = ft_strdup(path)))
+				print_error("42sh", "malloc() error", NULL, ENOMEM);
+			ft_memdel((void**)&arr);
+		}
+	}
+	return (args);
+}
 
 void	find_command(char **args, t_term *term)
 {

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 21:00:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 15:36:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/08/31 16:39:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	free_line(t_line *line, t_term *term)
 	free_buffer(&line->history_search);
 	free_buffer(&line->save_buff);
 	free_buffer(&line->copy_buff);
+	free_buffer(&line->stop_buff);
 	free_cord(&line->cord);
 	term->history = line->history;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_printable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:46 by filip             #+#    #+#             */
-/*   Updated: 2019/07/13 20:24:52 by filip            ###   ########.fr       */
+/*   Updated: 2019/09/02 17:46:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		del_symb(char *buf, t_cord *cord)
 
 	buf = ft_strdel_el(buf, cord->pos);
 	pos = cord->pos;
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_cord(buf + cord->pos, cord);
 	go_left(cord->pos - pos, cord);
 }
@@ -29,12 +29,12 @@ void		print_symb(char *c, char *buf, t_cord *cord)
 
 	buf = ft_stradd(buf, c, cord->pos);
 	pos = cord->pos;
-	if (*c == '\n')
+	if (*c == NEW_LINE)
 		cord->pos++;
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_cord(buf + cord->pos, cord);
 	go_left(cord->pos - pos - ft_strlen(c), cord);
-	if (*c == '\n' && buf[cord->pos - 2] == '\\')
+	if (*c == NEW_LINE && buf[cord->pos - 2] == '\\')
 	{
 		buf = ft_strdel_el(buf, --cord->pos);
 		buf = ft_strdel_el(buf, --cord->pos);
@@ -46,13 +46,13 @@ void		ft_putstr_cord(char *str, t_cord *cord)
 	while (str && *str)
 	{
 		ft_putchar_fd(*str, STDIN_FILENO);
-		if (*str == '\n')
+		if (*str == NEW_LINE)
 			save_cord(cord);
 		else
 			(cord->x_cur)++;
 		if (cord->x_cur >= cord->ws_col)
 		{
-			ft_putchar_fd('\n', STDIN_FILENO);
+			ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 			cord->x_cur = 0;
 			check_end_window(cord);
 		}
@@ -66,7 +66,7 @@ void		save_cord(t_cord *cord)
 	t_cord	*new_line;
 	t_cord	*copy;
 
-	g_flags |= TERM_NL;
+	g_line_flags |= TERM_NL;
 	new_line = cord;
 	while (new_line->nl)
 	{

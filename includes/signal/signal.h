@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:00:09 by filip             #+#    #+#             */
-/*   Updated: 2019/07/31 00:58:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/09 22:42:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <signal.h>
 
+/*
+**	signal.c
+*/
 void	signalling(void);
 void	break_handler(int sign);
 void	win_handler(int sign);

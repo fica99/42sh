@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:09:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 22:03:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 18:17:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ void		paste_highlight(t_buff *buffer, t_buff *copy_buff, t_cord *cord)
 {
 	short	position;
 
-	while (ft_strlen(buffer->buffer) + ft_strlen(copy_buff->buffer) >=
-				(unsigned)buffer->malloc_len)
-		buffer->buffer = ft_strdup_realloc(buffer->buffer,
-		buffer->malloc_len += NORMAL_LINE);
+	check_malloc_len_buffer(buffer, copy_buff->buffer);
 	buffer->buffer = ft_stradd(buffer->buffer, copy_buff->buffer, cord->pos);
 	position = cord->pos;
 	go_left(cord->pos, cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	go_left(cord->pos - position, cord);
+	disable_highlight(cord, buffer->buffer);
 }
 
 void		cut_highlight(t_buff *buffer, t_cord *cord)
@@ -66,7 +64,7 @@ void		cut_highlight(t_buff *buffer, t_cord *cord)
 			buffer->buffer = ft_strdel_el(buffer->buffer, cord->pos);
 	}
 	go_left(cord->pos, cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_cord(buffer->buffer + cord->pos, cord);
 	((pos - cord->highlight_pos) < 0) ? go_left(ft_strlen(buffer->buffer) - pos,
 	cord) : go_left(ft_strlen(buffer->buffer) - cord->highlight_pos, cord);
@@ -75,16 +73,16 @@ void		cut_highlight(t_buff *buffer, t_cord *cord)
 
 char		*cut_copy_paste(char *c, t_line *line)
 {
-	if (!line->cord->highlight_pos && !(g_flags & START_POS))
+	if (!line->cord->highlight_pos && !(g_line_flags & START_POS))
 		line->cord->highlight_pos = line->cord->pos;
 	if (!line->cord->highlight_pos)
-		g_flags |= START_POS;
-	if (!ft_strcmp(c, tigetstr("kLFT")) && !is_start_pos(line->cord))
+		g_line_flags |= START_POS;
+	if (!ft_strcmp(c, SHIFT_LFT) && !is_start_pos(line->cord))
 		highlight_left(line->buffer.buffer, line->cord);
-	else if (!ft_strcmp(c, tigetstr("kRIT")) &&
+	else if (!ft_strcmp(c, SHIFT_RGHT) &&
 	((short)ft_strlen(line->buffer.buffer) > line->cord->pos))
 		highlight_right(line->buffer.buffer, line->cord);
-	else if (*c == CTRL_C && (g_flags & TERM_HIGHLIGHT))
+	else if (*c == CTRL_C && (g_line_flags & TERM_HIGHLIGHT))
 		copy_highlight(&line->copy_buff, &line->buffer, line->cord);
 	else if (*c == CTRL_V && line->copy_buff.buffer)
 		paste_highlight(&line->buffer, &line->copy_buff, line->cord);

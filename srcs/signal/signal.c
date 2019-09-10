@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/04 00:18:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/02 17:47:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	signalling(void)
 void	break_handler(int sign)
 {
 	if (sign == SIGINT)
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
 	if (sign == SIGQUIT)
 		ft_putstr_fd("\nquit (core dumped)\n", STDERR_FILENO);
 }
@@ -35,7 +35,7 @@ void	win_handler(int sign)
 		pos = g_line.cord->pos;
 		save_attr(&g_raw_mode);
 		get_win_size(g_line.cord);
-		ft_putstr_fd(tigetstr("clear"), STDIN_FILENO);
+		ft_putstr_fd(CLEAR_SCREEN, STDIN_FILENO);
 		term_prompt(ft_darlen(g_line.history.history_buff), g_argv[0]);
 		get_cur_cord(g_line.cord);
 		set_start_cord(g_line.cord);
