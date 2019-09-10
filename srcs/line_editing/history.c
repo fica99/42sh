@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/01 21:21:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:31:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,12 @@ void		history_up(t_line *line, short len)
 	go_left(line->cord->pos, line->cord);
 	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	if (--(line->history.history_index) == len - 1)
+	{
+		check_malloc_len_buffer(&line->save_buff,
+		line->buffer.buffer + line->cord->pos);
 		ft_strcat(line->save_buff.buffer, line->buffer.buffer +
 		line->cord->pos);
+	}
 	ft_strclr(line->buffer.buffer + line->cord->pos);
 	check_malloc_len_buffer(&line->buffer,
 	line->history.history_buff[line->history.history_index]);

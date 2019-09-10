@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/09/03 18:41:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:41:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ char	*print_move(char *c, char *buffer, t_cord *cord)
 
 	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
 	cord->ws_col);
-	disable_highlight(cord, buffer);
 	if ((!ft_strcmp(c, K_LFT) || !ft_strcmp(c, K_HOME)) &&
 	!is_start_pos(cord))
 		!ft_strcmp(c, K_LFT) ? go_left(1, cord) : go_left(cord->pos, cord);
@@ -45,7 +44,9 @@ char	*print_symbols(char *c, t_line *line)
 	if (!ft_strcmp(c, SHIFT_LFT) || !ft_strcmp(c, SHIFT_RGHT) ||
 		*c == CTRL_V || *c == CTRL_C || *c == CTRL_X)
 		cut_copy_paste(c, line);
-	else if (*c == TAB && !(g_line_flags & HISTORY_SEARCH) &&
+	else
+		disable_highlight(line->cord, line->buffer.buffer);
+	if (*c == TAB && !(g_line_flags & HISTORY_SEARCH) &&
 	!(g_line_flags & TERM_QUOTES) && !(g_line_flags & TERM_HIGHLIGHT))
 		autocomplite(&line->buffer, line->cord);
 	else if (!ft_strcmp(c, K_UP) || !ft_strcmp(c, K_DOWN)

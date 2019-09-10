@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/02 18:35:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 17:35:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # include "builtins/his.h"
 
 # define RUNNING 1
-# define NORMAL_LINE 100
+# define NORMAL_LINE 1000
 # define FT_HOST_NAME_MAX 255
 # define LINE_MAX 2048
 # define SOMETHING "1"
