@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/18 16:35:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 21:06:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,15 @@ char	*check_request(char **argv, char *path)
 		if (stat(path, &buf) < 0)
 			print_error("42sh", "lstat() error", NULL, 0);
 		if (!S_ISDIR(buf.st_mode))
+		{
 			print_error_withoutexit(argv[0], "not a directory", path, 0);
+			return (SOMETHING);
+		}
 		else if (access(path, R_OK))
+		{
 			print_error_withoutexit(argv[0], NULL, path, EACCES);
+			return (SOMETHING);
+		}
 		else if (chdir(path) == -1)
 			print_error("cd", "chdir() error", path, 0);
 		else
@@ -43,8 +49,6 @@ void	check_ch_dir(int argc, char **argv)
 		ft_putstr_fd(path = ft_getenv("OLDPWD"), STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
-	else if (!ft_strcmp(argv[1], "."))
-		path = ft_getenv("PWD");
 	else
 		path = argv[1];
 	if (!check_request(argv, path))
@@ -97,6 +101,7 @@ void	cd(int argc, char **argv, char **env_cp)
 			print_error_withoutexit(argv[0], "too many arguments", NULL, 0);
 		else if (argc == 3)
 			print_error_withoutexit(argv[0], "string not in pwd", argv[1], 0);
+		return ;
 	}
 	else
 		check_ch_dir(argc, argv);

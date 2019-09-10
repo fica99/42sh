@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/09 20:10:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:39:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define RRED_OPEN O_WRONLY | O_CREAT | O_TRUNC
 # define DRRED_OPEN O_WRONLY | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+# define FD_LIMIT 8192
 
 /*
 **	interpretator.c

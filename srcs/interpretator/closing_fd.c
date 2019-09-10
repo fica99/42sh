@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/09 20:47:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/10 19:55:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	closing_fd(t_node *ast, t_term *term)
 	if (tk_class(ast->token, C_CLOSE))
 	{
 		get_close_fd(ast->token->lexeme, &left_fd, &right_fd);
-		if (left_fd < -1 || left_fd > 2 || right_fd < 0 ||
-		(right_fd > 2 && !ft_strchr(ast->token->lexeme, '-')))
+		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
+		!ft_strchr(ast->token->lexeme, '-')) || read(right_fd, NULL, 1) == -1)
 		{
 			print_error_withoutexit("42sh", NULL, NULL, EBADF);
 			return ;
@@ -37,16 +37,16 @@ void	closing_fd(t_node *ast, t_term *term)
 
 void	get_close_fd(char *str, int *left_fd, int *right_fd)
 {
-	int		i;
+	short	i;
 	char	*nb;
-	int		j;
+	short	j;
 
-	i = -1;
+	i = 0;
 	j = 0;
-	if (!(nb = ft_strnew(100)))
+	if (!(nb = ft_strnew(FD_LIMIT)))
 		print_error("42sh", "malloc() error", NULL, ENOMEM);
-	while (ft_isdigit(str[++i]))
-		nb[j++] = str[i];
+	while (ft_isdigit(str[i]))
+		nb[j++] = str[i++];
 	*left_fd = ft_atoi(nb);
 	if (*nb == '\0')
 		*left_fd = 1;
