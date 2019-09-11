@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:07:13 by filip             #+#    #+#             */
-/*   Updated: 2019/09/09 22:50:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:46:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,21 @@
 char			*copy_from_buff(char *buffer, char *new_buffer, short start,
 short end);
 char			check_print_arr(char *arr);
-
-
+/*
+**	env.c
+*/
 char			*ft_getenv(char *arr);
 short			get_count_var(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			print_environ(void);
+/*
+**	env2.c
+*/
 char			*get_folder(void);
 char			*get_path(void);
+/*
+**	process.c
+*/
 pid_t			make_process(void);
 #endif

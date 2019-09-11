@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/24 16:36:39 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/10 17:31:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 23:30:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		go_history(char *c, t_line *line)
 	!(g_line_flags & TERM_QUOTES))
 	{
 		go_to_cord(line->cord->x_start, line->cord->y_start, STDIN_FILENO);
-		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 		if (!(g_line_flags & HISTORY_SEARCH))
 		{
 			ft_putstr_fd("(History search)'", STDIN_FILENO);
@@ -32,10 +32,10 @@ void		go_history(char *c, t_line *line)
 		line->cord->pos = 0;
 		find_history(c, line);
 	}
-	if (!(ft_strcmp(c, tigetstr("kcuu1"))) && len &&
+	if (!ft_strcmp(c, K_UP) && len &&
 	line->history.history_index)
 		history_up(line, len);
-	else if (!(ft_strcmp(c, tigetstr("kcud1"))) &&
+	else if (!ft_strcmp(c, K_DOWN) &&
 	line->history.history_index != len)
 		history_down(line, len);
 }
@@ -52,7 +52,7 @@ void		find_history(char *symbol, t_line *line)
 		go_left(line->cord->pos + 17, line->cord);
 		set_start_cord(line->cord);
 		line->cord->pos = 0;
-		ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 		ft_putstr_cord(line->buffer.buffer, line->cord);
 		ft_strclr(line->history_search.buffer);
 		if (!print_move(symbol, line->buffer.buffer, line->cord))
@@ -89,7 +89,7 @@ t_buff *history_search)
 void		history_up(t_line *line, short len)
 {
 	go_left(line->cord->pos, line->cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (--(line->history.history_index) == len - 1)
 	{
 		check_malloc_len_buffer(&line->save_buff,
@@ -110,7 +110,7 @@ void		history_down(t_line *line, short len)
 	char	*history_buffer;
 
 	go_left(line->cord->pos, line->cord);
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (++(line->history.history_index) == len)
 		history_buffer = line->save_buff.buffer;
 	else

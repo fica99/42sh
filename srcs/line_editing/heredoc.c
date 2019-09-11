@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/09 23:01:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:29:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	check_exist_hered(char **buffer)
 	if (g_line_flags & HEREDOC_FLAG)
 	{
 		if (!(her = ft_strdup(ft_strchr(*buffer, '\n') + 1)))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		(ft_strrchr(her, '\n')) ? ft_strclr(ft_strrchr(her, '\n'))
 		: ft_memdel((void**)&her);
 		ft_strclr(ft_strchr(*buffer, '\n'));
@@ -101,7 +101,7 @@ void	check_exist_hered(char **buffer)
 	if (g_line_flags & HEREDOC_ERROR_FLAG)
 	{
 		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
-		print_error_withoutexit("42sh", "heredoc error", NULL, NOERROR);
+		err("42sh", "heredoc error", NULL, NOERROR);
 		ft_memdel((void**)buffer);
 	}
 }

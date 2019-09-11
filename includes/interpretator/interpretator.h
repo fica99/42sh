@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/10 19:39:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 23:33:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define INTERPRETATOR_H
 
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 
 # define LRED_OPEN O_RDONLY
 # define RRED_OPEN O_WRONLY | O_CREAT | O_TRUNC
@@ -53,4 +56,24 @@ void	amprred_op(t_node *ast, t_term *term);
 */
 void	closing_fd(t_node *ast, t_term *term);
 void	get_close_fd(char *str, int *left_fd, int *right_fd);
+/*
+**	exec.c
+*/
+void	make_command(char *buff, t_term *term);
+void	find_command(char **args, t_term *term);
+char	*check_command(char **args);
+char	*check_bin(char **args, t_hash **hash_table, short hash_table_size);
+/*
+**	spec_symb.c
+*/
+char	*spec_symbols(char *args);
+char	*tilda_expr(char *args);
+char	*dollar_expr(char *args);
+/*
+**	parse_quotes.c
+*/
+char	**parse_quotes(char *buff);
+char	*fill_quotes_buff(char **buff);
+char	*remove_quotes(char **buff);
+char	*remove_dquotes(char **buff);
 #endif

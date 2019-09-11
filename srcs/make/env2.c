@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:35:55 by filip             #+#    #+#             */
-/*   Updated: 2019/08/03 14:59:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:37:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char		*get_folder(void)
 	if (ft_getenv("PWD") && ft_getenv("HOME"))
 	{
 		if (!(path = ft_strdup(ft_strrchr(ft_getenv("PWD"), '/') + 1)))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		if (!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")))
 		{
 			ft_strclr(path);
@@ -42,12 +42,12 @@ char		*get_path(void)
 		{
 			if (!(path = ft_strjoin("~", ft_getenv("PWD")
 			+ ft_strlen(ft_getenv("HOME")))))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		}
 		else
 		{
-				if (!(path = ft_strdup(ft_getenv("PWD"))))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
+			if (!(path = ft_strdup(ft_getenv("PWD"))))
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		}
 	}
 	return (path);

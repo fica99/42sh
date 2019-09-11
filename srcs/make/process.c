@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:15:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:38:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ pid_t	make_process(void)
 
 	p = fork();
 	if (p < 0)
-		print_error("minishell", "fork() error", NULL, 0);
+		err_exit("minishell", "fork() error", NULL, NOERROR);
 	return (p);
 }

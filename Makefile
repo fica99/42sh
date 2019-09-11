@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/10 17:10:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/11 23:36:51 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ load_script := load_git_repo.sh
 
 lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
-srcs_error := error/ft_errno.c\
+srcs_error := error/error.c\
 
 srcs_line_editing := line_editing/check_symb.c\
 			line_editing/cut_copy_paste.c\
@@ -38,7 +38,6 @@ srcs_line_editing := line_editing/check_symb.c\
 			line_editing/free.c\
 			line_editing/quotes.c\
 			line_editing/heredoc.c\
-
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
@@ -71,6 +70,9 @@ srcs_interpretator := interpretator/interpretator.c\
 		interpretator/amp_redir.c\
 		interpretator/dup_fd.c\
 		interpretator/closing_fd.c\
+		interpretator/exec.c\
+		interpretator/spec_symb.c\
+		interpretator/parse_quotes.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
@@ -90,8 +92,6 @@ srcs_builtins := builtins/cd/cd.c\
 		builtins/hash/hash.c\
 		builtins/history/ft_history.c\
 
-srcs_exec = exec/exec.c
-
 srcs_lexer = lexer/load_lexer.c\
 		lexer/lexer.c
 
@@ -106,7 +106,6 @@ srcs_files := $(srcs_term)\
 			$(srcs_signal)\
 			$(srcs_reading)\
 			$(srcs_line_editing)\
-			$(srcs_exec)\
 			$(srcs_builtins)\
 			$(srcs_autocom)\
 			$(srcs_lexer)\
@@ -152,7 +151,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -162,7 +161,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
+	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 		@$(MAKE) --no-print-directory loadlibs

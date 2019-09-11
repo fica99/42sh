@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   canon_mode.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:19:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/09 00:55:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:42:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		set_attr(struct termios *savetty)
 {
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, savetty) == -1)
-		print_error("42sh", "tcsetattr() error", NULL, 0);
+		err_exit("42sh", "tcsetattr() error", NULL, NOERROR);
 }
 
 void		set_input_mode(struct termios *tty)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/09 22:34:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:43:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	init_global_var(char **argv, char **environ)
 {
 	save_attr(&g_orig_mode);
 	if (!(g_env = ft_dardup(environ)))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	if (!(g_argv = ft_dardup(argv)))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	if (!(g_lexer = load_lexer()))
-		print_error("42sh", "Error load lexor matrix", LEXER_MATRIX_PATH, 0);
+		err_exit("42sh", "Error load lexor matrix", LEXER_MATRIX_PATH, NOERROR);
 }
 
 void	term_start(t_term *term)
@@ -69,11 +69,11 @@ void	init_term(void)
 	if ((setupterm(0, STDIN_FILENO, &err) == ERR))
 	{
 		if (err == 1)
-			print_error("42sh", "setupterm() error", EHRDCPY, 0);
+			err_exit("42sh", "setupterm() error", EHRDCPY, NOERROR);
 		else if (err == 0)
-			print_error("42sh", "setupterm() error", ENTFND, 0);
+			err_exit("42sh", "setupterm() error", ENTFND, NOERROR);
 		else if (err == -1)
-			print_error("42sh", "setupterm() error", ENOTERMINFO, 0);
+			err_exit("42sh", "setupterm() error", ENOTERMINFO, NOERROR);
 	}
 }
 

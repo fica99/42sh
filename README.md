@@ -30,6 +30,7 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 ## Features
 
 * Separator `;`\.
+* Full quotes handling: `'`, `"`\.
 * Redirections `[command] > {filename}`, `[command] < {filename}`, `[command] >> {filename}`, `[command] 2> {filename}`, `[command] 2>> {filename}`, `[command] &> {filename}`, `[command] >& {filename}`, `[command] &>> {filename}` and `[command] >>& {filename}`\.
 * Heredoc `[command] << (stop_word)`\.
 * Several redirections `[command] [redirection] {filename} [redirection] {filename2} ...`\.
@@ -84,6 +85,7 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 	- \\! : the history number of this command\.
 	- \\# : the history number of this command\.
 * When the cd command is given, it checks for the directory name in the current directory and throws error if not found, else traverses to the directory\. If the CDPATH is set, the "cd" command starts finding the directory in the list of directories present in the CDPATH variable and then makes the directory switch appropriately\.
+* Ability to change size of history file with HISTFILESIZE and size of history buffer with HISTSIZE\.
 
 Note: The $PATH environment variable contains all the paths where binarys to exec\. Delete it is not the best way of usage\.
 

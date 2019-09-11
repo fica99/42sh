@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/08 17:49:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:28:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 	{
 		if (access(name, F_OK))
 		{
-			print_error_withoutexit("42sh", NULL, name, ENOENT);
+			err("42sh", NULL, name, ENOENT);
 			return (-1);
 		}
 		if (access(name, R_OK))
 		{
-			print_error_withoutexit("42sh", NULL, name, EACCES);
+			err("42sh", NULL, name, EACCES);
 			return (-1);
 		}
 	}
 	if ((fd = open(name, acc, mode)) == -1)
-		print_error("42sh", "open() error", NULL, 0);
+		err_exit("42sh", "open() error", NULL, NOERROR);
 	return (fd);
 }

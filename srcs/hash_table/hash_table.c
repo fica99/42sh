@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/01 20:26:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:38:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_hash	**init_hash_table(unsigned short *hash_table_size)
 	if (!(env_path = ft_getenv("PATH")))
 		return (NULL);
 	if (!(path = ft_strsplit((ft_getenv("PATH")), ':')))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	*hash_table_size = get_hash_table_size(path);
 	hash_table = make_hash_table(path, *hash_table_size);
 	ft_free_dar(path);
@@ -50,14 +50,14 @@ DIR				*check_open(char *path)
 	DIR	*folder;
 
 	if (!(folder = opendir(path)))
-		print_error("42sh", "opendir() error", path, 0);
+		err_exit("42sh", "opendir() error", path, NOERROR);
 	return (folder);
 }
 
 void			check_close(DIR *folder)
 {
 	if (closedir(folder) == -1)
-		print_error("42sh", "opendir() error", NULL, 0);
+		err_exit("42sh", "opendir() error", NULL, NOERROR);
 }
 
 unsigned short	hash_index(unsigned short key, unsigned short len)

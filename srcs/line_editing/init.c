@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/09/09 22:46:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:32:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_cord	*init_cord(void)
 	t_cord	*cord;
 
 	if (!(cord = (t_cord*)malloc(sizeof(t_cord))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	cord->nl = NULL;
 	cord->x_cur = 0;
 	cord->x_start = 0;
@@ -39,7 +39,7 @@ void	set_start_cord(t_cord *cord)
 void	init_buff(t_buff *buffer)
 {
 	if (!(buffer->buffer = ft_strnew(NORMAL_LINE)))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	buffer->malloc_len = NORMAL_LINE;
 }
 

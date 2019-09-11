@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt2.c                                          :+:      :+:    :+:   */
+/*   prompt_other.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/04 00:19:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:34:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ short	prompt_time(char *str, short i)
 
 	time(&t);
 	if (t == -1)
-		print_error("42sh", "time() error", NULL, EFAULT);
+		err_exit("42sh", "time() error", NULL, EFAULT);
 	info = localtime(&t);
 	j = check_time_flags(str, i, info);
 	if (j != i)

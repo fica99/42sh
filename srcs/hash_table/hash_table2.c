@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_table2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:27:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/30 00:53:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:39:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_hash				**init_table(unsigned short len)
 
 	if (!(table = (t_hash**)malloc(sizeof(t_hash*) *
 					(len + 1))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (++i <= len)
 		table[i] = NULL;
@@ -54,7 +54,7 @@ t_hash				*init_hash(void)
 	t_hash			*hash;
 
 	if (!(hash = (t_hash*)malloc(sizeof(t_hash))))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	hash->name = NULL;
 	hash->path = NULL;
 	hash->next = NULL;
@@ -72,7 +72,7 @@ unsigned short len)
 	index = hash_index(hashing(str), len);
 	copy = init_hash();
 	if (!(copy_path = ft_strnew(ft_strlen(path) + 1)))
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	copy_path = ft_strcpy(copy_path, path);
 	copy->name = ft_strdup(str);
 	copy->path = ft_strjoin(ft_strcat(copy_path, "/"), str);

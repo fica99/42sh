@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/09 23:05:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:36:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void		read_prompt(t_term *term)
 		{
 			write_history(g_line.buffer.buffer, &term->history);
 			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			check_exist_hered(&term->buffer);
 		}
 	}
 	if (g_line.copy_buff.buffer)
 		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
-			print_error("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	free_line(&g_line, term);
 	reset_terminfo();
@@ -74,7 +74,7 @@ void		read_handler(char *c, int fd)
 		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
 		g_line.cord);
 		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
-		print_error("42sh", "read() error", NULL, 0);
+		err_exit("42sh", "read() error", NULL, NOERROR);
 	}
 	c[nb] = '\0';
 }
@@ -102,5 +102,5 @@ void	init_terminfo(void)
 	&& SHIFT_LFT != (char*)-1 && SHIFT_RGHT != (char*)-1)
 		ft_putstr_fd(smkx_mode, STDIN_FILENO);
 	else
-		print_error("42sh", "no correct capabilities", NULL, 0);
+		err_exit("42sh", "no correct capabilities", NULL, NOERROR);
 }

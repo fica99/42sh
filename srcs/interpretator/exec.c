@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/30 20:32:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 23:33:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,41 +17,21 @@ void	make_command(char *buff, t_term *term)
 	char	**args;
 	short	i;
 
-	if (!buff || !(*buff) || !(args = ft_strsplit(buff, ' ')))
+
+	if (!buff || !(*buff))
 		return ;
-	i = -1;
-	while (args[++i])
-		args[i] = spec_symbols(args[i]);
+	if (ft_strchr(buff, '\'') || ft_strchr(buff, '\"'))
+		args = parse_quotes(buff);
+	else
+	{
+		if (!(args = ft_strsplit(buff, ' ')))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		i = -1;
+		while (args[++i])
+			args[i] = spec_symbols(args[i]);
+	}
 	find_command(args, term);
 	ft_free_dar(args);
-}
-
-char	*spec_symbols(char *args)
-{
-	char	*path;
-	char	*arr;
-
-	if (*args == '~')
-	{
-		if ((path = ft_getenv("HOME")))
-		{
-			arr = args;
-			if (!(args = ft_strjoin(path, arr + 1)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
-	}
-	if (*args == '$' && args + 1)
-	{
-		if ((path = ft_getenv(args + 1)))
-		{
-			arr = args;
-			if (!(args = ft_strdup(path)))
-				print_error("42sh", "malloc() error", NULL, ENOMEM);
-			ft_memdel((void**)&arr);
-		}
-	}
-	return (args);
 }
 
 void	find_command(char **args, t_term *term)
@@ -77,7 +57,7 @@ void	find_command(char **args, t_term *term)
 	}
 	else if (!check_bin(args, term->hash_table,
 	term->hash_table_size) && !check_command(args))
-		print_error_withoutexit("42sh", "command not found", args[0], 0);
+		err("42sh", "command not found", args[0], NOERROR);
 }
 
 char	*check_command(char **args)
@@ -90,18 +70,18 @@ char	*check_command(char **args)
 	{
 		if (access(args[0], X_OK))
 		{
-			print_error_withoutexit("42sh", NULL, args[0], 13);
+			err("42sh", NULL, args[0], EACCES);
 			return (SOMETHING);
 		}
 		if (lstat(args[0], &buf) < 0)
-			print_error("42sh", "lstat() error", NULL, 0);
+			err_exit("42sh", "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (NULL);
 		p = make_process();
 		signalling();
 		if (!p)
 			if (execve(args[0], args, g_env) < 0)
-				print_error("42sh", "execve() error", args[0], 0);
+				err_exit("42sh", "execve() error", args[0], NOERROR);
 		waitpid(p, &status, 0);
 		return (SOMETHING);
 	}
@@ -129,7 +109,7 @@ char	*check_bin(char **args, t_hash **hash_table, short hash_table_size)
 	signalling();
 	if (!p)
 		if (execve(hash->path, args, g_env) < 0)
-			print_error("42sh", "execve() error", args[0], 0);
+			err_exit("42sh", "execve() error", args[0], NOERROR);
 	waitpid(p, &status, 0);
 	return (SOMETHING);
 }

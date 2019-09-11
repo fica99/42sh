@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/10 17:35:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 15:39:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # include "lexer/lexer.h"
 # include "parser/parser.h"
 # include "interpretator/interpretator.h"
-# include "exec/exec.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"
 # include "builtins/echo.h"
@@ -59,7 +58,6 @@ unsigned char	g_flags;
 struct termios	g_orig_mode;
 struct termios	g_raw_mode;
 struct s_lexer  *g_lexer;
-int				g_errno_f;
 char			**g_env;
 char			**g_argv;
 #endif

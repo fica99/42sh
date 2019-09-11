@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:17:04 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 20:27:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 23:13:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 char	*ft_getenv(char *arr)
 {
-	if (get_count_var(arr) == -1)
-		return (NULL);
-	else
-		return (g_env[get_count_var(arr)] + ft_strlen(arr) + 1);
+	short	j;
+
+	if (arr && *arr != '\0')
+	{
+		j = get_count_var(arr);
+		if (j != -1)
+			return (g_env[j] + ft_strlen(arr) + 1);
+	}
+	return (NULL);
 }
 
 short	get_count_var(char *arr)
@@ -48,7 +53,7 @@ void	ft_setenv(char *name, char *new_value)
 	{
 		if (!(envp = (char**)malloc(sizeof(char*) *
 						(ft_darlen(g_env) + 2))))
-			print_error("minishell", "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		while (g_env[++j])
 			envp[j] = g_env[j];
 		envp[j] = join_env(name, new_value);
@@ -64,9 +69,9 @@ char	*join_env(char *name, char *new_value)
 	char *name2;
 
 	if (!(name1 = ft_strjoin(name, "=")))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
+		err_exit("setenv", "malloc() error", NULL, ENOMEM);
 	if (!(name2 = ft_strjoin(name1, new_value)))
-		print_error("setenv", "malloc() error", NULL, ENOMEM);
+		err_exit("setenv", "malloc() error", NULL, ENOMEM);
 	ft_memdel((void**)&name1);
 	return (name2);
 }

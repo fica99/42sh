@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/14 19:35:43 by filip             #+#    #+#             */
-/*   Updated: 2019/09/10 18:33:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/11 16:29:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	{
 		go_right(ft_strlen(g_line.buffer.buffer) - cord->pos, cord);
 		ft_putchar_fd('\n', STDERR_FILENO);
-		print_error("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	}
 	if (start <= i)
 		HIGHLIGHT(STDIN_FILENO);
