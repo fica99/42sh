@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:38 by filip             #+#    #+#             */
-/*   Updated: 2019/09/08 17:44:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 22:58:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ t_node		*parser(char *str);
 t_node		*statement_list(t_string *str);
 t_node		*statement(t_string *str);
 t_node		*thread_statement(t_string *str);
-t_node		*redir_statement(t_node *ast, t_string *str);
 /*
 **	ast_other.c
 */
-t_node		*pipe_statement(t_string *str);
+t_node		*rredir_statement(t_node *ast, t_string *str);
+t_node		*lredir_statement(t_node *ast, t_string *str);
+t_node		*pipe_statement(t_node *ast, t_string *str);
 t_node		*expr(t_string *str);
 char		g_parser_flags;
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 17:30:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 23:16:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,15 @@ t_node		*thread_statement(t_string *str)
 	short	copy;
 	t_token	*token;
 
-	if (!(ast = pipe_statement(str)) || (g_parser_flags & PARSER_ERROR) ||
-	!(ast = redir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
+	if (!(ast = expr(str)))
+		return (ast);
+	if (!(ast = lredir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	if (!(ast = pipe_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	if (!(ast = rredir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	if (g_parser_flags & PARSER_ERROR)
 		return (ast);
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
@@ -88,29 +95,4 @@ t_node		*thread_statement(t_string *str)
 		return (ast);
 	}
 	return (init_node(ast, token, NULL));
-}
-
-t_node		*redir_statement(t_node *ast, t_string *str)
-{
-	t_node	*right;
-	t_token	*token;
-	short	copy;
-
-	copy = str->index;
-	token = get_next_token(str, g_lexer);
-	if (tk_type(token, FT_ERROR) || !tk_class(token, C_REDIR))
-	{
-		if (tk_type(token, FT_ERROR))
-			g_parser_flags |= PARSER_ERROR;
-		str->index = copy;
-		free_token(&token);
-		return (ast);
-	}
-	if (!(right = expr(str)))
-	{
-		free_token(&token);
-		return (ast);
-	}
-	ast = init_node(ast, token, right);
-	return (redir_statement(ast, str));
 }

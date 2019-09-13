@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 20:41:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 22:08:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	redir_op(t_node *ast, t_term *term)
 	int		fd;
 	int		back_fd;
 	int		new_fd;
-	t_node	*new_ast;
 
 	if (tk_type(ast->token, ERRED) || tk_type(ast->token, DERRED))
 		new_fd = STDERR_FILENO;
@@ -33,21 +32,19 @@ void	redir_op(t_node *ast, t_term *term)
 	if ((fd = get_expr_fd(ast)) == -1)
 		return ;
 	back_fd = copy_fd(fd, new_fd);
-	new_ast = exec_redir_command(ast, term);
+	exec_redir_command(ast, term);
 	restore_fd(back_fd, new_fd);
-	if (new_ast != ast)
-		interpret_ast(ast->left, term);
 }
 
-t_node	*exec_redir_command(t_node *ast, t_term *term)
+void	exec_redir_command(t_node *ast, t_term *term)
 {
 	t_node *new_ast;
 
 	new_ast = ast;
-	while (!tk_type(new_ast->left->token, EXPRESS))
+	while (new_ast->left && !tk_type(new_ast->left->token, EXPRESS) &&
+	!tk_type(new_ast->left->token, PIPE))
 		new_ast = new_ast->left;
 	interpret_ast(new_ast->left, term);
-	return (new_ast);
 }
 
 int		get_expr_fd(t_node *ast)
