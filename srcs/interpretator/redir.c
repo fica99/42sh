@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 20:05:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 20:41:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,7 @@ int		get_expr_fd(t_node *ast)
 	if (tk_type(expr->token, EXPRESS))
 	{
 		if (tk_type(ast->token, DLRED))
-		{
-			fd = open_red_file(HEREDOC_FILE,
-			ast->token->type, RRED_OPEN, PERM_MODE);
-			ft_putstr_fd(expr->token->lexeme, fd);
-			close(fd);
-			fd = open_red_file(HEREDOC_FILE,
-			ast->token->type, O_RDONLY, PERM_MODE);
-		}
+			fd = open_tmp_heredoc_file(ast);
 		else if (tk_type(ast->token, LRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, LRED_OPEN, 0);
@@ -100,5 +93,20 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 	}
 	if ((fd = open(name, acc, mode)) == -1)
 		err_exit("42sh", "open() error", NULL, NOERROR);
+	return (fd);
+}
+
+int		open_tmp_heredoc_file(t_node *ast)
+{
+	int		fd;
+	t_node	*expr;
+
+	expr = ast->right;
+	fd = open_red_file(HEREDOC_FILE,
+	ast->token->type, RRED_OPEN, PERM_MODE);
+	ft_putstr_fd(expr->token->lexeme, fd);
+	close(fd);
+	fd = open_red_file(HEREDOC_FILE,
+	ast->token->type, O_RDONLY, PERM_MODE);
 	return (fd);
 }
