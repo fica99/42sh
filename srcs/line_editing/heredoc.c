@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:29:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 20:10:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,17 @@ void	check_exist_hered(char **buffer)
 	{
 		if (!(her = ft_strdup(ft_strchr(*buffer, '\n') + 1)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-		(ft_strrchr(her, '\n')) ? ft_strclr(ft_strrchr(her, '\n'))
-		: ft_memdel((void**)&her);
+		if (!(g_line_flags & HEREDOC_CTRL_D))
+			(ft_strrchr(her, '\n') + 1) ? ft_strclr(ft_strrchr(her, '\n') + 1)
+			: ft_memdel((void**)&her);
 		ft_strclr(ft_strchr(*buffer, '\n'));
-		*buffer = ft_stradd(*buffer, her, ft_strstr(*buffer, "<<") - *buffer);
-		ft_memdel((void**)&her);
-		index = ft_strstr(*buffer, "<<") - *buffer;
-		ft_strdel_el(*buffer, index);
-		ft_strdel_el(*buffer, index);
+		index = ft_strstr(*buffer, "<<") - *buffer + 2;
 		while ((*buffer)[index] != '\0' && ((*buffer)[index] == ' ' ||
 		ft_isalnum((*buffer)[index])))
 			ft_strdel_el(*buffer, index);
+		*buffer = ft_stradd(*buffer, her, ft_strstr(*buffer, "<<") - *buffer + 2);
+		*buffer = ft_stradd(*buffer, " ", ft_strstr(*buffer, "<<") - *buffer + 2);
+		ft_memdel((void**)&her);
 	}
 	if (g_line_flags & HEREDOC_ERROR_FLAG)
 	{

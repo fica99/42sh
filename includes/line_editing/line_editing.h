@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/10 17:17:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 20:09:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@
 # define TERM_NL (1 << 6)
 # define BREAK_FLAG (1 << 7)
 # define HEREDOC_ERROR_FLAG (1 << 8)
+# define HEREDOC_CTRL_D (1 << 9)
 
 typedef struct		s_cord
 {

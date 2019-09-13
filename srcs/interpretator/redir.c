@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:28:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 20:05:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	redir_op(t_node *ast, t_term *term)
 		new_fd = STDERR_FILENO;
 	else if (tk_type(ast->token, RRED) || tk_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
-	else if (tk_type(ast->token, LRED))
+	else if (tk_type(ast->token, LRED) || tk_type(ast->token, DLRED))
 		new_fd = STDIN_FILENO;
 	else
 	{
@@ -59,13 +59,22 @@ int		get_expr_fd(t_node *ast)
 	fd = -1;
 	if (tk_type(expr->token, EXPRESS))
 	{
-		if (tk_type(ast->token, LRED))
+		if (tk_type(ast->token, DLRED))
+		{
+			fd = open_red_file(HEREDOC_FILE,
+			ast->token->type, RRED_OPEN, PERM_MODE);
+			ft_putstr_fd(expr->token->lexeme, fd);
+			close(fd);
+			fd = open_red_file(HEREDOC_FILE,
+			ast->token->type, O_RDONLY, PERM_MODE);
+		}
+		else if (tk_type(ast->token, LRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, LRED_OPEN, 0);
-		if (tk_type(ast->token, RRED) || tk_type(ast->token, ERRED))
+		else if (tk_type(ast->token, RRED) || tk_type(ast->token, ERRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, RRED_OPEN, PERM_MODE);
-		if (tk_type(ast->token, DRRED) || tk_type(ast->token, DERRED))
+		else if (tk_type(ast->token, DRRED) || tk_type(ast->token, DERRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, DRRED_OPEN, PERM_MODE);
 	}

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 23:33:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 19:38:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
-# define LRED_OPEN O_RDONLY
-# define RRED_OPEN O_WRONLY | O_CREAT | O_TRUNC
-# define DRRED_OPEN O_WRONLY | O_CREAT | O_APPEND
+# define LRED_OPEN O_RDWR
+# define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
+# define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define FD_LIMIT 8192
+# define HEREDOC_FILE "/tmp/fucking_heredoc"
 
 /*
 **	interpretator.c

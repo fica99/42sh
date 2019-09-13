@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/09/10 17:41:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/13 20:10:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,10 @@ void	check_new_line(t_line *line, char *c)
 		else
 			check_heredoc_end(line->buffer.buffer, line->stop_buff.buffer,
 			line->cord);
+	}
+	if (*c == CTRL_D && (g_line_flags & HEREDOC_FLAG))
+	{
+		g_line_flags |= HEREDOC_CTRL_D;
+		g_line_flags |= BREAK_FLAG;
 	}
 }

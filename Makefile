@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/11 23:36:51 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/13 17:18:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,7 +151,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -161,7 +161,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o: $(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 		@$(MAKE) --no-print-directory loadlibs
