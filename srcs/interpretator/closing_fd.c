@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:06:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 18:49:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 
 	i = 0;
 	j = 0;
-	if (!(nb = ft_strnew(FD_LIMIT)))
+	if (!(nb = ft_strnew(10)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	while (ft_isdigit(str[i]))
 		nb[j++] = str[i++];

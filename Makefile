@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/13 17:18:18 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/14 18:26:07 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,9 +65,9 @@ srcs_parser := parser/ast.c\
 		parser/ast_other.c\
 
 srcs_interpretator := interpretator/interpretator.c\
-		interpretator/redir.c\
+		interpretator/rredir.c\
+		interpretator/lredir.c\
 		interpretator/pipes.c\
-		interpretator/amp_redir.c\
 		interpretator/dup_fd.c\
 		interpretator/closing_fd.c\
 		interpretator/exec.c\

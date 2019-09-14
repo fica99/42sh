@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 21:28:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 18:49:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
 # define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-# define FD_LIMIT 8192
+# define INT_LEN 10
 # define HEREDOC_FILE "/tmp/fucking_heredoc"
 
 /*
@@ -36,23 +36,23 @@ void	pipe_op(t_node *ast, t_term *term);
 void	left_child(int *pid, int *pipes, t_node *expr, t_term *term);
 void	right_child(int *pid, int *pipes, t_node *expr, t_term *term);
 /*
-**	redir.c
+**	rredir.c
 */
-void	redir_op(t_node *ast, t_term *term);
-void	exec_redir_command(t_node *ast, t_term *term);
+void	rredir_op(t_node *ast, t_term *term);
+void	amprred_op(t_node *ast, t_term *term);
 int		get_expr_fd(t_node *ast);
 int		open_red_file(char *name, token_type red_type, int acc, int mode);
+void	exec_redir_command(t_node *ast, t_term *term, token_class class);
+/*
+**	lredir.c
+*/
+void	lredir_op(t_node *ast, t_term *term);
 int		open_tmp_heredoc_file(t_node *ast);
 /*
 **	dup_fd.c
 */
 int		copy_fd(int fd, int new_fd);
 void	restore_fd(int back_fd, int new_fd);
-/*
-**	amp_redir.c
-*/
-void	amp_red(t_node *ast, t_term *term);
-void	amprred_op(t_node *ast, t_term *term);
 /*
 **	closing_fd.c
 */

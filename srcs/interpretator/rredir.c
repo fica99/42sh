@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   rredir.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 22:08:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 18:34:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	redir_op(t_node *ast, t_term *term)
+void	rredir_op(t_node *ast, t_term *term)
 {
 	int		fd;
 	int		back_fd;
@@ -22,30 +22,46 @@ void	redir_op(t_node *ast, t_term *term)
 		new_fd = STDERR_FILENO;
 	else if (tk_type(ast->token, RRED) || tk_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
-	else if (tk_type(ast->token, LRED) || tk_type(ast->token, DLRED))
-		new_fd = STDIN_FILENO;
-	else
+	else if (tk_type(ast->token, ARRED) || tk_type(ast->token, ADRRED))
 	{
-		amp_red(ast, term);
+		amprred_op(ast, term);
 		return ;
 	}
+	else
+		return ;
 	if ((fd = get_expr_fd(ast)) == -1)
 		return ;
 	back_fd = copy_fd(fd, new_fd);
-	exec_redir_command(ast, term);
+	exec_redir_command(ast, term, C_RREDIR);
 	restore_fd(back_fd, new_fd);
 }
 
-void	exec_redir_command(t_node *ast, t_term *term)
+void	amprred_op(t_node *ast, t_term *term)
 {
-	t_node *new_ast;
+	int		back_fd;
+	int		fd;
+	int		back_fd_two;
+	t_node	*expr;
 
-	new_ast = ast;
-	while (new_ast->left && !tk_type(new_ast->left->token, EXPRESS) &&
-	!tk_type(new_ast->left->token, PIPE))
-		new_ast = new_ast->left;
-	interpret_ast(new_ast->left, term);
+	expr = ast->right;
+	if (tk_type(expr->token, EXPRESS))
+	{
+		if (tk_type(ast->token, ARRED))
+			if ((fd = open_red_file(expr->token->lexeme,
+			ast->token->type, RRED_OPEN, PERM_MODE)) == -1)
+				return ;
+		if (tk_type(ast->token, ADRRED))
+			if ((fd = open_red_file(expr->token->lexeme,
+			ast->token->type, DRRED_OPEN, PERM_MODE)) == -1)
+				return ;
+		back_fd = copy_fd(fd, STDOUT_FILENO);
+		back_fd_two = copy_fd(fd, STDERR_FILENO);
+		exec_redir_command(ast, term, C_RREDIR);
+		restore_fd(back_fd, STDOUT_FILENO);
+		restore_fd(back_fd_two, STDERR_FILENO);
+	}
 }
+
 
 int		get_expr_fd(t_node *ast)
 {
@@ -93,17 +109,12 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 	return (fd);
 }
 
-int		open_tmp_heredoc_file(t_node *ast)
+void	exec_redir_command(t_node *ast, t_term *term, token_class class)
 {
-	int		fd;
-	t_node	*expr;
+	t_node *new_ast;
 
-	expr = ast->right;
-	fd = open_red_file(HEREDOC_FILE,
-	ast->token->type, RRED_OPEN, PERM_MODE);
-	ft_putstr_fd(expr->token->lexeme, fd);
-	close(fd);
-	fd = open_red_file(HEREDOC_FILE,
-	ast->token->type, O_RDONLY, PERM_MODE);
-	return (fd);
+	new_ast = ast;
+	while (new_ast->left && tk_class(new_ast->left->token, class))
+		new_ast = new_ast->left;
+	interpret_ast(new_ast->left, term);
 }
