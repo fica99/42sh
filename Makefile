@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/14 18:26:07 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/14 19:54:33 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,11 @@ srcs_builtins := builtins/cd/cd.c\
 		builtins/history/ft_history.c\
 
 srcs_lexer = lexer/load_lexer.c\
-		lexer/lexer.c
+		lexer/lexer.c\
+		lexer/get_token.c\
+		lexer/get_token2.c\
+		lexer/error_token.c\
+		lexer/debug_lexer.c\
 
 builtins_dir := builtins
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 18:34:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 19:56:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	rredir_op(t_node *ast, t_term *term)
 	int		back_fd;
 	int		new_fd;
 
-	if (tk_type(ast->token, ERRED) || tk_type(ast->token, DERRED))
+	if (tk_type(ast->token, ERRED) || tk_type(ast->token, EDRRED))
 		new_fd = STDERR_FILENO;
 	else if (tk_type(ast->token, RRED) || tk_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
@@ -80,7 +80,7 @@ int		get_expr_fd(t_node *ast)
 		else if (tk_type(ast->token, RRED) || tk_type(ast->token, ERRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, RRED_OPEN, PERM_MODE);
-		else if (tk_type(ast->token, DRRED) || tk_type(ast->token, DERRED))
+		else if (tk_type(ast->token, DRRED) || tk_type(ast->token, EDRRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, DRRED_OPEN, PERM_MODE);
 	}

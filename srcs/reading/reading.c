@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 16:47:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 20:18:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void		read_prompt(t_term *term)
 {
 	set_input_mode(&g_raw_mode);
 	init_terminfo();
+	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	init_line(&g_line, term);
 	reading(&g_line);
 	autocomplite(NULL, NULL);

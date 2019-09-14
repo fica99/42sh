@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:18:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/08 13:26:26 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/11 22:42:36 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_lexer		*load_lexer(void)
 		return (NULL);
 	if (!(lexer->m_class = get_matrix("srcs/lexer/classes_matrix")))
 		return (NULL);
-	if (!(lexer->m_generalization = get_matrix("srcs/lexer/generalization_types_matrix")))
+	if (!(lexer->m_union = get_matrix("srcs/lexer/union_matrix")))
 		return (NULL);
 	return (lexer);
 }
@@ -192,7 +192,7 @@ void		clear_lexer(t_lexer **lexer)
 {
 	clear_matrix(&((*lexer)->m_type));
 	clear_matrix(&((*lexer)->m_class));
-	clear_matrix(&((*lexer)->m_generalization));
+	clear_matrix(&((*lexer)->m_union));
 	free(*lexer);
 	lexer = NULL;
 }

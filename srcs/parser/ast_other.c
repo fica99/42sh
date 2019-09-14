@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:35:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 18:04:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 19:55:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_node		*lredir_statement(t_node *ast, t_string *str)
 
 t_node		*pipe_statement(t_node *ast, t_string *str)
 {
-	t_node	*ast;
 	t_token	*token;
 	t_node	*right;
 	short	copy;

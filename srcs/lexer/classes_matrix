@@ -1,2 +1,2 @@
-			||	BEGIN=0	|	SEP=1	|		EOL=2	|	EXPRESS=3	|	LRED(<)=4	|	DLRED(<<)=5	|	RRED(>)=6	| 	DRRED(>>)=7	|	PIPE(|)=8	|	BRKO(')=9	|	BRKC(')=10	|	DBRKO(")=11	|	DBRKC(")=12	|	RBRKO(`)=13	|	RBRKC(`)=14	|	(&)=15	|	ARRED(&>)=16	|	(2)=17	|	ERRED(2>)=18	|	DERRED(2>>)=19	|	SPACE=20	|	ADRRED(&>>)=21	|	RREDA(>&)=22	|	DRREDA(>>&)=23	|
-	classes	||		0	|		2	|		0		|		3		|		4		|		4		|		4		|		4		|		4		|		0		|		0		|		0		|		0		|		0		|		0		|		0	|		4			|		0	|		4			|		4			|		0		|		4			|		4			|		4			|
+			||	BEGIN=0	|	SEP=1	|		EOL=2	|	EXPRESS=3	|	SPACE=4		|	LRED(<)=5	|	DLRED(<<)=6	|	RRED(>)=7	| 	DRRED(>>)=8	|	PIPE(|)=9	|	BRKO(')=10	|	BRKC(')=11	|	DBRKO(")=12	|	DBRKC(")=13	|	RBRKO(`)=14	|	RBRKC(`)=15	|	NUM(0-9)=16	|	(0)=17	|	(1)=18	|	(2)=19	|	ERRED(2>)=20	|	EDRRED(2>>)=21	|	(&)=22	|	ARRED(&>)(>&)=23	|	ADRRED(&>>)(>>&)=24	|
+	classes	||		0	|		2	|		0		|		3		|		2		|		4		|		4		|		5		|		5		|		0		|		6		|		6		|		6		|		6		|		6		|		6		|		7		|		7	|		7	|	7		|		5			|			5		|		0	|			5			|			5			|

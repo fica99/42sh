@@ -1,2 +1,0 @@
-			||	BEGIN=0	|	SEP=1	|		EOL=2	|	EXPRESS=3	|	LRED(<)=4	|	DLRED(<<)=5	|	RRED(>)=6	| 	DRRED(>>)=7	|	PIPE(|)=8	|	BRKO(')=9	|	BRKC(')=10	|	DBRKO(")=11	|	DBRKC(")=12	|	RBRKO(`)=13	|	RBRKC(`)=14	|	(&)=15	|	ARRED(&>)=16	|	(2)=17	|	ERRED(2>)=18	|	DERRED(2>>)=19	|	SPACE=20	|	ADRRED(&>>)=21	|	RREDA(>&)=22	|	DRREDA(>>&)=23	|
-	classes	||		0	|		1	|		2		|		3		|		4		|		5		|		6		|		7		|		8		|		9		|		10		|		11		|		12		|		13		|		14		|		15	|		16			|		3	|		18			|		19			|		3		|		21			|		22			|		23			|

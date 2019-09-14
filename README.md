@@ -31,18 +31,18 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 
 * Separator `;`\.
 * Full quotes handling: `'`, `"`\.
-* Redirections `[command] > {filename}`, `[command] < {filename}`, `[command] >> {filename}`, `[command] 2> {filename}`, `[command] 2>> {filename}`, `[command] &> {filename}`, `[command] >& {filename}`, `[command] &>> {filename}` and `[command] >>& {filename}`\.
-* Heredoc `[command] << (stop_word)`\.
+* Redirections `[command] > {filename}`, `[command] 1> {filename}`, `[command] >> {filename}`, `[command] 1>> {filename}`,`[command] < {filename}`, `[command] 0< {filename}`, `[command] 2> {filename}`, `[command] 2>> {filename}`, `[command] &> {filename}`, `[command] >& {filename}`, `[command] &>> {filename}` and `[command] >>& {filename}`\.
+* Heredoc `[command] << (stop_word)`, `[command] 0<< (stop_word)`\.
 * Several redirections `[command] [redirection] {filename} [redirection] {filename2} ...`\.
 * Pipe `|`\.
 * Several pipes `[command] [pipe] [command] [pipe] [command] ...`\.
 * Inhibitors `"`, `'` and `\`\.
 
 ### Line edition hotkeys:
-	<home>: Go to begin of line.
-	<end>: Go to end of line.
-	<ctrl+[up|down]>: Move per line.
-	<ctrl+[left|right]>: Move per word.
+	<home>: Go to the beginning of line.
+	<end>: Go to the end of line.
+	<ctrl+[up|down]>: Move cursor by display line.
+	<ctrl+[left|right]>: Move cursor per word.
 	<ctrl+D>: If there is a line, then work as well as delete; otherwise, force exit.
 	<ctrl+V>: Paste.
 	<ctrl+X>: Cut.

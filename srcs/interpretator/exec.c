@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 15:36:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/14 19:59:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	make_command(char *buff, t_term *term)
 {
 	char	**args;
 	short	i;
-
 
 	if (!buff || !(*buff))
 		return ;
