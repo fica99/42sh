@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/13 20:10:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 14:10:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*check_heredoc(t_buff buffer, t_buff *stop_buff, t_cord *cord)
 	{
 		if (buffer.buffer[j] != ' ')
 		{
-			check_malloc_len_buffer(stop_buff, &buffer.buffer[j]);
+			check_malloc_len_buffer(stop_buff, buffer.buffer + j);
 			stop_buff->buffer[i++] = buffer.buffer[j];
 		}
 	}
@@ -72,7 +72,10 @@ void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord)
 	if (!(last_line = ft_strrchr(buffer, NEW_LINE) + 1))
 		return ;
 	if (last_line && !ft_strcmp(last_line, stop_buff))
+	{
 		g_line_flags |= BREAK_FLAG;
+		buffer = ft_stradd(buffer, "\n", ft_strlen(buffer));
+	}
 	else
 		print_heredoc(buffer, cord);
 }
@@ -82,7 +85,13 @@ void	check_exist_hered(char **buffer)
 	char	*her;
 	int		index;
 
-	if (g_line_flags & HEREDOC_FLAG)
+	if (g_line_flags & HEREDOC_ERROR_FLAG)
+	{
+		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
+		err("42sh", "heredoc error", NULL, NOERROR);
+		ft_memdel((void**)buffer);
+	}
+	else if (g_line_flags & HEREDOC_FLAG)
 	{
 		if (!(her = ft_strdup(ft_strchr(*buffer, '\n') + 1)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
@@ -97,11 +106,5 @@ void	check_exist_hered(char **buffer)
 		*buffer = ft_stradd(*buffer, her, ft_strstr(*buffer, "<<") - *buffer + 2);
 		*buffer = ft_stradd(*buffer, " ", ft_strstr(*buffer, "<<") - *buffer + 2);
 		ft_memdel((void**)&her);
-	}
-	if (g_line_flags & HEREDOC_ERROR_FLAG)
-	{
-		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
-		err("42sh", "heredoc error", NULL, NOERROR);
-		ft_memdel((void**)buffer);
 	}
 }
