@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/13 20:09:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 15:07:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*check_heredoc(t_buff buffer, t_buff *stop_buff, t_cord *cord);
 short	find_heredoc(char *buffer);
 void	print_heredoc(char *buffer, t_cord *cord);
 void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord);
-void	check_exist_hered(char **buffer);
+void	check_exist_hered(char **buf);
 /*
 **	init.c
 */

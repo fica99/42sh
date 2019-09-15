@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 14:10:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 16:28:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ void		read_prompt(t_term *term)
 {
 	set_input_mode(&g_raw_mode);
 	init_terminfo();
-	ft_putstr_fd(tigetstr("ed"), STDIN_FILENO);
 	init_line(&g_line, term);
 	reading(&g_line);
 	autocomplite(NULL, NULL);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
 	{
-		go_right(ft_strlen(g_line.buffer.buffer + g_line.cord->pos),
-		g_line.cord);
-		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 		{
 			write_history(g_line.buffer.buffer, &term->history);
@@ -33,10 +31,9 @@ void		read_prompt(t_term *term)
 			check_exist_hered(&term->buffer);
 		}
 	}
-	if (g_line.copy_buff.buffer)
+	if (g_line.copy_buff.buffer && (*g_line.copy_buff.buffer))
 		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	free_line(&g_line, term);
 	reset_terminfo();
 	set_attr(&g_orig_mode);
@@ -64,6 +61,9 @@ void		reading(t_line *line)
 		if ((g_flags & TERM_EXIT) || (g_line_flags & BREAK_FLAG))
 			break ;
 	}
+	if (line->buffer.buffer && *(line->buffer.buffer))
+		go_right(ft_strlen(line->buffer.buffer + line->cord->pos),
+		line->cord);
 }
 
 void		read_handler(char *c, int fd)

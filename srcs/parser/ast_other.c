@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:35:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 19:55:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 15:47:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ t_node		*expr(t_string *str)
 	token = get_next_token(str, g_lexer);
 	if (tk_type(token, FT_ERROR) || !tk_class(token, C_EXPRESS))
 	{
-		if (tk_type(token, FT_ERROR))
-			g_parser_flags |= PARSER_ERROR;
+		g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/09 22:35:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 14:20:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 typedef struct		s_term
 {
+	char			*buffer;
 	char			*copy_line;
 	unsigned short	hash_table_size;
 	t_hash			**hash_table;
 	t_history		history;
-	char			*buffer;
 }					t_term;
 
 typedef struct	s_string

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 15:59:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 16:30:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void		write_history(char *buffer, t_history *history)
 {
 	short	len;
 
+	if (!buffer || !*buffer)
+		return ;
 	if (!check_print_arr(buffer))
 		return ;
 	add_to_historybuf(buffer, history);
