@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 18:49:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 19:30:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	exec_redir_command(t_node *ast, t_term *term, token_class class);
 **	lredir.c
 */
 void	lredir_op(t_node *ast, t_term *term);
-int		open_tmp_heredoc_file(t_node *ast);
 /*
 **	dup_fd.c
 */

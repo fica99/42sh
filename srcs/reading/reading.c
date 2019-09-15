@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 16:28:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 17:35:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void		read_prompt(t_term *term)
 			write_history(g_line.buffer.buffer, &term->history);
 			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-			check_exist_hered(&term->buffer);
 		}
 	}
 	if (g_line.copy_buff.buffer && (*g_line.copy_buff.buffer))
@@ -61,9 +60,10 @@ void		reading(t_line *line)
 		if ((g_flags & TERM_EXIT) || (g_line_flags & BREAK_FLAG))
 			break ;
 	}
-	if (line->buffer.buffer && *(line->buffer.buffer))
-		go_right(ft_strlen(line->buffer.buffer + line->cord->pos),
-		line->cord);
+	go_right(ft_strlen(line->buffer.buffer + line->cord->pos),
+	line->cord);
+	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
+		rewrite_hered(&line->buffer.buffer);
 }
 
 void		read_handler(char *c, int fd)

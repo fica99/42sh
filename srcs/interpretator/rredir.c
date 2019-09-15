@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 19:56:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 19:29:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int		get_expr_fd(t_node *ast)
 	if (tk_type(expr->token, EXPRESS))
 	{
 		if (tk_type(ast->token, DLRED))
-			fd = open_tmp_heredoc_file(ast);
+			fd = open_red_file(HEREDOC_FILE,
+			ast->token->type, O_RDONLY, PERM_MODE);
 		else if (tk_type(ast->token, LRED))
 			fd = open_red_file(expr->token->lexeme,
 			ast->token->type, LRED_OPEN, 0);
