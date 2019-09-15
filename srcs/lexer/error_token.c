@@ -6,16 +6,18 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 21:26:49 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/14 19:36:12 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/15 22:48:47 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_token		*class_error(t_token **token)
+t_token		*class_error(t_token *token, t_token *next_token)
 {
 	if (token)
-		clear_token(token);
+		clear_token(&token);
+	if(next_token)
+		clear_token(&next_token);
 	return token_error();
 }
 
