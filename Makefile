@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: filip <filip@student.42.fr>                +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/14 19:54:33 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/18 20:43:34 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,11 +93,19 @@ srcs_builtins := builtins/cd/cd.c\
 		builtins/history/ft_history.c\
 
 srcs_lexer = lexer/load_lexer.c\
+		lexer/load_matrix.c\
+		lexer/clear_lexer.c\
 		lexer/lexer.c\
+		lexer/check_tokens.c\
+		lexer/init_tokens.c\
+		lexer/union_token.c\
+		lexer/different_tokens.c\
+		lexer/check_matrixs.c\
 		lexer/get_token.c\
 		lexer/get_token2.c\
 		lexer/error_token.c\
 		lexer/debug_lexer.c\
+
 
 builtins_dir := builtins
 
