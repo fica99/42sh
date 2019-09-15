@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 19:30:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 19:36:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define INT_LEN 10
-# define HEREDOC_FILE "/tmp/fucking_heredoc"
+# define HEREDOC_FILE "/tmp/.fucking_heredoc"
 
 /*
 **	interpretator.c

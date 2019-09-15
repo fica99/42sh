@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 19:35:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 20:17:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,12 @@ void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord)
 	if (!(last_line = ft_strrchr(buffer, NEW_LINE) + 1))
 		return ;
 	if (last_line && !ft_strcmp(last_line, stop_buff))
-	{
 		g_line_flags |= BREAK_FLAG;
-		buffer = ft_stradd(buffer, "\n", ft_strlen(buffer));
-	}
 	else
 		print_heredoc(buffer, cord);
 }
 
-void	rewrite_hered(char **buf)
+void	write_hered(char **buf)
 {
 	char	*her;
 	int		fd;
@@ -93,8 +90,10 @@ void	rewrite_hered(char **buf)
 		her = ft_strdup(ft_strchr(*buf, '\n') + 1);
 		ft_strclr(ft_strchr(*buf, '\n'));
 		if (!(g_line_flags & HEREDOC_CTRL_D))
+		{
 			(ft_strrchr(her, '\n')) ? ft_strclr(ft_strrchr(her, '\n') + 1)
 			: ft_memdel((void**)&her);
+		}
 		if ((fd = open(HEREDOC_FILE, RRED_OPEN, PERM_MODE)) == -1)
 			err_exit("42sh", "open() error", NULL, NOERROR);
 		ft_putstr_fd(her, fd);

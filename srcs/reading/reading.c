@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 17:35:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 22:05:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void		read_prompt(t_term *term)
 	autocomplite(NULL, NULL);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-	if (g_line.buffer.buffer && *(g_line.buffer.buffer))
+	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
 	{
-		if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
+		write_hered(&g_line.buffer.buffer);
+		if (g_line.buffer.buffer && *(g_line.buffer.buffer))
 		{
 			write_history(g_line.buffer.buffer, &term->history);
 			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
@@ -62,8 +63,6 @@ void		reading(t_line *line)
 	}
 	go_right(ft_strlen(line->buffer.buffer + line->cord->pos),
 	line->cord);
-	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
-		rewrite_hered(&line->buffer.buffer);
 }
 
 void		read_handler(char *c, int fd)
