@@ -1,0 +1,9 @@
+/.vscode
+*DS_STORE
+21sh
+*dSYM
+obj/
+*.o
+*.a
+.history
+libraries/
