@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:29:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/14 20:04:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 23:59:01 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_token		*get_next_token(t_string *str, t_lexer *lexer)
 			return (tokens.current);
 	while (1)
 	{
-		if (!(tokens.next = get_token(str, lexer)))
+		if (!(init_next_token(&tokens.next, str, lexer)))
 			return (NULL);
 		state = check_tokens(&tokens, lexer, str);
 		if (state == -2)
@@ -34,13 +34,59 @@ t_token		*get_next_token(t_string *str, t_lexer *lexer)
 	return (get_union_token(lexer));
 }
 
+int			init_next_token(t_token **token, t_string *str, t_lexer *lexer)
+{
+	if (!((*token) = get_token(str, lexer)))
+			return (0);
+	*token = check_space(*token, str, lexer);
+	*token = check_next_token(*token, str, lexer);
+	return (1);
+}
+
 int			init_tokens(t_tokens *tokens, t_string *str, t_lexer *lexer)
 {
 	tokens->previous = NULL;
 	if (!(tokens->current = get_token(str, lexer)))
 		return (0);
+	tokens->current = check_space(tokens->current, str, lexer);
 	tokens->next = NULL;
 	return (1);
+}
+
+t_token		*check_space(t_token *token, t_string *str, t_lexer *lexer)
+{
+	while (token->type == SPACE)
+	{
+		clear_token(&token);
+		if (!(token = get_token(str, lexer)))
+		return (NULL);
+	}
+	return (token);
+}
+
+t_token		*check_next_token(t_token *token, t_string *str, t_lexer *lexer)
+{
+	int		state;
+	t_token	*next_token;
+
+	if (!(next_token = get_token(str, lexer)))
+		return (NULL);
+	next_token = check_space(next_token, str, lexer);
+	state = check_union(token, next_token, lexer);
+	if (state == 0 || state == -2)
+		return (no_union(token, next_token, str));
+	else
+	{
+		token = join_token(token, next_token, lexer, state);
+		return (token);
+	}
+}
+
+t_token		*no_union(t_token *token, t_token *next_token, t_string *str)
+{
+	clear_token(&next_token);
+	str->index = token->fin_index;
+	return (token);
 }
 
 int			check_tokens(t_tokens *tokens, t_lexer *lexer, t_string *str)
@@ -137,38 +183,38 @@ int			equal_tokens(t_tokens *tokens, t_string *str)
 
 t_token		*get_union_token(t_lexer *lexer)
 {
-	int		class;
 	t_token	*token;
 	t_token	*next_token;
-	char	*tmp;
 
 	token = (t_token *)ft_fifo(1, "get", NULL);
 	while ((next_token = (t_token *)ft_fifo(1, "get", NULL)))
-	{
-		if (!(token->lexeme = join_lexeme(token->lexeme, next_token->lexeme)))
+		if (!(token = join_token(token, next_token, lexer, token->type)))
 			return (NULL);
-		clear_token(&next_token);
-	}
-	if ((class = define_class(token->type, lexer->m_class)) == -2)
-		return class_error(&token);
-	token->class = class;
-	if (!(tmp = ft_strtrim(token->lexeme)))
-		return (NULL);
-	free(token->lexeme);
-	token->lexeme = tmp;
 	return (token);
 }
 
-char		*join_lexeme(char *dest, char *src)
+t_token		*join_token(t_token *token, t_token *next_token, t_lexer *lexer, int state)
 {
-	char *tmp;
+	char	*tmp;
+	int		class;
 
-	if (!dest || !src)
-		return ((dest) ? dest : src);
-	if (!(tmp = ft_strjoin(dest, src)))
+	if (state == EXPRESS)
+	{
+		if (!(tmp = ft_strjoin(token->lexeme, " ")))
+			return (NULL);
+		free(token->lexeme);
+		token->lexeme = tmp;
+	}
+	if (!(tmp = ft_strjoin(token->lexeme, next_token->lexeme)))
 		return (NULL);
-	free(dest);
-	return (tmp);
+	free(token->lexeme);
+	token->lexeme = tmp;
+	clear_token(&next_token);
+	token->type = state;
+	if ((class = define_class(state, lexer->m_class)) == -2)
+			return class_error(token, next_token);
+	token->class = class;
+	return (token);
 }
 
 void		clear_token(t_token **token)
@@ -180,72 +226,3 @@ void		clear_token(t_token **token)
 	free(*token);
 	*token = NULL;
 }
-
-/* int			check_stack(t_token **token, t_token **next_token)
-{
-	*next_token = NULL;
-	*token = NULL;
-	if ((*token = (t_token *)ft_stack(1, "get", NULL)))
-		return (1);
-	return (0);
-} */
-
-/* int			union_tokens(t_token **token, t_token **next_token, int t_union)
-{
-	if (t_union > 0)
-	{
-		(*token)->type = t_union;
-		ft_fifo(1, "add", (void *)(*token));
-		*token = *next_token;
-		*next_token = NULL;
-		return (0);
-	}
-	else if (t_union == -3)
-	{
-		clear_token(token);
-		*token = *next_token;
-		return (0);
-	}
-	else
-	{
-		ft_fifo(1, "add", (void *)(*token));
-		if (*next_token)
-			clear_token(next_token);
-		*token = get_union_token();
-		return (1);
-	}
-} */
-
-/* int			go_ahead(char *str, int cur_index, int cur_type, t_lexer *lexer)
-{
-	int	index;
-	int	state;
-	int	type;
-
-	index = cur_index;
-	state = 0;
-	type = 0;
-	if (!str || !lexer->m_type)
-		return (-2);
-	while(1)
-	{
-		type = (state == -3) ? type : state;
-		state = next_state(str[index], type, lexer);
-		if (state == -4)
-			state = go_ahead(str, index, type, lexer);
-		if (state == -1)
-		{
-			type = generalize_type(type, lexer->m_generalization);
-			return ((type == cur_type) ? cur_type : -1);
-		}
-		if (str[index])
-			index++;
-	}
-} */
-
-/* int			generalize_type(int type, t_matrix *m_generalization)
-{
-	if (type < 0 && type >= m_generalization->cols)
-		return (-2);
-	return (m_generalization->data[0][type]);
-} */

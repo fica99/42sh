@@ -1,40 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setenv.c                                           :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/03 17:09:01 by aashara-         ###   ########.fr       */
+/*   Created: 2019/03/25 21:56:19 by aashara-          #+#    #+#             */
+/*   Updated: 2019/04/22 23:49:47 by filip            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "minishell.h"
 
-void	set_env(int argc, char **argv, char **env_cp)
+unsigned short	double_arr_len(char **arr)
 {
-	short	j;
-	char	*value;
+	unsigned short	i;
 
-	(void)env_cp;
-	value = NULL;
-	j = 0;
-	if (argc == 1)
-		print_environ();
-	else
-	{
-		while (argv[++j])
-		{
-			if (!(value = ft_strchr(argv[j], '=')))
-				continue ;
-			else
-			{
-				*value = '\0';
-				ft_setenv(argv[j], ++value);
-				if (!ft_strcmp(argv[j], "PATH"))
-					g_flags |= TERM_INIT_HASH;
-			}
-		}
-	}
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
+}
+
+char			*check_path(void)
+{
+	char	*path;
+
+	path = ft_strrchr(ft_getenv("PWD"), '/');
+	ft_isprint(*(path + 1)) == 1 ? path = path + 1 : path;
+	!ft_strcmp(ft_getenv("PWD"), ft_getenv("HOME")) ? path = "~" : path;
+	return (path);
 }
