@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/15 23:58:51 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/14 19:53:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,6 @@ int			equal_tokens(t_tokens *tokens, t_string *str);
 t_token		*get_union_token(t_lexer *lexer);
 char		*join_lexeme(char *dest, char *src);
 void		clear_token(t_token **token);
-t_token		*check_space(t_token *token, t_string *str, t_lexer *lexer);
-int			init_next_token(t_token **token, t_string *str, t_lexer *lexer);
-t_token		*check_next_token(t_token *token, t_string *str, t_lexer *lexer);
-t_token		*no_union(t_token *token, t_token *next_token, t_string *str);
-t_token		*join_token(t_token *token, t_token *next_token, t_lexer *lexer, int state);
-
 /* delete */
 int			check_stack(t_token **token, t_token **next_token);
 int			check_union(t_token *token, t_token *next_token, t_lexer *lexer);
@@ -157,7 +151,7 @@ t_token		*ready_token(t_string *str, t_lexer_params prm);
 int			define_class(int type, t_matrix *m_class);
 /* error_token.c */
 t_token		*token_error(void);
-t_token		*class_error(t_token *token, t_token *next_token);
+t_token		*class_error(t_token **token);
 t_token		*eof_token(void);
 int			tokens_error(t_tokens *tokens, t_string *str);
 /* debug_token.c */
