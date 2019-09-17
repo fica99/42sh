@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/15 22:32:09 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/17 19:35:49 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,9 +53,8 @@ srcs_make := make/buff_editing.c\
 		make/env2.c\
 		make/process.c\
 
-srcs_hash_table := hash_table/hash_table.c\
-		hash_table/hash_table2.c\
-		hash_table/free_hash_table.c\
+srcs_bin_table := bin_table/bin_table.c\
+		bin_table/free_bin_table.c\
 
 srcs_history := history/make_history.c\
 		history/make_history_other.c\
@@ -106,7 +105,7 @@ srcs_files := $(srcs_term)\
 			$(srcs_make)\
 			$(srcs_error)\
 			$(srcs_history)\
-			$(srcs_hash_table)\
+			$(srcs_bin_table)\
 			$(srcs_signal)\
 			$(srcs_reading)\
 			$(srcs_line_editing)\
@@ -144,18 +143,20 @@ includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
 
 includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
 
-lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses
+includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
+
+lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 header := includes/ft_term.h includes/autocom/autocom.h includes/builtins/cd/cd.h includes/builtins/echo/echo.h \
 	includes/builtins/env/env.h includes/builtins/hash/hash.h includes/builtins/his/his.h \
 	includes/builtins/setenv/setenv.h includes/builtins/unsetenv/unsetenv.h includes/error/error.h \
-	includes/hash_table/hash_table.h includes/history/history.h includes/interpretator/interpretator.h \
+	includes/bin_table/bin_table.h includes/history/history.h includes/interpretator/interpretator.h \
 	includes/lexer/lexer.h includes/line_editing/line_editing.h includes/macro/colour.h \
 	includes/make/make.h includes/parser/parser.h includes/prompt/prompt.h \
 	includes/reading/reading.h includes/signal/signal.h includes/term/term.headers
 
 includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr)
+	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
 
 .PHONY: all loadlibs removelibs lall llall llclean llfclean lfclean oclean clean fclean re
 
@@ -163,7 +164,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -173,7 +174,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 		@$(MAKE) --no-print-directory loadlibs

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 19:36:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:18:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd);
 void	make_command(char *buff, t_term *term);
 void	find_command(char **args, t_term *term);
 char	*check_command(char **args);
-char	*check_bin(char **args, t_hash **hash_table, short hash_table_size);
+char	*check_bin(char **args, t_hash **bin_table, short bin_table_size);
 /*
 **	spec_symb.c
 */

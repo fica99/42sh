@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/06/19 15:18:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:12:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 
 # include "libft.h"
 
-void				print_hash_table(t_hash **table, unsigned short len);
+void	print_bin_table(t_hash **bin_table, size_t size);
 #endif

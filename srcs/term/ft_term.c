@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 19:57:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/17 19:12:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		main(int argc, char **argv, char **environ)
 	t_term	term;
 
 	init_global_var(argv, environ);
-	term.hash_table = init_hash_table(&(term.hash_table_size));
+	term.bin_table = init_bin_table(&(term.bin_table_size));
 	if (argc == 1)
 	{
 		init_term();
@@ -27,8 +27,7 @@ int		main(int argc, char **argv, char **environ)
 		term_start(&term);
 		free_history(&(term.history));
 	}
-	free_my_hash_table(term.hash_table, &term.hash_table_size);
-	term.hash_table = NULL;
+	term.bin_table = free_bin_table(term.bin_table, &term.bin_table_size);
 	clear_lexer(&g_lexer);
 	ft_free_dar(g_argv);
 	ft_free_dar(g_env);
@@ -89,10 +88,11 @@ void	check_valid_string(t_term *term)
 		free_ast(&ast);
 		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
 		{
-			free_my_hash_table(term->hash_table, &term->hash_table_size);
-			term->hash_table = NULL;
+			term->bin_table = free_bin_table(term->bin_table,
+			&term->bin_table_size);
+			term->bin_table = NULL;
 			if (g_flags & TERM_INIT_HASH)
-				term->hash_table = init_hash_table(&term->hash_table_size);
+				term->bin_table = init_bin_table(&term->bin_table_size);
 		}
 	}
 }

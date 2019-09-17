@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.c                                             :+:      :+:    :+:   */
+/*   free_bin_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 15:18:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 18:20:29 by aashara-         ###   ########.fr       */
+/*   Created: 2019/05/20 14:09:54 by filip             #+#    #+#             */
+/*   Updated: 2019/09/17 19:23:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	print_bin_table(t_hash **bin_table, size_t size)
+t_hash	**free_bin_table(t_hash **bin_table, size_t *bin_table_size)
 {
-	size_t	i;
-	t_hash	**table_copy;
-	t_hash	*hash;
-
-	i = 0;
-	table_copy = bin_table;
-	while (i < size)
+	if (bin_table)
 	{
-		hash = table_copy[i++];
-		while (hash)
-		{
-			ft_putstr_fd(ft_strrchr(hash->data, '/') + 1, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putstr_fd(hash->data, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			hash = hash->next;
-		}
+		bin_table = free_hash_table(bin_table, *bin_table_size);
+		*bin_table_size = 0;
 	}
+	return (bin_table);
 }
