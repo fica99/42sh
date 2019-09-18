@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/17 19:35:49 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/18 21:19:31 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,17 +27,7 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 srcs_error := error/error.c\
 
 srcs_line_editing := line_editing/check_symb.c\
-			line_editing/cut_copy_paste.c\
-			line_editing/highlight.c\
-			line_editing/print_printable.c\
-			line_editing/print_move.c\
-			line_editing/print_move_other.c\
-			line_editing/history.c\
-			line_editing/get_and_check.c\
-			line_editing/init.c\
-			line_editing/free.c\
-			line_editing/quotes.c\
-			line_editing/heredoc.c\
+		line_editing/buff_edit.c\
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
@@ -75,10 +65,18 @@ srcs_interpretator := interpretator/interpretator.c\
 
 srcs_reading := reading/reading.c\
 		reading/canon_mode.c\
+		reading/set_data.c\
+		reading/heredoc.c\
+		reading/new_line.c\
+		reading/quotes.c\
 
 srcs_signal := signal/signal.c\
 
 srcs_term := term/ft_term.c\
+		term/templates.c\
+		term/set_templates.c\
+		term/init_line.c\
+		term/free_line.c\
 
 srcs_prompt := prompt/prompt.c\
 		prompt/prompt_other.c\

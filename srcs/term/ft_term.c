@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 19:12:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/18 20:58:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int		main(int argc, char **argv, char **environ)
 	{
 		init_term();
 		make_history_buff(&(term.history));
-		term.buffer = NULL;
-		term.copy_line = NULL;
 		term_start(&term);
 		free_history(&(term.history));
 	}
@@ -47,6 +45,7 @@ void	init_global_var(char **argv, char **environ)
 
 void	term_start(t_term *term)
 {
+	init_line(&g_line, term);
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
@@ -58,7 +57,7 @@ void	term_start(t_term *term)
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
-	ft_memdel((void**)&term->copy_line);
+	free_line(&g_line);
 }
 
 void	init_term(void)

@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_and_check.c                                    :+:      :+:    :+:   */
+/*   set_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 11:56:18 by filip             #+#    #+#             */
-/*   Updated: 2019/09/11 16:29:12 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/18 20:32:36 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/18 20:57:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+void	set_data(t_line *line)
+{
+	g_line_flags = INIT_FLAGS;
+	get_win_size(line->cord);
+	get_cur_cord(line->cord);
+	set_start_cord(line->cord);
+}
 
 void		get_cur_cord(t_cord *cord)
 {
@@ -44,17 +52,24 @@ void		get_win_size(t_cord *cord)
 	cord->ws_row = size.ws_row;
 }
 
-short		is_start_pos(t_cord *cord)
+void		unset_cord(t_cord *cord)
 {
-	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
-		return (1);
-	return (0);
+	free_cord(&cord->nl);
+	cord->x_cur = 0;
+	cord->x_start = 0;
+	cord->ws_col = 0;
+	cord->ws_row = 0;
+	cord->y_cur = 0;
+	cord->y_start = 0;
+	cord->pos = 0;
+	cord->highlight_pos = 0;
 }
 
-void		check_end_window(t_cord *cord)
+void		unset_data(t_line *line)
 {
-	if (cord->y_cur >= cord->ws_row - 1)
-		(cord->y_start)--;
-	else
-		(cord->y_cur)++;
+	unset_cord(line->cord);
+	ft_strclr(line->buffer.buffer);
+	ft_strclr(line->save_buff.buffer);
+	ft_strclr(line->stop_buff.buffer);
+	ft_strclr(line->history_search.buffer);
 }

@@ -1,16 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/27 21:00:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/08/31 16:39:55 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/18 20:22:12 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/18 20:58:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+void	free_line(t_line *line)
+{
+	free_buffer(&line->buffer);
+	free_buffer(&line->history_search);
+	free_buffer(&line->save_buff);
+	free_buffer(&line->copy_buff);
+	free_buffer(&line->stop_buff);
+	free_cord(&line->cord);
+	free_templates(&line->templates);
+}
 
 void	free_cord(t_cord **cord)
 {
@@ -29,12 +40,6 @@ void	free_cord(t_cord **cord)
 	*cord = NULL;
 }
 
-void	unset_start_pos(t_cord *cord)
-{
-	cord->x_start = 0;
-	cord->y_start = 0;
-}
-
 void	free_buffer(t_buff *buffer)
 {
 	if (buffer)
@@ -42,15 +47,4 @@ void	free_buffer(t_buff *buffer)
 		ft_memdel((void**)&buffer->buffer);
 		buffer->malloc_len = 0;
 	}
-}
-
-void	free_line(t_line *line, t_term *term)
-{
-	free_buffer(&line->buffer);
-	free_buffer(&line->history_search);
-	free_buffer(&line->save_buff);
-	free_buffer(&line->copy_buff);
-	free_buffer(&line->stop_buff);
-	free_cord(&line->cord);
-	term->history = line->history;
 }

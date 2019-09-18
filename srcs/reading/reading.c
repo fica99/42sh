@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 22:05:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/18 20:57:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void		read_prompt(t_term *term)
 {
 	set_input_mode(&g_raw_mode);
-	init_terminfo();
-	init_line(&g_line, term);
+	transmit_mode();
+	set_cord(g_line.cord);
 	reading(&g_line);
 	autocomplite(NULL, NULL);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
@@ -31,11 +31,8 @@ void		read_prompt(t_term *term)
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		}
 	}
-	if (g_line.copy_buff.buffer && (*g_line.copy_buff.buffer))
-		if (!(term->copy_line = ft_strdup(g_line.copy_buff.buffer)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	free_line(&g_line, term);
-	reset_terminfo();
+	unset_data(&g_line);
+	reset_transmit_mode();
 	set_attr(&g_orig_mode);
 }
 
@@ -55,9 +52,7 @@ void		reading(t_line *line)
 		check_new_line(line, c);
 		if (g_line_flags & BREAK_FLAG)
 			break;
-		if (!print_symbols(c, line))
-			if (!print_move(c, line->buffer.buffer, line->cord))
-				print_printable(c, line->buffer.buffer, line->cord);
+		check_symbol(c, line);
 		if ((g_flags & TERM_EXIT) || (g_line_flags & BREAK_FLAG))
 			break ;
 	}
@@ -79,28 +74,12 @@ void		read_handler(char *c, int fd)
 	c[nb] = '\0';
 }
 
-void	reset_terminfo(void)
+void	transmit_mode(void)
 {
-	char	*rmkx_mode;
-
-	if ((rmkx_mode = STOP_TRANSMIT_MODE) != (char*)-1)
-		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
+	ft_putstr_fd(TRANSMIT_MODE, STDIN_FILENO);
 }
 
-void	init_terminfo(void)
+void	reset_transmit_mode(void)
 {
-	char	*smkx_mode;
-
-	if ((smkx_mode = TRANSMIT_MODE) != (char*)-1
-		&& CUR_CORD != (char*)-1
-	&& K_LFT != (char*)-1 && K_HOME != (char*)-1
-	&& K_RGHT != (char*)-1 && K_END != (char*)-1
-	&& SET_CUR != (char*)-1 && SAVE_CUR != (char*)-1
-	&& RESTORE_CUR != (char*)-1 && CLEAR_END_SCREEN != (char*)-1
-	&& CLEAR_SCREEN != (char*)-1 && K_DEL != (char*)-1
-	&& K_UP != (char*)-1 && K_DOWN != (char*)-1
-	&& SHIFT_LFT != (char*)-1 && SHIFT_RGHT != (char*)-1)
-		ft_putstr_fd(smkx_mode, STDIN_FILENO);
-	else
-		err_exit("42sh", "no correct capabilities", NULL, NOERROR);
+	ft_putstr_fd(STOP_TRANSMIT_MODE, STDIN_FILENO);
 }
