@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 19:59:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/17 16:19:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	find_command(char **args, t_term *term)
 	else if (ft_strcmp(args[0], "unsetenv") == 0)
 		ft_unsetenv(ft_darlen(args), args, g_env);
 	else if (ft_strcmp(args[0], "hash") == 0 && ft_darlen(args) == 1)
-		print_hash_table(term->hash_table, term->hash_table_size);
+		print_bin_table(term->bin_table, term->bin_table_size);
 	else if (ft_strcmp(args[0], "history") == 0)
 		print_history(&term->history);
 	else if (ft_strcmp(args[0], "exit") == 0)
@@ -54,8 +54,8 @@ void	find_command(char **args, t_term *term)
 		g_flags |= TERM_EXIT;
 		return ;
 	}
-	else if (!check_bin(args, term->hash_table,
-	term->hash_table_size) && !check_command(args))
+	else if (!check_bin(args, term->bin_table,
+	term->bin_table_size) && !check_command(args))
 		err("42sh", "command not found", args[0], NOERROR);
 }
 
@@ -87,27 +87,18 @@ char	*check_command(char **args)
 	return (NULL);
 }
 
-char	*check_bin(char **args, t_hash **hash_table, short hash_table_size)
+char	*check_bin(char **args, t_hash **bin_table, short bin_table_size)
 {
 	pid_t			p;
 	int				status;
-	t_hash			*hash;
 
-	if (!hash_table)
-		return (NULL);
-	hash = hash_table[hash_index(hashing(args[0]), hash_table_size)];
-	while (hash)
-	{
-		if (!ft_strcmp(hash->name, args[0]))
-			break ;
-		hash = hash->next;
-	}
-	if (!hash)
+	if (!bin_table)
 		return (NULL);
 	p = make_process();
 	signalling();
 	if (!p)
-		if (execve(hash->path, args, g_env) < 0)
+		if (execve(get_hash_data(bin_table, args[0], bin_table_size),
+		args, g_env) < 0)
 			err_exit("42sh", "execve() error", args[0], NOERROR);
 	waitpid(p, &status, 0);
 	return (SOMETHING);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 15:39:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/17 15:48:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include "libdar.h"
 # include "libfifo.h"
 # include "libstack.h"
-# include "hash_table/hash_table.h"
+# include "libhash.h"
+# include "bin_table/bin_table.h"
 # include "history/history.h"
 # include "term/term.h"
 # include "prompt/prompt.h"
@@ -29,11 +30,11 @@
 # include "macro/colour.h"
 # include "line_editing/line_editing.h"
 # include "signal/signal.h"
-# include "reading/reading.h"
-# include "autocom/autocom.h"
 # include "lexer/lexer.h"
 # include "parser/parser.h"
 # include "interpretator/interpretator.h"
+# include "reading/reading.h"
+# include "autocom/autocom.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"
 # include "builtins/echo.h"

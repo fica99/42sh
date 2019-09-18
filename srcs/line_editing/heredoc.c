@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 14:10:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/15 20:17:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,13 @@ char	*check_heredoc(t_buff buffer, t_buff *stop_buff, t_cord *cord)
 	short	j;
 	short	i;
 
-	if (!(j = find_heredoc(buffer.buffer)))
+	if ((j = find_heredoc(buffer.buffer)) == -1)
 		return (NULL);
 	i = 0;
-	while (buffer.buffer[++j] && buffer.buffer[j] != ';')
-	{
-		if (buffer.buffer[j] != ' ')
-		{
-			check_malloc_len_buffer(stop_buff, buffer.buffer + j);
-			stop_buff->buffer[i++] = buffer.buffer[j];
-		}
-	}
+	while (buffer.buffer[j] && buffer.buffer[j] == ' ')
+		j++;
+	while (buffer.buffer[j] && ft_isalnum(buffer.buffer[j]))
+		stop_buff->buffer[i++] = buffer.buffer[j++];
 	if (*(stop_buff->buffer) == '\0')
 	{
 		g_line_flags |= BREAK_FLAG;
@@ -50,10 +46,10 @@ short	find_heredoc(char *buffer)
 		if (buffer[i] == '<' && (buffer[i + 1] && buffer[i + 1] == '<'))
 		{
 			g_line_flags |= HEREDOC_FLAG;
-			return (++i);
+			return (i + 2);
 		}
 	}
-	return (0);
+	return (-1);
 }
 
 void	print_heredoc(char *buffer, t_cord *cord)
@@ -72,39 +68,36 @@ void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord)
 	if (!(last_line = ft_strrchr(buffer, NEW_LINE) + 1))
 		return ;
 	if (last_line && !ft_strcmp(last_line, stop_buff))
-	{
 		g_line_flags |= BREAK_FLAG;
-		buffer = ft_stradd(buffer, "\n", ft_strlen(buffer));
-	}
 	else
 		print_heredoc(buffer, cord);
 }
 
-void	check_exist_hered(char **buffer)
+void	write_hered(char **buf)
 {
 	char	*her;
-	int		index;
+	int		fd;
 
+	if (!buf || !*buf || !(**buf))
+		return ;
 	if (g_line_flags & HEREDOC_ERROR_FLAG)
 	{
-		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
 		err("42sh", "heredoc error", NULL, NOERROR);
-		ft_memdel((void**)buffer);
+		ft_memdel((void**)buf);
 	}
 	else if (g_line_flags & HEREDOC_FLAG)
 	{
-		if (!(her = ft_strdup(ft_strchr(*buffer, '\n') + 1)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		her = ft_strdup(ft_strchr(*buf, '\n') + 1);
+		ft_strclr(ft_strchr(*buf, '\n'));
 		if (!(g_line_flags & HEREDOC_CTRL_D))
-			(ft_strrchr(her, '\n') + 1) ? ft_strclr(ft_strrchr(her, '\n') + 1)
+		{
+			(ft_strrchr(her, '\n')) ? ft_strclr(ft_strrchr(her, '\n') + 1)
 			: ft_memdel((void**)&her);
-		ft_strclr(ft_strchr(*buffer, '\n'));
-		index = ft_strstr(*buffer, "<<") - *buffer + 2;
-		while ((*buffer)[index] != '\0' && ((*buffer)[index] == ' ' ||
-		ft_isalnum((*buffer)[index])))
-			ft_strdel_el(*buffer, index);
-		*buffer = ft_stradd(*buffer, her, ft_strstr(*buffer, "<<") - *buffer + 2);
-		*buffer = ft_stradd(*buffer, " ", ft_strstr(*buffer, "<<") - *buffer + 2);
+		}
+		if ((fd = open(HEREDOC_FILE, RRED_OPEN, PERM_MODE)) == -1)
+			err_exit("42sh", "open() error", NULL, NOERROR);
+		ft_putstr_fd(her, fd);
+		close(fd);
 		ft_memdel((void**)&her);
 	}
 }
