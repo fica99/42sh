@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 13:27:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/18 13:01:09 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_node		*parser(char *str)
 	g_parser_flags = INIT_FLAGS;
 	string.index = 0;
 	string.str = str;
-//	print_token(&string);
+	print_token(&string);
+	return (NULL);
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{

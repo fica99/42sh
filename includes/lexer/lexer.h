@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/14 19:53:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/18 21:19:05 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define LEXER_ROWS 200
 # define LEXER_STR_LEN 256
 # define LEXER_MATRIX_PATH "srcs/lexer/"
+# define LEXER_SKIP_CLASS C_SKIP
+# define LEXER_ADD_SPACE_CLASS C_EXPRESS
 
 
 typedef struct	s_matrix
@@ -30,6 +32,8 @@ typedef struct	s_lexer
 	t_matrix	*m_type;
 	t_matrix	*m_class;
 	t_matrix	*m_union;
+	t_matrix	*m_priority;
+	t_matrix	*m_generalization;
 }				t_lexer;
 
 enum    token_type
@@ -54,22 +58,24 @@ enum    token_type
 	ERRED = 20,
 	EDRRED = 21,
 	ARRED = 23,
-	ADRRED = 24
+	ADRRED = 25,
+	CLOSE_FD = 28
 };
 
 typedef enum token_type		token_type;
 
-enum    token_class
+enum	token_class
 {
 	C_OTHER = 0,
-	C_FT_ERROR = 1,
-	C_SEP = 2,
-	C_EXPRESS = 3,
-	C_LREDIR = 4,
-	C_RREDIR = 5,
-	C_BRK = 6,
-	C_NUM = 7,
-	C_CLOSE = 8
+	C_SKIP = 1,
+	C_FT_ERROR = 2,
+	C_SEP = 3,
+	C_EXPRESS = 4,
+	C_LREDIR = 5,
+	C_RREDIR = 6,
+	C_BRK = 7,
+	C_NUM = 8,
+	C_CLOSE = 9
 };
 
 typedef enum	token_class	token_class;
@@ -94,8 +100,11 @@ typedef struct	s_tokens
 	t_token	*previous;
 	t_token	*current;
 	t_token	*next;
-	int		pc;
-	int		cn;
+	int		union_pc;
+	int		union_cn;
+	int		priority_pc;
+	int		priority_cn;
+	char 	*error_msg;
 }				t_tokens;
 
 
@@ -111,49 +120,60 @@ typedef struct	s_lexer_params
 
 /* lexer.c */
 t_token		*get_next_token(t_string *str, t_lexer *lexer);
-int			init_tokens(t_tokens *tokens, t_string *str, t_lexer *lexer);
-int			check_tokens(t_tokens *tokens, t_lexer *lexer, t_string *str);
-int			check_union(t_token *token, t_token *next_token, t_lexer *lexer);
-int			miss_token(t_tokens *tokens);
-int			completed_token(t_tokens *tokens, t_string *str);
-int			different_tokens(t_tokens *tokens, t_string *str);
-int			equal_tokens(t_tokens *tokens, t_string *str);
-t_token		*get_union_token(t_lexer *lexer);
-char		*join_lexeme(char *dest, char *src);
-void		clear_token(t_token **token);
-/* delete */
-int			check_stack(t_token **token, t_token **next_token);
-int			check_union(t_token *token, t_token *next_token, t_lexer *lexer);
-int			union_tokens(t_token **token, t_token **next_token, int t_union);
-int			go_ahead(char *str, int cur_index, int cur_type, t_lexer *lexer);
-int			generalize_type(int type, t_matrix *m_generalization);
+int			lx_get_union_params(t_tokens *tokens, t_lexer *lexer);
+int			lx_get_priority_params(t_tokens *tokens, t_lexer *lexer);
+void		lx_clear_token(t_token **token);
+int			lx_no_previous(t_tokens *tokens, t_string *str, t_lexer *lexer);
+/* check_tokens.c */
+int			lx_check_tokens(t_tokens *tokens, t_lexer *lexer, t_string *str);
+int			lx_miss_token(t_tokens *tokens);
+int			lx_completed_token(t_tokens *tokens, t_string *str);
+int			lx_equal_tokens(t_tokens *tokens, t_string *str);
+/* init_tokens.c */
+int			lx_init_tokens(t_tokens *tokens, t_string *str, t_lexer *lexer);
+int			lx_init_next_token(t_tokens *tokens, t_string *str, t_lexer *lexer);
+t_token		*lx_skip(t_token *token, t_string *str, t_lexer *lexer);
+/* union_token.c */
+t_token		*lx_get_union_token(t_lexer *lexer, t_string *str);
+t_token		*lx_join_token(t_token *token, t_token *next_token);
+int			lx_generalization_type(int	type, t_matrix *m_generalization);
+/* different_tokens.c */
+int			lx_different_tokens(t_tokens *tokens, t_string *str);
+int			lx_left_priority(t_tokens *tokens, t_string *str);
+int			lx_right_priority(t_tokens *tokens, t_string *str);
+/* check_matrixs.c */
+int			lx_define_union(t_token *token, t_token *next_token, t_lexer *lexer);
+int			lx_define_priority(t_token *token, t_token *next_token, t_lexer *lexer);
+int			lx_define_state(char symbol, int state, t_lexer *lexer);
 /* load_lexer.c */
 t_lexer		*load_lexer(void);
 char		*get_load_matrix_path(void);
 t_lexer		*new_lexer(void);
 t_matrix	*get_matrix(char *path);
-t_matrix	*load_matrix_from_file(int fd);
+int			check_coll(char *position);
+/* load_matrix.c */
 t_matrix	*new_matrix(void);
 int			**create_lexer_matrix(int rows, int cols);
+t_matrix	*load_matrix_from_file(int fd);
 int			load_new_line(t_matrix *matrix, char *line);
 char		*get_start_position(char *line);
-int			check_coll(char *position);
+/* clear_lexer.c */
 void		clear_lexer(t_lexer **lexer);
 void		clear_matrix(t_matrix **matrix);
 /* get_token.c */
-t_token		*get_token(t_string *str, t_lexer *lexer);
+t_token		*lx_get_token(t_string *str, t_lexer *lexer);
 void		initial_lexer_params(t_lexer_params *prm, int start_index);
-int			next_state(char symbol, int state, t_lexer *lexer);
 int			add_symbol(t_lexer_params *prm, char sym);
 t_token		*new_token(void);
 /* get_token2.c */
-t_token		*ready_token(t_string *str, t_lexer_params prm);
-int			define_class(int type, t_matrix *m_class);
+t_token		*lx_ready_token(t_string *str, t_lexer_params prm, t_lexer *lexer);
+int			lx_define_class(int type, t_matrix *m_class);
 /* error_token.c */
-t_token		*token_error(void);
-t_token		*class_error(t_token **token);
-t_token		*eof_token(void);
-int			tokens_error(t_tokens *tokens, t_string *str);
+t_token		*lx_token_error(char *msg, t_string *str);
+t_token		*lx_class_error(t_token *token, t_token *next_token, char *msg, t_string *str);
+t_token		*lx_eof_token(void);
+int			lx_tokens_error(t_tokens *tokens, t_string *str);
+int			lx_put_error(t_tokens *tokens, char *msg);
 /* debug_token.c */
 void		print_matrix(t_matrix *matrix);
 void		print_token(t_string *str);

@@ -6,13 +6,13 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 21:22:46 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/14 19:38:35 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/18 20:29:37 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_token		*get_token(t_string *str, t_lexer *lexer)
+t_token		*lx_get_token(t_string *str, t_lexer *lexer)
 {
 	t_lexer_params	prm;
 
@@ -22,14 +22,16 @@ t_token		*get_token(t_string *str, t_lexer *lexer)
 	while (1)
 	{
 		prm.type = (prm.state == -3) ? prm.type : prm.state;
-		prm.state = next_state(str->str[prm.index], prm.type, lexer);
+		if ((prm.state = lx_define_state(str->str[prm.index],
+			prm.type, lexer)) == -2)
+			return (lx_token_error("State definition", str));
 		if (prm.state > 0)
 			if (!(add_symbol(&prm, str->str[prm.index])))
-				return token_error();
+				return (lx_token_error("Excess LEXER_STR_LEN", str));
 		if (prm.state == -1)
-			return (ready_token(str, prm));
+			return (lx_ready_token(str, prm, lexer));
 		if (prm.state == -2)
-			return token_error();
+			return (lx_token_error("Grammar", str));
 		if (str->str[prm.index])
 			prm.index++;
 	}
@@ -42,18 +44,6 @@ void		initial_lexer_params(t_lexer_params *prm, int start_index)
 	prm->type = 0;
 	prm->s_index = 0;
 	prm->str[LEXER_STR_LEN - 1] = '\0';
-}
-
-int			next_state(char symbol, int state, t_lexer *lexer)
-{
-	t_matrix	*m_type;
-
-	m_type = lexer->m_type;
-	if (symbol < 0 && symbol >= m_type->rows)
-		return (-2);
-	if (state < 0 && state >= m_type->cols)
-		return (-2);
-	return (m_type->data[(int)symbol][state]);
 }
 
 t_token		*new_token(void)
