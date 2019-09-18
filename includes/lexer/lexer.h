@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 21:19:05 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/18 21:53:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define LEXER_ROWS 200
 # define LEXER_STR_LEN 256
 # define LEXER_MATRIX_PATH "srcs/lexer/"
-# define LEXER_SKIP_CLASS C_SKIP
-# define LEXER_ADD_SPACE_CLASS C_EXPRESS
+# define LEXER_SKIP_CLASS 0
+# define LEXER_ADD_SPACE_CLASS 0
 
 
 typedef struct	s_matrix
@@ -137,6 +137,7 @@ t_token		*lx_skip(t_token *token, t_string *str, t_lexer *lexer);
 t_token		*lx_get_union_token(t_lexer *lexer, t_string *str);
 t_token		*lx_join_token(t_token *token, t_token *next_token);
 int			lx_generalization_type(int	type, t_matrix *m_generalization);
+char 		*lx_del_spaces(char *str);
 /* different_tokens.c */
 int			lx_different_tokens(t_tokens *tokens, t_string *str);
 int			lx_left_priority(t_tokens *tokens, t_string *str);

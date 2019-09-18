@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   union_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 21:20:10 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 21:03:43 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/18 21:54:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_token		*lx_get_union_token(t_lexer *lexer, t_string *str)
 	while ((next_token = (t_token *)ft_fifo(1, "get", NULL)))
 		if (!(token = lx_join_token(token, next_token)))
 			return (NULL);
+	token->lexeme = lx_del_spaces(token->lexeme);
 	if ((token->type = lx_generalization_type(token->type,
 		lexer->m_generalization)) == -2)
 	{
@@ -34,17 +35,27 @@ t_token		*lx_get_union_token(t_lexer *lexer, t_string *str)
 	return (token);
 }
 
+char 		*lx_del_spaces(char *str)
+{
+	char	*tmp;
+
+	if (!(tmp = ft_strtrim(str)))
+		return (NULL);
+	free(str);
+	return (tmp);
+}
+
 t_token		*lx_join_token(t_token *token, t_token *next_token)
 {
 	char	*tmp;
 
-	if (token->class == LEXER_ADD_SPACE_CLASS)
+	/* if (token->class == LEXER_ADD_SPACE_CLASS)
 	{
 		if (!(tmp = ft_strjoin(token->lexeme, " ")))
 			return (NULL);
 		free(token->lexeme);
 		token->lexeme = tmp;
-	}
+	} */
 	if (!(tmp = ft_strjoin(token->lexeme, next_token->lexeme)))
 		return (NULL);
 	free(token->lexeme);
