@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/31 14:29:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 20:40:30 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/19 21:42:19 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int			lx_no_previous(t_tokens *tokens, t_string *str, t_lexer *lexer)
 		return (lx_tokens_error(tokens, str));
 	else if (tokens->union_cn == 0)
 		return (lx_completed_token(tokens, str));
+	else if (tokens->union_cn == -3)
+		return (lx_miss_token(tokens, str));
 	else
 		return (lx_equal_tokens(tokens, str));
 }
