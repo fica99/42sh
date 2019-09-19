@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 21:27:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:52:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	closing_fd(t_node *ast, t_term *term)
 	{
 		get_close_fd(ast->token->lexeme, &left_fd, &right_fd);
 		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
-		!ft_strchr(ast->token->lexeme, '-')) || read(right_fd, NULL, 1) == -1)
+		!ft_strchr(ast->token->lexeme, '-')))
 		{
 			err("42sh", NULL, NULL, EBADF);
 			return ;
 		}
-		back_fd = copy_fd(left_fd, right_fd);
-		interpret_ast(ast->left, term);
-		restore_fd(back_fd, right_fd);
+		back_fd = copy_fd(right_fd, left_fd);
+		exec_redir_command(ast, term, C_CLOSE);
+		restore_fd(back_fd, left_fd);
 	}
 }
 
@@ -57,7 +57,7 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 		nb[j++] = str[i++];
 	*right_fd = ft_atoi(nb);
 	if (*nb == '\0')
-		if (!(*right_fd = open("/dev/null", 0)))
- 			err_exit("42sh", "open() error", "/dev/null", NOERROR);
+		if (!(*right_fd = open("/dev/null", O_WRONLY)))
+			err_exit("42sh", "open() error", "/dev/null", NOERROR);
 	ft_memdel((void**)&nb);
 }

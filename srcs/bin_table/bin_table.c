@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin_table.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 19:36:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 13:12:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_hash	**make_bin_table(char **path, size_t size)
 		{
 			if (!ft_strcmp(file->d_name, ".") || !ft_strcmp(file->d_name, ".."))
 				continue ;
-			if (!(full_path = ft_strnew(PATH_MAX)))
+			if (!(full_path = ft_strnew(FT_PATH_MAX)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			ft_strcat(ft_strcat(ft_strcat(full_path, path[j]), "/"), file->d_name);
 			table = push_hash(table, file->d_name, full_path, size);

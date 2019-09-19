@@ -1,0 +1,15 @@
+ls: test: No such file or directory
+.:
+21sh
+21sh.en.pdf
+Makefile
+README.md
+author
+builtins
+dirlist
+includes
+libft
+libraries
+load_git_repo.sh
+obj
+srcs

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 20:00:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:53:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ void	interpret_ast(t_node *ast, t_term *term)
 		lredir_op(ast, term);
 	}
 	else if (tk_class(ast->token, C_CLOSE))
+	{
+		if (ast->left && tk_class(ast->left->token, C_CLOSE))
+			interpret_ast(ast->left, term);
 		closing_fd(ast, term);
+	}
 	else if (tk_type(ast->token, PIPE))
 		pipe_op(ast, term);
 	else if (tk_type(ast->token, EXPRESS))

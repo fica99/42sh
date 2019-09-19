@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bin_table.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 19:35:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 13:12:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # define PREV_CUR_DIR 2
-# define PATH_MAX 1000
+# define FT_PATH_MAX 1000
 
 /*
 **	hash_table.c

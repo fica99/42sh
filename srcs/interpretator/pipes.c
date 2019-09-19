@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 16:01:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:27:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 13:26:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,9 @@ void	left_child(int *pid, int *pipes, t_node *expr, t_term *term)
 	if ((*pid = make_process()) == 0)
 	{
 		close(pipes[0]);
-		if ((fd = dup(STDOUT_FILENO)) == -1)
-			err_exit("42sh", "dup() error", NULL, NOERROR);
-		close(STDOUT_FILENO);
-		if (dup2(pipes[1], STDOUT_FILENO) == -1)
-			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		fd = copy_fd(pipes[1], STDOUT_FILENO);
 		interpret_ast(expr, term);
-		if (dup2(fd, STDOUT_FILENO) == -1)
-			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		restore_fd(fd, STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
 	}
 }
@@ -53,14 +48,9 @@ void	right_child(int *pid, int *pipes, t_node *expr, t_term *term)
 	if ((*pid = make_process()) == 0)
 	{
 		close(pipes[1]);
-		if ((fd = dup(STDIN_FILENO)) == -1)
-			err_exit("42sh", "dup() error", NULL, NOERROR);
-		close(STDIN_FILENO);
-		if (dup2(pipes[0], STDIN_FILENO) == -1)
-			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		fd = copy_fd(pipes[0], STDIN_FILENO);
 		interpret_ast(expr, term);
-		if (dup2(fd, STDIN_FILENO) == -1)
-			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		restore_fd(fd, STDIN_FILENO);
 		exit(EXIT_SUCCESS);
 	}
 }

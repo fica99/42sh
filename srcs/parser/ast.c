@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 21:59:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 19:32:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ t_node		*statement(t_string *str)
 t_node		*thread_statement(t_string *str)
 {
 	t_node	*ast;
-	short	copy;
-	t_token	*token;
 
 	if (!(ast = expr(str)))
 		return (ast);
@@ -82,6 +80,17 @@ t_node		*thread_statement(t_string *str)
 		return (ast);
 	if (!(ast = pipe_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
+	if (!(ast = closefd_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
+		return (ast);
+	return (ast);
+}
+
+t_node		*closefd_statement(t_node *ast, t_string *str)
+{
+	t_token	*token;
+	short	copy;
+
+
 	if (!(ast = rredir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
 	copy = str->index;
@@ -94,5 +103,6 @@ t_node		*thread_statement(t_string *str)
 		free_token(&token);
 		return (ast);
 	}
-	return (init_node(ast, token, NULL));
+	ast = init_node(ast, token, NULL);
+	return (closefd_statement(ast, str));
 }
