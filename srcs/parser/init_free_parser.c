@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:57:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:34:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 23:00:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void		free_ast(t_node **ast)
 	}
 }
 
-char		*tk_type(t_token *token, token_type type)
+char		*tk_type(t_token *token, t_token_type type)
 {
 	if (!token)
 		return (NULL);
@@ -45,7 +45,7 @@ char		*tk_type(t_token *token, token_type type)
 	return (NULL);
 }
 
-char		*tk_class(t_token *token, token_class class)
+char		*tk_class(t_token *token, t_token_class class)
 {
 	if (!token)
 		return (NULL);

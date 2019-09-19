@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 21:13:47 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 21:50:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 22:58:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int			lx_init_next_token(t_tokens *tokens, t_string *str, t_lexer *lexer)
 {
 	if (!(tokens->next = lx_get_token(str, lexer)))
 		return (0);
-	//tokens->next = lx_skip(tokens->next, str, lexer);
 	return (1);
 }
 

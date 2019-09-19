@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/19 21:52:12 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/19 22:55:01 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,6 @@ srcs_lexer = lexer/load_lexer.c\
 		lexer/get_token.c\
 		lexer/get_token2.c\
 		lexer/error_token.c\
-		lexer/debug_lexer.c\
 
 
 builtins_dir := builtins
