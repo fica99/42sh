@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bin_table.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/19 13:12:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:38:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASH_TABLE_H
-# define HASH_TABLE_H
+#ifndef BIN_TABLE_H
+# define BIN_TABLE_H
 
 # include <dirent.h>
 # include <stdlib.h>

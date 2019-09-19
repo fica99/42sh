@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 19:29:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:29:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	amprred_op(t_node *ast, t_term *term)
 		restore_fd(back_fd_two, STDERR_FILENO);
 	}
 }
-
 
 int		get_expr_fd(t_node *ast)
 {

@@ -6,12 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 15:32:47 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 20:17:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:33:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
 
 char	*check_heredoc(t_buff buffer, t_buff *stop_buff, t_cord *cord)
 {

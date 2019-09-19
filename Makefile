@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/18 20:43:34 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/09/19 21:52:12 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ srcs_interpretator := interpretator/interpretator.c\
 		interpretator/lredir.c\
 		interpretator/pipes.c\
 		interpretator/dup_fd.c\
-		interpretator/closing_fd.c\
+		interpretator/aggr_fd.c\
 		interpretator/exec.c\
 		interpretator/spec_symb.c\
 		interpretator/parse_quotes.c\

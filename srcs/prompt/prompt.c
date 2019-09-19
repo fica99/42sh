@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/09/04 20:51:23 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/09/19 21:35:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	term_prompt(short history_len, char *name)
 {
 	char	*prompt;
+
 	if ((prompt = ft_getenv("PS1")))
 		write_prompt(prompt, history_len, name);
 	else
@@ -122,7 +123,7 @@ short	prompt_dir_history(char *str, short i, short history_len)
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
-		(ft_getenv("USER") && !ft_strcmp(ft_getenv("USER"),"root")) ?
+		(ft_getenv("USER") && !ft_strcmp(ft_getenv("USER"), "root")) ?
 		ft_putchar_fd('#', STDIN_FILENO) : ft_putchar_fd('$', STDIN_FILENO);
 	}
 	else if (!ft_strncmp(str + i, "\\!", 2) || !ft_strncmp(str + i, "\\#", 2))

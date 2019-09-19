@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/19 19:52:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:51:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	closing_fd(t_node *ast, t_term *term)
+void	aggr_fd_op(t_node *ast, t_term *term)
 {
 	int		left_fd;
 	int		right_fd;
@@ -22,7 +22,7 @@ void	closing_fd(t_node *ast, t_term *term)
 	right_fd = -5;
 	if (tk_class(ast->token, C_CLOSE))
 	{
-		get_close_fd(ast->token->lexeme, &left_fd, &right_fd);
+		get_aggr_fd(ast->token->lexeme, &left_fd, &right_fd);
 		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
 		!ft_strchr(ast->token->lexeme, '-')))
 		{
@@ -35,7 +35,7 @@ void	closing_fd(t_node *ast, t_term *term)
 	}
 }
 
-void	get_close_fd(char *str, int *left_fd, int *right_fd)
+void	get_aggr_fd(char *str, int *left_fd, int *right_fd)
 {
 	short	i;
 	char	*nb;

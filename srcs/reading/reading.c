@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 22:05:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:36:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		reading(t_line *line)
 		check_malloc_len_buffer(&(line->buffer), c);
 		check_new_line(line, c);
 		if (g_line_flags & BREAK_FLAG)
-			break;
+			break ;
 		if (!print_symbols(c, line))
 			if (!print_move(c, line->buffer.buffer, line->cord))
 				print_printable(c, line->buffer.buffer, line->cord);
@@ -79,7 +79,7 @@ void		read_handler(char *c, int fd)
 	c[nb] = '\0';
 }
 
-void	reset_terminfo(void)
+void		reset_terminfo(void)
 {
 	char	*rmkx_mode;
 
@@ -87,7 +87,7 @@ void	reset_terminfo(void)
 		ft_putstr_fd(rmkx_mode, STDIN_FILENO);
 }
 
-void	init_terminfo(void)
+void		init_terminfo(void)
 {
 	char	*smkx_mode;
 

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dup_fd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 18:01:17 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/19 14:07:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:31:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_shell.h"
+#include "ft_shell.h"
 
 int		copy_fd(int fd, int new_fd)
 {

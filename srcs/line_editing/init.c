@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:18:04 by filip             #+#    #+#             */
-/*   Updated: 2019/09/11 16:32:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:34:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ void	check_malloc_len_buffer(t_buff *buffer, char *c)
 {
 	while (ft_strlen(buffer->buffer) + ft_strlen(c) >=
 			(unsigned)buffer->malloc_len)
-	buffer->buffer = ft_strdup_realloc(buffer->buffer,
-	buffer->malloc_len += NORMAL_LINE);
+		buffer->buffer = ft_strdup_realloc(buffer->buffer,
+		buffer->malloc_len += NORMAL_LINE);
 }

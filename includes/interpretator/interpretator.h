@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:18:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:51:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 **	interpretator.c
 */
 void	interpret_ast(t_node *ast, t_term *term);
+void	interpret_redir(t_node *ast, t_term *term);
 /*
 **	pipes.c
 */
@@ -53,10 +54,10 @@ void	lredir_op(t_node *ast, t_term *term);
 int		copy_fd(int fd, int new_fd);
 void	restore_fd(int back_fd, int new_fd);
 /*
-**	closing_fd.c
+**	aggr_fd.c
 */
-void	closing_fd(t_node *ast, t_term *term);
-void	get_close_fd(char *str, int *left_fd, int *right_fd);
+void	aggr_fd_op(t_node *ast, t_term *term);
+void	get_aggr_fd(char *str, int *left_fd, int *right_fd);
 /*
 **	exec.c
 */

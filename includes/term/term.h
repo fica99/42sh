@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/17 15:49:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:43:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ typedef struct		s_term
 	t_history		history;
 }					t_term;
 
-typedef struct	s_string
+typedef struct		s_string
 {
-	char	*str;
-	short	index;
-}				t_string;
+	char			*str;
+	short			index;
+}					t_string;
 
 struct s_line		g_line;
 

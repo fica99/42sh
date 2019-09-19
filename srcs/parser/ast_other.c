@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:35:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 15:47:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:53:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ t_node		*expr(t_string *str)
 {
 	t_token	*token;
 	short	copy;
+	t_node	*ast;
 
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
@@ -101,5 +102,8 @@ t_node		*expr(t_string *str)
 		free_token(&token);
 		return (NULL);
 	}
-	return (init_node(NULL, token, NULL));
+	if (!(ast = fd_aggr(str)))
+		return (init_node(NULL, token, NULL));
+	ast->left = init_node(NULL, token, NULL);
+	return (ast);
 }

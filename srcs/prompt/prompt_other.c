@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:34:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:35:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_shell.h"
+#include "ft_shell.h"
 
 short	prompt_time(char *str, short i)
 {
@@ -82,7 +82,6 @@ short	prompt_colour_name(char *str, short i, char *name)
 	}
 	return (i);
 }
-
 
 short	time_format_flag(char *str, short i, struct tm *info)
 {

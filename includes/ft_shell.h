@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 15:48:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:39:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 unsigned char	g_flags;
 struct termios	g_orig_mode;
 struct termios	g_raw_mode;
-struct s_lexer  *g_lexer;
+struct s_lexer	*g_lexer;
 char			**g_env;
 char			**g_argv;
 #endif
