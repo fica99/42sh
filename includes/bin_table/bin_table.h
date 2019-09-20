@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/19 21:38:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/26 20:01:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define PREV_CUR_DIR 2
 # define FT_PATH_MAX 1000
+# define FREE_HASH_DATA 1
 
 /*
 **	hash_table.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/19 22:59:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 22:52:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define LEXER_ROWS 200
 # define LEXER_STR_LEN 256
 # define LEXER_MATRIX_PATH "srcs/lexer/"
-# define LEXER_SKIP_CLASS 0
-# define LEXER_ADD_SPACE_CLASS 0
+# define LEXER_SKIP_CLASS C_SKIP
+# define LEXER_ADD_SPACE_CLASS C_EXPRESS
 
 typedef struct		s_matrix
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_tokens.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 21:13:47 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/19 22:58:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/19 22:13:08 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			lx_init_tokens(t_tokens *tokens, t_string *str, t_lexer *lexer)
 	tokens->previous = NULL;
 	if (!(tokens->current = lx_get_token(str, lexer)))
 		return (0);
-	//tokens->current = lx_skip(tokens->current, str, lexer);
+	tokens->current = lx_skip(tokens->current, str, lexer);
 	tokens->next = NULL;
 	tokens->union_pc = 0;
 	tokens->union_cn = 0;
