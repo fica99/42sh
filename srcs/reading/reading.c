@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 20:57:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/20 17:36:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		read_prompt(t_term *term)
 {
 	set_input_mode(&g_raw_mode);
 	transmit_mode();
-	set_cord(g_line.cord);
+	set_data(&g_line);
 	reading(&g_line);
 	autocomplite(NULL, NULL);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
@@ -52,7 +52,7 @@ void		reading(t_line *line)
 		check_new_line(line, c);
 		if (g_line_flags & BREAK_FLAG)
 			break;
-		check_symbol(c, line);
+		find_templ(c, line);
 		if ((g_flags & TERM_EXIT) || (g_line_flags & BREAK_FLAG))
 			break ;
 	}

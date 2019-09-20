@@ -6,130 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:27:00 by filip             #+#    #+#             */
-/*   Updated: 2019/09/18 21:12:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/20 18:13:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	check_symbol(char *c, t_line *line)
-{
-	if (!ft_strcmp(c, K_UP))
-		history_up(line);
-	else if (!ft_strcmp(c, K_DOWN))
-		history_down(line);
-	else if (!ft_strcmp(c, KEY_LEFT))
-		key_left(line);
-	else if (!ft_strcmp(c, KEY_LEFT))
-		key_right(line);
-
-}
-
-void	key_right(t_line *line)
-{
-
-}
-
-void	key_left(t_line *line)
-{
-	if (!is_start_pos(line->cord))
-		go_left(1, line);
-}
-
-void		go_to_cord(short x, short y, int fd)
-{
-	char	*cursor;
-
-	cursor = SET_CUR;
-	ft_putstr_fd(tparm(cursor, y, x), fd);
-}
-
-void		go_left(short i, t_cord *cord)
-{
-	short	len;
-
-	if (i <= 0)
-		return ;
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start)
-			* cord->ws_col);
-	if (i > len)
-		i = len;
-	cord->pos -= i;
-	check_nl_left(cord, i);
-	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
-}
-
-void		go_right(short i, t_cord *cord)
-{
-	if (i <= 0)
-		return ;
-	cord->pos += i;
-	check_nl_right(cord, i);
-	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
-}
-
-void		prev_word(char *buf, t_cord *cord)
-{
-	short	i;
-
-	i = cord->pos;
-	while (--i >= 0)
-	{
-		if ((i == 0 || buf[i - 1] == ' ' || buf[i - 1] == '\n') &&
-		(ft_isalpha(buf[i]) || ft_isdigit(buf[i])))
-		{
-			go_left(cord->pos - i, cord);
-			break ;
-		}
-	}
-}
-
-void	check_nl_left(t_cord *cord, short i)
-{
-	t_cord	*new_line;
-
-	cord->x_cur -= i;
-	while (cord->x_cur < 0)
-	{
-		cord->x_cur += cord->ws_col;
-		cord->y_cur--;
-		new_line = cord->nl;
-		while (new_line)
-		{
-			if ((cord->y_start + new_line->y_cur) == cord->y_cur)
-			{
-				cord->x_cur -= cord->ws_col - new_line->x_cur - 1;
-				break ;
-			}
-			new_line = new_line->nl;
-		}
-	}
-}
-
-void	check_nl_right(t_cord *cord, short i)
-{
-	t_cord	*new_line;
-
-	cord->x_cur += i;
-	new_line = cord->nl;
-	while (new_line)
-	{
-		if ((cord->y_start + new_line->y_cur) == cord->y_cur && cord->x_cur >
-		new_line->x_cur)
-		{
-			i = cord->x_cur - new_line->x_cur - 1;
-			cord->x_cur = 0;
-			cord->y_cur++;
-			check_nl_right(cord, i);
-		}
-		new_line = new_line->nl;
-	}
-	while (cord->x_cur >= cord->ws_col)
-	{
-		cord->x_cur -= cord->ws_col;
-		cord->y_cur++;
-	}
-}
 
 void		copy_highlight(t_buff *copy_buff, t_buff *buffer, t_cord *cord)
 {
@@ -194,12 +76,7 @@ void		cut_highlight(t_buff *buffer, t_cord *cord)
 
 
 
-short		is_start_pos(t_cord *cord)
-{
-	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
-		return (1);
-	return (0);
-}
+
 
 void		check_end_window(t_cord *cord)
 {
@@ -396,25 +273,6 @@ char		*cut_copy_paste(char *c, t_line *line)
 	return (SOMETHING);
 }
 
-
-void		next_word(char *buf, t_cord *cord)
-{
-	short	i;
-	char	flag;
-
-	i = 0;
-	flag = 0;
-	while (buf[i])
-	{
-		if (buf[i] == ' ' || buf[i] == '\n')
-			flag = 1;
-		if ((ft_isalpha(buf[i]) || ft_isdigit(buf[i])) && flag)
-			break ;
-		i++;
-	}
-	go_right(i, cord);
-}
-
 void		history_up(t_line *line)
 {
 	short	len;
@@ -460,44 +318,6 @@ void		history_down(t_line *line)
 	ft_putstr_cord(line->buffer.buffer + line->cord->pos, line->cord);
 	if (line->history.history_index == len)
 		ft_strclr(line->save_buff.buffer);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-char	*print_move(char *c, char *buffer, t_cord *cord)
-{
-	short	len;
-
-	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
-	cord->ws_col);
-	if ((!ft_strcmp(c, K_LFT) || !ft_strcmp(c, K_HOME)) &&
-	!is_start_pos(cord))
-		!ft_strcmp(c, K_LFT) ? go_left(1, cord) : go_left(cord->pos, cord);
-	else if ((!ft_strcmp(c, K_RGHT) || !ft_strcmp(c, K_END))
-	&& ((short)ft_strlen(buffer) > cord->pos))
-		!ft_strcmp(c, K_RGHT) ? go_right(1, cord) :
-		go_right(ft_strlen(buffer + cord->pos), cord);
-	else if (!ft_strcmp(c, CTRL_LEFT) || !ft_strcmp(c, CTRL_RIGHT))
-		!ft_strcmp(c, CTRL_RIGHT) ? next_word(buffer + cord->pos, cord) :
-		prev_word(buffer, cord);
-	else if (!(ft_strcmp(c, CTRL_UP)) && len - cord->ws_col >= 0 &&
-	!(g_line_flags & TERM_NL))
-		go_left(cord->ws_col, cord);
-	else if (!ft_strcmp(c, CTRL_DOWN) && (cord->pos + cord->ws_col <=
-	(short)ft_strlen(buffer)) && !(g_line_flags & TERM_NL))
-		go_right(cord->ws_col, cord);
-	else
-		return (NULL);
-	return (SOMETHING);
 }
 
 char	*print_symbols(char *c, t_line *line)
@@ -618,31 +438,4 @@ void		save_cord(t_cord *cord)
 	cord->x_cur = 0;
 	check_end_window(cord);
 }
-
-void	find_templ(char *str, t_line *line)
-{
-	t_temp	*temp;
-
-	temp = line->temp;
-	while (temp)
-	{
-		if (match_str_templ(str, temp->template))
-			if ((temp->handler()))
-				break ;
-		temp = temp->next;
-	}
-}
-
-int		match_str_templ(char *str, char *templ)
-{
-	if (str && templ)
-	{
-		if (!(*str) && !(*templ))
-			return (1);
-		if (*str == *templ)
-			return (check_str_teml(str + 1, templ + 1));
-	}
-	return (0);
-}
-
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:19:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 15:42:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/20 20:44:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ void		set_input_mode(struct termios *tty)
 
 void		save_attr(struct termios *savetty)
 {
-	if (!isatty(STDIN_FILENO))
-	{
-		ft_putstr_fd("42sh: isatty() error\n", STDERR_FILENO);
-		exit(EXIT_FAILURE);
-	}
 	if (tcgetattr(STDIN_FILENO, savetty) == -1)
 	{
 		ft_putstr_fd("42sh: tcgetattr() error\n", STDERR_FILENO);

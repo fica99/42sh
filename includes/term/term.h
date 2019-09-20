@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/18 20:58:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/20 20:46:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 typedef struct		s_temp
 {
 	char			*template;
-	void			(*handler)();
+	char			(*handler)(t_line *line);
 	struct s_temp	*next;
 }					t_temp;
 
 typedef struct		s_term
 {
-	char			*buffer;
+	// char			*buffer;
 	size_t			bin_table_size;
 	t_hash			**bin_table;
 	t_history		history;

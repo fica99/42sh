@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/18 21:19:31 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/20 18:17:35 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,12 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 srcs_error := error/error.c\
 
-srcs_line_editing := line_editing/check_symb.c\
-		line_editing/buff_edit.c\
+srcs_line_editing := line_editing/buff_edit.c\
+		line_editing/check.c\
+		line_editing/cord.c\
+		line_editing/find_template.c\
+		line_editing/left.c\
+		line_editing/right.c\
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\

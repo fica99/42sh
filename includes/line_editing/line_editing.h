@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/18 19:23:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/20 18:22:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,42 @@ typedef struct		s_line
 }					t_line;
 
 /*
-**	templates.c
+**	find_template.c
 */
-
+void	find_templ(char *str, t_line *line);
+int		match_str_templ(char *str, char *templ);
+/*
+**	buff_edit.c
+*/
+void	check_malloc_len_buffer(t_buff *buffer, char *c);
+/*
+**	check.c
+*/
+short		is_start_pos(t_cord *cord);
+/*
+**	cord.c
+*/
+void		go_to_cord(short x, short y, int fd);
+/*
+**	left.c
+*/
+char	key_left(t_line *line);
+char	key_home(t_line *line);
+char		ctrl_left(t_line *line);
+char		ctrl_up(t_line *line);
+void		go_left(short i, t_cord *cord);
+void	check_nl_left(t_cord *cord, short i);
+void		prev_word(char *buf, t_cord *cord);
+/*
+**	right.c
+*/
+char		key_right(t_line *line);
+char		key_home(t_line *line);
+char		ctrl_right(t_line *line);
+char		ctrl_down(t_line *line);
+void		go_right(short i, t_cord *cord);
+void	check_nl_right(t_cord *cord, short i);
+void		next_word(char *buf, t_cord *cord);
 unsigned short	g_line_flags;
 
 #endif
