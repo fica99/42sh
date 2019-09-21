@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:18:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:10:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,25 @@
 /*
 **	interpretator.c
 */
-void	interpret_ast(t_node *ast, t_term *term);
+void	interpret_ast(t_node *ast);
 /*
 **	pipes.c
 */
-void	pipe_op(t_node *ast, t_term *term);
-void	left_child(int *pid, int *pipes, t_node *expr, t_term *term);
-void	right_child(int *pid, int *pipes, t_node *expr, t_term *term);
+void	pipe_op(t_node *ast);
+void	left_child(int *pid, int *pipes, t_node *expr);
+void	right_child(int *pid, int *pipes, t_node *expr);
 /*
 **	rredir.c
 */
-void	rredir_op(t_node *ast, t_term *term);
-void	amprred_op(t_node *ast, t_term *term);
+void	rredir_op(t_node *ast);
+void	amprred_op(t_node *ast);
 int		get_expr_fd(t_node *ast);
 int		open_red_file(char *name, token_type red_type, int acc, int mode);
-void	exec_redir_command(t_node *ast, t_term *term, token_class class);
+void	exec_redir_command(t_node *ast, token_class class);
 /*
 **	lredir.c
 */
-void	lredir_op(t_node *ast, t_term *term);
+void	lredir_op(t_node *ast);
 /*
 **	dup_fd.c
 */
@@ -55,15 +55,15 @@ void	restore_fd(int back_fd, int new_fd);
 /*
 **	closing_fd.c
 */
-void	closing_fd(t_node *ast, t_term *term);
+void	closing_fd(t_node *ast);
 void	get_close_fd(char *str, int *left_fd, int *right_fd);
 /*
 **	exec.c
 */
-void	make_command(char *buff, t_term *term);
-void	find_command(char **args, t_term *term);
-char	*check_command(char **args);
-char	*check_bin(char **args, t_hash **bin_table, short bin_table_size);
+void	make_command(char *buff);
+void	find_command(char **args);
+char	check_command(char **args);
+char	check_bin(char **args, t_hash **bin_table, short bin_table_size);
 /*
 **	spec_symb.c
 */

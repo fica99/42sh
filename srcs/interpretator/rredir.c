@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 19:29:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:44:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	rredir_op(t_node *ast, t_term *term)
+void	rredir_op(t_node *ast)
 {
 	int		fd;
 	int		back_fd;
@@ -24,7 +24,7 @@ void	rredir_op(t_node *ast, t_term *term)
 		new_fd = STDOUT_FILENO;
 	else if (tk_type(ast->token, ARRED) || tk_type(ast->token, ADRRED))
 	{
-		amprred_op(ast, term);
+		amprred_op(ast);
 		return ;
 	}
 	else
@@ -32,11 +32,11 @@ void	rredir_op(t_node *ast, t_term *term)
 	if ((fd = get_expr_fd(ast)) == -1)
 		return ;
 	back_fd = copy_fd(fd, new_fd);
-	exec_redir_command(ast, term, C_RREDIR);
+	exec_redir_command(ast, C_RREDIR);
 	restore_fd(back_fd, new_fd);
 }
 
-void	amprred_op(t_node *ast, t_term *term)
+void	amprred_op(t_node *ast)
 {
 	int		back_fd;
 	int		fd;
@@ -56,7 +56,7 @@ void	amprred_op(t_node *ast, t_term *term)
 				return ;
 		back_fd = copy_fd(fd, STDOUT_FILENO);
 		back_fd_two = copy_fd(fd, STDERR_FILENO);
-		exec_redir_command(ast, term, C_RREDIR);
+		exec_redir_command(ast, C_RREDIR);
 		restore_fd(back_fd, STDOUT_FILENO);
 		restore_fd(back_fd_two, STDERR_FILENO);
 	}
@@ -96,26 +96,26 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 	{
 		if (access(name, F_OK))
 		{
-			err("42sh", NULL, name, ENOENT);
+			err(NULL, name, ENOENT);
 			return (-1);
 		}
 		if (access(name, R_OK))
 		{
-			err("42sh", NULL, name, EACCES);
+			err(NULL, name, EACCES);
 			return (-1);
 		}
 	}
 	if ((fd = open(name, acc, mode)) == -1)
-		err_exit("42sh", "open() error", NULL, NOERROR);
+		err_exit("open() error", NULL, NOERROR);
 	return (fd);
 }
 
-void	exec_redir_command(t_node *ast, t_term *term, token_class class)
+void	exec_redir_command(t_node *ast, token_class class)
 {
 	t_node *new_ast;
 
 	new_ast = ast;
 	while (new_ast->left && tk_class(new_ast->left->token, class))
 		new_ast = new_ast->left;
-	interpret_ast(new_ast->left, term);
+	interpret_ast(new_ast->left);
 }

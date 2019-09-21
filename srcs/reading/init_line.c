@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 20:49:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 21:30:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	init_line(t_line *line, t_term *term)
+void	init_line(t_line *line)
 {
 	line->templates = init_templates();
 	line->cord = init_cord();
@@ -21,8 +21,6 @@ void	init_line(t_line *line, t_term *term)
 	init_buff(&line->history_search);
 	init_buff(&line->save_buff);
 	init_buff(&line->stop_buff);
-	line->history = term->history;
-	line->history.history_index = ft_darlen(line->history.history_buff);
 }
 
 void	init_buff(t_buff *buffer)

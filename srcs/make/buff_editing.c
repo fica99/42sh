@@ -6,22 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/01 17:22:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 20:30:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-char		*copy_from_buff(char *buffer, char *new_buffer, short start,
-short end)
-{
-	short	j;
-
-	j = 0;
-	while (start <= end)
-		new_buffer[j++] = buffer[start++];
-	return (new_buffer);
-}
 
 char		check_print_arr(char *arr)
 {

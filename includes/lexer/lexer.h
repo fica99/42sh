@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/14 19:53:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 21:32:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,7 @@ int			tokens_error(t_tokens *tokens, t_string *str);
 /* debug_token.c */
 void		print_matrix(t_matrix *matrix);
 void		print_token(t_string *str);
+
+struct s_lexer  *g_lexer;
 
 #endif

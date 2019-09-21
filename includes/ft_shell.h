@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/20 22:00:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:26:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "term/term.h"
 # include "environ/environ.h"
 # include "bin_table/bin_table.h"
 # include "history/history.h"
-# include "term/term.h"
 # include "prompt/prompt.h"
 # include "make/make.h"
 # include "error/error.h"
@@ -44,22 +44,8 @@
 # include "builtins/hash.h"
 # include "builtins/his.h"
 
-# define RUNNING 1
-# define NORMAL_LINE 1000
-# define FT_HOST_NAME_MAX 255
-# define LINE_MAX 2048
-# define SOMETHING "1"
-# define READING 1
-# define INIT_FLAGS 0
-# define TERM_SIGINT (1 << 1)
-# define TERM_EXIT (1 << 2)
-# define TERM_INIT_HASH (1 << 3)
-# define TERM_FREE_HASH (1 << 4)
 
-unsigned char	g_flags;
-struct termios	g_orig_mode;
-struct termios	g_raw_mode;
-struct s_lexer  *g_lexer;
-t_environ		*g_env;
-char			**g_argv;
+// # define NORMAL_LINE 1000
+// # define FT_HOST_NAME_MAX 255
+// # define READING 1
 #endif

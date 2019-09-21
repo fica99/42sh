@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 17:59:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:45:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ char	*tilda_expr(char *args)
 	char	*copy;
 
 	spec = ft_strchr(args, '~');
-	if ((path = ft_getenv("HOME")))
+	if ((path = ft_getenv("HOME", g_env.env)))
 	{
 		arr = args;
 		if (!(copy = ft_strjoin(path, spec + 1)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit("malloc() error", NULL, ENOMEM);
 		*spec = '\0';
 		if (!(args = ft_strjoin(args, copy)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit("malloc() error", NULL, ENOMEM);
 		ft_memdel((void**)&copy);
 		ft_memdel((void**)&arr);
 	}
@@ -64,7 +64,7 @@ char	*dollar_expr(char *args)
 	}
 	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = ft_getenv(spec + 1)))
+	if ((path = ft_getenv(spec + 1, g_env.env)))
 		ft_strcat(var, path);
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);

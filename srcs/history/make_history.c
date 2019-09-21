@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/15 16:30:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:37:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,90 +17,48 @@ void		make_history_buff(t_history *history)
 	int		fd;
 	char	**buff;
 	short	len;
+	int		histsize;
+	int		histfilesize;
 
-	history->history_path = get_history_file_path();
-	if ((fd = open(history->history_path, O_RDONLY | O_CREAT,
-	S_IRUSR | S_IWUSR)) == -1)
-		err_exit("42sh", "open() error", NULL, NOERROR);
-	len = 0;
-	history->histsize = HISTSIZE;
-	if (ft_getenv("HISTSIZE"))
-		history->histsize = ft_atoi(ft_getenv("HISTSIZE"));
-	history->histfilesize = HISTFILESIZE;
-	if (ft_getenv("HISTFILESIZE"))
-		history->histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"));
-	if (!(buff = (char**)malloc(sizeof(char*) * (history->histsize + 1))))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	while (len != history->histsize && get_next_line(fd, &(buff[len])) > 0)
+	if (!(history->history_path = get_history_file_path()))
+		return ;
+	if ((fd = open(history->history_path, OPEN_HISTFILE,
+	PERM_HISTFILE)) == -1)
+		err_exit("open() error", NULL, NOERROR);
+	history->hist_fd = fd;
+	if (!(histsize = ft_atoi(ft_getenv("HISTSIZE", g_env.env))))
+		histsize = HISTSIZE;
+	if (!(histfilesize = ft_atoi(ft_getenv("HISTFILESIZE", g_env.env))))
+		histfilesize = HISTFILESIZE;
+	history->histsize = histsize;
+	history->histfilesize = histfilesize;
+	if (!(buff = ft_darnew(histsize)))
+		err_exit("malloc() error", NULL, ENOMEM);
+		len = 0;
+	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
 		len++;
-	buff[len] = NULL;
-	if (close(fd) == -1)
-		err_exit("42sh", "close() error", NULL, NOERROR);
+	history->hist_len = len;
 	history->history_buff = buff;
 }
 
-void		add_to_historybuf(char *buffer, t_history *history)
+void	free_history(t_history *history)
 {
-	short	len;
-	short	i;
+	char	**buf;
 
-	len = ft_darlen(history->history_buff);
-	if (len >= history->histsize)
-	{
-		i = -1;
-		ft_memdel((void**)&(history->history_buff[0]));
-		while (++i < len - 1)
-			history->history_buff[i] = history->history_buff[i + 1];
-		if (!(history->history_buff[i] = ft_strdup(buffer)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	}
-	else
-	{
-		if (!(history->history_buff[len++] = ft_strdup(buffer)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	}
-	history->history_buff[len] = NULL;
+	buf = history->history_buff;
+	history->history_index = -1;
+	ft_memdel((void**)&(history->history_path));
+	if (close(history->hist_fd) == -1)
+		err_exit("close() error", NULL, NOERROR);
+	ft_free_dar(buf);
+	history->hist_len = 0;
 }
 
-void		write_history(char *buffer, t_history *history)
+char	*get_history_file_path(void)
 {
-	short	len;
+	char	*pwd;
 
-	if (!buffer || !*buffer)
-		return ;
-	if (!check_print_arr(buffer))
-		return ;
-	add_to_historybuf(buffer, history);
-	len = ft_darlen(history->history_buff);
-	len < history->histfilesize ? add_to_file(len, history) :
-	rewrite_file(len, history);
-}
-
-void		rewrite_file(short len, t_history *history)
-{
-	int		fd;
-	short	i;
-
-	if ((fd = open(history->history_path, O_RDWR | O_TRUNC)) == -1)
-		err_exit("42sh", "open() error", NULL, NOERROR);
-	i = -1;
-	while (++i < len)
-	{
-		ft_putstr_fd(history->history_buff[i], fd);
-		ft_putchar_fd('\n', fd);
-	}
-	if (close(fd) == -1)
-		err_exit("42sh", "close() error", NULL, NOERROR);
-}
-
-void		add_to_file(short len, t_history *history)
-{
-	int		fd;
-
-	if ((fd = open(history->history_path, O_RDWR | O_APPEND)) == -1)
-		err_exit("42sh", "open() error", NULL, NOERROR);
-	ft_putstr_fd(history->history_buff[len - 1], fd);
-	ft_putchar_fd('\n', fd);
-	if (close(fd) == -1)
-		err_exit("42sh", "close() error", NULL, NOERROR);
+	if ((pwd = ft_getenv("PWD", g_env.env)))
+		return (ft_strjoin(pwd, HISTORY_FILE));
+	return (NULL);
 }

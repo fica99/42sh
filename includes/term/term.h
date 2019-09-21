@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/20 20:46:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 21:56:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,59 +14,24 @@
 # define TERM_H
 
 # include <unistd.h>
-
-typedef struct		s_temp
-{
-	char			*template;
-	char			(*handler)(t_line *line);
-	struct s_temp	*next;
-}					t_temp;
-
-typedef struct		s_term
-{
-	// char			*buffer;
-	size_t			bin_table_size;
-	t_hash			**bin_table;
-	t_history		history;
-}					t_term;
-
-typedef struct		s_string
-{
-	char			*str;
-	short			index;
-}					t_string;
-
-struct s_line		g_line;
-
+# define RUNNING 1
+# define INIT_FLAGS 0
+# define TERM_SIGINT (1 << 1)
+# define TERM_EXIT (1 << 2)
+# define TERM_INIT_HASH (1 << 3)
+# define TERM_FREE_HASH (1 << 4)
+# define LINE_MAX 2048
 /*
 **	ft_term.c
 */
-void				term_start(t_term *term);
-void				init_term(void);
+void				term_start(void);
+void	check_valid_string(char *buffer);
+/*
+**	global_var.c
+*/
 void				init_global_var(char **argv, char **environ);
-void				check_valid_string(t_term *term);
-/*
-**	templates.c
-*/
-t_temp				*init_templates(void);
-t_temp				*init_temp_struct(char *template, void (*handler)());
-void				free_templates(t_temp **head);
-/*
-**	set_templates.c
-*/
-t_temp				*set_templates(void);
-t_temp				*set_esc_templates(void);
-t_temp				*set_other_templates(char *str);
-/*
-**	free_line.c
-*/
-void				free_line(t_line *line);
-void				free_cord(t_cord **cord);
-void				free_buffer(t_buff *buffer);
-/*
-**	init_line.c
-*/
-void				init_line(t_line *line, t_term *term);
-void				init_buff(t_buff *buffer);
-t_cord				*init_cord(void);
+void				free_globar_var(void);
+
+unsigned char	g_flags;
+char			**g_argv;
 #endif

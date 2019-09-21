@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:04:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:49:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,15 @@ void	cd(int argc, char **argv, char **env_cp)
 	if (argc >= 3)
 	{
 		if (argc > 3)
-			err(argv[0], "too many arguments", NULL, NOERROR);
+			err("too many arguments", NULL, NOERROR);
 		else if (argc == 3)
-			err(argv[0], "string not in pwd", argv[1], NOERROR);
+			err("string not in pwd", argv[1], NOERROR);
 		return ;
 	}
 	else
 		check_ch_dir(argc, argv);
 	if (!(getcwd(buf, MAXDIR)))
-		err_exit("cd", "getcwd() error", argv[1], NOERROR);
+		err_exit("getcwd() error", argv[1], NOERROR);
 	if (ft_getenv("PWD"))
 	{
 		ft_setenv("OLDPWD", ft_getenv("PWD"));

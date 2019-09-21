@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:38 by filip             #+#    #+#             */
-/*   Updated: 2019/09/15 22:26:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:42:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # define PARSER_ERROR (1 << 1)
 # define THREAD_FLAG 1
 # define EXPR_FLAG 2
+
+typedef struct		s_string
+{
+	char			*str;
+	short			index;
+}					t_string;
 
 typedef struct	s_node
 {
@@ -29,8 +35,8 @@ typedef struct	s_node
 */
 t_node		*init_node(t_node *left, t_token *token, t_node *right);
 void		free_ast(t_node **ast);
-char		*tk_type(t_token *token, token_type type);
-char		*tk_class(t_token *token, token_class class);
+char		tk_type(t_token *token, token_type type);
+char		tk_class(t_token *token, token_class class);
 void		free_token(t_token **token);
 /*
 **	ast.c

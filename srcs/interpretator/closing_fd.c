@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/14 18:49:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/21 22:42:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	closing_fd(t_node *ast, t_term *term)
+void	closing_fd(t_node *ast)
 {
 	int		left_fd;
 	int		right_fd;
@@ -26,11 +26,11 @@ void	closing_fd(t_node *ast, t_term *term)
 		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
 		!ft_strchr(ast->token->lexeme, '-')) || read(right_fd, NULL, 1) == -1)
 		{
-			err("42sh", NULL, NULL, EBADF);
+			err(NULL, NULL, EBADF);
 			return ;
 		}
 		back_fd = copy_fd(left_fd, right_fd);
-		interpret_ast(ast->left, term);
+		interpret_ast(ast->left);
 		restore_fd(back_fd, right_fd);
 	}
 }
@@ -44,7 +44,7 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 	i = 0;
 	j = 0;
 	if (!(nb = ft_strnew(10)))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		err_exit("malloc() error", NULL, ENOMEM);
 	while (ft_isdigit(str[i]))
 		nb[j++] = str[i++];
 	*left_fd = ft_atoi(nb);
@@ -58,6 +58,6 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 	*right_fd = ft_atoi(nb);
 	if (*nb == '\0')
 		if (!(*right_fd = open("/dev/null", 0)))
- 			err_exit("42sh", "open() error", "/dev/null", NOERROR);
+ 			err_exit("open() error", "/dev/null", NOERROR);
 	ft_memdel((void**)&nb);
 }
