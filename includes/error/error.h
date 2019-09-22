@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/21 22:22:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 15:26:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 /*
 **	ft_errno.c
 */
-void			err_exit(char *str, char *command, char *err);
-void			err(char *str, char *command, char *err);
-void			ft_error(char *str, char *command, char *err);
+void			err_exit(char *name, char *str, char *command, char *err);
+void			err(char *name, char *str, char *command, char *err);
+void			ft_error(char *name, char *str, char *command, char *err);
 #endif

@@ -6,11 +6,40 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/11 16:34:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 20:27:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "ft_shell.h"
+
+short	prompt_dir_history(char *str, short i)
+{
+	char	*path;
+
+	if (!ft_strncmp(str + i, "\\W", 2))
+	{
+		path = get_path();
+		ft_putstr_fd(path, STDIN_FILENO);
+		ft_memdel((void**)&path);
+	}
+	else if (!ft_strncmp(str + i, "\\w", 2))
+	{
+		path = get_path();
+		ft_putstr_fd(path, STDIN_FILENO);
+		ft_memdel((void**)&path);
+	}
+	else if (!ft_strncmp(str + i, "\\$", 2))
+	{
+		(ft_getenv("USER") && !ft_strcmp(ft_getenv("USER"),"root")) ?
+		ft_putchar_fd('#', STDIN_FILENO) : ft_putchar_fd('$', STDIN_FILENO);
+	}
+	else if (!ft_strncmp(str + i, "\\!", 2) || !ft_strncmp(str + i, "\\#", 2))
+		ft_putnbr_fd(g_history.hist_len, STDIN_FILENO);
+	else
+		i--;
+	i++;
+	return (i);
+}
 
 short	prompt_time(char *str, short i)
 {
@@ -57,7 +86,7 @@ short	check_time_flags(char *str, short i, struct tm *info)
 	return (i);
 }
 
-short	prompt_colour_name(char *str, short i, char *name)
+short	prompt_colour_name(char *str, short i)
 {
 	char	colour[LINE_MAX];
 	short	j;
@@ -77,7 +106,7 @@ short	prompt_colour_name(char *str, short i, char *name)
 	}
 	else if (!ft_strncmp(str + i, "\\s", 2))
 	{
-		ft_putstr_fd(name, STDIN_FILENO);
+		ft_putstr_fd(g_argv[0], STDIN_FILENO);
 		i++;
 	}
 	return (i);

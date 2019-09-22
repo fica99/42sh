@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 19:03:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 18:34:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <stdlib.h>
 
 # define PREV_CUR_DIR 2
-# define PATH_MAX 1000
+# define FT_PATH_MAX 1000
+# define TERM_INIT_HASH (1 << 3)
+# define TERM_FREE_HASH (1 << 4)
 
 typedef struct	s_bin_table
 {

@@ -34,6 +34,7 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 * Redirections `[command] > {filename}`, `[command] 1> {filename}`, `[command] >> {filename}`, `[command] 1>> {filename}`,`[command] < {filename}`, `[command] 0< {filename}`, `[command] 2> {filename}`, `[command] 2>> {filename}`, `[command] &> {filename}`, `[command] >& {filename}`, `[command] &>> {filename}` and `[command] >>& {filename}`\.
 * Heredoc `[command] << (stop_word)`, `[command] 0<< (stop_word)`\.
 * Several redirections `[command] [redirection] {filename} [redirection] {filename2} ...`\.
+* File descriptor aggregation `i>&j`\.
 * Pipe `|`\.
 * Several pipes `[command] [pipe] [command] [pipe] [command] ...`\.
 * Inhibitors `"`, `'` and `\`\.

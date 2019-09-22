@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:10:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:11:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	right_child(int *pid, int *pipes, t_node *expr);
 void	rredir_op(t_node *ast);
 void	amprred_op(t_node *ast);
 int		get_expr_fd(t_node *ast);
-int		open_red_file(char *name, token_type red_type, int acc, int mode);
-void	exec_redir_command(t_node *ast, token_class class);
+int		open_red_file(char *name, t_token_type red_type, int acc, int mode);
+void	exec_redir_command(t_node *ast, t_token_class class);
 /*
 **	lredir.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:37:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 19:10:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	init_bin_table(t_bin_table *bin_table)
 
 	bin_table->bin_table_size = 0;
 	bin_table->bin_table = NULL;
-	if (!(env_path = ft_getenv("PATH", g_env.env)))
+	if (!(env_path = ft_getenv("PATH")))
 		return ;
 	if (!(path = ft_strsplit(env_path, ':')))
-		err_exit("malloc() error", NULL, ENOMEM);
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	bin_table_size = get_bin_table_size(path);
 	bin_table = make_bin_table(path, bin_table_size);
 	ft_free_dar(path);
@@ -56,7 +56,8 @@ t_hash	**make_bin_table(char **path, size_t size)
 	short			j;
 	char			*full_path;
 
-	table = init_hash_table(size);
+	if (!(table = init_hash_table(size)))
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	j = -1;
 	while (path[++j])
 	{
@@ -65,8 +66,8 @@ t_hash	**make_bin_table(char **path, size_t size)
 		{
 			if (!ft_strcmp(file->d_name, ".") || !ft_strcmp(file->d_name, ".."))
 				continue ;
-			if (!(full_path = ft_strnew(PATH_MAX)))
-				err_exit("malloc() error", NULL, ENOMEM);
+			if (!(full_path = ft_strnew(FT_PATH_MAX)))
+				err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 			ft_strcat(ft_strcat(ft_strcat(full_path, path[j]), "/"), file->d_name);
 			table = push_hash(table, file->d_name, full_path, size);
 		}
@@ -80,12 +81,12 @@ DIR		*check_open(char *path)
 	DIR	*folder;
 
 	if (!(folder = opendir(path)))
-		err_exit("opendir() error", path, NOERROR);
+		err_exit(g_argv[0], "opendir() error", path, NOERROR);
 	return (folder);
 }
 
 void	check_close(DIR *folder)
 {
 	if (closedir(folder) == -1)
-		err_exit("opendir() error", NULL, NOERROR);
+		err_exit(g_argv[0], "opendir() error", NULL, NOERROR);
 }

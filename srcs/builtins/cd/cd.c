@@ -6,45 +6,38 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:49:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 18:33:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	*check_request(char **argv, char *path)
+char	check_request(char **argv, char *path)
 {
 	struct stat	buf;
 
 	if (path && !access(path, F_OK))
 	{
 		if (stat(path, &buf) < 0)
-			err_exit("42sh", "lstat() error", NULL, NOERROR);
+			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
 		if (!S_ISDIR(buf.st_mode))
-		{
 			err(argv[0], "not a directory", path, NOERROR);
-			return (SOMETHING);
-		}
 		else if (access(path, R_OK))
-		{
 			err(argv[0], NULL, path, EACCES);
-			return (SOMETHING);
-		}
 		else if (chdir(path) == -1)
-			err_exit("cd", "chdir() error", path, NOERROR);
-		else
-			return (SOMETHING);
+			err_exit(g_argv[0], "chdir() error", path, NOERROR);
+		return (TRUE);
 	}
-	return (NULL);
+	return (FALSE);
 }
 
 void	check_ch_dir(int argc, char **argv)
 {
 	char	*path;
 
-	if ((argc == 1 || !ft_strcmp(argv[1], "--")) && ft_getenv("HOME"))
+	if ((argc == 1 || !ft_strcmp(argv[1], "--")))
 		path = ft_getenv("HOME");
-	else if (!ft_strcmp(argv[1], "-") && ft_getenv("OLDPWD"))
+	else if (!ft_strcmp(argv[1], "-"))
 	{
 		ft_putstr_fd(path = ft_getenv("OLDPWD"), STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -53,7 +46,7 @@ void	check_ch_dir(int argc, char **argv)
 		path = argv[1];
 	if (!check_request(argv, path))
 	{
-		if (ft_getenv("CDPATH") && (path = check_cdpath(path)))
+		if ((path = check_cdpath(path)))
 		{
 			(!check_request(argv, path)) ? err(argv[0], NULL, path, ENOENT)
 			: ft_putstr_fd(ft_strcat(path, "\n"), STDOUT_FILENO);
@@ -69,11 +62,14 @@ char	*check_cdpath(char *path)
 	char	**paths;
 	char	*final_path;
 	short	i;
+	char	*cdpath;
 
-	if (!(paths = ft_strsplit(ft_getenv("CDPATH"), ':')))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	if (!(final_path = ft_strnew(500)))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	if (!(cdpath = ft_getenv("CDPATH")))
+		return (NULL);
+	if (!(paths = ft_strsplit(cdpath, ':')))
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+	if (!(final_path = ft_strnew(FT_PATH_MAX)))
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (paths[++i])
 	{
@@ -85,7 +81,7 @@ char	*check_cdpath(char *path)
 		ft_strclr(final_path);
 	}
 	ft_free_dar(paths);
-	if (*final_path == '\0')
+	if (!(*final_path))
 		ft_strcat(final_path, path);
 	return (final_path);
 }
@@ -93,23 +89,24 @@ char	*check_cdpath(char *path)
 void	cd(int argc, char **argv, char **env_cp)
 {
 	char	buf[MAXDIR];
+	char	*pwd;
 
 	(void)env_cp;
 	if (argc >= 3)
 	{
 		if (argc > 3)
-			err("too many arguments", NULL, NOERROR);
+			err(argv[0], "too many arguments", NULL, NOERROR);
 		else if (argc == 3)
-			err("string not in pwd", argv[1], NOERROR);
+			err(argv[0], "string not in pwd", argv[1], NOERROR);
 		return ;
 	}
 	else
 		check_ch_dir(argc, argv);
 	if (!(getcwd(buf, MAXDIR)))
-		err_exit("getcwd() error", argv[1], NOERROR);
-	if (ft_getenv("PWD"))
+		err_exit(g_argv[0], "getcwd() error", argv[1], NOERROR);
+	if ((pwd = ft_getenv("PWD")))
 	{
-		ft_setenv("OLDPWD", ft_getenv("PWD"));
+		ft_setenv("OLDPWD", pwd);
 		ft_setenv("PWD", buf);
 	}
 }

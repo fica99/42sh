@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:40:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 19:34:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_node		*parser(char *str)
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{
-		err("Syntax error", NULL, NOERROR);
+		err(g_argv[0], "Syntax error", NULL, NOERROR);
 		return (ast);
 	}
 	if (!tk_type(token = get_next_token(&string, g_lexer), EOL))
 	{
 		g_parser_flags |= PARSER_ERROR;
-		err("Syntax error", NULL, NOERROR);
+		err(g_argv[0], "Syntax error", NULL, NOERROR);
 	}
 	free_token(&token);
 	return (ast);
@@ -71,8 +71,6 @@ t_node		*statement(t_string *str)
 t_node		*thread_statement(t_string *str)
 {
 	t_node	*ast;
-	short	copy;
-	t_token	*token;
 
 	if (!(ast = expr(str)))
 		return (ast);
@@ -82,6 +80,15 @@ t_node		*thread_statement(t_string *str)
 		return (ast);
 	if (!(ast = rredir_statement(ast, str)) || (g_parser_flags & PARSER_ERROR))
 		return (ast);
+	return (ast);
+}
+
+t_node		*fd_aggr(t_string *str)
+{
+	t_node	*ast;
+	t_token	*token;
+	short	copy;
+
 	copy = str->index;
 	token = get_next_token(str, g_lexer);
 	if (tk_type(token, FT_ERROR) || !tk_class(token, C_CLOSE))
@@ -90,7 +97,8 @@ t_node		*thread_statement(t_string *str)
 			g_parser_flags |= PARSER_ERROR;
 		str->index = copy;
 		free_token(&token);
-		return (ast);
+		return (NULL);
 	}
-	return (init_node(ast, token, NULL));
+	ast = init_node(NULL, token, NULL);
+	return (ast);
 }

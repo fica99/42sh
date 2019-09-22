@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:44:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:10:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	amprred_op(t_node *ast)
 	}
 }
 
-
 int		get_expr_fd(t_node *ast)
 {
 	t_node	*expr;
@@ -88,7 +87,7 @@ int		get_expr_fd(t_node *ast)
 	return (fd);
 }
 
-int		open_red_file(char *name, token_type red_type, int acc, int mode)
+int		open_red_file(char *name, t_token_type red_type, int acc, int mode)
 {
 	int	fd;
 
@@ -96,21 +95,21 @@ int		open_red_file(char *name, token_type red_type, int acc, int mode)
 	{
 		if (access(name, F_OK))
 		{
-			err(NULL, name, ENOENT);
+			err(g_argv[0], NULL, name, ENOENT);
 			return (-1);
 		}
 		if (access(name, R_OK))
 		{
-			err(NULL, name, EACCES);
+			err(g_argv[0], NULL, name, EACCES);
 			return (-1);
 		}
 	}
 	if ((fd = open(name, acc, mode)) == -1)
-		err_exit("open() error", NULL, NOERROR);
+		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	return (fd);
 }
 
-void	exec_redir_command(t_node *ast, token_class class)
+void	exec_redir_command(t_node *ast, t_token_class class)
 {
 	t_node *new_ast;
 

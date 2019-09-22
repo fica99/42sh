@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   closing_fd.c                                       :+:      :+:    :+:   */
+/*   aggr_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:42:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 15:57:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	closing_fd(t_node *ast)
+void	aggr_fd_op(t_node *ast)
 {
 	int		left_fd;
 	int		right_fd;
@@ -22,20 +22,20 @@ void	closing_fd(t_node *ast)
 	right_fd = -5;
 	if (tk_class(ast->token, C_CLOSE))
 	{
-		get_close_fd(ast->token->lexeme, &left_fd, &right_fd);
+		get_aggr_fd(ast->token->lexeme, &left_fd, &right_fd);
 		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
-		!ft_strchr(ast->token->lexeme, '-')) || read(right_fd, NULL, 1) == -1)
+		!ft_strchr(ast->token->lexeme, '-')))
 		{
-			err(NULL, NULL, EBADF);
+			err(g_argv[0], NULL, NULL, EBADF);
 			return ;
 		}
-		back_fd = copy_fd(left_fd, right_fd);
-		interpret_ast(ast->left);
-		restore_fd(back_fd, right_fd);
+		back_fd = copy_fd(right_fd, left_fd);
+		exec_redir_command(ast, C_CLOSE);
+		restore_fd(back_fd, left_fd);
 	}
 }
 
-void	get_close_fd(char *str, int *left_fd, int *right_fd)
+void	get_aggr_fd(char *str, int *left_fd, int *right_fd)
 {
 	short	i;
 	char	*nb;
@@ -44,8 +44,8 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 	i = 0;
 	j = 0;
 	if (!(nb = ft_strnew(10)))
-		err_exit("malloc() error", NULL, ENOMEM);
-	while (ft_isdigit(str[i]))
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+	while (str[i] && ft_isdigit(str[i]))
 		nb[j++] = str[i++];
 	*left_fd = ft_atoi(nb);
 	if (*nb == '\0')
@@ -57,7 +57,7 @@ void	get_close_fd(char *str, int *left_fd, int *right_fd)
 		nb[j++] = str[i++];
 	*right_fd = ft_atoi(nb);
 	if (*nb == '\0')
-		if (!(*right_fd = open("/dev/null", 0)))
- 			err_exit("open() error", "/dev/null", NOERROR);
+		if (!(*right_fd = open("/dev/null", O_WRONLY)))
+			err_exit(g_argv[0], "open() error", "/dev/null", NOERROR);
 	ft_memdel((void**)&nb);
 }

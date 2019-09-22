@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 20:50:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:29:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct		s_history
 {
 	char			**history_buff;
 	short			history_index;
-	char			*history_path;
 	short			hist_fd;
 	short			hist_len;
 	short			histsize;

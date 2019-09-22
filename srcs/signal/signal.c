@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/02 17:47:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:26:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	signalling(void)
 void	break_handler(int sign)
 {
 	if (sign == SIGINT)
-		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
+		ft_putstr_fd("\n\n", STDERR_FILENO);
 	if (sign == SIGQUIT)
-		ft_putstr_fd("\nquit (core dumped)\n", STDERR_FILENO);
+		ft_putstr_fd("\n\nquit (core dumped)\n", STDERR_FILENO);
 }
 
 void	win_handler(int sign)

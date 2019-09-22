@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:26:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 19:39:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@
 
 
 // # define NORMAL_LINE 1000
-// # define FT_HOST_NAME_MAX 255
 // # define READING 1
 #endif

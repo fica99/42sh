@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:33:07 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 22:43:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 16:07:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**parse_quotes(char *buff)
 	int		i;
 
 	if (!(args = ft_darnew(ft_strlen(buff))))
-		err_exit("malloc() error", NULL, ENOMEM);
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*buff)
 	{
@@ -43,7 +43,7 @@ char	*fill_quotes_buff(char **buff)
 	j = 0;
 	copy = *buff;
 	if (!(str = ft_strnew(ft_strlen(copy))))
-		err_exit("malloc() error", NULL, ENOMEM);
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	while (*copy && *copy != ' ' && *copy != '\'' && *copy != '\"')
 		str[j++] = *(copy++);
 	*buff = copy;
@@ -58,7 +58,7 @@ char	*remove_quotes(char **buff)
 
 	str = *buff;
 	if (!(new = ft_strnew(ft_strlen(*buff))))
-		err_exit("malloc() error", NULL, ENOMEM);
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*(++str))
 	{
@@ -80,7 +80,7 @@ char	*remove_dquotes(char **buff)
 
 	str = *buff;
 	if (!(new = ft_strnew(ft_strlen(*buff))))
-		err_exit("malloc() error", NULL, ENOMEM);
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*(++str))
 	{

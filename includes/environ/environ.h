@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/21 20:00:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 18:37:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void		unset_env_struct(t_environ **env);
 /*
 **	get_env.c
 */
-char		*ft_getenv(char *arr, char **env);
-short		get_count_env(char *arr, char **env);
+char		*ft_getenv(char *arr);
+short		get_count_env(char *arr);
+void		ft_setenv(char *name, char *new_value);
+char		*join_env(char *name, char *new_value);
+void		ft_unsetenv(char *arr);
 t_environ		g_env;
 #endif

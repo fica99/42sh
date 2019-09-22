@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/21 21:56:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 18:29:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # define INIT_FLAGS 0
 # define TERM_SIGINT (1 << 1)
 # define TERM_EXIT (1 << 2)
-# define TERM_INIT_HASH (1 << 3)
-# define TERM_FREE_HASH (1 << 4)
 # define LINE_MAX 2048
 /*
 **	ft_term.c

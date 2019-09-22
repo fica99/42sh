@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:55:40 by filip             #+#    #+#             */
-/*   Updated: 2019/07/18 15:31:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/22 18:33:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 
 void			cd(int argc, char **argv, char **env_cp);
 void			check_ch_dir(int argc, char **argv);
-char			*check_request(char **argv, char *path);
+char			check_request(char **argv, char *path);
 char			*check_cdpath(char *path);
 #endif
