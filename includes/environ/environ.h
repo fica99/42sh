@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 18:37:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:15:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct	s_environ
 */
 void		init_global_env(t_environ *env, char **arr);
 void		set_env_struct(t_environ *env, char **arr, short malloc_size);
-void		unset_env_struct(t_environ **env);
+void		unset_env_struct(t_environ *env);
 /*
 **	get_env.c
 */

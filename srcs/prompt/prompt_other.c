@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 20:27:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 23:05:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,7 @@ short	prompt_dir_history(char *str, short i)
 {
 	char	*path;
 
-	if (!ft_strncmp(str + i, "\\W", 2))
-	{
-		path = get_path();
-		ft_putstr_fd(path, STDIN_FILENO);
-		ft_memdel((void**)&path);
-	}
-	else if (!ft_strncmp(str + i, "\\w", 2))
+	if (!ft_strncmp(str + i, "\\W", 2) || !ft_strncmp(str + i, "\\w", 2))
 	{
 		path = get_path();
 		ft_putstr_fd(path, STDIN_FILENO);
@@ -30,8 +24,9 @@ short	prompt_dir_history(char *str, short i)
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
-		(ft_getenv("USER") && !ft_strcmp(ft_getenv("USER"),"root")) ?
-		ft_putchar_fd('#', STDIN_FILENO) : ft_putchar_fd('$', STDIN_FILENO);
+		path = ft_getenv("USER");
+		(path && !ft_strcmp(path, "root")) ? ft_putchar_fd('#', STDIN_FILENO)
+		: ft_putchar_fd('$', STDIN_FILENO);
 	}
 	else if (!ft_strncmp(str + i, "\\!", 2) || !ft_strncmp(str + i, "\\#", 2))
 		ft_putnbr_fd(g_history.hist_len, STDIN_FILENO);
@@ -49,11 +44,10 @@ short	prompt_time(char *str, short i)
 
 	time(&t);
 	if (t == -1)
-		err_exit("42sh", "time() error", NULL, EFAULT);
+		err_exit(g_argv[0], "time() error", NULL, EFAULT);
 	info = localtime(&t);
-	j = check_time_flags(str, i, info);
-	if (j != i)
-		i = j;
+	if ((j = check_time_flags(str, i, info)) != i)
+		return (j);
 	return (i);
 }
 
@@ -61,6 +55,7 @@ short	check_time_flags(char *str, short i, struct tm *info)
 {
 	char	buffer[LINE_MAX];
 
+	buffer[0] = '\0';
 	if (!ft_strncmp(str + i, "\\A", 2))
 		strftime(buffer, LINE_MAX, "%H:%M", info);
 	else if (!ft_strncmp(str + i, "\\t", 2))
@@ -72,15 +67,9 @@ short	check_time_flags(char *str, short i, struct tm *info)
 	else if (!ft_strncmp(str + i, "\\d", 2))
 		strftime(buffer, LINE_MAX, "%a %b %d", info);
 	else if (!ft_strncmp(str + i, "\\D{", 3))
-	{
 		i = time_format_flag(str, i, info);
-		ft_strclr(buffer);
-	}
 	else
-	{
-		ft_strclr(buffer);
 		i--;
-	}
 	i++;
 	ft_putstr_fd(buffer, STDIN_FILENO);
 	return (i);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/09/22 20:28:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 23:09:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,10 @@ void	write_prompt(char *str)
 		j = i;
 		if (str[i] == '\\')
 		{
-			j = prompt_user_host(str, i);
-			if (j == i)
-				j = prompt_time(str, i);
-			if (j == i)
-				j = prompt_dir_history(str, i);
-			if (j == i)
-				j = prompt_colour_name(str, i);
+			if ((j = prompt_user_host(str, i)) == i)
+				if ((j = prompt_time(str, i)) == i)
+					if ((j = prompt_dir_history(str, i)) == i)
+						j = prompt_colour_name(str, i);
 		}
 		if (j == i)
 			ft_putchar_fd(str[i], STDIN_FILENO);
@@ -77,27 +74,20 @@ void	write_prompt(char *str)
 short	prompt_user_host(char *str, short i)
 {
 	char	hostname[FT_HOST_NAME_MAX];
-	short	j;
+	char	*stop;
 
 	if (!ft_strncmp(str + i, "\\u", 2))
-	{
-		if (ft_getenv("USER"))
-			ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
-		i++;
-	}
+		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
 	else if (!ft_strncmp(str + i, "\\h", 2) ||
 	!ft_strncmp(str + i, "\\H", 2))
 	{
 		gethostname(hostname, FT_HOST_NAME_MAX);
-		if (!ft_strncmp(str + i, "\\H", 2))
-			ft_putstr_fd(hostname, STDIN_FILENO);
-		else
-		{
-			j = 0;
-			while (hostname[j] && hostname[j] != '.')
-				ft_putchar_fd(hostname[j++], STDIN_FILENO);
-		}
-		i++;
+		if (!ft_strncmp(str + i, "\\h", 2))
+			if ((stop = ft_strchr(hostname, '.')))
+				*stop = '\0';
+		ft_putstr_fd(hostname, STDIN_FILENO);
 	}
-	return (i);
+	else
+		i--;
+	return (++i);
 }

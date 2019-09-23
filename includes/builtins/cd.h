@@ -6,16 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:55:40 by filip             #+#    #+#             */
-/*   Updated: 2019/09/22 18:33:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CD_H
 # define CD_H
 
-# include <dirent.h>
-# include <unistd.h>
-# include "libft.h"
 # define MAXDIR 4097
 
 void			cd(int argc, char **argv, char **env_cp);

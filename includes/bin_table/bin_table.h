@@ -6,15 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 18:34:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_TABLE_H
 # define HASH_TABLE_H
-
-# include <dirent.h>
-# include <stdlib.h>
 
 # define PREV_CUR_DIR 2
 # define FT_PATH_MAX 1000

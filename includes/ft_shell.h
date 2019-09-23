@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 19:39:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 # define FT_SHELL_H
 
 # include <termios.h>
+# include <unistd.h>
+# include <curses.h>
+# include <term.h>
+# include <time.h>
+# include <signal.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <sys/uio.h>
+# include <dirent.h>
 # include "libft.h"
 # include "libstr.h"
 # include "libdir.h"
@@ -26,7 +38,6 @@
 # include "bin_table/bin_table.h"
 # include "history/history.h"
 # include "prompt/prompt.h"
-# include "make/make.h"
 # include "error/error.h"
 # include "macro/colour.h"
 # include "line_editing/line_editing.h"
@@ -44,7 +55,4 @@
 # include "builtins/hash.h"
 # include "builtins/his.h"
 
-
-// # define NORMAL_LINE 1000
-// # define READING 1
 #endif

@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_data.c                                         :+:      :+:    :+:   */
+/*   global_cord.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 20:32:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 20:57:18 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/23 21:23:00 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/23 21:41:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
-
-void	set_data(t_line *line)
-{
-	g_line_flags = INIT_FLAGS;
-	get_win_size(line->cord);
-	get_cur_cord(line->cord);
-	set_start_cord(line->cord);
-}
+# include "ft_shell.h"
 
 void		get_cur_cord(t_cord *cord)
 {
@@ -42,16 +34,6 @@ void		get_cur_cord(t_cord *cord)
 	cord->x_cur = num - 1;
 }
 
-void		get_win_size(t_cord *cord)
-{
-	struct winsize	size;
-
-	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
-		err_exit("42sh", "ioctl() error", NULL, 0);
-	cord->ws_col = size.ws_col;
-	cord->ws_row = size.ws_row;
-}
-
 void		unset_cord(t_cord *cord)
 {
 	free_cord(&cord->nl);
@@ -65,11 +47,12 @@ void		unset_cord(t_cord *cord)
 	cord->highlight_pos = 0;
 }
 
-void		unset_data(t_line *line)
+void		get_win_size(t_cord *cord)
 {
-	unset_cord(line->cord);
-	ft_strclr(line->buffer.buffer);
-	ft_strclr(line->save_buff.buffer);
-	ft_strclr(line->stop_buff.buffer);
-	ft_strclr(line->history_search.buffer);
+	struct winsize	size;
+
+	if (ioctl(STDIN_FILENO, TIOCGWINSZ, &size) < 0)
+		err_exit(g_argv[0], "ioctl() error", NULL, 0);
+	cord->ws_col = size.ws_col;
+	cord->ws_row = size.ws_row;
 }

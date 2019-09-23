@@ -6,34 +6,34 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/20 17:36:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 23:12:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void		read_prompt(t_term *term)
+char	*read_prompt(void)
 {
+	char	*buff;
+
+	buff = NULL;
 	set_input_mode(&g_raw_mode);
 	transmit_mode();
 	set_data(&g_line);
 	reading(&g_line);
 	autocomplite(NULL, NULL);
-	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT))
+	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) &&
+	*(g_line.buffer.buffer))
 	{
-		write_hered(&g_line.buffer.buffer);
-		if (g_line.buffer.buffer && *(g_line.buffer.buffer))
-		{
-			write_history(g_line.buffer.buffer, &term->history);
-			if (!(term->buffer = ft_strdup(g_line.buffer.buffer)))
-				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-		}
+		//write_hered(&g_line.buffer.buffer);
+		if (!(buff = ft_strdup(g_line.buffer.buffer)))
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		write_history(buff, &g_history);
 	}
 	unset_data(&g_line);
 	reset_transmit_mode();
 	set_attr(&g_orig_mode);
+	return (buff);
 }
 
 void		reading(t_line *line)
@@ -58,6 +58,8 @@ void		reading(t_line *line)
 	}
 	go_right(ft_strlen(line->buffer.buffer + line->cord->pos),
 	line->cord);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 }
 
 void		read_handler(char *c, int fd)
@@ -69,7 +71,7 @@ void		read_handler(char *c, int fd)
 		go_right(ft_strlen(g_line.buffer.buffer) - g_line.cord->pos,
 		g_line.cord);
 		ft_putchar_fd(NEW_LINE, STDERR_FILENO);
-		err_exit("42sh", "read() error", NULL, NOERROR);
+		err_exit(g_argv[0], "read() error", NULL, NOERROR);
 	}
 	c[nb] = '\0';
 }

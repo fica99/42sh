@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_templates.c                                    :+:      :+:    :+:   */
+/*   templates.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 19:36:05 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/20 18:25:53 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/18 19:03:09 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/23 23:10:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_temp	*set_templates(void)
 	t_temp	*temp;
 	t_temp	*head;
 
-	head = init_temp_struct(ft_strdup(K_LFT), &key_left);
+	head = init_temp_struct(ft_strdup(K_LFT), );
 	temp = head;
-	temp->next = init_temp_struct(ft_strdup(K_RGHT), &key_right);
+	temp->next = init_temp_struct(ft_strdup(K_RGHT), );
 	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_HOME), &key_home);
+	temp->next = init_temp_struct(ft_strdup(K_HOME), );
 	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_END), &key_end);
+	temp->next = init_temp_struct(ft_strdup(K_END), );
 	temp = temp->next;
 	temp->next = init_temp_struct(ft_strdup(K_DEL), );
 	temp = temp->next;
@@ -45,13 +45,13 @@ t_temp	*set_esc_templates(void)
 	t_temp	*temp;
 	char	*str;
 
-	head = init_temp_struct(ft_strdup(CTRL_UP), &ctrl_up);
+	head = init_temp_struct(ft_strdup(CTRL_UP), );
 	temp = head;
-	temp->next = init_temp_struct(ft_strdup(CTRL_DOWN), ctrl_down);
+	temp->next = init_temp_struct(ft_strdup(CTRL_DOWN), );
 	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(CTRL_RIGHT), &ctrl_right);
+	temp->next = init_temp_struct(ft_strdup(CTRL_RIGHT), );
 	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(CTRL_LEFT), &ctrl_left);
+	temp->next = init_temp_struct(ft_strdup(CTRL_LEFT), );
 	temp = temp->next;
 	str = ft_strnew(1);
 	*str = TAB;
@@ -88,4 +88,16 @@ t_temp	*set_other_templates(char *str)
 	*str = CTRL_V;
 	temp->next = init_temp_struct(ft_strdup(str), );
 	return (head);
+}
+
+t_temp	*init_temp_struct(char *template, void (*handler)())
+{
+	t_temp	*temp;
+
+	if (!(temp = (t_temp*)malloc(sizeof(t_temp))))
+		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+	temp->template = template;
+	temp->handler = handler;
+	temp->next = NULL;
+	return (temp);
 }

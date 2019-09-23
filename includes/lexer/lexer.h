@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/22 16:16:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:11:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # define LEXER_MATRIX_PATH "srcs/lexer/"
 # define LEXER_SKIP_CLASS C_SKIP
 # define LEXER_ADD_SPACE_CLASS C_EXPRESS
+
+typedef struct		s_string
+{
+	char			*str;
+	short			index;
+}					t_string;
 
 typedef struct		s_matrix
 {

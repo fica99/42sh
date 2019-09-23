@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:52:38 by filip             #+#    #+#             */
-/*   Updated: 2019/09/22 16:21:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:11:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@
 # define PARSER_ERROR (1 << 1)
 # define THREAD_FLAG 1
 # define EXPR_FLAG 2
-
-typedef struct		s_string
-{
-	char			*str;
-	short			index;
-}					t_string;
 
 typedef struct		s_node
 {

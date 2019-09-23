@@ -6,14 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 00:01:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/22 18:00:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
-
-# include "libft.h"
 
 void			env(int argc, char **argv, char **env_cp);
 #endif

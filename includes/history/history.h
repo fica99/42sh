@@ -6,18 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 16:29:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:39:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HISTORY_H
 # define HISTORY_H
-
-# include <fcntl.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/uio.h>
 
 # define HISTSIZE 500
 # define HISTFILESIZE 500

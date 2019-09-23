@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 19:12:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 23:05:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_global_var(char **argv, char **environ)
 {
+	save_attr(&g_orig_mode);
 	if (!(g_argv = ft_dardup(argv)))
 		err_exit(argv[0], "malloc() error", NULL, ENOMEM);
 	init_global_env(&g_env, environ);
@@ -28,4 +29,5 @@ void	free_globar_var(void)
 	clear_lexer(&g_lexer);
 	unset_env_struct(&g_env);
 	ft_free_dar(g_argv);
+	set_attr(&g_orig_mode);
 }

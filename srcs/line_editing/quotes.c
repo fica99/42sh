@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 21:02:52 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/18 21:10:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 21:59:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	check_quotes(t_line *line)
 	g_line_flags |= BREAK_FLAG;
 }
 
-char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
+char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 {
 	if (q % 2 != 0)
 		print_quotes(q, 0, 0, line);
@@ -51,30 +51,31 @@ char	*quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 	else if (line->buffer.buffer[ft_strlen(line->buffer.buffer) - 1] == '\\')
 		print_quotes(0, 0, 0, line);
 	else
-		return (NULL);
+		return (FALSE);
 	g_line_flags |= TERM_QUOTES;
-	return (SOMETHING);
+	return (TRUE);
 }
 
 void	print_quotes(short q, short dq, short br, t_line *line)
 {
+	char	*ps2;
+
 	go_right(ft_strlen(line->buffer.buffer) - line->cord->pos, line->cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	line->history.history_index = ft_darlen(line->history.history_buff);
-	if ((q % 2) != 0)
+	g_history.history_index = g_history.hist_len;
+	if (q)
 		ft_putstr_fd("\nquotes> ", STDIN_FILENO);
-	else if ((dq % 2) != 0)
+	else if (dq)
 		ft_putstr_fd("\ndquotes> ", STDIN_FILENO);
-	else if (br != 0)
+	else if (br)
 		ft_putstr_fd("\nbrackets> ", STDIN_FILENO);
 	else
 	{
 		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-		if (!ft_getenv("PS2"))
+		if (!(ps2 = ft_getenv("PS2")))
 			ft_putstr_fd("> ", STDIN_FILENO);
 		else
-			write_prompt(ft_getenv("PS2"),
-			ft_darlen(line->history.history_buff), g_argv[0]);
+			write_prompt(ps2);
 	}
 	get_cur_cord(line->cord);
 	set_start_cord(line->cord);

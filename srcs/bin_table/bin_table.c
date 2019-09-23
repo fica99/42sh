@@ -6,21 +6,21 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 19:10:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:16:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	init_bin_table(t_bin_table *bin_table)
+void	init_bin_table(t_bin_table *table)
 {
 	char	*env_path;
 	char	**path;
 	t_hash	**bin_table;
 	size_t	bin_table_size;
 
-	bin_table->bin_table_size = 0;
-	bin_table->bin_table = NULL;
+	table->bin_table_size = 0;
+	table->bin_table = NULL;
 	if (!(env_path = ft_getenv("PATH")))
 		return ;
 	if (!(path = ft_strsplit(env_path, ':')))
@@ -28,8 +28,8 @@ void	init_bin_table(t_bin_table *bin_table)
 	bin_table_size = get_bin_table_size(path);
 	bin_table = make_bin_table(path, bin_table_size);
 	ft_free_dar(path);
-	bin_table->bin_table = bin_table;
-	bin_table->bin_table_size = bin_table_size;
+	table->bin_table = bin_table;
+	table->bin_table_size = bin_table_size;
 }
 
 size_t	get_bin_table_size(char **path)

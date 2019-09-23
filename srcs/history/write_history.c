@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/29 20:21:43 by filip             #+#    #+#             */
-/*   Updated: 2019/09/21 20:52:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:26:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void		add_to_history(char *buffer, t_history *history)
 		while (++i < len - 1)
 			history->history_buff[i] = history->history_buff[i + 1];
 		if (!(history->history_buff[i] = ft_strdup(buffer)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	}
 	else
 	{
 		if (!(history->history_buff[len++] = ft_strdup(buffer)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 		history->hist_len++;
 	}
 	history->history_buff[len] = NULL;
@@ -40,8 +40,6 @@ void		write_history(char *buffer, t_history *history)
 {
 	short	len;
 
-	if (!check_print_arr(buffer))
-		return ;
 	add_to_history(buffer, history);
 	len = history->hist_len;
 	len < history->histfilesize ? add_to_file(len, history) :

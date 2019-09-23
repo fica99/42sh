@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:11:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 15:27:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:14:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	set_env_struct(t_environ *env, char **arr, short malloc_size)
 	env->cur_size = i;
 }
 
-void		unset_env_struct(t_environ **env)
+void		unset_env_struct(t_environ *env)
 {
-	if (env && *env)
+	if (env)
 	{
-		ft_free_dar((*env)->env);
-		(*env)->cur_size = 0;
-		(*env)->malloc_size = 0;
+		ft_free_dar((env)->env);
+		(env)->cur_size = 0;
+		(env)->malloc_size = 0;
 	}
 }

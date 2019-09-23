@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   buff_editing.c                                     :+:      :+:    :+:   */
+/*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:25:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/21 20:30:15 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/18 20:32:36 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/23 21:39:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char		check_print_arr(char *arr)
+void	set_data(t_line *line)
 {
-	short	i;
+	g_line_flags = INIT_FLAGS;
+	get_win_size(line->cord);
+	get_cur_cord(line->cord);
+	set_start_cord(line->cord);
+}
 
-	if (!arr || !*arr)
-		return (0);
-	i = -1;
-	while (arr[++i])
-	{
-		if (ft_isprint(arr[i]) && arr[i] != ' ')
-			return (1);
-	}
-	return (0);
+void		unset_data(t_line *line)
+{
+	unset_cord(line->cord);
+	ft_strclr(line->buffer.buffer);
+	ft_strclr(line->save_buff.buffer);
+	ft_strclr(line->her_buff.buffer);
+	ft_strclr(line->history_search.buffer);
 }

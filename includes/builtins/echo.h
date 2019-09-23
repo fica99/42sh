@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   echo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:57:50 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:02:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ECHO_H
 # define ECHO_H
-# include "libft.h"
 
 void			ft_echo(int argc, char **argv, char **env_cp);
 #endif

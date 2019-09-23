@@ -6,14 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 16:12:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASH_H
 # define HASH_H
-
-# include "libft.h"
 
 void	print_bin_table(t_hash **bin_table, size_t size);
 #endif

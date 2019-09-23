@@ -6,14 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/20 18:22:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:39:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LINE_EDITING_H
 # define LINE_EDITING_H
-
-# include <stdlib.h>
 
 # define CTRL_UP "\033[1;5A"
 # define CTRL_DOWN "\033[1;5B"
@@ -56,6 +54,8 @@
 # define HEREDOC_ERROR_FLAG (1 << 8)
 # define HEREDOC_CTRL_D (1 << 9)
 
+# define NORMAL_LINE 1000
+
 typedef struct		s_cord
 {
 	short			x_start;
@@ -81,49 +81,70 @@ typedef struct		s_line
 	t_buff			history_search;
 	t_buff			save_buff;
 	t_buff			copy_buff;
-	t_buff			stop_buff;
+	t_buff			her_buff;
 	t_cord			*cord;
-	t_history		history;
-	t_temp			*templates;
+	struct s_temp	*templates;
 }					t_line;
 
+typedef struct		s_temp
+{
+	char			*template;
+	char			(*handler)(t_line *line);
+	struct s_temp	*next;
+}					t_temp;
 /*
-**	find_template.c
+**	init_line.c
 */
-void	find_templ(char *str, t_line *line);
-int		match_str_templ(char *str, char *templ);
+void	init_line(t_line *line);
+void	init_buff(t_buff *buffer);
+t_cord	*init_cord(void);
+t_temp	*init_templates(void);
+/*
+**	free_line.c
+*/
+void	free_line(t_line *line);
+void	free_cord(t_cord **cord);
+void	free_buffer(t_buff *buffer);
+void	free_templates(t_temp **head);
+/*
+**	templates.c
+*/
+t_temp	*set_templates(void);
+t_temp	*set_esc_templates(void);
+t_temp	*set_other_templates(char *str);
+/*
+**	global_cord.c
+*/
+void	get_cur_cord(t_cord *cord);
+void	get_win_size(t_cord *cord);
+void	unset_cord(t_cord *cord);
+/*
+**	data.c
+*/
+void	set_data(t_line *line);
+void	unset_data(t_line *line);
+/*
+**	heredoc.c
+*/
+void	write_hered(char **buf);
+char	check_heredoc(t_buff buffer, t_buff *her_buff, t_cord *cord);
+short	find_heredoc(char *buffer);
+void	print_heredoc(char *buffer, t_cord *cord);
+void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord);
 /*
 **	buff_edit.c
 */
 void	check_malloc_len_buffer(t_buff *buffer, char *c);
 /*
-**	check.c
+**	new_line.c
 */
-short		is_start_pos(t_cord *cord);
+void	check_new_line(t_line *line, char *c);
 /*
-**	cord.c
+**	quotes.c
 */
-void		go_to_cord(short x, short y, int fd);
-/*
-**	left.c
-*/
-char	key_left(t_line *line);
-char	key_home(t_line *line);
-char		ctrl_left(t_line *line);
-char		ctrl_up(t_line *line);
-void		go_left(short i, t_cord *cord);
-void	check_nl_left(t_cord *cord, short i);
-void		prev_word(char *buf, t_cord *cord);
-/*
-**	right.c
-*/
-char		key_right(t_line *line);
-char		key_home(t_line *line);
-char		ctrl_right(t_line *line);
-char		ctrl_down(t_line *line);
-void		go_right(short i, t_cord *cord);
-void	check_nl_right(t_cord *cord, short i);
-void		next_word(char *buf, t_cord *cord);
+void	check_quotes(t_line *line);
+char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line);
+void	print_quotes(short q, short dq, short br, t_line *line);
 unsigned short	g_line_flags;
-
+struct s_line	g_line;
 #endif

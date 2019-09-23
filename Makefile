@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/20 18:17:35 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/23 22:19:07 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,14 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 srcs_error := error/error.c\
 
 srcs_line_editing := line_editing/buff_edit.c\
-		line_editing/check.c\
-		line_editing/cord.c\
-		line_editing/find_template.c\
-		line_editing/left.c\
-		line_editing/right.c\
+		line_editing/data.c\
+		line_editing/free_line.c\
+		line_editing/global_cord.c\
+		line_editing/heredoc.c\
+		line_editing/init_line.c\
+		line_editing/new_line.c\
+		line_editing/quotes.c\
+		line_editing/templates.c\
 
 srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_parse.c\
@@ -42,16 +45,12 @@ srcs_autocom := autocom/ac_autocom.c\
 		autocom/ac_print.c\
 		autocom/ac_recalc_index.c\
 
-srcs_make := make/buff_editing.c\
-		make/env.c\
-		make/env2.c\
-		make/process.c\
 
 srcs_bin_table := bin_table/bin_table.c\
 		bin_table/free_bin_table.c\
 
 srcs_history := history/make_history.c\
-		history/make_history_other.c\
+		history/write_history.c\
 
 srcs_parser := parser/ast.c\
 		parser/init_free_parser.c\
@@ -62,43 +61,47 @@ srcs_interpretator := interpretator/interpretator.c\
 		interpretator/lredir.c\
 		interpretator/pipes.c\
 		interpretator/dup_fd.c\
-		interpretator/closing_fd.c\
 		interpretator/exec.c\
 		interpretator/spec_symb.c\
 		interpretator/parse_quotes.c\
+		interpretator/aggr_fd.c\
+		interpretator/process.c\
 
 srcs_reading := reading/reading.c\
-		reading/canon_mode.c\
-		reading/set_data.c\
-		reading/heredoc.c\
-		reading/new_line.c\
-		reading/quotes.c\
+		reading/read_mode.c\
 
 srcs_signal := signal/signal.c\
 
 srcs_term := term/ft_term.c\
-		term/templates.c\
-		term/set_templates.c\
-		term/init_line.c\
-		term/free_line.c\
+		term/global_var.c\
 
 srcs_prompt := prompt/prompt.c\
 		prompt/prompt_other.c\
+		prompt/path.c\
 
 srcs_builtins := builtins/cd/cd.c\
 		builtins/echo/echo.c\
-		builtins/env/ft_env.c\
+		builtins/env/env.c\
 		builtins/setenv/setenv.c\
 		builtins/unsetenv/unsetenv.c\
 		builtins/hash/hash.c\
 		builtins/history/ft_history.c\
 
 srcs_lexer = lexer/load_lexer.c\
+		lexer/load_matrix.c\
+		lexer/clear_lexer.c\
 		lexer/lexer.c\
+		lexer/check_tokens.c\
+		lexer/init_tokens.c\
+		lexer/union_token.c\
+		lexer/different_tokens.c\
+		lexer/check_matrixs.c\
 		lexer/get_token.c\
 		lexer/get_token2.c\
 		lexer/error_token.c\
-		lexer/debug_lexer.c\
+
+srcs_environ = lexer/get_env.c\
+		lexer/init_environ.c\
 
 builtins_dir := builtins
 
@@ -116,6 +119,7 @@ srcs_files := $(srcs_term)\
 			$(srcs_lexer)\
 			$(srcs_parser)\
 			$(srcs_interpretator)\
+			$(srcs_environ)\
 
 .LIBPATTERNS := "lib%.a"
 

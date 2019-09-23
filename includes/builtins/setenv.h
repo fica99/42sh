@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: filip <filip@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/28 00:02:43 by filip             #+#    #+#             */
-/*   Updated: 2019/05/18 17:03:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/23 22:40:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SETENV_H
 # define SETENV_H
-
-# include "libft.h"
 
 void	set_env(int argc, char **argv, char **env_cp);
 #endif
