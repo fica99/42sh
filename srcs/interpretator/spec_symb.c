@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 18:31:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:48:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,13 @@ char	*spec_symbols(char *args)
 char	*tilda_expr(char *args)
 {
 	char	*path;
-	char	*arr;
-	char	*spec;
-	char	*copy;
+	int		index;
 
-	spec = ft_strchr(args, '~');
 	if ((path = ft_getenv("HOME")))
 	{
-		arr = args;
-		if (!(copy = ft_strjoin(path, spec + 1)))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-		*spec = '\0';
-		if (!(args = ft_strjoin(args, copy)))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-		ft_memdel((void**)&copy);
-		ft_memdel((void**)&arr);
+		index = ft_strchr(args, '~') - args;
+		args = ft_strdel_el(args, index);
+		args = ft_stradd(args, path, index);
 	}
 	return (args);
 }
@@ -59,7 +51,7 @@ char	*dollar_expr(char *args)
 	if ((arr = ft_strchr(spec, ' ')))
 	{
 		*arr = '\0';
-		arr = arr + 1;
+		arr++;
 	}
 	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);

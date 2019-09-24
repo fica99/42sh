@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:19:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 15:34:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 22:14:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ void		set_input_mode(struct termios *tty)
 void		save_attr(struct termios *savetty)
 {
 	if (tcgetattr(STDIN_FILENO, savetty) == -1)
-		err_exit(g_argv[0], "tcgetattr() error", NULL, NULL);
+	{
+		ft_putstr_fd("tcgetattr() error\n", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 }
 
-void		is_stdin_term(void)
+void	is_stdin_term(void)
 {
-	if (!isatty (STDIN_FILENO))
+	if (!isatty(STDIN_FILENO))
 		err_exit(g_argv[0], "stdin is not a terminal", NULL, NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:53:29 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 16:10:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:12:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	rredir_op(t_node *ast)
 		new_fd = STDERR_FILENO;
 	else if (tk_type(ast->token, RRED) || tk_type(ast->token, DRRED))
 		new_fd = STDOUT_FILENO;
-	else if (tk_type(ast->token, ARRED) || tk_type(ast->token, ADRRED))
+	else
 	{
-		amprred_op(ast);
+		if (tk_type(ast->token, ARRED) || tk_type(ast->token, ADRRED))
+			amprred_op(ast);
 		return ;
 	}
-	else
-		return ;
 	if ((fd = get_expr_fd(ast)) == -1)
 		return ;
 	back_fd = copy_fd(fd, new_fd);

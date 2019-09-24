@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 18:31:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:44:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void	find_command(char **args)
 	else if (!ft_strcmp(args[0], "unsetenv"))
 		unset_env(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "hash") && len == 1)
-		print_bin_table(g_bin_table.bin_table, g_bin_table.bin_table_size);
+		print_bin_table(g_bin_table.table, g_bin_table.size);
 	else if (!ft_strcmp(args[0], "history"))
 		print_history(&g_history);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
-	else if (!check_bin(args, g_bin_table.bin_table,
-	g_bin_table.bin_table_size) && !check_command(args))
+	else if (!check_bin(args, g_bin_table.table,
+	g_bin_table.size) && !check_command(args))
 		err(g_argv[0], "command not found", args[0], NOERROR);
 }
 
@@ -77,17 +77,16 @@ char	check_command(char **args)
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
 		p = make_process();
-		signalling();
 		if (!p)
 			if (execve(args[0], args, g_env.env) < 0)
 				err_exit(g_argv[0], "execve() error", args[0], NOERROR);
 		waitpid(p, &status, 0);
 		return (TRUE);
 	}
-	return (NULL);
+	return (FALSE);
 }
 
-char	*check_bin(char **args, t_hash **bin_table, short bin_table_size)
+char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 {
 	pid_t			p;
 	int				status;
@@ -95,10 +94,9 @@ char	*check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	if (!bin_table)
 		return (FALSE);
 	p = make_process();
-	signalling();
 	if (!p)
-		if (execve(get_hash_data(bin_table, args[0], bin_table_size), args,
-		g_env.env) < 0)
+		if (execve((char*)get_hash_data(bin_table, args[0], bin_table_size),
+		args, g_env.env) < 0)
 			err_exit(g_argv[0], "execve() error", args[0], NOERROR);
 	waitpid(p, &status, 0);
 	return (TRUE);

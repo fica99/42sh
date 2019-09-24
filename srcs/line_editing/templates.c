@@ -5,99 +5,66 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 19:03:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 23:10:35 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/26 22:33:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-t_temp	*set_templates(void)
+t_hash	**set_templ_table(void)
 {
-	t_temp	*temp;
-	t_temp	*head;
+	t_hash	**table;
 
-	head = init_temp_struct(ft_strdup(K_LFT), );
-	temp = head;
-	temp->next = init_temp_struct(ft_strdup(K_RGHT), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_HOME), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_END), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_DEL), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_UP), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(K_DOWN), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(SHIFT_LFT), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(SHIFT_RGHT), );
-	temp = temp->next;
-	temp->next = set_esc_templates();
-	return (head);
-}
-
-t_temp	*set_esc_templates(void)
-{
-	t_temp	*head;
-	t_temp	*temp;
-	char	*str;
-
-	head = init_temp_struct(ft_strdup(CTRL_UP), );
-	temp = head;
-	temp->next = init_temp_struct(ft_strdup(CTRL_DOWN), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(CTRL_RIGHT), );
-	temp = temp->next;
-	temp->next = init_temp_struct(ft_strdup(CTRL_LEFT), );
-	temp = temp->next;
-	str = ft_strnew(1);
-	*str = TAB;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	temp->next = set_other_templates(str);
-	ft_strdel(&str);
-	return (head);
-}
-
-t_temp	*set_other_templates(char *str)
-{
-	t_temp	*head;
-	t_temp	*temp;
-
-	*str = CTRL_R;
-	head = init_temp_struct(ft_strdup(str), );
-	temp = head;
-	*str = BCSP;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	*str = CTRL_H;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	*str = CTRL_D;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	*str = CTRL_C;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	*str = CTRL_X;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	temp = temp->next;
-	*str = CTRL_V;
-	temp->next = init_temp_struct(ft_strdup(str), );
-	return (head);
-}
-
-t_temp	*init_temp_struct(char *template, void (*handler)())
-{
-	t_temp	*temp;
-
-	if (!(temp = (t_temp*)malloc(sizeof(t_temp))))
+	if (!(table = init_hash_table(TEMPL_TABLE_SIZE)))
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-	temp->template = template;
-	temp->handler = handler;
-	temp->next = NULL;
-	return (temp);
+	table = push_hash(table, K_LFT, (void*)&k_left, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_RGHT, (void*)&k_right, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, K_HOME, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, K_END, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, K_DEL, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, K_UP, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, K_DOWN, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, SHIFT_RGHT, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, SHIFT_LFT, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, CTRL_UP, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, CTRL_DOWN, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, CTRL_RIGHT, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, CTRL_LEFT, (void*)&, TEMPL_TABLE_SIZE);
+	table = set_templ_table_symb(table);
+	return (table);
+}
+
+t_hash	**set_templ_table_symb(t_hash **table)
+{
+	//char	symb;
+
+	// symb = TAB;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_R;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_H;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_X;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_V;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_C;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = CTRL_D;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = BCSP;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// symb = NEW_LINE;
+	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	return (table);
+}
+
+void	find_templ(char *c, t_line *line)
+{
+	void	(*handler)(t_line *line);
+
+	print_symb(c, line);
+	if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))
+		handler(line);
 }

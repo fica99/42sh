@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 15:57:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:21:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	aggr_fd_op(t_node *ast)
 	int		right_fd;
 	int		back_fd;
 
-	left_fd = -5;
-	right_fd = -5;
+	left_fd = INIT_AGGR_FD;
+	right_fd = INIT_AGGR_FD;
 	if (tk_class(ast->token, C_CLOSE))
 	{
 		get_aggr_fd(ast->token->lexeme, &left_fd, &right_fd);

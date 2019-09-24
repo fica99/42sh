@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_history.c                                     :+:      :+:    :+:   */
+/*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 19:26:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 15:43:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void		make_history_buff(t_history *history)
 
 	if ((fd = open(HISTORY_FILE, OPEN_HISTFILE, PERM_HISTFILE)) == -1)
 		err_exit(g_argv[0], "open() error", NULL, NOERROR);
-	history->hist_fd = fd;
 	if (!(histsize = ft_atoi(ft_getenv("HISTSIZE"))))
 		histsize = HISTSIZE;
 	if (!(histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"))))
@@ -35,18 +34,62 @@ void		make_history_buff(t_history *history)
 	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
 		len++;
 	history->hist_len = len;
+	history->history_index = -1;
 	history->history_buff = buff;
+	if (close(fd) == -1)
+		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 }
 
 void	free_history(t_history *history)
 {
 	char	**buf;
 
+	rewrite_file(history);
 	buf = history->history_buff;
 	history->history_index = -1;
-	if (close(history->hist_fd) == -1)
-		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 	ft_free_dar(buf);
 	history->history_buff = NULL;
 	history->hist_len = 0;
+}
+
+void		add_to_history_buff(char *buffer, t_history *history)
+{
+	short	len;
+	short	i;
+
+	len = history->hist_len;
+	if (len >= history->histsize)
+	{
+		ft_memdel((void**)&(history->history_buff[0]));
+		i = -1;
+		while (++i < len - 1)
+			history->history_buff[i] = history->history_buff[i + 1];
+		if (!(history->history_buff[i] = ft_strdup(buffer)))
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+	}
+	else
+	{
+		if (!(history->history_buff[len] = ft_strdup(buffer)))
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		history->hist_len++;
+	}
+}
+
+void		rewrite_file(t_history *history)
+{
+	int		fd;
+	short	i;
+
+	if ((fd = open(HISTORY_FILE, REWRITE_HISTFILE, PERM_HISTFILE)) == -1)
+		err_exit(g_argv[0], "open() error", NULL, NOERROR);
+	i = -1;
+	if (history->histfilesize < history->hist_len)
+		i += history->hist_len - history->histfilesize;
+	while (++i < history->histsize)
+	{
+		ft_putstr_fd(history->history_buff[i], fd);
+		ft_putchar_fd('\n', fd);
+	}
+	if (close(fd) == -1)
+		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 }

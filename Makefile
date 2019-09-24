@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/23 22:19:07 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/26 22:30:42 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,31 +26,19 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 srcs_error := error/error.c\
 
-srcs_line_editing := line_editing/buff_edit.c\
+srcs_line_editing := line_editing/check.c\
+		line_editing/cord.c\
 		line_editing/data.c\
 		line_editing/free_line.c\
-		line_editing/global_cord.c\
-		line_editing/heredoc.c\
 		line_editing/init_line.c\
-		line_editing/new_line.c\
-		line_editing/quotes.c\
+		line_editing/keys.c\
+		line_editing/print_symb.c\
 		line_editing/templates.c\
-
-srcs_autocom := autocom/ac_autocom.c\
-		autocom/ac_parse.c\
-		autocom/ac_options.c\
-		autocom/ac_options2.c\
-		autocom/ac_move_cursor.c\
-		autocom/ac_print_params.c\
-		autocom/ac_print.c\
-		autocom/ac_recalc_index.c\
-
 
 srcs_bin_table := bin_table/bin_table.c\
 		bin_table/free_bin_table.c\
 
-srcs_history := history/make_history.c\
-		history/write_history.c\
+srcs_history := history/history.c\
 
 srcs_parser := parser/ast.c\
 		parser/init_free_parser.c\
@@ -69,8 +57,6 @@ srcs_interpretator := interpretator/interpretator.c\
 
 srcs_reading := reading/reading.c\
 		reading/read_mode.c\
-
-srcs_signal := signal/signal.c\
 
 srcs_term := term/ft_term.c\
 		term/global_var.c\
@@ -100,22 +86,19 @@ srcs_lexer = lexer/load_lexer.c\
 		lexer/get_token2.c\
 		lexer/error_token.c\
 
-srcs_environ = lexer/get_env.c\
-		lexer/init_environ.c\
+srcs_environ = environ/get_env.c\
+		environ/init_environ.c\
 
 builtins_dir := builtins
 
 srcs_files := $(srcs_term)\
 			$(srcs_prompt)\
-			$(srcs_make)\
 			$(srcs_error)\
 			$(srcs_history)\
 			$(srcs_bin_table)\
-			$(srcs_signal)\
 			$(srcs_reading)\
 			$(srcs_line_editing)\
 			$(srcs_builtins)\
-			$(srcs_autocom)\
 			$(srcs_lexer)\
 			$(srcs_parser)\
 			$(srcs_interpretator)\
@@ -152,14 +135,6 @@ includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
 includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
 
 lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
-
-header := includes/ft_term.h includes/autocom/autocom.h includes/builtins/cd/cd.h includes/builtins/echo/echo.h \
-	includes/builtins/env/env.h includes/builtins/hash/hash.h includes/builtins/his/his.h \
-	includes/builtins/setenv/setenv.h includes/builtins/unsetenv/unsetenv.h includes/error/error.h \
-	includes/bin_table/bin_table.h includes/history/history.h includes/interpretator/interpretator.h \
-	includes/lexer/lexer.h includes/line_editing/line_editing.h includes/macro/colour.h \
-	includes/make/make.h includes/parser/parser.h includes/prompt/prompt.h \
-	includes/reading/reading.h includes/signal/signal.h includes/term/term.headers
 
 includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)

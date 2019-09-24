@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 22:40:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:42:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <sys/uio.h>
+# include <sys/ioctl.h>
 # include <dirent.h>
 # include "libft.h"
 # include "libstr.h"
@@ -41,12 +42,10 @@
 # include "error/error.h"
 # include "macro/colour.h"
 # include "line_editing/line_editing.h"
-# include "signal/signal.h"
 # include "lexer/lexer.h"
 # include "parser/parser.h"
 # include "interpretator/interpretator.h"
 # include "reading/reading.h"
-# include "autocom/autocom.h"
 # include "builtins/cd.h"
 # include "builtins/env.h"
 # include "builtins/echo.h"

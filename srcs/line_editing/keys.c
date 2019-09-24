@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_template.c                                    :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/18 21:20:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/20 17:38:44 by aashara-         ###   ########.fr       */
+/*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
+/*   Updated: 2019/09/26 22:17:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	find_templ(char *str, t_line *line)
+void	k_left(t_line *line)
 {
-	t_temp	*temp;
+	t_cord	*cord;
 
-	temp = line->templates;
-	while (temp)
+	cord = line->cord;
+	if (is_start_pos(cord))
+		return ;
+	ft_putstr_fd(CUR_LFT, STDIN_FILENO);
+	cord->pos--;
+	if (--cord->x_cur < 0)
 	{
-		if (match_str_templ(str, temp->template))
-			if ((temp->handler(line)))
-				break ;
-		temp = temp->next;
+		cord->x_cur = cord->ws_col - 1;
+		cord->y_cur--;
 	}
 }
 
-int		match_str_templ(char *str, char *templ)
+void	k_right(t_line *line)
 {
-	if (str && templ)
+	t_cord	*cord;
+
+	cord = line->cord;
+	if (is_end_pos(cord))
+		return ;
+	ft_putstr_fd(CUR_RIGHT, STDIN_FILENO);
+	cord->pos++;
+	if (++cord->x_cur >= cord->ws_col)
 	{
-		if (!(*str) && !(*templ))
-			return (1);
-		if (*str == *templ)
-			return (match_str_teml(str + 1, templ + 1));
+		cord->x_cur = 0;
+		cord->y_cur++;
 	}
-	return (0);
 }

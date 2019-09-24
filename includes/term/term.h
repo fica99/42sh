@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/09/23 22:44:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 18:57:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define LINE_MAX 2048
 # define TERM_SIGINT (1 << 1)
 # define TERM_EXIT (1 << 2)
+# define FREE_TABLE_DATA 1
+# define DONT_FREE_TABLE_DATA 0
 /*
 **	ft_term.c
 */

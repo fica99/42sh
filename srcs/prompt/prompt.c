@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/09/23 23:09:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/26 20:35:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,21 @@ void	standart_prompt(void)
 
 	gethostname(hostname, FT_HOST_NAME_MAX);
 	RED(STDIN_FILENO);
-	ft_putchar_fd('[', STDERR_FILENO);
 	CYAN(STDIN_FILENO);
 	ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
 	RED(STDIN_FILENO);
 	ft_putchar_fd('@', STDIN_FILENO);
 	GREEN(STDIN_FILENO);
 	ft_putstr_fd(hostname, STDIN_FILENO);
-	ft_putchar_fd(' ', STDIN_FILENO);
+	ft_putchar_fd(':', STDIN_FILENO);
 	YELLOW(STDIN_FILENO);
-	folder = get_cur_dir();
+	folder = get_path();
 	ft_putstr_fd(folder, STDIN_FILENO);
 	ft_memdel((void**)&folder);
 	RED(STDIN_FILENO);
-	ft_putchar_fd(']', STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	PURPLE(STDIN_FILENO);
-	ft_putstr_fd(" $> ", STDIN_FILENO);
+	ft_putstr_fd("$> ", STDIN_FILENO);
 	STANDART(STDIN_FILENO);
 }
 
@@ -60,9 +59,9 @@ void	write_prompt(char *str)
 		if (str[i] == '\\')
 		{
 			if ((j = prompt_user_host(str, i)) == i)
-				if ((j = prompt_time(str, i)) == i)
-					if ((j = prompt_dir_history(str, i)) == i)
-						j = prompt_colour_name(str, i);
+				if ((j = prompt_dir_history(str, i)) == i)
+					if ((j = prompt_colour_name(str, i)) == i)
+						j = prompt_time(str, i);
 		}
 		if (j == i)
 			ft_putchar_fd(str[i], STDIN_FILENO);
@@ -82,9 +81,8 @@ short	prompt_user_host(char *str, short i)
 	!ft_strncmp(str + i, "\\H", 2))
 	{
 		gethostname(hostname, FT_HOST_NAME_MAX);
-		if (!ft_strncmp(str + i, "\\h", 2))
-			if ((stop = ft_strchr(hostname, '.')))
-				*stop = '\0';
+		if (!ft_strncmp(str + i, "\\h", 2) && (stop = ft_strchr(hostname, '.')))
+			*stop = '\0';
 		ft_putstr_fd(hostname, STDIN_FILENO);
 	}
 	else

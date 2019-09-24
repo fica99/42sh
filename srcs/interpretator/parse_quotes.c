@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:33:07 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 16:07:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 15:24:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ char	*remove_quotes(char **buff)
 	while (*(++str))
 	{
 		if (*str == '\'')
+		{
+			str++;
 			break ;
+		}
 		new[i++] = *str;
 	}
-	if (*str == '\'')
-		str++;
 	*buff = str;
 	return (new);
 }
@@ -85,11 +86,12 @@ char	*remove_dquotes(char **buff)
 	while (*(++str))
 	{
 		if (*str == '\"')
+		{
+			str++;
 			break ;
+		}
 		new[i++] = *str;
 	}
-	if (*str == '\"')
-		str++;
 	*buff = str;
 	return (spec_symbols(new));
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 18:23:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:39:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	unset_env(int argc, char **argv, char **env_cp)
 {
-	short	i;
 	short	j;
-	char	**envp;
 
 	(void)env_cp;
 	if (argc < 2)

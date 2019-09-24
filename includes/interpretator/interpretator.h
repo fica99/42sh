@@ -6,12 +6,17 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 22:39:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 17:47:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERPRETATOR_H
 # define INTERPRETATOR_H
+
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
 
 # define LRED_OPEN O_RDONLY
 # define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
@@ -19,11 +24,12 @@
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define INT_LEN 10
 # define HEREDOC_FILE "/tmp/.fucking_heredoc"
-
+# define INIT_AGGR_FD -5
 /*
 **	interpretator.c
 */
 void	interpret_ast(t_node *ast);
+void	interpret_redir(t_node *ast);
 /*
 **	pipes.c
 */
@@ -48,10 +54,10 @@ void	lredir_op(t_node *ast);
 int		copy_fd(int fd, int new_fd);
 void	restore_fd(int back_fd, int new_fd);
 /*
-**	closing_fd.c
+**	aggr_fd.c
 */
-void	closing_fd(t_node *ast);
-void	get_close_fd(char *str, int *left_fd, int *right_fd);
+void	aggr_fd_op(t_node *ast);
+void	get_aggr_fd(char *str, int *left_fd, int *right_fd);
 /*
 **	exec.c
 */

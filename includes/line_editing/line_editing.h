@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/23 22:39:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/26 23:35:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@
 # define CLEAR_END_SCREEN tigetstr("ed")
 # define CLEAR_SCREEN tigetstr("clear")
 # define CUR_CORD tigetstr("u7")
+# define CUR_LFT tigetstr("cub1")
+# define CUR_RIGHT tigetstr("cuf1")
+# define ENTER_INSERT_MODE tigetstr("smir")
+# define EXIT_INSERT_MODE tigetstr("rmir")
+# define ENTER_AM_MODE tigetstr("smam")
+
 
 # define HEREDOC_FLAG (1 << 1)
 # define HISTORY_SEARCH (1 << 2)
@@ -50,23 +56,22 @@
 # define START_POS (1 << 4)
 # define TERM_QUOTES (1 << 5)
 # define TERM_NL (1 << 6)
-# define BREAK_FLAG (1 << 7)
-# define HEREDOC_ERROR_FLAG (1 << 8)
-# define HEREDOC_CTRL_D (1 << 9)
 
 # define NORMAL_LINE 1000
+# define TEMPL_TABLE_SIZE 2
 
 typedef struct		s_cord
 {
 	short			x_start;
 	short			y_start;
+	short			x_end;
+	short			y_end;
 	short			x_cur;
 	short			y_cur;
 	short			ws_col;
 	short			ws_row;
 	short			highlight_pos;
 	short			pos;
-	struct s_cord	*nl;
 }					t_cord;
 
 typedef struct		s_buff
@@ -83,68 +88,57 @@ typedef struct		s_line
 	t_buff			copy_buff;
 	t_buff			her_buff;
 	t_cord			*cord;
-	struct s_temp	*templates;
+	t_hash			**templates;
+	int				her_fd;
 }					t_line;
 
-typedef struct		s_temp
-{
-	char			*template;
-	char			(*handler)(t_line *line);
-	struct s_temp	*next;
-}					t_temp;
 /*
 **	init_line.c
 */
 void	init_line(t_line *line);
 void	init_buff(t_buff *buffer);
 t_cord	*init_cord(void);
-t_temp	*init_templates(void);
+t_hash	**init_templates(void);
 /*
 **	free_line.c
 */
 void	free_line(t_line *line);
-void	free_cord(t_cord **cord);
 void	free_buffer(t_buff *buffer);
-void	free_templates(t_temp **head);
 /*
 **	templates.c
 */
-t_temp	*set_templates(void);
-t_temp	*set_esc_templates(void);
-t_temp	*set_other_templates(char *str);
-/*
-**	global_cord.c
-*/
-void	get_cur_cord(t_cord *cord);
-void	get_win_size(t_cord *cord);
-void	unset_cord(t_cord *cord);
+t_hash	**set_templ_table(void);
+t_hash	**set_templ_table_symb(t_hash **table);
+void	find_templ(char *c, t_line *line);
 /*
 **	data.c
 */
 void	set_data(t_line *line);
 void	unset_data(t_line *line);
 /*
-**	heredoc.c
+**	cord.c
 */
-void	write_hered(char **buf);
-char	check_heredoc(t_buff buffer, t_buff *her_buff, t_cord *cord);
-short	find_heredoc(char *buffer);
-void	print_heredoc(char *buffer, t_cord *cord);
-void	check_heredoc_end(char *buffer, char *stop_buff, t_cord *cord);
+void	get_cur_cord(t_cord *cord);
+void	unset_cord(t_cord *cord);
+void	get_win_size(t_cord *cord);
+void	set_start_cord(t_cord *cord);
+void	set_end_cord(t_cord *cord);
 /*
-**	buff_edit.c
+**	check.c
 */
+char	is_start_pos(t_cord *cord);
+char	is_end_pos(t_cord *cord);
 void	check_malloc_len_buffer(t_buff *buffer, char *c);
 /*
-**	new_line.c
+**	keys.c
 */
-void	check_new_line(t_line *line, char *c);
+void	k_left(t_line *line);
+void	k_right(t_line *line);
 /*
-**	quotes.c
+**	print_symb.c
 */
-void	check_quotes(t_line *line);
-char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line);
-void	print_quotes(short q, short dq, short br, t_line *line);
+void	print_symb(char *c, t_line *line);
+
 unsigned short	g_line_flags;
 struct s_line	g_line;
 #endif

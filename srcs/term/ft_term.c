@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 23:10:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/25 18:58:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	term_start(void)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-	//	signal(SIGWINCH, win_handler);
 		term_prompt();
 		buffer = read_prompt();
 		check_valid_string(buffer);
@@ -43,6 +42,7 @@ void	term_start(void)
 			break ;
 	}
 	free_line(&g_line);
+	reset_shell_mode();
 }
 
 void	check_valid_string(char *buffer)
@@ -57,7 +57,7 @@ void	check_valid_string(char *buffer)
 		free_ast(&ast);
 		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
 		{
-			free_bin_table(&g_bin_table);
+			free_table(&g_bin_table);
 			if (g_flags & TERM_INIT_HASH)
 				init_bin_table(&g_bin_table);
 		}
