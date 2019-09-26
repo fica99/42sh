@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ac_options2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 16:26:52 by aashara-          #+#    #+#             */
-/*   Updated: 2019/07/06 16:27:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 22:05:22 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,11 @@ char	**ac_add_options(char *path, char **options)
 	ft_free_dar(content);
 	ft_free_dar(options);
 	return (new_options);
+}
+
+void	clear_opts_args(char *arg, char *search_arg, char **options)
+{
+	ft_memdel((void**)&arg);
+	ft_free_dar(options);
+	ft_memdel((void **)&search_arg);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ac_options.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/02 20:27:38 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/07/06 16:26:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/24 22:05:27 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ char	**ac_options_selection(char *arg, char **options)
 	if (!(search_arg = ft_strjoin(arg, "*")))
 		return (NULL);
 	if (!(selection = ac_newselection(options, search_arg)))
+	{
+		clear_opts_args(arg, search_arg, options);
 		return (NULL);
+	}
 	i = -1;
 	j = -1;
 	while (options[++i])
 		if (ft_match(options[i], search_arg))
 			selection[++j] = ft_strdup(options[i]);
 	selection[++j] = NULL;
-	ft_free_dar(options);
-	ft_memdel((void **)&search_arg);
-	ft_memdel((void**)&arg);
+	clear_opts_args(arg, search_arg, options);
 	return (selection);
 }
 

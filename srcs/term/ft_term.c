@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 19:12:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/01 14:00:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		main(int argc, char **argv, char **environ)
 	clear_lexer(&g_lexer);
 	ft_free_dar(g_argv);
 	ft_free_dar(g_env);
-	return (EXIT_SUCCESS);
+	exit(EXIT_SUCCESS);
 }
 
 void	init_global_var(char **argv, char **environ)
