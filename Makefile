@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/26 22:30:42 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/27 18:32:27 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,12 @@ srcs_line_editing := line_editing/check.c\
 		line_editing/free_line.c\
 		line_editing/init_line.c\
 		line_editing/keys.c\
-		line_editing/print_symb.c\
+		line_editing/keys2.c\
+		line_editing/keys3.c\
+		line_editing/print.c\
+		line_editing/symb.c\
 		line_editing/templates.c\
+		line_editing/cur_movements.c\
 
 srcs_bin_table := bin_table/bin_table.c\
 		bin_table/free_bin_table.c\
@@ -145,7 +149,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -155,7 +159,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
+	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
 $(lib_dir):
 		@$(MAKE) --no-print-directory loadlibs

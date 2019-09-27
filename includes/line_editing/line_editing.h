@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/26 23:35:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 19:27:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,14 @@
 # define CLEAR_END_SCREEN tigetstr("ed")
 # define CLEAR_SCREEN tigetstr("clear")
 # define CUR_CORD tigetstr("u7")
-# define CUR_LFT tigetstr("cub1")
-# define CUR_RIGHT tigetstr("cuf1")
-# define ENTER_INSERT_MODE tigetstr("smir")
-# define EXIT_INSERT_MODE tigetstr("rmir")
-# define ENTER_AM_MODE tigetstr("smam")
-
-
+# define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
 # define HEREDOC_FLAG (1 << 1)
 # define HISTORY_SEARCH (1 << 2)
-# define TERM_HIGHLIGHT (1 << 3)
-# define START_POS (1 << 4)
+# define HIGHLIGHT_TEXT (1 << 3)
 # define TERM_QUOTES (1 << 5)
-# define TERM_NL (1 << 6)
 
 # define NORMAL_LINE 1000
-# define TEMPL_TABLE_SIZE 2
+# define TEMPL_TABLE_SIZE 16
 
 typedef struct		s_cord
 {
@@ -134,10 +126,42 @@ void	check_malloc_len_buffer(t_buff *buffer, char *c);
 */
 void	k_left(t_line *line);
 void	k_right(t_line *line);
+void	k_ctrl_c(t_line *line);
+void	k_ctrl_d(t_line *line);
+void	k_enter(t_line *line);
 /*
-**	print_symb.c
+**	keys2.c
+*/
+void	k_bcsp(t_line *line);
+void	k_del(t_line *line);
+void	k_home(t_line *line);
+void	k_end(t_line *line);
+void	k_ctrl_up(t_line *line);
+/*
+**	keys3.c
+*/
+void	k_ctrl_down(t_line *line);
+void	k_ctrl_left(t_line *line);
+void	k_ctrl_right(t_line *line);
+void	k_shift_left(t_line *line);
+void	k_shift_right(t_line *line);
+/*
+**	print.c
+*/
+void	ft_putstr_cord(char *str, t_cord *cord);
+void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
+void	disable_highlight(char *buffer, t_cord *cord);
+/*
+**	symb.c
 */
 void	print_symb(char *c, t_line *line);
+void	del_symb(char *buf, t_cord *cord);
+/*
+**	cur_movements.c
+*/
+void	go_to_cord(short x, short y, int fd);
+void	go_left(short i, t_cord *cord);
+void	go_right(short i, t_cord *cord);
 
 unsigned short	g_line_flags;
 struct s_line	g_line;

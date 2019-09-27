@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/26 23:36:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:33:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,10 @@ t_cord	*init_cord(void)
 
 t_hash	**init_templates(void)
 {
-	if (!TRANSMIT_MODE || !CUR_CORD || !ENTER_INSERT_MODE || !EXIT_INSERT_MODE || !ENTER_AM_MODE ||
+	if (!TRANSMIT_MODE || !CUR_CORD ||
 	!K_LFT || !K_HOME || !K_RGHT || !K_END || !SET_CUR || !SAVE_CUR ||
 	!RESTORE_CUR || !CLEAR_END_SCREEN || !CLEAR_SCREEN || !K_DEL ||
-	!K_UP || !K_DOWN || !SHIFT_LFT || !SHIFT_RGHT || !STOP_TRANSMIT_MODE
-	|| !CUR_RIGHT || !CUR_LFT)
+	!K_UP || !K_DOWN || !SHIFT_LFT || !SHIFT_RGHT || !STOP_TRANSMIT_MODE)
 		err_exit(g_argv[0], "no correct capabilities", NULL, NOERROR);
-	ft_putstr_fd(ENTER_AM_MODE, STDIN_FILENO);
 	return (set_templ_table());
 }

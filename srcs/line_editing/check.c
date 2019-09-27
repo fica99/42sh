@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 17:30:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 17:34:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 14:02:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 char		is_start_pos(t_cord *cord)
 {
-	if ((cord->x_cur == cord->x_start) && (cord->y_cur == cord->y_start))
+	if ((cord->x_cur <= cord->x_start) && (cord->y_cur <= cord->y_start))
 		return (TRUE);
 	return (FALSE);
 }
 
 char		is_end_pos(t_cord *cord)
 {
-	if ((cord->x_cur == cord->x_end) && (cord->y_cur == cord->y_end))
+	if ((cord->x_cur >= cord->x_end) && (cord->y_cur >= cord->y_end))
 		return (TRUE);
 	return (FALSE);
 }

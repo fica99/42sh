@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 15:43:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 15:46:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void		make_history_buff(t_history *history)
 	int		histsize;
 	int		histfilesize;
 
-	if ((fd = open(HISTORY_FILE, OPEN_HISTFILE, PERM_HISTFILE)) == -1)
+	history->hisfile_path = get_history_file_path();
+	if ((fd = open(history->hisfile_path, OPEN_HISTFILE, PERM_HISTFILE)) == -1)
 		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	if (!(histsize = ft_atoi(ft_getenv("HISTSIZE"))))
 		histsize = HISTSIZE;
@@ -48,6 +49,7 @@ void	free_history(t_history *history)
 	buf = history->history_buff;
 	history->history_index = -1;
 	ft_free_dar(buf);
+	ft_strdel(&history->hisfile_path);
 	history->history_buff = NULL;
 	history->hist_len = 0;
 }
@@ -80,7 +82,8 @@ void		rewrite_file(t_history *history)
 	int		fd;
 	short	i;
 
-	if ((fd = open(HISTORY_FILE, REWRITE_HISTFILE, PERM_HISTFILE)) == -1)
+	if ((fd = open(history->hisfile_path,
+	REWRITE_HISTFILE, PERM_HISTFILE)) == -1)
 		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	i = -1;
 	if (history->histfilesize < history->hist_len)
@@ -92,4 +95,11 @@ void		rewrite_file(t_history *history)
 	}
 	if (close(fd) == -1)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
+}
+
+char	*get_history_file_path(void)
+{
+	if (ft_getenv("PWD"))
+		return (ft_strjoin(ft_getenv("PWD"), HISTORY_FILE));
+	return (NULL);
 }

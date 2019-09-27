@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 18:58:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 15:27:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	check_valid_string(char *buffer)
 {
 	t_node	*ast;
 
-	if (!(g_flags & TERM_EXIT) && !(g_flags & TERM_SIGINT) && buffer)
+	if (buffer)
 	{
 		ast = parser(buffer);
 		if (!(g_parser_flags & PARSER_ERROR))

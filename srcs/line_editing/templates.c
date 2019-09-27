@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/26 22:33:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 19:03:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,43 +20,44 @@ t_hash	**set_templ_table(void)
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	table = push_hash(table, K_LFT, (void*)&k_left, TEMPL_TABLE_SIZE);
 	table = push_hash(table, K_RGHT, (void*)&k_right, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, K_HOME, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, K_END, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, K_DEL, (void*)&, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_HOME, (void*)&k_home, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_END, (void*)&k_end, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_DEL, (void*)&k_del, TEMPL_TABLE_SIZE);
 	// table = push_hash(table, K_UP, (void*)&, TEMPL_TABLE_SIZE);
 	// table = push_hash(table, K_DOWN, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, SHIFT_RGHT, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, SHIFT_LFT, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, CTRL_UP, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, CTRL_DOWN, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, CTRL_RIGHT, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, CTRL_LEFT, (void*)&, TEMPL_TABLE_SIZE);
+	table = push_hash(table, SHIFT_RGHT, (void*)&k_shift_right, TEMPL_TABLE_SIZE);
+	table = push_hash(table, SHIFT_LFT, (void*)&k_shift_left, TEMPL_TABLE_SIZE);
+	table = push_hash(table, CTRL_UP, (void*)&k_ctrl_up, TEMPL_TABLE_SIZE);
+	table = push_hash(table, CTRL_DOWN, (void*)&k_ctrl_down, TEMPL_TABLE_SIZE);
+	table = push_hash(table, CTRL_RIGHT, (void*)&k_ctrl_right, TEMPL_TABLE_SIZE);
+	table = push_hash(table, CTRL_LEFT, (void*)&k_ctrl_left, TEMPL_TABLE_SIZE);
 	table = set_templ_table_symb(table);
 	return (table);
 }
 
 t_hash	**set_templ_table_symb(t_hash **table)
 {
-	//char	symb;
+	char	symb[2];
 
+	symb[1] = '\0';
 	// symb = TAB;
 	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
 	// symb = CTRL_R;
 	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = CTRL_H;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	symb[0] = CTRL_H;
+	table = push_hash(table, symb, (void*)&k_bcsp, TEMPL_TABLE_SIZE);
 	// symb = CTRL_X;
 	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
 	// symb = CTRL_V;
 	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = CTRL_C;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = CTRL_D;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = BCSP;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = NEW_LINE;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	symb[0] = CTRL_C;
+	table = push_hash(table, symb, (void*)&k_ctrl_c, TEMPL_TABLE_SIZE);
+	symb[0] = CTRL_D;
+	table = push_hash(table, symb, (void*)&k_ctrl_d, TEMPL_TABLE_SIZE);
+	symb[0] = BCSP;
+	table = push_hash(table, symb, (void*)&k_bcsp, TEMPL_TABLE_SIZE);
+	symb[0] = NEW_LINE;
+	table = push_hash(table, symb, (void*)&k_enter, TEMPL_TABLE_SIZE);
 	return (table);
 }
 
@@ -64,7 +65,8 @@ void	find_templ(char *c, t_line *line)
 {
 	void	(*handler)(t_line *line);
 
-	print_symb(c, line);
-	if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))
+	if (ft_isprint(*c))
+		print_symb(c, line);
+	else if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))
 		handler(line);
 }
