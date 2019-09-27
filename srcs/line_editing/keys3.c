@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 19:37:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 21:58:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,50 +78,54 @@ void	k_ctrl_right(t_line *line)
 
 void	k_shift_left(t_line *line)
 {
-	short	position;
 	t_cord	*cord;
-	char	*buf;
+	short	start;
+	short	end;
+	short	pos;
 
 	cord = line->cord;
 	if (is_start_pos(cord))
 		return ;
 	if (!(g_line_flags & HIGHLIGHT_TEXT))
 		cord->highlight_pos = cord->pos;
-	position = cord->pos - 1;
+	pos = cord->pos - 1;
+	start = pos;
+	end = cord->highlight_pos;
+	if (end < start)
+	{
+		start = end;
+		end = pos;
+	}
 	go_left(cord->pos, cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	buf = line->buffer.buffer;
-	if (cord->highlight_pos >= position)
-		ft_putstr_highlight(buf + cord->pos, position - cord->pos,
-		cord->highlight_pos - cord->pos, cord);
-	else
-		ft_putstr_highlight(buf + cord->pos, cord->highlight_pos - cord->pos,
-		position - cord->pos, cord);
-	go_left(cord->pos - position, cord);
+	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
+	go_left(cord->pos - pos, cord);
 	g_line_flags |= HIGHLIGHT_TEXT;
 }
 
 void	k_shift_right(t_line *line)
 {
-	short	position;
 	t_cord	*cord;
-	char	*buf;
+	short	start;
+	short	end;
+	short	pos;
 
 	cord = line->cord;
 	if (is_end_pos(cord))
 		return ;
 	if (!(g_line_flags & HIGHLIGHT_TEXT))
 		cord->highlight_pos = cord->pos;
-	position = cord->pos + 1;
+	pos = cord->pos + 1;
+	start = cord->highlight_pos;
+	end = pos;
+	if (end < start)
+	{
+		end = start;
+		start = pos;
+	}
 	go_left(cord->pos, cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	buf = line->buffer.buffer;
-	if (cord->highlight_pos >= position)
-		ft_putstr_highlight(buf + cord->pos, position - cord->pos,
-		cord->highlight_pos - cord->pos, cord);
-	else
-		ft_putstr_highlight(buf + cord->pos, cord->highlight_pos - cord->pos,
-		position - cord->pos, cord);
-	go_left(cord->pos - position, cord);
+	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
+	go_left(cord->pos - pos, cord);
 	g_line_flags |= HIGHLIGHT_TEXT;
 }

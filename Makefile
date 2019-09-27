@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/27 18:32:27 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/27 20:16:56 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ srcs_line_editing := line_editing/check.c\
 		line_editing/keys.c\
 		line_editing/keys2.c\
 		line_editing/keys3.c\
+		line_editing/keys4.c\
 		line_editing/print.c\
 		line_editing/symb.c\
 		line_editing/templates.c\

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 19:03:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 22:35:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ t_hash	**set_templ_table_symb(t_hash **table)
 
 	symb[1] = '\0';
 	// symb = TAB;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, symb, (void*)&, TEMPL_TABLE_SIZE);
 	// symb = CTRL_R;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	// table = push_hash(table, symb, (void*)&, TEMPL_TABLE_SIZE);
 	symb[0] = CTRL_H;
 	table = push_hash(table, symb, (void*)&k_bcsp, TEMPL_TABLE_SIZE);
-	// symb = CTRL_X;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
-	// symb = CTRL_V;
-	// table = push_hash(table, &symb, (void*)&, TEMPL_TABLE_SIZE);
+	symb[0] = CTRL_X;
+	table = push_hash(table, symb, (void*)&k_ctrl_x, TEMPL_TABLE_SIZE);
+	symb[0] = CTRL_V;
+	table = push_hash(table, symb, (void*)&k_ctrl_v, TEMPL_TABLE_SIZE);
 	symb[0] = CTRL_C;
 	table = push_hash(table, symb, (void*)&k_ctrl_c, TEMPL_TABLE_SIZE);
 	symb[0] = CTRL_D;

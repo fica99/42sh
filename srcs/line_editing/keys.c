@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 18:46:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/27 22:04:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,30 @@ void	k_ctrl_d(t_line *line)
 
 void	k_ctrl_c(t_line *line)
 {
-	char	*buffer;
+	char	*copy_buff;
+	short	start;
+	short	end;
 
-	buffer = line->buffer.buffer;
-	if (g_line_flags & HIGHLIGHT_TEXT)
-		disable_highlight(buffer, line->cord);
-	ft_strclr(buffer);
-	g_line_flags |= BREAK_FLAG;
+	if (!(g_line_flags & HIGHLIGHT_TEXT))
+	{
+		ft_strclr(line->buffer.buffer);
+		g_line_flags |= BREAK_FLAG;
+	}
+	else
+	{
+		start = line->cord->pos;
+		end = line->cord->highlight_pos;
+		if (end < start)
+		{
+			start = end;
+			end = line->cord->pos;
+		}
+		copy_buff = ft_strsub(line->buffer.buffer, start, end - start);
+		ft_strclr(line->copy_buff.buffer);
+		check_malloc_len_buffer(&line->copy_buff, copy_buff);
+		ft_strcat(line->copy_buff.buffer, copy_buff);
+		ft_strdel(&copy_buff);
+	}
 }
 
 void	k_enter(t_line *line)
