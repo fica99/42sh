@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:08:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 18:47:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:29:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,16 @@ void	k_home(t_line *line)
 void	k_end(t_line *line)
 {
 	t_cord	*cord;
+	short	len;
 
 	cord = line->cord;
 	if (g_line_flags & HIGHLIGHT_TEXT)
 		disable_highlight(line->buffer.buffer, cord);
 	if (is_end_pos(cord))
 		return ;
-	go_right(ft_strlen(line->buffer.buffer + cord->pos), cord);
+	len = cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+	cord->ws_col);
+	go_right(len, cord);
 }
 
 void	k_ctrl_up(t_line *line)

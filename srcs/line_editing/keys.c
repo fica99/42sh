@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 22:04:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:22:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	k_ctrl_d(t_line *line)
 
 void	k_ctrl_c(t_line *line)
 {
-	char	*copy_buff;
 	short	start;
 	short	end;
 
@@ -73,11 +72,12 @@ void	k_ctrl_c(t_line *line)
 			start = end;
 			end = line->cord->pos;
 		}
-		copy_buff = ft_strsub(line->buffer.buffer, start, end - start);
 		ft_strclr(line->copy_buff.buffer);
-		check_malloc_len_buffer(&line->copy_buff, copy_buff);
-		ft_strcat(line->copy_buff.buffer, copy_buff);
-		ft_strdel(&copy_buff);
+		while (end - start >= line->copy_buff.malloc_len)
+			line->copy_buff.buffer = ft_strdup_realloc(line->copy_buff.buffer,
+			line->copy_buff.malloc_len += NORMAL_LINE);
+		ft_strncat(line->copy_buff.buffer, line->buffer.buffer + start,
+		end - start);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 15:46:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 15:09:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		make_history_buff(t_history *history)
 	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
 		len++;
 	history->hist_len = len;
-	history->history_index = -1;
 	history->history_buff = buff;
 	if (close(fd) == -1)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
@@ -47,7 +46,6 @@ void	free_history(t_history *history)
 
 	rewrite_file(history);
 	buf = history->history_buff;
-	history->history_index = -1;
 	ft_free_dar(buf);
 	ft_strdel(&history->hisfile_path);
 	history->history_buff = NULL;

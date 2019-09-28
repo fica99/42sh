@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 21:58:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:46:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,21 @@ void	k_shift_left(t_line *line)
 	t_cord	*cord;
 	short	start;
 	short	end;
-	short	pos;
 
 	cord = line->cord;
 	if (is_start_pos(cord))
 		return ;
 	if (!(g_line_flags & HIGHLIGHT_TEXT))
 		cord->highlight_pos = cord->pos;
-	pos = cord->pos - 1;
-	start = pos;
+	start = cord->pos - 1;
 	end = cord->highlight_pos;
 	if (end < start)
 	{
 		start = end;
-		end = pos;
+		end = cord->pos - 1;
 	}
-	go_left(cord->pos, cord);
-	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
-	go_left(cord->pos - pos, cord);
-	g_line_flags |= HIGHLIGHT_TEXT;
+	go_left(1, cord);
 }
 
 void	k_shift_right(t_line *line)
@@ -108,24 +103,19 @@ void	k_shift_right(t_line *line)
 	t_cord	*cord;
 	short	start;
 	short	end;
-	short	pos;
 
 	cord = line->cord;
 	if (is_end_pos(cord))
 		return ;
 	if (!(g_line_flags & HIGHLIGHT_TEXT))
 		cord->highlight_pos = cord->pos;
-	pos = cord->pos + 1;
 	start = cord->highlight_pos;
-	end = pos;
+	end = cord->pos + 1;
 	if (end < start)
 	{
 		end = start;
-		start = pos;
+		start = cord->pos + 1;
 	}
-	go_left(cord->pos, cord);
-	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
-	go_left(cord->pos - pos, cord);
-	g_line_flags |= HIGHLIGHT_TEXT;
+	go_right(1, cord);
 }

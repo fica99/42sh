@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 19:02:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 19:08:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:25:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void		del_symb(char *buf, t_cord *cord)
 	pos = cord->pos;
 	buf = ft_strdel_el(buf, pos);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	ft_putstr_cord(buf + cord->pos, cord);
+	ft_putstr_cord(buf + pos, cord);
 	go_left(cord->pos - pos, cord);
 }

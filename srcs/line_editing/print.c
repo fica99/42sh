@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:32:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 22:25:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 14:47:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 {
 	short	i;
 	char	symb[2];
+	short	pos;
 
-	i = -1;
+	pos = cord->pos;
+	go_left(pos, cord);
+	i = -1 + cord->pos;
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (start <= i)
 		HIGHLIGHT(STDIN_FILENO);
 	symb[1] = '\0';
@@ -51,6 +55,8 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 		ft_putstr_cord(symb, cord);
 	}
 	STANDART(STDIN_FILENO);
+	go_left(cord->pos - pos, cord);
+	g_line_flags |= HIGHLIGHT_TEXT;
 }
 
 void		disable_highlight(char *buffer, t_cord *cord)

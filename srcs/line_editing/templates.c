@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 22:35:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 15:20:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_hash	**set_templ_table(void)
 	table = push_hash(table, K_HOME, (void*)&k_home, TEMPL_TABLE_SIZE);
 	table = push_hash(table, K_END, (void*)&k_end, TEMPL_TABLE_SIZE);
 	table = push_hash(table, K_DEL, (void*)&k_del, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, K_UP, (void*)&, TEMPL_TABLE_SIZE);
-	// table = push_hash(table, K_DOWN, (void*)&, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_UP, (void*)&k_up, TEMPL_TABLE_SIZE);
+	table = push_hash(table, K_DOWN, (void*)&k_down, TEMPL_TABLE_SIZE);
 	table = push_hash(table, SHIFT_RGHT, (void*)&k_shift_right, TEMPL_TABLE_SIZE);
 	table = push_hash(table, SHIFT_LFT, (void*)&k_shift_left, TEMPL_TABLE_SIZE);
 	table = push_hash(table, CTRL_UP, (void*)&k_ctrl_up, TEMPL_TABLE_SIZE);

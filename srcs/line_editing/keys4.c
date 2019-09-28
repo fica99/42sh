@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 20:16:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 22:40:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 15:46:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,49 @@ void	k_ctrl_v(t_line *line)
 	cord =line->cord;
 	buff = ft_stradd(buff, line->copy_buff.buffer, cord->pos);
 	disable_highlight(buff, cord);
+}
+
+void	k_up(t_line *line)
+{
+	t_cord	*cord;
+
+	if ((!line->history_index))
+		return ;
+	cord = line->cord;
+	go_left(cord->pos, cord);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	if (line->history_index == g_history.hist_len)
+	{
+		check_malloc_len_buffer(&line->save_buff, line->buffer.buffer + cord->pos);
+		ft_strcat(line->save_buff.buffer, line->buffer.buffer + cord->pos);
+	}
+	--(line->history_index);
+	ft_strclr(line->buffer.buffer + cord->pos);
+	check_malloc_len_buffer(&line->buffer,
+	g_history.history_buff[line->history_index]);
+	ft_strcat(line->buffer.buffer, g_history.history_buff[(line->history_index)]);
+	ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
+}
+
+void	k_down(t_line *line)
+{
+	char	*history_buffer;
+	t_cord	*cord;
+
+	if (line->history_index == g_history.hist_len)
+		return ;
+	cord = line->cord;
+	go_left(cord->pos, cord);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	++(line->history_index);
+	if (line->history_index == g_history.hist_len)
+		history_buffer = line->save_buff.buffer;
+	else
+		history_buffer = g_history.history_buff[(line->history_index)];
+	ft_strclr(line->buffer.buffer + cord->pos);
+	check_malloc_len_buffer(&line->buffer, history_buffer);
+	ft_strcat(line->buffer.buffer, history_buffer);
+	ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
+	if (line->history_index == g_history.hist_len)
+		ft_strclr(line->save_buff.buffer);
 }
