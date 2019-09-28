@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/28 18:46:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 21:13:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@
 # define HISTORY_SEARCH (1 << 2)
 # define HIGHLIGHT_TEXT (1 << 3)
 # define TERM_QUOTES (1 << 5)
-
+# define QUOTES_ERROR "\033[0;31mQUOTES ERROR\033[0m"
+# define DQUOTES_ERROR "\033[0;31mDQUOTES ERROR\033[0m"
+# define BRACKETS_ERROR "\033[0;31mBRACKETS ERROR\033[0m"
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 21
 
@@ -176,6 +178,12 @@ void	del_symb(char *buf, t_cord *cord);
 void	go_to_cord(short x, short y, int fd);
 void	go_left(short i, t_cord *cord);
 void	go_right(short i, t_cord *cord);
+/*
+**	symb.c
+*/
+void	check_quotes(t_line *line);
+char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line);
+void	print_quotes(short q, short dq, short br, t_line *line);
 
 unsigned short	g_line_flags;
 struct s_line	g_line;

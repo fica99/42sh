@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 14:22:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 20:57:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ void	k_enter(t_line *line)
 {
 	if (g_line_flags & HIGHLIGHT_TEXT)
 		disable_highlight(line->buffer.buffer, line->cord);
-	g_line_flags |= BREAK_FLAG;
+	check_quotes(line);
 }

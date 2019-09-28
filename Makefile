@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/28 18:59:34 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/28 20:41:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ srcs_line_editing := line_editing/check.c\
 		line_editing/symb.c\
 		line_editing/templates.c\
 		line_editing/cur_movements.c\
+		line_editing/quotes.c\
 
 srcs_bin_table := bin_table/bin_table.c\
 		bin_table/free_bin_table.c\
