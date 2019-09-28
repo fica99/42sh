@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/28 15:20:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:46:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define TERM_QUOTES (1 << 5)
 
 # define NORMAL_LINE 1000
-# define TEMPL_TABLE_SIZE 20
+# define TEMPL_TABLE_SIZE 21
 
 typedef struct		s_cord
 {
@@ -154,11 +154,17 @@ void	k_ctrl_v(t_line *line);
 void	k_up(t_line *line);
 void	k_down(t_line *line);
 /*
+**	keys4.c
+*/
+void	k_ctrl_r(t_line *line);
+/*
 **	print.c
 */
 void	ft_putstr_cord(char *str, t_cord *cord);
 void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
 void	disable_highlight(char *buffer, t_cord *cord);
+void	disable_history(t_line *line);
+void	find_history(char *c, t_line *line);
 /*
 **	symb.c
 */

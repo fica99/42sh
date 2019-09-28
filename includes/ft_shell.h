@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 17:42:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/28 18:57:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "signal/signal.h"
 # include "term/term.h"
 # include "environ/environ.h"
 # include "bin_table/bin_table.h"

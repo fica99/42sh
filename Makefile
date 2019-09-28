@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/09/27 20:16:56 by aashara-         ###   ########.fr        #
+#    Updated: 2019/09/28 18:59:34 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ srcs_line_editing := line_editing/check.c\
 		line_editing/keys2.c\
 		line_editing/keys3.c\
 		line_editing/keys4.c\
+		line_editing/keys5.c\
 		line_editing/print.c\
 		line_editing/symb.c\
 		line_editing/templates.c\
@@ -94,6 +95,8 @@ srcs_lexer = lexer/load_lexer.c\
 srcs_environ = environ/get_env.c\
 		environ/init_environ.c\
 
+srcs_signal = signal/signal.c\
+
 builtins_dir := builtins
 
 srcs_files := $(srcs_term)\
@@ -108,6 +111,7 @@ srcs_files := $(srcs_term)\
 			$(srcs_parser)\
 			$(srcs_interpretator)\
 			$(srcs_environ)\
+			$(srcs_signal)\
 
 .LIBPATTERNS := "lib%.a"
 
