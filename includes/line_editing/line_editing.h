@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/28 21:13:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/29 20:07:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@
 # define HISTORY_SEARCH (1 << 2)
 # define HIGHLIGHT_TEXT (1 << 3)
 # define TERM_QUOTES (1 << 5)
-# define QUOTES_ERROR "\033[0;31mQUOTES ERROR\033[0m"
-# define DQUOTES_ERROR "\033[0;31mDQUOTES ERROR\033[0m"
-# define BRACKETS_ERROR "\033[0;31mBRACKETS ERROR\033[0m"
+# define QUOTES_ERROR "\033[0;31mQUOTES> \033[0m"
+# define DQUOTES_ERROR "\033[0;31mDQUOTES> \033[0m"
+# define BRACKETS_ERROR "\033[0;31mBRACKETS> \033[0m"
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 21
 
@@ -166,7 +166,7 @@ void	ft_putstr_cord(char *str, t_cord *cord);
 void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
 void	disable_highlight(char *buffer, t_cord *cord);
 void	disable_history(t_line *line);
-void	find_history(char *c, t_line *line);
+void	find_history(t_line *line);
 /*
 **	symb.c
 */

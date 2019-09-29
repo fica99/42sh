@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 17:17:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/29 19:05:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ void	k_ctrl_left(t_line *line)
 		return ;
 	i = cord->pos;
 	buf = line->buffer.buffer;
-	while (--i >= 0)
+	while (--i > 0)
 	{
-		if ((i == 0 || buf[i - 1] == ' ' || buf[i - 1] == '\n') &&
-		ft_isalnum(buf[i]))
-		{
-			go_left(cord->pos - i, cord);
+		if (ft_isspace(buf[i - 1]) && ft_isalnum(buf[i]))
 			break ;
-		}
 	}
+	go_left(cord->pos - i, cord);
 }
 
 void	k_ctrl_right(t_line *line)
@@ -66,7 +63,7 @@ void	k_ctrl_right(t_line *line)
 	buf = line->buffer.buffer;
 	while (buf[i])
 	{
-		if ((buf[i] == ' ' || buf[i] == '\n') && ft_isalnum(buf[i + 1]))
+		if (ft_isspace(buf[i]) && ft_isalnum(buf[i + 1]))
 		{
 			i++;
 			break;
@@ -94,7 +91,9 @@ void	k_shift_left(t_line *line)
 		start = end;
 		end = cord->pos - 1;
 	}
+	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
 	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
+	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
 	go_left(1, cord);
 }
 
@@ -116,6 +115,8 @@ void	k_shift_right(t_line *line)
 		end = start;
 		start = cord->pos + 1;
 	}
+	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
 	ft_putstr_highlight(line->buffer.buffer, start, end, cord);
+	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
 	go_right(1, cord);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 17:35:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 21:13:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/29 22:00:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,29 @@ void	check_quotes(t_line *line)
 		else if (buf[i] == ')')
 			br--;
 	}
-	if (i != 0)
-		if (!quotes_dquotes_brackets(q, dq, br, line))
-			g_line_flags |= BREAK_FLAG;
+	if (!quotes_dquotes_brackets(q, dq, br, line))
+		g_line_flags |= BREAK_FLAG;
 }
 
 char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 {
-	if (q % 2 != 0)
-		print_quotes(q, 0, 0, line);
-	else if (dq % 2 != 0)
+	t_cord	*cord;
+
+	cord = line->cord;
+	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+	cord->ws_col), cord);
+	if (dq % 2 != 0)
 		print_quotes(0, dq, 0, line);
+	else if (q % 2 != 0)
+		print_quotes(q, 0, 0, line);
 	else if (br != 0)
 		print_quotes(0, 0, br, line);
-	else if (line->buffer.buffer[ft_strlen(line->buffer.buffer) - 1] == '\\')
+	else if (line->buffer.buffer[cord->pos - 1] == '\\')
+	{
 		print_quotes(0, 0, 0, line);
+		line->buffer.buffer = ft_strdel_el(line->buffer.buffer, --cord->pos);
+		line->buffer.buffer = ft_strdel_el(line->buffer.buffer, --cord->pos);
+	}
 	else
 		return (FALSE);
 	return (TRUE);
@@ -58,29 +66,25 @@ char	quotes_dquotes_brackets(short q, short dq, short br, t_line *line)
 
 void	print_quotes(short q, short dq, short br, t_line *line)
 {
-	t_cord	*cord;
-	short	pos;
+	char	*ps2;
 
-	cord = line->cord;
-	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
-	cord->ws_col), cord);
-	pos = cord->pos;
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-	if (cord->y_cur >= cord->ws_row - 1)
-		(cord->y_start)--;
-	else
-		(cord->y_cur)++;
-	cord->x_cur = 0;
-	if ((q % 2) != 0)
-		ft_putstr_cord(QUOTES_ERROR, cord);
-	else if ((dq % 2) != 0)
-		ft_putstr_cord(DQUOTES_ERROR, cord);
+	line->buffer.buffer = ft_stradd(line->buffer.buffer, "\n",
+	line->cord->pos);
+	if ((dq % 2) != 0)
+		ft_putstr_fd(DQUOTES_ERROR, STDIN_FILENO);
+	else if ((q % 2) != 0)
+		ft_putstr_fd(QUOTES_ERROR, STDIN_FILENO);
 	else if (br != 0)
-		ft_putstr_cord(BRACKETS_ERROR, cord);
-	go_to_cord(cord->x_start, cord->y_start, STDIN_FILENO);
-	cord->pos = 0;
-	cord->x_cur = cord->x_start;
-	cord->y_cur = cord->y_start;
-	go_right(pos, cord);
-	set_end_cord(cord);
+		ft_putstr_fd(BRACKETS_ERROR, STDIN_FILENO);
+	else if (!(ps2 = ft_getenv("PS2")))
+		ft_putstr_fd("> ", STDIN_FILENO);
+	else
+		write_prompt(ps2);
+	++(line->cord->pos);
+	get_cur_cord(line->cord);
+	set_start_cord(line->cord);
+	set_end_cord(line->cord);
+	line->history_index = g_history.hist_len;
 }

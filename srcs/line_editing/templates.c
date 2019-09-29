@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 20:39:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/29 19:52:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,20 @@ void	find_templ(char *c, t_line *line)
 
 	if (ft_isprint(*c) && !(g_line_flags & HISTORY_SEARCH))
 		print_symb(c, line);
-	else if (!ft_isprint(*c) && (g_line_flags &HISTORY_SEARCH))
+	else if (ft_isprint(*c) && (g_line_flags & HISTORY_SEARCH))
+	{
+		check_malloc_len_buffer(&line->history_search, c);
+		ft_strcat(line->history_search.buffer, c);
+		find_history(line);
+	}
+	else if (*c == BCSP && (g_line_flags & HISTORY_SEARCH))
+	{
+		line->history_search.buffer = ft_strdel_el(line->history_search.buffer,
+		ft_strlen(line->history_search.buffer) - 1);
+		find_history(line);
+	}
+	else if (!ft_isprint(*c) && (g_line_flags & HISTORY_SEARCH))
 		disable_history(line);
-	else if (ft_isprint(*c) && (g_line_flags &HISTORY_SEARCH))
-		find_history(c, line);
 	else if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))
 		handler(line);
 }

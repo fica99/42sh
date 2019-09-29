@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 13:41:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 14:04:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/29 17:14:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@ void		go_to_cord(short x, short y, int fd)
 
 void		go_left(short i, t_cord *cord)
 {
+	short	len;
+
 	if (i <= 0)
 		return ;
+	len = cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+	cord->ws_col);
+	if (i > len)
+		i = len;
 	cord->pos -= i;
 	cord->x_cur -= i;
 	while (cord->x_cur < 0)
@@ -36,8 +42,14 @@ void		go_left(short i, t_cord *cord)
 
 void		go_right(short i, t_cord *cord)
 {
+	short	len;
+
 	if (i <= 0)
 		return ;
+	len = cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+	cord->ws_col);
+	if (i > len)
+		i = len;
 	cord->pos += i;
 	cord->x_cur += i;
 	while (cord->x_cur >= cord->ws_col)
