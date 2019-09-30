@@ -1,58 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keys4.c                                            :+:      :+:    :+:   */
+/*   k_history.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 20:16:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 15:46:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/30 21:23:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	k_ctrl_x(t_line *line)
-{
-	t_cord	*cord;
-	short	start;
-	short	end;
-	short	j;
-
-	if (!(g_line_flags & HIGHLIGHT_TEXT))
-		return ;
-	k_ctrl_c(line);
-	cord = line->cord;
-	start = cord->highlight_pos;
-	end = cord->pos;
-	j = start;
-	if (end < start)
-	{
-		start = end;
-		end = j;
-		j = start;
-	}
-	while (++j <= end)
-		line->buffer.buffer = ft_strdel_el(line->buffer.buffer, start);
-	disable_highlight(line->buffer.buffer, cord);
-}
-
-void	k_ctrl_v(t_line *line)
-{
-	char	*buff;
-	t_cord	*cord;
-
-	check_malloc_len_buffer(&line->buffer, line->copy_buff.buffer);
-	buff = line->buffer.buffer;
-	cord =line->cord;
-	buff = ft_stradd(buff, line->copy_buff.buffer, cord->pos);
-	disable_highlight(buff, cord);
-}
 
 void	k_up(t_line *line)
 {
 	t_cord	*cord;
 
+	if (g_line_flags & HISTORY_SEARCH)
+		disable_history(line);
 	if ((!line->history_index))
 		return ;
 	cord = line->cord;
@@ -76,6 +42,8 @@ void	k_down(t_line *line)
 	char	*history_buffer;
 	t_cord	*cord;
 
+	if (g_line_flags & HISTORY_SEARCH)
+		disable_history(line);
 	if (line->history_index == g_history.hist_len)
 		return ;
 	cord = line->cord;
@@ -92,4 +60,29 @@ void	k_down(t_line *line)
 	ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
 	if (line->history_index == g_history.hist_len)
 		ft_strclr(line->save_buff.buffer);
+}
+
+void	k_ctrl_r(t_line *line)
+{
+	t_cord	*cord;
+
+	cord = line->cord;
+	if (g_line_flags & HIGHLIGHT_TEXT)
+		disable_highlight(line->buffer.buffer, cord);
+	if (!g_history.hist_len)
+		return ;
+	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
+	go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
+	if (cord->y_end >= cord->ws_row - 1)
+	{
+		--cord->y_cur;
+		--cord->y_start;
+		--cord->y_end;
+	}
+	ft_putstr_fd("bck-i-search: ", STDIN_FILENO);
+	ft_putstr_fd(line->history_search.buffer, STDIN_FILENO);
+	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
+	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
+	g_line_flags |= HISTORY_SEARCH;
 }

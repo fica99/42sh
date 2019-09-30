@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/01 17:35:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/29 22:00:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/30 20:17:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	print_quotes(short q, short dq, short br, t_line *line)
 	line->buffer.buffer = ft_stradd(line->buffer.buffer, "\n",
 	line->cord->pos);
 	if ((dq % 2) != 0)
-		ft_putstr_fd(DQUOTES_ERROR, STDIN_FILENO);
+		ft_putstr_fd(DQUOTES, STDIN_FILENO);
 	else if ((q % 2) != 0)
-		ft_putstr_fd(QUOTES_ERROR, STDIN_FILENO);
+		ft_putstr_fd(QUOTES, STDIN_FILENO);
 	else if (br != 0)
-		ft_putstr_fd(BRACKETS_ERROR, STDIN_FILENO);
+		ft_putstr_fd(BRACKETS, STDIN_FILENO);
 	else if (!(ps2 = ft_getenv("PS2")))
 		ft_putstr_fd("> ", STDIN_FILENO);
 	else

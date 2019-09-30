@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/29 21:20:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/30 18:11:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void		add_to_history_buff(char *buffer, t_history *history)
 	short	i;
 	char	*nl;
 
-	while ((nl = ft_strrchr(buffer, '\n')))
+	while ((nl = ft_strchr(buffer, '\n')))
 	{
 		*nl = '\0';
-		add_to_history_buff(nl + 1, history);
+		add_to_history_buff(buffer, history);
+		buffer = nl + 1;
 	}
 	len = history->hist_len;
 	if (len >= history->histsize)
@@ -75,9 +76,8 @@ void		add_to_history_buff(char *buffer, t_history *history)
 	}
 	else
 	{
-		if (!(history->history_buff[len] = ft_strdup(buffer)))
+		if (!(history->history_buff[history->hist_len++] = ft_strdup(buffer)))
 			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-		history->hist_len++;
 	}
 }
 

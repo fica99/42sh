@@ -52,7 +52,10 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 	<shift+[left|right]>: Highlighting text.
 	<up>: Go up in the history.
 	<down>: Go down in the history.
-    <ctrl+R>: Histry search.
+	<ctrl+R>: History search.
+	<ctrl+H>: Backspace.
+	<bcsp>.
+	<del>.
 	<tab>: dinamical autocomplete
 
 ### Builtins

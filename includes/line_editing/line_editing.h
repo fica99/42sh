@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/09/29 20:07:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/09/30 21:29:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@
 # define CLEAR_SCREEN tigetstr("clear")
 # define CUR_CORD tigetstr("u7")
 # define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
-# define HEREDOC_FLAG (1 << 1)
 # define HISTORY_SEARCH (1 << 2)
 # define HIGHLIGHT_TEXT (1 << 3)
-# define TERM_QUOTES (1 << 5)
-# define QUOTES_ERROR "\033[0;31mQUOTES> \033[0m"
-# define DQUOTES_ERROR "\033[0;31mDQUOTES> \033[0m"
-# define BRACKETS_ERROR "\033[0;31mBRACKETS> \033[0m"
+# define QUOTES "\033[0;31mquotes> \033[0m"
+# define DQUOTES "\033[0;31mdquotes> \033[0m"
+# define BRACKETS "\033[0;31mbrackets> \033[0m"
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 21
 
@@ -125,40 +123,40 @@ char	is_start_pos(t_cord *cord);
 char	is_end_pos(t_cord *cord);
 void	check_malloc_len_buffer(t_buff *buffer, char *c);
 /*
-**	keys.c
+**	k_cur_movements.c
 */
 void	k_left(t_line *line);
 void	k_right(t_line *line);
-void	k_ctrl_c(t_line *line);
-void	k_ctrl_d(t_line *line);
-void	k_enter(t_line *line);
-/*
-**	keys2.c
-*/
-void	k_bcsp(t_line *line);
-void	k_del(t_line *line);
 void	k_home(t_line *line);
 void	k_end(t_line *line);
-void	k_ctrl_up(t_line *line);
 /*
-**	keys3.c
+**	k_cur_movements2.c
 */
+void	k_ctrl_up(t_line *line);
 void	k_ctrl_down(t_line *line);
 void	k_ctrl_left(t_line *line);
 void	k_ctrl_right(t_line *line);
+/*
+**	k_highlight.c
+*/
+void	k_ctrl_c(t_line *line);
 void	k_shift_left(t_line *line);
 void	k_shift_right(t_line *line);
-/*
-**	keys4.c
-*/
 void	k_ctrl_x(t_line *line);
 void	k_ctrl_v(t_line *line);
+/*
+**	k_history.c
+*/
 void	k_up(t_line *line);
 void	k_down(t_line *line);
-/*
-**	keys4.c
-*/
 void	k_ctrl_r(t_line *line);
+/*
+**	k_print.c
+*/
+void	k_ctrl_d(t_line *line);
+void	k_enter(t_line *line);
+void	k_bcsp(t_line *line);
+void	k_del(t_line *line);
 /*
 **	print.c
 */
