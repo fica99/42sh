@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 20:32:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 15:06:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:23:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void		set_data(t_line *line)
 	set_start_cord(cord);
 	set_end_cord(cord);
 	line->history_index = g_history.hist_len;
-	if ((line->her_fd = open(HEREDOC_FILE, RRED_OPEN, PERM_MODE)) == -1)
-		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 }
 
 void		unset_data(t_line *line)
@@ -34,6 +32,4 @@ void		unset_data(t_line *line)
 	ft_strclr(line->save_buff.buffer);
 	ft_strclr(line->her_buff.buffer);
 	ft_strclr(line->history_search.buffer);
-	if (close(line->her_fd) == -1)
-		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 }

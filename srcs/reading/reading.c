@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/29 21:58:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:38:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,19 @@ char	*read_prompt(void)
 void		reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
+	t_cord	*cord;
 
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
 		check_malloc_len_buffer(&(line->buffer), c);
 		find_templ(c, line);
-		if (g_line_flags & BREAK_FLAG)
+		if (g_flags & BREAK_FLAG)
 			break ;
 	}
-	go_to_cord(line->cord->x_end, line->cord->y_end, STDIN_FILENO);
+	cord = line->cord;
+	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+	cord->ws_col), cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/09/24 19:10:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:25:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define READING_H
 
 # define READING 1
-# define BREAK_FLAG (1 << 7)
+# define BREAK_FLAG (1 << 1)
 
 /*
 **	read_mode.c

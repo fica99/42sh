@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/30 21:23:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/01 16:48:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,15 @@ void	k_ctrl_d(t_line *line)
 		disable_highlight(buf, line->cord);
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
-	if (*buf == '\0')
+	if (is_end_pos(line->cord))
 	{
-		ft_strcat(buf, "exit");
-		ft_putstr_cord(buf, line->cord);
-		g_line_flags |= BREAK_FLAG;
+		if (*buf == '\0')
+		{
+			ft_strclr(buf);
+			ft_strcat(buf, "exit");
+			ft_putstr_cord(buf, line->cord);
+		}
+		g_flags |= BREAK_FLAG;
 	}
 	else
 		k_del(line);
@@ -37,7 +41,7 @@ void	k_enter(t_line *line)
 		disable_highlight(line->buffer.buffer, line->cord);
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
-	check_quotes(line);
+	g_flags |= BREAK_FLAG;
 }
 
 void	k_bcsp(t_line *line)
