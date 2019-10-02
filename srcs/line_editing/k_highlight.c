@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/02 15:45:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 17:43:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	k_ctrl_x(t_line *line)
 	start = cord->highlight_pos;
 	end = cord->pos;
 	j = start;
+	go_left(end - start, cord);
 	if (end < start)
 	{
 		start = end;

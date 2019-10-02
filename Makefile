@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/02 16:03:02 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/06 19:41:30 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,7 +161,7 @@ $(obj_dir):
 	@echo "\033[32m\033[1m--->Compile sources:\033[0m"
 	@$(MAKE) --no-print-directory $(objects)
 
-$(obj_dir)/%.o:$(srcs_dir)/%.c
+$(obj_dir)/%.o:$(srcs_dir)/%.c 
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
@@ -170,41 +170,46 @@ loadlibs:
 	@./$(load_script) $(repo) $(lib_dir)
 	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
 
+$(lib_dir):
+	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
+	@./$(load_script) $(repo) $(lib_dir)
+	@echo "\033[0;35m\033[1m--->Finish loading\033[0m"
+
 removelibs:
 	@echo "\033[0;35m\033[1m--->Remove Libraries\033[0m"
 	@rm -rf $(lib_dir)
 
-lall:
+lall: loadlibs
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
 	@$(MAKE) all --no-print-directory -C $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Finish libraries archieve compilation\033[0m"
 	@echo "\033[0;30m\033[1m--->Finish getting libraries archieve\033[0m"
 
-llall:
+llall: loadlibs
 	@$(MAKE) lall --no-print-directory -C $(lib_dir)
 
-llclean:
+llclean: $(lib_dir)
 	@$(MAKE) lclean --no-print-directory -C $(lib_dir)
 
-llfclean:
+llfclean: $(lib_dir)
 	@$(MAKE) lfclean --no-print-directory -C $(lib_dir)
 
-lfclean:
+lfclean: $(lib_dir)
 	@$(MAKE) fclean --no-print-directory -C $(lib_dir)
 
 oclean:
 	@echo "\033[36m\033[1m--->Remove $(CURDIR)/$(obj_dir)\033[0m"
 	@-rm -rf $(obj_dir)
 
-clean:
+clean: $(lib_dir)
 	@$(MAKE) --no-print-directory oclean
 	@$(MAKE) --no-print-directory lfclean
 
-fclean:
+fclean: $(lib_dir)
 	@$(MAKE) --no-print-directory clean
 	@echo "\033[36m\033[1m--->Remove $(CURDIR)/$(name)\033[0m"
 	@-rm -rf $(name)
 
-re:
+re: $(lib_dir)
 	@$(MAKE) --no-print-directory fclean
 	@$(MAKE) --no-print-directory all
