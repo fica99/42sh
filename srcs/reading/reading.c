@@ -6,34 +6,23 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/02 15:25:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:05:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-char	*read_prompt(void)
+void	read_prompt(void)
 {
-	char	*buff;
-
-	buff = NULL;
 	set_input_mode(&g_raw_mode);
 	set_line(&g_line);
 	reading(&g_line);
-	if (*g_line.buffer.buffer)
-	{
-		if (!(buff = ft_strdup(g_line.buffer.buffer)))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-		add_to_history_buff(buff, &g_history);
-	}
 	set_attr(&g_orig_mode);
-	return (buff);
 }
 
 void		reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
-	t_cord	*cord;
 
 	while (READING)
 	{
@@ -41,13 +30,11 @@ void		reading(t_line *line)
 		check_malloc_len_buffer(&(line->buffer), c);
 		find_templ(c, line);
 		if (g_flags & BREAK_FLAG)
+		{
+			check_valid_string(line->buffer.buffer);
 			break ;
+		}
 	}
-	cord = line->cord;
-	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
-	cord->ws_col), cord);
-	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 }
 
 void		read_handler(char *c, int fd)
@@ -62,4 +49,27 @@ void		read_handler(char *c, int fd)
 	}
 	c[nb] = '\0';
 	ft_putstr_fd(STOP_TRANSMIT_MODE, STDIN_FILENO);
+}
+
+void	check_valid_string(char *buffer)
+{
+	t_node	*ast;
+
+	if (buffer && *buffer)
+	{
+		ast = parser(buffer);
+		if (!(g_parser_flags & PARSER_ERROR))
+			interpret_ast(ast);
+		if (ast)
+		{
+			add_to_history_buff(buffer, &g_history);
+			free_ast(&ast);
+		}
+		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
+		{
+			free_table(&g_bin_table);
+			if (g_flags & TERM_INIT_HASH)
+				init_bin_table(&g_bin_table);
+		}
+	}
 }

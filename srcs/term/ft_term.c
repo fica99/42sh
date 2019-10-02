@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 18:58:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 16:05:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int		main(int argc, char **argv, char **environ)
 
 void	term_start(void)
 {
-	char	*buffer;
-
 	init_terminfo();
 	init_line(&g_line);
 	while (RUNNING)
@@ -36,31 +34,10 @@ void	term_start(void)
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, win_handler);
 		term_prompt();
-		buffer = read_prompt();
-		check_valid_string(buffer);
-		ft_memdel((void**)&buffer);
+		read_prompt();
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
 	free_line(&g_line);
 	reset_shell_mode();
-}
-
-void	check_valid_string(char *buffer)
-{
-	t_node	*ast;
-
-	if (buffer)
-	{
-		ast = parser(buffer);
-		if (!(g_parser_flags & PARSER_ERROR))
-			interpret_ast(ast);
-		free_ast(&ast);
-		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
-		{
-			free_table(&g_bin_table);
-			if (g_flags & TERM_INIT_HASH)
-				init_bin_table(&g_bin_table);
-		}
-	}
 }

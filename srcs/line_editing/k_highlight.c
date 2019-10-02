@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/02 15:29:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:45:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	k_ctrl_c(t_line *line)
 	if (!(g_line_flags & HIGHLIGHT_TEXT))
 	{
 		ft_strclr(line->buffer.buffer);
-		g_flags |= BREAK_FLAG;
+		k_enter(line);
 	}
 	else
 	{

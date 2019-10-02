@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/01 16:48:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:49:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ void	k_ctrl_d(t_line *line)
 	{
 		if (*buf == '\0')
 		{
-			ft_strclr(buf);
-			ft_strcat(buf, "exit");
+			ft_strcpy(buf, "exit");
 			ft_putstr_cord(buf, line->cord);
 		}
-		g_flags |= BREAK_FLAG;
+		k_enter(line);
 	}
 	else
 		k_del(line);
@@ -37,10 +36,23 @@ void	k_ctrl_d(t_line *line)
 
 void	k_enter(t_line *line)
 {
+	t_cord	*cord;
+
 	if (g_line_flags & HIGHLIGHT_TEXT)
 		disable_highlight(line->buffer.buffer, line->cord);
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
+	cord = line->cord;
+	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+	cord->ws_col), cord);
+	if (cord->y_end >= cord->ws_row - 1)
+	{
+		--cord->y_cur;
+		--cord->y_start;
+		--cord->y_end;
+	}
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	g_flags |= BREAK_FLAG;
 }
 

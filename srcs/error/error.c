@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/09/29 16:19:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:39:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	err_exit(char *name, char *str, char *command, char *err)
 {
 	ft_error(name, str, command, err);
 	set_attr(&g_orig_mode);
-	rewrite_file(&g_history);
 	exit(EXIT_FAILURE);
 }
 

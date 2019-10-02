@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/02 15:25:06 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/02 16:03:02 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,7 +151,7 @@ includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 
 all: $(name)
 
-$(name): $(lib_dir) lall $(obj_dir) $(objects)
+$(name): loadlibs lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
 	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
@@ -164,9 +164,6 @@ $(obj_dir):
 $(obj_dir)/%.o:$(srcs_dir)/%.c
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes) -o $@ -c $<
-
-$(lib_dir):
-		@$(MAKE) --no-print-directory loadlibs
 
 loadlibs:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"
