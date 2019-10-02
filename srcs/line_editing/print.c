@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:32:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/29 22:05:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:31:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ void		find_history(t_line *line)
 			break ;
 		history++;
 	}
-	ft_strclr(line->buffer.buffer + cord->pos);
 	check_malloc_len_buffer(&line->buffer, *history);
-	ft_strcat(line->buffer.buffer, *history);
+	ft_strcpy(line->buffer.buffer + cord->pos, *history);
 	ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
 	k_ctrl_r(line);
 }

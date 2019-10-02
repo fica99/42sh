@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/01 14:56:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/02 15:25:06 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,6 @@ srcs_error := error/error.c\
 
 srcs_line_editing := line_editing/check.c\
 		line_editing/cord.c\
-		line_editing/data.c\
 		line_editing/free_line.c\
 		line_editing/init_line.c\
 		line_editing/k_cur_movements.c\

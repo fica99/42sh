@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/01 16:25:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:26:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	init_line(t_line *line);
 void	init_buff(t_buff *buffer);
 t_cord	*init_cord(void);
 t_hash	**init_templates(void);
+void	set_line(t_line *line);
 /*
 **	free_line.c
 */
@@ -100,11 +101,6 @@ void	free_buffer(t_buff *buffer);
 t_hash	**set_templ_table(void);
 t_hash	**set_templ_table_symb(t_hash **table);
 void	find_templ(char *c, t_line *line);
-/*
-**	data.c
-*/
-void	set_data(t_line *line);
-void	unset_data(t_line *line);
 /*
 **	cord.c
 */

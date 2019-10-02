@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 18:15:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:23:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ t_hash	**make_bin_table(char **path, size_t size)
 				continue ;
 			if (!(full_path = ft_strnew(FT_PATH_MAX)))
 				err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-			ft_strcat(ft_strcat(ft_strcat(full_path, path[j]), "/"), file->d_name);
-			table = push_hash(table, file->d_name, ft_strdup(full_path), size);
-			ft_memdel((void**)&full_path);
+			full_path = ft_strcpy(full_path, path[j]);
+			full_path = ft_strcat(ft_strcat(full_path, "/"), file->d_name);
+			table = push_hash(table, file->d_name, (void*)full_path, size);
 		}
 		check_close(folder);
 	}

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/01 16:38:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:25:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*read_prompt(void)
 
 	buff = NULL;
 	set_input_mode(&g_raw_mode);
-	set_data(&g_line);
+	set_line(&g_line);
 	reading(&g_line);
 	if (*g_line.buffer.buffer)
 	{
@@ -26,7 +26,6 @@ char	*read_prompt(void)
 			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 		add_to_history_buff(buff, &g_history);
 	}
-	unset_data(&g_line);
 	set_attr(&g_orig_mode);
 	return (buff);
 }

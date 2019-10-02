@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/27 14:33:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/02 15:25:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,22 @@ t_hash	**init_templates(void)
 	!K_UP || !K_DOWN || !SHIFT_LFT || !SHIFT_RGHT || !STOP_TRANSMIT_MODE)
 		err_exit(g_argv[0], "no correct capabilities", NULL, NOERROR);
 	return (set_templ_table());
+}
+
+void	set_line(t_line *line)
+{
+	t_cord	*cord;
+
+	cord = line->cord;
+	g_line_flags = INIT_FLAGS;
+	unset_cord(line->cord);
+	ft_strclr(line->buffer.buffer);
+	ft_strclr(line->save_buff.buffer);
+	ft_strclr(line->her_buff.buffer);
+	ft_strclr(line->history_search.buffer);
+	get_win_size(cord);
+	get_cur_cord(cord);
+	set_start_cord(cord);
+	set_end_cord(cord);
+	line->history_index = g_history.hist_len;
 }
