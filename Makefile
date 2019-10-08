@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/06 19:41:30 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/08 19:52:27 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,7 +151,7 @@ includes := -I $(inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
 
 all: $(name)
 
-$(name): loadlibs lall $(obj_dir) $(objects)
+$(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
 	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
@@ -161,7 +161,7 @@ $(obj_dir):
 	@echo "\033[32m\033[1m--->Compile sources:\033[0m"
 	@$(MAKE) --no-print-directory $(objects)
 
-$(obj_dir)/%.o:$(srcs_dir)/%.c 
+$(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes) -o $@ -c $<
 
@@ -179,13 +179,13 @@ removelibs:
 	@echo "\033[0;35m\033[1m--->Remove Libraries\033[0m"
 	@rm -rf $(lib_dir)
 
-lall: loadlibs
+lall: $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Start compiling libraries archive\033[0m"
 	@$(MAKE) all --no-print-directory -C $(lib_dir)
 	@echo "\033[0;30m\033[1m--->Finish libraries archieve compilation\033[0m"
 	@echo "\033[0;30m\033[1m--->Finish getting libraries archieve\033[0m"
 
-llall: loadlibs
+llall: $(lib_dir)
 	@$(MAKE) lall --no-print-directory -C $(lib_dir)
 
 llclean: $(lib_dir)
@@ -213,3 +213,4 @@ fclean: $(lib_dir)
 re: $(lib_dir)
 	@$(MAKE) --no-print-directory fclean
 	@$(MAKE) --no-print-directory all
+
