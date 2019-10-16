@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/30 18:11:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 14:54:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ void		make_history_buff(t_history *history)
 	int		histsize;
 	int		histfilesize;
 
-	history->hisfile_path = get_history_file_path();
-	if ((fd = open(history->hisfile_path, OPEN_HISTFILE, PERM_HISTFILE)) == -1)
-		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	if (!(histsize = ft_atoi(ft_getenv("HISTSIZE"))))
 		histsize = HISTSIZE;
 	if (!(histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"))))
@@ -31,13 +28,16 @@ void		make_history_buff(t_history *history)
 	history->histfilesize = histfilesize;
 	if (!(buff = ft_darnew(histsize)))
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+	history->hisfile_path = get_history_file_path();
+	if ((fd = open(history->hisfile_path, OPEN_HISTFILE, PERM_HISTFILE)) == -1)
+		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	len = 0;
 	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
 		len++;
-	history->hist_len = len;
-	history->history_buff = buff;
 	if (close(fd) == -1)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
+	history->hist_len = len;
+	history->history_buff = buff;
 }
 
 void	free_history(t_history *history)
@@ -93,17 +93,16 @@ void		rewrite_file(t_history *history)
 	if (history->histfilesize < history->hist_len)
 		i += history->hist_len - history->histfilesize;
 	while (++i < history->histsize)
-	{
-		ft_putstr_fd(history->history_buff[i], fd);
-		ft_putchar_fd('\n', fd);
-	}
+		ft_putendl_fd(history->history_buff[i], fd);
 	if (close(fd) == -1)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 }
 
 char	*get_history_file_path(void)
 {
-	if (ft_getenv("PWD"))
-		return (ft_strjoin(ft_getenv("PWD"), HISTORY_FILE));
+	char	*home;
+
+	if ((home = ft_getenv("HOME")))
+		return (ft_strjoin(home, HISTORY_FILE));
 	return (NULL);
 }

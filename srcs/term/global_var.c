@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/29 16:21:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 13:18:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	init_global_var(char **argv, char **environ)
 {
-	save_attr(&g_orig_mode);
 	g_argv = argv;
 	init_global_env(&g_env, environ);
 	init_bin_table(&g_bin_table);
@@ -28,5 +27,4 @@ void	free_globar_var(void)
 	clear_lexer(&g_lexer);
 	free_table(&g_bin_table);
 	unset_env_struct(&g_env);
-	set_attr(&g_orig_mode);
 }

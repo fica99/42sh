@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/10/02 16:05:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 14:51:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 void	set_attr(struct termios *savetty);
 void	set_input_mode(struct termios *tty);
 void	save_attr(struct termios *savetty);
-void	is_stdin_term(void);
 void	init_terminfo(void);
 /*
 **	reading.c

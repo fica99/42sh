@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:11:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 22:14:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 13:41:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ void	set_env_struct(t_environ *env, char **arr, short malloc_size)
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (arr[++i])
-	{
 		if (!(env->env[i] = ft_strdup(arr[i])))
 			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-	}
 	env->cur_size = i;
 }
 

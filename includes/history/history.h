@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:54:54 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 15:03:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 14:26:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define HISTSIZE 500
 # define HISTFILESIZE 500
-# define HISTORY_FILE "/.history"
+# define HISTORY_FILE "/.42sh_history"
 # define PERM_HISTFILE S_IRUSR | S_IWUSR
 # define OPEN_HISTFILE O_RDWR | O_CREAT
 # define REWRITE_HISTFILE O_RDWR | O_TRUNC

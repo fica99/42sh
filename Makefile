@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/08 19:52:27 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/16 14:16:00 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ srcs_line_editing := line_editing/check.c\
 		line_editing/cur_movements.c\
 
 srcs_bin_table := bin_table/bin_table.c\
-		bin_table/free_bin_table.c\
 
 srcs_history := history/history.c\
 
@@ -153,7 +152,7 @@ all: $(name)
 
 $(name): $(lib_dir) lall $(obj_dir) $(objects)
 	@echo "\033[32m\033[1m--->Create binary file $(CURDIR)/$(name)\033[0m"
-	@$(cc) $(objects) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(cc) -g -O0 $(objects) -o $@ -L $(lib_archive) $(lib_flags)
 
 $(obj_dir):
 	@echo "\033[32m\033[1m--->Create object directory $(CURDIR)/$(obj_dir)\033[0m"
@@ -163,7 +162,7 @@ $(obj_dir):
 
 $(obj_dir)/%.o:$(srcs_dir)/%.c $(header)
 	@echo "\033[31m\033[1m--->Create object file $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes) -o $@ -c $<
 
 loadlibs:
 	@echo "\033[0;35m\033[1m--->Load Libraries\033[0m"

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/06 18:19:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/24 22:14:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/16 15:43:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void		set_attr(struct termios *savetty)
 {
+	if (!(savetty->c_iflag) && !(savetty->c_oflag) && !(savetty->c_cflag)
+	&& !(savetty->c_lflag) && !(savetty->c_ispeed) && !(savetty->c_ospeed)
+	&& !*(savetty->c_cc))
+		return ;
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, savetty) == -1)
 		err_exit(g_argv[0], "tcsetattr() error", NULL, NOERROR);
 }
@@ -36,17 +40,12 @@ void		save_attr(struct termios *savetty)
 	}
 }
 
-void	is_stdin_term(void)
-{
-	if (!isatty(STDIN_FILENO))
-		err_exit(g_argv[0], "stdin is not a terminal", NULL, NULL);
-}
-
 void	init_terminfo(void)
 {
 	int		err;
 
-	is_stdin_term();
+	if (!isatty(STDIN_FILENO))
+		err_exit(g_argv[0], "stdin is not a terminal", NULL, NULL);
 	if ((setupterm(0, STDIN_FILENO, &err) == ERR))
 	{
 		if (err == 1)
