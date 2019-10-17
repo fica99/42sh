@@ -6,21 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/09/26 20:35:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:35:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-void	term_prompt(void)
-{
-	char	*prompt;
-
-	if ((prompt = ft_getenv("PS1")))
-		write_prompt(prompt);
-	else
-		standart_prompt();
-}
 
 void	standart_prompt(void)
 {
@@ -28,23 +18,23 @@ void	standart_prompt(void)
 	char	*folder;
 
 	gethostname(hostname, FT_HOST_NAME_MAX);
-	RED(STDIN_FILENO);
-	CYAN(STDIN_FILENO);
-	ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
-	RED(STDIN_FILENO);
-	ft_putchar_fd('@', STDIN_FILENO);
-	GREEN(STDIN_FILENO);
-	ft_putstr_fd(hostname, STDIN_FILENO);
-	ft_putchar_fd(':', STDIN_FILENO);
-	YELLOW(STDIN_FILENO);
+	RED(STDOUT_FILENO);
+	CYAN(STDOUT_FILENO);
+	ft_putstr_fd(ft_getenv("USER"), STDOUT_FILENO);
+	RED(STDOUT_FILENO);
+	ft_putchar_fd('@', STDOUT_FILENO);
+	GREEN(STDOUT_FILENO);
+	ft_putstr_fd(hostname, STDOUT_FILENO);
+	ft_putchar_fd(':', STDOUT_FILENO);
+	YELLOW(STDOUT_FILENO);
 	folder = get_path();
-	ft_putstr_fd(folder, STDIN_FILENO);
+	ft_putstr_fd(folder, STDOUT_FILENO);
 	ft_memdel((void**)&folder);
-	RED(STDIN_FILENO);
-	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-	PURPLE(STDIN_FILENO);
-	ft_putstr_fd("$> ", STDIN_FILENO);
-	STANDART(STDIN_FILENO);
+	RED(STDOUT_FILENO);
+	ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
+	PURPLE(STDOUT_FILENO);
+	ft_putstr_fd("$> ", STDOUT_FILENO);
+	STANDART(STDOUT_FILENO);
 }
 
 void	write_prompt(char *str)
@@ -64,7 +54,7 @@ void	write_prompt(char *str)
 						j = prompt_time(str, i);
 		}
 		if (j == i)
-			ft_putchar_fd(str[i], STDIN_FILENO);
+			ft_putchar_fd(str[i], STDOUT_FILENO);
 		else
 			i = j;
 	}
@@ -76,14 +66,14 @@ short	prompt_user_host(char *str, short i)
 	char	*stop;
 
 	if (!ft_strncmp(str + i, "\\u", 2))
-		ft_putstr_fd(ft_getenv("USER"), STDIN_FILENO);
+		ft_putstr_fd(ft_getenv("USER"), STDOUT_FILENO);
 	else if (!ft_strncmp(str + i, "\\h", 2) ||
 	!ft_strncmp(str + i, "\\H", 2))
 	{
 		gethostname(hostname, FT_HOST_NAME_MAX);
 		if (!ft_strncmp(str + i, "\\h", 2) && (stop = ft_strchr(hostname, '.')))
 			*stop = '\0';
-		ft_putstr_fd(hostname, STDIN_FILENO);
+		ft_putstr_fd(hostname, STDOUT_FILENO);
 	}
 	else
 		i--;

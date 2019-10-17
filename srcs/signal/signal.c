@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 19:00:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:41:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	break_handler(int sign)
 void	win_handler(int sign)
 {
 	short	pos;
+	char	*ps1;
 
 	if (sign == SIGWINCH)
 	{
@@ -36,7 +37,10 @@ void	win_handler(int sign)
 		save_attr(&g_raw_mode);
 		get_win_size(g_line.cord);
 		ft_putstr_fd(CLEAR_SCREEN, STDIN_FILENO);
-		term_prompt();
+		if (!(ps1 = ft_getenv("PS1")))
+			standart_prompt();
+		else
+			write_prompt(ps1);
 		get_cur_cord(g_line.cord);
 		set_start_cord(g_line.cord);
 		set_end_cord(g_line.cord);

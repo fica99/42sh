@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:49:40 by filip             #+#    #+#             */
-/*   Updated: 2019/10/16 14:51:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:34:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ void	init_terminfo(void);
 /*
 **	reading.c
 */
-void	read_prompt(void);
-void	reading(t_line *line);
+char	*ft_readline(char *prompt);
+char	*reading(t_line *line);
 void	read_handler(char *c, int fd);
-void	check_valid_string(char *buffer);
 
 struct termios	g_orig_mode;
 struct termios	g_raw_mode;

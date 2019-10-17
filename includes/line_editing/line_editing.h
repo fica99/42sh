@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/02 15:26:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:26:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct		s_line
 	t_buff			history_search;
 	t_buff			save_buff;
 	t_buff			copy_buff;
-	t_buff			her_buff;
 	t_cord			*cord;
 	t_hash			**templates;
 	short			history_index;
@@ -89,7 +88,7 @@ void	init_line(t_line *line);
 void	init_buff(t_buff *buffer);
 t_cord	*init_cord(void);
 t_hash	**init_templates(void);
-void	set_line(t_line *line);
+void	clr_buffs(t_line *line);
 /*
 **	free_line.c
 */

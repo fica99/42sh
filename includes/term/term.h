@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/10/02 16:06:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:29:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 **	ft_term.c
 */
 void				term_start(void);
+void				check_valid_string(char *buffer);
 /*
 **	global_var.c
 */

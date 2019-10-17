@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 23:05:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:23:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ short	prompt_dir_history(char *str, short i)
 	if (!ft_strncmp(str + i, "\\W", 2) || !ft_strncmp(str + i, "\\w", 2))
 	{
 		path = get_path();
-		ft_putstr_fd(path, STDIN_FILENO);
+		ft_putstr_fd(path, STDOUT_FILENO);
 		ft_memdel((void**)&path);
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
 		path = ft_getenv("USER");
-		(path && !ft_strcmp(path, "root")) ? ft_putchar_fd('#', STDIN_FILENO)
-		: ft_putchar_fd('$', STDIN_FILENO);
+		(path && !ft_strcmp(path, "root")) ? ft_putchar_fd('#', STDOUT_FILENO)
+		: ft_putchar_fd('$', STDOUT_FILENO);
 	}
 	else if (!ft_strncmp(str + i, "\\!", 2) || !ft_strncmp(str + i, "\\#", 2))
-		ft_putnbr_fd(g_history.hist_len, STDIN_FILENO);
+		ft_putnbr_fd(g_history.hist_len, STDOUT_FILENO);
 	else
 		i--;
 	i++;
@@ -71,7 +71,7 @@ short	check_time_flags(char *str, short i, struct tm *info)
 	else
 		i--;
 	i++;
-	ft_putstr_fd(buffer, STDIN_FILENO);
+	ft_putstr_fd(buffer, STDOUT_FILENO);
 	return (i);
 }
 
@@ -90,12 +90,12 @@ short	prompt_colour_name(char *str, short i)
 			j++;
 		}
 		colour[j] = '\0';
-		ft_putstr_fd(colour, STDIN_FILENO);
+		ft_putstr_fd(colour, STDOUT_FILENO);
 		i += j;
 	}
 	else if (!ft_strncmp(str + i, "\\s", 2))
 	{
-		ft_putstr_fd(g_argv[0], STDIN_FILENO);
+		ft_putstr_fd(g_argv[0], STDOUT_FILENO);
 		i++;
 	}
 	return (i);
@@ -117,7 +117,7 @@ short	time_format_flag(char *str, short i, struct tm *info)
 	}
 	format[j] = '\0';
 	strftime(buffer, LINE_MAX, format, info);
-	ft_putstr_fd(buffer, STDIN_FILENO);
+	ft_putstr_fd(buffer, STDOUT_FILENO);
 	i += j + TIME_BRACKETS;
 	return (i);
 }

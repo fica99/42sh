@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:44:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/23 22:38:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/17 16:36:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 /*
 **	prompt.c
 */
-void		term_prompt(void);
 void		standart_prompt(void);
 void		write_prompt(char *str);
 short		prompt_user_host(char *str, short i);
