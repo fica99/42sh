@@ -1,17 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hash.h                                             :+:      :+:    :+:   */
+/*   unsetenv.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/19 15:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/04 14:52:18 by aashara-         ###   ########.fr       */
+/*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HASH_H
-# define HASH_H
+#include "../../includes/ft_shell.h"
 
-void	print_bin_table(t_hash **bin_table, size_t size);
-#endif
+void	unset_env(int argc, char **argv, char **env_cp)
+{
+	short	j;
+
+	(void)env_cp;
+	if (argc < 2)
+		err(argv[0], NULL, "not enough arguments", NOERROR);
+	else
+	{
+		j = 0;
+		while (argv[++j])
+		{
+			ft_unsetenv(argv[j]);
+			if (!ft_strcmp(argv[j], "PATH"))
+				g_flags |= TERM_FREE_HASH;
+		}
+	}
+}

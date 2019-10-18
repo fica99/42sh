@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:18:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/17 18:20:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 void	print_bin_table(t_hash **bin_table, size_t size)
 {

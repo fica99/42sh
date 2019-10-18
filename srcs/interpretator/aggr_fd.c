@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/08 18:21:55 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/28 20:12:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 void	aggr_fd_op(t_node *ast)
 {

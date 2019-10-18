@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/04 14:50:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/18 19:17:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,5 @@
 # include "parser/parser.h"
 # include "interpretator/interpretator.h"
 # include "reading/reading.h"
-# include "builtins/cd.h"
-# include "builtins/env.h"
-# include "builtins/echo.h"
-# include "builtins/setenv.h"
-# include "builtins/unsetenv.h"
-# include "builtins/hash.h"
-# include "builtins/his.h"
-
+# include "builtins/builtins.h"
 #endif

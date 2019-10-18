@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clear_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 20:38:47 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 20:43:24 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 void		clear_lexer(t_lexer **lexer)
 {

@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:57:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/22 16:18:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 t_node		*init_node(t_node *left, t_token *token, t_node *right)
 {

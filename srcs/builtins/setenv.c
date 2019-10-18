@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unsetenv.c                                         :+:      :+:    :+:   */
+/*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 19:55:51 by aashara-          #+#    #+#             */
-/*   Updated: 2019/09/25 17:39:35 by aashara-         ###   ########.fr       */
+/*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
-void	unset_env(int argc, char **argv, char **env_cp)
+void	set_env(int argc, char **argv, char **env_cp)
 {
 	short	j;
+	char	*value;
 
 	(void)env_cp;
-	if (argc < 2)
-		err(argv[0], NULL, "not enough arguments", NOERROR);
+	value = NULL;
+	j = 0;
+	if (argc == 1)
+		ft_putdar(env_cp);
 	else
 	{
-		j = 0;
 		while (argv[++j])
 		{
-			ft_unsetenv(argv[j]);
-			if (!ft_strcmp(argv[j], "PATH"))
-				g_flags |= TERM_FREE_HASH;
+			if (!(value = ft_strchr(argv[j], '=')))
+				continue ;
+			else
+			{
+				*value = '\0';
+				ft_setenv(argv[j], ++value);
+				if (!ft_strcmp(argv[j], "PATH"))
+					g_flags |= TERM_INIT_HASH;
+			}
 		}
 	}
 }

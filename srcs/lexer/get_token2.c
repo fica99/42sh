@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_token2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 21:34:27 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/09/18 20:30:04 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/10/18 19:45:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 t_token		*lx_ready_token(t_string *str, t_lexer_params prm, t_lexer *lexer)
 {

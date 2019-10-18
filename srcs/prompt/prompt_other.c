@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/17 16:23:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/18 19:55:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_shell.h"
+#include "../../includes/ft_shell.h"
 
 short	prompt_dir_history(char *str, short i)
 {
