@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 20:46:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 20:55:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/19 23:16:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,37 @@
 void	autocom(t_line *line)
 {
 	char	*command;
-	size_t		i;
+	char	*path;
+	t_hash	*hash;
+	size_t	i;
+	size_t	len;
 
-	if (!(command = ft_strrchr(line->buffer.buffer, ' ')))
-		command = line->buffer.buffer;
-	else
-		++command;
+	command = line->buffer.buffer;
 	i = 0;
+	len = ft_strlen(command);
+	path = NULL;
 	while (i < g_bin_table.size)
 	{
-		if (!ft_strnstr(g_bin_table.table[i]->data, command, ft_strlen(command)))
-			break;
+		hash = g_bin_table.table[i];
+		while (hash)
+		{
+			if ((path = ft_strrchr((char*)hash->data, '/')))
+			{
+				if (!ft_strncmp(++path, command, len))
+				{
+					print_symb(path + len, line);
+					return;
+				}
+			}
+			hash = hash->next;
+		}
 		++i;
 	}
-	ft_putstr_fd(g_bin_table.table[i]->data, STDIN_FILENO);
+}
+
+void	find_bin(char *str, t_line)
+{
+	static char	**binary;
+
+
 }
