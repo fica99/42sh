@@ -2,7 +2,7 @@
 *DS_STORE
 21sh
 *dSYM
-**/obj/
+**/objs/
 *.o
 *.a
 libraries/

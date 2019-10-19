@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/18 19:17:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:11:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,18 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
-# include "signal/signal.h"
-# include "term/term.h"
-# include "environ/environ.h"
-# include "bin_table/bin_table.h"
-# include "history/history.h"
-# include "prompt/prompt.h"
-# include "error/error.h"
-# include "macro/colour.h"
-# include "line_editing/line_editing.h"
-# include "lexer/lexer.h"
-# include "parser/parser.h"
-# include "interpretator/interpretator.h"
-# include "reading/reading.h"
-# include "builtins/builtins.h"
+# include "../signal/includes/signal.h"
+# include "../term/includes/term.h"
+# include "../environ/includes/environ.h"
+# include "../bin_table/includes/bin_table.h"
+# include "../history/includes/history.h"
+# include "../prompt/includes/prompt.h"
+# include "../error/includes/error.h"
+# include "colour.h"
+# include "../line_editing/includes/line_editing.h"
+# include "../lexer/includes/lexer.h"
+# include "../parser/includes/parser.h"
+# include "../interpretator/includes/interpretator.h"
+# include "../reading/includes/reading.h"
+# include "../builtins/includes/builtins.h"
 #endif
