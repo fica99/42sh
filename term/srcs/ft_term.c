@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/20 16:10:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ void	check_valid_string(char *buffer)
 		ast = parser(buffer);
 		if (!(g_parser_flags & PARSER_ERROR))
 			interpret_ast(ast);
-		if (ast)
-		{
-			add_to_history_buff(buffer, &g_history);
-			free_ast(&ast);
-		}
 		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
 		{
 			free_table(&g_bin_table);
 			if (g_flags & TERM_INIT_HASH)
 				init_bin_table(&g_bin_table);
+		}
+		if (ast)
+		{
+			add_to_history_buff(buffer, &g_history);
+			free_ast(&ast);
 		}
 	}
 }

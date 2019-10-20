@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 20:16:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/20 16:22:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,9 @@ void	k_ctrl_r(t_line *line)
 		return ;
 	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
 	go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-	if (cord->y_end >= cord->ws_row - 1)
-	{
-		--cord->y_cur;
-		--cord->y_start;
-		--cord->y_end;
-	}
+	check_end_window(cord);
 	ft_putstr_fd("bck-i-search: ", STDIN_FILENO);
 	ft_putstr_fd(line->history_search.buffer, STDIN_FILENO);
 	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);

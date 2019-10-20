@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/19 19:19:17 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/20 18:36:04 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ compilation:
 
 $(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
 	@echo "\033[35m--->Compile $(CURDIR)/$@\033[0m"
-	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
+	@$(cc) -g -O0 $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:
 	@-rm -rf $(objs_dir)

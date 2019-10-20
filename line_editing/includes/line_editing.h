@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/19 22:47:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/20 17:54:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ void	set_end_cord(t_cord *cord);
 char	is_start_pos(t_cord *cord);
 char	is_end_pos(t_cord *cord);
 void	check_malloc_len_buffer(t_buff *buffer, char *c);
+void	check_end_window(t_cord *cord);
 /*
 **	k_cur_movements.c
 */
@@ -172,6 +173,9 @@ void	go_right(short i, t_cord *cord);
 **	autocom.c
 */
 void	autocom(t_line *line);
+char	*ac_parse_line(char *buff, short pos);
+void	ac_bins(char *command, t_cord *cord);
+char	*get_bin(char *command);
 
 unsigned char	g_line_flags;
 struct s_line	g_line;

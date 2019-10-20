@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/20 16:06:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,9 @@ void	k_enter(t_line *line)
 	cord = line->cord;
 	go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
 	cord->ws_col), cord);
-	if (cord->y_end >= cord->ws_row - 1)
-	{
-		--cord->y_cur;
-		--cord->y_start;
-		--cord->y_end;
-	}
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
+	check_end_window(cord);
 	g_flags |= BREAK_FLAG;
 }
 

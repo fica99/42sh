@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 17:30:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/20 16:03:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,12 @@ void	check_malloc_len_buffer(t_buff *buffer, char *c)
 	buffer->malloc_len += NORMAL_LINE);
 }
 
+void	check_end_window(t_cord *cord)
+{
+	if (cord->y_end >= cord->ws_row - 1)
+	{
+		--cord->y_cur;
+		--cord->y_start;
+		--cord->y_end;
+	}
+}
