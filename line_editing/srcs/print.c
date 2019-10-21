@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:32:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/20 18:38:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 14:12:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,27 @@ void		disable_history(t_line *line)
 
 void		find_history(t_line *line)
 {
-	t_cord	*cord;
-	char	**history;
+	t_cord			*cord;
+	short			i;
 
 	cord = line->cord;
 	go_left(cord->pos, cord);
 	set_start_cord(cord);
 	set_end_cord(cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	history = g_history.history_buff;
-	while (*history)
+	ft_strclr(line->buffer.buffer + cord->pos);
+	if (*(line->history_search.buffer))
 	{
-		if (ft_strstr(*history, line->history_search.buffer))
-			break ;
-		++history;
+		i = -1;
+		while (++i < g_history.hist_len)
+		{
+			if (ft_strstr(g_history.history_buff[i], line->history_search.buffer))
+			{
+				check_malloc_len_buffer(&line->buffer, g_history.history_buff[i]);
+				ft_strcpy(line->buffer.buffer + cord->pos, g_history.history_buff[i]);
+				ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
+			}
+		}
 	}
-	check_malloc_len_buffer(&line->buffer, *history);
-	ft_strcat(line->buffer.buffer + cord->pos, *history);
-	ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
 	k_ctrl_r(line);
 }

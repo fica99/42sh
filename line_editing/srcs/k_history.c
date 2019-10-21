@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 20:16:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/20 16:22:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:10:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	k_up(t_line *line)
 {
 	t_cord	*cord;
 
+	cord = line->cord;
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
+	if (g_line_flags & HIGHLIGHT_TEXT)
+		disable_highlight(line->buffer.buffer, cord);
 	if ((!line->history_index))
 		return ;
-	cord = line->cord;
 	go_left(cord->pos, cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (line->history_index == g_history.hist_len)
@@ -42,15 +44,16 @@ void	k_down(t_line *line)
 	char	*history_buffer;
 	t_cord	*cord;
 
+	cord = line->cord;
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
+	if (g_line_flags & HIGHLIGHT_TEXT)
+		disable_highlight(line->buffer.buffer, cord);
 	if (line->history_index == g_history.hist_len)
 		return ;
-	cord = line->cord;
 	go_left(cord->pos, cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-	++(line->history_index);
-	if (line->history_index == g_history.hist_len)
+	if (++(line->history_index) == g_history.hist_len)
 		history_buffer = line->save_buff.buffer;
 	else
 		history_buffer = g_history.history_buff[(line->history_index)];

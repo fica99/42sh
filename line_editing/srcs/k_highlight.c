@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:48:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:19:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,8 @@ void	k_ctrl_x(t_line *line)
 
 void	k_ctrl_v(t_line *line)
 {
-	char	*buff;
-	t_cord	*cord;
-
 	if (g_line_flags & HISTORY_SEARCH)
 		disable_history(line);
 	check_malloc_len_buffer(&line->buffer, line->copy_buff.buffer);
-	buff = line->buffer.buffer;
-	cord =line->cord;
-	buff = ft_stradd(buff, line->copy_buff.buffer, cord->pos);
-	disable_highlight(buff, cord);
+	print_symb(line->copy_buff.buffer, line);
 }

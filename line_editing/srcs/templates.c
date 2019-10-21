@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 20:47:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:59:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_hash	**set_templ_table_symb(t_hash **table)
 void	find_templ(char *c, t_line *line)
 {
 	void	(*handler)(t_line *line);
+	short	len;
 
 	if (ft_isprint(*c) && !(g_line_flags & HISTORY_SEARCH))
 		print_symb(c, line);
@@ -75,8 +76,9 @@ void	find_templ(char *c, t_line *line)
 	}
 	else if (*c == BCSP && (g_line_flags & HISTORY_SEARCH))
 	{
-		line->history_search.buffer = ft_strdel_el(line->history_search.buffer,
-		ft_strlen(line->history_search.buffer) - 1);
+		if ((len = ft_strlen(line->history_search.buffer)))
+			line->history_search.buffer = ft_strdel_el(line->history_search.buffer,
+			len - 1);
 		find_history(line);
 	}
 	else if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))

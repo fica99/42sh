@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 13:28:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		make_history_buff(t_history *history)
 		err_exit(g_argv[0], "open() error", NULL, NOERROR);
 	len = 0;
 	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
-		len++;
+		++len;
 	if (close(fd) == -1)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 	history->hist_len = len;
