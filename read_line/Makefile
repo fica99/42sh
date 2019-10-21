@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/21 13:15:00 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/21 15:17:58 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ srcs := check.c\
 		templates.c\
 		cur_movements.c\
 		autocom.c\
+		reading.c\
+		read_mode.c\
 
 objs := $(srcs:.c=.o)
 
@@ -41,7 +43,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, line_editing.h)
+header := $(addprefix $(inc_dir)/, read_line.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 

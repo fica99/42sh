@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_editing.h                                     :+:      :+:    :+:   */
+/*   read_line.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/20 17:54:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 19:53:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LINE_EDITING_H
-# define LINE_EDITING_H
+#ifndef READ_LINE_H
+# define READ_LINE_H
 
 # define CTRL_UP "\033[1;5A"
 # define CTRL_DOWN "\033[1;5B"
@@ -48,6 +48,8 @@
 # define HIGHLIGHT_TEXT (1 << 2)
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 22
+# define READING 1
+# define BREAK_FLAG (1 << 1)
 
 typedef struct		s_cord
 {
@@ -173,10 +175,23 @@ void	go_right(short i, t_cord *cord);
 **	autocom.c
 */
 void	autocom(t_line *line);
-char	*ac_parse_line(char *buff, short pos);
-void	ac_bins(char *command, t_cord *cord);
-char	*get_bin(char *command);
+char	*ac_get_word(char *is_command, char *line, short pos);
+/*
+**	read_mode.c
+*/
+void	set_attr(struct termios *savetty);
+void	set_input_mode(struct termios *tty);
+void	save_attr(struct termios *savetty);
+void	init_terminfo(void);
+/*
+**	reading.c
+*/
+char	*ft_readline(char *prompt);
+char	*reading(t_line *line);
+void	read_handler(char *c, int fd);
 
 unsigned char	g_line_flags;
 struct s_line	g_line;
+struct termios	g_orig_mode;
+struct termios	g_raw_mode;
 #endif

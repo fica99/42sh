@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/21 14:24:26 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/21 15:19:48 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 dir_error := error
 
-dir_line_editing := line_editing
+dir_read_line := read_line
 
 dir_bin_table := bin_table
 
@@ -31,8 +31,6 @@ dir_history := history
 dir_parser := parser
 
 dir_interpretator := interpretator
-
-dir_reading := reading
 
 dir_term := term
 
@@ -53,10 +51,9 @@ srcs := $(wildcard $(addprefix $(dir_bin_table), /**/*.c))\
 		$(wildcard $(addprefix $(dir_history), /**/*.c))\
 		$(wildcard $(addprefix $(dir_interpretator), /**/*.c))\
 		$(wildcard $(addprefix $(dir_lexer), /**/*.c))\
-		$(wildcard $(addprefix $(dir_line_editing), /**/*.c))\
+		$(wildcard $(addprefix $(dir_read_line), /**/*.c))\
 		$(wildcard $(addprefix $(dir_parser), /**/*.c))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.c))\
-		$(wildcard $(addprefix $(dir_reading), /**/*.c))\
 		$(wildcard $(addprefix $(dir_signal), /**/*.c))\
 		$(wildcard $(addprefix $(dir_term), /**/*.c))\
 
@@ -87,10 +84,9 @@ compilation:
 	@$(MAKE) --no-print-directory -C $(dir_history)
 	@$(MAKE) --no-print-directory -C $(dir_interpretator)
 	@$(MAKE) --no-print-directory -C $(dir_lexer)
-	@$(MAKE) --no-print-directory -C $(dir_line_editing)
+	@$(MAKE) --no-print-directory -C $(dir_read_line)
 	@$(MAKE) --no-print-directory -C $(dir_parser)
 	@$(MAKE) --no-print-directory -C $(dir_prompt)
-	@$(MAKE) --no-print-directory -C $(dir_reading)
 	@$(MAKE) --no-print-directory -C $(dir_signal)
 	@$(MAKE) --no-print-directory -C $(dir_term)
 
@@ -129,10 +125,9 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_history)
 	@$(MAKE) clean --no-print-directory -C $(dir_interpretator)
 	@$(MAKE) clean --no-print-directory -C $(dir_lexer)
-	@$(MAKE) clean --no-print-directory -C $(dir_line_editing)
+	@$(MAKE) clean --no-print-directory -C $(dir_read_line)
 	@$(MAKE) clean --no-print-directory -C $(dir_parser)
 	@$(MAKE) clean --no-print-directory -C $(dir_prompt)
-	@$(MAKE) clean --no-print-directory -C $(dir_reading)
 	@$(MAKE) clean --no-print-directory -C $(dir_signal)
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
 

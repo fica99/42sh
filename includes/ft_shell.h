@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:11:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 15:45:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,9 @@
 # include "../prompt/includes/prompt.h"
 # include "../error/includes/error.h"
 # include "colour.h"
-# include "../line_editing/includes/line_editing.h"
+# include "../read_line/includes/read_line.h"
 # include "../lexer/includes/lexer.h"
 # include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
-# include "../reading/includes/reading.h"
 # include "../builtins/includes/builtins.h"
 #endif
