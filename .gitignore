@@ -1,6 +1,6 @@
 /.vscode
 *DS_STORE
-21sh
+42sh
 *dSYM
 **/objs/
 *.o

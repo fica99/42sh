@@ -1,9 +1,9 @@
-# 21sh
+# 42sh
 
 ## Desctiption
 
 School 42 project in UNIX branch\. My first real functional shell. A lot of features such as autocompletion, history, line edition that allow you to use hotkeys for example\. Full description in
-[subject file](https://cdn.intra.42.fr/pdf/pdf/967/21sh.en.pdf "school project")\.
+[subject file](https://cdn.intra.42.fr/pdf/pdf/2362/42sh.en.pdf "school project")\.
 
 ## Compilation
 
@@ -11,9 +11,9 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 * `make loadlibs` \- download libraries\.
 * `make removelibs` \- remove libraries\.
 * `make all` \- same as `make`\.
-* `make fclean` \- removing objects directory, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory) and executable file\.
-* `make clean` \- removing objects directory, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory)\.
-* `make oclean` \- removing objects directory\.
+* `make fclean` \- removing all objects directories, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory) and executable file\.
+* `make clean` \- removing all objects directories, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory)\.
+* `make oclean` \- removing objects directories\.
 * `make lfclean` \- full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory)\.
 * `make llfclean` \- full cleaning every library directory(removing objects directory with library in every library directory)\.
 * `make llclean` \- cleaning every library directory(removing objects directory in every library directory)\.
@@ -25,7 +25,7 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 
 >make
 
->./21sh
+>./42sh
 
 ## Features
 

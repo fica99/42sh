@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/20 17:59:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/21 15:06:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ void	ac_bins(char *command, t_cord *cord)
 	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
 	go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	while ((bin = get_bin(command)))
 	{
-		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-		check_end_window(cord);
 		ft_putstr_fd(bin, STDIN_FILENO);
+		ft_putchar_fd(' ', STDIN_FILENO);
 	}
 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
 	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
