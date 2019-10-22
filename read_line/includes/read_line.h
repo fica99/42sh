@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/22 18:20:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 21:45:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	k_ctrl_d(t_line *line);
 void	k_enter(t_line *line);
 void	k_bcsp(t_line *line);
 void	k_del(t_line *line);
+void	k_tab(t_line *line);
 /*
 **	print.c
 */
@@ -175,15 +176,21 @@ void	go_right(short i, t_cord *cord);
 /*
 **	autocom.c
 */
-void	autocom(t_line *line);
 char	*ac_get_word(char *is_command, char *line, short pos);
-void	ac_print_params(char **bins, short win_width);
-int		ac_max_len(char **bins);
+void	ac_print_params(char **arr, short win_width);
+int		ac_max_len(char **arr);
 /*
 **	ac_bins.c
 */
 void	ac_bins(char *command, t_line *line);
 char	*ac_get_bin(char *command);
+/*
+**	ac_path.c
+*/
+void	ac_path(char *command, t_line *line);
+void	ac_print_path(char **content, char *file, t_line *line);
+char	*ac_get_path(char *file, char **content);
+void	ac_word_split(char *word, char **file);
 /*
 **	read_mode.c
 */

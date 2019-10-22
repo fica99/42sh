@@ -6,22 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:19:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 21:13:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-void	autocom(t_line *line)
-{
-	char	*word;
-	char	is_command;
-
-	word = ac_get_word(&is_command, line->buffer.buffer, line->cord->pos);
-	if (is_command)
-		ac_bins(word, line);
-	ft_strdel(&word);
-}
 
 char	*ac_get_word(char *is_command, char *line, short pos)
 {
@@ -33,8 +22,8 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 		if (ft_strchr(" \t\n;|", line[start]))
 			break ;
 	command = NULL;
-	if (++start != pos)
-		if (!(command = ft_strsub(line, start, pos)))
+	if (start + 1 != pos)
+		if (!(command = ft_strsub(line, start + 1, pos)))
 			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	*is_command = TRUE;
 	while (start >= 0 && !ft_strchr(";|", line[start]))
@@ -49,33 +38,33 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 	return (command);
 }
 
-void	ac_print_params(char **bins, short win_width)
+void	ac_print_params(char **arr, short win_width)
 {
 	int	max_len;
 	int	i;
 	int	len;
 	int	width;
 
-	max_len = ac_max_len(bins);
+	max_len = ac_max_len(arr);
 	i = -1;
 	width = 0;
-	while (bins[++i])
+	while (arr[++i])
 	{
-		len = ft_strlen(bins[i]);
+		len = ft_strlen(arr[i]);
 		width += (max_len + 1);
 		if (width >= win_width)
 		{
 			ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
 			width = 0;
 		}
-		ft_putstr_fd(bins[i], STDOUT_FILENO);
+		ft_putstr_fd(arr[i], STDOUT_FILENO);
 		while (++len <= max_len)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 }
 
-int		ac_max_len(char **bins)
+int		ac_max_len(char **arr)
 {
 	int	max_len;
 	int	i;
@@ -83,8 +72,8 @@ int		ac_max_len(char **bins)
 
 	max_len = 0;
 	i = -1;
-	while (bins[++i])
-		if (max_len < (len = ft_strlen(bins[i])))
+	while (arr[++i])
+		if (max_len < (len = ft_strlen(arr[i])))
 			max_len = len;
 	return (max_len);
 }

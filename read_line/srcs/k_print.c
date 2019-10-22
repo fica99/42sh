@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:29:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 18:50:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ void	k_del(t_line *line)
 	if (is_end_pos(cord))
 		return ;
 	del_symb(line->buffer.buffer, cord);
+}
+
+void	k_tab(t_line *line)
+{
+	char	*word;
+	char	is_command;
+
+	word = ac_get_word(&is_command, line->buffer.buffer, line->cord->pos);
+	if (is_command)
+		ac_bins(word, line);
+	else
+		ac_path(word, line);
+	ft_strdel(&word);
 }
