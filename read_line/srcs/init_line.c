@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:05:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ t_hash	**init_templates(void)
 
 void	clr_buffs(t_line *line)
 {
-	g_line_flags = INIT_FLAGS;
 	ft_strclr(line->buffer.buffer);
 	ft_strclr(line->save_buff.buffer);
 	ft_strclr(line->history_search.buffer);

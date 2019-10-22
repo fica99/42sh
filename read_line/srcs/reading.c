@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:33:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,39 @@
 
 char	*ft_readline(char *prompt)
 {
+	char	*buf;
+
+	g_line_flags = INIT_FLAGS;
 	if (prompt)
 		write_prompt(prompt);
-	clr_buffs(&g_line);
-	return (reading(&g_line));
+	else
+		standart_prompt();
+	buf = reading(&g_line);
+	while (g_line_flags & AUTOCOM)
+		buf = ft_readline(prompt);
+	return (buf);
 }
 
 char	*reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
+	short	pos;
 
 	set_input_mode(&g_raw_mode);
+	pos = line->cord->pos;
 	unset_cord(line->cord);
 	get_win_size(line->cord);
 	get_cur_cord(line->cord);
 	set_start_cord(line->cord);
 	set_end_cord(line->cord);
+	ft_putstr_cord(line->buffer.buffer, line->cord);
+	go_left(ft_strlen(line->buffer.buffer) - pos, line->cord);
 	while (READING)
 	{
 		read_handler(c, STDIN_FILENO);
 		check_malloc_len_buffer(&(line->buffer), c);
 		find_templ(c, line);
-		if (g_flags & BREAK_FLAG)
+		if (g_line_flags & BREAK_FLAG)
 			break ;
 	}
 	set_attr(&g_orig_mode);

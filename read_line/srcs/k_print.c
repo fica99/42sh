@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/20 16:06:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:29:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	k_enter(t_line *line)
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	check_end_window(cord);
-	g_flags |= BREAK_FLAG;
+	g_line_flags |= BREAK_FLAG;
 }
 
 void	k_bcsp(t_line *line)

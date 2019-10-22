@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 19:34:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 18:19:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	autocom(t_line *line)
 	char	is_command;
 
 	word = ac_get_word(&is_command, line->buffer.buffer, line->cord->pos);
-	//ac_bins(command, line->cord);
+	if (is_command)
+		ac_bins(word, line);
 	ft_strdel(&word);
 }
 
@@ -28,7 +29,7 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 	short	start;
 
 	start = pos;
-	while (--start > 0)
+	while (--start >= 0)
 		if (ft_strchr(" \t\n;|", line[start]))
 			break ;
 	command = NULL;
@@ -36,7 +37,7 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 		if (!(command = ft_strsub(line, start, pos)))
 			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
 	*is_command = TRUE;
-	while (start > 0 && !ft_strchr(";|", line[start]))
+	while (start >= 0 && !ft_strchr(";|", line[start]))
 	{
 		if (ft_strchr(" \t\n", line[start]))
 		{
@@ -48,47 +49,44 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 	return (command);
 }
 
-// void	ac_bins(char *command, t_cord *cord)
-// {
-// 	char	*bin;
+void	ac_print_params(char **bins, short win_width)
+{
+	int	max_len;
+	int	i;
+	int	len;
+	int	width;
 
-// 	if (!command)
-// 		return ;
-// 	ft_putstr_fd(SAVE_CUR, STDIN_FILENO);
-// 	go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
-// 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-// 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
-// 	while ((bin = get_bin(command)))
-// 	{
-// 		ft_putstr_fd(bin, STDIN_FILENO);
-// 		ft_putchar_fd(' ', STDIN_FILENO);
-// 	}
-// 	go_to_cord(cord->x_cur, cord->y_cur, STDIN_FILENO);
-// 	ft_putstr_fd(RESTORE_CUR, STDIN_FILENO);
-// }
+	max_len = ac_max_len(bins);
+	i = -1;
+	width = 0;
+	while (bins[++i])
+	{
+		len = ft_strlen(bins[i]);
+		width += (max_len + 1);
+		if (width >= win_width)
+		{
+			ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
+			width = 0;
+		}
+		ft_putstr_fd(bins[i], STDOUT_FILENO);
+		while (++len <= max_len)
+			ft_putchar_fd(' ', STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+	}
+}
 
-// char	*get_bin(char *command)
-// {
-// 	static size_t	i;
-// 	t_hash			*hash;
-// 	int				len;
-// 	char			*data;
+int		ac_max_len(char **bins)
+{
+	int	max_len;
+	int	i;
+	int	len;
 
-// 	len = ft_strlen(command);
-// 	while (i < g_bin_table.size)
-// 	{
-// 		hash = g_bin_table.table[i];
-// 		while (hash)
-// 		{
-// 			data = ft_strrchr((char*)hash->data, '/');
-// 			if (!ft_strncmp(command, ++data, len))
-// 			{
-// 				++i;
-// 				return (data);
-// 			}
-// 			hash = hash->next;
-// 		}
-// 		++i;
-// 	}
-// 	return (NULL);
-// }
+	max_len = 0;
+	i = -1;
+	while (bins[++i])
+		if (max_len < (len = ft_strlen(bins[i])))
+			max_len = len;
+	return (max_len);
+}
+
+

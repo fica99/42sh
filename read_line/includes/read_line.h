@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/21 19:53:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 18:20:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@
 # define CLEAR_SCREEN tigetstr("clear")
 # define CUR_CORD tigetstr("u7")
 # define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
-# define HISTORY_SEARCH (1 << 1)
-# define HIGHLIGHT_TEXT (1 << 2)
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 22
 # define READING 1
-# define BREAK_FLAG (1 << 1)
+# define HISTORY_SEARCH (1 << 1)
+# define HIGHLIGHT_TEXT (1 << 2)
+# define AUTOCOM (1 << 3)
+# define BREAK_FLAG (1 << 4)
 
 typedef struct		s_cord
 {
@@ -176,6 +177,13 @@ void	go_right(short i, t_cord *cord);
 */
 void	autocom(t_line *line);
 char	*ac_get_word(char *is_command, char *line, short pos);
+void	ac_print_params(char **bins, short win_width);
+int		ac_max_len(char **bins);
+/*
+**	ac_bins.c
+*/
+void	ac_bins(char *command, t_line *line);
+char	*ac_get_bin(char *command);
 /*
 **	read_mode.c
 */

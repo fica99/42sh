@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 15:45:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:27:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	char	*ps1;
 
 	make_history_buff(&g_history);
 	save_attr(&g_orig_mode);
@@ -35,9 +34,8 @@ void	term_start(void)
 	{
 		g_flags = INIT_FLAGS;
 		signal(SIGWINCH, win_handler);
-		if (!(ps1 = ft_getenv("PS1")))
-			standart_prompt();
-		line = ft_readline(ps1);
+		clr_buffs(&g_line);
+		line = ft_readline(ft_getenv("PS1"));
 		check_valid_string(line);
 		if (g_flags & TERM_EXIT)
 			break ;

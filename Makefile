@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/21 15:19:48 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/22 14:36:32 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ all: $(name)
 $(name): $(lib_dir) lall
 	@$(MAKE) --no-print-directory compilation
 	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
-	@echo "\033[35m--->Create binary file $(CURDIR)/$(name)\033[0m"
+	@echo "\033[36mCreate binary file $(CURDIR)/$(name)\033[0m"
 
 compilation:
 	@$(MAKE) --no-print-directory -C $(dir_bin_table)
