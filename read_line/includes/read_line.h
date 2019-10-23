@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/23 17:02:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 20:12:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@
 # define HIGHLIGHT_TEXT (1 << 2)
 # define AUTOCOM (1 << 3)
 # define BREAK_FLAG (1 << 4)
+# define QUOTES (1 << 5)
 
 typedef struct		s_cord
 {
@@ -112,12 +113,17 @@ void				get_win_size(t_cord *cord);
 void				set_start_cord(t_cord *cord);
 void				set_end_cord(t_cord *cord);
 /*
+**	cord2.c
+*/
+void				set_start_params(void);
+/*
 **	check.c
 */
 char				is_start_pos(t_cord *cord);
 char				is_end_pos(t_cord *cord);
 void				check_malloc_len_buffer(t_buff *buffer, char *c);
 void				check_end_window(t_cord *cord);
+void				check_quotes(char *c);
 /*
 **	k_cur_movements.c
 */

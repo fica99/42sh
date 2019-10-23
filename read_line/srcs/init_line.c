@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:05:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 20:29:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,3 +65,5 @@ void	clr_buffs(t_line *line)
 	ft_strclr(line->history_search.buffer);
 	line->history_index = g_history.hist_len;
 }
+
+

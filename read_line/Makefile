@@ -6,12 +6,13 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/22 18:52:00 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/23 20:14:41 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 srcs := check.c\
 		cord.c\
+		cord2.c\
 		free_line.c\
 		init_line.c\
 		k_cur_movements.c\
