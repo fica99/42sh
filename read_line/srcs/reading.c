@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 20:43:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 21:29:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,15 @@
 char	*ft_readline(char *prompt)
 {
 	char	*buf;
-	short	pos;
 
 	g_line_flags = INIT_FLAGS;
 	if (prompt)
 		write_prompt(prompt);
 	else
-		standart_prompt();
+		write_prompt(g_prompt);
 	set_input_mode(&g_raw_mode);
-	pos = g_line.cord->pos;
-	unset_cord(g_line.cord);
 	set_start_params();
-	ft_putstr_cord(g_line.buffer.buffer, g_line.cord);
-	go_left(ft_strlen(g_line.buffer.buffer) - pos, g_line.cord);
 	buf = reading(&g_line);
-	if (g_line_flags & AUTOCOM)
-		buf = ft_readline(prompt);
 	set_attr(&g_orig_mode);
 	return (buf);
 }
@@ -38,7 +31,7 @@ char	*ft_readline(char *prompt)
 char	*reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
-	char	*ps2;
+	char	*prompt;
 
 	while (READING)
 	{
@@ -51,13 +44,29 @@ char	*reading(t_line *line)
 	}
 	if (g_line_flags & QUOTES)
 	{
-		g_line_flags &= ~ BREAK_FLAG;
-		if (!(ps2 = ft_getenv("PS2")))
-			ps2 = "> ";
-		write_prompt(ps2);
-		set_start_params();
-		reading(&g_line);
+		if (!(prompt = ft_getenv("PS2")))
+			prompt = "> ";
+		ft_readline(prompt);
 	}
+
+
+	//  || g_line_flags & AUTOCOM)
+	// {
+	// 	g_line_flags = INIT_FLAGS;
+
+	// 	if (g_line_flags & AUTOCOM)
+	// 		if (!(prompt = ft_getenv("PS1")))
+	// 			prompt = g_prompt;
+	// 	write_prompt(prompt);
+	// 	if (g_line_flags & AUTOCOM)
+	// 	{
+	// 		pos = g_line.cord->pos;
+	// 		set_start_params();
+	// 		ft_putstr_cord(g_line.buffer.buffer, g_line.cord);
+	// 		go_left(ft_strlen(g_line.buffer.buffer) - pos, g_line.cord);
+	// 	}
+	// 	reading(&g_line);
+	// }
 	return (line->buffer.buffer);
 }
 

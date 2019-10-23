@@ -6,18 +6,18 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:44:46 by filip             #+#    #+#             */
-/*   Updated: 2019/09/27 18:22:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 21:01:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLOUR_H
 # define COLOUR_H
 
-# define STANDART(fd) ft_putstr_fd("\033[0m", fd)
-# define RED(fd) ft_putstr_fd("\033[0;31m", fd)
-# define GREEN(fd) ft_putstr_fd("\033[0;32m", fd)
-# define YELLOW(fd) ft_putstr_fd("\033[0;33m", fd)
-# define BLUE(fd) ft_putstr_fd("\033[0;34m", fd)
-# define PURPLE(fd) ft_putstr_fd("\033[0;35m", fd)
-# define CYAN(fd) ft_putstr_fd("\033[0;36m", fd)
+# define STANDART "\033[0m"
+# define RED "\033[0;31m"
+# define GREEN "\033[0;32m"
+# define YELLOW "\033[0;33m"
+# define BLUE "\033[0;34m"
+# define PURPLE "\033[0;35m"
+# define CYAN "\033[0;36m"
 #endif

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 21:09:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 void	standart_prompt(void)
 {
-	char	hostname[FT_HOST_NAME_MAX];
 	char	*folder;
+	char	host[FT_HOST_NAME_MAX];
 
-	gethostname(hostname, FT_HOST_NAME_MAX);
-	RED(STDOUT_FILENO);
-	CYAN(STDOUT_FILENO);
-	ft_putstr_fd(ft_getenv("USER"), STDOUT_FILENO);
-	RED(STDOUT_FILENO);
-	ft_putchar_fd('@', STDOUT_FILENO);
-	GREEN(STDOUT_FILENO);
-	ft_putstr_fd(hostname, STDOUT_FILENO);
-	ft_putchar_fd(':', STDOUT_FILENO);
-	YELLOW(STDOUT_FILENO);
+	gethostname(host, FT_HOST_NAME_MAX);
+	ft_strcat(g_prompt, CYAN);
+	ft_strcat(g_prompt, ft_getenv("USER"));
+	ft_strcat(g_prompt, RED);
+	ft_strcat(g_prompt, "@");
+	ft_strcat(g_prompt, GREEN);
+	ft_strcat(g_prompt, host);
+	ft_strcat(g_prompt, RED);
+	ft_strcat(g_prompt, ":");
+	ft_strcat(g_prompt, YELLOW);
 	folder = get_path();
-	ft_putstr_fd(folder, STDOUT_FILENO);
+	ft_strcat(g_prompt, folder);
 	ft_memdel((void**)&folder);
-	RED(STDOUT_FILENO);
-	ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
-	PURPLE(STDOUT_FILENO);
-	ft_putstr_fd("$> ", STDOUT_FILENO);
-	STANDART(STDOUT_FILENO);
+	ft_strcat(g_prompt, "\n");
+	ft_strcat(g_prompt, PURPLE);
+	ft_strcat(g_prompt, "$> ");
+	ft_strcat(g_prompt, STANDART);
 }
 
 void	write_prompt(char *str)

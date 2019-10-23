@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 21:08:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_global_var(char **argv, char **environ)
 	if (!(g_lexer = load_lexer()))
 		err_exit(g_argv[0], "Error load lexor matrix", LEXER_MATRIX_PATH,
 		NOERROR);
+	standart_prompt();
 }
 
 void	free_globar_var(void)

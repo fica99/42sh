@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:44:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:52:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 21:00:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ short		time_format_flag(char *str, short i, struct tm *info);
 */
 char		*get_path(void);
 char		*get_cur_dir(void);
+
+char		g_prompt[FT_PATH_MAX];
 #endif
