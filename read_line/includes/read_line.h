@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/22 21:45:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:02:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,126 +87,127 @@ typedef struct		s_line
 /*
 **	init_line.c
 */
-void	init_line(t_line *line);
-void	init_buff(t_buff *buffer);
-t_cord	*init_cord(void);
-t_hash	**init_templates(void);
-void	clr_buffs(t_line *line);
+void				init_line(t_line *line);
+void				init_buff(t_buff *buffer);
+t_cord				*init_cord(void);
+t_hash				**init_templates(void);
+void				clr_buffs(t_line *line);
 /*
 **	free_line.c
 */
-void	free_line(t_line *line);
-void	free_buffer(t_buff *buffer);
+void				free_line(t_line *line);
+void				free_buffer(t_buff *buffer);
 /*
 **	templates.c
 */
-t_hash	**set_templ_table(void);
-t_hash	**set_templ_table_symb(t_hash **table);
-void	find_templ(char *c, t_line *line);
+t_hash				**set_templ_table(void);
+t_hash				**set_templ_table_symb(t_hash **table);
+void				find_templ(char *c, t_line *line);
 /*
 **	cord.c
 */
-void	get_cur_cord(t_cord *cord);
-void	unset_cord(t_cord *cord);
-void	get_win_size(t_cord *cord);
-void	set_start_cord(t_cord *cord);
-void	set_end_cord(t_cord *cord);
+void				get_cur_cord(t_cord *cord);
+void				unset_cord(t_cord *cord);
+void				get_win_size(t_cord *cord);
+void				set_start_cord(t_cord *cord);
+void				set_end_cord(t_cord *cord);
 /*
 **	check.c
 */
-char	is_start_pos(t_cord *cord);
-char	is_end_pos(t_cord *cord);
-void	check_malloc_len_buffer(t_buff *buffer, char *c);
-void	check_end_window(t_cord *cord);
+char				is_start_pos(t_cord *cord);
+char				is_end_pos(t_cord *cord);
+void				check_malloc_len_buffer(t_buff *buffer, char *c);
+void				check_end_window(t_cord *cord);
 /*
 **	k_cur_movements.c
 */
-void	k_left(t_line *line);
-void	k_right(t_line *line);
-void	k_home(t_line *line);
-void	k_end(t_line *line);
+void				k_left(t_line *line);
+void				k_right(t_line *line);
+void				k_home(t_line *line);
+void				k_end(t_line *line);
 /*
 **	k_cur_movements2.c
 */
-void	k_ctrl_up(t_line *line);
-void	k_ctrl_down(t_line *line);
-void	k_ctrl_left(t_line *line);
-void	k_ctrl_right(t_line *line);
+void				k_ctrl_up(t_line *line);
+void				k_ctrl_down(t_line *line);
+void				k_ctrl_left(t_line *line);
+void				k_ctrl_right(t_line *line);
 /*
 **	k_highlight.c
 */
-void	k_ctrl_c(t_line *line);
-void	k_shift_left(t_line *line);
-void	k_shift_right(t_line *line);
-void	k_ctrl_x(t_line *line);
-void	k_ctrl_v(t_line *line);
+void				k_ctrl_c(t_line *line);
+void				k_shift_left(t_line *line);
+void				k_shift_right(t_line *line);
+void				k_ctrl_x(t_line *line);
+void				k_ctrl_v(t_line *line);
 /*
 **	k_history.c
 */
-void	k_up(t_line *line);
-void	k_down(t_line *line);
-void	k_ctrl_r(t_line *line);
+void				k_up(t_line *line);
+void				k_down(t_line *line);
+void				k_ctrl_r(t_line *line);
 /*
 **	k_print.c
 */
-void	k_ctrl_d(t_line *line);
-void	k_enter(t_line *line);
-void	k_bcsp(t_line *line);
-void	k_del(t_line *line);
-void	k_tab(t_line *line);
+void				k_ctrl_d(t_line *line);
+void				k_enter(t_line *line);
+void				k_bcsp(t_line *line);
+void				k_del(t_line *line);
+void				k_tab(t_line *line);
 /*
 **	print.c
 */
-void	ft_putstr_cord(char *str, t_cord *cord);
-void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord);
-void	disable_highlight(char *buffer, t_cord *cord);
-void	disable_history(t_line *line);
-void	find_history(t_line *line);
+void				ft_putstr_cord(char *str, t_cord *cord);
+void				ft_putstr_highlight(char *str, short start, short end,
+t_cord *cord);
+void				disable_highlight(char *buffer, t_cord *cord);
+void				disable_history(t_line *line);
+void				find_history(t_line *line);
 /*
 **	symb.c
 */
-void	print_symb(char *c, t_line *line);
-void	del_symb(char *buf, t_cord *cord);
+void				print_symb(char *c, t_line *line);
+void				del_symb(char *buf, t_cord *cord);
 /*
 **	cur_movements.c
 */
-void	go_to_cord(short x, short y, int fd);
-void	go_left(short i, t_cord *cord);
-void	go_right(short i, t_cord *cord);
+void				go_to_cord(short x, short y, int fd);
+void				go_left(short i, t_cord *cord);
+void				go_right(short i, t_cord *cord);
 /*
 **	autocom.c
 */
-char	*ac_get_word(char *is_command, char *line, short pos);
-void	ac_print_params(char **arr, short win_width);
-int		ac_max_len(char **arr);
+char				*ac_get_word(char *is_command, char *line, short pos);
+void				ac_print_params(char **arr, short win_width);
+int					ac_max_len(char **arr);
 /*
 **	ac_bins.c
 */
-void	ac_bins(char *command, t_line *line);
-char	*ac_get_bin(char *command);
+void				ac_bins(char *command, t_line *line);
+char				*ac_get_bin(char *command);
 /*
 **	ac_path.c
 */
-void	ac_path(char *command, t_line *line);
-void	ac_print_path(char **content, char *file, t_line *line);
-char	*ac_get_path(char *file, char **content);
-void	ac_word_split(char *word, char **file);
+void				ac_path(char *command, t_line *line);
+void				ac_print_path(char **content, char *file, t_line *line);
+char				*ac_get_path(char *file, char **content);
+void				ac_word_split(char *word, char **file);
 /*
 **	read_mode.c
 */
-void	set_attr(struct termios *savetty);
-void	set_input_mode(struct termios *tty);
-void	save_attr(struct termios *savetty);
-void	init_terminfo(void);
+void				set_attr(struct termios *savetty);
+void				set_input_mode(struct termios *tty);
+void				save_attr(struct termios *savetty);
+void				init_terminfo(void);
 /*
 **	reading.c
 */
-char	*ft_readline(char *prompt);
-char	*reading(t_line *line);
-void	read_handler(char *c, int fd);
+char				*ft_readline(char *prompt);
+char				*reading(t_line *line);
+void				read_handler(char *c, int fd);
 
-unsigned char	g_line_flags;
-struct s_line	g_line;
-struct termios	g_orig_mode;
-struct termios	g_raw_mode;
+unsigned char		g_line_flags;
+struct s_line		g_line;
+struct termios		g_orig_mode;
+struct termios		g_raw_mode;
 #endif

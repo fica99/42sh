@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:33:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:00:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*reading(t_line *line)
 	return (line->buffer.buffer);
 }
 
-void		read_handler(char *c, int fd)
+void	read_handler(char *c, int fd)
 {
 	short	nb;
 

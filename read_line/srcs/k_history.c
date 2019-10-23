@@ -6,12 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 20:16:36 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 13:10:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:58:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
 
 void	k_up(t_line *line)
 {
@@ -28,7 +27,8 @@ void	k_up(t_line *line)
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (line->history_index == g_history.hist_len)
 	{
-		check_malloc_len_buffer(&line->save_buff, line->buffer.buffer + cord->pos);
+		check_malloc_len_buffer(&line->save_buff, line->buffer.buffer +
+		cord->pos);
 		ft_strcpy(line->save_buff.buffer, line->buffer.buffer + cord->pos);
 	}
 	--(line->history_index);

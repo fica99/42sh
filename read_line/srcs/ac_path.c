@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:50:48 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 22:43:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:41:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,15 @@ void	ac_path(char *word, t_line *line)
 	full_path = ft_strcat(full_path, pwd);
 	if (word && *word)
 		full_path = ft_strcat(ft_strcat(full_path, "/"), word);
-	if (!(content = ft_dir_content(full_path, 0)))
-		err_exit(g_argv[0], "opendir() error", NULL, ENOMEM);
+	if (!access(full_path, 4) && ft_file_type(full_path) == 'd')
+	{
+		if (!(content = ft_dir_content(full_path, 0)))
+			err_exit(g_argv[0], "opendir() error", NULL, ENOMEM);
+		ac_print_path(content, file, line);
+		ft_free_dar(content);
+	}
 	ft_strdel(&full_path);
-	ac_print_path(content, file, line);
 	ft_strdel(&file);
-	ft_free_dar(content);
 }
 
 void	ac_print_path(char **content, char *file, t_line *line)
@@ -44,12 +47,13 @@ void	ac_print_path(char **content, char *file, t_line *line)
 
 	i = 0;
 	while ((paths[i] = ac_get_path(file, content)))
-		++i;
-	if (i == 1)
 	{
-		print_symb(paths[0] + ft_strlen(file), line);
-		print_symb("/", line);
+		if (!ft_strcmp(paths[i], ".") || !ft_strcmp(paths[i], ".."))
+			continue;
+		++i;
 	}
+	if (i == 1)
+		print_symb(paths[0] + ft_strlen(file), line);
 	else if (i > 1)
 	{
 		pos = line->cord->pos;

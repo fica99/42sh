@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:08:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 13:00:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:58:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	k_ctrl_right(t_line *line)
 		if (ft_isspace(buf[i]) && ft_isalnum(buf[i + 1]))
 		{
 			i++;
-			break;
+			break ;
 		}
 		i++;
 	}

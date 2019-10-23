@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 21:13:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:56:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,3 @@ int		ac_max_len(char **arr)
 			max_len = len;
 	return (max_len);
 }
-
-

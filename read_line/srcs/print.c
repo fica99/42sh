@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:32:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 14:12:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:59:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_putstr_cord(char *str, t_cord *cord)
 	set_end_cord(cord);
 }
 
-void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
+void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 {
 	short	i;
 	char	symb[2];
@@ -59,7 +59,7 @@ void		ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	g_line_flags |= HIGHLIGHT_TEXT;
 }
 
-void		disable_highlight(char *buffer, t_cord *cord)
+void	disable_highlight(char *buffer, t_cord *cord)
 {
 	short	pos;
 
@@ -74,7 +74,7 @@ void		disable_highlight(char *buffer, t_cord *cord)
 	cord->highlight_pos = 0;
 }
 
-void		disable_history(t_line *line)
+void	disable_history(t_line *line)
 {
 	t_cord	*cord;
 	short	pos;
@@ -91,7 +91,7 @@ void		disable_history(t_line *line)
 	ft_strclr(line->history_search.buffer);
 }
 
-void		find_history(t_line *line)
+void	find_history(t_line *line)
 {
 	t_cord			*cord;
 	short			i;
@@ -107,9 +107,11 @@ void		find_history(t_line *line)
 		i = -1;
 		while (++i < g_history.hist_len)
 		{
-			if (ft_strstr(g_history.history_buff[i], line->history_search.buffer))
+			if (ft_strstr(g_history.history_buff[i],
+			line->history_search.buffer))
 			{
-				check_malloc_len_buffer(&line->buffer, g_history.history_buff[i]);
+				check_malloc_len_buffer(&line->buffer,
+				g_history.history_buff[i]);
 				ft_strcpy(line->buffer.buffer + cord->pos, g_history.history_buff[i]);
 				ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
 			}

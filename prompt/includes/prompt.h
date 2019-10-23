@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:44:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/17 16:36:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:52:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define TIME_BRACKETS 2
 # define FT_HOST_NAME_MAX 255
+
 /*
 **	prompt.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/24 16:40:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:50:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:55:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ t_hash	**set_templ_table(void)
 	table = push_hash(table, K_DEL, (void*)&k_del, TEMPL_TABLE_SIZE);
 	table = push_hash(table, K_UP, (void*)&k_up, TEMPL_TABLE_SIZE);
 	table = push_hash(table, K_DOWN, (void*)&k_down, TEMPL_TABLE_SIZE);
-	table = push_hash(table, SHIFT_RGHT, (void*)&k_shift_right, TEMPL_TABLE_SIZE);
+	table = push_hash(table, SHIFT_RGHT, (void*)&k_shift_right,
+	TEMPL_TABLE_SIZE);
 	table = push_hash(table, SHIFT_LFT, (void*)&k_shift_left, TEMPL_TABLE_SIZE);
 	table = push_hash(table, CTRL_UP, (void*)&k_ctrl_up, TEMPL_TABLE_SIZE);
 	table = push_hash(table, CTRL_DOWN, (void*)&k_ctrl_down, TEMPL_TABLE_SIZE);
-	table = push_hash(table, CTRL_RIGHT, (void*)&k_ctrl_right, TEMPL_TABLE_SIZE);
+	table = push_hash(table, CTRL_RIGHT, (void*)&k_ctrl_right,
+	TEMPL_TABLE_SIZE);
 	table = push_hash(table, CTRL_LEFT, (void*)&k_ctrl_left, TEMPL_TABLE_SIZE);
 	table = set_templ_table_symb(table);
 	return (table);
@@ -40,7 +42,7 @@ t_hash	**set_templ_table_symb(t_hash **table)
 	char	symb[2];
 
 	symb[1] = '\0';
-	symb[0]= TAB;
+	symb[0] = TAB;
 	table = push_hash(table, symb, (void*)&k_tab, TEMPL_TABLE_SIZE);
 	symb[0] = CTRL_R;
 	table = push_hash(table, symb, (void*)&k_ctrl_r, TEMPL_TABLE_SIZE);
@@ -77,8 +79,8 @@ void	find_templ(char *c, t_line *line)
 	else if (*c == BCSP && (g_line_flags & HISTORY_SEARCH))
 	{
 		if ((len = ft_strlen(line->history_search.buffer)))
-			line->history_search.buffer = ft_strdel_el(line->history_search.buffer,
-			len - 1);
+			line->history_search.buffer =
+			ft_strdel_el(line->history_search.buffer, len - 1);
 		find_history(line);
 	}
 	else if ((handler = get_hash_data(line->templates, c, TEMPL_TABLE_SIZE)))

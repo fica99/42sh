@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 13:28:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:50:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void		make_history_buff(t_history *history)
 	history->history_buff = buff;
 }
 
-void	free_history(t_history *history)
+void		free_history(t_history *history)
 {
 	char	**buf;
 
@@ -98,7 +98,7 @@ void		rewrite_file(t_history *history)
 		err_exit(g_argv[0], "close() error", NULL, NOERROR);
 }
 
-char	*get_history_file_path(void)
+char		*get_history_file_path(void)
 {
 	char	*home;
 

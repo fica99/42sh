@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 20:27:40 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:53:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ char		*get_path(void)
 	char	*home;
 
 	path = NULL;
-	if ((pwd = ft_getenv("PWD")) && (home = ft_getenv("HOME")))
+	pwd = ft_getenv("PWD");
+	home = ft_getenv("HOME");
+	if (home && pwd)
 	{
 		if (!ft_strncmp(pwd, home, ft_strlen(home)))
 		{
@@ -43,7 +45,9 @@ char		*get_cur_dir(void)
 	char	*folder;
 
 	path = NULL;
-	if ((pwd = ft_getenv("PWD")) && (home = ft_getenv("HOME")))
+	pwd = ft_getenv("PWD");
+	home = ft_getenv("HOME");
+	if (home && pwd)
 	{
 		if (*(folder = ft_strrchr(pwd, '/') + 1) == '\0')
 			folder--;

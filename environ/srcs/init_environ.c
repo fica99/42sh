@@ -6,17 +6,16 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:11:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:50:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-
 void		init_global_env(t_environ *env, char **arr)
 {
-	int	len;
-	int	counter;
+	int		len;
+	int		counter;
 
 	len = ft_darlen(arr);
 	counter = 1;
@@ -24,9 +23,10 @@ void		init_global_env(t_environ *env, char **arr)
 		counter++;
 	set_env_struct(env, arr, counter * DEFAULT_ENV_MALLOC_SIZE);
 }
-void	set_env_struct(t_environ *env, char **arr, short malloc_size)
+
+void		set_env_struct(t_environ *env, char **arr, short malloc_size)
 {
-	int			i;
+	int		i;
 
 	env->malloc_size = malloc_size;
 	if (!(env->env = ft_darnew(malloc_size)))

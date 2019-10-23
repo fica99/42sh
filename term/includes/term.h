@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/10/17 16:29:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:54:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define TERM_EXIT (1 << 2)
 # define FREE_TABLE_DATA 1
 # define DONT_FREE_TABLE_DATA 0
+
 /*
 **	ft_term.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 19:02:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 17:00:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	print_symb(char *c, t_line *line)
 	go_right(ft_strlen(c), cord);
 }
 
-void		del_symb(char *buf, t_cord *cord)
+void	del_symb(char *buf, t_cord *cord)
 {
 	short	pos;
 

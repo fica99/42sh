@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:15:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/23 16:44:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 
 typedef struct	s_table
 {
-	size_t	size;
-	t_hash	**table;
+	size_t		size;
+	t_hash		**table;
 }				t_table;
 
 /*
 **	hash_table.c
 */
-void	init_bin_table(t_table *bin_table);
-size_t	get_bin_table_size(char **path);
-t_hash	**make_bin_table(char **path, size_t size);
-void	free_table(t_table *table);
+void			init_bin_table(t_table *bin_table);
+size_t			get_bin_table_size(char **path);
+t_hash			**make_bin_table(char **path, size_t size);
+void			free_table(t_table *table);
 
-t_table	g_bin_table;
+t_table			g_bin_table;
 #endif
