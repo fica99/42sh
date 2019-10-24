@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:56:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/25 00:05:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 	*is_command = TRUE;
 	while (start >= 0 && !ft_strchr(";|", line[start]))
 	{
-		if (ft_strchr(" \t\n", line[start]))
+		if (ft_strchr(" \t\n", line[start--]))
 		{
 			*is_command = FALSE;
 			break ;
 		}
-		--start;
 	}
 	return (command);
 }
@@ -45,6 +44,8 @@ void	ac_print_params(char **arr, short win_width)
 	int	len;
 	int	width;
 
+	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	max_len = ac_max_len(arr);
 	i = -1;
 	width = 0;
@@ -55,12 +56,11 @@ void	ac_print_params(char **arr, short win_width)
 		if (width >= win_width)
 		{
 			ft_putchar_fd(NEW_LINE, STDOUT_FILENO);
-			width = 0;
+			width = (max_len + 1);
 		}
 		ft_putstr_fd(arr[i], STDOUT_FILENO);
-		while (++len <= max_len)
+		while (len++ <= max_len)
 			ft_putchar_fd(' ', STDOUT_FILENO);
-		ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 }
 
@@ -76,4 +76,17 @@ int		ac_max_len(char **arr)
 		if (max_len < (len = ft_strlen(arr[i])))
 			max_len = len;
 	return (max_len);
+}
+
+void	check_autocom(t_line *line, short len)
+{
+	short	pos;
+
+	if (g_line_flags & AUTOCOM)
+	{
+		pos = line->cord->pos;
+		line->cord->pos -= len;
+		ft_putstr_cord(line->buffer.buffer + line->cord->pos, line->cord);
+		go_left(line->cord->pos - pos, line->cord);
+	}
 }

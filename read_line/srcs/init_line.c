@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/18 19:44:33 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 21:25:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/24 22:58:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_line(t_line *line)
 	init_buff(&line->buffer);
 	init_buff(&line->history_search);
 	init_buff(&line->save_buff);
+	g_line_flags = INIT_FLAGS;
 }
 
 void	init_buff(t_buff *buffer)
@@ -65,6 +66,6 @@ void	clr_buffs(t_line *line)
 	ft_strclr(line->history_search.buffer);
 	line->history_index = g_history.hist_len;
 	unset_cord(line->cord);
+	standart_prompt();
+	g_line_flags = INIT_FLAGS;
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 16:54:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 20:43:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/25 00:09:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	k_ctrl_d(t_line *line)
 {
 	char	*buf;
+	t_cord	*cord;
 
 	buf = line->buffer.buffer;
 	if (g_line_flags & HIGHLIGHT_TEXT)
@@ -24,11 +25,14 @@ void	k_ctrl_d(t_line *line)
 	if (is_end_pos(line->cord))
 	{
 		if (*buf == '\0')
-		{
-			ft_strcpy(buf, "exit");
-			ft_putstr_cord(buf, line->cord);
-		}
-		k_enter(line);
+			ft_putstr_cord(ft_strcpy(buf, "exit"), line->cord);
+		cord = line->cord;
+		go_right(cord->x_end - cord->x_cur + ((cord->y_end - cord->y_cur) *
+		cord->ws_col), cord);
+		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
+		check_end_window(cord);
+		g_line_flags |= BREAK_FLAG;
 	}
 	else
 		k_del(line);
@@ -48,6 +52,7 @@ void	k_enter(t_line *line)
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 	check_end_window(cord);
+	check_quotes(line->buffer.buffer);
 	g_line_flags |= BREAK_FLAG;
 }
 

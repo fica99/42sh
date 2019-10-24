@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/10/23 21:09:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/24 22:58:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	standart_prompt(void)
 	char	host[FT_HOST_NAME_MAX];
 
 	gethostname(host, FT_HOST_NAME_MAX);
-	ft_strcat(g_prompt, CYAN);
+	ft_strcpy(g_prompt, CYAN);
 	ft_strcat(g_prompt, ft_getenv("USER"));
 	ft_strcat(g_prompt, RED);
 	ft_strcat(g_prompt, "@");

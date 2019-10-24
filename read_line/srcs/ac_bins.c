@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:19:27 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 20:42:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/24 23:36:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ac_bins(char *command, t_line *line)
 {
 	char	*bin[g_bin_table.size];
 	int		i;
-	short	pos;
 
 	if (!command)
 		return ;
@@ -56,13 +55,10 @@ void	ac_bins(char *command, t_line *line)
 		print_symb(bin[0] + ft_strlen(command), line);
 	else if (i > 1)
 	{
-		pos = line->cord->pos;
-		go_right(ft_strlen(line->buffer.buffer + pos), line->cord);
-		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
+		go_to_cord(line->cord->x_end, line->cord->y_end, STDIN_FILENO);
 		ac_print_params(bin, line->cord->ws_col);
 		g_line_flags |= AUTOCOM;
-		line->cord->pos = pos;
-		k_enter(line);
+		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
+		ft_readline("");
 	}
 }

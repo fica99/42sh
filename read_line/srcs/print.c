@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 18:32:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:59:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/24 22:27:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ void	ft_putstr_highlight(char *str, short start, short end, t_cord *cord)
 	i = -1 + cord->pos;
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	if (start <= i)
-		HIGHLIGHT(STDIN_FILENO);
+		ft_putstr_fd(HIGHLIGHT, STDIN_FILENO);
 	symb[1] = '\0';
 	while (str[++i])
 	{
 		if (i == start)
-			HIGHLIGHT(STDIN_FILENO);
+			ft_putstr_fd(HIGHLIGHT, STDIN_FILENO);
 		if (i == end)
-			STANDART(STDIN_FILENO);
+			ft_putstr_fd(STANDART, STDIN_FILENO);
 		symb[0] = str[i];
 		ft_putstr_cord(symb, cord);
 	}
-	STANDART(STDIN_FILENO);
+	ft_putstr_fd(STANDART, STDIN_FILENO);
 	go_left(cord->pos - pos, cord);
 	g_line_flags |= HIGHLIGHT_TEXT;
 }
@@ -102,9 +102,8 @@ void	find_history(t_line *line)
 	set_end_cord(cord);
 	ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
 	ft_strclr(line->buffer.buffer + cord->pos);
-	if (*(line->history_search.buffer))
+	if (*(line->history_search.buffer) && (i = -1))
 	{
-		i = -1;
 		while (++i < g_history.hist_len)
 		{
 			if (ft_strstr(g_history.history_buff[i],
@@ -112,7 +111,8 @@ void	find_history(t_line *line)
 			{
 				check_malloc_len_buffer(&line->buffer,
 				g_history.history_buff[i]);
-				ft_strcpy(line->buffer.buffer + cord->pos, g_history.history_buff[i]);
+				ft_strcpy(line->buffer.buffer + cord->pos,
+				g_history.history_buff[i]);
 				ft_putstr_cord(line->buffer.buffer + cord->pos, cord);
 			}
 		}

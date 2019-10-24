@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/23 20:12:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/24 23:12:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 # define CLEAR_END_SCREEN tigetstr("ed")
 # define CLEAR_SCREEN tigetstr("clear")
 # define CUR_CORD tigetstr("u7")
-# define HIGHLIGHT(fd) ft_putstr_fd("\033[35;4m", fd)
 # define NORMAL_LINE 1000
 # define TEMPL_TABLE_SIZE 22
 # define READING 1
@@ -51,7 +50,6 @@
 # define HIGHLIGHT_TEXT (1 << 2)
 # define AUTOCOM (1 << 3)
 # define BREAK_FLAG (1 << 4)
-# define QUOTES (1 << 5)
 
 typedef struct		s_cord
 {
@@ -112,10 +110,6 @@ void				unset_cord(t_cord *cord);
 void				get_win_size(t_cord *cord);
 void				set_start_cord(t_cord *cord);
 void				set_end_cord(t_cord *cord);
-/*
-**	cord2.c
-*/
-void				set_start_params(void);
 /*
 **	check.c
 */
@@ -186,6 +180,7 @@ void				go_right(short i, t_cord *cord);
 char				*ac_get_word(char *is_command, char *line, short pos);
 void				ac_print_params(char **arr, short win_width);
 int					ac_max_len(char **arr);
+void				check_autocom(t_line *line, short len);
 /*
 **	ac_bins.c
 */
