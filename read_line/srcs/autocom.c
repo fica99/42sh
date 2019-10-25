@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/25 00:05:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/25 22:04:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,36 @@ char	*ac_get_word(char *is_command, char *line, short pos)
 {
 	char	*command;
 	short	start;
+	char	*copy;
 
 	start = pos;
-	while (--start >= 0)
-		if (ft_strchr(" \t\n;|", line[start]))
-			break ;
-	command = NULL;
-	if (start + 1 != pos)
-		if (!(command = ft_strsub(line, start + 1, pos)))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-	*is_command = TRUE;
-	while (start >= 0 && !ft_strchr(";|", line[start]))
+	while (start > 0)
 	{
-		if (ft_strchr(" \t\n", line[start--]))
+		if (ft_strchr(" \t\n;|", line[--start]))
 		{
-			*is_command = FALSE;
+			++start;
 			break ;
 		}
 	}
+	command = NULL;
+	if (start >= 0 && start < pos && ft_isalnum(line[start]))
+	{
+		if (!(command = ft_strtrim(copy = ft_strsub(line, start, pos))))
+			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		ft_strdel(&copy);
+	}
+	else
+		--start;
+	*is_command = ac_is_command(line, start, pos);
 	return (command);
+}
+
+char	ac_is_command(char *line, short start, short pos)
+{
+	while (start > 0 && start < pos && !ft_strchr(";|", line[start]))
+		if (ft_strchr(" \t\n", line[start--]))
+			return (FALSE);
+	return (TRUE);
 }
 
 void	ac_print_params(char **arr, short win_width)

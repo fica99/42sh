@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:50:48 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/24 22:55:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/25 18:21:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ void	ac_word_split(char *word, char **file)
 		return ;
 	i = ft_strlen(word);
 	j = i;
-	while (i >= 0 && word[i] != '/')
+	while (i > 0 && word[i] != '/')
 		--i;
 	if (i < 0)
-		++i;
+		i = 0;
 	if (word[i] == '/')
 		word[i++] = '\0';
 	if (!(*file = ft_strdup(word + i)))

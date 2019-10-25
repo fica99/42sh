@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/24 23:12:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/25 21:54:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void				go_right(short i, t_cord *cord);
 **	autocom.c
 */
 char				*ac_get_word(char *is_command, char *line, short pos);
+char				ac_is_command(char *line, short start, short pos);
 void				ac_print_params(char **arr, short win_width);
 int					ac_max_len(char **arr);
 void				check_autocom(t_line *line, short len);
