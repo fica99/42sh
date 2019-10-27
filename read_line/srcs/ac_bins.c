@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:19:27 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/25 17:30:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 22:34:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ac_bins(char *command, t_line *line)
 {
 	char	*bin[g_bin_table.size];
 	int		i;
+	t_cord	*cord;
 
 	i = 0;
 	while ((bin[i] = ac_get_bin(command)))
@@ -53,9 +54,11 @@ void	ac_bins(char *command, t_line *line)
 		print_symb(bin[0] + ft_strlen(command), line);
 	else if (i > 1)
 	{
-		go_to_cord(line->cord->x_end, line->cord->y_end, STDIN_FILENO);
-		ac_print_params(bin, line->cord->ws_col);
-		g_line_flags |= AUTOCOM;
+		cord = line->cord;
+		cord->pos -= (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+		cord->ws_col));
+		go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
+		ac_print_params(bin, cord->ws_col);
 		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 		ft_readline("");
 	}

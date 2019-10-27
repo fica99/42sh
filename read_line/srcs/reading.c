@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/24 23:30:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 21:52:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ char	*ft_readline(char *prompt)
 		ft_strcpy(g_prompt, prompt);
 	write_prompt(g_prompt);
 	set_input_mode(&g_raw_mode);
+	get_win_size(g_line.cord);
+	get_cur_cord(g_line.cord);
+	set_start_cord(g_line.cord);
+	set_end_cord(g_line.cord);
 	buf = reading(&g_line);
 	set_attr(&g_orig_mode);
 	return (buf);
@@ -28,15 +32,8 @@ char	*ft_readline(char *prompt)
 char	*reading(t_line *line)
 {
 	char	c[LINE_MAX + 1];
-	short	len;
 
-	len = line->cord->x_cur - line->cord->x_start + ((line->cord->y_cur -
-	line->cord->y_start) * line->cord->ws_col);
-	get_win_size(g_line.cord);
-	get_cur_cord(line->cord);
-	set_start_cord(line->cord);
-	set_end_cord(line->cord);
-	check_autocom(line, len);
+	ft_putstr_cord(line->buffer.buffer + line->cord->pos, line->cord);
 	g_line_flags = INIT_FLAGS;
 	while (READING)
 	{

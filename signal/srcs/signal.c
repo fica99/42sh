@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 13:52:19 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 22:55:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,18 @@ void	break_handler(int sign)
 
 void	win_handler(int sign)
 {
-	short	pos;
-	char	*ps1;
+	t_cord	*cord;
 
 	if (sign == SIGWINCH)
 	{
-		pos = g_line.cord->pos;
-		save_attr(&g_raw_mode);
+		cord = g_line.cord;
+		cord->pos -= (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+		cord->ws_col));
+		set_attr(&g_orig_mode);
 		get_win_size(g_line.cord);
-		ft_putstr_fd(CLEAR_SCREEN, STDIN_FILENO);
-		if (!(ps1 = ft_getenv("PS1")))
-			standart_prompt();
-		else
-			write_prompt(ps1);
-		get_cur_cord(g_line.cord);
-		set_start_cord(g_line.cord);
-		set_end_cord(g_line.cord);
-		g_line.cord->pos = 0;
-		ft_putstr_cord(g_line.buffer.buffer, g_line.cord);
-		go_left(ft_strlen(g_line.buffer.buffer + pos), g_line.cord);
-		set_input_mode(&g_raw_mode);
+		go_to_cord(0, g_line.cord->y_start, STDIN_FILENO);
+		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+		write_prompt(g_prompt);
+		ft_putstr_cord(g_line.buffer.buffer + cord->pos, cord);
 	}
 }

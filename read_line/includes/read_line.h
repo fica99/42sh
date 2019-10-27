@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/25 21:54:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 21:51:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@
 # define READING 1
 # define HISTORY_SEARCH (1 << 1)
 # define HIGHLIGHT_TEXT (1 << 2)
-# define AUTOCOM (1 << 3)
-# define BREAK_FLAG (1 << 4)
+# define BREAK_FLAG (1 << 3)
 
 typedef struct		s_cord
 {
@@ -181,7 +180,6 @@ char				*ac_get_word(char *is_command, char *line, short pos);
 char				ac_is_command(char *line, short start, short pos);
 void				ac_print_params(char **arr, short win_width);
 int					ac_max_len(char **arr);
-void				check_autocom(t_line *line, short len);
 /*
 **	ac_bins.c
 */

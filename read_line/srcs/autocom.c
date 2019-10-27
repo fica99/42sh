@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 17:03:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/25 22:04:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 21:25:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,4 @@ int		ac_max_len(char **arr)
 		if (max_len < (len = ft_strlen(arr[i])))
 			max_len = len;
 	return (max_len);
-}
-
-void	check_autocom(t_line *line, short len)
-{
-	short	pos;
-
-	if (g_line_flags & AUTOCOM)
-	{
-		pos = line->cord->pos;
-		line->cord->pos -= len;
-		ft_putstr_cord(line->buffer.buffer + line->cord->pos, line->cord);
-		go_left(line->cord->pos - pos, line->cord);
-	}
 }

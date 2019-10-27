@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:50:48 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/25 18:21:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/27 21:55:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	ac_print_path(char **content, char *file, t_line *line)
 {
 	size_t	i;
 	char	*paths[ft_darlen(content)];
+	t_cord	*cord;
 
 	i = 0;
 	while ((paths[i] = ac_get_path(file, content)))
@@ -55,9 +56,11 @@ void	ac_print_path(char **content, char *file, t_line *line)
 		print_symb(paths[0] + ft_strlen(file), line);
 	else if (i > 1)
 	{
-		go_to_cord(line->cord->x_end, line->cord->y_end, STDIN_FILENO);
-		ac_print_params(paths, line->cord->ws_col);
-		g_line_flags |= AUTOCOM;
+		cord = line->cord;
+		cord->pos -= (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+		cord->ws_col));
+		go_to_cord(cord->x_end, cord->y_end, STDIN_FILENO);
+		ac_print_params(paths, cord->ws_col);
 		ft_putchar_fd(NEW_LINE, STDIN_FILENO);
 		ft_readline("");
 	}
