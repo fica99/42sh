@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/27 21:40:52 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/28 15:26:40 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,27 +67,72 @@ repo := https://github.com/OlegMulko/LibProjects42.git
 
 lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
-.PHONY: all loadlibs removelibs compilation lall llall llclean llfclean lfclean oclean clean fclean re
+.PHONY: all loadlibs removelibs compilation link $(dir_bin_table)\
+$(dir_builtins) $(dir_environ) $(dir_error) $(dir_history) $(dir_interpretator)\
+$(dir_lexer) $(dir_read_line) $(dir_parser) $(dir_prompt) $(dir_signal) $(dir_term)\
+lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
 
 $(name): $(lib_dir) lall
 	@$(MAKE) --no-print-directory compilation
-	@$(cc) $(objs) -o $@ -L $(lib_archive) $(lib_flags)
+	@$(MAKE) --no-print-directory link
+
+link: $(objs)
+	@$(cc) $(objs) -o $(name) -L $(lib_archive) $(lib_flags)
 	@echo "\033[36mCreate binary file $(CURDIR)/$(name)\033[0m"
 
 compilation:
+	@$(MAKE) --no-print-directory $(dir_bin_table)
+	@$(MAKE) --no-print-directory $(dir_builtins)
+	@$(MAKE) --no-print-directory $(dir_environ)
+	@$(MAKE) --no-print-directory $(dir_error)
+	@$(MAKE) --no-print-directory $(dir_history)
+	@$(MAKE) --no-print-directory $(dir_interpretator)
+	@$(MAKE) --no-print-directory $(dir_lexer)
+	@$(MAKE) --no-print-directory $(dir_read_line)
+	@$(MAKE) --no-print-directory $(dir_parser)
+	@$(MAKE) --no-print-directory $(dir_prompt)
+	@$(MAKE) --no-print-directory $(dir_signal)
+	@$(MAKE) --no-print-directory $(dir_term)
+
+$(objs):
+	@$(MAKE) --no-print-directory compilation
+
+$(dir_bin_table):
 	@$(MAKE) --no-print-directory -C $(dir_bin_table)
+
+$(dir_builtins):
 	@$(MAKE) --no-print-directory -C $(dir_builtins)
+
+$(dir_environ):
 	@$(MAKE) --no-print-directory -C $(dir_environ)
+
+$(dir_error):
 	@$(MAKE) --no-print-directory -C $(dir_error)
+
+$(dir_history):
 	@$(MAKE) --no-print-directory -C $(dir_history)
+
+$(dir_interpretator):
 	@$(MAKE) --no-print-directory -C $(dir_interpretator)
+
+$(dir_lexer):
 	@$(MAKE) --no-print-directory -C $(dir_lexer)
+
+$(dir_read_line):
 	@$(MAKE) --no-print-directory -C $(dir_read_line)
+
+$(dir_parser):
 	@$(MAKE) --no-print-directory -C $(dir_parser)
+
+$(dir_prompt):
 	@$(MAKE) --no-print-directory -C $(dir_prompt)
+
+$(dir_signal):
 	@$(MAKE) --no-print-directory -C $(dir_signal)
+
+$(dir_term):
 	@$(MAKE) --no-print-directory -C $(dir_term)
 
 loadlibs:

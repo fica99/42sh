@@ -11,6 +11,21 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 * `make loadlibs` \- download libraries\.
 * `make removelibs` \- remove libraries\.
 * `make all` \- same as `make`\.
+* `make 42sh` \- same as `make`\.
+* `make compilation` \- compile all source files\.
+* `make link` \- link object files\.
+* `make bin_table` \- compile bin_table source files\.
+* `make builtins` \- compile builtins source files\.
+* `make environ` \- compile environ source files\.
+* `make error` \- compile error source files\.
+* `make history` \- compile history source files\.
+* `make interpretator` \- compile interpretator source files\.
+* `make lexer` \- compile lexer source files\.
+* `make parser` \- compile parser source files\.
+* `make prompt` \- compile prompt source files\.
+* `make read_line` \- compile read_line source files\.
+* `make signal` \- compile signal source files\.
+* `make term` \- compile term source files\.
 * `make fclean` \- removing all objects directories, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory) and executable file\.
 * `make clean` \- removing all objects directories, full cleaning library archieve directory(removing libraries archieve and objects directory with library in every library directory)\.
 * `make oclean` \- removing objects directories\.
@@ -44,7 +59,7 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 	<end>: Go to the end of line.
 	<ctrl+[up|down]>: Move cursor by display line.
 	<ctrl+[left|right]>: Move cursor per word.
-	<ctrl+D>: If there is a line, then work as well as delete; otherwise, force exit.
+	<ctrl+D>: If there is a end position, then works as enter. If there is a line, then work as well as delete; otherwise, force exit.
 	<ctrl+V>: Paste.
 	<ctrl+X>: Cut.
 	<ctrl+C>: If there is a highlighted text, then work as well as copy; otherwise, cancel line or stop process.
@@ -91,9 +106,12 @@ School 42 project in UNIX branch\. My first real functional shell. A lot of feat
 * When the cd command is given, it checks for the directory name in the current directory and throws error if not found, else traverses to the directory\. If the CDPATH is set, the "cd" command starts finding the directory in the list of directories present in the CDPATH variable and then makes the directory switch appropriately\.
 * Ability to change size of history file with HISTFILESIZE and size of history buffer with HISTSIZE\.
 
-Note: The $PATH environment variable contains all the paths where binarys to exec\. Delete it is not the best way of usage\.
+Note: The $PATH environment variable contains all the paths where binariess to exec\. Delete it is not the best way of usage\.
+
+## Inspired by [POSIX shell standart](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html "Shell standart")\.
 
 ## Created with:
 
 * POSIX standart libraries\.
 * Terminfo library for cursor movements\.
+
