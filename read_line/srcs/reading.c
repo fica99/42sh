@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:53:57 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/27 21:52:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:31:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*reading(t_line *line)
 	g_line_flags = INIT_FLAGS;
 	while (READING)
 	{
+		signal(SIGWINCH, win_handler);
 		read_handler(c, STDIN_FILENO);
 		check_malloc_len_buffer(&(line->buffer), c);
 		find_templ(c, line);
