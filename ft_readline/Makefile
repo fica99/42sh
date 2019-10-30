@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/29 23:40:43 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/30 18:36:54 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,14 @@ srcs := rl_main.c\
 	rl_init.c\
 	rl_prompt.c\
 	rl_read_mode.c\
+	rl_env.c\
+	rl_reading.c\
+	rl_init_hash.c\
+	rl_cord.c\
+	rl_print.c\
+	rl_check.c\
+	rl_k_cur_movements.c\
+	rl_cur_movements.c\
 
 objs := $(srcs:.c=.o)
 
@@ -30,13 +38,16 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, ft_readline.h)
+header := $(addprefix $(inc_dir)/, ft_readline.h) $(addprefix $(inc_dir)/, rl_colours.h)\
+$(addprefix $(inc_dir)/, rl_errors.h) $(addprefix $(inc_dir)/, rl_terminfo.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
 includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
 
-includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash)
+includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+
+includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)
 
 cc := gcc
 

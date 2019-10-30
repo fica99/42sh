@@ -6,26 +6,38 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/29 23:47:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/30 18:39:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-char	*ft_readline(char *prompt, t_rl_mode mode)
+char	*ft_readline(char *prompt, t_rl_mode mode, char **environ,
+char **history)
 {
-	(void)mode;
+	char	*buff;
+
+	(void)history;
+	g_rl.mode = mode;
+	g_rl.env = environ;
 	if (prompt)
 		ft_strcpy(g_rl.prompt, prompt);
 	else
-		rl_standart_prompt(g_rl.prompt);
-	return (NULL);
+		rl_standart_prompt(g_rl.prompt, environ);
+	rl_set_non_canon_mode(&g_rl.non_canon_mode);
+	if (!(buff = ft_strdup(rl_reading(&g_rl))))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	rl_set_attr(&g_rl.canon_mode);
+	rl_clr_data(&g_rl);
+	return (buff);
 }
 
 void	init_readline(void)
 {
 	rl_save_attr(&g_rl.canon_mode);
 	rl_init_terminfo();
+	if (!TRANSMIT_MODE || !CUR_CORD || !STOP_TRANSMIT_MODE || !SET_CUR)
+		rl_err("42sh", "no correct capabilities", UNDEFERR);
 	rl_init_rl_struct(&g_rl);
 }
 

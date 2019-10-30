@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/29 23:41:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:22:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,12 @@ void	rl_free_buff(t_rl_buff *buffer)
 		ft_memdel((void**)&buffer->buffer);
 		buffer->malloc_len = 0;
 	}
+}
+
+void		rl_clr_data(t_readline *rl)
+{
+	ft_strclr(rl->line.buffer);
+	ft_strclr(rl->save_line.buffer);
+	rl_init_cord(&rl->cord);
+	g_rl_flags = RL_INIT_FLAGS;
 }

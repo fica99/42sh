@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:14:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/29 23:41:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:21:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,13 @@ void		rl_init_terminfo(void)
 
 void		rl_init_rl_struct(t_readline *rl)
 {
-	// rl->vi_hash = init_vi_hash();
-	// rl->rl_hash = init_rl_hash();
+	rl->vi_hash = init_vi_hash();
+	rl->rl_hash = init_rl_hash();
 	rl_init_cord(&rl->cord);
 	rl_init_buff(&rl->line);
 	rl_init_buff(&rl->copy_buff);
 	rl_init_buff(&rl->save_line);
+	g_rl_flags = RL_INIT_FLAGS;
 }
 
 void		rl_init_buff(t_rl_buff *buffer)
