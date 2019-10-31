@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/30 18:36:54 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/02 16:50:47 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,15 @@ srcs := rl_main.c\
 	rl_cord.c\
 	rl_print.c\
 	rl_check.c\
-	rl_k_cur_movements.c\
+	rl_k_cur_left.c\
 	rl_cur_movements.c\
+	rl_k_cur_right.c\
+	rl_k_highlight.c\
+	rl_k_spec.c\
+	rl_k_symb.c\
+	rl_history.c\
+	rl_k_history.c\
+	rl_signal.c\
 
 objs := $(srcs:.c=.o)
 
@@ -39,7 +46,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
 header := $(addprefix $(inc_dir)/, ft_readline.h) $(addprefix $(inc_dir)/, rl_colours.h)\
-$(addprefix $(inc_dir)/, rl_errors.h) $(addprefix $(inc_dir)/, rl_terminfo.h)
+$(addprefix $(inc_dir)/, rl_errors.h) $(addprefix $(inc_dir)/, rl_templates.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
@@ -47,7 +54,10 @@ includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
 
 includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
-includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)
+includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+
+includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
+-I $(includes_libdar)
 
 cc := gcc
 

@@ -1,3 +1,8 @@
+/.vscode
+*DS_STORE
+42sh
+*dSYM
 **/objs/
-**/*DS*
+*.o
+*.a
 libraries/

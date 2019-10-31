@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/10/30 18:51:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/02 17:43:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,42 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
+# include <signal.h>
+# include <fcntl.h>
 # include "libft.h"
 # include "libhash.h"
 # include "libstr.h"
+# include "libdar.h"
 # include "rl_errors.h"
 # include "rl_colours.h"
-# include "rl_terminfo.h"
+# include "rl_templates.h"
 
 # define MAX_LINE_SIZE 1000
-# define VI_HASH_SIZE 4
-# define RL_HASH_SIZE 4
+# define VI_HASH_SIZE 20
+# define RL_HASH_SIZE 20
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
 # define LINE_MAX 2048
 # define RL_INIT_FLAGS 0
 # define RL_BREAK_FLAG (1 << 1)
+# define RL_HIGHLIGHT_FLAG (1 << 2)
+# define RL_HISTSIZE 500
+# define RL_HISTFILESIZE 500
+# define RL_HISTORY_FILE "/.42sh_history"
+# define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
+# define RL_OPEN_HISTFILE O_RDWR | O_CREAT
+# define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC
+
+typedef struct		s_rl_history
+{
+	char			**history_buff;
+	char			*hisfile_path;
+	short			hist_len;
+	short			hist_index;
+	short			histsize;
+	short			histfilesize;
+}					t_rl_history;
 
 typedef enum		e_rl_mode
 {
@@ -74,22 +94,15 @@ typedef struct		s_readline
 	struct termios	non_canon_mode;
 	char			prompt[MAX_LINE_SIZE];
 	char			**env;
+	t_rl_history 	history;
 	t_rl_mode		mode;
 }					t_readline;
 
 /*
 **	rl_main.c
 */
-/*
-**	Before usage of this function you need to make initialization(init_readline()).
-**	After usage of this function you need to free memory(free_readline()).
-**	Enum (t_rl_mode) is responsible for the editing mode(VI == 1, READLINE == 2).
-**	Environ is an array of environment variables.
-** 	History is an array of commands history.
-*/
-char				*ft_readline(char *prompt, t_rl_mode mode,
-char **environ, char **history);
-void				init_readline(void);
+char				*ft_readline(char *prompt, t_rl_mode mode, char **environ);
+void				init_readline(char **env);
 void				free_readline(void);
 void				rl_err(char *name, char *str, char *err);
 /*
@@ -118,19 +131,21 @@ void				rl_standart_prompt(char *prompt, char **env);
 /*
 **	rl_env.c
 */
-char				*ft_getenv(char *arr, char **env);
-short				get_count_env(char *arr, char **env);
+char				*rl_getenv(char *arr, char **env);
+short				rl_get_count_env(char *arr, char **env);
 /*
 **	rl_init_hash.c
 */
 t_hash				**init_vi_hash(void);
 t_hash				**init_rl_hash(void);
 t_hash				**init_standart_templates(int hash_size);
+t_hash				**init_standart_symb_templates(t_hash **table,
+int hash_size);
 /*
 **	rl_reading.c
 */
 char				*rl_reading(t_readline *rl);
-void				read_handler(char *c, int fd);
+void				rl_read_handler(char *c, int fd);
 void				rl_find_template(t_readline *rl, char *c);
 /*
 **	rl_cord.c
@@ -144,13 +159,17 @@ void				rl_start_cord_data(t_rl_cord *cord);
 **	rl_print.c
 */
 void				rl_print(char *str, t_rl_cord *cord);
+void				rl_print_highlight(char *str, short start,
+short end, t_rl_cord cord);
+void				rl_disable_highlight(char *buffer, t_rl_cord *cord);
 /*
 **	rl_check.c
 */
-char				rl_is_start_pos(t_rl_cord *cord);
-char				rl_is_end_pos(t_rl_cord *cord);
+char				rl_is_start_pos(t_rl_cord cord);
+char				rl_is_end_pos(t_rl_cord cord);
 void				rl_malloc_len(t_rl_buff *buffer, char *c);
 void				rl_is_end_window(t_rl_cord *cord);
+void				rl_check_quotes(char *c, t_readline *rl);
 /*
 **	rl_cur_movements.c
 */
@@ -158,12 +177,56 @@ void				rl_go_to_cord(short x, short y);
 void				rl_go_left(short i, t_rl_cord *cord);
 void				rl_go_right(short i, t_rl_cord *cord);
 /*
-**	rl_k_cur_movements.c
+**	rl_k_cur_left.c
 */
 void				rl_k_left(t_readline *line);
-void				rl_k_right(t_readline *rl);
 void				rl_k_home(t_readline *rl);
+void				rl_k_ctrl_up(t_readline *rl);
+void				rl_k_ctrl_left(t_readline *rl);
+/*
+**	rl_k_cur_right.c
+*/
+void				rl_k_right(t_readline *rl);
 void				rl_k_end(t_readline *rl);
+void				rl_k_ctrl_down(t_readline *rl);
+void				rl_k_ctrl_right(t_readline *rl);
+/*
+**	rl_k_highlight.c
+*/
+void				rl_k_shift_left(t_readline *rl);
+void				rl_k_shift_right(t_readline *rl);
+void				rl_k_ctrl_c(t_readline *rl);
+void				rl_k_ctrl_x(t_readline *rl);
+void				rl_k_ctrl_v(t_readline *rl);
+/*
+**	rl_k_spec.c
+*/
+void				rl_k_enter(t_readline *rl);
+void				rl_k_del(t_readline *rl);
+void				rl_k_bcsp(t_readline *rl);
+void				rl_k_ctrl_d(t_readline *rl);
+/*
+**	rl_k_symb.c
+*/
+void				rl_del_symb(char *buf, t_rl_cord *cord);
+void				rl_print_symb(char *c, t_readline *rl);
+/*
+**	rl_history.c
+*/
+void				rl_make_history_buff(t_rl_history *history, char **env);
+char				*rl_get_history_file_path(char **env);
+void				rl_free_history(t_rl_history *history);
+void				rl_rewrite_file(t_rl_history *history);
+void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
+/*
+**	rl_k_history.c
+*/
+void				rl_k_up(t_readline *rl);
+void				rl_k_down(t_readline *rl);
+/*
+**	rl_signal.c
+*/
+void				rl_win_handler(int sign);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
