@@ -26,6 +26,8 @@
 # define HEREDOC_FILE "/tmp/.fucking_heredoc"
 # define INIT_AGGR_FD -5
 
+pid_t g_chld_pid;
+
 /*
 **	interpretator.c
 */

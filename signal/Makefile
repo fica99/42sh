@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-srcs := signal.c\
+srcs := signals.c\
 
 objs := $(srcs:.c=.o)
 
@@ -28,7 +28,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, signal.h)
+header := $(addprefix $(inc_dir)/, signals.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
