@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 20:17:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:16:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	*rl_reading(t_readline *rl)
 	char	c[LINE_MAX + 1];
 
 	ft_putstr(rl->prompt);
-	ft_putstr(tigetflag("am"));
 	rl_start_cord_data(&rl->cord);
 	rl->history.hist_index = rl->history.hist_len;
 	rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);

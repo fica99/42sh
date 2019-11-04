@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/31 22:56:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:17:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	term_start(void)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(ft_getenv("PS1"), VI, g_env.env);
+		line = ft_readline(ft_getenv("PS1", g_env.env), VI, g_env.env);
 		check_valid_string(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)

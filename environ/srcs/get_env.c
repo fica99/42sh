@@ -6,25 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 19:46:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:15:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-
-char	*ft_getenv(char *arr)
-{
-	short	j;
-	char	**env;
-
-	if (arr && *arr)
-	{
-		env = g_env.env;
-		if ((j = get_count_env(arr)) != -1)
-			return (ft_strchr(env[j], '=') + 1);
-	}
-	return (NULL);
-}
 
 short	get_count_env(char *arr)
 {
