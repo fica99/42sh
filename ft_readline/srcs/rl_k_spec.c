@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 16:53:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:25:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	rl_k_enter(t_readline *rl)
 
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	cord = rl->cord;
 	rl_go_right(cord.x_end - cord.x_cur + ((cord.y_end - cord.y_cur) *
 	cord.ws_col), &rl->cord);
@@ -34,8 +32,6 @@ void	rl_k_del(t_readline *rl)
 {
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (rl_is_end_pos(rl->cord))
 		return ;
 	rl_del_symb(rl->line.buffer, &rl->cord);
@@ -57,8 +53,6 @@ void	rl_k_ctrl_d(t_readline *rl)
 
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (rl_is_end_pos(rl->cord))
 	{
 		if (*rl->line.buffer == '\0')

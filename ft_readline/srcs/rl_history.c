@@ -6,34 +6,25 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/31 22:43:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:15:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void		rl_make_history_buff(t_rl_history *history, char **env)
+void		rl_make_history_buff(t_rl_history *history)
 {
 	int		fd;
 	char	**buff;
 	short	len;
-	int		histsize;
-	int		histfilesize;
 
-	if (!(histsize = ft_atoi(rl_getenv("HISTSIZE", env))))
-		histsize = RL_HISTSIZE;
-	if (!(histfilesize = ft_atoi(rl_getenv("HISTFILESIZE", env))))
-		histfilesize = RL_HISTFILESIZE;
-	history->histsize = histsize;
-	history->histfilesize = histfilesize;
-	if (!(buff = ft_darnew(histsize)))
+	if (!(buff = ft_darnew(history->histsize)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	history->hisfile_path = rl_get_history_file_path(env);
-	if ((fd = open(history->hisfile_path, RL_OPEN_HISTFILE,
+	if ((fd = open(history->histfile_path, RL_OPEN_HISTFILE,
 	RL_PERM_HISTFILE)) == -1)
 		rl_err("42sh", "open() error", UNDEFERR);
 	len = 0;
-	while (len != histsize && (get_next_line(fd, &buff[len]) > 0))
+	while (len != history->histsize && (get_next_line(fd, &buff[len]) > 0))
 		++len;
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
@@ -48,7 +39,7 @@ void		rl_free_history(t_rl_history *history)
 	rl_rewrite_file(history);
 	buf = history->history_buff;
 	ft_free_dar(buf);
-	ft_strdel(&history->hisfile_path);
+	ft_strdel(&history->histfile_path);
 	history->history_buff = NULL;
 	history->hist_len = 0;
 }
@@ -86,7 +77,7 @@ void		rl_rewrite_file(t_rl_history *history)
 	int		fd;
 	short	i;
 
-	if ((fd = open(history->hisfile_path,
+	if ((fd = open(history->histfile_path,
 	RL_REWRITE_HISTFILE, RL_PERM_HISTFILE)) == -1)
 		rl_err("42sh", "open() error", UNDEFERR);
 	i = -1;
@@ -98,11 +89,19 @@ void		rl_rewrite_file(t_rl_history *history)
 		rl_err("42sh", "close() error", UNDEFERR);
 }
 
-char		*rl_get_history_file_path(char **env)
+void	rl_check_history_size(t_rl_history *history, char **env)
 {
-	char	*home;
+	int	histsize;
+	int	hisfilesize;
 
-	if ((home = rl_getenv("HOME", env)))
-		return (ft_strjoin(home, RL_HISTORY_FILE));
-	return (NULL);
+	histsize = history->histsize;
+	hisfilesize = history->histfilesize;
+	rl_get_hist_size(history, env);
+	if (histsize != history->histsize)
+	{
+		ft_free_dar(history->history_buff);
+		history->history_buff = NULL;
+		history->hist_len = 0;
+		rl_make_history_buff(history);
+	}
 }

@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/02 16:50:47 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/04 18:13:34 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ srcs := rl_main.c\
 	rl_init.c\
 	rl_prompt.c\
 	rl_read_mode.c\
-	rl_env.c\
 	rl_reading.c\
 	rl_init_hash.c\
 	rl_cord.c\
@@ -30,6 +29,7 @@ srcs := rl_main.c\
 	rl_history.c\
 	rl_k_history.c\
 	rl_signal.c\
+	rl_history_params.c\
 
 objs := $(srcs:.c=.o)
 

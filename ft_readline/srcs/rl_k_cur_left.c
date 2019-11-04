@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:23:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:26:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	rl_k_left(t_readline *rl)
 {
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	 if (rl_is_start_pos(rl->cord))
+	if (rl_is_start_pos(rl->cord))
 		return ;
 	rl_go_left(1, &rl->cord);
 }

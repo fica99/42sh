@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/10/31 17:15:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:16:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	rl_standart_prompt(char *prompt, char **env)
 
 	gethostname(host, FT_HOST_NAME_MAX);
 	ft_strcpy(prompt, CYAN);
-	ft_strcat(prompt, rl_getenv("USER", env));
+	ft_strcat(prompt, ft_getenv("USER", env));
 	ft_strcat(prompt, RED);
 	ft_strcat(prompt, "@");
 	ft_strcat(prompt, GREEN);
@@ -29,8 +29,8 @@ void	rl_standart_prompt(char *prompt, char **env)
 	ft_strcat(prompt, RED);
 	ft_strcat(prompt, ":");
 	ft_strcat(prompt, YELLOW);
-	home = rl_getenv("HOME", env);
-	pwd = rl_getenv("PWD", env);
+	home = ft_getenv("HOME", env);
+	pwd = ft_getenv("PWD", env);
 	if (!ft_strncmp(pwd, home, (len_home = ft_strlen(home))))
 		ft_strcat(ft_strcat(prompt, "~"), pwd + len_home);
 	else

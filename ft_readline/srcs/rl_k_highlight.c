@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 19:45:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:25:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	rl_k_shift_left(t_readline *rl)
 	short		start;
 	short		end;
 
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
@@ -39,8 +37,6 @@ void	rl_k_shift_right(t_readline *rl)
 	short	start;
 	short	end;
 
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (rl_is_end_pos(rl->cord))
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
@@ -88,8 +84,6 @@ void	rl_k_ctrl_x(t_readline *rl)
 	short	end;
 	short	j;
 
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		return ;
 	rl_k_ctrl_c(rl);
@@ -111,8 +105,6 @@ void	rl_k_ctrl_x(t_readline *rl)
 
 void	rl_k_ctrl_v(t_readline *rl)
 {
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	rl_malloc_len(&rl->line, rl->copy_buff.buffer);
 	rl_print_symb(rl->copy_buff.buffer, rl);
 }

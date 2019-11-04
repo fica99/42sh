@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 20:18:22 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 19:29:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 17:31:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	rl_print_symb(char *c, t_readline *rl)
 	ft_putstr(RL_CUR_INVIS);
 	rl_print(buf + rl->cord.pos, &rl->cord);
 	rl_go_left(rl->cord.pos - pos, &rl->cord);
-	rl_go_right(ft_strlen(c), &rl->cord);
 	ft_putstr(RL_CUR_VIS);
+	rl_go_right(ft_strlen(c), &rl->cord);
 }
 
 void	rl_del_symb(char *buf, t_rl_cord *cord)

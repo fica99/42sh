@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 19:48:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:20:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ void	rl_k_up(t_readline *rl)
 {
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
-	if (!rl->history.hist_index)
+	if (!(--rl->history.hist_index))
 		return ;
 	ft_putstr(RL_CUR_INVIS);
 	rl_go_left(rl->cord.pos, &rl->cord);
-	if ((rl->history.hist_index)-- == rl->history.hist_len)
+	if (rl->history.hist_index == rl->history.hist_len)
 	{
 		rl_malloc_len(&rl->save_line, rl->line.buffer + rl->cord.pos);
 		ft_strcpy(rl->save_line.buffer, rl->line.buffer + rl->cord.pos);
@@ -42,8 +40,6 @@ void	rl_k_down(t_readline *rl)
 
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		rl_disable_highlight(rl->line.buffer, &rl->cord);
-	// if (g_line_flags & HISTORY_SEARCH)
-	// 	disable_history(line);
 	if (rl->history.hist_index == rl->history.hist_len)
 		return ;
 	ft_putstr(RL_CUR_INVIS);

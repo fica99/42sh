@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/04 17:18:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:15:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 typedef struct		s_rl_history
 {
 	char			**history_buff;
-	char			*hisfile_path;
+	char			*histfile_path;
 	short			hist_len;
 	short			hist_index;
 	short			histsize;
@@ -118,6 +118,7 @@ void				rl_init_terminfo(void);
 void				rl_init_rl_struct(t_readline *rl);
 void				rl_init_buff(t_rl_buff *buffer);
 void				rl_init_cord(t_rl_cord *cord);
+void				rl_init_history(t_rl_history *history, char **env);
 /*
 **	rl_free.c
 */
@@ -128,11 +129,6 @@ void				rl_clr_data(t_readline *rl);
 **	rl_prompt.c
 */
 void				rl_standart_prompt(char *prompt, char **env);
-/*
-**	rl_env.c
-*/
-char				*rl_getenv(char *arr, char **env);
-short				rl_get_count_env(char *arr, char **env);
 /*
 **	rl_init_hash.c
 */
@@ -213,11 +209,11 @@ void				rl_print_symb(char *c, t_readline *rl);
 /*
 **	rl_history.c
 */
-void				rl_make_history_buff(t_rl_history *history, char **env);
-char				*rl_get_history_file_path(char **env);
+void				rl_make_history_buff(t_rl_history *history);
 void				rl_free_history(t_rl_history *history);
 void				rl_rewrite_file(t_rl_history *history);
 void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
+void				rl_check_history_size(t_rl_history *history, char **env);
 /*
 **	rl_k_history.c
 */
@@ -227,6 +223,11 @@ void				rl_k_down(t_readline *rl);
 **	rl_signal.c
 */
 void				rl_win_handler(int sign);
+/*
+**	rl_history_params.c
+*/
+void				rl_get_hist_size(t_rl_history *history, char **env);
+char				*rl_get_history_file_path(char **env);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

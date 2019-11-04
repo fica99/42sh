@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 19:14:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/04 18:18:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
 		ft_strcpy(g_rl.prompt, prompt);
 	else
 		rl_standart_prompt(g_rl.prompt, environ);
+	rl_check_history_size(&g_rl.history, environ);
 	rl_set_non_canon_mode(&g_rl.non_canon_mode);
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
@@ -41,7 +42,7 @@ void	init_readline(char **env)
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP)
 		rl_err("42sh", "no correct capabilities", UNDEFERR);
 	rl_init_rl_struct(&g_rl);
-	rl_make_history_buff(&g_rl.history, env);
+	rl_init_history(&g_rl.history, env);
 	g_rl.history.hist_index = g_rl.history.hist_len;
 }
 
