@@ -6,16 +6,30 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/31 22:51:22 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/05 15:36:45 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := cd.c\
-		echo.c\
-		env.c\
-		setenv.c\
-		unsetenv.c\
-		hash.c\
+srcs := rl_main.c\
+	rl_free.c\
+	rl_init.c\
+	rl_prompt.c\
+	rl_read_mode.c\
+	rl_reading.c\
+	rl_init_hash.c\
+	rl_cord.c\
+	rl_print.c\
+	rl_check.c\
+	rl_k_cur_left.c\
+	rl_cur_movements.c\
+	rl_k_cur_right.c\
+	rl_k_highlight.c\
+	rl_k_spec.c\
+	rl_k_symb.c\
+	rl_history.c\
+	rl_k_history.c\
+	rl_signal.c\
+	rl_history_params.c\
 
 objs := $(srcs:.c=.o)
 
@@ -25,43 +39,36 @@ objs_dir := objs
 
 inc_dir := includes
 
-main_inc_dir := ../includes
-
 lib_dir := ../libraries
 
 objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, builtins.h)
+header := $(addprefix $(inc_dir)/, ft_readline.h) $(addprefix $(inc_dir)/, rl_colours.h)\
+$(addprefix $(inc_dir)/, rl_errors.h) $(addprefix $(inc_dir)/, rl_templates.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
 
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
-
-includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
-
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
-
-includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
+includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
+-I $(includes_libdar)
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
+	@echo "\033[32mFinish ft_readline compilation\033[0m"
 
 $(objs_dir):
-	@echo "\033[32mCreate object directory $(CURDIR)/$@\033[0m"
 	@mkdir -p $@
 	@$(MAKE) --no-print-directory compilation
 
@@ -69,7 +76,6 @@ compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
 $(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@echo "\033[35m--->Compile $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:
@@ -79,4 +85,3 @@ clean:
 re:
 	@$(MAKE) --no-print-directory clean
 	@$(MAKE) --no-print-directory all
-

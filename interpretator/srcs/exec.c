@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/31 22:56:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	find_command(char **args)
 		unset_env(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "hash") && len == 1)
 		print_bin_table(g_bin_table.table, g_bin_table.size);
-	else if (!ft_strcmp(args[0], "history"))
-		print_history(&g_history);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
 	else if (!check_bin(args, g_bin_table.table,
@@ -77,7 +75,6 @@ char	check_command(char **args)
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
 		p = make_process();
-		signalling();
 		if (!p)
 			if (execve(args[0], args, g_env.env) < 0)
 				err_exit(g_argv[0], "execve() error", args[0], NOERROR);
@@ -97,7 +94,6 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	!(command_path = get_hash_data(bin_table, args[0], bin_table_size)))
 		return (FALSE);
 	p = make_process();
-	signalling();
 	if (!p)
 		if (execve(command_path, args, g_env.env) < 0)
 			err_exit(g_argv[0], "execve() error", args[0], NOERROR);

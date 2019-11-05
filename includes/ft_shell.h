@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/21 15:45:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/10/31 22:55:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,11 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
-# include "../signal/includes/signal.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"
 # include "../bin_table/includes/bin_table.h"
-# include "../history/includes/history.h"
-# include "../prompt/includes/prompt.h"
 # include "../error/includes/error.h"
-# include "colour.h"
-# include "../read_line/includes/read_line.h"
+# include "../ft_readline/includes/ft_readline.h"
 # include "../lexer/includes/lexer.h"
 # include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
