@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 16:28:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 19:44:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		rl_make_history_buff(t_rl_history *history)
 		rl_err("42sh", "close() error", UNDEFERR);
 	history->hist_len = len;
 	history->history_buff = buff;
+	history->cur_command_nb = 1;
 }
 
 void		rl_free_history(t_rl_history *history)
@@ -63,6 +64,7 @@ void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
 		i = history->hist_len++;
 	if (!(history->history_buff[i] = ft_strdup(buffer)))
 		rl_err("42sh", "malloc() error", ENOMEM);
+	++history->cur_command_nb;
 }
 
 void		rl_rewrite_file(t_rl_history *history)
