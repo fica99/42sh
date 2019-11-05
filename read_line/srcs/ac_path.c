@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:50:48 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/28 16:31:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ac_path(char *word, t_line *line)
 
 	file = NULL;
 	ac_word_split(word, &file);
-	if (!(pwd = ft_getenv("PWD")))
+	if (!(pwd = sh_getenv("PWD")))
 		err_exit(g_argv[0], "pwd error", NULL, NOERROR);
 	if (!(full_path = ft_strnew(ft_strlen(pwd) + ft_strlen(word) + 1)))
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);

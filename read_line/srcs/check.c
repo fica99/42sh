@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 17:30:00 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/28 16:24:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,5 @@ void	check_quotes(char *c)
 	else
 		g_line.buffer.buffer = ft_stradd(g_line.buffer.buffer, "\n",
 		g_line.cord->pos++);
-	ft_readline(!(prompt = ft_getenv("PS2")) ? "> " : prompt);
+	ft_readline(!(prompt = sh_getenv("PS2")) ? "> " : prompt);
 }

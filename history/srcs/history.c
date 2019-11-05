@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/27 19:46:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void		make_history_buff(t_history *history)
 	int		histsize;
 	int		histfilesize;
 
-	if (!(histsize = ft_atoi(ft_getenv("HISTSIZE"))))
+	if (!(histsize = ft_atoi(sh_getenv("HISTSIZE"))))
 		histsize = HISTSIZE;
-	if (!(histfilesize = ft_atoi(ft_getenv("HISTFILESIZE"))))
+	if (!(histfilesize = ft_atoi(sh_getenv("HISTFILESIZE"))))
 		histfilesize = HISTFILESIZE;
 	history->histsize = histsize;
 	history->histfilesize = histfilesize;
@@ -101,7 +101,7 @@ char		*get_history_file_path(void)
 {
 	char	*home;
 
-	if ((home = ft_getenv("HOME")))
+	if ((home = sh_getenv("HOME")))
 		return (ft_strjoin(home, HISTORY_FILE));
 	return (NULL);
 }

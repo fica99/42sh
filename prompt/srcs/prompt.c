@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/10/24 22:58:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	standart_prompt(void)
 
 	gethostname(host, FT_HOST_NAME_MAX);
 	ft_strcpy(g_prompt, CYAN);
-	ft_strcat(g_prompt, ft_getenv("USER"));
+	ft_strcat(g_prompt, sh_getenv("USER"));
 	ft_strcat(g_prompt, RED);
 	ft_strcat(g_prompt, "@");
 	ft_strcat(g_prompt, GREEN);
@@ -65,7 +65,7 @@ short	prompt_user_host(char *str, short i)
 	char	*stop;
 
 	if (!ft_strncmp(str + i, "\\u", 2))
-		ft_putstr_fd(ft_getenv("USER"), STDOUT_FILENO);
+		ft_putstr_fd(sh_getenv("USER"), STDOUT_FILENO);
 	else if (!ft_strncmp(str + i, "\\h", 2) ||
 	!ft_strncmp(str + i, "\\H", 2))
 	{

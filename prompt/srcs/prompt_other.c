@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:34:35 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:53:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ short	prompt_dir_history(char *str, short i)
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
-		path = ft_getenv("USER");
+		path = sh_getenv("USER");
 		(path && !ft_strcmp(path, "root")) ? ft_putchar_fd('#', STDOUT_FILENO)
 		: ft_putchar_fd('$', STDOUT_FILENO);
 	}

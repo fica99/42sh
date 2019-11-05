@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 20:07:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	check_ch_dir(int argc, char **argv)
 	char	*path;
 
 	if ((argc == 1 || !ft_strcmp(argv[1], "--")))
-		path = ft_getenv("HOME");
+		path = sh_getenv("HOME");
 	else if (!ft_strcmp(argv[1], "-"))
 	{
-		ft_putstr_fd(path = ft_getenv("OLDPWD"), STDOUT_FILENO);
+		ft_putstr_fd(path = sh_getenv("OLDPWD"), STDOUT_FILENO);
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 	else
@@ -64,7 +64,7 @@ char	*check_cdpath(char *path)
 	short	i;
 	char	*cdpath;
 
-	if (!(cdpath = ft_getenv("CDPATH")))
+	if (!(cdpath = sh_getenv("CDPATH")))
 		return (NULL);
 	if (!(paths = ft_strsplit(cdpath, ':')))
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
@@ -104,7 +104,7 @@ void	cd(int argc, char **argv, char **env_cp)
 		check_ch_dir(argc, argv);
 	if (!(getcwd(buf, MAXDIR)))
 		err_exit(g_argv[0], "getcwd() error", argv[1], NOERROR);
-	if ((pwd = ft_getenv("PWD")))
+	if ((pwd = sh_getenv("PWD")))
 	{
 		ft_setenv("OLDPWD", pwd);
 		ft_setenv("PWD", buf);
