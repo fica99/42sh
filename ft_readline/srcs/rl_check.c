@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 18:01:05 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 18:16:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:34:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,15 @@ void	rl_is_end_window(t_rl_cord *cord)
 	}
 }
 
-void	rl_check_quotes(char *c, t_readline *rl)
+char	rl_check_empty_line(char *line)
 {
-	int		i;
-	int		q;
-	int		dq;
-	char	*ps2;
+	short	i;
 
+	if (!line)
+		return (FALSE);
 	i = -1;
-	q = 0;
-	dq = 0;
-	while (c[++i])
-	{
-		if (c[i] == '\'')
-			++q;
-		if (c[i] == '\"')
-			++dq;
-	}
-	if (!(q % 2) && !(dq % 2) && c[i - 1] != '\\')
-		return ;
-	if (c[i - 1] == '\\')
-		rl->line.buffer = ft_strdel_el(rl->line.buffer,
-		--rl->cord.pos);
-	else
-		rl->line.buffer = ft_stradd(rl->line.buffer, "\n",
-		rl->cord.pos++);
-	ft_strcpy(rl->prompt, (!(ps2 = ft_getenv("PS2", rl->env)) ? "> " : ps2));
-	rl_reading(rl);
+	while (line[++i])
+		if (!ft_isspace(line[i]))
+			return (TRUE);
+	return (FALSE);
 }

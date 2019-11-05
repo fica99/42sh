@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/04 18:15:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:42:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ typedef struct		s_readline
 	t_rl_buff		copy_buff;
 	struct termios	canon_mode;
 	struct termios	non_canon_mode;
-	char			prompt[MAX_LINE_SIZE];
+	char			*prompt;
 	char			**env;
 	t_rl_history 	history;
 	t_rl_mode		mode;
@@ -102,7 +102,7 @@ typedef struct		s_readline
 **	rl_main.c
 */
 char				*ft_readline(char *prompt, t_rl_mode mode, char **environ);
-void				init_readline(char **env);
+void				init_readline(char **environ);
 void				free_readline(void);
 void				rl_err(char *name, char *str, char *err);
 /*
@@ -115,7 +115,7 @@ void				rl_set_attr(struct termios *savetty);
 **	rl_init.c
 */
 void				rl_init_terminfo(void);
-void				rl_init_rl_struct(t_readline *rl);
+void				rl_init_rl_struct(t_readline *rl, char **env);
 void				rl_init_buff(t_rl_buff *buffer);
 void				rl_init_cord(t_rl_cord *cord);
 void				rl_init_history(t_rl_history *history, char **env);
@@ -128,7 +128,7 @@ void				rl_clr_data(t_readline *rl);
 /*
 **	rl_prompt.c
 */
-void				rl_standart_prompt(char *prompt, char **env);
+// void				rl_standart_prompt(char *prompt, char **env);
 /*
 **	rl_init_hash.c
 */
@@ -165,7 +165,7 @@ char				rl_is_start_pos(t_rl_cord cord);
 char				rl_is_end_pos(t_rl_cord cord);
 void				rl_malloc_len(t_rl_buff *buffer, char *c);
 void				rl_is_end_window(t_rl_cord *cord);
-void				rl_check_quotes(char *c, t_readline *rl);
+char				rl_check_empty_line(char *line);
 /*
 **	rl_cur_movements.c
 */

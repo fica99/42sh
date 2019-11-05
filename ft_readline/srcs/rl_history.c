@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 18:15:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:28:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,8 @@ void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
 {
 	short	len;
 	short	i;
-	char	*nl;
 
-	while ((nl = ft_strchr(buffer, '\n')))
-	{
-		*nl = '\0';
-		rl_add_to_history_buff(buffer, history);
-		buffer = nl + 1;
-	}
-	if (!*buffer)
+	if (!buffer || !*buffer)
 		return ;
 	len = history->hist_len;
 	if (len >= history->histsize)
@@ -67,7 +60,7 @@ void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
 			history->history_buff[i] = history->history_buff[i + 1];
 	}
 	else
-		i = ++history->hist_len;
+		i = history->hist_len++;
 	if (!(history->history_buff[i] = ft_strdup(buffer)))
 		rl_err("42sh", "malloc() error", ENOMEM);
 }

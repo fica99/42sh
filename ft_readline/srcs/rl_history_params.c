@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:50:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 18:09:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 14:33:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ char		*rl_get_history_file_path(char **env)
 
 	if ((home = ft_getenv("HOME", env)))
 		return (ft_strjoin(home, RL_HISTORY_FILE));
-	return (NULL);
+	return (ft_strjoin("/", RL_HISTORY_FILE));
 }

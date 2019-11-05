@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 18:18:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 16:38:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
 
 	g_rl.mode = mode;
 	g_rl.env = environ;
-	if (prompt)
-		ft_strcpy(g_rl.prompt, prompt);
-	else
-		rl_standart_prompt(g_rl.prompt, environ);
+	g_rl.prompt = prompt;
 	rl_check_history_size(&g_rl.history, environ);
 	rl_set_non_canon_mode(&g_rl.non_canon_mode);
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
 	rl_set_attr(&g_rl.canon_mode);
+	if (!rl_check_empty_line(buff))
+		ft_strdel(&buff);
 	rl_add_to_history_buff(buff, &g_rl.history);
 	rl_clr_data(&g_rl);
 	return (buff);
 }
 
-void	init_readline(char **env)
+void	init_readline(char **environ)
 {
 	rl_save_attr(&g_rl.canon_mode);
 	rl_init_terminfo();
@@ -41,8 +40,7 @@ void	init_readline(char **env)
 	!RL_SHIFT_LEFT || !RL_SHIFT_RIGHT || !RL_CUR_VIS || !RL_CUR_INVIS ||
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP)
 		rl_err("42sh", "no correct capabilities", UNDEFERR);
-	rl_init_rl_struct(&g_rl);
-	rl_init_history(&g_rl.history, env);
+	rl_init_rl_struct(&g_rl, environ);
 	g_rl.history.hist_index = g_rl.history.hist_len;
 }
 
