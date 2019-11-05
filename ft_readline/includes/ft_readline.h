@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/05 16:42:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/05 19:12:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/ioctl.h>
 # include <signal.h>
 # include <fcntl.h>
+# include <time.h>
 # include "libft.h"
 # include "libhash.h"
 # include "libstr.h"
@@ -45,6 +46,7 @@
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
 # define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC
+# define RL_PROMPT_TIME_BRACKETS 2
 
 typedef struct		s_rl_history
 {
@@ -54,6 +56,7 @@ typedef struct		s_rl_history
 	short			hist_index;
 	short			histsize;
 	short			histfilesize;
+	short			cur_command_nb;
 }					t_rl_history;
 
 typedef enum		e_rl_mode
@@ -128,7 +131,11 @@ void				rl_clr_data(t_readline *rl);
 /*
 **	rl_prompt.c
 */
-// void				rl_standart_prompt(char *prompt, char **env);
+void				rl_write_prompt(char *str, char **env, t_rl_history history);
+short				rl_prompt_user_host(char *str, short i, char **env);
+short				rl_prompt_dir_history(char *str, short i,
+t_rl_history history, char **env);
+short				rl_prompt_colour_name(char *str, short i);
 /*
 **	rl_init_hash.c
 */
@@ -228,6 +235,12 @@ void				rl_win_handler(int sign);
 */
 void				rl_get_hist_size(t_rl_history *history, char **env);
 char				*rl_get_history_file_path(char **env);
+/*
+**	rl_prompt_time.c
+*/
+short				rl_prompt_time(char *str, short i);
+short				rl_check_time_flags(char *str, short i, struct tm *info);
+short				rl_time_format_flag(char *str, short i, struct tm *info);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
