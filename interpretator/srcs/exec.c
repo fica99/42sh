@@ -59,11 +59,13 @@ void	find_command(char **args)
 		err(g_argv[0], "command not found", args[0], NOERROR);
 }
 
-char	check_command(char **args)
+char				check_command(char **args)
 {
-	int			status;
-	struct stat	buf;
+	pid_t				chld_pid;
+	struct stat			buf;
+	struct sigaction 	chld_action;
 
+	chld_interrupt = 0;
 	if (!access(args[0], F_OK))
 	{
 		if (access(args[0], X_OK))
@@ -75,21 +77,17 @@ char	check_command(char **args)
 			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
-		g_chld_pid = make_process();
-		if (g_chld_pid == 0)
+		sigaction_init(&chld_action);
+		chld_pid = make_process();
+		if (chld_pid == 0)
 		{
-			signalling_chld();
 			if (execve(args[0], args, g_env.env) < 0)
 				err_exit(g_argv[0], "execve() error", args[0], NOERROR);
 		}
 		else
 		{
-			signalling();
-			do
-			{
-				waitpid(g_chld_pid, &status, WUNTRACED);
-			} while (!WIFEXITED(status) && !WIFSTOPPED(status));
-				
+			while(!chld_interrupt);
+			
 		}
 		return (TRUE);
 	}
@@ -98,14 +96,15 @@ char	check_command(char **args)
 
 char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 {
+	pid_t			chld_pid;
 	int				status;
 	char			*command_path;
 
 	if (!bin_table ||
 	!(command_path = get_hash_data(bin_table, args[0], bin_table_size)))
 		return (false);
-	g_chld_pid = make_process();
-	if (g_chld_pid == 0)
+	chld_pid = make_process();
+	if (chld_pid == 0)
 	{
 		//signalling_chld();
 		if (execve(command_path, args, g_env.env) < 0)
@@ -114,7 +113,7 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	else
 	{
 		signalling();
-		waitpid(g_chld_pid, &status, 0);
+		waitpid(chld_pid, &status, 0);
 	}
 	return (true);
 }

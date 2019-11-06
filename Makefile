@@ -79,6 +79,7 @@ $(name): $(lib_dir) lall
 	@$(MAKE) --no-print-directory link
 
 link: $(objs)
+	make -C libraries/
 	@$(cc) $(objs) -o $(name) -L $(lib_archive) $(lib_flags)
 	@echo "\033[36mCreate binary file $(CURDIR)/$(name)\033[0m"
 

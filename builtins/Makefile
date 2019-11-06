@@ -17,6 +17,7 @@ srcs := cd.c\
 		unsetenv.c\
 		hash.c\
 		ft_history.c\
+		jobs.c
 
 objs := $(srcs:.c=.o)
 
