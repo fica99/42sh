@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/05 19:12:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/06 17:11:37 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define RL_HISTORY_FILE "/.42sh_history"
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
-# define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC
+# define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
 # define RL_PROMPT_TIME_BRACKETS 2
 
 typedef struct		s_rl_history

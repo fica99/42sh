@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 16:38:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 13:19:30 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	free_readline(void)
 {
 	rl_free_rl_struct(&g_rl);
 	reset_shell_mode();
-	rl_set_attr(&g_rl.canon_mode);
 }
 
 void	rl_err(char *name, char *str, char *err)
