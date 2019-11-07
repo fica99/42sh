@@ -17,6 +17,7 @@ void	init_global_var(char **argv, char **environ)
 	g_argv = argv;
 	init_global_env(&g_env, environ);
 	init_bin_table(&g_bin_table);
+	init_curr_pwd();
 	if (!(g_lexer = load_lexer()))
 		err_exit(g_argv[0], "Error load lexor matrix", LEXER_MATRIX_PATH,
 		NOERROR);
@@ -24,6 +25,7 @@ void	init_global_var(char **argv, char **environ)
 
 void	free_globar_var(void)
 {
+	free(g_curr_dir);
 	clear_lexer(&g_lexer);
 	free_table(&g_bin_table);
 	unset_env_struct(&g_env);
