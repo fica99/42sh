@@ -14,8 +14,18 @@
 # define BUILTINS_H
 
 # define MAXDIR 4097
+# define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
+# define PWD_USAGE "usage: pwd [-LP]"
 
-void			cd(int argc, char **argv, char **env_cp);
+char *g_curr_dir; 					/* containing current logical path or physical if -P is active */
+
+typedef struct s_cdf
+{
+	char		P;
+	char 		L;
+}				t_cdf;
+
+void			cd(char **av);
 void			check_ch_dir(int argc, char **argv);
 char			check_request(char **argv, char *path);
 char			*check_cdpath(char *path);
@@ -25,4 +35,6 @@ void			print_bin_table(t_hash **bin_table, size_t size);
 void			print_history(t_history *history_buff);
 void			set_env(int argc, char **argv, char **env_cp);
 void			unset_env(int argc, char **argv, char **env_cp);
+void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
+
 #endif
