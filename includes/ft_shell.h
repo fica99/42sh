@@ -3,21 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/31 22:55:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/06 16:41:20 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SHELL_H
 # define FT_SHELL_H
 
-# include <termios.h>
 # include <unistd.h>
-# include <curses.h>
-# include <term.h>
-# include <time.h>
 # include <signal.h>
 # include <stdlib.h>
 # include <sys/types.h>
