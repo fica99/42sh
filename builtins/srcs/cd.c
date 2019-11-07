@@ -43,20 +43,19 @@ char	**check_flags(char **av, t_cdf *flags)
 	int j;
 
 	j = 1;
-	i = 1;
+	i = 0;
 	flags->P = 0;
 	flags->L = 0;
 	while (av[j] && av[j][0] == '-')
 	{
-		while (av[j][i])
+		while (av[j][++i])
 		{
-			if (**av == 'L')
+			if (av[j][i] == 'L')
 				flags->L = 1;
-			else if (**av == 'P')
+			else if (av[j][i] == 'P')
 				flags->P = 1;
 			else
 				return (0);
-			i++;
 		}
 		j++;
 		i = 0;
@@ -92,13 +91,13 @@ void	pwd(char **av)
 	char	*dir;
 	t_cdf	flags;
 
-	dir = 0;
 	if (!check_flags(av, &flags))
 		ft_error("42sh", av[0], PWD_USAGE, NULL);
-	if (!flags.P)
-		getwd(dir);
+	if (flags.P)
+		dir = getwd(NULL);
 	else
 		dir = ft_strdup(g_curr_dir);
 	ft_putstr_fd(dir, STDOUT_FILENO);
+	ft_putchar('\n');
 	free(dir);
 }
