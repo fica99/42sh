@@ -39,7 +39,7 @@ void	find_command(char **args)
 
 	len = ft_darlen(args);
 	if (!ft_strcmp(args[0], "cd"))
-		cd(len, args, g_env.env);
+		cd(args);
 	else if (!ft_strcmp(args[0], "echo"))
 		ft_echo(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "env"))
