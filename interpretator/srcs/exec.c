@@ -52,6 +52,8 @@ void	find_command(char **args)
 		print_bin_table(g_bin_table.table, g_bin_table.size);
 	else if (!ft_strcmp(args[0], "history"))
 		print_history(&g_history);
+	else if (!ft_strcmp(args[0], "pwd"))
+		pwd(args);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
 	else if (!check_bin(args, g_bin_table.table,
