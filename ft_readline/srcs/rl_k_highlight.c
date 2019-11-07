@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 16:33:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:27:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	rl_k_shift_left(t_readline *rl)
 	short		start;
 	short		end;
 
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
+		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
@@ -37,6 +39,8 @@ void	rl_k_shift_right(t_readline *rl)
 	short	start;
 	short	end;
 
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
+		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
@@ -84,6 +88,8 @@ void	rl_k_ctrl_x(t_readline *rl)
 	short	end;
 	short	j;
 
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
+		rl_disable_line(rl);
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		return ;
 	rl_k_ctrl_c(rl);
@@ -100,21 +106,18 @@ void	rl_k_ctrl_x(t_readline *rl)
 	while (++j <= end)
 		rl->line.buffer = ft_strdel_el(rl->line.buffer, start);
 	ft_putstr(RL_CLEAR_END_SCREEN);
-	rl_disable_highlight(rl->line.buffer, &rl->cord);
+	rl_disable_line(rl);
 }
 
 void	rl_k_ctrl_v(t_readline *rl)
 {
 	short	pos;
 
-	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
-		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
+		rl_disable_line(rl);
 	pos = rl->cord.pos;
 	rl_malloc_len(&rl->line, rl->copy_buff.buffer);
 	rl->line.buffer = ft_stradd(rl->line.buffer, rl->copy_buff.buffer, pos);
-	ft_putstr(RL_CUR_INVIS);
-	rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
-	rl_go_left(rl->cord.pos - pos, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	rl_disable_line(rl);
 	rl_go_right(ft_strlen(rl->copy_buff.buffer), &rl->cord);
 }

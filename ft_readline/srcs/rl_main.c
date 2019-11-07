@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 19:40:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 22:42:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
 	rl_set_attr(&g_rl.canon_mode);
-	signal(SIGWINCH, NULL);
 	if (!rl_check_empty_line(buff))
 		ft_strdel(&buff);
 	rl_add_to_history_buff(buff, &g_rl.history);
@@ -42,7 +41,6 @@ void	init_readline(char **environ)
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP)
 		rl_err("42sh", "no correct capabilities", UNDEFERR);
 	rl_init_rl_struct(&g_rl, environ);
-	g_rl.history.hist_index = g_rl.history.hist_len;
 }
 
 void	free_readline(void)
@@ -50,7 +48,6 @@ void	free_readline(void)
 	reset_shell_mode();
 	rl_set_attr(&g_rl.canon_mode);
 	rl_free_rl_struct(&g_rl);
-
 }
 
 void	rl_err(char *name, char *str, char *err)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/06 17:11:37 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/07 23:59:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # include "rl_templates.h"
 
 # define MAX_LINE_SIZE 1000
-# define VI_HASH_SIZE 20
-# define RL_HASH_SIZE 20
+# define VI_HASH_SIZE 21
+# define RL_HASH_SIZE 21
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -40,6 +40,7 @@
 # define RL_INIT_FLAGS 0
 # define RL_BREAK_FLAG (1 << 1)
 # define RL_HIGHLIGHT_FLAG (1 << 2)
+# define RL_HISTORY_SEARCH_FLAG (1 << 3)
 # define RL_HISTSIZE 500
 # define RL_HISTFILESIZE 500
 # define RL_HISTORY_FILE "/.42sh_history"
@@ -93,6 +94,7 @@ typedef struct		s_readline
 	t_rl_buff		line;
 	t_rl_buff		save_line;
 	t_rl_buff		copy_buff;
+	t_rl_buff		hist_search;
 	struct termios	canon_mode;
 	struct termios	non_canon_mode;
 	char			*prompt;
@@ -162,9 +164,10 @@ void				rl_start_cord_data(t_rl_cord *cord);
 **	rl_print.c
 */
 void				rl_print(char *str, t_rl_cord *cord);
+void				rl_del_symb(char *buf, t_rl_cord *cord);
 void				rl_print_highlight(char *str, short start,
 short end, t_rl_cord cord);
-void				rl_disable_highlight(char *buffer, t_rl_cord *cord);
+void				rl_disable_line(t_readline *rl);
 /*
 **	rl_check.c
 */
@@ -205,14 +208,10 @@ void				rl_k_ctrl_v(t_readline *rl);
 **	rl_k_spec.c
 */
 void				rl_k_enter(t_readline *rl);
+void				rl_k_ctrl_d(t_readline *rl);
+void				rl_print_symb(char *c, t_readline *rl);
 void				rl_k_del(t_readline *rl);
 void				rl_k_bcsp(t_readline *rl);
-void				rl_k_ctrl_d(t_readline *rl);
-/*
-**	rl_k_symb.c
-*/
-void				rl_del_symb(char *buf, t_rl_cord *cord);
-void				rl_print_symb(char *c, t_readline *rl);
 /*
 **	rl_history.c
 */
@@ -226,6 +225,7 @@ void				rl_check_history_size(t_rl_history *history, char **env);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
+void				rl_k_ctrl_r(t_readline *rl);
 /*
 **	rl_signal.c
 */
@@ -241,6 +241,10 @@ char				*rl_get_history_file_path(char **env);
 short				rl_prompt_time(char *str, short i);
 short				rl_check_time_flags(char *str, short i, struct tm *info);
 short				rl_time_format_flag(char *str, short i, struct tm *info);
+/*
+**	rl_find_history.c
+*/
+void				rl_find_history(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

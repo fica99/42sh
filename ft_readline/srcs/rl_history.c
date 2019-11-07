@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 19:18:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 23:37:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void		rl_make_history_buff(t_rl_history *history)
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
 	history->hist_len = len;
-	history->hist_index = len;
 	history->history_buff = buff;
 	history->cur_command_nb = 1;
 }
@@ -43,7 +42,6 @@ void		rl_free_history(t_rl_history *history)
 	ft_free_dar(buf);
 	ft_strdel(&history->histfile_path);
 	history->history_buff = NULL;
-	history->hist_len = 0;
 }
 
 void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
@@ -98,4 +96,5 @@ void	rl_check_history_size(t_rl_history *history, char **env)
 		history->hist_len = 0;
 		rl_make_history_buff(history);
 	}
+	history->hist_index = history->hist_len;
 }

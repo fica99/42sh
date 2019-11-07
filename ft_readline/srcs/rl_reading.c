@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 19:16:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:04:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*rl_reading(t_readline *rl)
 	signal(SIGWINCH, &rl_win_handler);
 	rl_write_prompt(rl->prompt, rl->env, rl->history);
 	rl_start_cord_data(&rl->cord);
-	rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
 	while (READING)
 	{
 		rl_read_handler(c, STDIN_FILENO);
@@ -64,7 +63,11 @@ void	rl_find_template(t_readline *rl, char *c)
 		size = RL_HASH_SIZE;
 	}
 	if (ft_isprint(*c))
+	{
+		if (g_rl_flags)
+			rl_disable_line(rl);
 		rl_print_symb(c, rl);
+	}
 	else if ((handler = get_hash_data(hash, c, size)))
 		handler(rl);
 }
