@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_history.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 13:05:00 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/07 19:18:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		rl_make_history_buff(t_rl_history *history)
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
 	history->hist_len = len;
+	history->hist_index = len;
 	history->history_buff = buff;
 	history->cur_command_nb = 1;
 }

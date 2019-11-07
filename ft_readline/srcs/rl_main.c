@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 13:19:30 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/07 19:40:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
 	rl_set_attr(&g_rl.canon_mode);
+	signal(SIGWINCH, NULL);
 	if (!rl_check_empty_line(buff))
 		ft_strdel(&buff);
 	rl_add_to_history_buff(buff, &g_rl.history);
@@ -46,8 +47,10 @@ void	init_readline(char **environ)
 
 void	free_readline(void)
 {
-	rl_free_rl_struct(&g_rl);
 	reset_shell_mode();
+	rl_set_attr(&g_rl.canon_mode);
+	rl_free_rl_struct(&g_rl);
+
 }
 
 void	rl_err(char *name, char *str, char *err)

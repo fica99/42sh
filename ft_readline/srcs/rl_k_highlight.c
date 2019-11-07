@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:25:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 16:33:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,16 @@ void	rl_k_ctrl_x(t_readline *rl)
 
 void	rl_k_ctrl_v(t_readline *rl)
 {
+	short	pos;
+
+	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
+		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	pos = rl->cord.pos;
 	rl_malloc_len(&rl->line, rl->copy_buff.buffer);
-	rl_print_symb(rl->copy_buff.buffer, rl);
+	rl->line.buffer = ft_stradd(rl->line.buffer, rl->copy_buff.buffer, pos);
+	ft_putstr(RL_CUR_INVIS);
+	rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
+	rl_go_left(rl->cord.pos - pos, &rl->cord);
+	ft_putstr(RL_CUR_VIS);
+	rl_go_right(ft_strlen(rl->copy_buff.buffer), &rl->cord);
 }

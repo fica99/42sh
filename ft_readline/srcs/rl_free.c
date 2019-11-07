@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 13:06:22 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/07 19:17:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void		rl_clr_data(t_readline *rl)
 	ft_strclr(rl->save_line.buffer);
 	rl_init_cord(&rl->cord);
 	g_rl_flags = RL_INIT_FLAGS;
+	rl->history.hist_index = rl->history.hist_len;
 }
