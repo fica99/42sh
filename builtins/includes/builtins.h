@@ -25,10 +25,10 @@ typedef struct s_cdf
 	char 		L;
 }				t_cdf;
 
+void			pwd(char **av);
 void			cd(char **av);
-void			check_ch_dir(int argc, char **argv);
+void			rewrite(char *path, t_cdf flags);			/* rewrite current logical pwd */
 char			check_request(char **argv, char *path);
-char			*check_cdpath(char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
 void			print_bin_table(t_hash **bin_table, size_t size);
