@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 00:04:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:25:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,21 @@ void	rl_read_handler(char *c, int fd)
 void	rl_find_template(t_readline *rl, char *c)
 {
 	void	(*handler)(t_readline *rl);
-	t_hash	**hash;
-	size_t	size;
 
-	hash = NULL;
-	size = 0;
-	if (rl->mode == VI)
-	{
-		hash = rl->vi_hash;
-		size = VI_HASH_SIZE;
-	}
-	else if (rl->mode == READLINE)
-	{
-		hash = rl->rl_hash;
-		size = RL_HASH_SIZE;
-	}
 	if (ft_isprint(*c))
 	{
 		if (g_rl_flags)
 			rl_disable_line(rl);
 		rl_print_symb(c, rl);
 	}
-	else if ((handler = get_hash_data(hash, c, size)))
-		handler(rl);
+	else
+	{
+		if (rl->mode == VI)
+			handler = get_hash_data(rl->vi_hash, c, VI_HASH_SIZE);
+		else
+			handler = get_hash_data(rl->rl_hash, c, RL_HASH_SIZE);
+		if (handler)
+			handler(rl);
+	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:37:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 17:07:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,4 @@ void		rl_rewrite_file(t_rl_history *history)
 		ft_putendl_fd(history->history_buff[i++], fd);
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
-}
-
-void	rl_check_history_size(t_rl_history *history, char **env)
-{
-	int	histsize;
-
-	histsize = history->histsize;
-	rl_get_hist_size(history, env);
-	if (histsize != history->histsize)
-	{
-		ft_free_dar(history->history_buff);
-		history->history_buff = NULL;
-		history->hist_len = 0;
-		rl_make_history_buff(history);
-	}
-	history->hist_index = history->hist_len;
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/07 23:59:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 18:40:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void				rl_k_ctrl_c(t_readline *rl);
 void				rl_k_ctrl_x(t_readline *rl);
 void				rl_k_ctrl_v(t_readline *rl);
 /*
-**	rl_k_spec.c
+**	rl_k_other.c
 */
 void				rl_k_enter(t_readline *rl);
 void				rl_k_ctrl_d(t_readline *rl);
@@ -219,13 +219,13 @@ void				rl_make_history_buff(t_rl_history *history);
 void				rl_free_history(t_rl_history *history);
 void				rl_rewrite_file(t_rl_history *history);
 void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
-void				rl_check_history_size(t_rl_history *history, char **env);
 /*
 **	rl_k_history.c
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
 void				rl_k_ctrl_r(t_readline *rl);
+void				rl_find_history(t_readline *rl);
 /*
 **	rl_signal.c
 */
@@ -235,16 +235,13 @@ void				rl_win_handler(int sign);
 */
 void				rl_get_hist_size(t_rl_history *history, char **env);
 char				*rl_get_history_file_path(char **env);
+void				rl_check_history_size(t_rl_history *history, char **env);
 /*
 **	rl_prompt_time.c
 */
 short				rl_prompt_time(char *str, short i);
 short				rl_check_time_flags(char *str, short i, struct tm *info);
 short				rl_time_format_flag(char *str, short i, struct tm *info);
-/*
-**	rl_find_history.c
-*/
-void				rl_find_history(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
