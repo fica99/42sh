@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/08 21:09:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 22:42:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define RL_INIT_FLAGS 0
 # define RL_BREAK_FLAG (1 << 1)
 # define RL_HIGHLIGHT_FLAG (1 << 2)
+# define RL_HISTORY_SEARCH_FLAG (1 << 3)
 # define RL_HISTSIZE 500
 # define RL_HISTFILESIZE 500
 # define RL_HISTORY_FILE "/.42sh_history"
@@ -224,6 +225,7 @@ void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
 void				rl_k_ctrl_r(t_readline *rl);
+void				rl_find_history(t_readline *rl, char *c);
 /*
 **	rl_signal.c
 */

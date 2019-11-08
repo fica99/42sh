@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:47:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 21:05:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 22:28:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	rl_disable_line(t_readline *rl)
 {
 	short	pos;
 
+	ft_strclr(rl->hist_search.buffer);
 	rl->cord.highlight_pos = 0;
 	pos = rl->cord.pos;
 	ft_putstr(RL_CUR_INVIS);
