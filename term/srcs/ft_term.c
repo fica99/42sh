@@ -14,7 +14,7 @@
 
 int		main(int argc, char **argv, char **environ)
 {
-	init_global_var(argv, environ);
+	init_shell(argv, environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();
@@ -27,7 +27,6 @@ void	term_start(void)
 
 	make_history_buff(&g_history);
 	save_attr(&g_orig_mode);
-	init_terminfo();
 	init_line(&g_line);
 	while (RUNNING)
 	{

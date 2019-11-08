@@ -36,8 +36,11 @@ void	sigaction_init(struct sigaction *usr_action)
  	usr_action->sa_flags = 0;
   	sigaction(SIGINT, usr_action, NULL);
 	sigaction(SIGQUIT, usr_action, NULL);
-	sigaction(SIGWINCH, usr_action, NULL);
 	sigaction(SIGTSTP, usr_action, NULL);
+	sigaction(SIGTTIN, usr_action, NULL);
+	sigaction(SIGTTOU, usr_action, NULL);
+	sigaction(SIGCHLD, usr_action, NULL);
+	sigaction(SIGWINCH, usr_action, NULL);
 }
 
 void	signalling(void)

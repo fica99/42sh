@@ -21,6 +21,11 @@
 # define DONT_FREE_TABLE_DATA 0
 
 /*
+** init_shell.c
+*/
+void                init_shell(char **argv, char **environ);
+
+/*
 **	ft_term.c
 */
 void				term_start(void);

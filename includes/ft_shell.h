@@ -47,4 +47,5 @@
 # include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
+# include "../jobs/includes/jobs.h"
 #endif

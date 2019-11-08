@@ -44,6 +44,8 @@ dir_prompt := prompt
 
 dir_builtins := builtins
 
+dir_jobs := jobs
+
 srcs := $(wildcard $(addprefix $(dir_bin_table), /**/*.c))\
 		$(wildcard $(addprefix $(dir_builtins), /**/*.c))\
 		$(wildcard $(addprefix $(dir_environ), /**/*.c))\
@@ -56,6 +58,7 @@ srcs := $(wildcard $(addprefix $(dir_bin_table), /**/*.c))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.c))\
 		$(wildcard $(addprefix $(dir_signal), /**/*.c))\
 		$(wildcard $(addprefix $(dir_term), /**/*.c))\
+		$(wildcard $(addprefix $(dir_jobs), /**/*.c))\
 
 objs := $(subst srcs,objs,$(srcs:.c=.o))
 
@@ -70,6 +73,7 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 .PHONY: all loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_error) $(dir_history) $(dir_interpretator)\
 $(dir_lexer) $(dir_read_line) $(dir_parser) $(dir_prompt) $(dir_signal) $(dir_term)\
+$(dir_jobs) \
 lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
@@ -96,6 +100,7 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_prompt)
 	@$(MAKE) --no-print-directory $(dir_signal)
 	@$(MAKE) --no-print-directory $(dir_term)
+	@$(MAKE) --no-print-directory $(dir_jobs)
 
 $(objs):
 	@$(MAKE) --no-print-directory compilation
@@ -135,6 +140,9 @@ $(dir_signal):
 
 $(dir_term):
 	@$(MAKE) --no-print-directory -C $(dir_term)
+
+$(dir_jobs):
+	@$(MAKE) --no-print-directory -C $(dir_jobs)
 
 loadlibs:
 	@echo "\033[32mLoad Libraries\033[0m"
@@ -176,6 +184,7 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_prompt)
 	@$(MAKE) clean --no-print-directory -C $(dir_signal)
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
+	@$(MAKE) clean --no-print-directory -C $(dir_jobs)
 
 clean: $(lib_dir)
 	@$(MAKE) --no-print-directory oclean
