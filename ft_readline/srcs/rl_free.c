@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 13:06:22 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/07 21:21:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	rl_free_rl_struct(t_readline *rl)
 	rl_free_buff(&rl->line);
 	rl_free_buff(&rl->save_line);
 	rl_free_buff(&rl->copy_buff);
+	rl_free_buff(&rl->hist_search);
 	rl_init_cord(&rl->cord);
 	rl->vi_hash = free_hash_table(rl->vi_hash, VI_HASH_SIZE,
 	DONT_FREE_HASH_DATA);
@@ -38,6 +39,8 @@ void		rl_clr_data(t_readline *rl)
 {
 	ft_strclr(rl->line.buffer);
 	ft_strclr(rl->save_line.buffer);
+	ft_strclr(rl->hist_search.buffer);
 	rl_init_cord(&rl->cord);
 	g_rl_flags = RL_INIT_FLAGS;
+	rl->history.hist_index = rl->history.hist_len;
 }

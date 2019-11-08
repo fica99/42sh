@@ -36,21 +36,18 @@ dir_lexer := lexer
 
 dir_environ := environ
 
-
 dir_builtins := builtins
 
-srcs := $(wildcard $(addprefix $(dir_bin_table), /**/*.c))\
-		$(wildcard $(addprefix $(dir_builtins), /**/*.c))\
-		$(wildcard $(addprefix $(dir_environ), /**/*.c))\
-		$(wildcard $(addprefix $(dir_error), /**/*.c))\
-		$(wildcard $(addprefix $(dir_interpretator), /**/*.c))\
-		$(wildcard $(addprefix $(dir_lexer), /**/*.c))\
-		$(wildcard $(addprefix $(dir_ft_readline), /**/*.c))\
-		$(wildcard $(addprefix $(dir_parser), /**/*.c))\
-		$(wildcard $(addprefix $(dir_prompt), /**/*.c))\
-		$(wildcard $(addprefix $(dir_term), /**/*.c))\
-
-objs := $(subst srcs,objs,$(srcs:.c=.o))
+objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
+		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
+		$(wildcard $(addprefix $(dir_environ), /**/*.o))\
+		$(wildcard $(addprefix $(dir_error), /**/*.o))\
+		$(wildcard $(addprefix $(dir_interpretator), /**/*.o))\
+		$(wildcard $(addprefix $(dir_lexer), /**/*.o))\
+		$(wildcard $(addprefix $(dir_ft_readline), /**/*.o))\
+		$(wildcard $(addprefix $(dir_parser), /**/*.o))\
+		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
+		$(wildcard $(addprefix $(dir_term), /**/*.o))\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -71,7 +68,7 @@ $(name): $(lib_dir) lall
 	@$(MAKE) --no-print-directory compilation
 	@$(MAKE) --no-print-directory link
 
-link: $(objs)
+link:
 	@$(cc) $(objs) -o $(name) -L $(lib_archive) $(lib_flags)
 	@echo "\033[36mCreate binary file $(CURDIR)/$(name)\033[0m"
 

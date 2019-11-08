@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:14:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 14:31:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/07 21:18:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void		rl_init_rl_struct(t_readline *rl, char **env)
 	rl_init_buff(&rl->line);
 	rl_init_buff(&rl->copy_buff);
 	rl_init_buff(&rl->save_line);
+	rl_init_buff(&rl->hist_search);
 	rl_init_history(&rl->history, env);
 	g_rl_flags = RL_INIT_FLAGS;
 }

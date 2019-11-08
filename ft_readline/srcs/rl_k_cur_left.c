@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:26:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 00:03:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	rl_k_left(t_readline *rl)
 {
-	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
-		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	if (g_rl_flags)
+		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	rl_go_left(1, &rl->cord);
@@ -23,8 +23,8 @@ void	rl_k_left(t_readline *rl)
 
 void	rl_k_home(t_readline *rl)
 {
-	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
-		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	if (g_rl_flags)
+		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	rl_go_left(rl->cord.pos, &rl->cord);
@@ -36,8 +36,8 @@ void	rl_k_ctrl_up(t_readline *rl)
 	t_rl_cord	cord;
 
 	cord = rl->cord;
-	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
-		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	if (g_rl_flags)
+		rl_disable_line(rl);
 	len = cord.x_cur - cord.x_start + ((cord.y_cur - cord.y_start) *
 	cord.ws_col);
 	if (len - cord.ws_col < 0)
@@ -50,16 +50,14 @@ void	rl_k_ctrl_left(t_readline *rl)
 	short	i;
 	char	*buf;
 
-	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
-		rl_disable_highlight(rl->line.buffer, &rl->cord);
+	if (g_rl_flags)
+		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	i = rl->cord.pos;
 	buf = rl->line.buffer;
 	while (--i > 0)
-	{
 		if (ft_isspace(buf[i - 1]) && ft_isalnum(buf[i]))
 			break ;
-	}
 	rl_go_left(rl->cord.pos- i, &rl->cord);
 }
