@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 17:25:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 21:07:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,24 @@
 
 int		main(int argc, char **argv, char **environ)
 {
+	ft_putstr("*-------------------------------------------------------*\n");
+	ft_putstr("│                                                       │\n");
+	ft_putstr("|\033[0;31m");
+	ft_putstr("             Say hello to my little friend!!!          ");
+	ft_putstr("\033[0m|\n");
+	ft_putstr("|                                                       │\n");
+	ft_putstr("*-------------------------------------------------------*\n");
 	init_global_var(argv, environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();
+	ft_putstr("*-------------------------------------------------------*\n");
+	ft_putstr("│                                                       │\n");
+	ft_putstr("|\033[0;35m");
+	ft_putstr("              Goodbye my love, goodbye!!!              ");
+	ft_putstr("\033[0m|\n");
+	ft_putstr("|                                                       │\n");
+	ft_putstr("*-------------------------------------------------------*\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -26,7 +40,7 @@ void	term_start(void)
 	char	*line;
 	char	*prompt;
 
-	prompt = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\033[0;35m\\$> \033[0m";
+	prompt = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m";
 	init_readline(g_env.env);
 	while (RUNNING)
 	{

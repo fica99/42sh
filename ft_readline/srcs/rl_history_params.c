@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:50:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 17:07:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/08 20:24:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,4 @@ void	rl_check_history_size(t_rl_history *history, char **env)
 		history->hist_len = 0;
 		rl_make_history_buff(history);
 	}
-	history->hist_index = history->hist_len;
 }
