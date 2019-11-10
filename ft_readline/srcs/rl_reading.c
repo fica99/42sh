@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 23:07:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 19:19:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,11 @@ char	*rl_reading(t_readline *rl)
 	while (READING)
 	{
 		rl_read_handler(c, STDIN_FILENO);
-		rl_malloc_len(&rl->line, c);
 		rl_find_template(rl, c);
 		if (g_rl_flags & RL_BREAK_FLAG)
 			break ;
 	}
-	return (rl->line.buffer);
+	return (rl->line);
 }
 
 void	rl_read_handler(char *c, int fd)
@@ -55,9 +54,8 @@ void	rl_find_template(t_readline *rl, char *c)
 		if (rl->mode == VI)
 			handler = get_hash_data(rl->vi_hash, c, VI_HASH_SIZE);
 		else
-			handler = get_hash_data(rl->rl_hash, c, RL_HASH_SIZE);
+			handler = get_hash_data(rl->rl_hash, c, EMACS_HASH_SIZE);
 		if (handler)
 			handler(rl);
 	}
 }
-

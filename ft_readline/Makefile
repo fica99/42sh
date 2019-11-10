@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/08 18:45:22 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/10 14:37:09 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ srcs := rl_main.c\
 	rl_history.c\
 	rl_k_history.c\
 	rl_signal.c\
-	rl_history_params.c\
+	rl_history_init.c\
 	rl_prompt_time.c\
 
 objs := $(srcs:.c=.o)

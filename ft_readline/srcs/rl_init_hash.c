@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 18:26:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 19:19:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ t_hash	**init_vi_hash(void)
 	return (table);
 }
 
-t_hash	**init_rl_hash(void)
+t_hash	**init_emacs_hash(void)
 {
 	t_hash	**table;
 
-	table = init_standart_templates(RL_HASH_SIZE);
+	table = init_standart_templates(EMACS_HASH_SIZE);
 	return (table);
 }
 
@@ -40,9 +40,11 @@ t_hash	**init_standart_templates(int hash_size)
 	table = push_hash(table, RL_K_END, (void*)&rl_k_end, hash_size);
 	table = push_hash(table, RL_K_CTRL_UP, (void*)&rl_k_ctrl_up, hash_size);
 	table = push_hash(table, RL_K_CTRL_DOWN, (void*)&rl_k_ctrl_down, hash_size);
-	table = push_hash(table, RL_K_CTRL_RIGHT, (void*)&rl_k_ctrl_right, hash_size);
+	table = push_hash(table, RL_K_CTRL_RIGHT,
+	(void*)&rl_k_ctrl_right, hash_size);
 	table = push_hash(table, RL_K_CTRL_LEFT, (void*)&rl_k_ctrl_left, hash_size);
-	table = push_hash(table, RL_SHIFT_RIGHT, (void*)&rl_k_shift_right, hash_size);
+	table = push_hash(table, RL_SHIFT_RIGHT,
+	(void*)&rl_k_shift_right, hash_size);
 	table = push_hash(table, RL_SHIFT_LEFT, (void*)&rl_k_shift_left, hash_size);
 	table = push_hash(table, RL_K_DEL, (void*)&rl_k_del, hash_size);
 	table = push_hash(table, RL_K_UP, (void*)&rl_k_up, hash_size);

@@ -6,42 +6,17 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 17:07:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 14:59:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void		rl_make_history_buff(t_rl_history *history)
-{
-	int		fd;
-	char	**buff;
-	short	len;
-
-	if (!(buff = ft_darnew(history->histsize)))
-		rl_err("42sh", "malloc() error", ENOMEM);
-	if ((fd = open(history->histfile_path, RL_OPEN_HISTFILE,
-	RL_PERM_HISTFILE)) == -1)
-		rl_err("42sh", "open() error", UNDEFERR);
-	len = 0;
-	while (len != history->histsize && (get_next_line(fd, &buff[len]) > 0))
-		++len;
-	if (close(fd) == -1)
-		rl_err("42sh", "close() error", UNDEFERR);
-	history->hist_len = len;
-	history->history_buff = buff;
-	history->cur_command_nb = 1;
-}
-
 void		rl_free_history(t_rl_history *history)
 {
-	char	**buf;
-
 	rl_rewrite_file(history);
-	buf = history->history_buff;
-	ft_free_dar(buf);
+	ft_free_dar(history->history_buff);
 	ft_strdel(&history->histfile_path);
-	history->history_buff = NULL;
 }
 
 void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
@@ -76,7 +51,7 @@ void		rl_rewrite_file(t_rl_history *history)
 		rl_err("42sh", "open() error", UNDEFERR);
 	i = 0;
 	if (history->histfilesize < history->hist_len)
-		i += history->hist_len - history->histfilesize;
+		i = history->hist_len - history->histfilesize;
 	while (i < history->histsize && history->history_buff[i])
 		ft_putendl_fd(history->history_buff[i++], fd);
 	if (close(fd) == -1)

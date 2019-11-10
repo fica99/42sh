@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/08 22:42:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 19:21:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@
 # include "rl_colours.h"
 # include "rl_templates.h"
 
-# define MAX_LINE_SIZE 1000
+# define MAX_LINE_SIZE 10000
 # define VI_HASH_SIZE 21
-# define RL_HASH_SIZE 21
+# define EMACS_HASH_SIZE 21
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -62,8 +62,8 @@ typedef struct		s_rl_history
 
 typedef enum		e_rl_mode
 {
-					VI = 1,
-					READLINE = 2
+	VI = 1,
+	EMACS = 2
 }					t_rl_mode;
 
 typedef struct		s_rl_cord
@@ -80,26 +80,20 @@ typedef struct		s_rl_cord
 	short			pos;
 }					t_rl_cord;
 
-typedef struct		s_rl_buff
-{
-	char			*buffer;
-	short			malloc_len;
-}					t_rl_buff;
-
 typedef struct		s_readline
 {
 	t_hash			**vi_hash;
 	t_hash			**rl_hash;
 	t_rl_cord		cord;
-	t_rl_buff		line;
-	t_rl_buff		save_line;
-	t_rl_buff		copy_buff;
-	t_rl_buff		hist_search;
+	char			line[MAX_LINE_SIZE];
+	char			save_line[MAX_LINE_SIZE];
+	char			copy_buff[MAX_LINE_SIZE];
+	char			hist_search[MAX_LINE_SIZE];
 	struct termios	canon_mode;
 	struct termios	non_canon_mode;
 	char			*prompt;
 	char			**env;
-	t_rl_history 	history;
+	t_rl_history	history;
 	t_rl_mode		mode;
 }					t_readline;
 
@@ -121,19 +115,18 @@ void				rl_set_attr(struct termios *savetty);
 */
 void				rl_init_terminfo(void);
 void				rl_init_rl_struct(t_readline *rl, char **env);
-void				rl_init_buff(t_rl_buff *buffer);
 void				rl_init_cord(t_rl_cord *cord);
 void				rl_init_history(t_rl_history *history, char **env);
 /*
 **	rl_free.c
 */
 void				rl_free_rl_struct(t_readline *rl);
-void				rl_free_buff(t_rl_buff *buffer);
 void				rl_clr_data(t_readline *rl);
 /*
 **	rl_prompt.c
 */
-void				rl_write_prompt(char *str, char **env, t_rl_history history);
+void				rl_write_prompt(char *str, char **env,
+t_rl_history history);
 short				rl_prompt_user_host(char *str, short i, char **env);
 short				rl_prompt_dir_history(char *str, short i,
 t_rl_history history, char **env);
@@ -142,7 +135,7 @@ short				rl_prompt_colour_name(char *str, short i);
 **	rl_init_hash.c
 */
 t_hash				**init_vi_hash(void);
-t_hash				**init_rl_hash(void);
+t_hash				**init_emacs_hash(void);
 t_hash				**init_standart_templates(int hash_size);
 t_hash				**init_standart_symb_templates(t_hash **table,
 int hash_size);
@@ -173,7 +166,6 @@ void				rl_disable_line(t_readline *rl);
 */
 char				rl_is_start_pos(t_rl_cord cord);
 char				rl_is_end_pos(t_rl_cord cord);
-void				rl_malloc_len(t_rl_buff *buffer, char *c);
 void				rl_is_end_window(t_rl_cord *cord);
 char				rl_check_empty_line(char *line);
 /*
@@ -218,7 +210,6 @@ void				rl_k_bcsp(t_readline *rl);
 void				rl_make_history_buff(t_rl_history *history);
 void				rl_free_history(t_rl_history *history);
 void				rl_rewrite_file(t_rl_history *history);
-void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 /*
 **	rl_k_history.c
 */
@@ -231,11 +222,12 @@ void				rl_find_history(t_readline *rl, char *c);
 */
 void				rl_win_handler(int sign);
 /*
-**	rl_history_params.c
+**	rl_history_init.c
 */
 void				rl_get_hist_size(t_rl_history *history, char **env);
 char				*rl_get_history_file_path(char **env);
 void				rl_check_history_size(t_rl_history *history, char **env);
+void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 /*
 **	rl_prompt_time.c
 */
