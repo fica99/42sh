@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 15:10:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:31:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	rl_err(char *name, char *str, char *err)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd(err, STDERR_FILENO);
 	}
-	ft_putchar_fd('\n', STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_set_attr(&g_rl.canon_mode);
 	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/10 19:21:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 21:49:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # include "rl_templates.h"
 
 # define MAX_LINE_SIZE 10000
-# define VI_HASH_SIZE 21
-# define EMACS_HASH_SIZE 21
+# define VI_HASH_SIZE 24
+# define EMACS_HASH_SIZE 24
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -161,6 +161,7 @@ void				rl_del_symb(char *buf, t_rl_cord *cord);
 void				rl_print_highlight(char *str, short start,
 short end, t_rl_cord cord);
 void				rl_disable_line(t_readline *rl);
+void				rl_print_hist_search(t_readline *rl);
 /*
 **	rl_check.c
 */
@@ -215,8 +216,6 @@ void				rl_rewrite_file(t_rl_history *history);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
-void				rl_k_ctrl_r(t_readline *rl);
-void				rl_find_history(t_readline *rl, char *c);
 /*
 **	rl_signal.c
 */
@@ -234,6 +233,14 @@ void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 short				rl_prompt_time(char *str, short i);
 short				rl_check_time_flags(char *str, short i, struct tm *info);
 short				rl_time_format_flag(char *str, short i, struct tm *info);
+/*
+**	rl_k_history_search.c
+*/
+void				rl_k_ctrl_r(t_readline *rl);
+void				rl_k_ctrl_j(t_readline *rl);
+void				rl_k_esc(t_readline *rl);
+void				rl_k_ctrl_g(t_readline *rl);
+void				rl_find_history(t_readline *rl, char *c);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

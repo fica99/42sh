@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 19:19:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 20:25:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,11 @@ t_hash	**init_standart_symb_templates(t_hash **table, int hash_size)
 	table = push_hash(table, symb, (void*)&rl_k_ctrl_r, hash_size);
 	symb[0] = RL_K_BCSP;
 	table = push_hash(table, symb, (void*)&rl_k_bcsp, hash_size);
+	symb[0] = RL_K_CTRL_J;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_j, hash_size);
+	symb[0] = RL_K_ESC;
+	table = push_hash(table, symb, (void*)&rl_k_esc, hash_size);
+	symb[0] = RL_K_CTRL_G;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_g, hash_size);
 	return (table);
 }
