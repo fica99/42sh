@@ -76,7 +76,6 @@ void	remove_slashes(void)
 
 void	rewrite(char *path, t_cdf flags)
 {
-	ft_setenv("OLDPWD", ft_getenv("PWD", g_env.env));
 	if (flags.P)
 	{
 		free(g_curr_dir);
@@ -90,10 +89,9 @@ void	rewrite(char *path, t_cdf flags)
 	}
 	else
 		rewrite_global(ft_strsplit(path, '/'));
-	ft_setenv("PWD", g_curr_dir);
 }
 
-int	change_dir(char *path, t_cdf flags)
+int	change_wdir(char *path, t_cdf flags)
 {
 	char *tmp;
 
@@ -105,6 +103,8 @@ int	change_dir(char *path, t_cdf flags)
 		g_curr_dir = tmp;
 		return (-1);
 	}
+	ft_setenv("OLDPWD", ft_getenv("PWD", g_env.env));
+	ft_setenv("PWD", g_curr_dir);
 	free(tmp);
 	return (0);
 }

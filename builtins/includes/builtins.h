@@ -25,7 +25,7 @@ typedef struct s_cdf
 	char 		L;
 }				t_cdf;
 
-int				change_dir(char *path, t_cdf flags);
+int				change_wdir(char *path, t_cdf flags);
 void			pwd(char **av);
 void			cd(char **av);
 void			rewrite(char *path, t_cdf flags);			/* rewrite current logical pwd */
