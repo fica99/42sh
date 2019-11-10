@@ -95,7 +95,8 @@ int	change_wdir(char *path, t_cdf flags)
 {
 	char *tmp;
 
-	tmp = ft_strdup(g_curr_dir);
+	if (!(tmp = ft_strdup(g_curr_dir)))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
 	rewrite(path, flags);
 	if ((chdir(g_curr_dir)) < 0)
 	{
