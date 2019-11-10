@@ -79,11 +79,9 @@ void	cd(char **av)
 	else if (!ft_strcmp(*dir, "-"))
 		path = ft_getenv("OLDPWD", g_env.env);
 	else
-		path = (*dir);
-	if ((chdir(path)) < 0)
+		path = *dir;
+	if ((change_dir(path, flags)) < 0)
 		check_request(av, path);
-	else
-		rewrite(path, flags);
 }
 
 void	pwd(char **av)

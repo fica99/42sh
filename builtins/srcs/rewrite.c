@@ -21,6 +21,8 @@ void	path_back(void)
 		return ;
 	while (g_curr_dir[i] != '/')
 		--i;
+	if (!i)
+		i++;
 	ft_bzero(&g_curr_dir[i], ft_strlen(&g_curr_dir[i]));
 }
 
@@ -89,4 +91,20 @@ void	rewrite(char *path, t_cdf flags)
 	else
 		rewrite_global(ft_strsplit(path, '/'));
 	ft_setenv("PWD", g_curr_dir);
+}
+
+int	change_dir(char *path, t_cdf flags)
+{
+	char *tmp;
+
+	tmp = ft_strdup(g_curr_dir);
+	rewrite(path, flags);
+	if ((chdir(g_curr_dir)) < 0)
+	{
+		free(g_curr_dir);
+		g_curr_dir = tmp;
+		return (-1);
+	}
+	free(tmp);
+	return (0);
 }
