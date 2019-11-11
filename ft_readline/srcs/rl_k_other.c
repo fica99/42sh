@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_k_other.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 23:15:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 12:02:46 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void	rl_k_enter(t_readline *rl)
 {
-	t_rl_cord	cord;
-
 	if (g_rl_flags)
 		rl_disable_line(rl);
-	cord = rl->cord;
 	rl_k_end(rl);
 	ft_putstr(RL_CLEAR_END_SCREEN);
 	ft_putchar('\n');
@@ -28,21 +25,13 @@ void	rl_k_enter(t_readline *rl)
 
 void	rl_k_ctrl_d(t_readline *rl)
 {
-	t_rl_cord	cord;
-
 	if (g_rl_flags)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 	{
 		if (*rl->line == '\0')
 			rl_print(ft_strcpy(rl->line, "exit"), &rl->cord);
-		cord = rl->cord;
-		rl_go_right(cord.x_end - cord.x_cur + ((cord.y_end - cord.y_cur) *
-		cord.ws_col), &rl->cord);
-		ft_putstr(RL_CLEAR_END_SCREEN);
-		ft_putchar('\n');
-		rl_is_end_window(&rl->cord);
-		g_rl_flags |= RL_BREAK_FLAG;
+		rl_k_enter(rl);
 	}
 	else
 		rl_k_del(rl);
