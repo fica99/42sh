@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:08:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 23:21:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:27:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	rl_k_end(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
+	rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
 	cord = rl->cord;
 	len = cord.x_end - cord.x_cur + ((cord.y_end - cord.y_cur) *
 	cord.ws_col);
-	rl_go_right(len, &rl->cord);
+	rl->cord.pos += len;
+	rl->cord.x_cur = rl->cord.x_end;
+	rl->cord.y_cur = rl->cord.y_end;
 }
 
 void	rl_k_ctrl_down(t_readline *rl)
@@ -54,22 +57,19 @@ void	rl_k_ctrl_down(t_readline *rl)
 void	rl_k_ctrl_right(t_readline *rl)
 {
 	short	i;
-	char	*buf;
 
 	if (g_rl_flags)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
-	i = rl->cord.pos;
-	buf = rl->line.buffer;
-	while (buf[i])
+	i = rl->cord.pos - 1;
+	while (rl->line[++i])
 	{
-		if (ft_isspace(buf[i]) && ft_isalnum(buf[i + 1]))
+		if (ft_isspace(rl->line[i]) && ft_isalnum(rl->line[i + 1]))
 		{
-			i++;
+			++i;
 			break ;
 		}
-		i++;
 	}
 	rl_go_right(i - rl->cord.pos, &rl->cord);
 }

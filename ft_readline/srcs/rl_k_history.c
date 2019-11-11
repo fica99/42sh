@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 21:10:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:59:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ void	rl_k_up(t_readline *rl)
 		rl_disable_line(rl);
 	if (!rl->history.hist_index)
 		return ;
-	rl_k_home(rl);
-	if (rl->history.hist_index == rl->history.hist_len)
-	{
-		rl_malloc_len(&rl->save_line, rl->line.buffer + rl->cord.pos);
-		ft_strcpy(rl->save_line.buffer, rl->line.buffer + rl->cord.pos);
-	}
-	rl_malloc_len(&rl->line,
-	rl->history.history_buff[--rl->history.hist_index]);
-	ft_strcpy(rl->line.buffer + rl->cord.pos,
-	rl->history.history_buff[rl->history.hist_index]);
-	rl_disable_line(rl);
-	rl_k_end(rl);
+	if (rl->history.hist_index-- == rl->history.hist_len)
+		ft_strcpy(rl->save_line, rl->line);
+	ft_strcpy(rl->line, rl->history.history_buff[rl->history.hist_index]);
+	rl->cord.x_cur = rl->cord.x_start;
+	rl->cord.y_cur = rl->cord.y_start;
+	rl_set_end_cord(&rl->cord);
+	rl->cord.pos = 0;
+	ft_putstr(RL_CUR_INVIS);
+	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	rl_print(rl->line, &rl->cord);
+	ft_putstr(RL_CUR_VIS);
 }
 
 void	rl_k_down(t_readline *rl)
@@ -40,20 +40,18 @@ void	rl_k_down(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl->history.hist_index == rl->history.hist_len)
 		return ;
-	rl_k_home(rl);
 	if (++(rl->history.hist_index) == rl->history.hist_len)
-		history_buffer = rl->save_line.buffer;
+		history_buffer = rl->save_line;
 	else
-		history_buffer =rl->history.history_buff[rl->history.hist_index];
-	rl_malloc_len(&rl->line, history_buffer);
-	ft_strcpy(rl->line.buffer + rl->cord.pos, history_buffer);
-	rl_disable_line(rl);
-	rl_k_end(rl);
-}
-
-void	rl_k_ctrl_r(t_readline *rl)
-{
-	if (g_rl_flags)
-		rl_disable_line(rl);
-	return ;
+		history_buffer = rl->history.history_buff[rl->history.hist_index];
+	ft_strcpy(rl->line, history_buffer);
+	rl->cord.x_cur = rl->cord.x_start;
+	rl->cord.y_cur = rl->cord.y_start;
+	rl_set_end_cord(&rl->cord);
+	rl->cord.pos = 0;
+	ft_putstr(RL_CUR_INVIS);
+	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	rl_print(rl->line, &rl->cord);
+	ft_putstr(RL_CUR_VIS);
 }

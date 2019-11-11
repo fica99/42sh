@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/11/05 19:36:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:18:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_rl_history history, char **env)
 
 short	rl_prompt_colour_name(char *str, short i)
 {
-	char	colour[LINE_MAX];
+	char	colour[RL_MAX_BUFF];
 	short	j;
 
 	if (!ft_strncmp(str, "\\e", 2))

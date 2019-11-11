@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 20:55:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:31:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
 	g_rl.env = environ;
 	g_rl.prompt = prompt;
 	rl_check_history_size(&g_rl.history, environ);
-	rl_clr_data(&g_rl);
 	rl_set_non_canon_mode(&g_rl.non_canon_mode);
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
@@ -64,7 +63,7 @@ void	rl_err(char *name, char *str, char *err)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd(err, STDERR_FILENO);
 	}
-	ft_putchar_fd('\n', STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
 	rl_set_attr(&g_rl.canon_mode);
 	exit(EXIT_FAILURE);
 }

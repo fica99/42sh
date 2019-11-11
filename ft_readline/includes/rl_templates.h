@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 18:25:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/10 22:31:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@
 # define RL_K_CTRL_V 22
 # define RL_K_CTRL_X 24
 # define RL_K_CTRL_C 3
-# define RL_K_ENTER 10
+# define RL_K_ENTER 13
+# define RL_K_CTRL_J 10
+# define RL_K_CTRL_G 7
+# define RL_K_ESC 27
 # define RL_K_CTRL_H 8
 # define RL_K_CTRL_D 4
 # define RL_K_CTRL_R 18

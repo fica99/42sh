@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:00:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 18:20:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:09:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void		rl_save_attr(struct termios *savetty)
 void		rl_set_non_canon_mode(struct termios *tty)
 {
 	rl_save_attr(tty);
-	tty->c_iflag &= ~(BRKINT | INPCK | ISTRIP | IXON);
+	tty->c_iflag &= ~(BRKINT | INPCK | ISTRIP | IXON | ICRNL);
 	tty->c_lflag &= ~(ICANON | ECHO | IEXTEN | ISIG);
 	tty->c_cflag |= (CS8);
 	tty->c_cc[VMIN] = 0;
-  	tty->c_cc[VTIME] = 1;
+	tty->c_cc[VTIME] = 1;
 	rl_set_attr(tty);
 }
 

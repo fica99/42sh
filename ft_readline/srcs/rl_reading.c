@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/08 20:25:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:18:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*rl_reading(t_readline *rl)
 {
-	char	c[LINE_MAX + 1];
+	char	c[RL_MAX_BUFF + 1];
 
 	signal(SIGWINCH, &rl_win_handler);
 	rl_write_prompt(rl->prompt, rl->env, rl->history);
@@ -22,12 +22,11 @@ char	*rl_reading(t_readline *rl)
 	while (READING)
 	{
 		rl_read_handler(c, STDIN_FILENO);
-		rl_malloc_len(&rl->line, c);
 		rl_find_template(rl, c);
 		if (g_rl_flags & RL_BREAK_FLAG)
 			break ;
 	}
-	return (rl->line.buffer);
+	return (rl->line);
 }
 
 void	rl_read_handler(char *c, int fd)
@@ -35,7 +34,7 @@ void	rl_read_handler(char *c, int fd)
 	short	nb;
 
 	ft_putstr_fd(RL_TRANSMIT_MODE, STDOUT_FILENO);
-	if ((nb = read(fd, c, LINE_MAX)) < 0)
+	if ((nb = read(fd, c, RL_MAX_BUFF)) < 0)
 	{
 		ft_putstr_fd(RL_STOP_TRANSMIT_MODE, STDOUT_FILENO);
 		rl_err("42sh", "read() error", UNDEFERR);
@@ -55,9 +54,8 @@ void	rl_find_template(t_readline *rl, char *c)
 		if (rl->mode == VI)
 			handler = get_hash_data(rl->vi_hash, c, VI_HASH_SIZE);
 		else
-			handler = get_hash_data(rl->rl_hash, c, RL_HASH_SIZE);
+			handler = get_hash_data(rl->rl_hash, c, EMACS_HASH_SIZE);
 		if (handler)
 			handler(rl);
 	}
 }
-
