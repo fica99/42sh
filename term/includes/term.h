@@ -33,4 +33,5 @@ void				free_globar_var(void);
 
 unsigned char	g_flags;
 char			**g_argv;
+
 #endif

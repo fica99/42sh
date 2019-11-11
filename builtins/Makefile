@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/31 22:51:22 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/11 18:59:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ srcs := cd.c\
 		setenv.c\
 		unsetenv.c\
 		hash.c\
+		rewrite.c
 
 objs := $(srcs:.c=.o)
 
