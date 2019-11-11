@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 20:24:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:18:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*rl_reading(t_readline *rl)
 {
-	char	c[LINE_MAX + 1];
+	char	c[RL_MAX_BUFF + 1];
 
 	signal(SIGWINCH, &rl_win_handler);
 	rl_write_prompt(rl->prompt, rl->env, rl->history);
@@ -34,7 +34,7 @@ void	rl_read_handler(char *c, int fd)
 	short	nb;
 
 	ft_putstr_fd(RL_TRANSMIT_MODE, STDOUT_FILENO);
-	if ((nb = read(fd, c, LINE_MAX)) < 0)
+	if ((nb = read(fd, c, RL_MAX_BUFF)) < 0)
 	{
 		ft_putstr_fd(RL_STOP_TRANSMIT_MODE, STDOUT_FILENO);
 		rl_err("42sh", "read() error", UNDEFERR);

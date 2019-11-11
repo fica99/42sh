@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/10 21:49:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:13:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
-# define LINE_MAX 2048
+# define RL_PATH_MAX 2048
+# define RL_MAX_BUFF 1000
 # define RL_INIT_FLAGS 0
 # define RL_BREAK_FLAG (1 << 1)
 # define RL_HIGHLIGHT_FLAG (1 << 2)
@@ -52,7 +53,6 @@
 typedef struct		s_rl_history
 {
 	char			**history_buff;
-	char			*histfile_path;
 	short			hist_len;
 	short			hist_index;
 	short			histsize;
@@ -116,7 +116,6 @@ void				rl_set_attr(struct termios *savetty);
 void				rl_init_terminfo(void);
 void				rl_init_rl_struct(t_readline *rl, char **env);
 void				rl_init_cord(t_rl_cord *cord);
-void				rl_init_history(t_rl_history *history, char **env);
 /*
 **	rl_free.c
 */
@@ -139,6 +138,8 @@ t_hash				**init_emacs_hash(void);
 t_hash				**init_standart_templates(int hash_size);
 t_hash				**init_standart_symb_templates(t_hash **table,
 int hash_size);
+t_hash				**init_standart_symb_templates_more(t_hash **table,
+int hash_size);
 /*
 **	rl_reading.c
 */
@@ -159,7 +160,7 @@ void				rl_start_cord_data(t_rl_cord *cord);
 void				rl_print(char *str, t_rl_cord *cord);
 void				rl_del_symb(char *buf, t_rl_cord *cord);
 void				rl_print_highlight(char *str, short start,
-short end, t_rl_cord cord);
+short end, t_rl_cord *cord);
 void				rl_disable_line(t_readline *rl);
 void				rl_print_hist_search(t_readline *rl);
 /*
@@ -208,9 +209,11 @@ void				rl_k_bcsp(t_readline *rl);
 /*
 **	rl_history.c
 */
-void				rl_make_history_buff(t_rl_history *history);
-void				rl_free_history(t_rl_history *history);
-void				rl_rewrite_file(t_rl_history *history);
+void				rl_free_history(t_rl_history *history, char **env);
+void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
+void				rl_init_history(t_rl_history *history, char **env);
+void				rl_get_hist_size(t_rl_history *history, char **env);
+void				rl_check_history_size(t_rl_history *history, char **env);
 /*
 **	rl_k_history.c
 */
@@ -220,13 +223,6 @@ void				rl_k_down(t_readline *rl);
 **	rl_signal.c
 */
 void				rl_win_handler(int sign);
-/*
-**	rl_history_init.c
-*/
-void				rl_get_hist_size(t_rl_history *history, char **env);
-char				*rl_get_history_file_path(char **env);
-void				rl_check_history_size(t_rl_history *history, char **env);
-void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 /*
 **	rl_prompt_time.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:14:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 19:20:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:07:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,4 @@ void		rl_init_cord(t_rl_cord *cord)
 	cord->highlight_pos = 0;
 	cord->x_end = 0;
 	cord->y_end = 0;
-}
-
-void		rl_init_history(t_rl_history *history, char **env)
-{
-	history->histfile_path = rl_get_history_file_path(env);
-	rl_get_hist_size(history, env);
-	rl_make_history_buff(&g_rl.history);
 }

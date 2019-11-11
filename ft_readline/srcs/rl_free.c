@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 19:20:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:16:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		rl_free_rl_struct(t_readline *rl)
 	DONT_FREE_HASH_DATA);
 	rl->rl_hash = free_hash_table(rl->rl_hash, EMACS_HASH_SIZE,
 	DONT_FREE_HASH_DATA);
-	rl_free_history(&rl->history);
+	rl_free_history(&rl->history, rl->env);
 }
 
 void		rl_clr_data(t_readline *rl)

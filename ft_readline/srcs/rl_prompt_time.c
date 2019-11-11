@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:56:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 19:41:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:22:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,19 @@ short	rl_prompt_time(char *str, short i)
 
 short	rl_check_time_flags(char *str, short i, struct tm *info)
 {
-	char	buffer[LINE_MAX];
+	char	buffer[RL_MAX_BUFF];
 
 	buffer[0] = '\0';
 	if (!ft_strncmp(str + i, "\\A", 2))
-		strftime(buffer, LINE_MAX, "%H:%M", info);
+		strftime(buffer, RL_MAX_BUFF, "%H:%M", info);
 	else if (!ft_strncmp(str + i, "\\t", 2))
-		strftime(buffer, LINE_MAX, "%H:%M:%S", info);
+		strftime(buffer, RL_MAX_BUFF, "%H:%M:%S", info);
 	else if (!ft_strncmp(str + i, "\\T", 2))
-		strftime(buffer, LINE_MAX, "%I:%M:%S", info);
+		strftime(buffer, RL_MAX_BUFF, "%I:%M:%S", info);
 	else if (!ft_strncmp(str + i, "\\@", 2))
-		strftime(buffer, LINE_MAX, "%I:%M %p", info);
+		strftime(buffer, RL_MAX_BUFF, "%I:%M %p", info);
 	else if (!ft_strncmp(str + i, "\\d", 2))
-		strftime(buffer, LINE_MAX, "%a %b %d", info);
+		strftime(buffer, RL_MAX_BUFF, "%a %b %d", info);
 	else if (!ft_strncmp(str + i, "\\D{", 3))
 		i = rl_time_format_flag(str, i, info);
 	else
@@ -52,8 +52,8 @@ short	rl_check_time_flags(char *str, short i, struct tm *info)
 
 short	rl_time_format_flag(char *str, short i, struct tm *info)
 {
-	char	buffer[LINE_MAX];
-	char	format[LINE_MAX];
+	char	buffer[RL_MAX_BUFF];
+	char	format[RL_MAX_BUFF];
 	short	j;
 
 	str = ft_strchr(str + i, '{') + 1;
@@ -64,7 +64,7 @@ short	rl_time_format_flag(char *str, short i, struct tm *info)
 		j++;
 	}
 	format[j] = '\0';
-	strftime(buffer, LINE_MAX, format, info);
+	strftime(buffer, RL_MAX_BUFF, format, info);
 	ft_putstr(buffer);
 	i += (j + RL_PROMPT_TIME_BRACKETS);
 	return (i);

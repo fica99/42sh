@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 20:31:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 23:14:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:05:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,11 @@ void	rl_k_ctrl_r(t_readline *rl)
 		rl_disable_line(rl);
 	if (!(g_rl_flags & RL_HISTORY_SEARCH_FLAG))
 	{
-		rl_go_left(rl->cord.pos, &rl->cord);
-		ft_strcpy(rl->save_line, rl->line + rl->cord.pos);
+		ft_strcpy(rl->save_line, rl->line);
+		rl_print_hist_search(rl);
 	}
 	else
-	{
 		rl_find_history(rl, NULL);
-		return ;
-	}
-	rl_print_hist_search(rl);
-	g_rl_flags |= RL_HISTORY_SEARCH_FLAG;
 }
 
 void	rl_k_ctrl_j(t_readline *rl)
@@ -35,7 +30,14 @@ void	rl_k_ctrl_j(t_readline *rl)
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 		rl_disable_line(rl);
 	else
-		rl_k_enter(rl);
+	{
+		if (g_rl_flags & RL_HIGHLIGHT_FLAG)
+			rl_disable_line(rl);
+		rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
+		ft_putstr(RL_CLEAR_END_SCREEN);
+		ft_putchar('\n');
+		g_rl_flags |= RL_BREAK_FLAG;
+	}
 }
 
 void	rl_k_esc(t_readline *rl)
@@ -46,14 +48,9 @@ void	rl_k_esc(t_readline *rl)
 
 void	rl_k_ctrl_g(t_readline *rl)
 {
-	if (!(g_rl_flags & RL_HISTORY_SEARCH_FLAG))
-		rl_k_enter(rl);
-	else
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 	{
-		rl_go_left(rl->cord.pos, &rl->cord);
-		rl_set_end_cord(&rl->cord);
-		ft_putstr(RL_CLEAR_END_SCREEN);
-		ft_strcpy(rl->line + rl->cord.pos, rl->save_line);
+		ft_strcpy(rl->line, rl->save_line);
 		rl->history.hist_index = rl->history.hist_len;
 		rl_disable_line(rl);
 	}

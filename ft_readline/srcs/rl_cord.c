@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:37:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/10 15:14:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 16:18:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		rl_get_cur_cord(t_rl_cord *cord)
 {
-	char	cur_cord[LINE_MAX + 1];
+	char	cur_cord[RL_MAX_BUFF + 1];
 	char	*pos;
 	short	num;
 

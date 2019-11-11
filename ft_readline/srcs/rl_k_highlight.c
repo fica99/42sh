@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_k_highlight.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 12:26:04 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/11 17:41:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	rl_k_shift_left(t_readline *rl)
 {
 	short		start;
 	short		end;
+	short		pos;
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 		rl_disable_line(rl);
@@ -30,14 +31,17 @@ void	rl_k_shift_left(t_readline *rl)
 		start = end;
 		end = rl->cord.pos - 1;
 	}
-	rl_print_highlight(rl->line, start, end, rl->cord);
-	rl_go_left(1, &rl->cord);
+	pos = rl->cord.pos;
+	rl_go_left(rl->cord.pos, &rl->cord);
+	rl_print_highlight(rl->line, start, end, &rl->cord);
+	rl_go_left(rl->cord.pos - (pos - 1), &rl->cord);
 }
 
 void	rl_k_shift_right(t_readline *rl)
 {
 	short	start;
 	short	end;
+	short	pos;
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 		rl_disable_line(rl);
@@ -52,8 +56,10 @@ void	rl_k_shift_right(t_readline *rl)
 		end = start;
 		start = rl->cord.pos + 1;
 	}
-	rl_print_highlight(rl->line, start, end, rl->cord);
-	rl_go_right(1, &rl->cord);
+	pos = rl->cord.pos;
+	rl_go_left(rl->cord.pos, &rl->cord);
+	rl_print_highlight(rl->line, start, end, &rl->cord);
+	rl_go_left(rl->cord.pos - (pos + 1), &rl->cord);
 }
 
 void	rl_k_ctrl_c(t_readline *rl)
@@ -66,7 +72,10 @@ void	rl_k_ctrl_c(t_readline *rl)
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 	{
 		*rl->line = '\0';
-		rl_k_enter(rl);
+		rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
+		ft_putstr(RL_CLEAR_END_SCREEN);
+		ft_putchar('\n');
+		g_rl_flags |= RL_BREAK_FLAG;
 	}
 	else
 	{
@@ -91,17 +100,15 @@ void	rl_k_ctrl_x(t_readline *rl)
 		rl_disable_line(rl);
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		return ;
-	rl_k_ctrl_c(rl);
-	start = rl->cord.highlight_pos;
-	end = rl->cord.pos;
-	j = start;
-	rl_go_left(end - start, &rl->cord);
+	start = rl->cord.pos;
+	end = rl->cord.highlight_pos;
 	if (end < start)
 	{
 		start = end;
-		end = j;
-		j = start;
+		end = rl->cord.pos;
 	}
+	ft_strncpy(rl->copy_buff, rl->line + start, end - start);
+	j = start;
 	while (++j <= end)
 		ft_strdel_el(rl->line, start);
 	rl_disable_line(rl);
@@ -109,7 +116,14 @@ void	rl_k_ctrl_x(t_readline *rl)
 
 void	rl_k_ctrl_v(t_readline *rl)
 {
+	short	pos;
+
 	if (g_rl_flags)
 		rl_disable_line(rl);
-	rl_print_symb(rl->copy_buff, rl);
+	pos = rl->cord.pos;
+	ft_stradd(rl->line, rl->copy_buff, pos);
+	ft_putstr(RL_CUR_INVIS);
+	rl_print(rl->line + rl->cord.pos, &rl->cord);
+	rl_go_left(rl->cord.pos - pos - ft_strlen(rl->copy_buff), &rl->cord);
+	ft_putstr(RL_CUR_VIS);
 }
