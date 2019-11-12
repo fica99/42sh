@@ -17,8 +17,6 @@ void	path_back(void)
 	int i;
 
 	i = ft_strlen(g_curr_dir) - 1;
-	if (i <= 0)
-		return ;
 	while (g_curr_dir[i] != '/')
 		--i;
 	if (!i)
