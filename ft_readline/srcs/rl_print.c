@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:47:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 12:31:43 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/12 19:30:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void	rl_print(char *str, t_rl_cord *cord)
 			ft_putchar('\n');
 			cord->x_cur = 0;
 			if (cord->y_cur >= cord->ws_row - 1)
-				(cord->y_start)--;
+				--cord->y_start;
 			else
-				(cord->y_cur)++;
+				++cord->y_cur;
 		}
-		str++;
-		cord->pos++;
+		if (cord->y_start < 0)
+		{
+			cord->y_start = 0;
+			cord->x_start = 0;
+		}
+		++str;
+		++cord->pos;
 	}
 	rl_set_end_cord(cord);
 }

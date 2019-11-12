@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:37:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 16:18:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:23:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void		rl_start_cord_data(t_rl_cord *cord)
 	rl_get_win_size(cord);
 	rl_set_start_cord(cord);
 	rl_set_end_cord(cord);
+	cord->pos = 0;
 }

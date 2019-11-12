@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 13:41:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/02 18:58:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 19:34:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		rl_go_left(short i, t_rl_cord *cord)
 	cord->ws_col);
 	if (i > len)
 		i = len;
+	if (i > cord->pos)
+		i = cord->pos;
 	cord->pos -= i;
 	cord->x_cur -= i;
 	while (cord->x_cur < 0)
