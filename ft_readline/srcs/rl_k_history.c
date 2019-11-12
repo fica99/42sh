@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 16:59:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 21:52:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rl_k_up(t_readline *rl)
 	if (!rl->history.hist_index)
 		return ;
 	if (rl->history.hist_index-- == rl->history.hist_len)
-		ft_strcpy(rl->save_line, rl->line);
+		ft_strcpy(rl->history.save_line, rl->line);
 	ft_strcpy(rl->line, rl->history.history_buff[rl->history.hist_index]);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
@@ -34,17 +34,14 @@ void	rl_k_up(t_readline *rl)
 
 void	rl_k_down(t_readline *rl)
 {
-	char	*history_buffer;
-
 	if (g_rl_flags)
 		rl_disable_line(rl);
 	if (rl->history.hist_index == rl->history.hist_len)
 		return ;
 	if (++(rl->history.hist_index) == rl->history.hist_len)
-		history_buffer = rl->save_line;
+		ft_strcpy(rl->line, rl->history.save_line);
 	else
-		history_buffer = rl->history.history_buff[rl->history.hist_index];
-	ft_strcpy(rl->line, history_buffer);
+		ft_strcpy(rl->line, rl->history.history_buff[rl->history.hist_index]);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);

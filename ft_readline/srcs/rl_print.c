@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:47:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 12:31:43 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/12 22:01:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ void	rl_print(char *str, t_rl_cord *cord)
 			ft_putchar('\n');
 			cord->x_cur = 0;
 			if (cord->y_cur >= cord->ws_row - 1)
-				(cord->y_start)--;
+				--cord->y_start;
 			else
-				(cord->y_cur)++;
+				++cord->y_cur;
 		}
-		str++;
-		cord->pos++;
+		if (cord->y_start < 0)
+		{
+			cord->y_start = 0;
+			cord->x_start = 0;
+		}
+		++str;
+		++cord->pos;
 	}
 	rl_set_end_cord(cord);
 }
@@ -73,8 +78,9 @@ void	rl_disable_line(t_readline *rl)
 {
 	short	pos;
 
-	*rl->hist_search = '\0';
 	rl->cord.highlight_pos = 0;
+	*rl->save_line = '\0';
+	*rl->history.search = '\0';
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		g_rl_flags &= ~RL_HIGHLIGHT_FLAG;
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
@@ -101,7 +107,7 @@ void	rl_print_hist_search(t_readline *rl)
 	rl_is_end_window(&rl->cord);
 	rl->cord.x_cur = 0;
 	rl_print("(reverse-i-search): ", &rl->cord);
-	rl_print(rl->hist_search, &rl->cord);
+	rl_print(rl->history.search, &rl->cord);
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
