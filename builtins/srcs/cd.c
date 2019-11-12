@@ -48,6 +48,8 @@ char	**check_flags(char **av, t_cdf *flags)
 	flags->L = 0;
 	while (av[j] && av[j][0] == '-')
 	{
+		if (av[j][i + 1] == 0 || av[j][i + 1] == '-')
+			return (&av[j]);
 		while (av[j][++i])
 		{
 			if (av[j][i] == 'L')
@@ -78,8 +80,9 @@ void	cd(char **av)
 		path = ft_getenv("HOME", g_env.env);
 	else if (!ft_strcmp(*dir, "-"))
 		path = ft_getenv("OLDPWD", g_env.env);
-	else
+	else {
 		path = *dir;
+	}
 	if ((change_wdir(path, flags)) < 0)
 		check_request(av, path);
 }

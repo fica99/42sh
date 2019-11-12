@@ -77,10 +77,7 @@ void	remove_slashes(void)
 void	rewrite(char *path, t_cdf flags)
 {
 	if (flags.P)
-	{
-		free(g_curr_dir);
 		getwd(g_curr_dir);
-	}
 	if (*path == '/')
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
