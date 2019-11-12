@@ -16,5 +16,12 @@ void	env(int argc, char **argv, char **env_cp)
 {
 	(void)argc;
 	(void)argv;
-	ft_putdar_fd(env_cp, STDOUT_FILENO);
+	int j;
+
+	j = -1;
+	while (env_cp[++j])
+	{
+		ft_putstr(env_cp[j]);
+		ft_putchar('\n');
+	}
 }

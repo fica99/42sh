@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/08 19:31:27 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/05 17:13:12 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ repo := https://github.com/OlegMulko/LibProjects42.git
 
 lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
-.PHONY: all loadlibs removelibs compilation link $(dir_bin_table)\
+.PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_error) $(dir_interpretator)\
 $(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term)\
 lall llall llclean llfclean lfclean oclean clean fclean re

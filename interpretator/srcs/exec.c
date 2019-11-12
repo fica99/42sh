@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/31 22:56:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 19:01:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	find_command(char **args)
 
 	len = ft_darlen(args);
 	if (!ft_strcmp(args[0], "cd"))
-		cd(len, args, g_env.env);
+		cd(args);
 	else if (!ft_strcmp(args[0], "echo"))
 		ft_echo(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "env"))
@@ -50,6 +50,8 @@ void	find_command(char **args)
 		unset_env(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "hash") && len == 1)
 		print_bin_table(g_bin_table.table, g_bin_table.size);
+	else if (!ft_strcmp(args[0], "pwd"))
+		pwd(args);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
 	else if (!check_bin(args, g_bin_table.table,

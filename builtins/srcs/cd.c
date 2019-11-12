@@ -6,11 +6,18 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:15:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:58:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+void	init_curr_pwd(void)
+{
+	if (!(g_curr_dir = getwd(NULL)))
+		err_exit(g_argv[0], "getwd() error", NULL, NOERROR);
+	ft_setenv("PWD", g_curr_dir);
+}
 
 char	check_request(char **argv, char *path)
 {
@@ -18,95 +25,80 @@ char	check_request(char **argv, char *path)
 
 	if (path && !access(path, F_OK))
 	{
-		if (stat(path, &buf) < 0)
-			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
+		if ((stat(path, &buf)) < 0)
+			err_exit(g_argv[0], "stat() error", NULL, NOERROR);
 		if (!S_ISDIR(buf.st_mode))
 			err(argv[0], "not a directory", path, NOERROR);
 		else if (access(path, R_OK))
 			err(argv[0], NULL, path, EACCES);
-		else if (chdir(path) == -1)
-			err_exit(g_argv[0], "chdir() error", path, NOERROR);
 		return (TRUE);
 	}
+	err("42sh", argv[0], "no such file or directory", path);
 	return (FALSE);
 }
 
-void	check_ch_dir(int argc, char **argv)
+char	**check_flags(char **av, t_cdf *flags)
 {
+	int i;
+	int j;
+
+	j = 1;
+	i = 0;
+	flags->P = 0;
+	flags->L = 0;
+	while (av[j] && av[j][0] == '-')
+	{
+		if (av[j][i + 1] == 0 || av[j][i + 1] == '-')
+			return (&av[j]);
+		while (av[j][++i])
+		{
+			if (av[j][i] == 'L')
+				flags->L = 1;
+			else if (av[j][i] == 'P')
+				flags->P = 1;
+			else
+				return (0);
+		}
+		j++;
+		i = 0;
+	}
+	return (&av[j]);
+}
+
+void	cd(char **av)
+{
+	char	**dir;
+	t_cdf	flags;
 	char	*path;
 
-	if ((argc == 1 || !ft_strcmp(argv[1], "--")))
-		path = ft_getenv("HOME", g_env.env);
-	else if (!ft_strcmp(argv[1], "-"))
+	if (!(dir = check_flags(av, &flags)))
 	{
-		ft_putstr_fd(path = ft_getenv("OLDPWD", g_env.env), STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	}
-	else
-		path = argv[1];
-	if (!check_request(argv, path))
-	{
-		if ((path = check_cdpath(path)))
-		{
-			(!check_request(argv, path)) ? err(argv[0], NULL, path, ENOENT)
-			: ft_putstr_fd(ft_strcat(path, "\n"), STDOUT_FILENO);
-			ft_memdel((void**)&path);
-			return ;
-		}
-		err(argv[0], NULL, path, ENOENT);
-	}
-}
-
-char	*check_cdpath(char *path)
-{
-	char	**paths;
-	char	*final_path;
-	short	i;
-	char	*cdpath;
-
-	if (!(cdpath = ft_getenv("CDPATH", g_env.env)))
-		return (NULL);
-	if (!(paths = ft_strsplit(cdpath, ':')))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-	if (!(final_path = ft_strnew(FT_PATH_MAX)))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
-	i = -1;
-	while (paths[++i])
-	{
-		ft_strcat(final_path, *paths);
-		ft_strcat(final_path, "/");
-		ft_strcat(final_path, path);
-		if (!access(final_path, F_OK))
-			break ;
-		ft_strclr(final_path);
-	}
-	ft_free_dar(paths);
-	if (!(*final_path))
-		ft_strcat(final_path, path);
-	return (final_path);
-}
-
-void	cd(int argc, char **argv, char **env_cp)
-{
-	char	buf[MAXDIR];
-	char	*pwd;
-
-	(void)env_cp;
-	if (argc >= 3)
-	{
-		if (argc > 3)
-			err(argv[0], "too many arguments", NULL, NOERROR);
-		else if (argc == 3)
-			err(argv[0], "string not in pwd", argv[1], NOERROR);
+		ft_error("42sh", av[0], CD_USAGE, "invalid option\n");
 		return ;
 	}
-	else
-		check_ch_dir(argc, argv);
-	if (!(getcwd(buf, MAXDIR)))
-		err_exit(g_argv[0], "getcwd() error", argv[1], NOERROR);
-	if ((pwd = ft_getenv("PWD", g_env.env)))
-	{
-		ft_setenv("OLDPWD", pwd);
-		ft_setenv("PWD", buf);
+	if (!*dir || !ft_strcmp(*dir, "--"))
+		path = ft_getenv("HOME", g_env.env);
+	else if (!ft_strcmp(*dir, "-"))
+		path = ft_getenv("OLDPWD", g_env.env);
+	else {
+		path = *dir;
 	}
+	if ((change_wdir(path, flags)) < 0)
+		check_request(av, path);
+}
+
+void	pwd(char **av)
+{
+	char	*dir;
+	t_cdf	flags;
+
+	if (!check_flags(av, &flags))
+		ft_error("42sh", av[0], PWD_USAGE, NULL);
+	if (flags.P)
+		dir = getwd(NULL);
+	else
+		dir = ft_strdup(g_curr_dir);
+	ft_putstr_fd(dir, STDOUT_FILENO);
+	ft_putchar('\n');
+	free(dir);
 }

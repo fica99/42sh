@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/04 17:16:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 19:01:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ char	*spec_symbols(char *args)
 
 char	*tilda_expr(char *args)
 {
+	char	*tmp;
 	char	*path;
-	int		index;
+	char	*index;
 
-	if ((path = ft_getenv("HOME", g_env.env)))
+	tmp = args;
+	if ((path = sh_getenv("HOME")))
 	{
-		index = ft_strchr(args, '~') - args;
-		args = ft_strdel_el(args, index);
-		args = ft_stradd(args, path, index);
+		index = ft_strchr(args, '~');
+		args = ft_strjoin(path, index + 1);
+		free(tmp);
 	}
 	return (args);
 }
@@ -55,7 +57,7 @@ char	*dollar_expr(char *args)
 	}
 	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = ft_getenv(spec + 1, g_env.env)))
+	if ((path = sh_getenv(spec + 1)))
 		ft_strcat(var, path);
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);
