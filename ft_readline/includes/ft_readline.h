@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/12 21:29:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 23:50:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,8 @@ void				rl_k_ctrl_r(t_readline *rl);
 void				rl_k_ctrl_j(t_readline *rl);
 void				rl_k_esc(t_readline *rl);
 void				rl_k_ctrl_g(t_readline *rl);
-void				rl_find_history(t_readline *rl, char *c);
+void				rl_find_history(t_readline *rl, char *c,
+short i, char next);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
