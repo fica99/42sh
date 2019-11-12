@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/11 18:13:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 23:50:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@
 typedef struct		s_rl_history
 {
 	char			**history_buff;
+	char			save_line[MAX_LINE_SIZE];
+	char			search[MAX_LINE_SIZE];
 	short			hist_len;
 	short			hist_index;
 	short			histsize;
@@ -86,9 +88,9 @@ typedef struct		s_readline
 	t_hash			**rl_hash;
 	t_rl_cord		cord;
 	char			line[MAX_LINE_SIZE];
-	char			save_line[MAX_LINE_SIZE];
 	char			copy_buff[MAX_LINE_SIZE];
-	char			hist_search[MAX_LINE_SIZE];
+	char			save_line[MAX_LINE_SIZE];
+	short			save_index;
 	struct termios	canon_mode;
 	struct termios	non_canon_mode;
 	char			*prompt;
@@ -236,7 +238,8 @@ void				rl_k_ctrl_r(t_readline *rl);
 void				rl_k_ctrl_j(t_readline *rl);
 void				rl_k_esc(t_readline *rl);
 void				rl_k_ctrl_g(t_readline *rl);
-void				rl_find_history(t_readline *rl, char *c);
+void				rl_find_history(t_readline *rl, char *c,
+short i, char next);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

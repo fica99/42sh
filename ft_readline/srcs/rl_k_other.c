@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 17:46:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 23:49:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	rl_print_symb(char *c, t_readline *rl)
 	short	pos;
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
-	{
-		rl->history.hist_index = rl->history.hist_len;
-		rl_find_history(rl, c);
-	}
+		rl_find_history(rl, c, rl->history.hist_len, 0);
 	else
 	{
 		if (g_rl_flags & RL_HIGHLIGHT_FLAG)
@@ -76,10 +73,9 @@ void	rl_k_bcsp(t_readline *rl)
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 	{
-		rl->history.hist_index = rl->history.hist_len;
-		if ((len = ft_strlen(rl->hist_search)))
-			ft_strdel_el(rl->hist_search, len - 1);
-		rl_find_history(rl, NULL);
+		if ((len = ft_strlen(rl->history.search)))
+			ft_strdel_el(rl->history.search, len - 1);
+		rl_find_history(rl, NULL, rl->history.hist_len, 0);
 	}
 	else
 	{

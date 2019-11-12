@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:47:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 19:30:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:44:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,9 @@ void	rl_disable_line(t_readline *rl)
 {
 	short	pos;
 
-	*rl->hist_search = '\0';
 	rl->cord.highlight_pos = 0;
+	*rl->save_line = '\0';
+	*rl->history.search = '\0';
 	if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 		g_rl_flags &= ~RL_HIGHLIGHT_FLAG;
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
@@ -100,19 +101,22 @@ void	rl_disable_line(t_readline *rl)
 void	rl_print_hist_search(t_readline *rl)
 {
 	ft_putstr(RL_CUR_INVIS);
-	rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
+	rl_go_left(rl->cord.pos, &rl->cord);
+	rl_set_end_cord(&rl->cord);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	rl_print(rl->line, &rl->cord);
 	ft_putstr(RL_CLEAR_END_SCREEN);
 	ft_putchar('\n');
 	rl_is_end_window(&rl->cord);
 	rl->cord.x_cur = 0;
 	rl_print("(reverse-i-search): ", &rl->cord);
-	rl_print(rl->hist_search, &rl->cord);
+	rl_print(rl->history.search, &rl->cord);
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl->cord.pos = 0;
-	rl_print(rl->line, &rl->cord);
 	rl_set_end_cord(&rl->cord);
+	rl_print(rl->line, &rl->cord);
 	ft_putstr(RL_CUR_VIS);
 	g_rl_flags |= RL_HISTORY_SEARCH_FLAG;
 }
