@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:14:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 16:07:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 21:30:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ void		rl_init_rl_struct(t_readline *rl, char **env)
 	rl->rl_hash = init_emacs_hash();
 	rl_init_cord(&rl->cord);
 	ft_bzero((void*)rl->line, MAX_LINE_SIZE);
-	ft_bzero((void*)rl->save_line, MAX_LINE_SIZE);
 	ft_bzero((void*)rl->copy_buff, MAX_LINE_SIZE);
-	ft_bzero((void*)rl->hist_search, MAX_LINE_SIZE);
+	ft_bzero((void*)rl->save_line, MAX_LINE_SIZE);
 	rl_init_history(&rl->history, env);
 	g_rl_flags = RL_INIT_FLAGS;
 }

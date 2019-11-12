@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 17:46:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/12 22:02:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	rl_k_bcsp(t_readline *rl)
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 	{
 		rl->history.hist_index = rl->history.hist_len;
-		if ((len = ft_strlen(rl->hist_search)))
-			ft_strdel_el(rl->hist_search, len - 1);
+		if ((len = ft_strlen(rl->history.search)))
+			ft_strdel_el(rl->history.search, len - 1);
 		rl_find_history(rl, NULL);
 	}
 	else
