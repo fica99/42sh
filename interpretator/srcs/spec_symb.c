@@ -23,14 +23,16 @@ char	*spec_symbols(char *args)
 
 char	*tilda_expr(char *args)
 {
+	char	*tmp;
 	char	*path;
-	int		index;
+	char	*index;
 
+	tmp = args;
 	if ((path = sh_getenv("HOME")))
 	{
-		index = ft_strchr(args, '~') - args;
-		args = ft_strdel_el(args, index);
-		args = ft_stradd(args, path, index);
+		index = ft_strchr(args, '~');
+		args = ft_strjoin(path, index + 1);
+		free(tmp);
 	}
 	return (args);
 }
