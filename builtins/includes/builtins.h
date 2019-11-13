@@ -24,7 +24,7 @@ typedef char t_flag;
 int				change_wdir(char *path, t_flag no_links);
 void			pwd(char **av);
 void			cd(char **av);
-void			rewrite(char *path, t_flag no_links);			/* rewrite current logical pwd */
+void			rewrite_cwd(char *path, t_flag no_links);			/* rewrite current logical pwd */
 char			check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);

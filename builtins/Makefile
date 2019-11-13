@@ -16,7 +16,7 @@ srcs := cd.c\
 		setenv.c\
 		unsetenv.c\
 		hash.c\
-		rewrite.c
+		rewrite_cwd.c
 
 objs := $(srcs:.c=.o)
 

@@ -72,7 +72,7 @@ void	remove_slashes(void)
 	ft_free_dar(tmp);
 }
 
-void	rewrite(char *path, t_flag no_links)
+void	rewrite_cwd(char *path, t_flag no_links)
 {
 	if (no_links || access(g_curr_dir, F_OK))
 		getwd(g_curr_dir);
