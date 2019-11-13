@@ -103,7 +103,7 @@ void	pwd(char **av)
 		if (!(dir = (char *)malloc(MAXDIR)))
 			err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
 		dir[MAXDIR - 1] = 0;
-		if (getcwd(dir, MAXDIR))
+		if (!getcwd(dir, MAXDIR))
 			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
 	}
 	else
