@@ -19,16 +19,12 @@
 
 char *g_curr_dir; 					/* containing current logical path or physical if -P is active */
 
-typedef struct s_cdf
-{
-	char		P;
-	char 		L;
-}				t_cdf;
+typedef char t_flag;
 
-int				change_wdir(char *path, t_cdf flags);
+int				change_wdir(char *path, t_flag no_links);
 void			pwd(char **av);
 void			cd(char **av);
-void			rewrite(char *path, t_cdf flags);			/* rewrite current logical pwd */
+void			rewrite(char *path, t_flag no_links);			/* rewrite current logical pwd */
 char			check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
