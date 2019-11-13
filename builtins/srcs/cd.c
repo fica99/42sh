@@ -92,7 +92,10 @@ void	pwd(char **av)
 	t_flag	no_links;
 
 	if (!check_flags(av, &no_links))
+	{
 		ft_error("42sh", av[0], PWD_USAGE, NULL);
+		return ;
+	}
 	if (no_links)
 		dir = getwd(NULL);
 	else
