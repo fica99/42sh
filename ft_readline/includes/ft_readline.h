@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/12 23:50:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/13 20:44:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include "rl_templates.h"
 
 # define MAX_LINE_SIZE 10000
-# define VI_HASH_SIZE 24
-# define EMACS_HASH_SIZE 24
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -135,12 +133,9 @@ short				rl_prompt_colour_name(char *str, short i);
 /*
 **	rl_init_hash.c
 */
-t_hash				**init_vi_hash(void);
-t_hash				**init_emacs_hash(void);
+t_hash				**init_vi_hash(int hash_size);
 t_hash				**init_standart_templates(int hash_size);
 t_hash				**init_standart_symb_templates(t_hash **table,
-int hash_size);
-t_hash				**init_standart_symb_templates_more(t_hash **table,
 int hash_size);
 /*
 **	rl_reading.c
@@ -240,6 +235,19 @@ void				rl_k_esc(t_readline *rl);
 void				rl_k_ctrl_g(t_readline *rl);
 void				rl_find_history(t_readline *rl, char *c,
 short i, char next);
+/*
+**	rl_emacs_hash.c
+*/
+t_hash				**init_emacs_hash(int hash_size);
+t_hash				**init_emacs_hash_symb(t_hash **table, int hash_size);
+/*
+**	rl_k_emacs.c
+*/
+void				rl_k_ctrl_l(t_readline *rl);
+void				rl_k_ctrl_k(t_readline *rl);
+void				rl_k_ctrl_u(t_readline *rl);
+void				rl_k_alt_d(t_readline *rl);
+void				rl_k_ctrl_w(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

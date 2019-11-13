@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 17:41:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/13 19:53:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,13 @@ void	rl_k_ctrl_v(t_readline *rl)
 
 	if (g_rl_flags)
 		rl_disable_line(rl);
-	pos = rl->cord.pos;
-	ft_stradd(rl->line, rl->copy_buff, pos);
-	ft_putstr(RL_CUR_INVIS);
-	rl_print(rl->line + rl->cord.pos, &rl->cord);
-	rl_go_left(rl->cord.pos - pos - ft_strlen(rl->copy_buff), &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	if (*rl->copy_buff)
+	{
+		pos = rl->cord.pos;
+		ft_stradd(rl->line, rl->copy_buff, pos);
+		ft_putstr(RL_CUR_INVIS);
+		rl_print(rl->line + rl->cord.pos, &rl->cord);
+		rl_go_left(rl->cord.pos - pos - ft_strlen(rl->copy_buff), &rl->cord);
+		ft_putstr(RL_CUR_VIS);
+	}
 }

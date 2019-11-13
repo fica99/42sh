@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 23:49:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/13 17:45:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,25 @@ void	rl_k_ctrl_d(t_readline *rl)
 {
 	if (g_rl_flags)
 		rl_disable_line(rl);
-	if (rl_is_end_pos(rl->cord))
+	if (rl_is_end_pos(rl->cord) && rl_is_start_pos(rl->cord))
 	{
-		if (*rl->line == '\0')
-			rl_print(ft_strcpy(rl->line, "exit"), &rl->cord);
-		rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
+		rl_go_left(rl->cord.pos, &rl->cord);
 		ft_putstr(RL_CLEAR_END_SCREEN);
-		ft_putchar('\n');
-		g_rl_flags |= RL_BREAK_FLAG;
+		rl_print(ft_strcpy(rl->line, "exit"), &rl->cord);
 	}
 	else
-		rl_k_del(rl);
+	{
+		if (rl->mode == EMACS)
+		{
+			if (!rl_is_end_pos(rl->cord))
+				rl_del_symb(rl->line, &rl->cord);
+			return ;
+		}
+	}
+	rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putchar('\n');
+	g_rl_flags |= RL_BREAK_FLAG;
 }
 
 void	rl_print_symb(char *c, t_readline *rl)
