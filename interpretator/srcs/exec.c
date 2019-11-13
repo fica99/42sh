@@ -63,7 +63,7 @@ char				check_command(char **args)
 {
 	pid_t				chld_pid;
 	struct stat			buf;
-	struct sigaction 	chld_action;
+	struct sigaction 	usr_action;
 
 	chld_interrupt = 0;
 	if (!access(args[0], F_OK))
@@ -77,21 +77,24 @@ char				check_command(char **args)
 			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
-		sigaction_init(&chld_action);
+		//usr_action = NULL;
 		chld_pid = make_process();
 		if (chld_pid == 0)
 		{
+			//sigaction_init(&chld_action);
+			//launch_process(NULL, chld_pid, 0);
 			if (execve(args[0], args, g_env.env) < 0)
 				err_exit(g_argv[0], "execve() error", args[0], NOERROR);
 		}
 		else
 		{
-			while(!chld_interrupt);
+			sigaction_set(synch_signal, &usr_action);
+			while(chld_interrupt == 0);
 			
 		}
-		return (TRUE);
+		return (true);
 	}
-	return (FALSE);
+	return (false);
 }
 
 char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
@@ -112,7 +115,7 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	}
 	else
 	{
-		signalling();
+		//signalling();
 		waitpid(chld_pid, &status, 0);
 	}
 	return (true);

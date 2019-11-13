@@ -20,18 +20,20 @@ void	synch_signal(int sig)
 	if (sig == SIGTSTP) {
 		chld_interrupt = 2;
 	}
-	if (sig == SIGQUIT)
+	if (sig == SIGQUIT) {
 		chld_interrupt = 3;
-	if (sig == SIGWINCH)
+	}
+	if (sig == SIGWINCH) {
 		chld_interrupt = 4;
+	}
 }
 
-void	sigaction_init(struct sigaction *usr_action)
+void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action)
 {
 	sigset_t set;
 
 	sigfillset(&set);
-  	usr_action->sa_handler = synch_signal;
+  	usr_action->sa_handler = f;
   	usr_action->sa_mask = set;
  	usr_action->sa_flags = 0;
   	sigaction(SIGINT, usr_action, NULL);

@@ -20,7 +20,7 @@
 */
 
 void	synch_signal(int sig);
-void	sigaction_init(struct sigaction *usr_action);
+void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action);
 void	signalling(void);
 void	signalling_chld(void);
 void 	sighandler_chld(int sign);

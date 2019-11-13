@@ -56,5 +56,4 @@ int job_is_stopped (t_job *j);
 */
 /* Return true if all processes in the job have completed.  */
 int job_is_completed (t_job *j);
-
 #endif

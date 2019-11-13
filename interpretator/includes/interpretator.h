@@ -84,5 +84,7 @@ char	*remove_dquotes(char **buff);
 /*
 **	process.c
 */
+//void    launch_process(t_process *p, pid_t pgid, int foreground);
 pid_t	make_process(void);
+
 #endif
