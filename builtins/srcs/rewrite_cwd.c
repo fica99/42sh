@@ -92,7 +92,7 @@ int	change_wdir(char *path, t_flag no_links)
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	rewrite(path, no_links);
+	rewrite_cwd(path, no_links);
 	if ((chdir(g_curr_dir)) < 0)
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
