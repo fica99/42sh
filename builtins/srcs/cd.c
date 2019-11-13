@@ -37,15 +37,13 @@ char	check_request(char **argv, char *path)
 	return (FALSE);
 }
 
-char	**check_flags(char **av, t_cdf *flags)
+char	**check_flags(char **av, t_flag *no_links)
 {
 	int i;
 	int j;
 
 	j = 1;
 	i = 0;
-	flags->P = 0;
-	flags->L = 0;
 	while (av[j] && av[j][0] == '-')
 	{
 		if (av[j][i + 1] == 0 || av[j][i + 1] == '-')
@@ -53,9 +51,9 @@ char	**check_flags(char **av, t_cdf *flags)
 		while (av[j][++i])
 		{
 			if (av[j][i] == 'L')
-				flags->L = 1;
+				*no_links = 0;
 			else if (av[j][i] == 'P')
-				flags->P = 1;
+				*no_links = 1;
 			else
 				return (0);
 		}
@@ -68,10 +66,11 @@ char	**check_flags(char **av, t_cdf *flags)
 void	cd(char **av)
 {
 	char	**dir;
-	t_cdf	flags;
+	t_flag	no_links;
 	char	*path;
 
-	if (!(dir = check_flags(av, &flags)))
+	no_links = 0;
+	if (!(dir = check_flags(av, &no_links)))
 	{
 		ft_error("42sh", av[0], CD_USAGE, "invalid option\n");
 		return ;
@@ -83,18 +82,18 @@ void	cd(char **av)
 	else {
 		path = *dir;
 	}
-	if ((change_wdir(path, flags)) < 0)
+	if ((change_wdir(path, no_links)) < 0)
 		check_request(av, path);
 }
 
 void	pwd(char **av)
 {
 	char	*dir;
-	t_cdf	flags;
+	t_flag	no_links;
 
-	if (!check_flags(av, &flags))
+	if (!check_flags(av, &no_links))
 		ft_error("42sh", av[0], PWD_USAGE, NULL);
-	if (flags.P)
+	if (no_links)
 		dir = getwd(NULL);
 	else
 		dir = ft_strdup(g_curr_dir);

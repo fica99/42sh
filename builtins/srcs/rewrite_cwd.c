@@ -72,9 +72,9 @@ void	remove_slashes(void)
 	ft_free_dar(tmp);
 }
 
-void	rewrite(char *path, t_cdf flags)
+void	rewrite(char *path, t_flag no_links)
 {
-	if (flags.P)
+	if (no_links || access(g_curr_dir, F_OK))
 		getwd(g_curr_dir);
 	if (*path == '/')
 	{
@@ -86,17 +86,17 @@ void	rewrite(char *path, t_cdf flags)
 		rewrite_global(ft_strsplit(path, '/'));
 }
 
-int	change_wdir(char *path, t_cdf flags)
+int	change_wdir(char *path, t_flag no_links)
 {
 	char *tmp;
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	rewrite(path, flags);
+	rewrite(path, no_links);
 	if ((chdir(g_curr_dir)) < 0)
 	{
-		free(g_curr_dir);
-		g_curr_dir = tmp;
+		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
+		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
 		return (-1);
 	}
 	ft_setenv("OLDPWD", ft_getenv("PWD", g_env.env));
