@@ -77,8 +77,8 @@ void	rewrite_cwd(char *path, t_flag no_links)
 	if (no_links || access(g_curr_dir, F_OK))
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		if (!(getwd(g_curr_dir)))
-			err_exit(g_argv[0], "getwd() error", NULL, NOERROR);
+		if (!(getcwd(g_curr_dir, MAXDIR)))
+			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
 	}
 	if (*path == '/')
 	{

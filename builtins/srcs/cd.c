@@ -16,8 +16,8 @@ void	init_curr_pwd(void)
 {
 	if (!(g_curr_dir = (char *)ft_memalloc(MAXDIR)))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	if (!(g_curr_dir = getwd(g_curr_dir)))
-		err_exit(g_argv[0], "getwd() error", NULL, NOERROR);
+	if (!getcwd(g_curr_dir, MAXDIR))
+		err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
 	ft_setenv("PWD", g_curr_dir);
 }
 
@@ -103,8 +103,8 @@ void	pwd(char **av)
 		if (!(dir = (char *)malloc(MAXDIR)))
 			err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
 		dir[MAXDIR - 1] = 0;
-		if (!(dir = getwd(dir)))
-			err_exit(g_argv[0], "getwd() error", NULL, NOERROR);
+		if (getcwd(dir, MAXDIR))
+			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
 	}
 	else
 		dir = ft_strdup(g_curr_dir);
