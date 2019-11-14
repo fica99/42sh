@@ -1,66 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_k_highlight.c                                   :+:      :+:    :+:   */
+/*   rl_k_cut_copy_paste.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 21:06:23 by aashara-         ###   ########.fr       */
+/*   Created: 2019/11/14 23:13:41 by aashara-          #+#    #+#             */
+/*   Updated: 2019/11/14 23:16:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
-
-void	rl_k_shift_left(t_readline *rl)
-{
-	short		start;
-	short		end;
-	short		pos;
-
-	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
-		rl_disable_line(rl);
-	if (rl_is_start_pos(rl->cord))
-		return ;
-	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
-		rl->cord.highlight_pos = rl->cord.pos;
-	start = rl->cord.pos - 1;
-	end = rl->cord.highlight_pos;
-	if (end < start)
-	{
-		start = end;
-		end = rl->cord.pos - 1;
-	}
-	pos = rl->cord.pos;
-	rl_go_left(rl->cord.pos, &rl->cord);
-	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
-	rl_go_left(rl->cord.pos - (pos - 1), &rl->cord);
-}
-
-void	rl_k_shift_right(t_readline *rl)
-{
-	short	start;
-	short	end;
-	short	pos;
-
-	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
-		rl_disable_line(rl);
-	if (rl_is_end_pos(rl->cord))
-		return ;
-	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
-		rl->cord.highlight_pos = rl->cord.pos;
-	start = rl->cord.highlight_pos;
-	end = rl->cord.pos + 1;
-	if (end < start)
-	{
-		end = start;
-		start = rl->cord.pos + 1;
-	}
-	pos = rl->cord.pos;
-	rl_go_left(rl->cord.pos, &rl->cord);
-	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
-	rl_go_left(rl->cord.pos - (pos + 1), &rl->cord);
-}
 
 void	rl_k_ctrl_c(t_readline *rl)
 {
@@ -133,4 +83,38 @@ void	rl_k_ctrl_v(t_readline *rl)
 		ft_strlen(rl->copy_buff.buffer), &rl->cord);
 		ft_putstr(RL_CUR_VIS);
 	}
+}
+
+void	rl_k_ctrl_k(t_readline *rl)
+{
+	if (g_rl_flags)
+		rl_disable_line(rl);
+	rl_check_str_mem(&rl->copy_buff, rl->line.buffer + rl->cord.pos);
+	ft_strcpy(rl->copy_buff.buffer, rl->line.buffer + rl->cord.pos);
+	ft_strclr(rl->line.buffer + rl->cord.pos);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	rl_set_end_cord(&rl->cord);
+}
+
+void	rl_k_ctrl_u(t_readline *rl)
+{
+	char	*copy;
+
+	if (g_rl_flags)
+		rl_disable_line(rl);
+	if (!(copy = ft_strdup(rl->line.buffer + rl->cord.pos)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	rl->line.buffer[rl->cord.pos] = '\0';
+	rl_check_str_mem(&rl->copy_buff, rl->line.buffer);
+	ft_strcpy(rl->copy_buff.buffer, rl->line.buffer);
+	rl_check_str_mem(&rl->line, copy);
+	ft_strcpy(rl->line.buffer, copy);
+	ft_strdel(&copy);
+	ft_putstr(RL_CUR_INVIS);
+	rl_go_left(rl->cord.pos, &rl->cord);
+	rl_set_end_cord(&rl->cord);
+	ft_putstr(RL_CLEAR_END_SCREEN);
+	rl_print(rl->line.buffer, &rl->cord);
+	rl_go_left(rl->cord.pos, &rl->cord);
+	ft_putstr(RL_CUR_VIS);
 }

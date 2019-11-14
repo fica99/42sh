@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/14 21:26:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 23:53:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "rl_colours.h"
 # include "rl_templates.h"
 
-# define MAX_LINE_SIZE 10
+# define MAX_LINE_SIZE 1000
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -188,6 +188,7 @@ void				rl_k_left(t_readline *line);
 void				rl_k_home(t_readline *rl);
 void				rl_k_ctrl_up(t_readline *rl);
 void				rl_k_ctrl_left(t_readline *rl);
+void				rl_k_shift_left(t_readline *rl);
 /*
 **	rl_k_cur_right.c
 */
@@ -195,14 +196,7 @@ void				rl_k_right(t_readline *rl);
 void				rl_k_end(t_readline *rl);
 void				rl_k_ctrl_down(t_readline *rl);
 void				rl_k_ctrl_right(t_readline *rl);
-/*
-**	rl_k_highlight.c
-*/
-void				rl_k_shift_left(t_readline *rl);
 void				rl_k_shift_right(t_readline *rl);
-void				rl_k_ctrl_c(t_readline *rl);
-void				rl_k_ctrl_x(t_readline *rl);
-void				rl_k_ctrl_v(t_readline *rl);
 /*
 **	rl_k_other.c
 */
@@ -224,6 +218,7 @@ void				rl_check_history_size(t_rl_history *history, char **env);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
+void				rl_k_alt_left(t_readline *rl);
 /*
 **	rl_signal.c
 */
@@ -252,16 +247,24 @@ t_hash				**init_emacs_hash_symb(t_hash **table, int hash_size);
 **	rl_k_emacs.c
 */
 void				rl_k_ctrl_l(t_readline *rl);
-void				rl_k_ctrl_k(t_readline *rl);
-void				rl_k_ctrl_u(t_readline *rl);
 void				rl_k_alt_d(t_readline *rl);
 void				rl_k_ctrl_w(t_readline *rl);
+void				rl_k_alt_t(t_readline *rl);
 /*
 **	rl_str.c
 */
 short				rl_prev_word(char *buff, short pos);
 short				rl_next_word(char *buff, short pos);
 void				rl_clr_buff(t_buff *buff);
+void				rl_k_alt_r(t_readline *rl);
+/*
+**	rl_k_cut_copy_paste.c
+*/
+void				rl_k_ctrl_c(t_readline *rl);
+void				rl_k_ctrl_x(t_readline *rl);
+void				rl_k_ctrl_v(t_readline *rl);
+void				rl_k_ctrl_k(t_readline *rl);
+void				rl_k_ctrl_u(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

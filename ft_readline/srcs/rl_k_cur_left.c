@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 20:13:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 23:15:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,29 @@ void	rl_k_ctrl_left(t_readline *rl)
 		return ;
 	rl_go_left(rl->cord.pos - rl_prev_word(rl->line.buffer,
 	rl->cord.pos), &rl->cord);
+}
+
+void	rl_k_shift_left(t_readline *rl)
+{
+	short		start;
+	short		end;
+	short		pos;
+
+	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
+		rl_disable_line(rl);
+	if (rl_is_start_pos(rl->cord))
+		return ;
+	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
+		rl->cord.highlight_pos = rl->cord.pos;
+	start = rl->cord.pos - 1;
+	end = rl->cord.highlight_pos;
+	if (end < start)
+	{
+		start = end;
+		end = rl->cord.pos - 1;
+	}
+	pos = rl->cord.pos;
+	rl_go_left(rl->cord.pos, &rl->cord);
+	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
+	rl_go_left(rl->cord.pos - (pos - 1), &rl->cord);
 }
