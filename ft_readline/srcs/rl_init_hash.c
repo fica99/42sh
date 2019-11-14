@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/13 18:48:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:15:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_hash	**init_standart_templates(int hash_size)
 	table = push_hash(table, RL_K_CTRL_UP, (void*)&rl_k_ctrl_up, hash_size);
 	table = push_hash(table, RL_K_CTRL_DOWN, (void*)&rl_k_ctrl_down,
 	hash_size);
-	table = push_hash(table, RL_K_CTRL_RIGHT,(void*)&rl_k_ctrl_right,
+	table = push_hash(table, RL_K_CTRL_RIGHT, (void*)&rl_k_ctrl_right,
 	hash_size);
 	table = push_hash(table, RL_K_CTRL_LEFT, (void*)&rl_k_ctrl_left,
 	hash_size);

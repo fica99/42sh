@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:48:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/13 20:43:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 22:13:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ t_hash	**init_emacs_hash_symb(t_hash **table, int hash_size)
 	table = push_hash(table, symb, (void*)&rl_k_ctrl_v, hash_size);
 	return (table);
 }
-

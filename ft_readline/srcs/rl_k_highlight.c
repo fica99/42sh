@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 17:35:44 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/13 19:53:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:06:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	rl_k_shift_left(t_readline *rl)
 	}
 	pos = rl->cord.pos;
 	rl_go_left(rl->cord.pos, &rl->cord);
-	rl_print_highlight(rl->line, start, end, &rl->cord);
+	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
 	rl_go_left(rl->cord.pos - (pos - 1), &rl->cord);
 }
 
@@ -58,20 +58,20 @@ void	rl_k_shift_right(t_readline *rl)
 	}
 	pos = rl->cord.pos;
 	rl_go_left(rl->cord.pos, &rl->cord);
-	rl_print_highlight(rl->line, start, end, &rl->cord);
+	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
 	rl_go_left(rl->cord.pos - (pos + 1), &rl->cord);
 }
 
 void	rl_k_ctrl_c(t_readline *rl)
 {
-	short	start;
-	short	end;
+	short	s;
+	short	e;
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 		rl_disable_line(rl);
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 	{
-		*rl->line = '\0';
+		ft_strclr(rl->line.buffer);
 		rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
 		ft_putstr(RL_CLEAR_END_SCREEN);
 		ft_putchar('\n');
@@ -79,38 +79,40 @@ void	rl_k_ctrl_c(t_readline *rl)
 	}
 	else
 	{
-		start = rl->cord.pos;
-		end = rl->cord.highlight_pos;
-		if (end < start)
+		s = rl->cord.pos;
+		e = rl->cord.highlight_pos;
+		if (e < s)
 		{
-			start = end;
-			end = rl->cord.pos;
+			s = e;
+			e = rl->cord.pos;
 		}
-		ft_strncpy(rl->copy_buff, rl->line + start, end - start);
+		rl_check_str_mem(&rl->copy_buff, rl->line.buffer + s);
+		ft_strncpy(rl->copy_buff.buffer, rl->line.buffer + s, e - s);
 	}
 }
 
 void	rl_k_ctrl_x(t_readline *rl)
 {
-	short	start;
-	short	end;
+	short	s;
+	short	e;
 	short	j;
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 		rl_disable_line(rl);
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		return ;
-	start = rl->cord.pos;
-	end = rl->cord.highlight_pos;
-	if (end < start)
+	s = rl->cord.pos;
+	e = rl->cord.highlight_pos;
+	if (e < s)
 	{
-		start = end;
-		end = rl->cord.pos;
+		s = e;
+		e = rl->cord.pos;
 	}
-	ft_strncpy(rl->copy_buff, rl->line + start, end - start);
-	j = start;
-	while (++j <= end)
-		ft_strdel_el(rl->line, start);
+	rl_check_str_mem(&rl->copy_buff, rl->line.buffer + s);
+	ft_strncpy(rl->copy_buff.buffer, rl->line.buffer + s, e - s);
+	j = s;
+	while (++j <= e)
+		ft_strdel_el(rl->line.buffer, s);
 	rl_disable_line(rl);
 }
 
@@ -120,13 +122,15 @@ void	rl_k_ctrl_v(t_readline *rl)
 
 	if (g_rl_flags)
 		rl_disable_line(rl);
-	if (*rl->copy_buff)
+	if (*rl->copy_buff.buffer)
 	{
 		pos = rl->cord.pos;
-		ft_stradd(rl->line, rl->copy_buff, pos);
+		rl_check_str_mem(&rl->line, rl->copy_buff.buffer);
+		ft_stradd(rl->line.buffer, rl->copy_buff.buffer, pos);
 		ft_putstr(RL_CUR_INVIS);
-		rl_print(rl->line + rl->cord.pos, &rl->cord);
-		rl_go_left(rl->cord.pos - pos - ft_strlen(rl->copy_buff), &rl->cord);
+		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
+		rl_go_left(rl->cord.pos - pos -
+		ft_strlen(rl->copy_buff.buffer), &rl->cord);
 		ft_putstr(RL_CUR_VIS);
 	}
 }

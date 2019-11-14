@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 21:55:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 19:33:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void		rl_free_history(t_rl_history *history, char **env)
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
 	ft_free_dar(history->history_buff);
+	ft_strdel(&history->save_line.buffer);
+	ft_strdel(&history->search.buffer);
 }
 
 void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
@@ -82,8 +84,8 @@ void		rl_init_history(t_rl_history *history, char **env)
 	history->hist_len = len;
 	history->hist_index = len;
 	history->cur_command_nb = 1;
-	ft_bzero((void*)history->save_line, MAX_LINE_SIZE);
-	ft_bzero((void*)history->search, MAX_LINE_SIZE);
+	rl_init_buff(&history->save_line);
+	rl_init_buff(&history->search);
 }
 
 void		rl_get_hist_size(t_rl_history *history, char **env)

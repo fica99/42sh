@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/13 17:45:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/14 21:15:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@ void	rl_k_ctrl_d(t_readline *rl)
 	{
 		rl_go_left(rl->cord.pos, &rl->cord);
 		ft_putstr(RL_CLEAR_END_SCREEN);
-		rl_print(ft_strcpy(rl->line, "exit"), &rl->cord);
+		rl_check_str_mem(&rl->line, "exit");
+		rl_print(ft_strcpy(rl->line.buffer, "exit"), &rl->cord);
 	}
 	else
 	{
 		if (rl->mode == EMACS)
 		{
 			if (!rl_is_end_pos(rl->cord))
-				rl_del_symb(rl->line, &rl->cord);
+				rl_del_symb(rl->line.buffer, &rl->cord);
 			return ;
 		}
 	}
@@ -58,9 +59,10 @@ void	rl_print_symb(char *c, t_readline *rl)
 		if (g_rl_flags & RL_HIGHLIGHT_FLAG)
 			rl_disable_line(rl);
 		pos = rl->cord.pos;
-		ft_stradd(rl->line, c, pos);
+		rl_check_str_mem(&rl->line, c);
+		ft_stradd(rl->line.buffer, c, pos);
 		ft_putstr(RL_CUR_INVIS);
-		rl_print(rl->line + rl->cord.pos, &rl->cord);
+		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
 		rl_go_left(rl->cord.pos - pos - ft_strlen(c), &rl->cord);
 		ft_putstr(RL_CUR_VIS);
 	}
@@ -72,7 +74,7 @@ void	rl_k_del(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
-	rl_del_symb(rl->line, &rl->cord);
+	rl_del_symb(rl->line.buffer, &rl->cord);
 }
 
 void	rl_k_bcsp(t_readline *rl)
@@ -81,8 +83,8 @@ void	rl_k_bcsp(t_readline *rl)
 
 	if (g_rl_flags & RL_HISTORY_SEARCH_FLAG)
 	{
-		if ((len = ft_strlen(rl->history.search)))
-			ft_strdel_el(rl->history.search, len - 1);
+		if ((len = ft_strlen(rl->history.search.buffer)))
+			ft_strdel_el(rl->history.search.buffer, len - 1);
 		rl_find_history(rl, NULL, rl->history.hist_len, 0);
 	}
 	else
@@ -92,6 +94,6 @@ void	rl_k_bcsp(t_readline *rl)
 		if (rl_is_start_pos(rl->cord))
 			return ;
 		rl_go_left(1, &rl->cord);
-		rl_del_symb(rl->line, &rl->cord);
+		rl_del_symb(rl->line.buffer, &rl->cord);
 	}
 }
