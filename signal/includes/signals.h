@@ -18,7 +18,8 @@
 /*
 **	signal.c
 */
-
+/* Set the handling for job control signals back to the default.  */
+void	set_sig_def(void);
 void	synch_signal(int sig);
 void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action);
 void	signalling(void);

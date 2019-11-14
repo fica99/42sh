@@ -84,7 +84,44 @@ char	*remove_dquotes(char **buff);
 /*
 **	process.c
 */
-//void    launch_process(t_process *p, pid_t pgid, int foreground);
+void    launch_process(t_process *p, pid_t pgid, int foreground);
 pid_t	make_process(void);
+/*
+**  job.c
+*/
+void launch_job(job *j, int foreground);
+/*
+**  fg_bg.c
+*/
+/* Put job j in the foreground.  If cont is nonzero,
+   restore the saved terminal modes and send the process group a
+   SIGCONT signal to wake it up before we block.  */
+void put_job_in_foreground (job *j, int cont);
+
+/* Put a job in the background.  If the cont argument is true, send
+   the process group a SIGCONT signal to wake it up.  */
+void put_job_in_background (job *j, int cont);
+
+/*
+**  handle_chld_process.c
+*/
+/* Store the status of the process pid that was returned by waitpid.
+   Return 0 if all went well, nonzero otherwise.  */
+int mark_process_status(pid_t pid, int status);
+
+/* Check for processes that have status information available,
+   without blocking.  */
+void update_status (void);
+
+/** Check for processes that have status information available,
+   blocking until all processes in the given job have reported.  */
+void wait_for_job (job *j);
+
+/* Format information about job status for the user to look at.  */
+void format_job_info(job *j, const char *status);
+
+/* Notify the user about stopped or terminated jobs.
+   Delete terminated jobs from the active job list.  */
+void do_job_notification(void);
 
 #endif

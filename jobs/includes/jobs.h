@@ -38,6 +38,7 @@ int   g_shell_is_interactive;
 */
 /* Grabbing control from terminal, setting group. */
 void    init_jobs(void);
+void    init_signals(void);
 
 /*
 ** find_job.c

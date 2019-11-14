@@ -45,6 +45,16 @@ void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action)
 	sigaction(SIGWINCH, usr_action, NULL);
 }
 
+void	set_sig_def(void)
+{
+	signal (SIGINT, SIG_DFL);
+    signal (SIGQUIT, SIG_DFL);
+    signal (SIGTSTP, SIG_DFL);
+    signal (SIGTTIN, SIG_DFL);
+    signal (SIGTTOU, SIG_DFL);
+    signal (SIGCHLD, SIG_DFL);
+}
+
 void	signalling(void)
 {
 	signal(SIGINT, sighandler);

@@ -20,6 +20,9 @@ srcs := interpretator.c\
 		parse_quotes.c\
 		aggr_fd.c\
 		process.c\
+		job.c\
+		handle_chld_process.c\
+		fg_bg.c\
 
 objs := $(srcs:.c=.o)
 

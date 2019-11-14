@@ -34,6 +34,7 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "../jobs/includes/jobs.h"
 # include "../signal/includes/signals.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"
@@ -47,5 +48,4 @@
 # include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
-# include "../jobs/includes/jobs.h"
 #endif
