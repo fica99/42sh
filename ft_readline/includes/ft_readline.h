@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/15 20:26:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 00:25:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ void				rl_print_hist_search(t_readline *rl);
 */
 char				rl_is_start_pos(t_rl_cord cord);
 char				rl_is_end_pos(t_rl_cord cord);
-void				rl_is_end_window(t_rl_cord *cord);
 char				rl_check_empty_line(char *line);
 void				rl_check_str_mem(t_buff *buffer, char *c);
 /*
@@ -221,7 +220,7 @@ void				rl_check_history_size(t_rl_history *history, char **env);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
-void				rl_k_alt_left(t_readline *rl);
+void				rl_k_alt_point(t_readline *rl);
 /*
 **	rl_signal.c
 */
@@ -239,8 +238,7 @@ void				rl_k_ctrl_r(t_readline *rl);
 void				rl_k_ctrl_j(t_readline *rl);
 void				rl_k_esc(t_readline *rl);
 void				rl_k_ctrl_g(t_readline *rl);
-void				rl_find_history(t_readline *rl, char *c,
-short i, char next);
+void				rl_find_history(t_readline *rl, short i);
 /*
 **	rl_emacs_hash.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:47:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 21:52:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 00:26:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,11 @@ void	rl_print_hist_search(t_readline *rl)
 	rl_set_end_cord(&rl->cord);
 	ft_putstr(RL_CLEAR_END_SCREEN);
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CLEAR_END_SCREEN);
 	ft_putchar('\n');
-	rl_is_end_window(&rl->cord);
+	if (rl->cord.y_cur >= rl->cord.ws_row - 1)
+		--rl->cord.y_start;
+	else
+		++rl->cord.y_cur;
 	rl->cord.x_cur = 0;
 	rl_print("(reverse-i-search): ", &rl->cord);
 	rl_print(rl->history.search.buffer, &rl->cord);
@@ -115,7 +117,6 @@ void	rl_print_hist_search(t_readline *rl)
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl->cord.pos = 0;
-	rl_set_end_cord(&rl->cord);
 	rl_print(rl->line.buffer, &rl->cord);
 	ft_putstr(RL_CUR_VIS);
 	g_rl_flags |= RL_HISTORY_SEARCH_FLAG;

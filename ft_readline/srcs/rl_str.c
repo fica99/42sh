@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:39:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 19:44:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 21:23:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 short	rl_prev_word(char *buff, short pos)
 {
+	++pos;
 	while (--pos > 0)
 		if (ft_isspace(buff[pos - 1]) && ft_isalnum(buff[pos]))
 			return (pos);

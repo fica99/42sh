@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 23:19:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:19:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define RL_K_ALT_F "\033f"
 # define RL_K_ALT_D "\033d"
 # define RL_K_ALT_R "\033r"
-# define RL_K_ALT_LEFT "\033>"
+# define RL_K_ALT_POINT "\033."
 # define RL_K_ALT_T "\033t"
 # define RL_K_CTRL_B 2
 # define RL_K_CTRL_F 6

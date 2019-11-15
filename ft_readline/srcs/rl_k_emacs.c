@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:13:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 20:39:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:45:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void	rl_k_alt_d(t_readline *rl)
 	short	pos;
 	char	*copy;
 
-	if (g_rl_flags)
-		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
 	pos = rl->cord.pos;
@@ -59,8 +57,6 @@ void	rl_k_ctrl_w(t_readline *rl)
 	short	pos;
 	char	*copy;
 
-	if (g_rl_flags)
-		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
 	pos = rl->cord.pos;
@@ -84,24 +80,15 @@ void	rl_k_ctrl_w(t_readline *rl)
 
 void	rl_k_alt_r(t_readline *rl)
 {
-	if (g_rl_flags)
-		rl_disable_line(rl);
 	ft_strclr(rl->line.buffer);
-	ft_putstr(RL_CUR_INVIS);
-	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
-	rl->cord.x_cur = rl->cord.x_start;
-	rl->cord.y_cur = rl->cord.y_start;
-	rl_set_end_cord(&rl->cord);
-	rl->cord.pos = 0;
-	ft_putstr(RL_CLEAR_END_SCREEN);
-	ft_putstr(RL_CUR_VIS);
+	rl_disable_line(rl);
 }
 
 void	rl_k_alt_t(t_readline *rl)
 {
-	char	copy[MAX_LINE_SIZE];
-	char	rl_cur_word[MAX_LINE_SIZE];
-	char	w[MAX_LINE_SIZE];
+	char	copy[10000];
+	char	rl_cur_word[10000];
+	char	w[10000];
 	short	i;
 	short	pos;
 
@@ -115,8 +102,8 @@ void	rl_k_alt_t(t_readline *rl)
 	+ i, '\0') - (rl->line.buffer + i));
 	ft_strncpy(rl_cur_word, rl->line.buffer + i, pos);
 	ft_strcpy(copy, rl->line.buffer + pos + i);
-	if (!(pos = rl_prev_word(rl->line.buffer, --i)))
-		return ;
+	rl->cord.pos = pos + i;
+	pos = rl_prev_word(rl->line.buffer, --i);
 	ft_strcpy(w, rl->line.buffer + pos);
 	ft_strcpy(rl->line.buffer + pos, rl_cur_word);
 	i = rl_count_spaces(ft_strchr(w, ' '));

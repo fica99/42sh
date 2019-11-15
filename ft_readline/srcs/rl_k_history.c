@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 01:14:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 22:18:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	rl_k_down(t_readline *rl)
 	ft_putstr(RL_CUR_VIS);
 }
 
-void	rl_k_alt_left(t_readline *rl)
+void	rl_k_alt_point(t_readline *rl)
 {
 	char	*hist;
 
