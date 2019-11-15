@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 19:33:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:27:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void		rl_free_history(t_rl_history *history, char **env)
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
 	ft_free_dar(history->history_buff);
-	ft_strdel(&history->save_line.buffer);
-	ft_strdel(&history->search.buffer);
 }
 
 void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
@@ -83,9 +81,6 @@ void		rl_init_history(t_rl_history *history, char **env)
 		rl_err("42sh", "close() error", UNDEFERR);
 	history->hist_len = len;
 	history->hist_index = len;
-	history->cur_command_nb = 1;
-	rl_init_buff(&history->save_line);
-	rl_init_buff(&history->search);
 }
 
 void		rl_get_hist_size(t_rl_history *history, char **env)
@@ -106,6 +101,7 @@ void		rl_check_history_size(t_rl_history *history, char **env)
 	int	histsize;
 
 	histsize = history->histsize;
+	++history->cur_command_nb;
 	rl_get_hist_size(history, env);
 	if (histsize != history->histsize)
 	{

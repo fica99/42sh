@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:39:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 00:26:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:44:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ short	rl_next_word(char *buff, short pos)
 {
 	--pos;
 	while (buff[++pos])
-		if (ft_isalnum(buff[pos]) && ft_isspace(buff[pos + 1]))
+		if (ft_isspace(buff[pos]) && ft_isalnum(buff[pos + 1]))
 			return (pos + 1);
 	return (pos);
 }
 
-void	rl_clr_buff(t_buff *buff)
+short	rl_count_spaces(char *buff)
 {
-	ft_strclr(buff->buffer);
-	buff->max_len = 0;
+	short	i;
+
+	i = 0;
+	while (ft_isspace(buff[i]))
+		++i;
+	return (i);
 }

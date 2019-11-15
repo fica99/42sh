@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 21:15:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 19:56:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	rl_print_symb(char *c, t_readline *rl)
 			rl_disable_line(rl);
 		pos = rl->cord.pos;
 		rl_check_str_mem(&rl->line, c);
-		ft_stradd(rl->line.buffer, c, pos);
+		if (!(rl->line.buffer = ft_stradd(rl->line.buffer, c, pos)))
+			rl_err("42sh", "malloc() error", ENOMEM);
 		ft_putstr(RL_CUR_INVIS);
 		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
 		rl_go_left(rl->cord.pos - pos - ft_strlen(c), &rl->cord);

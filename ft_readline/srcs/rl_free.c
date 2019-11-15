@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/14 20:12:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:22:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void		rl_free_rl_struct(t_readline *rl)
 	ft_strdel(&rl->line.buffer);
 	ft_strdel(&rl->save_line.buffer);
 	ft_strdel(&rl->copy_buff.buffer);
+	ft_strdel(&rl->history.save_line.buffer);
+	ft_strdel(&rl->history.search.buffer);
 }
 
 void		rl_clr_data(t_readline *rl)
@@ -34,4 +36,10 @@ void		rl_clr_data(t_readline *rl)
 	rl_init_cord(&rl->cord);
 	g_rl_flags = RL_INIT_FLAGS;
 	rl->history.hist_index = rl->history.hist_len;
+}
+
+void		rl_clr_buff(t_buff *buff)
+{
+	ft_strclr(buff->buffer);
+	buff->max_len = 0;
 }

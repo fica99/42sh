@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/14 23:53:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 20:26:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include "rl_colours.h"
 # include "rl_templates.h"
 
-# define MAX_LINE_SIZE 1000
+# define MAX_LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -47,6 +47,8 @@
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
 # define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
 # define RL_PROMPT_TIME_BRACKETS 2
+# define RL_MIN(a, b) ((a > b) ? b : a)
+# define RL_MAX(a, b) ((a > b) ? a : b)
 
 typedef struct		s_buff
 {
@@ -128,6 +130,7 @@ void				rl_init_buff(t_buff *buffer);
 */
 void				rl_free_rl_struct(t_readline *rl);
 void				rl_clr_data(t_readline *rl);
+void				rl_clr_buff(t_buff *buff);
 /*
 **	rl_prompt.c
 */
@@ -249,14 +252,14 @@ t_hash				**init_emacs_hash_symb(t_hash **table, int hash_size);
 void				rl_k_ctrl_l(t_readline *rl);
 void				rl_k_alt_d(t_readline *rl);
 void				rl_k_ctrl_w(t_readline *rl);
+void				rl_k_alt_r(t_readline *rl);
 void				rl_k_alt_t(t_readline *rl);
 /*
 **	rl_str.c
 */
 short				rl_prev_word(char *buff, short pos);
 short				rl_next_word(char *buff, short pos);
-void				rl_clr_buff(t_buff *buff);
-void				rl_k_alt_r(t_readline *rl);
+short				rl_count_spaces(char *buff);
 /*
 **	rl_k_cut_copy_paste.c
 */
