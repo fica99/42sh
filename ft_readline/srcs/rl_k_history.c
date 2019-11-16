@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 20:09:59 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 23:44:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	rl_k_up(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (!rl->history.hist_index)
 		return ;
@@ -42,7 +43,8 @@ void	rl_k_down(t_readline *rl)
 {
 	char	*hist;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl->history.hist_index == rl->history.hist_len)
 		return ;
@@ -67,7 +69,8 @@ void	rl_k_alt_right(t_readline *rl)
 {
 	char	*hist;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl->history.hist_index == rl->history.hist_len)
 		return ;
@@ -88,7 +91,8 @@ void	rl_k_alt_right(t_readline *rl)
 
 void	rl_k_alt_left(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (!rl->history.hist_index)
 		return ;
