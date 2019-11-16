@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:48:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 19:41:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:46:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_hash	**init_emacs_hash(int hash_size)
 	table = push_hash(table, RL_K_ALT_T, (void*)&rl_k_alt_t, hash_size);
 	table = push_hash(table, RL_K_ALT_U, (void*)&rl_k_alt_u, hash_size);
 	table = push_hash(table, RL_K_ALT_L, (void*)&rl_k_alt_l, hash_size);
+	table = push_hash(table, RL_K_ALT_C, (void*)&rl_k_alt_c, hash_size);
 	return (table);
 }
 
