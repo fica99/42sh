@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/06 16:41:20 by aashara          ###   ########.fr       */
+/*   Updated: 2019/11/16 19:15:29 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@
 # include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
+# include "../calc/includes/calc.h"
 #endif
