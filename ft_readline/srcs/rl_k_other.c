@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 23:44:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:03:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,7 @@ void	rl_k_ctrl_d(t_readline *rl)
 			return ;
 		}
 	}
-	rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
-	ft_putstr(RL_CLEAR_END_SCREEN);
-	ft_putchar('\n');
-	g_rl_flags |= RL_BREAK_FLAG;
+	rl_k_enter(rl);
 }
 
 void	rl_print_symb(char *c, t_readline *rl)
@@ -65,7 +62,7 @@ void	rl_print_symb(char *c, t_readline *rl)
 			rl_disable_line(rl);
 		pos = rl->cord.pos;
 		rl_check_str_mem(&rl->line, c);
-		if (!(rl->line.buffer = ft_stradd(rl->line.buffer, c, pos)))
+		if (!(ft_stradd(rl->line.buffer, c, pos)))
 			rl_err("42sh", "malloc() error", ENOMEM);
 		ft_putstr(RL_CUR_INVIS);
 		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);

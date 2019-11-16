@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 20:22:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 17:19:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void		rl_clr_data(t_readline *rl)
 {
 	rl_clr_buff(&rl->line);
 	rl_clr_buff(&rl->save_line);
-	rl_clr_buff(&rl->copy_buff);
 	rl_clr_buff(&rl->history.save_line);
 	rl_clr_buff(&rl->history.search);
 	rl_init_cord(&rl->cord);

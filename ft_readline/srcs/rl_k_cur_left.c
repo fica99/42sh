@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 00:27:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 16:56:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	rl_k_home(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
-	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
-	rl->cord.x_cur = rl->cord.x_start;
-	rl->cord.y_cur = rl->cord.y_start;
-	rl->cord.pos = 0;
+	rl_go_left(rl->cord.pos, &rl->cord);
 }
 
 void	rl_k_ctrl_up(t_readline *rl)
@@ -77,13 +74,8 @@ void	rl_k_shift_left(t_readline *rl)
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl->cord.highlight_pos = rl->cord.pos;
-	start = rl->cord.pos - 1;
-	end = rl->cord.highlight_pos;
-	if (end < start)
-	{
-		start = end;
-		end = rl->cord.pos - 1;
-	}
+	start = RL_MIN(rl->cord.pos - 1, rl->cord.highlight_pos);
+	end = RL_MAX(rl->cord.pos - 1, rl->cord.highlight_pos);
 	pos = rl->cord.pos;
 	rl_go_left(rl->cord.pos, &rl->cord);
 	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);
