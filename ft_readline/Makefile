@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/11 16:38:28 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/16 18:51:39 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,17 @@ srcs := rl_main.c\
 	rl_k_cur_left.c\
 	rl_cur_movements.c\
 	rl_k_cur_right.c\
-	rl_k_highlight.c\
 	rl_k_other.c\
 	rl_history.c\
 	rl_k_history.c\
 	rl_signal.c\
 	rl_prompt_time.c\
 	rl_k_history_search.c\
+	rl_emacs_hash.c\
+	rl_k_emacs.c\
+	rl_str.c\
+	rl_k_cut_copy_paste.c\
+	rl_k_emacs_other.c\
 
 objs := $(srcs:.c=.o)
 

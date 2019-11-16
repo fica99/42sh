@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 21:55:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/15 14:27:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,6 @@ void		rl_init_history(t_rl_history *history, char **env)
 		rl_err("42sh", "close() error", UNDEFERR);
 	history->hist_len = len;
 	history->hist_index = len;
-	history->cur_command_nb = 1;
-	ft_bzero((void*)history->save_line, MAX_LINE_SIZE);
-	ft_bzero((void*)history->search, MAX_LINE_SIZE);
 }
 
 void		rl_get_hist_size(t_rl_history *history, char **env)
@@ -104,6 +101,7 @@ void		rl_check_history_size(t_rl_history *history, char **env)
 	int	histsize;
 
 	histsize = history->histsize;
+	++history->cur_command_nb;
 	rl_get_hist_size(history, env);
 	if (histsize != history->histsize)
 	{

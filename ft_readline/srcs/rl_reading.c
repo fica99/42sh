@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 17:25:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:34:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*rl_reading(t_readline *rl)
 		if (g_rl_flags & RL_BREAK_FLAG)
 			break ;
 	}
-	return (rl->line);
+	return (rl->line.buffer);
 }
 
 void	rl_read_handler(char *c, int fd)

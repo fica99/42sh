@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/12 23:50:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 20:10:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@
 # include "rl_templates.h"
 
 # define MAX_LINE_SIZE 10000
-# define VI_HASH_SIZE 24
-# define EMACS_HASH_SIZE 24
 # define DONT_FREE_HASH_DATA 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
@@ -49,12 +47,20 @@
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
 # define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
 # define RL_PROMPT_TIME_BRACKETS 2
+# define RL_MIN(a, b) ((a > b) ? b : a)
+# define RL_MAX(a, b) ((a > b) ? a : b)
 
+typedef struct		s_buff
+{
+	char			*buffer;
+	short			malloc_len;
+	short			max_len;
+}					t_buff;
 typedef struct		s_rl_history
 {
 	char			**history_buff;
-	char			save_line[MAX_LINE_SIZE];
-	char			search[MAX_LINE_SIZE];
+	t_buff			save_line;
+	t_buff			search;
 	short			hist_len;
 	short			hist_index;
 	short			histsize;
@@ -87,9 +93,9 @@ typedef struct		s_readline
 	t_hash			**vi_hash;
 	t_hash			**rl_hash;
 	t_rl_cord		cord;
-	char			line[MAX_LINE_SIZE];
-	char			copy_buff[MAX_LINE_SIZE];
-	char			save_line[MAX_LINE_SIZE];
+	t_buff			line;
+	t_buff			copy_buff;
+	t_buff			save_line;
 	short			save_index;
 	struct termios	canon_mode;
 	struct termios	non_canon_mode;
@@ -118,11 +124,13 @@ void				rl_set_attr(struct termios *savetty);
 void				rl_init_terminfo(void);
 void				rl_init_rl_struct(t_readline *rl, char **env);
 void				rl_init_cord(t_rl_cord *cord);
+void				rl_init_buff(t_buff *buffer);
 /*
 **	rl_free.c
 */
 void				rl_free_rl_struct(t_readline *rl);
 void				rl_clr_data(t_readline *rl);
+void				rl_clr_buff(t_buff *buff);
 /*
 **	rl_prompt.c
 */
@@ -135,12 +143,9 @@ short				rl_prompt_colour_name(char *str, short i);
 /*
 **	rl_init_hash.c
 */
-t_hash				**init_vi_hash(void);
-t_hash				**init_emacs_hash(void);
+t_hash				**init_vi_hash(int hash_size);
 t_hash				**init_standart_templates(int hash_size);
 t_hash				**init_standart_symb_templates(t_hash **table,
-int hash_size);
-t_hash				**init_standart_symb_templates_more(t_hash **table,
 int hash_size);
 /*
 **	rl_reading.c
@@ -170,8 +175,8 @@ void				rl_print_hist_search(t_readline *rl);
 */
 char				rl_is_start_pos(t_rl_cord cord);
 char				rl_is_end_pos(t_rl_cord cord);
-void				rl_is_end_window(t_rl_cord *cord);
 char				rl_check_empty_line(char *line);
+void				rl_check_str_mem(t_buff *buffer, char *c);
 /*
 **	rl_cur_movements.c
 */
@@ -185,6 +190,7 @@ void				rl_k_left(t_readline *line);
 void				rl_k_home(t_readline *rl);
 void				rl_k_ctrl_up(t_readline *rl);
 void				rl_k_ctrl_left(t_readline *rl);
+void				rl_k_shift_left(t_readline *rl);
 /*
 **	rl_k_cur_right.c
 */
@@ -192,14 +198,7 @@ void				rl_k_right(t_readline *rl);
 void				rl_k_end(t_readline *rl);
 void				rl_k_ctrl_down(t_readline *rl);
 void				rl_k_ctrl_right(t_readline *rl);
-/*
-**	rl_k_highlight.c
-*/
-void				rl_k_shift_left(t_readline *rl);
 void				rl_k_shift_right(t_readline *rl);
-void				rl_k_ctrl_c(t_readline *rl);
-void				rl_k_ctrl_x(t_readline *rl);
-void				rl_k_ctrl_v(t_readline *rl);
 /*
 **	rl_k_other.c
 */
@@ -221,6 +220,8 @@ void				rl_check_history_size(t_rl_history *history, char **env);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
+void				rl_k_alt_right(t_readline *rl);
+void				rl_k_alt_left(t_readline *rl);
 /*
 **	rl_signal.c
 */
@@ -238,8 +239,43 @@ void				rl_k_ctrl_r(t_readline *rl);
 void				rl_k_ctrl_j(t_readline *rl);
 void				rl_k_esc(t_readline *rl);
 void				rl_k_ctrl_g(t_readline *rl);
-void				rl_find_history(t_readline *rl, char *c,
-short i, char next);
+void				rl_find_history(t_readline *rl, short i);
+/*
+**	rl_emacs_hash.c
+*/
+t_hash				**init_emacs_hash(int hash_size);
+t_hash				**init_emacs_hash_symb(t_hash **table, int hash_size);
+/*
+**	rl_k_emacs.c
+*/
+void				rl_k_ctrl_l(t_readline *rl);
+void				rl_k_alt_d(t_readline *rl);
+void				rl_k_ctrl_w(t_readline *rl);
+void				rl_k_alt_r(t_readline *rl);
+void				rl_k_alt_t(t_readline *rl);
+/*
+**	rl_str.c
+*/
+short				rl_prev_word(char *buff, short pos);
+short				rl_next_word(char *buff, short pos);
+short				rl_count_spaces(char *buff);
+char				rl_isupperchar(char c);
+char				rl_islowerchar(char c);
+/*
+**	rl_k_cut_copy_paste.c
+*/
+void				rl_k_ctrl_c(t_readline *rl);
+void				rl_k_ctrl_x(t_readline *rl);
+void				rl_k_ctrl_v(t_readline *rl);
+void				rl_k_ctrl_k(t_readline *rl);
+void				rl_k_ctrl_u(t_readline *rl);
+/*
+**	rl_k_emacs_other.c
+*/
+void				rl_k_ctrl_t(t_readline *rl);
+void				rl_k_alt_u(t_readline *rl);
+void				rl_k_alt_l(t_readline *rl);
+void				rl_k_alt_c(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
