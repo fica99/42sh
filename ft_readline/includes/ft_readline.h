@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/16 20:01:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 20:10:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,8 +220,8 @@ void				rl_check_history_size(t_rl_history *history, char **env);
 */
 void				rl_k_up(t_readline *rl);
 void				rl_k_down(t_readline *rl);
-void				rl_k_alt_point(t_readline *rl);
-void				rl_k_alt_comma(t_readline *rl);
+void				rl_k_alt_right(t_readline *rl);
+void				rl_k_alt_left(t_readline *rl);
 /*
 **	rl_signal.c
 */
