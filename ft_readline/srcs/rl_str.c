@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 18:39:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 17:30:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 19:19:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,18 @@ short	rl_count_spaces(char *buff)
 	while (ft_isspace(buff[i]))
 		++i;
 	return (i);
+}
+
+char	rl_isupperchar(char c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (TRUE);
+	return (FALSE);
+}
+
+char	rl_islowerchar(char c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (TRUE);
+	return (FALSE);
 }
