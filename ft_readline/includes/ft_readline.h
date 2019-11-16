@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/16 00:25:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:51:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,6 +266,10 @@ void				rl_k_ctrl_x(t_readline *rl);
 void				rl_k_ctrl_v(t_readline *rl);
 void				rl_k_ctrl_k(t_readline *rl);
 void				rl_k_ctrl_u(t_readline *rl);
+/*
+**	rl_k_emacs_other.c
+*/
+void				rl_k_ctrl_t(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

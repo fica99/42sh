@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 18:48:20 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 22:19:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:52:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_hash	**init_emacs_hash(int hash_size)
 	table = init_emacs_hash_symb(table, hash_size);
 	symb[0] = RL_K_CTRL_W;
 	table = push_hash(table, symb, (void*)&rl_k_ctrl_w, hash_size);
+	symb[0] = RL_K_CTRL_T;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_t, hash_size);
 	table = push_hash(table, RL_K_ALT_B, (void*)&rl_k_ctrl_left, hash_size);
 	table = push_hash(table, RL_K_ALT_F, (void*)&rl_k_ctrl_right, hash_size);
 	table = push_hash(table, RL_K_ALT_D, (void*)&rl_k_alt_d, hash_size);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/15 22:19:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 18:33:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define RL_TEMPLATES_H
 
 # define VI_HASH_SIZE 24
-# define EMACS_HASH_SIZE 41
+# define EMACS_HASH_SIZE 42
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
 # define RL_CUR_CORD tigetstr("u7")
@@ -43,6 +43,7 @@
 # define RL_K_CTRL_K 11
 # define RL_K_CTRL_Y 25
 # define RL_K_CTRL_W 23
+# define RL_K_CTRL_T 20
 /*
 **	STANDART
 */
