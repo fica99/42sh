@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 18:34:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 22:22:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*rl_reading(t_readline *rl)
 {
 	char	c[RL_MAX_BUFF + 1];
 
+	if (rl->mode == VI)
+		g_rl_flags |= RL_INPUT_MODE;
 	signal(SIGWINCH, &rl_win_handler);
 	rl_write_prompt(rl->prompt, rl->env, rl->history);
 	rl_start_cord_data(&rl->cord);
@@ -47,7 +49,8 @@ void	rl_find_template(t_readline *rl, char *c)
 {
 	void	(*handler)(t_readline *rl);
 
-	if (ft_isprint(*c))
+
+	if (ft_isprint(*c) && !(g_rl_flags & RL_COMMAND_MODE))
 		rl_print_symb(c, rl);
 	else
 	{

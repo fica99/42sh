@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 16:56:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 23:42:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	rl_k_left(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
@@ -23,7 +24,8 @@ void	rl_k_left(t_readline *rl)
 
 void	rl_k_home(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
@@ -36,7 +38,8 @@ void	rl_k_ctrl_up(t_readline *rl)
 	t_rl_cord	cord;
 
 	cord = rl->cord;
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	len = cord.x_cur - cord.x_start + ((cord.y_cur - cord.y_start) *
 	cord.ws_col);
@@ -50,7 +53,8 @@ void	rl_k_ctrl_left(t_readline *rl)
 	short	pos;
 	char	*buff;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
