@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 23:13:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 17:10:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/16 23:43:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	rl_k_ctrl_c(t_readline *rl)
 
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 	{
-		if (g_rl_flags)
-			rl_disable_line(rl);
 		ft_strclr(rl->line.buffer);
 		rl_k_enter(rl);
 	}
@@ -41,7 +39,8 @@ void	rl_k_ctrl_x(t_readline *rl)
 
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 	{
-		if (g_rl_flags)
+		if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+		(g_rl_flags & RL_HIGHLIGHT_FLAG))
 			rl_disable_line(rl);
 		return ;
 	}
@@ -59,7 +58,8 @@ void	rl_k_ctrl_v(t_readline *rl)
 {
 	short	pos;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (*rl->copy_buff.buffer)
 	{
@@ -77,7 +77,8 @@ void	rl_k_ctrl_v(t_readline *rl)
 
 void	rl_k_ctrl_k(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
@@ -90,7 +91,8 @@ void	rl_k_ctrl_k(t_readline *rl)
 
 void	rl_k_ctrl_u(t_readline *rl)
 {
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:13:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 17:52:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:07:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	rl_k_ctrl_l(t_readline *rl)
 {
 	short	pos;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	pos = rl->cord.pos;
 	ft_putstr(RL_CUR_INVIS);
@@ -32,7 +33,8 @@ void	rl_k_alt_d(t_readline *rl)
 {
 	short	pos;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord))
 		return ;
@@ -54,7 +56,8 @@ void	rl_k_ctrl_w(t_readline *rl)
 {
 	short	pos;
 
-	if (g_rl_flags)
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
@@ -81,8 +84,9 @@ void	rl_k_alt_t(t_readline *rl)
 	short	i;
 	short	pos;
 
-	(ft_isspace(rl->line.buffer[i = rl->cord.pos]) || !rl->line.buffer[i]) ? (i =
-	rl_next_word(rl->line.buffer, i)) : (i = rl_prev_word(rl->line.buffer, i));
+	(ft_isspace(rl->line.buffer[i = rl->cord.pos]) || !rl->line.buffer[i]) ?
+	(i = rl_next_word(rl->line.buffer, i)) :
+	(i = rl_prev_word(rl->line.buffer, i));
 	if (!i || !rl->line.buffer[i])
 		return ;
 	(ft_strchr(rl->line.buffer + i, ' ')) ? (pos = ft_strchr(rl->line.buffer

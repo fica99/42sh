@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 18:34:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:08:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*rl_reading(t_readline *rl)
 {
 	char	c[RL_MAX_BUFF + 1];
 
+	if (rl->mode == VI)
+		g_rl_flags |= RL_VI_INPUT_MODE;
 	signal(SIGWINCH, &rl_win_handler);
 	rl_write_prompt(rl->prompt, rl->env, rl->history);
 	rl_start_cord_data(&rl->cord);
@@ -34,7 +36,9 @@ void	rl_read_handler(char *c, int fd)
 	short	nb;
 
 	ft_putstr_fd(RL_TRANSMIT_MODE, STDOUT_FILENO);
-	if ((nb = read(fd, c, RL_MAX_BUFF)) < 0)
+	while ((nb = read(fd, c, RL_MAX_BUFF)) == 0)
+		continue ;
+	if (nb < 0)
 	{
 		ft_putstr_fd(RL_STOP_TRANSMIT_MODE, STDOUT_FILENO);
 		rl_err("42sh", "read() error", UNDEFERR);
@@ -47,7 +51,7 @@ void	rl_find_template(t_readline *rl, char *c)
 {
 	void	(*handler)(t_readline *rl);
 
-	if (ft_isprint(*c))
+	if (ft_isprint(*c) && !(g_rl_flags & RL_VI_COMMAND_MODE))
 		rl_print_symb(c, rl);
 	else
 	{

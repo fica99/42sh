@@ -6,14 +6,14 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 20:09:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 21:30:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RL_TEMPLATES_H
 # define RL_TEMPLATES_H
 
-# define VI_HASH_SIZE 24
+# define VI_HASH_SIZE 59
 # define EMACS_HASH_SIZE 46
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
@@ -23,6 +23,44 @@
 # define RL_CUR_VIS tigetstr("cvvis")
 # define RL_CLEAR_END_SCREEN tigetstr("ed")
 # define RL_CLEAR_SCREEN tigetstr("clear")
+/*
+**	VI
+*/
+# define RL_K_I_LOWER "i"
+# define RL_K_I_UPPER "I"
+# define RL_K_A_LOWER "a"
+# define RL_K_A_UPPER "A"
+# define RL_K_SHARP "#"
+# define RL_K_J "j"
+# define RL_K_K "k"
+# define RL_K_L "l"
+# define RL_K_H "h"
+# define RL_K_W_LOWER "w"
+# define RL_K_W_UPPER "W"
+# define RL_K_B_LOWER "b"
+# define RL_K_B_UPPER "B"
+# define RL_K_ZERO "0"
+# define RL_K_DOLLAR "$"
+# define RL_K_SPACE " "
+# define RL_K_E_LOWER "e"
+# define RL_K_E_UPPER "E"
+# define RL_K_S_UPPER "S"
+# define RL_K_S_LOWER "s"
+# define RL_K_X_UPPER "X"
+# define RL_K_X_LOWER "x"
+# define RL_K_CARAT "^"
+# define RL_K_V "v"
+# define RL_K_F_LOWER "f"
+# define RL_K_F_UPPER "F"
+# define RL_K_SEMICOLON ";"
+# define RL_K_COMMA ","
+# define RL_K_R_UPPER "R"
+# define RL_K_R_LOWER "r"
+# define RL_K_P_UPPER "P"
+# define RL_K_P_LOWER "p"
+# define RL_K_Y_UPPER "Y"
+# define RL_K_D_UPPER "D"
+# define RL_K_C_UPPER "C"
 /*
 **	EMACS
 */

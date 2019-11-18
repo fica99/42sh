@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 20:31:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 18:17:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:05:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	rl_k_ctrl_j(t_readline *rl)
 
 void	rl_k_esc(t_readline *rl)
 {
-	if (g_rl_flags)
+	if (rl->mode == VI)
+		g_rl_flags |= RL_VI_COMMAND_MODE;
+	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
+	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 }
 
