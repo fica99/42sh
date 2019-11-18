@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:45:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:05:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	rl_k_bcsp(t_readline *rl)
 		if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 		(g_rl_flags & RL_HIGHLIGHT_FLAG))
 			rl_disable_line(rl);
-		if (g_rl_flags & RL_COMMAND_MODE)
+		if (g_rl_flags & RL_VI_COMMAND_MODE)
 			return ;
 		if (rl_is_start_pos(rl->cord))
 			return ;

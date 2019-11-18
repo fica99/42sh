@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:13:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:43:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:07:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void	rl_k_alt_t(t_readline *rl)
 	short	i;
 	short	pos;
 
-	(ft_isspace(rl->line.buffer[i = rl->cord.pos]) || !rl->line.buffer[i]) ? (i =
-	rl_next_word(rl->line.buffer, i)) : (i = rl_prev_word(rl->line.buffer, i));
+	(ft_isspace(rl->line.buffer[i = rl->cord.pos]) || !rl->line.buffer[i]) ?
+	(i = rl_next_word(rl->line.buffer, i)) :
+	(i = rl_prev_word(rl->line.buffer, i));
 	if (!i || !rl->line.buffer[i])
 		return ;
 	(ft_strchr(rl->line.buffer + i, ' ')) ? (pos = ft_strchr(rl->line.buffer

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 21:51:24 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:45:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 15:06:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,28 @@ void	rl_k_i_lower(t_readline *rl)
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
-	g_rl_flags |= RL_INPUT_MODE;
-	g_rl_flags &= ~RL_COMMAND_MODE;
+	g_rl_flags |= RL_VI_INPUT_MODE;
+	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 }
 
 void	rl_k_i_upper(t_readline *rl)
 {
-	g_rl_flags |= RL_INPUT_MODE;
-	g_rl_flags &= ~RL_COMMAND_MODE;
+	g_rl_flags |= RL_VI_INPUT_MODE;
+	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 	rl_k_home(rl);
 }
 
 void	rl_k_a_lower(t_readline *rl)
 {
-	g_rl_flags |= RL_INPUT_MODE;
-	g_rl_flags &= ~RL_COMMAND_MODE;
+	g_rl_flags |= RL_VI_INPUT_MODE;
+	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 	rl_k_right(rl);
 }
 
 void	rl_k_a_upper(t_readline *rl)
 {
-	g_rl_flags |= RL_INPUT_MODE;
-	g_rl_flags &= ~RL_COMMAND_MODE;
+	g_rl_flags |= RL_VI_INPUT_MODE;
+	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 	rl_k_end(rl);
 }
 

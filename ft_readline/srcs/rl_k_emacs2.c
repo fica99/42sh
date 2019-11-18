@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_k_emacs_other.c                                 :+:      :+:    :+:   */
+/*   rl_k_emacs2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:26:24 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:43:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 19:07:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	rl_k_alt_l(t_readline *rl)
 void	rl_k_alt_c(t_readline *rl)
 {
 	short	pos;
-	
+
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
@@ -98,7 +98,7 @@ void	rl_k_alt_c(t_readline *rl)
 	if (!ft_isalnum(rl->line.buffer[pos]))
 		return ;
 	if (rl_islowerchar(rl->line.buffer[pos]))
-			rl->line.buffer[pos] -= 32;
+		rl->line.buffer[pos] -= 32;
 	while (ft_isalnum(rl->line.buffer[++pos]))
 		if (rl_isupperchar(rl->line.buffer[pos]))
 			rl->line.buffer[pos] += 32;

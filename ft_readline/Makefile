@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/17 00:01:47 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/18 17:08:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,12 @@ srcs := rl_main.c\
 	rl_k_emacs.c\
 	rl_str.c\
 	rl_k_cut_copy_paste.c\
-	rl_k_emacs_other.c\
+	rl_k_emacs2.c\
 	rl_k_vi.c\
-	rl_k_vi_other.c\
+	rl_k_vi2.c\
+	rl_k_vi3.c\
+	rl_init_hash2.c\
+	rl_vi.c\
 
 objs := $(srcs:.c=.o)
 

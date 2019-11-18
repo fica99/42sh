@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/17 00:14:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 14:42:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ t_hash	**init_vi_hash(int hash_size)
 	table = push_hash(table, RL_K_SPACE, (void*)&rl_k_right, hash_size);
 	table = push_hash(table, RL_K_E_UPPER, (void*)&rl_k_e, hash_size);
 	table = push_hash(table, RL_K_E_LOWER, (void*)&rl_k_e, hash_size);
-	return (table);
+	table = push_hash(table, RL_K_CARAT, (void*)&rl_k_carat, hash_size);
+	table = push_hash(table, RL_K_S_UPPER, (void*)&rl_k_s_upper, hash_size);
+	table = push_hash(table, RL_K_S_LOWER, (void*)&rl_k_s_lower, hash_size);
+	return (init_vi_hash_other(table, hash_size));
 }
 
 t_hash	**init_standart_templates(int hash_size)
@@ -62,37 +65,8 @@ t_hash	**init_standart_templates(int hash_size)
 	table = push_hash(table, RL_K_DEL, (void*)&rl_k_del, hash_size);
 	table = push_hash(table, RL_K_UP, (void*)&rl_k_up, hash_size);
 	table = push_hash(table, RL_K_DOWN, (void*)&rl_k_down, hash_size);
-	table = init_standart_symb_templates(table, hash_size);
+	table = init_standart_templates_other(table, hash_size);
 	return (table);
-}
-
-t_hash	**init_standart_symb_templates(t_hash **table, int hash_size)
-{
-	char	symb[2];
-
-	symb[1] = '\0';
-	symb[0] = RL_K_CTRL_X;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_x, hash_size);
-	symb[0] = RL_K_CTRL_V;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_v, hash_size);
-	symb[0] = RL_K_CTRL_C;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_c, hash_size);
-	symb[0] = RL_K_ENTER;
-	table = push_hash(table, symb, (void*)&rl_k_enter, hash_size);
-	symb[0] = RL_K_CTRL_H;
-	table = push_hash(table, symb, (void*)&rl_k_bcsp, hash_size);
-	symb[0] = RL_K_CTRL_R;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_r, hash_size);
-	symb[0] = RL_K_BCSP;
-	table = push_hash(table, symb, (void*)&rl_k_bcsp, hash_size);
-	symb[0] = RL_K_CTRL_D;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_d, hash_size);
-	symb[0] = RL_K_CTRL_J;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_j, hash_size);
-	symb[0] = RL_K_ESC;
-	table = push_hash(table, symb, (void*)&rl_k_esc, hash_size);
-	symb[0] = RL_K_CTRL_G;
-	return (push_hash(table, symb, (void*)&rl_k_ctrl_g, hash_size));
 }
 
 t_hash	**init_emacs_hash(int hash_size)
@@ -102,7 +76,7 @@ t_hash	**init_emacs_hash(int hash_size)
 
 	symb[1] = '\0';
 	table = init_standart_templates(hash_size);
-	table = init_emacs_hash_symb(table, hash_size);
+	table = init_emacs_hash_other(table, hash_size);
 	symb[0] = RL_K_CTRL_W;
 	table = push_hash(table, symb, (void*)&rl_k_ctrl_w, hash_size);
 	symb[0] = RL_K_CTRL_T;
@@ -119,33 +93,5 @@ t_hash	**init_emacs_hash(int hash_size)
 	table = push_hash(table, RL_K_ALT_C, (void*)&rl_k_alt_c, hash_size);
 	table = push_hash(table, RL_K_ALT_LEFT, (void*)&rl_k_alt_left,
 	hash_size);
-	return (table);
-}
-
-t_hash	**init_emacs_hash_symb(t_hash **table, int hash_size)
-{
-	char	symb[2];
-
-	symb[1] = '\0';
-	symb[0] = RL_K_CTRL_B;
-	table = push_hash(table, symb, (void*)&rl_k_left, hash_size);
-	symb[0] = RL_K_CTRL_F;
-	table = push_hash(table, symb, (void*)&rl_k_right, hash_size);
-	symb[0] = RL_K_CTRL_A;
-	table = push_hash(table, symb, (void*)&rl_k_home, hash_size);
-	symb[0] = RL_K_CTRL_E;
-	table = push_hash(table, symb, (void*)&rl_k_end, hash_size);
-	symb[0] = RL_K_CTRL_P;
-	table = push_hash(table, symb, (void*)&rl_k_up, hash_size);
-	symb[0] = RL_K_CTRL_N;
-	table = push_hash(table, symb, (void*)&rl_k_down, hash_size);
-	symb[0] = RL_K_CTRL_L;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_l, hash_size);
-	symb[0] = RL_K_CTRL_U;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_u, hash_size);
-	symb[0] = RL_K_CTRL_K;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_k, hash_size);
-	symb[0] = RL_K_CTRL_Y;
-	table = push_hash(table, symb, (void*)&rl_k_ctrl_v, hash_size);
 	return (table);
 }
