@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/18 17:08:18 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/18 20:53:07 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ srcs := rl_main.c\
 	rl_k_vi2.c\
 	rl_k_vi3.c\
 	rl_init_hash2.c\
-	rl_vi.c\
+	rl_k_vi4.c\
+	rl_k_vi5.c\
 
 objs := $(srcs:.c=.o)
 

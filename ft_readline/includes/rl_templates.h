@@ -6,14 +6,14 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 15:12:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 21:30:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RL_TEMPLATES_H
 # define RL_TEMPLATES_H
 
-# define VI_HASH_SIZE 47
+# define VI_HASH_SIZE 59
 # define EMACS_HASH_SIZE 46
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
@@ -50,6 +50,17 @@
 # define RL_K_X_LOWER "x"
 # define RL_K_CARAT "^"
 # define RL_K_V "v"
+# define RL_K_F_LOWER "f"
+# define RL_K_F_UPPER "F"
+# define RL_K_SEMICOLON ";"
+# define RL_K_COMMA ","
+# define RL_K_R_UPPER "R"
+# define RL_K_R_LOWER "r"
+# define RL_K_P_UPPER "P"
+# define RL_K_P_LOWER "p"
+# define RL_K_Y_UPPER "Y"
+# define RL_K_D_UPPER "D"
+# define RL_K_C_UPPER "C"
 /*
 **	EMACS
 */

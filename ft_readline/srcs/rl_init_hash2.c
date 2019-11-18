@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:34:17 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 15:12:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 21:31:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,16 @@ t_hash	**init_vi_hash_other(t_hash **table, int hash_size)
 	table = push_hash(table, RL_K_X_UPPER, (void*)&rl_k_x_upper, hash_size);
 	table = push_hash(table, RL_K_X_LOWER, (void*)&rl_k_x_lower, hash_size);
 	table = push_hash(table, RL_K_V, (void*)&rl_k_v, hash_size);
+	table = push_hash(table, RL_K_F_LOWER, (void*)&rl_k_f_lower, hash_size);
+	table = push_hash(table, RL_K_F_UPPER, (void*)&rl_k_f_upper, hash_size);
+	table = push_hash(table, RL_K_SEMICOLON, (void*)&rl_k_semicolon, hash_size);
+	table = push_hash(table, RL_K_COMMA, (void*)&rl_k_comma, hash_size);
+	table = push_hash(table, RL_K_R_LOWER, (void*)&rl_k_r_lower, hash_size);
+	table = push_hash(table, RL_K_R_UPPER, (void*)&rl_k_r_upper, hash_size);
+	table = push_hash(table, RL_K_P_LOWER, (void*)&rl_k_p_lower, hash_size);
+	table = push_hash(table, RL_K_P_UPPER, (void*)&rl_k_ctrl_v, hash_size);
+	table = push_hash(table, RL_K_Y_UPPER, (void*)&rl_k_y_upper, hash_size);
+	table = push_hash(table, RL_K_D_UPPER, (void*)&rl_k_d_upper, hash_size);
+	table = push_hash(table, RL_K_C_UPPER, (void*)&rl_k_d_upper, hash_size);
 	return (table);
 }

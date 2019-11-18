@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 21:51:24 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 15:06:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 21:57:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ void	rl_k_sharp(t_readline *rl)
 {
 	if (!(ft_stradd(rl->line.buffer, RL_K_SHARP, 0)))
 		rl_err("42sh", "malloc() error", ENOMEM);
+	rl_disable_line(rl);
 	rl_k_enter(rl);
 }

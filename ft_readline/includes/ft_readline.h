@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/18 17:55:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/18 21:35:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,10 +309,23 @@ t_hash				**init_vi_hash_other(t_hash **table, int hash_size);
 */
 void				rl_k_x_upper(t_readline *rl);
 void				rl_k_v(t_readline *rl);
-/*
-**	rl_vi.c
-*/
 void				rl_open_editor(char **env);
+void				rl_k_f_lower(t_readline *rl);
+void				rl_k_f_upper(t_readline *rl);
+/*
+**	rl_k_vi4.c
+*/
+void				rl_k_semicolon(t_readline *rl);
+void				rl_k_comma(t_readline *rl);
+void				rl_k_r_upper(t_readline *rl);
+void				rl_k_r_lower(t_readline *rl);
+void				rl_k_p_lower(t_readline *rl);
+/*
+**	rl_k_vi5.c
+*/
+void				rl_k_p_upper(t_readline *rl);
+void				rl_k_y_upper(t_readline *rl);
+void				rl_k_d_upper(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
