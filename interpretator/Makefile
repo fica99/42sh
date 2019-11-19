@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/18 18:59:15 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/19 19:05:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror -g -O0
+cflags := -Wall -Wextra -Werror
 
 .PHONY: all compilation clean re
 
