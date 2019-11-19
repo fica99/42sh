@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/18 21:35:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/19 23:38:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@
 # include "libhash.h"
 # include "libstr.h"
 # include "libdar.h"
+# include "libdir.h"
 # include "rl_errors.h"
 # include "rl_colours.h"
 # include "rl_templates.h"
-# include "../../lexer/includes/lexer.h"
-# include "../../parser/includes/parser.h"
-# include "../../interpretator/includes/interpretator.h"
-# include "../../builtins/includes/builtins.h"
 
 # define MAX_LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
@@ -49,10 +46,10 @@
 # define RL_VI_INPUT_MODE (1 << 5)
 # define RL_HISTSIZE 500
 # define RL_HISTFILESIZE 500
-# define RL_HISTORY_FILE "/.42sh_history"
+# define RL_HISTORY_FILE ".42sh_history"
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
-# define RL_REWRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
+# define RL_REWRITE_HISTFILE O_RDWR | O_APPEND | O_CREAT
 # define RL_VIFILE "/tmp/.42sh_vimode"
 # define RL_OPEN_VIFILE O_RDWR | O_CREAT | O_TRUNC
 # define RL_PERM_VIFILE S_IRUSR | S_IWUSR
@@ -67,6 +64,7 @@ typedef struct		s_buff
 	short			malloc_len;
 	short			max_len;
 }					t_buff;
+
 typedef struct		s_rl_history
 {
 	char			**history_buff;
@@ -123,6 +121,7 @@ char				*ft_readline(char *prompt, t_rl_mode mode, char **environ);
 void				init_readline(char **environ);
 void				free_readline(void);
 void				rl_err(char *name, char *str, char *err);
+char				*rl_hist_expansions(char *line);
 /*
 **	rl_read_mode.c
 */
@@ -222,7 +221,6 @@ void				rl_k_bcsp(t_readline *rl);
 */
 void				rl_free_history(t_rl_history *history, char **env);
 void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
-void				rl_init_history(t_rl_history *history, char **env);
 void				rl_get_hist_size(t_rl_history *history, char **env);
 void				rl_check_history_size(t_rl_history *history, char **env);
 /*
@@ -309,7 +307,6 @@ t_hash				**init_vi_hash_other(t_hash **table, int hash_size);
 */
 void				rl_k_x_upper(t_readline *rl);
 void				rl_k_v(t_readline *rl);
-void				rl_open_editor(char **env);
 void				rl_k_f_lower(t_readline *rl);
 void				rl_k_f_upper(t_readline *rl);
 /*
@@ -326,6 +323,24 @@ void				rl_k_p_lower(t_readline *rl);
 void				rl_k_p_upper(t_readline *rl);
 void				rl_k_y_upper(t_readline *rl);
 void				rl_k_d_upper(t_readline *rl);
+/*
+**	rl_k_v.c
+*/
+void				rl_open_editor(t_readline *rl);
+char				*rl_editor_path(char *editor, char **path);
+void				rl_exec_editor(t_readline *rl, char *command_path,
+char **argv);
+/*
+**	rl_init_history.c
+*/
+void				rl_init_history(t_rl_history *history, char **env);
+short				rl_find_hist_len(char *path);
+void				rl_set_hist_buff(char *path, t_rl_history *history,
+short hist_len);
+/*
+**	rl_hist_expansions.c
+*/
+// char				*rl_update_line(short i, char *line);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
