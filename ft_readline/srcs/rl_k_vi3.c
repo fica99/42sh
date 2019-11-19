@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:52:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 21:56:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/19 19:55:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	rl_k_v(t_readline *rl)
 	ft_putstr_fd(rl->line.buffer, fd);
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
-	rl_open_editor(rl->env);
+	rl_open_editor(rl);
 	ft_strclr(rl->line.buffer);
 	if ((fd = open(RL_VIFILE, RL_READ_VIFILE)) == -1)
 		rl_err("42sh", "open() error", UNDEFERR);
@@ -51,25 +51,7 @@ void	rl_k_v(t_readline *rl)
 	}
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
-	rl_k_enter(rl);
-}
-
-void	rl_open_editor(char **env)
-{
-	char	**argv;
-	char	*command;
-
-	if (!(argv = ft_darnew(2)))
-		rl_err("42sh", "malloc() error", ENOMEM);
-	if (!(command = ft_getenv("VISUAL", env)))
-		if (!(command = ft_getenv("EDITOR", env)))
-			command = "vi";
-	if (!(argv[1] = ft_strdup(RL_VIFILE)))
-		rl_err("42sh", "malloc() error", ENOMEM);
-	if (!(argv[0] = ft_strdup(command)))
-		rl_err("42sh", "malloc() error", ENOMEM);
-	find_command(argv);
-	ft_free_dar(argv);
+	rl_disable_line(rl);
 }
 
 void	rl_k_f_lower(t_readline *rl)
