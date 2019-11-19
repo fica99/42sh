@@ -12,7 +12,7 @@
 
 #include "ft_shell.h"
 
-void	synch_signal(int sig)
+/*void	synch_signal(int sig)
 {
 	if (sig == SIGINT) {
 		chld_interrupt = 1;
@@ -43,7 +43,7 @@ void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action)
 	sigaction(SIGTTOU, usr_action, NULL);
 	sigaction(SIGCHLD, usr_action, NULL);
 	sigaction(SIGWINCH, usr_action, NULL);
-}
+}*/
 
 void	set_sig_def(void)
 {

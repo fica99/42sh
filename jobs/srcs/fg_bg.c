@@ -1,9 +1,9 @@
 #include "ft_shell.h"
 
-void put_job_in_foreground (job *j, int cont)
+void put_job_in_foreground (t_job *j, int cont)
 {
     /* Put the job into the foreground.  */
-    tcsetpgrp (shell_terminal, j->pgid);
+    tcsetpgrp (g_shell_terminal, j->pgid);
     /* Send the job a continue signal, if necessary.  */
     if (cont)
     {
@@ -20,7 +20,7 @@ void put_job_in_foreground (job *j, int cont)
     tcsetattr(shell_terminal, TCSADRAIN, &shell_tmodes);*/
 }
 
-void put_job_in_background (job *j, int cont)
+void put_job_in_background (t_job *j, int cont)
 {
   /* Send the job a continue signal, if necessary.  */
   if (cont)

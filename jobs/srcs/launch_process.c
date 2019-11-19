@@ -12,20 +12,9 @@
 
 #include "ft_shell.h"
 
-pid_t	make_process(void)
-{
-	pid_t	p;
-
-	p = fork();
-	if (p < 0)
-		err_exit("minishell", "fork() error", NULL, NOERROR);
-	return (p);
-}
-
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t 	pid;
-	struct 	sigaction usr_action;
 
 	if (g_shell_is_interactive)
     {
@@ -35,7 +24,7 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
       	setpgid(pid, pgid);
       	if (foreground)
         	tcsetpgrp(g_shell_terminal, pgid);
-      	sigaction_set(SIG_DFL, &usr_action);
+      	set_sig_def();
     }
 	if (execve(p->args[0], p->args, g_env.env) < 0)
 		err_exit(g_argv[0], "execve() error", p->args[0], NOERROR);

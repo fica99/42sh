@@ -1,7 +1,15 @@
 srcs := find_job.c\
+		free_job.c\
 		job_is_stopped.c\
 		job_is_completed.c\
 		init_jobs.c\
+		init_process.c\
+		fg_bg.c\
+		handle_chld_process.c\
+		launch_job.c\
+		launch_process.c\
+		
+
 
 objs := $(srcs:.c=.o)
 

@@ -61,21 +61,23 @@ void	find_command(char **args)
 
 char				check_command(char **args)
 {
-	struct stat			buf;
+	struct stat	buf;
+	char		*command;
 
 	chld_interrupt = 0;
-	if (!access(args[0], F_OK))
+	command = args[0];
+	if (!access(command, F_OK))
 	{
-		if (access(args[0], X_OK))
+		if (access(command, X_OK))
 		{
-			err(g_argv[0], NULL, args[0], EACCES);
+			err(g_argv[0], NULL, command, EACCES);
 			return (TRUE);
 		}
-		if (lstat(args[0], &buf) < 0)
+		if (lstat(command, &buf) < 0)
 			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
-		launch_job(NULL, 1);
+		launch_job(push_back_job(args), 1);
 		return (true);
 	}
 	return (false);
