@@ -77,8 +77,8 @@ void		rl_get_hist_size(t_rl_history *history, char **env)
 		histfilesize = ft_atoi(rl_histfilesize);
 	if (histfilesize < 0)
 		histfilesize = 0;
-		histsize = 1;
 	if (histsize <= 0)
+		histsize = 1;
 	history->histsize = histsize;
 	history->histfilesize = histfilesize;
 }
