@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 00:32:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/20 20:35:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		rl_free_history(t_rl_history *history, char **env)
 		ft_strcat(ft_strcat(ft_strcpy(path, home), "/"), RL_HISTORY_FILE);
 	else
 		ft_strcat(ft_strcpy(path, "/"), RL_HISTORY_FILE);
-	rl_check_history_size(history, env);
+	rl_get_hist_size(history, env);
 	if ((fd = open(path, RL_REWRITE_HISTFILE, RL_PERM_HISTFILE)) == -1)
 		rl_err("42sh", "open() error", UNDEFERR);
 	i = 0;
@@ -91,7 +91,7 @@ void		rl_check_history_size(t_rl_history *history, char **env)
 	rl_get_hist_size(history, env);
 	if (histsize != history->histsize)
 	{
-		ft_free_dar(history->history_buff);
+		rl_free_history(history, env);
 		rl_init_history(history, env);
 	}
 }

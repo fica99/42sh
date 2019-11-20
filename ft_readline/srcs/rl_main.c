@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 00:22:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/20 20:32:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,3 @@ void	rl_err(char *name, char *str, char *err)
 	rl_set_attr(&g_rl.canon_mode);
 	exit(EXIT_FAILURE);
 }
-
-// char	*rl_hist_expansions(char *line)
-// {
-// 	char	*exp;
-
-// 	if (!(exp = ft_strchr(line, '!')))
-// 		return (line);
-// 	if ((line = rl_update_line(exp - line, line)))
-// 		ft_putendl(line);
-// 	return (line);
-// }

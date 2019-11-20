@@ -6,11 +6,22 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:13:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/19 22:23:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/20 20:32:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+char	*rl_hist_expansions(char *line)
+{
+	char	*exp;
+
+	if (!(exp = ft_strchr(line, '!')))
+		return (line);
+	if ((line = rl_update_line(exp - line, line)))
+		ft_putendl(line);
+	return (line);
+}
 
 char	*rl_update_line(short i, char *line)
 {

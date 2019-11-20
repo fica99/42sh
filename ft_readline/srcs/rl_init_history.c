@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 23:04:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 00:22:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/20 20:24:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	rl_set_hist_buff(char *path, t_rl_history *history, short hist_len)
 	while (len && (get_next_line(fd, &buff) > 0))
 	{
 		ft_strdel(&buff);
-		len--;
+		--len;
 	}
 	while (len != history->histsize &&
 	(get_next_line(fd, &history->history_buff[len]) > 0))
