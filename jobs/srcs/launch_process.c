@@ -26,6 +26,11 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
         	tcsetpgrp(g_shell_terminal, pgid);
       	set_sig_def();
     }
+	if (!foreground) {
+		/*close(STDOUT_FILENO);
+		close(STDIN_FILENO);
+		close(STDERR_FILENO);*/
+	}
 	if (execve(p->args[0], p->args, g_env.env) < 0)
 		err_exit(g_argv[0], "execve() error", p->args[0], NOERROR);
   	exit(1);

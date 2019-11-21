@@ -47,20 +47,12 @@ void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action)
 
 void	set_sig_def(void)
 {
-	signal (SIGINT, SIG_DFL);
-    signal (SIGQUIT, SIG_DFL);
-    signal (SIGTSTP, SIG_DFL);
-    signal (SIGTTIN, SIG_DFL);
-    signal (SIGTTOU, SIG_DFL);
-    signal (SIGCHLD, SIG_DFL);
-}
-
-void	signalling(void)
-{
-	signal(SIGINT, sighandler);
-	signal(SIGTSTP, sighandler);
-	signal(SIGQUIT, sighandler);
-	signal(SIGWINCH, sighandler);
+	signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, SIG_DFL);
+    signal(SIGTSTP, SIG_DFL);
+    signal(SIGTTIN, SIG_DFL);
+    signal(SIGTTOU, SIG_DFL);
+    signal(SIGCHLD, SIG_DFL);
 }
 
 void	signalling_chld(void)
@@ -86,21 +78,19 @@ void 	sighandler_chld(int sign)
 	}
 }
 
-void 	sighandler(int sign)
+void	break_handler(int sign)
 {
-	if (sign == SIGTSTP)
-	{
-		kill(getpid(), SIGTSTP);
-	}
 	if (sign == SIGINT)
-	{
-		kill(getpid(), SIGINT);
 		ft_putstr_fd("\n", STDERR_FILENO);
-	}
 	if (sign == SIGQUIT)
-	{
 		ft_putstr_fd("\nquit (core dumped)\n", STDERR_FILENO);
-	}
+}
+
+void	signalling(void)
+{
+	signal(SIGINT, break_handler);
+	signal(SIGQUIT, break_handler);
+	signal(SIGWINCH, break_handler);
 }
 
 void	win_handler(int sign)

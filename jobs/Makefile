@@ -8,6 +8,7 @@ srcs := find_job.c\
 		handle_chld_process.c\
 		launch_job.c\
 		launch_process.c\
+		cont_job.c\
 		
 
 

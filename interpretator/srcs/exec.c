@@ -77,7 +77,7 @@ char				check_command(char **args)
 			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
-		launch_job(push_back_job(args), 1);
+		launch_job(push_back_job(args), 0);
 		return (true);
 	}
 	return (false);
@@ -93,6 +93,7 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	!(command_path = get_hash_data(bin_table, args[0], bin_table_size)))
 		return (false);
 	chld_pid = make_process();
+	signalling();
 	if (chld_pid == 0)
 	{
 		//signalling_chld();
@@ -102,7 +103,7 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	else
 	{
 		//signalling();
-		waitpid(chld_pid, &status, 0);
+		printf("%d\n", waitpid(chld_pid, &status, 0));
 	}
 	return (true);
 }

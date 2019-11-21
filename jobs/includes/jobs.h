@@ -32,6 +32,7 @@ t_job *g_first_job;
 pid_t g_shell_pgid;
 int   g_shell_terminal;
 int   g_shell_is_interactive;
+struct termios g_shell_tmodes;
 
 /*
 ** init_jobs.c
@@ -108,4 +109,11 @@ void put_job_in_foreground (t_job *j, int cont);
 /* Put a job in the background.  If the cont argument is true, send
    the process group a SIGCONT signal to wake it up.  */
 void put_job_in_background (t_job *j, int cont);
+/*
+**  cont_job.c
+*/
+/* Mark a stopped job J as being running again.  */
+void mark_job_as_running (t_job *j);
+/* Continue the job J.  */
+void continue_job(t_job *j, int foreground);
 #endif

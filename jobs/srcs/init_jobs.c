@@ -8,6 +8,7 @@ t_job *new_job(char **args)
     j->command = ft_strdup(args[0]);
     j->pgid = getpgrp();
     j->first_process = new_process(args);
+    j->tmodes = g_shell_tmodes;
     j->next = NULL;
     j->notified = 0;
     j->stdin = STDIN_FILENO;
@@ -42,20 +43,25 @@ void    init_signals(void)
     signal(SIGTSTP, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
     signal(SIGTTOU, SIG_IGN);
-    signal(SIGCHLD, SIG_IGN);
 }
 
 void    init_jobs(void)
 {
     g_first_job = NULL;
-    init_signals();
     g_shell_terminal = STDIN_FILENO;
     g_shell_is_interactive = isatty(g_shell_terminal);
-    g_shell_pgid = getpid();
-    if (setpgid(g_shell_pgid, g_shell_pgid) < 0)
+    if (g_shell_is_interactive)
     {
-        perror("Couldn't put the shell in its own process group");
-        exit(1);
+        while(tcgetpgrp(g_shell_terminal) != (g_shell_pgid = getpgrp()))
+            kill(-g_shell_pgid, SIGTTIN);
+        init_signals();
+        g_shell_pgid = getpid();
+        if (setpgid(g_shell_pgid, g_shell_pgid) < 0)
+        {
+            perror("Couldn't put the shell in its own process group");
+            exit(1);
+        }
+        tcsetpgrp(g_shell_terminal, g_shell_pgid);
+        tcgetattr(g_shell_terminal, &g_shell_tmodes);
     }
-    tcsetpgrp(g_shell_terminal, g_shell_pgid);
 }

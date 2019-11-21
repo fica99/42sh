@@ -7,9 +7,9 @@ int job_is_stopped (t_job *j)
     p = j->first_process;
     while (p)
     {
-		if (!p->completed && !p->stopped)
-			return (0);
-		p = p->next;
+		  if (!p->completed && !p->stopped)
+			  return (0);
+		  p = p->next;
     }
 	return (1);
 }

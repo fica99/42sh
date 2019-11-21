@@ -15,7 +15,6 @@
 void	init_global_var(char **argv, char **environ)
 {
 	g_argv = argv;
-	init_jobs();
 	init_global_env(&g_env, environ);
 	init_bin_table(&g_bin_table);
 	if (!(g_lexer = load_lexer()))
