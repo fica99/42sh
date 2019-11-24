@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 20:38:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:12:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,6 @@ void		rl_free_history(t_rl_history *history, char **env)
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", UNDEFERR);
 	ft_free_dar(history->history_buff);
-}
-
-void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
-{
-	short	len;
-	short	i;
-
-	if (!buffer || !*buffer)
-		return ;
-	len = history->hist_len;
-	if (history->histsize)
-	{
-		if (len >= history->histsize)
-		{
-			ft_memdel((void**)&(history->history_buff[0]));
-			i = -1;
-			while (++i < len - 1)
-				history->history_buff[i] = history->history_buff[i + 1];
-		}
-		else
-			i = history->hist_len++;
-		if (!(history->history_buff[i] = ft_strdup(buffer)))
-			rl_err("42sh", "malloc() error", ENOMEM);
-	}
 }
 
 void		rl_get_hist_size(t_rl_history *history, char **env)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 15:05:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:07:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	rl_k_ctrl_d(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord) && rl_is_start_pos(rl->cord))
 	{
-		rl_go_left(rl->cord.pos, &rl->cord);
-		rl_set_end_cord(&rl->cord);
 		ft_putstr(RL_CLEAR_END_SCREEN);
 		rl_check_str_mem(&rl->line, "exit");
 		rl_print(ft_strcpy(rl->line.buffer, "exit"), &rl->cord);
