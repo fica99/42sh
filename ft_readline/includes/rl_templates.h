@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 21:30:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:08:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define VI_HASH_SIZE 59
 # define EMACS_HASH_SIZE 46
+# define NOEDIT_HASH_SIZE 3
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
 # define RL_CUR_CORD tigetstr("u7")

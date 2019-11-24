@@ -6,74 +6,50 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:13:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 20:32:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 17:17:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-char	*rl_hist_expansions(char *line)
+char	*rl_search_exp(char *line, t_rl_history history)
 {
-	char	*exp;
-
-	if (!(exp = ft_strchr(line, '!')))
-		return (line);
-	if ((line = rl_update_line(exp - line, line)))
-		ft_putendl(line);
-	return (line);
-}
-
-char	*rl_update_line(short i, char *line)
-{
-	short	j;
+	int		i;
 	char	*new_line;
 
-	new_line = rl_exp_to_line(index, g_rl.history.history_buff, line, j);
-}
-
-char	*rl_exp_to_line(short index, char **hist_buff, char *line, short i)
-{
-	short	j;
-	char	*end;
-	char	*new_line;
-
-	j = i;
-	while (line[j] && !ft_isspace(line[j]))
-		++j;
-	if (index < 0)
+	i = history.hist_len;
+	new_line = NULL;
+	while (--i >= 0)
 	{
-		rl_print_err_exp(line, i, j);
-		return (NULL);
+		if ((ft_strstr(history.history_buff[i], line)))
+		{
+			if (!(new_line = ft_strdup(history.history_buff[i])))
+				rl_err("42sh", "malloc() error", UNDEFERR);
+			break ;
+		}
 	}
-	end = NULL;
-	if (line[j])
-		if (!(end = ft_strdup(line + j)))
-			rl_err("42sh", "malloc() error", UNDEFERR);
-	if (!(new_line = ft_strnew(ft_strlen(line) + ft_strlen(hist_buff[index]))))
-		rl_err("42sh", "malloc() error", UNDEFERR);
-	line[i] = '\0';
-	ft_strcat(ft_strcat(ft_strcat(new_line, line), hist_buff[index]), end);
-	ft_strdel(&end);
 	return (new_line);
 }
 
-void	rl_print_err_exp(char *line , int start_index, int end_index)
+char	*rl_digit_exp(int i, t_rl_history history)
 {
-	ft_putstr("42sh: ");
-	while (start_index != end_index)
-		ft_putchar(line[start_index++]);
-	ft_putendl(": event nont found");
+	char	*line;
+
+	line = NULL;
+	if (i < 0)
+		line = rl_hist_copy(history.hist_len + i, history.history_buff);
+	else if (i > 0)
+		line = rl_hist_copy(i, history.history_buff);
+	return (line);
 }
 
-void	rl_update_hist(char *line, t_rl_history *history)
+char	*rl_hist_copy(short index, char **hist_buff)
 {
-	short	len;
+	char	*new_line;
 
-	if ((len = history->hist_len - 1) >= 0)
-	{
-		ft_strdel(&history->history_buff[len]);
-		if (line)
-			if (!(history->history_buff[len] = ft_strdup(line)))
-				rl_err("42sh", "malloc() error", ENOMEM);
-	}
+	if (index < 0)
+		return (NULL);
+	if (!(new_line = ft_strdup(hist_buff[index])))
+		rl_err("42sh", "malloc() error", UNDEFERR);
+	return (new_line);
 }

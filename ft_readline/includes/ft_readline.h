@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/19 23:38:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:48:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ typedef struct		s_rl_history
 typedef enum		e_rl_mode
 {
 	VI = 1,
-	EMACS = 2
+	EMACS = 2,
+	NOEDIT = 3
 }					t_rl_mode;
 
 typedef struct		s_rl_cord
@@ -101,6 +102,7 @@ typedef struct		s_readline
 {
 	t_hash			**vi_hash;
 	t_hash			**rl_hash;
+	t_hash			**noedit_hash;
 	t_rl_cord		cord;
 	t_buff			line;
 	t_buff			copy_buff;
@@ -120,8 +122,8 @@ typedef struct		s_readline
 char				*ft_readline(char *prompt, t_rl_mode mode, char **environ);
 void				init_readline(char **environ);
 void				free_readline(void);
-void				rl_err(char *name, char *str, char *err);
-char				*rl_hist_expansions(char *line);
+void				add_to_history_buff(char *line, char **environ);
+char				*get_hist_expansions(char *line);
 /*
 **	rl_read_mode.c
 */
@@ -156,6 +158,7 @@ short				rl_prompt_colour_name(char *str, short i);
 t_hash				**init_vi_hash(int hash_size);
 t_hash				**init_standart_templates(int hash_size);
 t_hash				**init_emacs_hash(int hash_size);
+t_hash				**init_noedit_hash(int hash_size);
 /*
 **	rl_reading.c
 */
@@ -220,7 +223,6 @@ void				rl_k_bcsp(t_readline *rl);
 **	rl_history.c
 */
 void				rl_free_history(t_rl_history *history, char **env);
-void				rl_add_to_history_buff(char *buffer, t_rl_history *history);
 void				rl_get_hist_size(t_rl_history *history, char **env);
 void				rl_check_history_size(t_rl_history *history, char **env);
 /*
@@ -340,7 +342,13 @@ short hist_len);
 /*
 **	rl_hist_expansions.c
 */
-// char				*rl_update_line(short i, char *line);
+char				*rl_search_exp(char *line, t_rl_history history);
+char				*rl_digit_exp(int i, t_rl_history history);
+char				*rl_hist_copy(short index, char **hist_buff);
+/*
+**	rl_err.c
+*/
+void				rl_err(char *name, char *str, char *err);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
