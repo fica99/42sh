@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 20:07:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:58:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 void	init_curr_pwd(void)
 {
-	if (!(g_curr_dir = getwd(NULL)))
-		err_exit(g_argv[0], "getwd() error", NULL, NOERROR);
+	if (!(g_curr_dir = (char *)ft_memalloc(MAXDIR)))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	if (!getcwd(g_curr_dir, MAXDIR))
+		err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
 	ft_setenv("PWD", g_curr_dir);
 }
 
@@ -37,23 +39,23 @@ char	check_request(char **argv, char *path)
 	return (FALSE);
 }
 
-char	**check_flags(char **av, t_cdf *flags)
+char	**check_flags(char **av, t_flag *no_links)
 {
 	int i;
 	int j;
 
 	j = 1;
 	i = 0;
-	flags->P = 0;
-	flags->L = 0;
 	while (av[j] && av[j][0] == '-')
 	{
+		if (av[j][i + 1] == 0 || av[j][i + 1] == '-')
+			return (&av[j]);
 		while (av[j][++i])
 		{
 			if (av[j][i] == 'L')
-				flags->L = 1;
+				*no_links = 0;
 			else if (av[j][i] == 'P')
-				flags->P = 1;
+				*no_links = 1;
 			else
 				return (0);
 		}
@@ -66,10 +68,11 @@ char	**check_flags(char **av, t_cdf *flags)
 void	cd(char **av)
 {
 	char	**dir;
-	t_cdf	flags;
+	t_flag	no_links;
 	char	*path;
 
-	if (!(dir = check_flags(av, &flags)))
+	no_links = 0;
+	if (!(dir = check_flags(av, &no_links)))
 	{
 		ft_error("42sh", av[0], CD_USAGE, "invalid option\n");
 		return ;
@@ -78,21 +81,31 @@ void	cd(char **av)
 		path = ft_getenv("HOME", g_env.env);
 	else if (!ft_strcmp(*dir, "-"))
 		path = ft_getenv("OLDPWD", g_env.env);
-	else
+	else {
 		path = *dir;
-	if ((change_wdir(path, flags)) < 0)
+	}
+	if ((change_wdir(path, no_links)) < 0)
 		check_request(av, path);
 }
 
 void	pwd(char **av)
 {
 	char	*dir;
-	t_cdf	flags;
+	t_flag	no_links;
 
-	if (!check_flags(av, &flags))
+	if (!check_flags(av, &no_links))
+	{
 		ft_error("42sh", av[0], PWD_USAGE, NULL);
-	if (flags.P)
-		dir = getwd(NULL);
+		return ;
+	}
+	if (no_links)
+	{
+		if (!(dir = (char *)malloc(MAXDIR)))
+			err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		dir[MAXDIR - 1] = 0;
+		if (!getcwd(dir, MAXDIR))
+			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
+	}
 	else
 		dir = ft_strdup(g_curr_dir);
 	ft_putstr_fd(dir, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 20:08:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/11 18:59:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void			unset_env_struct(t_environ *env);
 /*
 **	get_env.c
 */
-char			*sh_getenv(char *arr);
 short			get_count_env(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);

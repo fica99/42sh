@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   rl_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/11/19 17:55:11 by aashara-         ###   ########.fr       */
+/*   Created: 2019/11/02 16:18:06 by aashara-          #+#    #+#             */
+/*   Updated: 2019/11/12 19:26:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "ft_readline.h"
 
-pid_t	make_process(void)
+void	rl_win_handler(int sign)
 {
-	pid_t	p;
+	short		pos;
 
-	p = fork();
-	if (p < 0)
-		err_exit("42sh", "fork() error", NULL, NOERROR);
-	return (p);
+	if (sign == SIGWINCH)
+	{
+		pos = g_rl.cord.pos;
+		rl_get_win_size(&g_rl.cord);
+		ft_putstr(RL_CUR_INVIS);
+		ft_putstr(RL_CLEAR_END_SCREEN);
+		ft_putchar('\n');
+		rl_write_prompt(g_rl.prompt, g_rl.env, g_rl.history);
+		rl_start_cord_data(&g_rl.cord);
+		rl_disable_line(&g_rl);
+		rl_go_right(pos, &g_rl.cord);
+	}
 }

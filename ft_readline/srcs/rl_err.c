@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   rl_err.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/10/31 22:51:51 by aashara-         ###   ########.fr       */
+/*   Created: 2019/11/24 16:47:45 by aashara-          #+#    #+#             */
+/*   Updated: 2019/11/24 16:48:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "ft_readline.h"
 
-void	ft_error(char *name, char *str, char *command, char *err)
+void	rl_err(char *name, char *str, char *err)
 {
 	ft_putstr_fd(name, STDERR_FILENO);
 	if (str)
@@ -25,21 +25,7 @@ void	ft_error(char *name, char *str, char *command, char *err)
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd(err, STDERR_FILENO);
 	}
-	if (command)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(command, STDERR_FILENO);
-	}
-	ft_putchar_fd('\n', STDERR_FILENO);
-}
-
-void	err_exit(char *name, char *str, char *command, char *err)
-{
-	ft_error(name, str, command, err);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	rl_set_attr(&g_rl.canon_mode);
 	exit(EXIT_FAILURE);
-}
-
-void	err(char *name, char *str, char *command, char *err)
-{
-	ft_error(name, str, command, err);
 }
