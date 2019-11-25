@@ -30,7 +30,6 @@ void			unset_env_struct(t_environ *env);
 /*
 **	get_env.c
 */
-char			*sh_getenv(char *arr);
 short			get_count_env(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);

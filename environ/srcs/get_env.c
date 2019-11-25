@@ -12,20 +12,6 @@
 
 #include "ft_shell.h"
 
-char	*sh_getenv(char *arr)
-{
-	short	j;
-	char	**env;
-
-	if (arr && *arr)
-	{
-		env = g_env.env;
-		if ((j = get_count_env(arr)) != -1)
-			return (ft_strchr(env[j], '=') + 1);
-	}
-	return (NULL);
-}
-
 short	get_count_env(char *arr)
 {
 	short	i;
