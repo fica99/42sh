@@ -30,6 +30,7 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "../jobs/includes/jobs.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"
 # include "../bin_table/includes/bin_table.h"

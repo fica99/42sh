@@ -20,7 +20,7 @@ typedef struct s_job
     t_process *first_process;     /* process in this job */
     pid_t pgid;                 /* process group ID */
     char notified;              /* true if user told about stopped job */
-    struct termios tmodes;      /* saved terminal modes */
+    struct termios *tmodes;      /* saved terminal modes */
     int stdin; 
     int stdout; /* standard i/o channels */
     int stderr;  

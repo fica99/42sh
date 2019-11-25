@@ -12,6 +12,15 @@
 
 #include "ft_shell.h"
 
+void	set_sig_def(void)
+{
+	signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, SIG_DFL);
+    signal(SIGTSTP, SIG_DFL);
+    signal(SIGTTIN, SIG_DFL);
+    signal(SIGTTOU, SIG_DFL);
+}
+
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t 	pid;

@@ -8,7 +8,7 @@ t_job *new_job(char **args)
     j->command = ft_strdup(args[0]);
     j->pgid = getpgrp();
     j->first_process = new_process(args);
-    j->tmodes = g_shell_tmodes;
+    j->tmodes = &g_shell_tmodes;
     j->next = NULL;
     j->notified = 0;
     j->stdin = STDIN_FILENO;
