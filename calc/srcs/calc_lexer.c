@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:08 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/21 20:40:30 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/11/26 21:52:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,61 +51,12 @@ t_calc_tkn  *calc_define_tkn_next(char *str, size_t pos, t_variables *variables)
 {
     int var_id;
 
-    if (ft_isdigit(*str))
+    if (*str == '(' || *str == ')')
+        return (calc_get_parent_tkn(str, pos));
+    else if (ft_isdigit(*str))
         return (calc_get_number_tkn(str, pos));
     else if (variables && (var_id = calc_check_variables(str, variables)) != -1)
          return (calc_get_var_tkn(str, pos, var_id, variables));
     else
         return (calc_newtkn((void *)ft_strdup("Lexer syntax error!"), CALC_ERROR));
-}
-
-t_calc_tkn	*calc_newtkn(void *value, t_calc_tkntype type)
-{
-	t_calc_tkn	*token;
-
-	if (!(token = (t_calc_tkn *)malloc(sizeof(t_calc_tkn))))
-		return (NULL);
-	token->value = value;
-	token->type = type;
-    token->start_pos = 0;
-    token->end_pos = 0;
-	token->left = NULL;
-	token->right = NULL;
-	return (token);
-}
-
-t_calc_tkn  *calc_get_number_tkn(char *str, size_t pos)
-{
-    size_t      i;
-    char        *value;
-    t_calc_tkn  *token;
-
-    if (!str)
-        return (NULL);
-    i = 0;
-    while (ft_isdigit(str[i]))
-        i++;
-    if (!(value = ft_strsub(str, 0, i)))
-        return (NULL);
-    if (!(token = calc_newtkn((void *)value, CALC_NUMBER)))
-    {
-        ft_memdel((void **)&value);
-        return (NULL);
-    }
-    token->start_pos = pos;
-    token->end_pos = pos + i;
-    return (token);
-}
-
-void        calc_del_tkn(t_calc_tkn **token)
-{
-    if (!token || !*token)
-        return ;
-    if ((*token)->value)
-        free((*token)->value);
-    (*token)->type = 0;
-    (*token)->left = NULL;
-    (*token)->right = NULL;
-    free(*token);
-    *token = NULL;    
 }

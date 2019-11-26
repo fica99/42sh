@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 19:14:41 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/11/26 20:50:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	term_start(void)
 	{
 		g_flags = INIT_FLAGS;
 		line = ft_readline(prompt, EMACS, g_env.env);
-		calc(line);
+		calc(line, NULL);
 		//check_valid_string(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)

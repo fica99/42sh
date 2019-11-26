@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:16:25 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/21 22:05:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/11/26 21:23:29 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void    calc_print_type(t_calc_tkntype type)
         ft_putstr("VAR\n");
     else  if (type == CALC_PREFIXVAR)
         ft_putstr("PREFIXVAR\n");
+    else  if (type == CALC_LPARENT)
+        ft_putstr("LPARENT\n");
+    else  if (type == CALC_RPARENT)
+        ft_putstr("RPARENT\n");
     else
         ft_putstr("UNDEFINED\n");
 }
