@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:16:25 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/26 21:23:29 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/01 16:34:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,25 @@ void	calc_print_tkn(t_calc_tkn *token, t_variables *variables)
         ft_putchar('\n');
     }
     ft_putstr("********************\n");
+}
+
+void    calc_print_tkns(char *str, t_variables *variables)
+{
+    t_calc_tkns	*s_tokens;
+	size_t		i;
+
+	variables = calc_get_variables();
+
+	if (!(s_tokens = calc_get_arr_tkns(str, variables)))
+	{
+		ft_putstr("\nERROR\n");
+		return ;
+	}
+	i = -1;
+	while(++i < s_tokens->size)
+		calc_print_tkn(&s_tokens->tokens[i], variables);
+	calc_del_tkns(s_tokens);
+	return ;
 }
 
 void    calc_print_type(t_calc_tkntype type)

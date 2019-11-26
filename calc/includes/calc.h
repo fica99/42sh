@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/26 21:25:33 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/01 16:34:58 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ typedef struct	s_calc_tkn
 	t_calc_tkntype		type;
 	size_t				start_pos;
 	size_t				end_pos;
-	struct s_calc_tkn	*left;
-	struct s_calc_tkn	*right;
+	struct s_calc_tkn	*next;
 }				t_calc_tkn;
 
 typedef enum		e_var_type
@@ -83,10 +82,11 @@ typedef struct		s_variables
 	size_t		size;
 }					t_variables;
 
-typedef struct		s_calc_tkns
+typedef	struct		s_calc_tkns
 {
 	t_calc_tkn	*tokens;
 	size_t		size;
+	size_t		malloc_size;
 }					t_calc_tkns;
 
 
@@ -103,14 +103,22 @@ t_calc_tkn  			*calc_define_tkn_next(char *str, size_t pos, t_variables *variabl
  */
 
 t_calc_tkn				*calc_newtkn(void *value, t_calc_tkntype type);
-void    				calc_del_tkn(t_calc_tkn **token);
+void					calc_del_tkn(t_calc_tkn **token);
+
+/*
+** calc_arr_tkns.c
+ */
+
+t_calc_tkns          	*calc_get_arr_tkns(char *str, t_variables *variables);
+t_calc_tkns				*calc_del_tkns(t_calc_tkns *s_tokens);
 
 /*
 ** calc_num_fun.c
  */
 
 t_calc_tkn  			*calc_get_number_tkn(char *str, size_t pos);
-
+int        				calc_number(t_calc_tkn *token);
+int						calc_unary(char *str, t_calc_tkn *token, size_t *pos);
 
 /*
 ** calc_add_fun.c
@@ -174,5 +182,6 @@ t_calc_tkn  			*calc_get_parent_tkn(char *str, size_t pos);
 void					calc_print_tkn(t_calc_tkn *token, t_variables *variables);
 void    				calc_print_type(t_calc_tkntype type);
 t_variables 			*calc_get_variables(void);
+void					calc_print_tkns(char *str, t_variables *variables);
 
 #endif

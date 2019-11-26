@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/26 21:21:40 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/01 14:51:03 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ srcs := calc.c\
 		calc_tkn.c\
 		calc_num_fun.c\
 		calc_parent_fun.c\
+		calc_arr_tkns.c\
 
 objs := $(srcs:.c=.o)
 

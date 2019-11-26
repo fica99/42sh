@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:47:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/21 22:02:48 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/01 15:59:42 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_calc_tkn  *calc_get_var_tkn(char *str, size_t pos, int var_id, t_variables *va
     pos = (*str == '$') ? ++pos : pos;
     str = (*str == '$') ? ++str : str;
     if (variables->data[var_id].type != VAR_INT)
-        return (calc_newtkn((void *)ft_strdup("Lexer syntax error!"), CALC_ERROR)); 
+        return (NULL); 
     if (!(value = (int *)malloc(sizeof(int))))
         return (NULL);
     *value = var_id;

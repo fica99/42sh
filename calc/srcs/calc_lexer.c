@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:08 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/11/26 21:52:07 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/01 16:37:42 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ t_calc_tkn  *calc_define_tkn_next(char *str, size_t pos, t_variables *variables)
     else if (variables && (var_id = calc_check_variables(str, variables)) != -1)
          return (calc_get_var_tkn(str, pos, var_id, variables));
     else
-        return (calc_newtkn((void *)ft_strdup("Lexer syntax error!"), CALC_ERROR));
+        return (NULL);
 }
