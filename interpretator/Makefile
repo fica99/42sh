@@ -19,7 +19,6 @@ srcs := interpretator.c\
 		spec_symb.c\
 		parse_quotes.c\
 		aggr_fd.c\
-		process.c\
 
 objs := $(srcs:.c=.o)
 
