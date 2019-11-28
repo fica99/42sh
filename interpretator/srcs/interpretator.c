@@ -12,41 +12,96 @@
 
 #include "ft_shell.h"
 
-void	interpret_ast(t_node *ast)
+int syntax_err(t_token *token)
 {
-	if (!ast)
-		return ;
-	if (tk_type(ast->token, SEP))
-	{
-		interpret_ast(ast->left);
-		interpret_ast(ast->right);
-	}
-	else if (tk_type(ast->token, PIPE))
-		pipe_op(ast);
-	else if (tk_type(ast->token, EXPRESS))
-		make_command(ast->token->lexeme);
-	else
-		interpret_redir(ast);
+	ft_putstr("42sh: ");
+	ft_putstr("syntax error near unexpected token: ");
+	ft_putstr(token->lexeme);
+	return (-1);
 }
 
-void	interpret_redir(t_node *ast)
+void	add_logical(t_token *token)
 {
-	if (tk_class(ast->token, C_RREDIR))
+	//todo
+}
+
+t_job *job_new(void)
+{
+	t_job *new;
+	t_job *tmp;
+
+	if (!(new = (t_job *)ft_memalloc(sizeof(t_job))))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	if (!g_first_job)
+		g_first_job = new;
+	else
 	{
-		if (ast->left && tk_class(ast->left->token, C_RREDIR))
-			interpret_ast(ast->left);
-		rredir_op(ast);
+		tmp = g_first_job;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
-	else if (tk_class(ast->token, C_LREDIR))
-	{
-		if (ast->left && tk_class(ast->left->token, C_LREDIR))
-			interpret_ast(ast->left);
-		lredir_op(ast);
-	}
-	else if (tk_class(ast->token, C_CLOSE))
-	{
-		if (ast->left && tk_class(ast->left->token, C_CLOSE))
-			interpret_ast(ast->left);
-		aggr_fd_op(ast);
-	}
+	return (new);
+}
+
+t_token *find_token(t_token *list, int type)
+{
+	//todo
+	return (NULL);
+}
+
+void	rmtoken(t_token *token)
+{
+	if (!token)
+		return ;
+	//todo
+}
+
+
+
+int	logical_list(t_token *list)
+{
+	t_token *logical;
+	t_token *tmp;
+
+	if (!list)
+		return (0);
+	if (tk_class(list, LOGICAL))
+		return (syntax_err(list));
+	tmp = NULL;
+	logical = find_token(list, LOGICAL);
+	add_logical(list);
+	if (logical)
+		tmp = logical->next;
+	rmtoken(logical);
+	if ((pipeline(list)) < 0)
+		return (-1);
+	return (logical_list(tmp));
+}
+
+int	start(t_token *list)
+{
+	t_token *semi;
+	t_token	*tmp;
+
+	if (!list)
+		return (0);
+	if (tk_class(list, SEMI))
+		return (syntax_err(list));
+	tmp = NULL;
+	if ((semi = find_token(list, SEMI)))
+		tmp = semi->next;
+	rmtoken(semi);
+	if ((logical_list(list)) < 0)
+		return (-1);
+	return (start(tmp));
+}
+
+void	interpret_ast(t_token *list)
+{
+	t_job *jobs_list;
+
+	if (!list)
+		return ;
+	start(list);
 }

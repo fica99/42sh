@@ -11,14 +11,6 @@
 # **************************************************************************** #
 
 srcs := interpretator.c\
-		rredir.c\
-		lredir.c\
-		pipes.c\
-		dup_fd.c\
-		exec.c\
-		spec_symb.c\
-		parse_quotes.c\
-		aggr_fd.c\
 
 objs := $(srcs:.c=.o)
 

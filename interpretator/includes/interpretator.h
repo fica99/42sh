@@ -26,61 +26,13 @@
 # define HEREDOC_FILE "/tmp/.fucking_heredoc"
 # define INIT_AGGR_FD -5
 
-/*
-**	interpretator.c
-*/
-void	interpret_ast(t_node *ast);
-void	interpret_redir(t_node *ast);
-/*
-**	pipes.c
-*/
-void	pipe_op(t_node *ast);
-void	left_child(int *pid, int *pipes, t_node *expr);
-void	right_child(int *pid, int *pipes, t_node *expr);
-/*
-**	rredir.c
-*/
-void	rredir_op(t_node *ast);
-void	amprred_op(t_node *ast);
-int		get_expr_fd(t_node *ast);
-int		open_red_file(char *name, t_token_type red_type, int acc, int mode);
-void	exec_redir_command(t_node *ast, t_token_class class);
-/*
-**	lredir.c
-*/
-void	lredir_op(t_node *ast);
-/*
-**	dup_fd.c
-*/
-int		copy_fd(int fd, int new_fd);
-void	restore_fd(int back_fd, int new_fd);
-/*
-**	aggr_fd.c
-*/
-void	aggr_fd_op(t_node *ast);
-void	get_aggr_fd(char *str, int *left_fd, int *right_fd);
-/*
-**	exec.c
-*/
-void	make_command(char *buff);
-void	find_command(char **args);
-char	check_command(char **args);
-char	check_bin(char **args, t_hash **bin_table, short bin_table_size);
-/*
-**	spec_symb.c
-*/
-char	*spec_symbols(char *args);
-char	*tilda_expr(char *args);
-char	*dollar_expr(char *args);
-/*
-**	parse_quotes.c
-*/
-char	**parse_quotes(char *buff);
-char	*fill_quotes_buff(char **buff);
-char	*remove_quotes(char **buff);
-char	*remove_dquotes(char **buff);
-/*
-**	process.c
-*/
-pid_t	make_process(void);
+typedef struct s_sep_list
+{
+	int sep;
+	int status;
+	struct	s_sep_list  *next;
+}				t_sep_list;
+
+t_sep_list	*g_sep_list;
+
 #endif
