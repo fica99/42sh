@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-t_sep_list	*new_sep_list(t_token *token)
+#include "ft_shell.h"
+
+t_sep_list	*new_sep(t_token *token)
 {
 	t_sep_list *new;
 
@@ -27,13 +29,13 @@ void	add_logical(t_token *token)
 	if (!token)
 		return ;
 	if (!g_sep_list)
-		g_sep_list = new_sep_list(token);
+		g_sep_list = new_sep(token);
 	else
 	{
 		tmp = g_sep_list;
 		while (tmp->next)
 			tmp = tmp->next;
-		tmp->next = new_sep_list(token);
+		tmp->next = new_sep(token);
 	}
 }
 
