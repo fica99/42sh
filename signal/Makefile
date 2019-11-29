@@ -6,19 +6,11 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/19 19:05:18 by aashara-         ###   ########.fr        #
+#    Updated: 2019/10/19 19:19:12 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := interpretator.c\
-		rredir.c\
-		lredir.c\
-		pipes.c\
-		dup_fd.c\
-		exec.c\
-		spec_symb.c\
-		parse_quotes.c\
-		aggr_fd.c\
+srcs := signals.c\
 
 objs := $(srcs:.c=.o)
 
@@ -36,7 +28,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, interpretator.h)
+header := $(addprefix $(inc_dir)/, signals.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 

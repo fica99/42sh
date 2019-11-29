@@ -1,24 +1,16 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/19 19:05:18 by aashara-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+srcs := find_job.c\
+		free_job.c\
+		job_is_stopped.c\
+		job_is_completed.c\
+		init_jobs.c\
+		init_process.c\
+		fg_bg.c\
+		handle_chld_process.c\
+		launch_job.c\
+		launch_process.c\
+		cont_job.c\
+		
 
-srcs := interpretator.c\
-		rredir.c\
-		lredir.c\
-		pipes.c\
-		dup_fd.c\
-		exec.c\
-		spec_symb.c\
-		parse_quotes.c\
-		aggr_fd.c\
 
 objs := $(srcs:.c=.o)
 
@@ -36,7 +28,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, interpretator.h)
+header := $(addprefix $(inc_dir)/, jobs.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
@@ -82,4 +74,3 @@ clean:
 re:
 	@$(MAKE) --no-print-directory clean
 	@$(MAKE) --no-print-directory all
-

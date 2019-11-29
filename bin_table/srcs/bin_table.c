@@ -21,7 +21,7 @@ void	init_bin_table(t_table *table)
 
 	table->size = 0;
 	table->table = NULL;
-	if (!(env_path = sh_getenv("PATH")))
+	if (!(env_path = ft_getenv("PATH", g_env.env)))
 		return ;
 	if (!(path = ft_strsplit(env_path, ':')))
 		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
