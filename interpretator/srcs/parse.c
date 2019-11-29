@@ -52,7 +52,7 @@ int	start(t_token *list)
 	return (start(tmp));
 }
 
-void	interpretator(t_token *list)
+void	parse(t_token *list)
 {
 	t_job *jobs_list;
 
