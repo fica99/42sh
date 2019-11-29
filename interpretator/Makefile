@@ -11,8 +11,9 @@
 # **************************************************************************** #
 
 srcs := parse.c\
-		ft_strccut.c
-		ft_stricut.c
+		ft_strccut.c\
+		ft_stricut.c\
+		ft_strtok.c
 
 objs := $(srcs:.c=.o)
 

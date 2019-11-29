@@ -25,7 +25,7 @@ void	rmtoken(t_token *token)
 	//todo
 }
 
-t_token *get_next_grammar(t_token *token)
+t_token *split_list(t_token *token)
 {
 	t_token *tmp;
 
