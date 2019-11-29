@@ -34,5 +34,15 @@ typedef struct s_sep_list
 }				t_sep_list;
 
 t_sep_list	*g_sep_list;
+char		*ft_strccut(char *str, char c);
+char		*ft_stricut(char *str, int i);
+t_token		*get_next_grammar(t_token *token);
+t_token		*find_token(t_token *list, int type);
+
+t_sep_list	*new_sep(t_token *token);
+void		add_logical(t_token *token);
+t_job		*job_new(void);
+
+int			syntax_err(t_token *token);
 
 #endif
