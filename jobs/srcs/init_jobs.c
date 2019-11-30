@@ -11,9 +11,9 @@ t_job *new_job(char **args)
     j->tmodes = &g_shell_tmodes;
     j->next = NULL;
     j->notified = 0;
-    j->stdin = STDIN_FILENO;
-    j->stdout = STDOUT_FILENO;
-    j->stderr = STDERR_FILENO;
+    j->fdin = STDIN_FILENO;
+    j->fdout = STDOUT_FILENO;
+    j->fderr = STDERR_FILENO;
     return (j);
 }
 
