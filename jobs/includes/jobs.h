@@ -21,9 +21,9 @@ typedef struct s_job
     pid_t pgid;                 /* process group ID */
     char notified;              /* true if user told about stopped job */
     struct termios *tmodes;      /* saved terminal modes */
-    int stdin; 
-    int stdout; /* standard i/o channels */
-    int stderr;  
+    int fdin;
+    int fdout; /* standard i/o channels */
+    int fderr;
 }   t_job;
 
 /* The active jobs are linked into a list.  This is its head.   */

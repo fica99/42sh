@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/24 19:50:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	term_start(void)
 
 	prompt = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m";
 	init_readline(g_env.env);
+	init_jobs();
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
