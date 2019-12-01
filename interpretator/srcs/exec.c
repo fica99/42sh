@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 15:47:49 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/01 22:36:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	find_command(char **args)
 		print_bin_table(g_bin_table.table, g_bin_table.size);
 	else if (!ft_strcmp(args[0], "pwd"))
 		pwd(args);
+	else if (!ft_strcmp(args[0], "fc"))
+		fc(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
 	else if (!check_bin(args, g_bin_table.table,

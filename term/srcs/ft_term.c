@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 16:34:21 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/01 22:27:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	term_start(void)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(prompt, EMACS, g_env.env);
+		line = ft_readline(prompt, VI, g_env.env);
 		check_valid_string(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)

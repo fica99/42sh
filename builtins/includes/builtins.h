@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:15:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/01 22:35:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void			print_bin_table(t_hash **bin_table, size_t size);
 void			set_env(int argc, char **argv, char **env_cp);
 void			unset_env(int argc, char **argv, char **env_cp);
 void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
-
+void			fc(int argc, char **argv, char **env);
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/24 19:48:05 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/01 22:32:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,6 @@ srcs := rl_main.c\
 	rl_init_hash2.c\
 	rl_k_vi4.c\
 	rl_k_vi5.c\
-	rl_k_v.c\
 	rl_init_history.c\
 	rl_hist_expansions.c\
 	rl_err.c\
@@ -76,7 +75,7 @@ includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror -g -O0
+cflags := -Wall -Wextra -Werror
 
 .PHONY: all compilation clean re
 

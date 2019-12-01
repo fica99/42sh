@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/11/24 19:48:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/02 00:09:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include "rl_errors.h"
 # include "rl_colours.h"
 # include "rl_templates.h"
+# include "../../term/includes/term.h"
+
 
 # define MAX_LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
@@ -50,7 +52,7 @@
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
 # define RL_OPEN_HISTFILE O_RDWR | O_CREAT
 # define RL_REWRITE_HISTFILE O_RDWR | O_APPEND | O_CREAT
-# define RL_VIFILE "/tmp/.42sh_vimode"
+# define RL_VIFILE ".42sh_vimode"
 # define RL_OPEN_VIFILE O_RDWR | O_CREAT | O_TRUNC
 # define RL_PERM_VIFILE S_IRUSR | S_IWUSR
 # define RL_READ_VIFILE O_RDONLY
@@ -325,13 +327,6 @@ void				rl_k_p_lower(t_readline *rl);
 void				rl_k_p_upper(t_readline *rl);
 void				rl_k_y_upper(t_readline *rl);
 void				rl_k_d_upper(t_readline *rl);
-/*
-**	rl_k_v.c
-*/
-void				rl_open_editor(t_readline *rl);
-char				*rl_editor_path(char *editor, char **path);
-void				rl_exec_editor(t_readline *rl, char *command_path,
-char **argv);
 /*
 **	rl_init_history.c
 */
