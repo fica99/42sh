@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 18:58:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	init_curr_pwd(void)
 {
 	if (!(g_curr_dir = (char *)ft_memalloc(MAXDIR)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!getcwd(g_curr_dir, MAXDIR))
-		err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
+		err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	ft_setenv("PWD", g_curr_dir);
 }
 
@@ -28,7 +28,7 @@ char	check_request(char **argv, char *path)
 	if (path && !access(path, F_OK))
 	{
 		if ((stat(path, &buf)) < 0)
-			err_exit(g_argv[0], "stat() error", NULL, NOERROR);
+			err_exit("42sh", "stat() error", NULL, NOERROR);
 		if (!S_ISDIR(buf.st_mode))
 			err(argv[0], "not a directory", path, NOERROR);
 		else if (access(path, R_OK))
@@ -101,10 +101,10 @@ void	pwd(char **av)
 	if (no_links)
 	{
 		if (!(dir = (char *)malloc(MAXDIR)))
-			err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+			err_exit("42sh", "malloc() error", NULL, NOERROR);
 		dir[MAXDIR - 1] = 0;
 		if (!getcwd(dir, MAXDIR))
-			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
+			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	else
 		dir = ft_strdup(g_curr_dir);

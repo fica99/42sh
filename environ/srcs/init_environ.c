@@ -30,11 +30,11 @@ void		set_env_struct(t_environ *env, char **arr, short malloc_size)
 
 	env->malloc_size = malloc_size;
 	if (!(env->env = ft_darnew(malloc_size)))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (arr[++i])
 		if (!(env->env[i] = ft_strdup(arr[i])))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	env->cur_size = i;
 }
 

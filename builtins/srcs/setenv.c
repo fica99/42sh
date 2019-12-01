@@ -18,7 +18,6 @@ void	set_env(int argc, char **argv, char **env_cp)
 	char	*value;
 
 	(void)env_cp;
-	value = NULL;
 	j = 0;
 	if (argc == 1)
 		ft_putdar(env_cp);

@@ -18,7 +18,7 @@ char	**parse_quotes(char *buff)
 	int		i;
 
 	if (!(args = ft_darnew(ft_strlen(buff))))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*buff)
 	{
@@ -43,7 +43,7 @@ char	*fill_quotes_buff(char **buff)
 	j = 0;
 	copy = *buff;
 	if (!(str = ft_strnew(ft_strlen(copy))))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	while (*copy && *copy != ' ' && *copy != '\'' && *copy != '\"')
 		str[j++] = *(copy++);
 	*buff = copy;
@@ -58,7 +58,7 @@ char	*remove_quotes(char **buff)
 
 	str = *buff;
 	if (!(new = ft_strnew(ft_strlen(*buff))))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*(++str))
 	{
@@ -81,7 +81,7 @@ char	*remove_dquotes(char **buff)
 
 	str = *buff;
 	if (!(new = ft_strnew(ft_strlen(*buff))))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = 0;
 	while (*(++str))
 	{
