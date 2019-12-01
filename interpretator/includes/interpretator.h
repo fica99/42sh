@@ -18,6 +18,7 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
+# define DEF_HEREDOC_SIZE 10;
 # define LRED_OPEN O_RDONLY
 # define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
 # define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
@@ -33,6 +34,7 @@ typedef struct s_sep_list
 	struct	s_sep_list  *next;
 }				t_sep_list;
 
+void		*ft_realloc(void *buf, size_t new_size);
 char		**ft_strtok(char *s);
 t_sep_list	*g_sep_list;
 char		*ft_strccut(char *str, char c);

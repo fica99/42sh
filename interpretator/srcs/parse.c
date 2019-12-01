@@ -144,7 +144,55 @@ int l_redir(t_token *redir, t_process *curr_proc)
 	return (redirect_list(redir, curr_proc));
 }
 
-int here_doc()
+int parse_here_doc(int fd, t_process *proc)
+{
+	int *tmp;
+
+	if (!(tmp = (int *)malloc(sizeof(int) * 2)))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	tmp[0] = 0;
+	tmp[1] = fd;
+	add_redir(proc, tmp);
+	return (0);
+}
+
+int write_here_doc(char **buf)
+{
+	int fd;
+
+	if ((fd = open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC)) < 0)
+		return (-1);
+	while (*buf)
+		ft_putstr_fd(*buf++, fd);
+	return (fd);
+}
+
+int here_doc(t_token *redir, t_process *curr)
+{
+	char **buf;
+	size_t buf_size;
+	char *delim;
+	int i;
+	char *tmp;
+
+	if ((redir + 1)->type != WORD)
+		return (-1);
+	delim = (redir + 1)->lexeme;
+	i = 0;
+	buf_size = DEF_HEREDOC_SIZE;
+	if (!(buf = (char **)ft_memalloc(sizeof(char *) * buf_size)))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	while (ft_strcmp((tmp = ft_readline("heredoc>", EMACS, g_env.env)), delim))
+	{
+		buf[i++] = tmp;
+		if (i >= buf_size)
+		{
+			buf_size *= 2;
+			buf = (char **) ft_realloc(buf, sizeof(char *) * buf_size);
+		}
+	}
+	return (parse_here_doc(write_here_doc(buf), curr));
+}
 
 int redirect_list(t_token *redir, t_process *cur_proc)
 {
