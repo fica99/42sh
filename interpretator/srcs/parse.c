@@ -86,8 +86,6 @@ int simp_command(t_token *list)
 
 	if (!list)
 		return (0);
-	if (list->type != WORD && tk_class(list, BRACES))
-		return (-1);
 	curr_proc = add_process(list);
 	if ((tmp = find_token(list, REDIR)))
         return (redirect_list(tmp, curr_proc));
