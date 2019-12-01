@@ -6,12 +6,13 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/21 13:15:09 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 srcs := ft_term.c\
 		global_var.c\
+		init_shell.c\
 
 objs := $(srcs:.c=.o)
 
