@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 18:59:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 15:24:16 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@ typedef struct	s_environ
 	short		malloc_size;
 	char		**env;
 }				t_environ;
+
+typedef struct s_set_environ
+{
+	short 		ar_size;
+	short 		str_size;
+	char 		env[10][128];
+}				t_set_environ;
+
 /*
 **	init_environ.c
 */
@@ -34,5 +42,12 @@ short			get_count_env(char *arr);
 void			ft_setenv(char *name, char *new_value);
 char			*join_env(char *name, char *new_value);
 void			ft_unsetenv(char *arr);
+/*
+**	init_set_environ.c
+*/
+void	change_set_value(short index, const char *value);
+void	init_global_set_env(void);
+
+t_set_environ	g_set_env;
 t_environ		g_env;
 #endif

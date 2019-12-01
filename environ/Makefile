@@ -6,12 +6,13 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/19 19:18:05 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/01 14:43:50 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 srcs = get_env.c\
 		init_environ.c\
+		init_set_environ.c\
 
 objs := $(srcs:.c=.o)
 
