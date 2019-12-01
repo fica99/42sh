@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 17:57:30 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 16:51:57 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_node		*init_node(t_node *left, t_token *token, t_node *right)
 	t_node	*node;
 
 	if (!(node = (t_node*)malloc(sizeof(t_node))))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	node->left = left;
 	node->token = token;
 	node->right = right;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 15:47:49 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/01 16:34:21 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		main(int argc, char **argv, char **environ)
 {
+	(void)argv;
+
 	ft_putstr("*-------------------------------------------------------*\n");
 	ft_putstr("│                                                       │\n");
 	ft_putstr("|\033[0;31m");
@@ -21,7 +23,7 @@ int		main(int argc, char **argv, char **environ)
 	ft_putstr("\033[0m|\n");
 	ft_putstr("|                                                       │\n");
 	ft_putstr("*-------------------------------------------------------*\n");
-	init_global_var(argv, environ);
+	init_global_var(environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();

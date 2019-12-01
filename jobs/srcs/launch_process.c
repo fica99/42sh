@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/11/19 17:55:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		close(STDERR_FILENO);*/
 	}
 	if (execve(p->args[0], p->args, g_env.env) < 0)
-		err_exit(g_argv[0], "execve() error", p->args[0], NOERROR);
+		err_exit("42sh", "execve() error", p->args[0], NOERROR);
   	exit(1);
 }

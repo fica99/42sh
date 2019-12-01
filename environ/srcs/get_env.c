@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 19:46:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 19:04:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_setenv(char *name, char *new_value)
 		{
 			g_env.malloc_size += DEFAULT_ENV_MALLOC_SIZE;
 			if (!(envp = ft_darnew(g_env.malloc_size)))
-				err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			j = -1;
 			while (g_env.env[++j])
 				envp[j] = g_env.env[j];
@@ -65,9 +65,9 @@ char	*join_env(char *name, char *new_value)
 	char *name2;
 
 	if (!(name1 = ft_strjoin(name, "=")))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	if (!(name2 = ft_strjoin(name1, new_value)))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	ft_memdel((void**)&name1);
 	return (name2);
 }

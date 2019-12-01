@@ -39,7 +39,7 @@ void	rewrite_global(char **split_path)
 	char **tmp;
 
 	if (!split_path)
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	tmp = split_path;
 	while (*split_path)
 	{
@@ -64,7 +64,7 @@ void	remove_slashes(void)
 
 	i = -1;
 	if ((tmp = ft_strsplit(g_curr_dir, '/')) == 0)
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
 	*g_curr_dir = '/';
 	while (tmp[++i])
@@ -78,7 +78,7 @@ void	rewrite_cwd(char *path, t_flag no_links)
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
 		if (!(getcwd(g_curr_dir, MAXDIR)))
-			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
+			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	if (*path == '/')
 	{
@@ -95,7 +95,7 @@ int	change_wdir(char *path, t_flag no_links)
 	char *tmp;
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	rewrite_cwd(path, no_links);
 	if ((chdir(g_curr_dir)) < 0)
 	{
