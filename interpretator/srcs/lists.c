@@ -46,6 +46,8 @@ t_job *job_new(void)
 
 	if (!(new = (t_job *)ft_memalloc(sizeof(t_job))))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	new->pgid = getpgrp();
+	new->tmodes = &g_shell_tmodes;
 	if (!g_first_job)
 		g_first_job = new;
 	else

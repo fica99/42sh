@@ -37,8 +37,9 @@ t_process *get_last_proc(t_job *job)
 t_process *proc_new()
 {
 	t_process *new;
-
 	if (!(new = (t_process *)ft_memalloc(sizeof(new))))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * 16)))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
 	return (new);
 }
@@ -50,17 +51,58 @@ t_process	*add_process(t_token *token)
 	t_job		*last_job;
 
 	proc = proc_new();
-	last_job = get_last_job();
-	tmp = get_last_proc(last_job);
-	if (!tmp)
-		last_job->first_process = proc;
-	else
-		tmp->next = proc;
-	proc->args = ft_strtok(token->lexeme);
+	if (token)
+	{
+		last_job = get_last_job();
+		tmp = get_last_proc(last_job);
+		if (!tmp)
+			last_job->first_process = proc;
+		else
+			tmp->next = proc;
+		proc->args = ft_strtok(token->lexeme);
+	}
     return (proc);
 }
 
+void	add_redir(t_process *proc, int *fd)
+{
+	int **tmp = proc->redir;
 
+	while (*tmp)
+		tmp++;
+	*tmp = fd;
+}
+
+int ft_open(t_token *file, int flag)
+{
+	int fd;
+
+	if (file->type != WORD)
+		return (syntax_err(file));
+	if ((fd = open(file->lexeme, flag)) < 0)
+		return (-1);
+	return (fd);
+}
+
+int g_redir(t_token *redir, t_process *curr_proc)
+{
+	int *fd;
+
+	if (!(fd = (int *)malloc(sizeof(int))))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	*fd = 1;
+	if (*(redir->lexeme) != '>')
+		*fd = ft_atoi(redir->lexeme);
+	if ((fd[1] = ft_open(redir + 1, RRED_OPEN)) < 0)
+	{
+		free(fd);
+		return (-1);
+	}
+	add_redir(curr_proc, fd);
+	free(redir++);
+	free(redir++);
+	return (redirect_list(redir));
+}
 
 int redirect_list(t_token *redir, t_process *cur_proc)
 {
@@ -86,7 +128,7 @@ int simp_command(t_token *list)
 
 	if (!list)
 		return (0);
-	curr_proc = add_process(list);
+	curr_proc = add_process(find_token(list, WORD));
 	if ((tmp = find_token(list, REDIR)))
         return (redirect_list(tmp, curr_proc));
 	return (0);

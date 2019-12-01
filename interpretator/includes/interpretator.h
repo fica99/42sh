@@ -45,5 +45,6 @@ void		add_logical(t_token *token);
 t_job		*job_new(void);
 
 int			syntax_err(t_token *token);
+int			redirect_list(t_token *redir, t_process *cur_proc);
 
 #endif
