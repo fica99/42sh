@@ -18,7 +18,7 @@ t_token *find_token(t_token *list, int type)
 	return (NULL);
 }
 
-void	rmtoken(t_token *token)
+void	token_free(t_token *token)
 {
 	if (!token)
 		return ;
@@ -27,11 +27,8 @@ void	rmtoken(t_token *token)
 
 t_token *split_list(t_token *token)
 {
-	t_token *tmp;
-
 	if (!token)
 		return (NULL);
-	tmp = token->next;
-	rmtoken(token);
-	return (tmp);
+	token_free(token);
+	return (token + 1);
 }

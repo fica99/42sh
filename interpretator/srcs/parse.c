@@ -43,7 +43,7 @@ t_process *proc_new()
 	return (new);
 }
 
-void	add_process(t_token *token)
+t_process	*add_process(t_token *token)
 {
 	t_process	*proc;
 	t_process	*tmp;
@@ -57,17 +57,40 @@ void	add_process(t_token *token)
 	else
 		tmp->next = proc;
 	proc->args = ft_strtok(token->lexeme);
+    return (proc);
 }
 
-int commamd(t_token *list)
+
+
+int redirect_list(t_token *redir, t_process *cur_proc)
+{
+    if (!redir)
+        return (0);
+	else if (!tk_class(redir, REDIR))
+        return (-1);
+    else if (redir->type == GREAT)
+		return (g_redir(redir, cur_proc));
+	else if (redir->type == DGREAT)
+		return (dg_redir(redir, cur_proc));
+	else if (redir->type == LESS)
+		return (l_redir(redir, cur_proc));
+	else if (redir->type == DLESS)
+		return (here_doc(redir, cur_proc));
+	//todo
+}
+
+int simp_command(t_token *list)
 {
 	t_token *tmp;
+    t_process *curr_proc;
 
 	if (!list)
 		return (0);
-	if (list->type != WORD)
+	if (list->type != WORD && tk_class(list, BRACES))
 		return (-1);
-	add_process(list);
+	curr_proc = add_process(list);
+	if ((tmp = find_token(list, REDIR)))
+        return (redirect_list(tmp, curr_proc));
 	return (0);
 }
 
@@ -80,23 +103,22 @@ int	pipe_sequence(t_token *list)
 	if (tk_type(list, PIPE))
 		return (syntax_err(list));
 	tmp = split_list(find_token(list, PIPE));
-	if ((command(list) < 0))
+	if ((simp_command(list) < 0))
 		return (-1);
 	return (pipe_sequence(tmp));
 }
 
 int	logical_list(t_token *list)
 {
-	t_token *logical;
 	t_token *tmp;
 
 	if (!list)
 		return (0);
 	if (tk_class(list, LOGICAL))
 		return (syntax_err(list));
-	logical = find_token(list, LOGICAL);
-	add_logical(list);
-	tmp = split_list(logical);
+	tmp = find_token(list, LOGICAL);
+	add_logical(tmp);
+	tmp = split_list(tmp);
 	if ((pipe_sequence(list)) < 0)
 		return (-1);
 	return (logical_list(tmp));
