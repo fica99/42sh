@@ -6,24 +6,24 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/01 14:51:03 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/05 20:00:57 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := calc.c\
+srcs := calc_add_fun.c\
+		calc.c\
 		calc_lexer.c\
 		calc_debug.c\
-		calc_add_fun.c\
+		calc_arr_tkns.c\
 		calc_mul_fun.c\
 		calc_inc_fun.c\
 		calc_com_fun.c\
 		calc_eq_fun.c\
 		calc_log_fun.c\
-		calc_var_fun.c\
 		calc_tkn.c\
 		calc_num_fun.c\
 		calc_parent_fun.c\
-		calc_arr_tkns.c\
+		calc_error_fun.c\
 
 objs := $(srcs:.c=.o)
 

@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_tkn.c                                         :+:      :+:    :+:   */
+/*   calc_error_fun.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/26 19:56:59 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/04 22:02:16 by ggrimes          ###   ########.fr       */
+/*   Created: 2019/12/01 16:54:52 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/01 22:07:59 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-t_calc_tkn	*calc_newtkn(char *value, t_calc_tkntype type)
+t_calc_err	*calc_new_error(void)
 {
-	t_calc_tkn	*token;
+	t_calc_err  *new_error;
 
-	if (!(token = (t_calc_tkn *)malloc(sizeof(t_calc_tkn))))
+	if (!(new_error = (t_calc_err *)malloc(sizeof(t_calc_err))))
 		return (NULL);
-	token->value = value;
-	token->type = type;
-	token->start_pos = 0;
-	token->end_pos = 0;
-	return (token);
+	new_error->type = 0;
+	new_error->status = 0;
+	return new_error;
 }
 
-void		calc_del_tkn(t_calc_tkn **token)
+int			calc_error(t_calc_err *error, t_calc_err_type type)
 {
-	if (!token || !*token)
-		return ;
-	if ((*token)->value)
-		ft_memdel((void **)&(*token)->value);
-	(*token)->type = 0;
-	free(*token);
-	*token = NULL;
+	if (!error)
+		return (0);
+	error->type = type;
+	error->status = 1;
+	calc_print_error(error);
+	return (0);
 }
