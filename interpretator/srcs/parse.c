@@ -90,10 +90,10 @@ int g_redir(t_token *redir, t_process *curr_proc)
 
 	if (!(fd = (int *)malloc(sizeof(int))))
 		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	*fd = 1;
+	fd[1] = 1;
 	if (*(redir->lexeme) != '>')
-		*fd = ft_atoi(redir->lexeme);
-	if ((fd[1] = ft_open(redir + 1, RRED_OPEN)) < 0)
+		fd[1] = ft_atoi(redir->lexeme);
+	if ((fd[0] = ft_open(redir + 1, RRED_OPEN)) < 0)
 	{
 		free(fd);
 		return (-1);
@@ -101,8 +101,50 @@ int g_redir(t_token *redir, t_process *curr_proc)
 	add_redir(curr_proc, fd);
 	free(redir++);
 	free(redir++);
-	return (redirect_list(redir));
+	return (redirect_list(redir, curr_proc));
 }
+
+int dg_redir(t_token *redir, t_process *curr_proc)
+{
+	int *fd;
+
+	if (!(fd = (int *)malloc(sizeof(int))))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	fd[1] = 1;
+	if (*(redir->lexeme) != '>')
+		fd[1] = ft_atoi(redir->lexeme);
+	if ((fd[0] = ft_open(redir + 1, DRRED_OPEN)) < 0)
+	{
+		free(fd);
+		return (-1);
+	}
+	add_redir(curr_proc, fd);
+	free(redir++);
+	free(redir++);
+	return (redirect_list(redir, curr_proc));
+}
+
+int l_redir(t_token *redir, t_process *curr_proc)
+{
+	int *fd;
+
+	if (!(fd = (int *)malloc(sizeof(int))))
+		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+	fd[0] = 0;
+	if (*(redir->lexeme) != '>')
+		fd[0] = ft_atoi(redir->lexeme);
+	if ((fd[1] = ft_open(redir + 1, LRED_OPEN)) < 0)
+	{
+		free(fd);
+		return (-1);
+	}
+	add_redir(curr_proc, fd);
+	free(redir++);
+	free(redir++);
+	return (redirect_list(redir, curr_proc));
+}
+
+int here_doc()
 
 int redirect_list(t_token *redir, t_process *cur_proc)
 {
