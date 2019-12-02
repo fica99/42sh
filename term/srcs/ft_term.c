@@ -64,12 +64,6 @@ void	check_valid_string(char *buffer)
 		ast = parser(buffer);
 		if (!(g_parser_flags & PARSER_ERROR))
 			interpret_ast(ast);
-		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
-		{
-			free_table(&g_bin_table);
-			if (g_flags & TERM_INIT_HASH)
-				init_bin_table(&g_bin_table);
-		}
 		free_ast(&ast);
 		add_to_history_buff(buffer);
 	}

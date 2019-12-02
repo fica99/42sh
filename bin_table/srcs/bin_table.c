@@ -25,8 +25,10 @@ void	init_bin_table(t_table *table)
 		return ;
 	if (!(path = ft_strsplit(env_path, ':')))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	bin_table_size = get_bin_table_size(path);
-	bin_table = make_bin_table(path, bin_table_size);
+	if ((bin_table_size = get_bin_table_size(path)))
+		bin_table = make_bin_table(path, bin_table_size);
+	else
+		bin_table = NULL;
 	ft_free_dar(path);
 	table->table = bin_table;
 	table->size = bin_table_size;
@@ -57,18 +59,19 @@ t_hash	**make_bin_table(char **path, size_t size)
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	while (*path)
 	{
-		folder = opendir(*path);
-		while ((f = readdir(folder)))
+		if ((folder = opendir(*path)))
 		{
-			if (!ft_strcmp(f->d_name, CUR_D) || !ft_strcmp(f->d_name, PREV_D))
-				continue ;
-			if (!(full_path = ft_strnew(FT_PATH_MAX)))
-				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-			table = push_hash(table, f->d_name, (void*)ft_strcat(ft_strcat(
-				ft_strcat(full_path, *path), "/"), f->d_name), size);
+			while ((f = readdir(folder)))
+			{
+				if (!ft_strcmp(f->d_name, CUR_D) || !ft_strcmp(f->d_name, PREV_D))
+					continue ;
+				if (!(full_path = ft_strnew(FT_PATH_MAX)))
+					err_exit("42sh", "malloc() error", NULL, ENOMEM);
+				table = push_hash(table, f->d_name, (void*)ft_strcat(ft_strcat(
+					ft_strcat(full_path, *path), "/"), f->d_name), size);
+			}
+			closedir(folder);
 		}
-		if (closedir(folder) == -1)
-			err_exit("42sh", "opendir() error", NULL, NOERROR);
 		++path;
 	}
 	return (table);
