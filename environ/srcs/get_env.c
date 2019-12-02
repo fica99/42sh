@@ -86,3 +86,11 @@ void	ft_unsetenv(char *arr, t_environ *env)
 	--env->cur_size;
 	ft_memdel((void**)&copy);
 }
+
+void	unset_env(char *name, t_env mode)
+{
+	if (mode == ENV)
+		ft_unsetenv(name, &g_env);
+	else
+		ft_unsetenv(name, &g_set_env);
+}
