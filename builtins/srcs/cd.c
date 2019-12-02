@@ -101,7 +101,7 @@ int	pwd(char **av)
 	}
 	if (no_links)
 	{
-		if (!(dir = getcwd(dir, MAXDIR)))
+		if (!(dir = getcwd(NULL, MAXDIR)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	else
