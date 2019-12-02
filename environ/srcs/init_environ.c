@@ -47,3 +47,24 @@ void		unset_env_struct(t_environ *env)
 		(env)->malloc_size = 0;
 	}
 }
+
+char	*get_env(char *arr, t_env mode)
+{
+	char	*env;
+
+	if (mode == ENV)
+		return (ft_getenv(arr, g_env.env));
+	else if (mode == SET_ENV)
+		return (ft_getenv(arr, g_set_env.env));
+	if (!(env = ft_getenv(arr, g_env.env)))
+		return (ft_getenv(arr, g_set_env.env));
+	return (env);
+}
+
+void	set_env(char *name, char *new_value, t_env mode)
+{
+	if (mode == ENV)
+		ft_setenv(name, new_value, &g_env);
+	else
+		ft_setenv(name, new_value, &g_set_env);
+}

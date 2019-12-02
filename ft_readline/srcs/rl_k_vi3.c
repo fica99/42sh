@@ -35,10 +35,10 @@ void	rl_k_v(t_readline *rl)
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
-	if (!(argv = ft_getenv("VISUAL", rl->env)))
-		if (!(argv = ft_getenv("EDITOR", rl->env)))
+	if (!(argv = get_env("VISUAL", ENV)))
+		if (!(argv = get_env("EDITOR", ENV)))
 			argv = "vi";
-	ft_strcat(ft_strcpy(path, ft_getenv("TMPDIR", rl->env)), RL_VIFILE);
+	ft_strcat(ft_strcpy(path, get_env("TMPDIR", ENV)), RL_VIFILE);
 	ft_write_to_file(path, RL_OPEN_VIFILE, RL_PERM_VIFILE, rl->line.buffer);
 	ft_strcat(ft_strcat(ft_strcpy(rl->line.buffer, argv), " "), path);
 	rl_k_enter(rl);

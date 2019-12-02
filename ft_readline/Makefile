@@ -42,6 +42,7 @@ srcs := rl_main.c\
 	rl_init_history.c\
 	rl_hist_expansions.c\
 	rl_err.c\
+	rl_main2.c\
 
 objs := $(srcs:.c=.o)
 
@@ -75,7 +76,7 @@ includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 

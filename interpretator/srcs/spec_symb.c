@@ -28,7 +28,7 @@ char	*tilda_expr(char *args)
 	char	*index;
 
 	tmp = args;
-	if ((path = ft_getenv("HOME", g_env.env)))
+	if ((path = get_env("HOME", ENV)))
 	{
 		index = ft_strchr(args, '~');
 		args = ft_strjoin(path, index + 1);
@@ -57,7 +57,7 @@ char	*dollar_expr(char *args)
 	}
 	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = ft_getenv(spec + 1, g_env.env)))
+	if ((path = get_env(spec + 1, ENV)))
 		ft_strcat(var, path);
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);

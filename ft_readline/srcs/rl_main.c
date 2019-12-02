@@ -12,21 +12,20 @@
 
 #include "ft_readline.h"
 
-char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
+char	*ft_readline(char *prompt, t_rl_mode mode)
 {
 	char	*buff;
 
 	g_rl.mode = mode;
-	g_rl.env = environ;
 	g_rl.prompt = prompt;
-	rl_write_prompt(g_rl.prompt, g_rl.env, g_rl.history);
+	rl_write_prompt(g_rl.prompt, g_rl.history);
 	rl_clr_data(&g_rl);
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
 	return (buff);
 }
 
-void	init_readline(char **environ)
+void	init_readline(void)
 {
 	rl_save_attr(&g_rl.canon_mode);
 	rl_init_terminfo();
@@ -36,7 +35,10 @@ void	init_readline(char **environ)
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP
 	|| !RL_CLEAR_SCREEN)
 		rl_err("42sh", "no correct capabilities", UNDEFERR);
-	rl_init_rl_struct(&g_rl, environ);
+	set_env("PS1", "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m", SET_ENV);
+	set_env("PS2", "> ", SET_ENV);
+	set_env("PS4", "+ ", SET_ENV);
+	rl_init_rl_struct(&g_rl);
 }
 
 void	free_readline(void)
@@ -46,12 +48,12 @@ void	free_readline(void)
 	rl_free_rl_struct(&g_rl);
 }
 
-void	add_to_history_buff(char *line, char **environ)
+void	add_to_history_buff(char *line)
 {
-	short			len;
-	short			i;
+	size_t			len;
+	size_t			i;
 
-	rl_check_history_size(&g_rl.history, environ);
+	rl_check_history_size(&g_rl.history);
 	if (!line || !*line)
 		return ;
 	++g_rl.history.cur_command_nb;

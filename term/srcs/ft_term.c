@@ -40,15 +40,13 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	char	*prompt;
 
-	prompt = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m";
-	init_readline(g_env.env);
+	init_readline();
 	init_jobs();
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(prompt, VI, g_env.env);
+		line = ft_readline(get_env("PS1", SET_ENV), VI);
 		check_valid_string(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
@@ -73,6 +71,6 @@ void	check_valid_string(char *buffer)
 				init_bin_table(&g_bin_table);
 		}
 		free_ast(&ast);
-		add_to_history_buff(buffer, g_env.env);
+		add_to_history_buff(buffer);
 	}
 }
