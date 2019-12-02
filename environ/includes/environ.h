@@ -43,6 +43,7 @@ short			get_count_env(char *arr, char **env);
 void			ft_setenv(char *name, char *new_value, t_environ *env);
 char			*join_env(char *name, char *new_value);
 void			ft_unsetenv(char *arr, t_environ *env);
+void			unset_env(char *name, t_env mode);
 
 t_environ		g_set_env;
 t_environ		g_env;
