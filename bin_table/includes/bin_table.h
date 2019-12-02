@@ -17,8 +17,6 @@
 # define PREV_D ".."
 # define CUR_D "."
 # define FT_PATH_MAX 1000
-# define TERM_INIT_HASH (1 << 3)
-# define TERM_FREE_HASH (1 << 4)
 
 typedef struct	s_table
 {
