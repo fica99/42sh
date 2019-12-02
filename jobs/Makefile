@@ -9,7 +9,7 @@ srcs := find_job.c\
 		launch_job.c\
 		launch_process.c\
 		cont_job.c\
-		
+
 
 
 objs := $(srcs:.c=.o)
@@ -49,7 +49,7 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 

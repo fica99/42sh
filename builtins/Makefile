@@ -13,12 +13,9 @@
 srcs := cd.c\
 		echo.c\
 		env.c\
-		setenv.c\
-		unsetenv.c\
 		hash.c\
 		rewrite_cwd.c\
 		set.c\
-		fc.c\
 
 objs := $(srcs:.c=.o)
 

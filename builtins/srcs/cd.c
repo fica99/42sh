@@ -18,7 +18,7 @@ void	init_curr_pwd(void)
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!getcwd(g_curr_dir, MAXDIR))
 		err_exit("42sh", "getcwd() error", NULL, NOERROR);
-	ft_setenv("PWD", g_curr_dir);
+	set_env("PWD", g_curr_dir, ENV);
 }
 
 char	check_request(char **argv, char *path)
@@ -78,9 +78,9 @@ void	cd(char **av)
 		return ;
 	}
 	if (!*dir || !ft_strcmp(*dir, "--"))
-		path = ft_getenv("HOME", g_env.env);
+		path = get_env("HOME", ENV);
 	else if (!ft_strcmp(*dir, "-"))
-		path = ft_getenv("OLDPWD", g_env.env);
+		path = get_env("OLDPWD", ENV);
 	else {
 		path = *dir;
 	}

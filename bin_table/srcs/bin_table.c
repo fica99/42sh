@@ -21,7 +21,7 @@ void	init_bin_table(t_table *table)
 
 	table->size = 0;
 	table->table = NULL;
-	if (!(env_path = ft_getenv("PATH", g_env.env)))
+	if (!(env_path = get_env("PATH", ENV)))
 		return ;
 	if (!(path = ft_strsplit(env_path, ':')))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
@@ -57,8 +57,7 @@ t_hash	**make_bin_table(char **path, size_t size)
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	while (*path)
 	{
-		if (!(folder = opendir(*path)))
-			err_exit("42sh", "opendir() error", *path, NOERROR);
+		folder = opendir(*path);
 		while ((f = readdir(folder)))
 		{
 			if (!ft_strcmp(f->d_name, CUR_D) || !ft_strcmp(f->d_name, PREV_D))

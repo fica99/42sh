@@ -14,11 +14,21 @@
 
 void	init_global_var(char **environ)
 {
-	char **set_values;
+	char	*values[11];
 
-	set_values = NULL;
+	values[0] = "HISTFILE=";
+	values[1] = "HISTFILESIZE=";
+	values[2] = "HISTSIZE=";
+	values[3] = "HOSTNAME=";
+	values[4] = "IFS=";
+	values[5] = "LINES=";
+	values[6] = "MACHTYPE=";
+	values[7] = "PS1=";
+	values[8] = "PS2=";
+	values[9] = "PS4=";
+	values[10] = NULL;
 	init_global_env(&g_env, environ);
-	init_global_env(&g_set_env, init_set_values(set_values));
+	init_global_env(&g_set_env, values);
 	init_bin_table(&g_bin_table);
 	init_curr_pwd();
 	if (!(g_lexer = load_lexer()))

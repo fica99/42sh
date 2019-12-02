@@ -30,8 +30,5 @@ void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
 void			set(int len, char **args, char **env_cp);
 void			print_bin_table(t_hash **bin_table, size_t size);
-void			set_env(int argc, char **argv, char **env_cp);
-void			unset_env(int argc, char **argv, char **env_cp);
 void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
-void			fc(int argc, char **argv, char **env);
 #endif

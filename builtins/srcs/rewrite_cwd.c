@@ -103,8 +103,8 @@ int	change_wdir(char *path, t_flag no_links)
 		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
 		return (-1);
 	}
-	ft_setenv("OLDPWD", ft_getenv("PWD", g_env.env));
-	ft_setenv("PWD", g_curr_dir);
+	set_env("OLDPWD", get_env("PWD", ENV), ENV);
+	set_env("PWD", g_curr_dir, ENV);
 	free(tmp);
 	return (0);
 }

@@ -20,7 +20,7 @@ void		rl_free_rl_struct(t_readline *rl)
 	DONT_FREE_HASH_DATA);
 	rl->noedit_hash = free_hash_table(rl->noedit_hash, NOEDIT_HASH_SIZE,
 	DONT_FREE_HASH_DATA);
-	rl_free_history(&rl->history, rl->env);
+	rl_free_history(&rl->history);
 	ft_strdel(&rl->line.buffer);
 	ft_strdel(&rl->save_line.buffer);
 	ft_strdel(&rl->copy_buff.buffer);

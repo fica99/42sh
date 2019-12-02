@@ -12,50 +12,48 @@
 
 #include "ft_shell.h"
 
-short	get_count_env(char *arr)
+short	get_count_env(char *arr, char **env)
 {
 	short	i;
-	char	**env;
 	short	len;
 
 	if (arr && *arr)
 	{
 		i = -1;
-		env = g_env.env;
 		len = ft_strlen(arr);
 		while (env[++i])
-			if (!ft_strncmp(env[i], arr, len))
+			if (!ft_strncmp(env[i], arr, len) && env[i][len] == '=')
 				return (i);
 	}
 	return (-1);
 }
 
-void	ft_setenv(char *name, char *new_value)
+void	ft_setenv(char *name, char *new_value, t_environ *env)
 {
 	short	j;
 	char	**envp;
 
-	if ((j = get_count_env(name)) >= 0)
+	if ((j = get_count_env(name, env->env)) >= 0)
 	{
-		free(g_env.env[j]);
-		g_env.env[j] = join_env(name, new_value);
+		ft_memdel((void**)&env->env[j]);
+		env->env[j] = join_env(name, new_value);
 	}
 	else
 	{
-		if (++g_env.cur_size >= g_env.malloc_size)
+		if (++env->cur_size >= env->malloc_size)
 		{
-			g_env.malloc_size += DEFAULT_ENV_MALLOC_SIZE;
-			if (!(envp = ft_darnew(g_env.malloc_size)))
+			env->malloc_size += DEFAULT_ENV_MALLOC_SIZE;
+			if (!(envp = ft_darnew(env->malloc_size)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			j = -1;
-			while (g_env.env[++j])
-				envp[j] = g_env.env[j];
+			while (env->env[++j])
+				envp[j] = env->env[j];
 			envp[j] = join_env(name, new_value);
-			ft_free_dar(g_env.env);
-			g_env.env = envp;
+			ft_free_dar(env->env);
+			env->env = envp;
 		}
 		else
-			g_env.env[g_env.cur_size - 1] = join_env(name, new_value);
+			env->env[env->cur_size - 1] = join_env(name, new_value);
 	}
 }
 
@@ -72,19 +70,19 @@ char	*join_env(char *name, char *new_value)
 	return (name2);
 }
 
-void	ft_unsetenv(char *arr)
+void	ft_unsetenv(char *arr, t_environ *env)
 {
 	int		j;
 	char	*copy;
 
-	if ((j = get_count_env(arr)) < 0)
+	if ((j = get_count_env(arr, env->env)) < 0)
 		return ;
-	copy = g_env.env[j];
-	while (j < g_env.cur_size)
+	copy = env->env[j];
+	while (j < env->cur_size)
 	{
-		g_env.env[j] = g_env.env[j + 1];
+		env->env[j] = env->env[j + 1];
 		j++;
 	}
-	g_env.cur_size--;
+	--env->cur_size;
 	ft_memdel((void**)&copy);
 }
