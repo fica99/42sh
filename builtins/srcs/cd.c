@@ -93,6 +93,7 @@ int	pwd(char **av)
 	char	*dir;
 	t_flag	no_links;
 
+	no_links = 0;
 	if (!check_flags(av, &no_links))
 	{
 		ft_error("42sh", av[0], PWD_USAGE, NULL);
@@ -100,10 +101,7 @@ int	pwd(char **av)
 	}
 	if (no_links)
 	{
-		if (!(dir = (char *)malloc(MAXDIR)))
-			err_exit("42sh", "malloc() error", NULL, NOERROR);
-		dir[MAXDIR - 1] = 0;
-		if (!getcwd(dir, MAXDIR))
+		if (!(dir = getcwd(dir, MAXDIR)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	else
