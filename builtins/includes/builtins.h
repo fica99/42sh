@@ -22,10 +22,10 @@ char *g_curr_dir; 					/* containing current logical path or physical if -P is a
 typedef char t_flag;
 
 int				change_wdir(char *path, t_flag no_links);
-void			pwd(char **av);
-void			cd(char **av);
+int				pwd(char **av);
+int				cd(char **av);
 void			rewrite_cwd(char *path, t_flag no_links);			/* rewrite current logical pwd */
-char			check_request(char **argv, char *path);
+int				check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
 void			set(int len, char **args, char **env_cp);
