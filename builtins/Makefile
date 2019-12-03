@@ -16,6 +16,7 @@ srcs := cd.c\
 		hash.c\
 		rewrite_cwd.c\
 		set.c\
+		fc.c\
 
 objs := $(srcs:.c=.o)
 
