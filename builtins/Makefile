@@ -16,6 +16,8 @@ srcs := cd.c\
 		hash.c\
 		rewrite_cwd.c\
 		set.c\
+		ft_putln.c\
+		pwd.c
 		fc.c\
 		fc_flags.c\
 

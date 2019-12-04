@@ -93,18 +93,26 @@ void	rewrite_cwd(char *path, t_flag no_links)
 int	change_wdir(char *path, t_flag no_links)
 {
 	char *tmp;
+	int ret;
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	rewrite_cwd(path, no_links);
-	if ((chdir(g_curr_dir)) < 0)
+	if ((ret = chdir(g_curr_dir)) < 0)
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
 		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
-		return (-1);
 	}
-	set_env("OLDPWD", get_env("PWD", ENV), ENV);
-	set_env("PWD", g_curr_dir, ENV);
+	else {
+		if (no_links)
+		{
+			ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
+			if (!(getcwd(g_curr_dir, MAXDIR)))
+				err_exit("42sh", "getcwd() error", NULL, NOERROR);
+		}
+		set_env("OLDPWD", get_env("PWD", ENV), ENV);
+		set_env("PWD", g_curr_dir, ENV);
+	}
 	free(tmp);
-	return (0);
+	return (ret);
 }
