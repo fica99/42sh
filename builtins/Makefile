@@ -18,6 +18,8 @@ srcs := cd.c\
 		set.c\
 		ft_putln.c\
 		pwd.c
+		fc.c\
+		fc_flags.c\
 
 objs := $(srcs:.c=.o)
 
