@@ -29,12 +29,13 @@ char *g_curr_dir; 					/* containing current logical path or physical if -P is a
 
 typedef char t_flag;
 
+char			*ft_pathjoin(char *s1, char *s2);
 void			ft_putln(char *str);
 char			**check_flags(char **av, t_flag *no_links);
 int				change_wdir(char *path, t_flag no_links);
 int				pwd(char **av);
 int				cd(char **av);
-void			rewrite_cwd(char *path, t_flag no_links);			/* rewrite current logical pwd */
+void			rewrite_cwd(char *path);			/* rewrite current logical pwd */
 int				check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
@@ -46,11 +47,11 @@ void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_
 */
 void			fc_print_usage(void);
 void			fc_open_editor(char *editor, char *first,
-char *last, char *path);
+							   char *last, char *path);
 void			fc_check_flags(int flags, char *editor,
-char *first, char *last);
+							   char *first, char *last);
 void			fc_check_error(int flags, char *editor,
-int argc, char **argv);
+							   int argc, char **argv);
 void			fc(int argc, char **argv);
 /*
 ***	fc_flags.c

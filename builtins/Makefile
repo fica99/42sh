@@ -17,9 +17,10 @@ srcs := cd.c\
 		rewrite_cwd.c\
 		set.c\
 		ft_putln.c\
-		pwd.c
+		pwd.c\
+		ft_pathjoin.c\
 		fc.c\
-		fc_flags.c\
+		fc_flags.c
 
 objs := $(srcs:.c=.o)
 

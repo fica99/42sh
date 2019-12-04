@@ -72,14 +72,8 @@ void	remove_slashes(void)
 	ft_free_dar(tmp);
 }
 
-void	rewrite_cwd(char *path, t_flag no_links)
+void	rewrite_cwd(char *path)
 {
-	if (no_links || access(g_curr_dir, F_OK))
-	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		if (!(getcwd(g_curr_dir, MAXDIR)))
-			err_exit("42sh", "getcwd() error", NULL, NOERROR);
-	}
 	if (*path == '/')
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
@@ -97,7 +91,7 @@ int	change_wdir(char *path, t_flag no_links)
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	rewrite_cwd(path, no_links);
+	rewrite_cwd(path);
 	if ((ret = chdir(g_curr_dir)) < 0)
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
