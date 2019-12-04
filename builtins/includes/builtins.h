@@ -21,6 +21,8 @@ char *g_curr_dir; 					/* containing current logical path or physical if -P is a
 
 typedef char t_flag;
 
+void			ft_putln(char *str);
+char			**check_flags(char **av, t_flag *no_links);
 int				change_wdir(char *path, t_flag no_links);
 int				pwd(char **av);
 int				cd(char **av);
