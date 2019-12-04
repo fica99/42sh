@@ -112,12 +112,6 @@ int cdpath_handle(char *path, t_flag no_links)
 		return (-1);
 	if (!(var_val = get_env("CDPATH", ALL_ENV)))
 		return (-1);
-	if (no_links)
-	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		if (!(getcwd(g_curr_dir, MAXDIR)))
-			err_exit("42sh", "getcwd() error", NULL, NOERROR);
-	}
 	if (!(cdpath = ft_strsplit(var_val, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	ret = try_cdpath(path, cdpath, no_links);
