@@ -14,12 +14,50 @@
 
 void	fc_print_usage(void)
 {
-	ft_putstr(FC_USAGE1);
-	ft_putstr(" or ");
-	ft_putendl(FC_USAGE2);
+	ft_putendl(FC_USAGE);
 }
 
-void	fc_check_flags(int flags, char *editor, int argc, char **argv)
+void	fc_open_editor(char *editor, char *first, char *last, char *path)
+{
+	char	*line;
+
+	(void)last;
+	if (!first)
+		first = "!";
+	line = get_hist_expansions(first);
+	ft_write_to_file(path, FC_FILE_FLAGS, FC_FILE_PERM, line);
+	ft_strdel(&line);
+	if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(editor) + 1)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	ft_strcat(ft_strcat(ft_strcpy(line, editor), " "), path);
+	check_valid_string(line);
+	ft_strdel(&line);
+}
+
+void	fc_check_flags(int flags, char *editor, char *first, char *last)
+{
+	char	*line;
+	char	*path;
+
+	(void)editor;
+	if (flags & FC_FLAG_L)
+		fc_flag_l(flags, first, last);
+	else if (!(flags & FC_FLAG_S))
+	{
+		if (!(path = ft_strjoin(get_env("TMPDIR", ENV), FC_FILE_EDITOR)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		fc_open_editor(editor, first, last, path);
+		if (!(line = ft_read_file(path)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		ft_strdel(&path);
+		ft_putendl(line);
+		check_valid_string(line);
+		add_to_history_buff(line);
+		ft_strdel(&line);
+	}
+}
+
+void	fc_check_error(int flags, char *editor, int argc, char **argv)
 {
 	char	*first;
 	char	*last;
@@ -32,13 +70,13 @@ void	fc_check_flags(int flags, char *editor, int argc, char **argv)
 		return ;
 	}
 	if (!editor && !(editor = get_env("FCEDIT", ENV))
-	&& !(editor = get_env("FCEDIT", ENV)))
+	&& !(editor = get_env("EDITOR", ENV)))
 		editor = "vi";
 	if (optind < argc)
 		first = argv[optind++];
 	if (optind < argc)
 		last = argv[optind];
-//	fc_write2file(first, last, flags);
+	fc_check_flags(flags, editor, first, last);
 }
 
 void	fc(int argc, char **argv)
@@ -49,7 +87,7 @@ void	fc(int argc, char **argv)
 
 	editor = NULL;
 	flags = 0;
-	while((opt = getopt(argc, argv, "e:nlrs")) != -1)
+	while((opt = getopt(argc, argv, "e:lnr")) != -1)
 	{
 		if (opt == 'e')
 			editor = optarg;
@@ -64,6 +102,6 @@ void	fc(int argc, char **argv)
 		else
 			flags |= FC_FLAG_ERROR;
 	}
-	fc_check_flags(flags, editor, argc, argv);
+	fc_check_error(flags, editor, argc, argv);
 	optind = 1;
 }

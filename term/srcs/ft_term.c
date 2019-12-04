@@ -48,6 +48,7 @@ void	term_start(void)
 		g_flags = INIT_FLAGS;
 		line = ft_readline(get_env("PS1", SET_ENV), VI);
 		check_valid_string(line);
+		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
 			break ;
@@ -65,6 +66,5 @@ void	check_valid_string(char *buffer)
 		if (!(g_parser_flags & PARSER_ERROR))
 			interpret_ast(ast);
 		free_ast(&ast);
-		add_to_history_buff(buffer);
 	}
 }

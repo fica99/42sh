@@ -17,6 +17,7 @@ srcs := cd.c\
 		rewrite_cwd.c\
 		set.c\
 		fc.c\
+		fc_flags.c\
 
 objs := $(srcs:.c=.o)
 
