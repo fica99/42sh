@@ -73,21 +73,12 @@ int try_cdpath(char *path, char **cdpath, t_flag no_links)
 
 	ret = -1;
 	i = -1;
-	tmp = 0;
 	while (cdpath[++i])
 	{
 		if (!ft_strcmp(cdpath[i], ".."))
 			continue ;
-		if (cdpath[i][0] == '/')
-		{
-			if (!(tmp = ft_strdup(cdpath[i])))
-				err_exit("42sh", "malloc() error", NULL, NOERROR);
-		}
-		else
-		{
-			if (!(tmp = ft_pathjoin(cdpath[i], path)))
-				err_exit("42sh", "malloc() error", NULL, NOERROR);
-		}
+		if (!(tmp = ft_pathjoin(cdpath[i], path)))
+			err_exit("42sh", "malloc() error", NULL, NOERROR);
 		if (!(ret = change_wdir(tmp, no_links)))
 		{
 			if (no_links)
@@ -95,7 +86,7 @@ int try_cdpath(char *path, char **cdpath, t_flag no_links)
 			else
 				ft_putln(g_curr_dir);
 			free(tmp);
-			break;
+			break ;
 		}
 		free(tmp);
 	}
