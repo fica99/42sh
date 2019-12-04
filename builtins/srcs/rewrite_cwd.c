@@ -104,6 +104,12 @@ int	change_wdir(char *path, t_flag no_links)
 		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
 	}
 	else {
+		if (no_links)
+		{
+			ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
+			if (!(getcwd(g_curr_dir, MAXDIR)))
+				err_exit("42sh", "getcwd() error", NULL, NOERROR);
+		}
 		set_env("OLDPWD", get_env("PWD", ENV), ENV);
 		set_env("PWD", g_curr_dir, ENV);
 	}
