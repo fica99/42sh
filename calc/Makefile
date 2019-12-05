@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/05 20:00:57 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/07 17:52:33 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ srcs := calc_add_fun.c\
 		calc_num_fun.c\
 		calc_parent_fun.c\
 		calc_error_fun.c\
+		calc_var_fun.c\
+		calc_var_tkn.c\
+		calc_arr_reloc.c\
 
 objs := $(srcs:.c=.o)
 

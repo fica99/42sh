@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/01 21:58:53 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/03 20:03:53 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:08:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static t_calc_tkntype	calc_com_type(char *str)
 		return (0);
 }
 
-static int	calc_com_next(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int				calc_com_next(int result, t_calc_tkns *s_tokens,
+	size_t *index, t_calc_err *error)
 {
 	t_calc_tkntype	oper;
 
@@ -54,7 +55,7 @@ static int	calc_com_next(int result, t_calc_tkns *s_tokens, size_t *index, t_cal
 	return (result);
 }
 
-t_calc_tkn  			*calc_get_com_tkn(char *str, size_t pos)
+t_calc_tkn				*calc_get_com_tkn(char *str, size_t pos)
 {
 	t_calc_tkn		*token;
 	t_calc_tkntype	type;
@@ -72,7 +73,8 @@ t_calc_tkn  			*calc_get_com_tkn(char *str, size_t pos)
 	return (token);
 }
 
-int			calc_com(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+int						calc_com(t_calc_tkns *s_tokens, size_t *index,
+	t_calc_err *error)
 {
 	int		result;
 
@@ -82,5 +84,5 @@ int			calc_com(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
 	if (error->status)
 		return (0);
 	result = calc_com_next(result, s_tokens, index, error);
-	return result;
+	return (result);
 }

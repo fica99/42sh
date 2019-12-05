@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/05 20:28:41 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 14:36:03 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,25 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
+	t_calc_err	*error;
 
 	init_readline();
 	init_jobs();
+	error = NULL;
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
 		line = ft_readline(get_env("PS1", SET_ENV), VI);
-		calc(line, NULL);
+		if (!ft_strcmp(line, "exit"))
+			break ;
+		calc(line, error);
 		//check_valid_string(line);
 		//add_to_history_buff(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
+	free(error);
 	free_readline();
 }
 

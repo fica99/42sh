@@ -6,13 +6,14 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 19:53:41 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/03 21:11:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:07:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-static int	calc_add_sub_next(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int	calc_add_sub_next(int result, t_calc_tkns *s_tokens,
+	size_t *index, t_calc_err *error)
 {
 	t_calc_tkntype	oper;
 
@@ -48,7 +49,8 @@ t_calc_tkn	*calc_get_add_tkn(char *str, size_t pos)
 	return (token);
 }
 
-int			calc_add_sub(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+int			calc_add_sub(t_calc_tkns *s_tokens, size_t *index,
+	t_calc_err *error)
 {
 	int		result;
 
@@ -58,5 +60,5 @@ int			calc_add_sub(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
 	if (error->status)
 		return (0);
 	result = calc_add_sub_next(result, s_tokens, index, error);
-	return result;
+	return (result);
 }

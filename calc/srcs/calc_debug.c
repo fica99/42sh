@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:16:25 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/04 21:59:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 13:57:12 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ void		calc_print_tkn(t_calc_tkn *token)
 		ft_putstr("token = NULL\n");
 		return ;
 	}
-	ft_putstr("token->value = ");
-	ft_putstr((char *)token->value);
-	ft_putchar('\n');
+	if (token->type != CALC_VAR)
+	{
+		ft_putstr("token->value = ");
+		ft_putstr((char *)token->value);
+		ft_putchar('\n');
+	}
+	else
+		calc_print_var(token);
 	ft_putstr("token-type = ");
 	calc_print_type(token->type);
 	ft_putstr("token->start_pos = ");
@@ -35,6 +40,19 @@ void		calc_print_tkn(t_calc_tkn *token)
 	ft_putnbr(token->end_pos);
 	ft_putchar('\n');
 	ft_putstr("********************\n");
+}
+
+void		calc_print_var(t_calc_tkn *token)
+{
+	t_calc_var	*var;
+
+	var = (t_calc_var *)token->value;
+	ft_putstr("var->value= ");
+	ft_putstr(var->value);
+	ft_putchar('\n');
+	ft_putstr("var->size = ");
+	ft_putnbr((int)var->size);
+	ft_putchar('\n');
 }
 
 void		calc_print_error(t_calc_err *error)
@@ -122,6 +140,8 @@ void		calc_print_type(t_calc_tkntype type)
 		ft_putstr("LPARENT\n");
 	else if (type == CALC_RPARENT)
 		ft_putstr("RPARENT\n");
+	else if (type == CALC_VAR)
+		ft_putstr("VAR\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }

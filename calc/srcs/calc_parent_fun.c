@@ -6,25 +6,26 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 21:14:54 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/04 21:57:46 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:32:43 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-static t_calc_tkntype  calc_parent_type(char *str)
+static t_calc_tkntype	calc_parent_type(char *str)
 {
 	if (!str)
 		return (0);
 	if (*str == '(')
-		return  CALC_LPARENT;
+		return (CALC_LPARENT);
 	else if (*str == ')')
-		return  CALC_RPARENT;
+		return (CALC_RPARENT);
 	else
 		return (0);
 }
 
-static int	calc_parent_next(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int				calc_parent_next(int result, t_calc_tkns *s_tokens,
+	size_t *index, t_calc_err *error)
 {
 	t_calc_tkntype	oper;
 
@@ -36,12 +37,12 @@ static int	calc_parent_next(int result, t_calc_tkns *s_tokens, size_t *index, t_
 		if (s_tokens->tokens[*index].type != CALC_RPARENT)
 			return (calc_error(error, CALC_ERR_PARENT));
 		(*index)++;
-		return result;
+		return (result);
 	}
-	return (result = calc_unary(s_tokens, index, error));
+	return (result = calc_var(s_tokens, index, error));
 }
 
-t_calc_tkn  *calc_get_parent_tkn(char *str, size_t pos)
+t_calc_tkn				*calc_get_parent_tkn(char *str, size_t pos)
 {
 	t_calc_tkn		*token;
 	t_calc_tkntype	type;
@@ -56,7 +57,8 @@ t_calc_tkn  *calc_get_parent_tkn(char *str, size_t pos)
 	return (token);
 }
 
-int			calc_parent(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+int						calc_parent(t_calc_tkns *s_tokens, size_t *index,
+	t_calc_err *error)
 {
 	int		result;
 
@@ -66,5 +68,5 @@ int			calc_parent(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
 	if (error->status)
 		return (0);
 	result = calc_parent_next(result, s_tokens, index, error);
-	return result;
+	return (result);
 }

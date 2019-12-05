@@ -6,13 +6,14 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 19:48:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/05 19:41:01 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:31:13 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-static int	calc_unary_next(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int	calc_unary_next(t_calc_tkns *s_tokens, size_t *index,
+	t_calc_err *error)
 {
 	int result;
 
@@ -36,7 +37,7 @@ t_calc_tkn	*calc_get_number_tkn(char *str, size_t pos)
 		i++;
 	if (!(value = ft_strsub(str, 0, i)))
 		return (NULL);
-	if (!(token = calc_newtkn(value, CALC_NUMBER)))
+	if (!(token = calc_newtkn((void *)value, CALC_NUMBER)))
 	{
 		ft_memdel((void **)&value);
 		return (NULL);
@@ -67,7 +68,7 @@ int			calc_unary(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
 	if (!s_tokens || !calc_check_index(s_tokens, *index))
 		return (calc_error(error, CALC_ERR_NULL_OR_IND));
 	if (s_tokens->tokens[*index].type == CALC_MINUS)
-		return calc_unary_next(s_tokens, index, error);
+		return (calc_unary_next(s_tokens, index, error));
 	else if (s_tokens->tokens[*index].type == CALC_NUMBER)
 		return (calc_number(s_tokens, index, error));
 	else

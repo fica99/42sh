@@ -6,13 +6,14 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 20:21:02 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/04 20:21:55 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:12:29 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-static int	calc_log_or(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int	calc_log_or(int result, t_calc_tkns *s_tokens,
+	size_t *index, t_calc_err *error)
 {
 	int		next_result;
 
@@ -22,7 +23,8 @@ static int	calc_log_or(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_
 	return (result || next_result);
 }
 
-static int	calc_log_next(int result, t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
+static int	calc_log_next(int result, t_calc_tkns *s_tokens,
+	size_t *index, t_calc_err *error)
 {
 	t_calc_tkntype	oper;
 
@@ -68,5 +70,5 @@ int			calc_log(t_calc_tkns *s_tokens, size_t *index, t_calc_err *error)
 	if (error->status)
 		return (0);
 	result = calc_log_next(result, s_tokens, index, error);
-	return result;
+	return (result);
 }

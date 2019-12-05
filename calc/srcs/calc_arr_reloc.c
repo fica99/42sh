@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calc_inc_fun.c                                     :+:      :+:    :+:   */
+/*   calc_arr_reloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/16 20:58:29 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/06 20:43:15 by ggrimes          ###   ########.fr       */
+/*   Created: 2019/12/07 17:44:29 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/07 17:53:53 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "calc.h"
 
-t_calc_tkn	*calc_get_inc_tkn(char *str, size_t pos)
+t_calc_tkns	*calc_reloc_tkns(t_calc_tkns *s_tokens)
 {
-	t_calc_tkn		*token;
-	t_calc_tkntype	type;
+	t_calc_tkn		*new_tokens;
 
-	if (!str)
+	if (!s_tokens)
 		return (NULL);
-	type = (*str == '+') ? CALC_INC : CALC_DEC;
-	if (!(token = calc_newtkn(NULL, type)))
-		return (NULL);
-	token->start_pos = pos;
-	token->end_pos = pos + 2;
-	return (token);
+	if (!(new_tokens = (t_calc_tkn *)malloc(sizeof(t_calc_tkn)
+		* (s_tokens->malloc_size + CALC_TOKENS_SIZE))))
+		return (s_tokens);
+	new_tokens = ft_memcpy(new_tokens, s_tokens->tokens, sizeof(t_calc_tkn)
+		* s_tokens->malloc_size);
+	free(s_tokens->tokens);
+	s_tokens->tokens = new_tokens;
+	s_tokens->malloc_size += CALC_TOKENS_SIZE;
+	return (s_tokens);
 }
