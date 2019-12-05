@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/19 19:17:35 by aashara-         ###   ########.fr        #
+#    Updated: 2019/11/19 19:05:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ srcs := interpretator.c\
 		spec_symb.c\
 		parse_quotes.c\
 		aggr_fd.c\
-		process.c\
 
 objs := $(srcs:.c=.o)
 
@@ -58,14 +57,14 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
+	@echo "\033[32mFinish interpretator compilation\033[0m"
 
 $(objs_dir):
-	@echo "\033[32mCreate object directory $(CURDIR)/$@\033[0m"
 	@mkdir -p $@
 	@$(MAKE) --no-print-directory compilation
 
@@ -73,7 +72,6 @@ compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
 $(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@echo "\033[35m--->Compile $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:
@@ -83,4 +81,3 @@ clean:
 re:
 	@$(MAKE) --no-print-directory clean
 	@$(MAKE) --no-print-directory all
-

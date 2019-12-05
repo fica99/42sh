@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:54:06 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 21:51:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:13:13 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,29 @@ void		rl_free_rl_struct(t_readline *rl)
 	DONT_FREE_HASH_DATA);
 	rl->rl_hash = free_hash_table(rl->rl_hash, EMACS_HASH_SIZE,
 	DONT_FREE_HASH_DATA);
-	rl_free_history(&rl->history, rl->env);
+	rl->noedit_hash = free_hash_table(rl->noedit_hash, NOEDIT_HASH_SIZE,
+	DONT_FREE_HASH_DATA);
+	rl_free_history(&rl->history);
+	ft_strdel(&rl->line.buffer);
+	ft_strdel(&rl->save_line.buffer);
+	ft_strdel(&rl->copy_buff.buffer);
+	ft_strdel(&rl->history.save_line.buffer);
+	ft_strdel(&rl->history.search.buffer);
 }
 
 void		rl_clr_data(t_readline *rl)
 {
-	*rl->line = '\0';
-	*rl->history.save_line = '\0';
-	*rl->history.search = '\0';
-	*rl->save_line = '\0';
+	rl_clr_buff(&rl->line);
+	rl_clr_buff(&rl->save_line);
+	rl_clr_buff(&rl->history.save_line);
+	rl_clr_buff(&rl->history.search);
 	rl_init_cord(&rl->cord);
 	g_rl_flags = RL_INIT_FLAGS;
 	rl->history.hist_index = rl->history.hist_len;
+}
+
+void		rl_clr_buff(t_buff *buff)
+{
+	ft_strclr(buff->buffer);
+	buff->max_len = 0;
 }

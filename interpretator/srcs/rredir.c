@@ -94,17 +94,17 @@ int		open_red_file(char *name, t_token_type red_type, int acc, int mode)
 	{
 		if (access(name, F_OK))
 		{
-			err(g_argv[0], NULL, name, ENOENT);
+			err("42sh", NULL, name, ENOENT);
 			return (-1);
 		}
 		if (access(name, R_OK))
 		{
-			err(g_argv[0], NULL, name, EACCES);
+			err("42sh", NULL, name, EACCES);
 			return (-1);
 		}
 	}
 	if ((fd = open(name, acc, mode)) == -1)
-		err_exit(g_argv[0], "open() error", NULL, NOERROR);
+		err_exit("42sh", "open() error", NULL, NOERROR);
 	return (fd);
 }
 

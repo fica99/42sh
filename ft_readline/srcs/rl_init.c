@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:14:25 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/12 21:30:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 18:56:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,19 @@ void		rl_init_terminfo(void)
 	}
 }
 
-void		rl_init_rl_struct(t_readline *rl, char **env)
+void		rl_init_rl_struct(t_readline *rl)
 {
-	rl->vi_hash = init_vi_hash();
-	rl->rl_hash = init_emacs_hash();
+	rl->vi_hash = init_vi_hash(VI_HASH_SIZE);
+	rl->rl_hash = init_emacs_hash(EMACS_HASH_SIZE);
+	rl->noedit_hash = init_noedit_hash(NOEDIT_HASH_SIZE);
 	rl_init_cord(&rl->cord);
-	ft_bzero((void*)rl->line, MAX_LINE_SIZE);
-	ft_bzero((void*)rl->copy_buff, MAX_LINE_SIZE);
-	ft_bzero((void*)rl->save_line, MAX_LINE_SIZE);
-	rl_init_history(&rl->history, env);
-	g_rl_flags = RL_INIT_FLAGS;
+	rl_init_buff(&rl->line);
+	rl_init_buff(&rl->copy_buff);
+	rl_init_buff(&rl->save_line);
+	rl_init_buff(&rl->history.save_line);
+	rl_init_buff(&rl->history.search);
+	rl_init_history(&rl->history);
+	rl->history.cur_command_nb = 1;
 }
 
 void		rl_init_cord(t_rl_cord *cord)
@@ -53,4 +56,12 @@ void		rl_init_cord(t_rl_cord *cord)
 	cord->highlight_pos = 0;
 	cord->x_end = 0;
 	cord->y_end = 0;
+}
+
+void		rl_init_buff(t_buff *buffer)
+{
+	if (!(buffer->buffer = ft_strnew(MAX_LINE_SIZE)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	buffer->malloc_len = MAX_LINE_SIZE;
+	buffer->max_len = 0;
 }

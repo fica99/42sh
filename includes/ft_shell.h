@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 19:15:29 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/05 20:29:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "../jobs/includes/jobs.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"
 # include "../bin_table/includes/bin_table.h"

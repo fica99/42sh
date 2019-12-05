@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/05 19:52:10 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/05 20:28:41 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		main(int argc, char **argv, char **environ)
 {
+	(void)argv;
+
 	ft_putstr("*-------------------------------------------------------*\n");
 	ft_putstr("│                                                       │\n");
 	ft_putstr("|\033[0;31m");
@@ -21,7 +23,7 @@ int		main(int argc, char **argv, char **environ)
 	ft_putstr("\033[0m|\n");
 	ft_putstr("|                                                       │\n");
 	ft_putstr("*-------------------------------------------------------*\n");
-	init_global_var(argv, environ);
+	init_global_var(environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();
@@ -38,16 +40,16 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	char	*prompt;
 
-	prompt = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m";
-	init_readline(g_env.env);
+	init_readline();
+	init_jobs();
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(prompt, EMACS, g_env.env);
+		line = ft_readline(get_env("PS1", SET_ENV), VI);
 		calc(line, NULL);
 		//check_valid_string(line);
+		//add_to_history_buff(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
 			break ;
@@ -64,12 +66,6 @@ void	check_valid_string(char *buffer)
 		ast = parser(buffer);
 		if (!(g_parser_flags & PARSER_ERROR))
 			interpret_ast(ast);
-		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
-		{
-			free_table(&g_bin_table);
-			if (g_flags & TERM_INIT_HASH)
-				init_bin_table(&g_bin_table);
-		}
 		free_ast(&ast);
 	}
 }

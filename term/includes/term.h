@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2019/10/23 16:54:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/01 14:27:37 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ void				check_valid_string(char *buffer);
 /*
 **	global_var.c
 */
-void				init_global_var(char **argv, char **environ);
+void				init_global_var(char **environ);
 void				free_globar_var(void);
 
 unsigned char	g_flags;
-char			**g_argv;
 
 #endif

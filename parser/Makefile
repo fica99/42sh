@@ -51,14 +51,14 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
+	@echo "\033[32mFinish parser compilation\033[0m"
 
 $(objs_dir):
-	@echo "\033[32mCreate object directory $(CURDIR)/$@\033[0m"
 	@mkdir -p $@
 	@$(MAKE) --no-print-directory compilation
 
@@ -66,7 +66,6 @@ compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
 $(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@echo "\033[35m--->Compile $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/25 21:54:13 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/07 13:23:14 by aashara          ###   ########.fr       */
+/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_node		*parser(char *str)
 	ast = statement_list(&string);
 	if (g_parser_flags & PARSER_ERROR)
 	{
-		err(g_argv[0], "Syntax error", NULL, NOERROR);
+		err("42sh", "Syntax error", NULL, NOERROR);
 		return (ast);
 	}
 	if (!tk_type(token = get_next_token(&string, g_lexer), EOL))
 	{
 		g_parser_flags |= PARSER_ERROR;
-		err(g_argv[0], "Syntax error", NULL, NOERROR);
+		err("42sh", "Syntax error", NULL, NOERROR);
 	}
 	free_token(&token);
 	return (ast);

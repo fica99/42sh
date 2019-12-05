@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 22:00:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 18:09:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 16:42:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		rl_save_attr(struct termios *savetty)
 {
 	if (tcgetattr(STDIN_FILENO, savetty) == -1)
 	{
-		ft_putstr_fd("42sh: tcgetattr() error\n", STDERR_FILENO);
+		ft_putendl_fd("42sh: tcgetattr() error", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 }

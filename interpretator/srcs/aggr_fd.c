@@ -26,7 +26,7 @@ void	aggr_fd_op(t_node *ast)
 		if (left_fd < -1 || left_fd > 2 || (right_fd > 2 &&
 		!ft_strchr(ast->token->lexeme, '-')))
 		{
-			err(g_argv[0], NULL, NULL, EBADF);
+			err("42sh", NULL, NULL, EBADF);
 			return ;
 		}
 		back_fd = copy_fd(right_fd, left_fd);
@@ -44,7 +44,7 @@ void	get_aggr_fd(char *str, int *left_fd, int *right_fd)
 	i = 0;
 	j = 0;
 	if (!(nb = ft_strnew(10)))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	while (str[i] && ft_isdigit(str[i]))
 		nb[j++] = str[i++];
 	*left_fd = ft_atoi(nb);
@@ -58,6 +58,6 @@ void	get_aggr_fd(char *str, int *left_fd, int *right_fd)
 	*right_fd = ft_atoi(nb);
 	if (*nb == '\0')
 		if (!(*right_fd = open("/dev/null", O_WRONLY)))
-			err_exit(g_argv[0], "open() error", "/dev/null", NOERROR);
+			err_exit("42sh", "open() error", "/dev/null", NOERROR);
 	ft_memdel((void**)&nb);
 }

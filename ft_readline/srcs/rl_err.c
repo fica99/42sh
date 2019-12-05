@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setenv.c                                           :+:      :+:    :+:   */
+/*   rl_err.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/22 19:13:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Created: 2019/11/24 16:47:45 by aashara-          #+#    #+#             */
+/*   Updated: 2019/11/24 16:48:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "ft_readline.h"
 
-void	set_env(int argc, char **argv, char **env_cp)
+void	rl_err(char *name, char *str, char *err)
 {
-	short	j;
-	char	*value;
-
-	(void)env_cp;
-	value = NULL;
-	j = 0;
-	if (argc == 1)
-		ft_putdar(env_cp);
-	else
+	ft_putstr_fd(name, STDERR_FILENO);
+	if (str)
 	{
-		while (argv[++j])
-		{
-			if (!(value = ft_strchr(argv[j], '=')))
-				continue ;
-			else
-			{
-				*value = '\0';
-				ft_setenv(argv[j], ++value);
-				if (!ft_strcmp(argv[j], "PATH"))
-					g_flags |= TERM_INIT_HASH;
-			}
-		}
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
 	}
+	if (err)
+	{
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(err, STDERR_FILENO);
+	}
+	ft_putstr_fd("\n", STDERR_FILENO);
+	rl_set_attr(&g_rl.canon_mode);
+	exit(EXIT_FAILURE);
 }

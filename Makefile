@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/21 20:20:57 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/05 20:26:34 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,12 @@ dir_environ := environ
 
 dir_builtins := builtins
 
+dir_jobs := jobs
+
 dir_calc := calc
 
 objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
+		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
 		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
 		$(wildcard $(addprefix $(dir_environ), /**/*.o))\
 		$(wildcard $(addprefix $(dir_error), /**/*.o))\
@@ -61,7 +64,7 @@ repo := https://github.com/OlegMulko/LibProjects42.git
 lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 .PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
-$(dir_builtins) $(dir_environ) $(dir_error) $(dir_interpretator)\
+$(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
 $(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term) $(dir_calc)\
 lall llall llclean llfclean lfclean oclean clean fclean re
 
@@ -79,6 +82,7 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_bin_table)
 	@$(MAKE) --no-print-directory $(dir_builtins)
 	@$(MAKE) --no-print-directory $(dir_environ)
+	@$(MAKE) --no-print-directory $(dir_jobs)
 	@$(MAKE) --no-print-directory $(dir_error)
 	@$(MAKE) --no-print-directory $(dir_interpretator)
 	@$(MAKE) --no-print-directory $(dir_lexer)
@@ -92,6 +96,9 @@ $(objs):
 
 $(dir_bin_table):
 	@$(MAKE) --no-print-directory -C $(dir_bin_table)
+
+$(dir_jobs):
+	@$(MAKE) --no-print-directory -C $(dir_jobs)
 
 $(dir_builtins):
 	@$(MAKE) --no-print-directory -C $(dir_builtins)
@@ -151,6 +158,7 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_bin_table)
 	@$(MAKE) clean --no-print-directory -C $(dir_builtins)
 	@$(MAKE) clean --no-print-directory -C $(dir_environ)
+	@$(MAKE) clean --no-print-directory -C $(dir_jobs)
 	@$(MAKE) clean --no-print-directory -C $(dir_error)
 	@$(MAKE) clean --no-print-directory -C $(dir_interpretator)
 	@$(MAKE) clean --no-print-directory -C $(dir_lexer)

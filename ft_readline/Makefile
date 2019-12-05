@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/11 16:38:28 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/01 22:32:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,26 @@ srcs := rl_main.c\
 	rl_k_cur_left.c\
 	rl_cur_movements.c\
 	rl_k_cur_right.c\
-	rl_k_highlight.c\
 	rl_k_other.c\
 	rl_history.c\
 	rl_k_history.c\
 	rl_signal.c\
 	rl_prompt_time.c\
 	rl_k_history_search.c\
+	rl_k_emacs.c\
+	rl_str.c\
+	rl_k_cut_copy_paste.c\
+	rl_k_emacs2.c\
+	rl_k_vi.c\
+	rl_k_vi2.c\
+	rl_k_vi3.c\
+	rl_init_hash2.c\
+	rl_k_vi4.c\
+	rl_k_vi5.c\
+	rl_init_history.c\
+	rl_hist_expansions.c\
+	rl_err.c\
+	rl_main2.c\
 
 objs := $(srcs:.c=.o)
 
@@ -56,8 +69,10 @@ includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
+includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+
 includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
--I $(includes_libdar)
+-I $(includes_libdar) -I $(includes_libdir)
 
 cc := gcc
 
