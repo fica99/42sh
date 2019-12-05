@@ -15,7 +15,6 @@
 void ft_putln(char *str)
 {
 	if (!str)
-		return ;
-	write(1, str, ft_strlen(str));
+		write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 }
