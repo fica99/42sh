@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:15:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 22:35:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:56:07 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ int				check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
 void			set(int len, char **args, char **env_cp);
+void			unset(int len, char **args);
+void			export(int len, char **args);
 void			print_bin_table(t_hash **bin_table, size_t size);
 void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
 /*
 ***	fc.c
 */
+char 			*ft_read_file(char *path);
 void			fc_print_usage(void);
 void			fc_open_editor(char *editor, char *first,
 							   char *last, char *path);

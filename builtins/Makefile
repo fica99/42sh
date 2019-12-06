@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/01 23:03:18 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/06 13:47:09 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ srcs := cd.c\
 		pwd.c\
 		ft_pathjoin.c\
 		fc.c\
-		fc_flags.c
+		fc_flags.c\
+		unset.c\
+		export.c\
 
 objs := $(srcs:.c=.o)
 

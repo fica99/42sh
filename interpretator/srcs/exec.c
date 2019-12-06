@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 22:36:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 14:09:23 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ void	find_command(char **args)
 		cd(args);
 	else if (!ft_strcmp(args[0], "echo"))
 		ft_echo(len, args, g_env.env);
+	else if (!ft_strcmp(args[0], "export"))
+		export(len, args);
 	else if (!ft_strcmp(args[0], "set"))
 		set(len, args, g_env.env);
+	else if (!ft_strcmp(args[0], "unset"))
+		unset(len, args);
 	else if (!ft_strcmp(args[0], "env"))
 		env(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "hash") && len == 1)
