@@ -12,6 +12,25 @@
 
 #include "ft_shell.h"
 
+/*int		ft_ishx(char c)
+{
+	if ((20 <= (90 - c) <= 25) || (20 <= (122 - c) <= 25))
+		return (1);
+	return (0);
+}
+
+int		ft_ifx(char *s)
+{
+	int i;
+
+	i = 0;
+	if (ft_isdigit(s[i]) || ft_ishx(s[i]))
+	{
+		if (ft_isdigit)
+	}
+	return (i);
+}*/
+
 int		ft_eflag(int i, char **argv, int argc, int *flags)
 {
 	int				j;
@@ -40,13 +59,15 @@ int		ft_eflag(int i, char **argv, int argc, int *flags)
 					ft_putchar_fd('\v', STDOUT_FILENO);
 				else if (argv[i][j] == '\\')
 					ft_putchar_fd('\\', STDOUT_FILENO);
-				else if (argv[i][j] == '\\' && argv[i][j + 1] == 'c')
+				else if (argv[i][j] == 'c')
 				{
 					flags[0] = 1;
 					return (argc);
 				}
-				/*else if (argv[i][j] == '\x')
-					;*/
+				/*else if (argv[i][j] == 'x')
+				{
+					j += ft_ifx(argv[i] + j);
+				}*/
 				else
 				{
 					if (argv[i][j - 3] != '\\')
