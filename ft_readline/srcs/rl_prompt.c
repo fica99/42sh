@@ -17,6 +17,8 @@ void	rl_write_prompt(char *str, t_rl_history history)
 	short	i;
 	short	j;
 
+	if (!str)
+		return ;
 	i = -1;
 	while (str[++i])
 	{

@@ -20,7 +20,7 @@ srcs := cd.c\
 		pwd.c\
 		ft_pathjoin.c\
 		fc.c\
-		fc_flags.c\
+		fc_print.c\
 		unset.c\
 		export.c\
 

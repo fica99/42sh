@@ -12,41 +12,38 @@
 
 #include "ft_shell.h"
 
-void	fc_flag_l(int flags, char *first, char *last)
+void	fc_print_command(int flags, int first, int last)
 {
-	int		first_i;
-	int		last_i;
-	char	*copy;
-	char	*elem;
+	char	**line;
+	int		i;
 
-	if ((first_i = ft_atoi((!first) ? "-16" : first)) <= 0)
-		first_i += get_hist_size();
-	if ((last_i = ft_atoi((!last) ? "-1" : last)) <= 0)
-		last_i += get_hist_size();
 	if (flags & FC_FLAG_R)
-		ft_swap(&first_i, &last_i);
-	while (first_i != last_i)
+		ft_swap(&first, &last);
+	line = fc_get_list(first, last);
+	i = -1;
+	while (line[++i])
 	{
-		(first_i > last_i) ? (copy = ft_itoa(first_i--)) :
-		(copy = ft_itoa(first_i++));
-		fc_print_command(flags, copy, elem = get_hist_expansions(copy));
-		ft_strdel(&copy);
-		ft_strdel(&elem);
+		if (flags & FC_FLAG_N)
+			ft_putstr("\t");
+		else
+			ft_putnbr((first > last) ? first-- : first++);
+		ft_putstr("\t");
+		ft_putendl(line[i]);
 	}
-	copy = ft_itoa(first_i);
-	fc_print_command(flags, copy, elem = get_hist_expansions(copy));
-	ft_strdel(&copy);
-	ft_strdel(&elem);
+	ft_free_dar(line);
 }
 
-void	fc_print_command(int flags, char *nb, char *elem)
+void	fc_write_commands(int first, int last, char *path)
 {
-	if (!elem)
-		return ;
-	if (flags & FC_FLAG_N)
-		ft_putstr("\t");
-	else
-		ft_putstr(nb);
-	ft_putstr("\t");
-	ft_putendl(elem);
+	char	**line;
+	char	*new_line;
+
+	if ((line = fc_get_list(first, last)))
+	{
+		if (!(new_line = ft_dar2str(line, "\n")))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		ft_free_dar(line);
+		ft_write_to_file(path, FC_FILE_FLAGS, FC_FILE_PERM, new_line);
+		ft_strdel(&new_line);
+	}
 }

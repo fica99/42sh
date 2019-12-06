@@ -12,63 +12,66 @@
 
 #include "ft_shell.h"
 
-void	fc_print_usage(void)
+char	**fc_get_list(int first, int last)
 {
-	ft_putendl(FC_USAGE);
-}
+	char	**res;
+	int		i;
+	char	*copy;
+	char	*elem;
 
-void	fc_open_editor(char *editor, char *first, char *last, char *path)
-{
-	char	*line;
-
-	(void)last;
-	if (!first)
-		first = "!";
-	line = get_hist_expansions(first);
-	ft_write_to_file(path, FC_FILE_FLAGS, FC_FILE_PERM, line);
-	ft_strdel(&line);
-	if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(editor) + 1)))
+	if (!(res = ft_darnew(abs(last - first) + 1)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	ft_strcat(ft_strcat(ft_strcpy(line, editor), " "), path);
-	check_valid_string(line);
-	ft_strdel(&line);
+	i = -1;
+	while (first != last)
+	{
+		(first > last) ? (copy = ft_itoa(first--)) :
+		(copy = ft_itoa(first++));
+		if ((elem = get_hist_expansions(copy)))
+			res[++i] = elem;
+		ft_strdel(&copy);
+	}
+	if ((elem = get_hist_expansions(copy = ft_itoa(first))))
+		res[++i] = elem;
+	ft_strdel(&copy);
+	return (res);
 }
 
-void	fc_check_flags(int flags, char *editor, char *first, char *last)
+static void	fc_check_flags(int flags, char *editor, int first, int last)
 {
 	char	*line;
 	char	*path;
 
-	(void)editor;
 	if (flags & FC_FLAG_L)
-		fc_flag_l(flags, first, last);
-	else if (!(flags & FC_FLAG_S))
+		fc_print_command(flags, first, last);
+	else
 	{
 		if (!(path = ft_strjoin(get_env("TMPDIR", ENV), FC_FILE_EDITOR)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-		fc_open_editor(editor, first, last, path);
+		if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(editor) + 1)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		fc_write_commands(first, last, path);
+		ft_strcat(ft_strcat(ft_strcpy(line, editor), " "), path);
+		check_valid_string(line);
+		ft_strdel(&line);
 		if (!(line = ft_read_file(path)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		ft_strdel(&path);
 		ft_putendl(line);
 		check_valid_string(line);
-		add_to_history_buff(line);
 		ft_strdel(&line);
 	}
 }
 
-void	fc_check_error(int flags, char *editor, int argc, char **argv)
+static void	fc_check_data(int flags, char *editor, int argc, char **argv)
 {
 	char	*first;
 	char	*last;
+	int		first_i;
+	int		last_i;
+	int		size;
 
 	first = NULL;
 	last = NULL;
-	if (flags & FC_FLAG_ERROR)
-	{
-		fc_print_usage();
-		return ;
-	}
 	if (!editor && !(editor = get_env("FCEDIT", ENV))
 	&& !(editor = get_env("EDITOR", ENV)))
 		editor = "vi";
@@ -76,7 +79,16 @@ void	fc_check_error(int flags, char *editor, int argc, char **argv)
 		first = argv[optind++];
 	if (optind < argc)
 		last = argv[optind];
-	fc_check_flags(flags, editor, first, last);
+	size = get_hist_size();
+	if ((first_i = ft_atoi((!first) ? "-16" : first)) <= 0)
+		first_i += size;
+	if ((last_i = ft_atoi((!last) ? "-1" : last)) <= 0)
+		last_i += size;
+	if (first_i > size)
+		first_i = size - 1;
+	if (last_i > size)
+		last_i = size - 1;
+	fc_check_flags(flags, editor, first_i, last_i);
 }
 
 void	fc(int argc, char **argv)
@@ -87,7 +99,7 @@ void	fc(int argc, char **argv)
 
 	editor = NULL;
 	flags = 0;
-	while((opt = getopt(argc, argv, "e:lnr")) != -1)
+	while((opt = getopt(argc, argv, "e:lnr1234567890")) != -1)
 	{
 		if (opt == 'e')
 			editor = optarg;
@@ -97,11 +109,14 @@ void	fc(int argc, char **argv)
 			flags |= FC_FLAG_L;
 		else if (opt == 'r')
 			flags |= FC_FLAG_R;
-			else if (opt == 's')
-			flags |= FC_FLAG_S;
+		else if (ft_isdigit(opt))
+			break ;
 		else
 			flags |= FC_FLAG_ERROR;
 	}
-	fc_check_error(flags, editor, argc, argv);
+	if (!(flags & FC_FLAG_ERROR))
+		fc_check_data(flags, editor, argc, argv);
+	else
+		ft_putendl(FC_USAGE);
 	optind = 1;
 }
