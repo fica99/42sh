@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putln.c                                         :+:      :+:    :+:   */
+/*   ft_pathjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 21:53:05 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/02 21:53:57 by mmarti           ###   ########.fr       */
+/*   Created: 2019/12/04 22:57:29 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/04 22:57:30 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_shell.h"
 
-void ft_putln(char *str)
+char	*ft_pathjoin(char *s1, char *s2)
 {
-	if (str)
-		write(1, str, ft_strlen(str));
-	write(1, "\n", 1);
+	char			*str;
+	unsigned int	i;
+
+	i = 0;
+	if (s1 == 0 || s2 == 0)
+		return (0);
+	if (!(str = (char *)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 2)))
+		return (0);
+	while (*s1)
+		str[i++] = *s1++;
+	if (*--s1 != '/' && *s2 != '/')
+		str[i++] = '/';
+	while (*s2)
+		str[i++] = *s2++;
+	return (str);
 }
