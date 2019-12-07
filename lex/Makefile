@@ -6,27 +6,23 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/07 20:54:09 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/08 20:55:44 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := calc_add_fun.c\
-		calc.c\
-		calc_lexer.c\
-		calc_debug.c\
-		calc_arr_tkns.c\
-		calc_mul_fun.c\
-		calc_inc_fun.c\
-		calc_com_fun.c\
-		calc_eq_fun.c\
-		calc_log_fun.c\
-		calc_tkn.c\
-		calc_num_fun.c\
-		calc_parent_fun.c\
-		calc_error_fun.c\
-		calc_var_fun.c\
-		calc_var_tkn.c\
-		calc_arr_reloc.c\
+srcs := lex_lexer.c\
+		lex_tkn.c\
+		lex_tkns.c\
+		lex_get_tkn.c\
+		lex_check_tkn.c\
+		lex_check_or.c\
+		lex_tkn_type.c\
+		lex_tkn_class.c\
+		lex_check_greater.c\
+		lex_check_less.c\
+		lex_check_sep.c\
+		lex_check_quotes.c\
+		lex_debug.c\
 
 objs := $(srcs:.c=.o)
 
@@ -42,7 +38,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, calc.h)
+header := $(addprefix $(inc_dir)/, lex.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
