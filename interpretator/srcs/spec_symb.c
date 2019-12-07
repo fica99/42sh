@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/07 12:21:13 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*dollar_expr(char *args)
 	char	*path;
 
 	spec = ft_strchr(args, '$');
-	arr = NULL;
 	copy = NULL;
 	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);

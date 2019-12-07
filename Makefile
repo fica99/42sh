@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/05 17:13:12 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,8 @@ dir_builtins := builtins
 
 dir_jobs := jobs
 
+dir_sub := sub
+
 objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
 		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
@@ -47,6 +49,7 @@ objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_error), /**/*.o))\
 		$(wildcard $(addprefix $(dir_interpretator), /**/*.o))\
 		$(wildcard $(addprefix $(dir_lexer), /**/*.o))\
+		$(wildcard $(addprefix $(dir_sub), /**/*.o))\
 		$(wildcard $(addprefix $(dir_ft_readline), /**/*.o))\
 		$(wildcard $(addprefix $(dir_parser), /**/*.o))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
@@ -62,7 +65,7 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 .PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term)\
+$(dir_lexer) $(dir_sub) $(dir_ft_readline) $(dir_parser) $(dir_term)\
 lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
@@ -83,6 +86,7 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_error)
 	@$(MAKE) --no-print-directory $(dir_interpretator)
 	@$(MAKE) --no-print-directory $(dir_lexer)
+	@$(MAKE) --no-print-directory $(dir_sub)
 	@$(MAKE) --no-print-directory $(dir_ft_readline)
 	@$(MAKE) --no-print-directory $(dir_parser)
 	@$(MAKE) --no-print-directory $(dir_term)
@@ -110,6 +114,9 @@ $(dir_interpretator):
 
 $(dir_lexer):
 	@$(MAKE) --no-print-directory -C $(dir_lexer)
+
+$(dir_sub):
+	@$(MAKE) --no-print-directory -C $(dir_sub)
 
 $(dir_ft_readline):
 	@$(MAKE) --no-print-directory -C $(dir_ft_readline)
@@ -155,6 +162,7 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_error)
 	@$(MAKE) clean --no-print-directory -C $(dir_interpretator)
 	@$(MAKE) clean --no-print-directory -C $(dir_lexer)
+	@$(MAKE) clean --no-print-directory -C $(dir_sub)
 	@$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
 	@$(MAKE) clean --no-print-directory -C $(dir_parser)
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
