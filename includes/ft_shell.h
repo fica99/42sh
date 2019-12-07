@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/05 20:29:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 20:42:50 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
 # include "../calc/includes/calc.h"
+# include "../lex/includes/lex.h"
 #endif

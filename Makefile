@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/05 20:26:34 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/07 20:50:53 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ dir_jobs := jobs
 
 dir_calc := calc
 
+dir_lex := lex
+
 objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
 		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
@@ -54,6 +56,7 @@ objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
 		$(wildcard $(addprefix $(dir_term), /**/*.o))\
 		$(wildcard $(addprefix $(dir_calc), /**/*.o))\
+		$(wildcard $(addprefix $(dir_lex), /**/*.o))\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -65,7 +68,7 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 .PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term) $(dir_calc)\
+$(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term) $(dir_calc) $(dir_lex)\
 lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
@@ -90,6 +93,7 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_parser)
 	@$(MAKE) --no-print-directory $(dir_term)
 	@$(MAKE) --no-print-directory $(dir_calc)
+	@$(MAKE) --no-print-directory $(dir_lex)
 
 $(objs):
 	@$(MAKE) --no-print-directory compilation
@@ -126,6 +130,9 @@ $(dir_term):
 
 $(dir_calc):
 	@$(MAKE) --no-print-directory -C $(dir_calc)
+
+$(dir_lex):
+	@$(MAKE) --no-print-directory -C $(dir_lex)
 
 loadlibs:
 	@echo "\033[32mLoad Libraries\033[0m"
@@ -166,6 +173,8 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_parser)
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
 	@$(MAKE) clean --no-print-directory -C $(dir_calc)
+	@$(MAKE) clean --no-print-directory -C $(dir_lex)
+
 
 clean: $(lib_dir)
 	@$(MAKE) --no-print-directory oclean
