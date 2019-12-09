@@ -29,7 +29,7 @@ void		rl_init_terminfo(void)
 	}
 }
 
-void		rl_init_rl_struct(t_readline *rl, char **env)
+void		rl_init_rl_struct(t_readline *rl)
 {
 	rl->vi_hash = init_vi_hash(VI_HASH_SIZE);
 	rl->rl_hash = init_emacs_hash(EMACS_HASH_SIZE);
@@ -40,7 +40,7 @@ void		rl_init_rl_struct(t_readline *rl, char **env)
 	rl_init_buff(&rl->save_line);
 	rl_init_buff(&rl->history.save_line);
 	rl_init_buff(&rl->history.search);
-	rl_init_history(&rl->history, env);
+	rl_init_history(&rl->history);
 	rl->history.cur_command_nb = 1;
 }
 

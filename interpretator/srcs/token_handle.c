@@ -12,23 +12,17 @@
 
 #include "ft_shell.h"
 
-t_token *find_token(t_token *list, int type)
+t_lex_tkn **find_token(t_lex_tkn **list, int class)
 {
-	//todo
-	return (NULL);
+	while ((*list)->class != C_END && (*list)->class != class)
+		list++;
+	return (list);
 }
 
-void	token_free(t_token *token)
+t_lex_tkn **split_list(t_lex_tkn **token)
 {
-	if (!token)
-		return ;
-	//todo
-}
-
-t_token *split_list(t_token *token)
-{
-	if (!token)
-		return (NULL);
-	token_free(token);
-	return (token + 1);
+	if (!*token || (*token)->type == T_END)
+		return (token);
+	(*token)->type = T_END;
+	return (++token);
 }

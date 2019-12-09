@@ -13,6 +13,7 @@
 #ifndef INTERPRETATOR_H
 # define INTERPRETATOR_H
 
+# include "../lex/includes/lex.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -27,26 +28,23 @@
 # define HEREDOC_FILE "/tmp/.fucking_heredoc"
 # define INIT_AGGR_FD -5
 
-typedef struct s_sep_list
-{
-	int sep;
-	int status;
-	struct	s_sep_list  *next;
-}				t_sep_list;
+// typedef struct s_sep_list
+// {
+// 	int sep;
+// 	int status;
+// 	struct	s_sep_list  *next;
+// }				t_sep_list;
 
+int			syntax_err(t_lex_tkn *token);
+t_lex_tkn	**find_token(t_lex_tkn **list, int type);
+void		parse(t_lex_tkn **tokens);
 void		*ft_realloc(void *buf, size_t new_size);
 char		**ft_strtok(char *s);
-t_sep_list	*g_sep_list;
 char		*ft_strccut(char *str, char c);
 char		*ft_stricut(char *str, int i);
-t_token		*split_list(t_token *token)
-t_token		*find_token(t_token *list, int type);
-
-t_sep_list	*new_sep(t_token *token);
-void		add_logical(t_token *token);
+t_lex_tkn	**split_list(t_lex_tkn **token);
+t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 t_job		*job_new(void);
-
-int			syntax_err(t_token *token);
-int			redirect_list(t_token *redir, t_process *cur_proc);
+int redirect_list(t_lex_tkn **redir, t_process *cur_proc);
 
 #endif

@@ -61,7 +61,7 @@ static	char		*ft_word(char *s)
 	i = 0;
 	size = ft_wordsize(s);
 	if (!(strnew = (char *)ft_memalloc(size + 1)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	while (size--)
 		strnew[i++] = *s++;
 	return (strnew);
@@ -78,7 +78,7 @@ char				**ft_strtok(char *s)
 	i = 0;
 	words = ft_count_words(s);
 	if (!(str = (char **)ft_memalloc((words + 1) * sizeof(char *))))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (words == 0)
 		return (str);
 	while (i < words)

@@ -47,7 +47,7 @@ char	*rl_hist_copy(short index, char **hist_buff)
 {
 	char	*new_line;
 
-	if (index < 0)
+	if (index < 0 || index >= get_hist_size())
 		return (NULL);
 	if (!(new_line = ft_strdup(hist_buff[index])))
 		rl_err("42sh", "malloc() error", UNDEFERR);

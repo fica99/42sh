@@ -12,6 +12,19 @@
 
 #include "libstr.h"
 
+char *ft_stricut(char *str, int i)
+{
+	if (!str)
+		return (0);
+	if (i > (int)ft_strlen(str) - 1)
+		return (str);
+	str += i;
+	while (*++str)
+		*(str - 1) = *str;
+	*(str - 1) = 0;
+	return (str);
+}
+
 char *ft_strccut(char *str, char c)
 {
 	char *tmp;

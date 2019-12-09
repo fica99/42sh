@@ -12,10 +12,10 @@
 
 #include "ft_shell.h"
 
-int syntax_err(t_token *token)
+int syntax_err(t_lex_tkn *token)
 {
 	ft_putstr("42sh: ");
 	ft_putstr("syntax error near unexpected token: ");
-	ft_putstr(token->lexeme);
+	ft_putstr(token->value);
 	return (-1);
 }

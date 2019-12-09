@@ -12,26 +12,41 @@
 
 #include "ft_readline.h"
 
-void	rl_init_history(t_rl_history *history, char **env)
+void	rl_init_history(t_rl_history *history)
 {
-	short	len;
+	size_t	len;
 	char	path[RL_MAX_BUFF];
 	char	*home;
+	char	*rl_histsize;
+	char	*rl_histfilesize;
 
-	if ((home = ft_getenv("HOME", env)))
-		ft_strcat(ft_strcat(ft_strcpy(path, home), "/"), RL_HISTORY_FILE);
+	if ((home = get_env("HOME", ENV)))
+		ft_strcat(ft_strcpy(path, home), RL_HISTORY_FILE);
 	else
-		ft_strcat(ft_strcpy(path, "/"), RL_HISTORY_FILE);
-	rl_get_hist_size(history, env);
+		ft_strcpy(path, RL_HISTORY_FILE);
+	set_env("HISTFILE", path, SET_ENV);
+	set_env("HISTSIZE", RL_HISTSIZE, SET_ENV);
+	set_env("HISTFILESIZE", RL_HISTFILESIZE, SET_ENV);
+	if ((rl_histsize = get_env("HISTSIZE", ENV)))
+		set_env("HISTSIZE", rl_histsize, SET_ENV);
+	if ((rl_histfilesize = get_env("HISTFILESIZE", ENV)))
+		set_env("HISTFILESIZE", rl_histfilesize, SET_ENV);
+	rl_get_hist_size(history);
 	len = rl_find_hist_len(path);
 	rl_set_hist_buff(path, history, len);
 }
 
-short	rl_find_hist_len(char *path)
+void	rl_get_hist_size(t_rl_history *history)
+{
+	history->histfilesize = ft_atoi(get_env("HISTFILESIZE", ALL_ENV));
+	history->histsize = ft_atoi(get_env("HISTSIZE", ALL_ENV));
+}
+
+size_t	rl_find_hist_len(char *path)
 {
 	int		fd;
 	int		res;
-	short	len;
+	size_t	len;
 	char	*buff;
 
 	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
@@ -49,9 +64,9 @@ short	rl_find_hist_len(char *path)
 	return (len);
 }
 
-void	rl_set_hist_buff(char *path, t_rl_history *history, short hist_len)
+void	rl_set_hist_buff(char *path, t_rl_history *history, size_t hist_len)
 {
-	short	len;
+	size_t	len;
 	int		fd;
 	char	*buff;
 

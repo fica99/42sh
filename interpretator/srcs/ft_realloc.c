@@ -17,7 +17,7 @@ void	*ft_realloc(void *buf, size_t new_size)
 	char	*new_buf;
 
 	if (!(new_buf = (char *)ft_memalloc(new_size)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (buf)
 	{
 		ft_memcpy(new_buf, buf, ft_strlen(buf));

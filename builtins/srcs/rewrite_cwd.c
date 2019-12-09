@@ -39,7 +39,7 @@ void	rewrite_global(char **split_path)
 	char **tmp;
 
 	if (!split_path)
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	tmp = split_path;
 	while (*split_path)
 	{
@@ -64,7 +64,7 @@ void	remove_slashes(void)
 
 	i = -1;
 	if ((tmp = ft_strsplit(g_curr_dir, '/')) == 0)
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
 	*g_curr_dir = '/';
 	while (tmp[++i])
@@ -72,14 +72,8 @@ void	remove_slashes(void)
 	ft_free_dar(tmp);
 }
 
-void	rewrite_cwd(char *path, t_flag no_links)
+void	rewrite_cwd(char *path)
 {
-	if (no_links || access(g_curr_dir, F_OK))
-	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		if (!(getcwd(g_curr_dir, MAXDIR)))
-			err_exit(g_argv[0], "getcwd() error", NULL, NOERROR);
-	}
 	if (*path == '/')
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
@@ -93,18 +87,26 @@ void	rewrite_cwd(char *path, t_flag no_links)
 int	change_wdir(char *path, t_flag no_links)
 {
 	char *tmp;
+	int ret;
 
 	if (!(tmp = ft_strdup(g_curr_dir)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	rewrite_cwd(path, no_links);
-	if ((chdir(g_curr_dir)) < 0)
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	rewrite_cwd(path);
+	if ((ret = chdir(g_curr_dir)) < 0)
 	{
 		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
 		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
-		return (-1);
 	}
-	ft_setenv("OLDPWD", ft_getenv("PWD", g_env.env));
-	ft_setenv("PWD", g_curr_dir);
+	else {
+		if (no_links)
+		{
+			ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
+			if (!(getcwd(g_curr_dir, MAXDIR)))
+				err_exit("42sh", "getcwd() error", NULL, NOERROR);
+		}
+		set_env("OLDPWD", get_env("PWD", ENV), ENV);
+		set_env("PWD", g_curr_dir, ENV);
+	}
 	free(tmp);
-	return (0);
+	return (ret);
 }

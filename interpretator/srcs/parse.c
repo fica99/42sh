@@ -38,29 +38,26 @@ t_process *proc_new()
 {
 	t_process *new;
 	if (!(new = (t_process *)ft_memalloc(sizeof(new))))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * 16)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	return (new);
 }
 
-t_process	*add_process(t_token *token)
+t_process	*add_process(t_lex_tkn **token)
 {
 	t_process	*proc;
 	t_process	*tmp;
 	t_job		*last_job;
 
 	proc = proc_new();
-	if (token)
-	{
-		last_job = get_last_job();
-		tmp = get_last_proc(last_job);
-		if (!tmp)
-			last_job->first_process = proc;
-		else
-			tmp->next = proc;
-		proc->args = ft_strtok(token->lexeme);
-	}
+	last_job = get_last_job();
+	tmp = get_last_proc(last_job);
+	if (!tmp)
+		last_job->first_process = proc;
+	else
+		tmp->next = proc;
+	proc->args = ft_strtok((*token)->value);
     return (proc);
 }
 
@@ -73,74 +70,54 @@ void	add_redir(t_process *proc, int *fd)
 	*tmp = fd;
 }
 
-int ft_open(t_token *file, int flag)
+int ft_open(t_lex_tkn **file, int flag)
 {
 	int fd;
 
-	if (file->type != WORD)
-		return (syntax_err(file));
-	if ((fd = open(file->lexeme, flag)) < 0)
+	if ((*file)->type != T_WORD)
+		return (syntax_err(*file));
+	if ((fd = open((*file)->value, flag)) < 0)
 		return (-1);
 	return (fd);
 }
 
-int g_redir(t_token *redir, t_process *curr_proc)
+int g_redir(t_lex_tkn **redir, t_process *curr_proc, int fl)
 {
 	int *fd;
 
 	if (!(fd = (int *)malloc(sizeof(int))))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	fd[1] = 1;
-	if (*(redir->lexeme) != '>')
-		fd[1] = ft_atoi(redir->lexeme);
-	if ((fd[0] = ft_open(redir + 1, RRED_OPEN)) < 0)
+	if (*(*redir)->value != '>')
+		fd[1] = ft_atoi((*redir)->value);
+	if ((fd[0] = ft_open(redir + 1, fl)) < 0)
 	{
 		free(fd);
 		return (-1);
 	}
 	add_redir(curr_proc, fd);
-	free(redir++);
-	free(redir++);
+	split_list(redir++);
+	split_list(redir++);
 	return (redirect_list(redir, curr_proc));
 }
 
-int dg_redir(t_token *redir, t_process *curr_proc)
+int l_redir(t_lex_tkn **redir, t_process *curr_proc)
 {
 	int *fd;
 
 	if (!(fd = (int *)malloc(sizeof(int))))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	fd[1] = 1;
-	if (*(redir->lexeme) != '>')
-		fd[1] = ft_atoi(redir->lexeme);
-	if ((fd[0] = ft_open(redir + 1, DRRED_OPEN)) < 0)
-	{
-		free(fd);
-		return (-1);
-	}
-	add_redir(curr_proc, fd);
-	free(redir++);
-	free(redir++);
-	return (redirect_list(redir, curr_proc));
-}
-
-int l_redir(t_token *redir, t_process *curr_proc)
-{
-	int *fd;
-
-	if (!(fd = (int *)malloc(sizeof(int))))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	fd[0] = 0;
-	if (*(redir->lexeme) != '>')
-		fd[0] = ft_atoi(redir->lexeme);
+	if (*((*redir)->value) != '>')
+		fd[0] = ft_atoi((*redir)->value);
 	if ((fd[1] = ft_open(redir + 1, LRED_OPEN)) < 0)
 	{
 		free(fd);
 		return (-1);
 	}
 	add_redir(curr_proc, fd);
-	free(redir++);
-	free(redir++);
+	split_list(redir++);
+	split_list(redir++);
 	return (redirect_list(redir, curr_proc));
 }
 
@@ -149,7 +126,7 @@ int parse_here_doc(int fd, t_process *proc)
 	int *tmp;
 
 	if (!(tmp = (int *)malloc(sizeof(int) * 2)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	tmp[0] = 0;
 	tmp[1] = fd;
 	add_redir(proc, tmp);
@@ -161,118 +138,158 @@ int write_here_doc(char **buf)
 	int fd;
 
 	if ((fd = open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC)) < 0)
+	{
+		ft_putstr_fd("failed to create heredoc file\n", 2);
 		return (-1);
+	}
 	while (*buf)
 		ft_putstr_fd(*buf++, fd);
 	return (fd);
 }
 
-int here_doc(t_token *redir, t_process *curr)
+int here_doc(t_lex_tkn **redir, t_process *curr)
 {
 	char **buf;
 	size_t buf_size;
 	char *delim;
-	int i;
+	size_t i;
 	char *tmp;
 
-	if ((redir + 1)->type != WORD)
-		return (-1);
-	delim = (redir + 1)->lexeme;
+	if ((*redir + 1)->type != T_WORD)
+		syntax_err(*(redir + 1));
+	delim = (*redir + 1)->value;
 	i = 0;
 	buf_size = DEF_HEREDOC_SIZE;
 	if (!(buf = (char **)ft_memalloc(sizeof(char *) * buf_size)))
-		err_exit(g_argv[0], "malloc() error", NULL, NOERROR);
-	while (ft_strcmp((tmp = ft_readline("heredoc>", EMACS, g_env.env)), delim))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	while (ft_strcmp((tmp = ft_readline("heredoc>", EMACS)), delim))
 	{
 		buf[i++] = tmp;
 		if (i >= buf_size)
 		{
 			buf_size *= 2;
-			buf = (char **) ft_realloc(buf, sizeof(char *) * buf_size);
+			buf = (char **)ft_realloc(buf, sizeof(char *) * buf_size);
 		}
 	}
 	return (parse_here_doc(write_here_doc(buf), curr));
 }
 
-int redirect_list(t_token *redir, t_process *cur_proc)
+int redirect_list(t_lex_tkn **redir, t_process *cur_proc)
 {
-    if (!redir)
+    if ((*redir)->class == C_END)
         return (0);
-	else if (!tk_class(redir, REDIR))
-        return (-1);
-    else if (redir->type == GREAT)
-		return (g_redir(redir, cur_proc));
-	else if (redir->type == DGREAT)
-		return (dg_redir(redir, cur_proc));
-	else if (redir->type == LESS)
+	else if ((*redir)->class != C_REDIR)
+        return syntax_err(*redir);
+    else if ((*redir)->type == T_GREATER)
+		return (g_redir(redir, cur_proc, RRED_OPEN));
+	else if ((*redir)->type == T_GREATER_GREATER)
+		return (g_redir(redir, cur_proc, DRRED_OPEN));
+	else if ((*redir)->type == T_LESS)
 		return (l_redir(redir, cur_proc));
-	else if (redir->type == DLESS)
+	else if ((*redir)->type == T_LESS_LESS)
 		return (here_doc(redir, cur_proc));
-	//todo
+	else
+		return (0);
 }
 
-int simp_command(t_token *list)
+int simp_command(t_lex_tkn **list)
 {
-	t_token *tmp;
     t_process *curr_proc;
 
-	if (!list)
+	if ((*list)->type == T_END)
 		return (0);
-	curr_proc = add_process(find_token(list, WORD));
-	if ((tmp = find_token(list, REDIR)))
-        return (redirect_list(tmp, curr_proc));
-	return (0);
+	curr_proc = add_process(find_token(list, C_WORD));
+    return (redirect_list(find_token(list, C_REDIR), curr_proc));
 }
 
-int	pipe_sequence(t_token *list)
+int	pipe_sequence(t_lex_tkn **list)
 {
-	t_token *tmp;
+	t_lex_tkn **tmp;
 
-	if (!list)
+	if ((*list)->type == T_END)
 		return (0);
-	if (tk_type(list, PIPE))
-		return (syntax_err(list));
-	tmp = split_list(find_token(list, PIPE));
+	if ((*list)->class == C_PIPE)
+		return (syntax_err(*list));
+	tmp = split_list(find_token(list, C_PIPE));
 	if ((simp_command(list) < 0))
 		return (-1);
 	return (pipe_sequence(tmp));
 }
 
-int	logical_list(t_token *list)
+int	logical_list(t_lex_tkn **list)
 {
-	t_token *tmp;
+	// t_lex_tkn **tmp;
 
-	if (!list)
-		return (0);
-	if (tk_class(list, LOGICAL))
-		return (syntax_err(list));
-	tmp = find_token(list, LOGICAL);
-	add_logical(tmp);
-	tmp = split_list(tmp);
+	// if (!*list)
+	// 	return (0);
+	// if ((*list)->class == C_LOGICAL)
+	// 	return (syntax_err(list));
+	// tmp = find_token(list, LOGICAL);
+	// add_logical(tmp);
+	// tmp = split_list(tmp);
+	
 	if ((pipe_sequence(list)) < 0)
 		return (-1);
-	return (logical_list(tmp));
+	return (0);
+	// return (logical_list(tmp));
 }
 
-int	start(t_token *list)
+int	start(t_lex_tkn **list)
 {
-	t_token	*tmp;
+	t_lex_tkn **tmp;
 
-	if (!list)
+	if ((*list)->type == T_END)
 		return (0);
-	if (tk_class(list, SEMI))
-		return (syntax_err(list));
-	tmp = split_list(find_token(list, tk_class(SEMI)))
+	if ((*list)->type == T_SEP)
+		return (syntax_err(*list));
+	job_new();
+	tmp = split_list(find_token(list, C_SEP));
 	if ((logical_list(list)) < 0)
 		return (-1);
 	return (start(tmp));
 }
 
-void	parse(t_token *list)
+void print_proc(t_job *job)
 {
-	t_job *jobs_list;
+	t_process *proc = job->first_process;
 
-	if (!list)
+	while (proc)
+	{
+		printf("*********************\n");
+		while (*proc->args)
+		{
+			printf("%s\n", *proc->args);
+			proc->args++;
+		}
+		while (*proc->redir)
+		{
+			printf("%d <== %d", *proc->redir[0], *proc->redir[1]);
+			proc->redir++;
+		}
+		printf("*********************\n");
+		proc = proc->next;
+	}
+}
+
+void print_jobs()
+{
+	int i = 0;
+
+	while (g_first_job)
+	{
+		printf("job %i\n", i);
+		print_proc(g_first_job);
+		g_first_job = g_first_job->next;
+		i++;
+	}
+}
+
+void	parse(t_lex_tkn **tokens)
+{
+	if (!*tokens || (*tokens)->type == C_END)
 		return ;
-	start(list);
+	lex_print_tkns(tokens);
+	return;
+	start(tokens);
+	print_jobs();
 }
