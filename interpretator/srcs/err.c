@@ -16,6 +16,17 @@ int syntax_err(t_lex_tkn *token)
 {
 	ft_putstr("42sh: ");
 	ft_putstr("syntax error near unexpected token: ");
-	ft_putstr(token->value);
+	if (token->value)
+		ft_putstr(token->value);
+	else
+	{
+		if (token->type == T_END)
+			ft_putstr("EOL");
+		else if (token->type == T_PIPE)
+			ft_putstr("PIPE");
+		else if (token->class == C_REDIR)
+			ft_putstr("REDIRECT");
+	}
+	ft_putchar('\n');
 	return (-1);
 }

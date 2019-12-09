@@ -252,7 +252,7 @@ void print_proc(t_job *job)
 {
 	t_process *proc = job->first_process;
 
-	while (proc)
+	while (proc && proc->args)
 	{
 		printf("*********************\n");
 		while (*proc->args)
