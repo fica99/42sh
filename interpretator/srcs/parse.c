@@ -175,7 +175,7 @@ int here_doc(t_lex_tkn **redir, t_process *curr)
 
 int redirect_list(t_lex_tkn **redir, t_process *cur_proc)
 {
-    if ((*redir)->class == C_END)
+    if ((*redir)->type == T_END)
         return (0);
 	else if ((*redir)->class != C_REDIR)
         return syntax_err(*redir);

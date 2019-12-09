@@ -14,7 +14,7 @@
 
 t_lex_tkn **find_token(t_lex_tkn **list, int class)
 {
-	while ((*list)->class != C_END && (*list)->class != class)
+	while ((*list)->type != T_END && (*list)->class != class)
 		list++;
 	return (list);
 }
