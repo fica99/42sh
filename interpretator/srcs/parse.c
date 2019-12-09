@@ -37,7 +37,7 @@ t_process *get_last_proc(t_job *job)
 t_process *proc_new()
 {
 	t_process *new;
-	if (!(new = (t_process *)ft_memalloc(sizeof(new))))
+	if (!(new = (t_process *)ft_memalloc(sizeof(t_process))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * 16)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -188,7 +188,7 @@ int redirect_list(t_lex_tkn **redir, t_process *cur_proc)
 	else if ((*redir)->type == T_LESS_LESS)
 		return (here_doc(redir, cur_proc));
 	else
-		return (0);
+		return 0;
 }
 
 int simp_command(t_lex_tkn **list)
