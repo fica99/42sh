@@ -25,7 +25,7 @@
 # define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define INT_LEN 10
-# define HEREDOC_FILE "/tmp/.fucking_heredoc"
+# define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5
 
 // typedef struct s_sep_list

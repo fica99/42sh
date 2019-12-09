@@ -135,8 +135,9 @@ int parse_here_doc(int fd, t_process *proc)
 int write_here_doc(char **buf)
 {
 	int fd;
-
-	if ((fd = open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC)) < 0)
+	
+	fd = open(HEREDOC_FILE, RRED_OPEN, PERM_MODE);
+	if (fd < 0)
 	{
 		ft_putstr_fd("failed to create heredoc file\n", 2);
 		return (-1);
@@ -155,7 +156,7 @@ int here_doc(t_lex_tkn **redir, t_process *curr)
 	char *tmp;
 
 	if ((*redir + 1)->type != T_WORD)
-		syntax_err(*(redir + 1));
+		return (syntax_err(*(redir + 1)));
 	delim = (*redir + 1)->value;
 	i = 0;
 	buf_size = DEF_HEREDOC_SIZE;
@@ -173,6 +174,58 @@ int here_doc(t_lex_tkn **redir, t_process *curr)
 	return (parse_here_doc(write_here_doc(buf), curr));
 }
 
+// int	greater_and(int *fd, char *str)
+// {
+// 	if (!str)
+// 	{
+// 		ft_putstr("42sh: unexpected empty token: T_GREATER_AND\n");
+// 		return(-1);
+// 	}
+// 	if (!ft_isdigit(*str))
+// 		*fd = 1;
+// 	else
+// 		*fd = ft_atoi(str);
+// 	str = ft_strchr(str, '>') + 1;
+// 	if (!*str)
+// 	{
+// 		ft_putstr("42sh: empty file descriptor\n");
+// 		return(-1);
+// 	}
+// 	if (*str == '-')
+// 		fd[1] = open("/dev/null", RRED_OPEN, PERM_MODE);
+// 	else if (ft_isdigit(*str) && ft_atoi(str) < 10)
+// 		fd[1] = ft_atoi(str);
+// 	else
+// 		fd[1] = open(str, RRED_OPEN, PERM_MODE);
+// 	return (0);
+// }	 
+
+// int	fdaggr(t_lex_tkn *redir, t_process *curr_proc)
+// {
+// 	int *fd;
+
+// 	if (!(fd = (int *)malloc(sizeof(int) * 2)))
+// 		err_exit("42sh", "malloc() error", NULL, NOERROR);
+// 	if (redir->type == T_GREATER_AND)
+// 	{
+// 		if (greater_and(fd, redir->value) < 0)
+// 		{
+// 			free(fd);
+// 			return(-1);
+// 		}
+// 	}
+// 	// else
+// 	// {
+// 	// 	if (less_and(fd, redir->value) < 0)
+// 	// 	{
+// 	// 		free(fd);
+// 	// 		reurn(-1);
+// 	// 	}
+// 	// }
+// 	add_redir(curr_proc, fd);
+// 	return(0);
+// }
+
 int redirect_list(t_lex_tkn **redir, t_process *cur_proc)
 {
     if ((*redir)->type == T_END)
@@ -188,7 +241,8 @@ int redirect_list(t_lex_tkn **redir, t_process *cur_proc)
 	else if ((*redir)->type == T_LESS_LESS)
 		return (here_doc(redir, cur_proc));
 	else
-		return 0;
+		return (0);
+	//	return (fdaggr(*redir, cur_proc));
 }
 
 int simp_command(t_lex_tkn **list)
