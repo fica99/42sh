@@ -20,6 +20,7 @@
 # define FC_FLAG_L (1 << 1)
 # define FC_FLAG_N (1 << 2)
 # define FC_FLAG_R (1 << 3)
+# define FC_DIGIT (1 << 4)
 # define FC_FLAG_ERROR (1 << 5)
 # define FC_FILE_EDITOR ".42sh-fc"
 # define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC

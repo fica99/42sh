@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/02 00:05:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "../sub/includes/sub.h"
 # include "../jobs/includes/jobs.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"

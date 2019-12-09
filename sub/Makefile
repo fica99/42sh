@@ -1,27 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+srcs := subshell.c\
+        subgroups.c\
+        subgroups_dot.c\
+        subgroups_comma.c\
 
-srcs = load_lexer.c\
-		load_matrix.c\
-		clear_lexer.c\
-		lexer.c\
-		check_tokens.c\
-		init_tokens.c\
-		union_token.c\
-		different_tokens.c\
-		check_matrixs.c\
-		get_token.c\
-		get_token2.c\
-		error_token.c\
 
 objs := $(srcs:.c=.o)
 
@@ -39,7 +20,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, lexer.h)
+header := $(addprefix $(inc_dir)/, sub.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
@@ -65,7 +46,7 @@ cflags := -Wall -Wextra -Werror -g -O0
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish lexer compilation\033[0m"
+	@echo "\033[32mFinish sub compilation\033[0m"
 
 $(objs_dir):
 	@mkdir -p $@

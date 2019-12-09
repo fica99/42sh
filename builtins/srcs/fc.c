@@ -103,16 +103,13 @@ void	fc(int argc, char **argv)
 	{
 		if (opt == 'e')
 			editor = optarg;
-		else if (opt == 'n')
-			flags |= FC_FLAG_N;
-		else if (opt == 'l')
-			flags |= FC_FLAG_L;
-		else if (opt == 'r')
-			flags |= FC_FLAG_R;
-		else if (ft_isdigit(opt))
+		(opt == 'n') ? (flags |= FC_FLAG_N) : ((opt == 'l') ?
+		(flags |= FC_FLAG_L) : ((opt == 'r') ?
+		(flags |= FC_FLAG_R) : ((ft_isdigit(opt)) ?
+		(flags |= FC_DIGIT) :
+		(flags |= FC_FLAG_ERROR))));
+		if (flags & FC_DIGIT)
 			break ;
-		else
-			flags |= FC_FLAG_ERROR;
 	}
 	if (!(flags & FC_FLAG_ERROR))
 		fc_check_data(flags, editor, argc, argv);
