@@ -20,7 +20,6 @@
 # define FC_FLAG_L (1 << 1)
 # define FC_FLAG_N (1 << 2)
 # define FC_FLAG_R (1 << 3)
-# define FC_FLAG_S (1 << 4)
 # define FC_FLAG_ERROR (1 << 5)
 # define FC_FILE_EDITOR ".42sh-fc"
 # define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC
@@ -47,18 +46,11 @@ void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_
 /*
 ***	fc.c
 */
-char 			*ft_read_file(char *path);
-void			fc_print_usage(void);
-void			fc_open_editor(char *editor, char *first,
-							   char *last, char *path);
-void			fc_check_flags(int flags, char *editor,
-							   char *first, char *last);
-void			fc_check_error(int flags, char *editor,
-							   int argc, char **argv);
+char			**fc_get_list(int first, int last);
 void			fc(int argc, char **argv);
 /*
-***	fc_flags.c
+***	fc_print.c
 */
-void			fc_flag_l(int flags, char *first, char *last);
-void			fc_print_command(int flags, char *nb, char *elem);
+void			fc_print_command(int flags, int first, int last);
+void			fc_write_commands(int first, int last, char *path);
 #endif
