@@ -76,8 +76,7 @@ int ft_open(t_lex_tkn **file, int flag)
 
 	if ((*file)->type != T_WORD)
 		return (syntax_err(*file));
-	if ((fd = open((*file)->value, flag)) < 0)
-		return (-1);
+	fd = open((*file)->value, flag, PERM_MODE);
 	return (fd);
 }
 
@@ -85,11 +84,11 @@ int g_redir(t_lex_tkn **redir, t_process *curr_proc, int fl)
 {
 	int *fd;
 
-	if (!(fd = (int *)malloc(sizeof(int))))
+	if (!(fd = (int *)malloc(sizeof(int) * 2)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	fd[1] = 1;
-	if (*(*redir)->value != '>')
-		fd[1] = ft_atoi((*redir)->value);
+	// if (*(*redir)->value != '>')
+	// 	fd[1] = ft_atoi((*redir)->value);
 	if ((fd[0] = ft_open(redir + 1, fl)) < 0)
 	{
 		free(fd);
@@ -108,8 +107,8 @@ int l_redir(t_lex_tkn **redir, t_process *curr_proc)
 	if (!(fd = (int *)malloc(sizeof(int))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	fd[0] = 0;
-	if (*((*redir)->value) != '>')
-		fd[0] = ft_atoi((*redir)->value);
+	// if (*((*redir)->value) != '>')
+	// 	fd[0] = ft_atoi((*redir)->value);
 	if ((fd[1] = ft_open(redir + 1, LRED_OPEN)) < 0)
 	{
 		free(fd);
@@ -263,7 +262,7 @@ void print_proc(t_job *job)
 		}
 		while (*proc->redir)
 		{
-			printf("%d <== %d", *proc->redir[0], *proc->redir[1]);
+			printf("%d <== %d\n", (*proc->redir)[0], (*proc->redir)[1]);
 			proc->redir++;
 		}
 		printf("*********************\n");
@@ -288,8 +287,8 @@ void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == C_END)
 		return ;
-	lex_print_tkns(tokens);
-	return;
+	// lex_print_tkns(tokens);
+	// return;
 	start(tokens);
 	print_jobs();
 }
