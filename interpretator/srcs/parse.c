@@ -12,6 +12,38 @@
 
 #include "ft_shell.h"
 
+void	cls_redir(int **red)
+{
+	int *tmp;
+
+	while (*red)
+	{
+		tmp = *red;
+		if (*tmp > 2)
+			close(*tmp);
+		if (tmp[1] > 2)
+			close(tmp[1]);
+		red++;
+	}
+}
+
+void close_fds(t_job *first_job)
+{
+	t_process *tmp;
+	while (first_job)
+	{
+		tmp = first_job->first_process;
+		while (tmp)
+		{
+			cls_redir(tmp->redir);
+			tmp = tmp->next;
+		}
+		first_job = first_job->next;
+	}
+	//todo
+	// переделать
+}
+
 t_job *get_last_job()
 {
 	t_job *tmp;
@@ -325,15 +357,15 @@ void print_proc(t_job *job)
 	}
 }
 
-void print_jobs()
+void print_jobs(t_job *first_job)
 {
 	int i = 0;
 
-	while (g_first_job)
+	while (first_job)
 	{
 		printf("job %i\n", i);
-		print_proc(g_first_job);
-		g_first_job = g_first_job->next;
+		print_proc(first_job);
+		first_job = first_job->next;
 		i++;
 	}
 }
@@ -345,6 +377,9 @@ void	parse(t_lex_tkn **tokens)
 	// lex_print_tkns(tokens);
 	// return;
 	start(tokens);
+	/* place for your code */
+	close_fds(g_first_job);
 	lex_del_tkns(tokens);
-	print_jobs();
+	print_jobs(g_first_job);
+	g_first_job = 0; /* зафришить*/
 }
