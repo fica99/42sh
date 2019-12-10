@@ -342,8 +342,9 @@ void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == C_END)
 		return ;
-	lex_print_tkns(tokens);
-	return;
+	// lex_print_tkns(tokens);
+	// return;
 	start(tokens);
+	lex_del_tkns(tokens);
 	print_jobs();
 }
