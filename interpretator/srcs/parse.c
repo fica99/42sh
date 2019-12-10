@@ -380,6 +380,6 @@ void	parse(t_lex_tkn **tokens)
 	/* place for your code */
 	close_fds(g_first_job);
 	lex_del_tkns(tokens);
-	print_jobs(g_first_job);
+	//print_jobs(g_first_job);
 	g_first_job = 0; /* зафришить*/
 }
