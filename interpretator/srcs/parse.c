@@ -126,8 +126,8 @@ int parse_here_doc(int fd, t_process *proc)
 
 	if (!(tmp = (int *)malloc(sizeof(int) * 2)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	tmp[0] = 0;
-	tmp[1] = fd;
+	tmp[1] = 0;
+	*tmp = fd;
 	add_redir(proc, tmp);
 	return (0);
 }
