@@ -155,9 +155,10 @@ int here_doc(t_lex_tkn **redir, t_process *curr)
 	size_t i;
 	char *tmp;
 
-	if ((*redir + 1)->type != T_WORD)
-		return (syntax_err(*(redir + 1)));
-	delim = (*redir + 1)->value;
+	redir++;
+	if ((*redir)->type != T_WORD)
+		return (syntax_err(*redir));
+	delim = (*redir)->value;
 	i = 0;
 	buf_size = DEF_HEREDOC_SIZE;
 	if (!(buf = (char **)ft_memalloc(sizeof(char *) * buf_size)))
@@ -341,8 +342,8 @@ void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == C_END)
 		return ;
-	// lex_print_tkns(tokens);
-	// return;
+	lex_print_tkns(tokens);
+	return;
 	start(tokens);
 	print_jobs();
 }
