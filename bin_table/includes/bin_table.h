@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:44:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define PREV_D ".."
 # define CUR_D "."
 # define FT_PATH_MAX 1000
-# define TERM_INIT_HASH (1 << 3)
-# define TERM_FREE_HASH (1 << 4)
 
 typedef struct	s_table
 {

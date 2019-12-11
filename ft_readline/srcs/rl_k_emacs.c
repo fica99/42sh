@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:13:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 19:07:51 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	rl_k_ctrl_l(t_readline *rl)
 	pos = rl->cord.pos;
 	ft_putstr(RL_CUR_INVIS);
 	ft_putstr(RL_CLEAR_SCREEN);
-	rl_write_prompt(rl->prompt, rl->env, rl->history);
+	rl_write_prompt(rl->prompt, rl->history);
 	rl_start_cord_data(&rl->cord);
 	rl_print(rl->line.buffer, &rl->cord);
 	rl_go_left(rl->cord.pos - pos, &rl->cord);

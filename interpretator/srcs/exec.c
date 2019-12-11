@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 17:18:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 19:01:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 16:10:58 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	make_command(char *buff)
 	else
 	{
 		if (!(args = ft_strsplit(buff, ' ')))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		i = -1;
 		while (args[++i])
 			args[i] = spec_symbols(args[i]);
@@ -42,21 +42,25 @@ void	find_command(char **args)
 		cd(args);
 	else if (!ft_strcmp(args[0], "echo"))
 		ft_echo(len, args, g_env.env);
+	else if (!ft_strcmp(args[0], "export"))
+		export(len, args);
+	else if (!ft_strcmp(args[0], "set"))
+		set(len, args, g_env.env);
+	else if (!ft_strcmp(args[0], "unset"))
+		unset(len, args);
 	else if (!ft_strcmp(args[0], "env"))
 		env(len, args, g_env.env);
-	else if (!ft_strcmp(args[0], "setenv"))
-		set_env(len, args, g_env.env);
-	else if (!ft_strcmp(args[0], "unsetenv"))
-		unset_env(len, args, g_env.env);
 	else if (!ft_strcmp(args[0], "hash") && len == 1)
 		print_bin_table(g_bin_table.table, g_bin_table.size);
 	else if (!ft_strcmp(args[0], "pwd"))
 		pwd(args);
+	else if (!ft_strcmp(args[0], "fc"))
+		fc(len, args);
 	else if (!ft_strcmp(args[0], "exit"))
 		g_flags |= TERM_EXIT;
 	else if (!check_bin(args, g_bin_table.table,
 	g_bin_table.size) && !check_command(args))
-		err(g_argv[0], "command not found", args[0], NOERROR);
+		err("42sh", "command not found", args[0], NOERROR);
 }
 
 char	check_command(char **args)
@@ -69,17 +73,17 @@ char	check_command(char **args)
 	{
 		if (access(args[0], X_OK))
 		{
-			err(g_argv[0], NULL, args[0], EACCES);
+			err("42sh", NULL, args[0], EACCES);
 			return (TRUE);
 		}
 		if (lstat(args[0], &buf) < 0)
-			err_exit(g_argv[0], "lstat() error", NULL, NOERROR);
+			err_exit("42sh", "lstat() error", NULL, NOERROR);
 		if (!S_ISREG(buf.st_mode))
 			return (FALSE);
 		p = make_process();
 		if (!p)
 			if (execve(args[0], args, g_env.env) < 0)
-				err_exit(g_argv[0], "execve() error", args[0], NOERROR);
+				err_exit("42sh", "execve() error", args[0], NOERROR);
 		waitpid(p, &status, 0);
 		return (TRUE);
 	}
@@ -98,7 +102,7 @@ char	check_bin(char **args, t_hash **bin_table, short bin_table_size)
 	p = make_process();
 	if (!p)
 		if (execve(command_path, args, g_env.env) < 0)
-			err_exit(g_argv[0], "execve() error", args[0], NOERROR);
+			err_exit("42sh", "execve() error", args[0], NOERROR);
 	waitpid(p, &status, 0);
 	return (TRUE);
 }

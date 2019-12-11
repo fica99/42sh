@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/19 23:04:57 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,9 +39,10 @@ srcs := rl_main.c\
 	rl_init_hash2.c\
 	rl_k_vi4.c\
 	rl_k_vi5.c\
-	rl_k_v.c\
 	rl_init_history.c\
-	# rl_hist_expansions.c\
+	rl_hist_expansions.c\
+	rl_err.c\
+	rl_main2.c\
 
 objs := $(srcs:.c=.o)
 

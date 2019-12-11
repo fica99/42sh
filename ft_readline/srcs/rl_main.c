@@ -6,33 +6,26 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/29 21:18:56 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 20:32:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-char	*ft_readline(char *prompt, t_rl_mode mode, char **environ)
+char	*ft_readline(char *prompt, t_rl_mode mode)
 {
 	char	*buff;
 
 	g_rl.mode = mode;
-	g_rl.env = environ;
 	g_rl.prompt = prompt;
-	++g_rl.history.cur_command_nb;
-	rl_check_history_size(&g_rl.history, environ);
-	rl_set_non_canon_mode(&g_rl.non_canon_mode);
+	rl_write_prompt(g_rl.prompt, g_rl.history);
+	rl_clr_data(&g_rl);
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	rl_set_attr(&g_rl.canon_mode);
-	if (!rl_check_empty_line(buff))
-		ft_strdel(&buff);
-	rl_add_to_history_buff(buff, &g_rl.history);
-	rl_clr_data(&g_rl);
 	return (buff);
 }
 
-void	init_readline(char **environ)
+void	init_readline(void)
 {
 	rl_save_attr(&g_rl.canon_mode);
 	rl_init_terminfo();
@@ -42,7 +35,10 @@ void	init_readline(char **environ)
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP
 	|| !RL_CLEAR_SCREEN)
 		rl_err("42sh", "no correct capabilities", UNDEFERR);
-	rl_init_rl_struct(&g_rl, environ);
+	set_env("PS1", "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m", SET_ENV);
+	set_env("PS2", "> ", SET_ENV);
+	set_env("PS4", "+ ", SET_ENV);
+	rl_init_rl_struct(&g_rl);
 }
 
 void	free_readline(void)
@@ -52,20 +48,46 @@ void	free_readline(void)
 	rl_free_rl_struct(&g_rl);
 }
 
-void	rl_err(char *name, char *str, char *err)
+void	add_to_history_buff(char *line)
 {
-	ft_putstr_fd(name, STDERR_FILENO);
-	if (str)
+	size_t			len;
+	size_t			i;
+
+	rl_check_history_size(&g_rl.history);
+	if (!line || !*line)
+		return ;
+	++g_rl.history.cur_command_nb;
+	len = g_rl.history.hist_len;
+	if (g_rl.history.histsize)
 	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
+		if (len >= g_rl.history.histsize)
+		{
+			ft_memdel((void**)&(g_rl.history.history_buff[0]));
+			i = -1;
+			while (++i < len - 1)
+				g_rl.history.history_buff[i] = g_rl.history.history_buff[i + 1];
+		}
+		else
+			i = g_rl.history.hist_len++;
+		if (!(g_rl.history.history_buff[i] = ft_strdup(line)))
+			rl_err("42sh", "malloc() error", ENOMEM);
 	}
-	if (err)
+}
+
+char	*get_hist_expansions(char *line)
+{
+	char	*new_line;
+
+	new_line = NULL;
+	if (line && *line)
 	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(err, STDERR_FILENO);
+		if ((line[0] == '-' && ft_isdigit(line[1]))
+		|| ft_isdigit(line[0]))
+			new_line = rl_digit_exp(ft_atoi(line), g_rl.history);
+		else if (ft_strlen(line) == 1 && line[0] == '!')
+			new_line = rl_digit_exp(-1, g_rl.history);
+		else
+			new_line = rl_search_exp(line, g_rl.history);
 	}
-	ft_putstr_fd("\n", STDERR_FILENO);
-	rl_set_attr(&g_rl.canon_mode);
-	exit(EXIT_FAILURE);
+	return (new_line);
 }

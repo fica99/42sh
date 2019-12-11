@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:11:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/23 16:50:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void		set_env_struct(t_environ *env, char **arr, short malloc_size)
 
 	env->malloc_size = malloc_size;
 	if (!(env->env = ft_darnew(malloc_size)))
-		err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	i = -1;
 	while (arr[++i])
 		if (!(env->env[i] = ft_strdup(arr[i])))
-			err_exit(g_argv[0], "malloc() error", NULL, ENOMEM);
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	env->cur_size = i;
 }
 
@@ -46,4 +46,25 @@ void		unset_env_struct(t_environ *env)
 		(env)->cur_size = 0;
 		(env)->malloc_size = 0;
 	}
+}
+
+char	*get_env(char *arr, t_env mode)
+{
+	char	*env;
+
+	if (mode == ENV)
+		return (ft_getenv(arr, g_env.env));
+	else if (mode == SET_ENV)
+		return (ft_getenv(arr, g_set_env.env));
+	if (!(env = ft_getenv(arr, g_env.env)))
+		return (ft_getenv(arr, g_set_env.env));
+	return (env);
+}
+
+void	set_env(char *name, char *new_value, t_env mode)
+{
+	if (mode == ENV)
+		ft_setenv(name, new_value, &g_env);
+	else
+		ft_setenv(name, new_value, &g_set_env);
 }

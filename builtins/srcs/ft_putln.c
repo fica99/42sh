@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   ft_putln.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/11/19 17:55:11 by aashara-         ###   ########.fr       */
+/*   Created: 2019/12/02 21:53:05 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/02 21:53:57 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "libft.h"
 
-pid_t	make_process(void)
+void ft_putln(char *str)
 {
-	pid_t	p;
-
-	p = fork();
-	if (p < 0)
-		err_exit("42sh", "fork() error", NULL, NOERROR);
-	return (p);
+	if (str)
+		write(1, str, ft_strlen(str));
+	write(1, "\n", 1);
 }

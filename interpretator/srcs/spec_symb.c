@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 19:01:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/07 12:21:13 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*tilda_expr(char *args)
 	char	*index;
 
 	tmp = args;
-	if ((path = sh_getenv("HOME")))
+	if ((path = get_env("HOME", ENV)))
 	{
 		index = ft_strchr(args, '~');
 		args = ft_strjoin(path, index + 1);
@@ -46,7 +46,6 @@ char	*dollar_expr(char *args)
 	char	*path;
 
 	spec = ft_strchr(args, '$');
-	arr = NULL;
 	copy = NULL;
 	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);
@@ -57,7 +56,7 @@ char	*dollar_expr(char *args)
 	}
 	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = sh_getenv(spec + 1)))
+	if ((path = get_env(spec + 1, ENV)))
 		ft_strcat(var, path);
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);

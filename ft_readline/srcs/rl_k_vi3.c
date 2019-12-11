@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_k_vi3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:52:34 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/19 19:55:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,27 @@ void	rl_k_x_upper(t_readline *rl)
 
 void	rl_k_v(t_readline *rl)
 {
-	int		fd;
-	char	*buff;
+	char	*argv;
+	char	path[MAX_LINE_SIZE];
+	char	*content;
 
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
-	if ((fd = open(RL_VIFILE, RL_OPEN_VIFILE, RL_PERM_VIFILE)) == -1)
-		rl_err("42sh", "open() error", UNDEFERR);
-	ft_putstr_fd(rl->line.buffer, fd);
-	if (close(fd) == -1)
-		rl_err("42sh", "close() error", UNDEFERR);
-	rl_open_editor(rl);
-	ft_strclr(rl->line.buffer);
-	if ((fd = open(RL_VIFILE, RL_READ_VIFILE)) == -1)
-		rl_err("42sh", "open() error", UNDEFERR);
-	while (get_next_line(fd, &buff) > 0)
-	{
-		rl_check_str_mem(&rl->line, buff);
-		ft_strcat(rl->line.buffer, buff);
-		ft_strdel(&buff);
-	}
-	if (close(fd) == -1)
-		rl_err("42sh", "close() error", UNDEFERR);
-	rl_disable_line(rl);
+	if (!(argv = get_env("VISUAL", ENV)))
+		if (!(argv = get_env("EDITOR", ENV)))
+			argv = "vi";
+	ft_strcat(ft_strcpy(path, get_env("TMPDIR", ENV)), RL_VIFILE);
+	ft_write_to_file(path, RL_OPEN_VIFILE, RL_PERM_VIFILE, rl->line.buffer);
+	ft_strcat(ft_strcat(ft_strcpy(rl->line.buffer, argv), " "), path);
+	rl_k_enter(rl);
+	rl_set_non_canon_mode(&rl->non_canon_mode);
+	check_valid_string(rl->line.buffer);
+	if (!(content = ft_read_file(path)))
+		rl_err("42sh", "reading error", ENOMEM);
+	ft_strcpy(rl->line.buffer, content);
+	ft_putendl(content);
+	ft_strdel(&content);
 }
 
 void	rl_k_f_lower(t_readline *rl)

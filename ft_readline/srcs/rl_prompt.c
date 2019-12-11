@@ -6,25 +6,27 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/11/11 16:18:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void	rl_write_prompt(char *str, char **env, t_rl_history history)
+void	rl_write_prompt(char *str, t_rl_history history)
 {
 	short	i;
 	short	j;
 
+	if (!str)
+		return ;
 	i = -1;
 	while (str[++i])
 	{
 		j = i;
 		if (str[i] == '\\')
 		{
-			if ((j = rl_prompt_user_host(str, i, env)) == i)
-				if ((j = rl_prompt_dir_history(str, i, history, env)) == i)
+			if ((j = rl_prompt_user_host(str, i)) == i)
+				if ((j = rl_prompt_dir_history(str, i, history)) == i)
 					if ((j = rl_prompt_colour_name(str, i)) == i)
 						j = rl_prompt_time(str, i);
 		}
@@ -35,14 +37,14 @@ void	rl_write_prompt(char *str, char **env, t_rl_history history)
 	}
 }
 
-short	rl_prompt_user_host(char *str, short i, char **env)
+short	rl_prompt_user_host(char *str, short i)
 {
 	char	hostname[FT_HOST_NAME_MAX];
 	char	*stop;
 	char	*path;
 
 	if (!ft_strncmp(str + i, "\\u", 2))
-		ft_putstr(ft_getenv("USER", env));
+		ft_putstr(get_env("USER", ENV));
 	else if (!ft_strncmp(str + i, "\\h", 2) ||
 	!ft_strncmp(str + i, "\\H", 2))
 	{
@@ -54,7 +56,7 @@ short	rl_prompt_user_host(char *str, short i, char **env)
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
-		path = ft_getenv("USER", env);
+		path = get_env("USER", ENV);
 		(path && !ft_strcmp(path, "root")) ?
 		ft_putchar('#') : ft_putchar('$');
 	}
@@ -64,12 +66,12 @@ short	rl_prompt_user_host(char *str, short i, char **env)
 }
 
 short	rl_prompt_dir_history(char *str, short i,
-t_rl_history history, char **env)
+t_rl_history history)
 {
 	char	*pwd;
 	char	*home;
 
-	pwd = ft_getenv("PWD", env);
+	pwd = get_env("PWD", ENV);
 	if (!ft_strncmp(str + i, "\\W", 2))
 	{
 		if (!ft_strncmp(str + i, "\\W", 2) && pwd)
@@ -77,7 +79,7 @@ t_rl_history history, char **env)
 	}
 	else if (!ft_strncmp(str + i, "\\w", 2))
 	{
-		if (ft_strstr(pwd, (home = ft_getenv("HOME", env))))
+		if (ft_strstr(pwd, (home = get_env("HOME", ENV))))
 			ft_putstr("~");
 		else
 			home = NULL;

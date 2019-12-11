@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 16:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 14:42:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/11/24 19:08:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,22 @@ t_hash	**init_emacs_hash(int hash_size)
 	table = push_hash(table, RL_K_ALT_C, (void*)&rl_k_alt_c, hash_size);
 	table = push_hash(table, RL_K_ALT_LEFT, (void*)&rl_k_alt_left,
 	hash_size);
+	return (table);
+}
+
+t_hash	**init_noedit_hash(int hash_size)
+{
+	t_hash	**table;
+	char	symb[2];
+
+	if (!(table = init_hash_table(hash_size)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	symb[1] = '\0';
+	symb[0] = RL_K_CTRL_C;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_c, hash_size);
+	symb[0] = RL_K_ENTER;
+	table = push_hash(table, symb, (void*)&rl_k_enter, hash_size);
+	symb[0] = RL_K_CTRL_D;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_d, hash_size);
 	return (table);
 }

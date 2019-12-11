@@ -6,24 +6,24 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 21:57:09 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/20 20:35:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void		rl_free_history(t_rl_history *history, char **env)
+void		rl_free_history(t_rl_history *history)
 {
 	int		fd;
-	short	i;
+	size_t	i;
 	char	path[RL_MAX_BUFF];
-	char	*home;
+	char	*histfile;
 
-	if ((home = ft_getenv("HOME", env)))
-		ft_strcat(ft_strcat(ft_strcpy(path, home), "/"), RL_HISTORY_FILE);
+	if ((histfile = get_env("HISTFILE", SET_ENV)))
+		ft_strcpy(path, histfile);
 	else
-		ft_strcat(ft_strcpy(path, "/"), RL_HISTORY_FILE);
-	rl_get_hist_size(history, env);
+		ft_strcpy(path, RL_HISTORY_FILE);
+	rl_get_hist_size(history);
 	if ((fd = open(path, RL_REWRITE_HISTFILE, RL_PERM_HISTFILE)) == -1)
 		rl_err("42sh", "open() error", UNDEFERR);
 	i = 0;
@@ -36,62 +36,15 @@ void		rl_free_history(t_rl_history *history, char **env)
 	ft_free_dar(history->history_buff);
 }
 
-void		rl_add_to_history_buff(char *buffer, t_rl_history *history)
+void		rl_check_history_size(t_rl_history *history)
 {
-	short	len;
-	short	i;
-
-	if (!buffer || !*buffer)
-		return ;
-	len = history->hist_len;
-	if (history->histsize)
-	{
-		if (len >= history->histsize)
-		{
-			ft_memdel((void**)&(history->history_buff[0]));
-			i = -1;
-			while (++i < len - 1)
-				history->history_buff[i] = history->history_buff[i + 1];
-		}
-		else
-			i = history->hist_len++;
-		if (!(history->history_buff[i] = ft_strdup(buffer)))
-			rl_err("42sh", "malloc() error", ENOMEM);
-	}
-}
-
-void		rl_get_hist_size(t_rl_history *history, char **env)
-{
-	int		histsize;
-	int		histfilesize;
-	char	*rl_histsize;
-	char	*rl_histfilesize;
-
-	if (!(rl_histsize = ft_getenv("HISTSIZE", env)))
-		histsize = RL_HISTSIZE;
-	else
-		histsize = ft_atoi(rl_histsize);
-	if (!(rl_histfilesize = ft_getenv("HISTFILESIZE", env)))
-		histfilesize = RL_HISTFILESIZE;
-	else
-		histfilesize = ft_atoi(rl_histfilesize);
-	if (histfilesize < 0)
-		histfilesize = 0;
-	if (histsize <= 0)
-		histsize = 1;
-	history->histsize = histsize;
-	history->histfilesize = histfilesize;
-}
-
-void		rl_check_history_size(t_rl_history *history, char **env)
-{
-	int	histsize;
+	size_t	histsize;
 
 	histsize = history->histsize;
-	rl_get_hist_size(history, env);
+	rl_get_hist_size(history);
 	if (histsize != history->histsize)
 	{
-		rl_free_history(history, env);
-		rl_init_history(history, env);
+		rl_free_history(history);
+		rl_init_history(history);
 	}
 }
