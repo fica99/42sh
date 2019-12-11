@@ -18,7 +18,8 @@ srcs := parse.c\
 		close_fds.c\
 		add_process.c\
 		fd_aggr.c\
-		redirect_list.c
+		redirect_list.c\
+		ft_free_jobs.c
 
 objs := $(srcs:.c=.o)
 

@@ -28,14 +28,8 @@
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5
 
-// typedef struct s_sep_list
-// {
-// 	int sep;
-// 	int status;
-// 	struct	s_sep_list  *next;
-// }				t_sep_list;
-
 t_job       *job_new(void);
+void        ft_free_jobs(t_job *j);
 void        close_fds(t_job *first_job);
 t_process	*add_process(t_lex_tkn **token);
 int			syntax_err(t_lex_tkn *token);

@@ -111,9 +111,9 @@ void	parse(t_lex_tkn **tokens)
 	//lex_print_tkns(tokens);
 	//return;
 	start(tokens);
-	launch_job(g_first_job, 0);
+	//launch_job(g_first_job, 0);
 	close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	print_jobs(g_first_job);
-	g_first_job = 0; /* зафришить*/
+	//ft_free_jobs(g_first_job);
 }
