@@ -12,7 +12,6 @@
 
 srcs := parse.c\
 		err.c\
-		lists.c\
 		token_handle.c\
 		ft_realloc.c\
 		ft_strtok.c\

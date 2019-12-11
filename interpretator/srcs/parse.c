@@ -106,12 +106,12 @@ void print_jobs(t_job *first_job)
 
 void	parse(t_lex_tkn **tokens)
 {
-	if (!*tokens || (*tokens)->type == C_END)
+	if (!*tokens || (*tokens)->type == T_END)
 		return ;
 	//lex_print_tkns(tokens);
 	//return;
 	start(tokens);
-	/* place for your code */
+	launch_job(g_first_job, 0);
 	close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	print_jobs(g_first_job);
