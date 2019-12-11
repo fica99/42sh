@@ -60,10 +60,9 @@ int	start(t_lex_tkn **list)
 
 	if ((*list)->type == T_END)
 		return (0);
-	if ((*list)->type == T_SEP)
-		return (syntax_err(*list));
-	job_new();
 	tmp = split_list(find_token(list, C_SEP));
+	if ((*list)->type != T_END)
+		job_new();
 	if ((logical_list(list)) < 0)
 		return (-1);
 	return (start(tmp));
@@ -110,10 +109,11 @@ void	parse(t_lex_tkn **tokens)
 		return ;
 	//lex_print_tkns(tokens);
 	//return;
-	start(tokens);
-	//launch_job(g_first_job, 0);
+	if (start(tokens) == 0 && g_first_job)
+		launch_job(g_first_job, 0);
 	close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	print_jobs(g_first_job);
 	//ft_free_jobs(g_first_job);
+	g_first_job = 0;
 }
