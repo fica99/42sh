@@ -19,6 +19,8 @@ srcs := interpretator.c\
 		spec_symb.c\
 		parse_quotes.c\
 		aggr_fd.c\
+		process.c\
+		expansions.c\
 
 objs := $(srcs:.c=.o)
 
@@ -57,7 +59,7 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror -g -O0
+cflags := -Wall -Wextra -Werror -g
 
 .PHONY: all compilation clean re
 

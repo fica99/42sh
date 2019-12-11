@@ -83,4 +83,10 @@ char	*remove_dquotes(char **buff);
 **	process.c
 */
 pid_t	make_process(void);
+
+/*
+**	expansions.c
+*/
+void	*expansions(char *s);
+int     check_bracket(char *s);
 #endif
