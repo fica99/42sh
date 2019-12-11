@@ -35,6 +35,8 @@
 // 	struct	s_sep_list  *next;
 // }				t_sep_list;
 
+void        close_fds(t_job *first_job);
+t_process	*add_process(t_lex_tkn **token);
 int			syntax_err(t_lex_tkn *token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 void		parse(t_lex_tkn **tokens);
@@ -45,6 +47,6 @@ char		*ft_stricut(char *str, int i);
 t_lex_tkn	**split_list(t_lex_tkn **token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 t_job		*job_new(void);
-int redirect_list(t_lex_tkn **redir, t_process *cur_proc);
+int         redirect_list(t_lex_tkn **redir, t_process *cur_proc);
 
 #endif

@@ -15,7 +15,11 @@ srcs := parse.c\
 		lists.c\
 		token_handle.c\
 		ft_realloc.c\
-		ft_strtok.c
+		ft_strtok.c\
+		close_fds.c\
+		add_process.c\
+		fd_aggr.c\
+		redirect_list.c
 
 objs := $(srcs:.c=.o)
 
