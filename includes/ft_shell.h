@@ -40,4 +40,5 @@
 # include "../builtins/includes/builtins.h"
 # include "../calc/includes/calc.h"
 # include "../lex/includes/lex.h"
+# include "../signal/includes/signals.h"
 #endif

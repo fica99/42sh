@@ -107,13 +107,13 @@ void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == T_END)
 		return ;
-	//lex_print_tkns(tokens);
-	//return;
+	// lex_print_tkns(tokens);
+	// return;
 	if (start(tokens) == 0 && g_first_job)
 		launch_job(g_first_job, 0);
 	close_fds(g_first_job);
 	lex_del_tkns(tokens);
-	print_jobs(g_first_job);
+	//print_jobs(g_first_job);
 	//ft_free_jobs(g_first_job);
 	g_first_job = 0;
 }

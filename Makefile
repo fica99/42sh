@@ -40,6 +40,8 @@ dir_calc := calc
 
 dir_lex := lex
 
+dir_signal := signal
+
 objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
 		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
@@ -51,6 +53,7 @@ objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_term), /**/*.o))\
 		$(wildcard $(addprefix $(dir_calc), /**/*.o))\
 		$(wildcard $(addprefix $(dir_lex), /**/*.o))\
+		$(wildcard $(addprefix $(dir_signal), /**/*.o))\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -62,7 +65,7 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 .PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_ft_readline) $(dir_term) $(dir_calc) $(dir_lex)\
+$(dir_ft_readline) $(dir_term) $(dir_calc) $(dir_lex) $(dir_signal)\
 lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
@@ -86,6 +89,7 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_term)
 	@$(MAKE) --no-print-directory $(dir_calc)
 	@$(MAKE) --no-print-directory $(dir_lex)
+	@$(MAKE) --no-print-directory $(dir_signal)
 
 $(objs):
 	@$(MAKE) --no-print-directory compilation
@@ -119,6 +123,9 @@ $(dir_calc):
 
 $(dir_lex):
 	@$(MAKE) --no-print-directory -C $(dir_lex)
+
+$(dir_signal):
+	@$(MAKE) --no-print-directory -C $(dir_signal)
 
 loadlibs:
 	@echo "\033[32mLoad Libraries\033[0m"
@@ -158,6 +165,7 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
 	@$(MAKE) clean --no-print-directory -C $(dir_calc)
 	@$(MAKE) clean --no-print-directory -C $(dir_lex)
+	@$(MAKE) clean --no-print-directory -C $(dir_signal)
 
 
 clean: $(lib_dir)
