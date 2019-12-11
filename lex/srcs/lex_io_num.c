@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_tkn_class.c                                    :+:      :+:    :+:   */
+/*   lex_io_num.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 22:40:15 by ggrimes          ###   ########.fr       */
+/*   Created: 2019/12/10 22:13:30 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/10 22:42:14 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
+int	lex_is_ionum(char *str, short is_word, size_t *pos)
 {
-	if (type == T_WORD)
-		return (C_WORD);
-	else if (type == T_PIPE)
-		return (C_PIPE);
-	else if (type >= T_GREATER && type <= T_IO_NUMBER)
-		return (C_REDIR);
-	else if (type == T_SEP)
-		return (C_SEP);
-	else if (type == T_END)
-		return (C_END);
-	else
-		return (C_NULL);
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = *pos;
+	if (i - 1 < i && str[i - 1] == '-')
+		return (0);
+	if (ft_isdigit(str[i]))
+		i++;
+	if (!(str[i] == '<' || str[i] == '>'))
+		return (0);
+	if (!is_word)
+		(*pos) = i;
+	return (1);
 }

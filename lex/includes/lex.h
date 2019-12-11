@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/08 22:06:02 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:41:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ typedef enum	e_lex_tkn_type
 	T_LESS,					// "<"
 	T_LESS_LESS,			// "<<"
 	T_LESS_AND,				// "<&"
-	T_GREATER_AND,			// ">&1"
-	T_SEP					// ";"
+	T_GREATER_AND,			// ">&"
+	T_IO_NUMBER,			// 0-9
+	T_SEP,					// ";"
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -133,13 +134,16 @@ t_lex_tkn_type	lex_check_or(char **str, short is_word, size_t *pos);
 */
 
 t_lex_tkn_type	lex_check_greater(char **str, short is_word, size_t *pos);
-int				lex_check_fd_redir(char *str, short is_word, size_t *pos);
+int				lex_is_greater_and(char *str, size_t *pos);
+int				lex_is_greater_greater(char *str, size_t *pos);
 
 /*
 ** lex_check_less.c
 */
 
 t_lex_tkn_type	lex_check_less(char **str, short is_word, size_t *pos);
+int				lex_is_less_and(char *str, size_t *pos);
+int				lex_is_less_less(char *str, size_t *pos);
 
 /*
 ** lex_check_sep.c
@@ -153,6 +157,12 @@ t_lex_tkn_type	lex_check_sep(char **str, short is_word, size_t *pos);
 
 int				lex_is_quote(char c);
 int				lex_check_quotes(char *str, size_t *pos);
+
+/*
+** lex_check_quotes.c
+*/
+
+int				lex_is_ionum(char *str, short is_word, size_t *pos);
 
 /*
 ** lex_debug.c

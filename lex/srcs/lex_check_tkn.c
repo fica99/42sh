@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:37:30 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/08 20:28:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:37:59 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_lex_tkn_type	lex_check_end(char **str, short is_word, size_t *pos)
 
 t_lex_tkn_type	lex_check_alnum(char **str, short is_word, size_t *pos)
 {
-	if (is_word && lex_check_fd_redir(*str, is_word, pos))
+	if (is_word && lex_is_ionum(*str, is_word, pos))
 		return (T_NULL);
-	if (!is_word && lex_check_fd_redir(*str, is_word, pos))
-		return (T_GREATER_AND);
+	else if (!is_word && lex_is_ionum(*str, is_word, pos))
+		return (T_IO_NUMBER);
 	else
 	{
 		(*pos)++;

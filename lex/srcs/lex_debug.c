@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/08 20:44:06 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/10 22:38:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	lex_print_type(t_lex_tkn_type type)
 		ft_putstr("LESS_AND\n");
 	else if (type == T_SEP)
 		ft_putstr("SEP\n");
+	else if (type == T_IO_NUMBER)
+		ft_putstr("IO_NUMBER\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }
