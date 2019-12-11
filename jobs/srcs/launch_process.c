@@ -11,15 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_shell.h"
-#include <errno.h>
-void	set_sig_def(void)
-{
-	signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
-    signal(SIGTSTP, SIG_DFL);
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
-}
 
 void	redir(int **red)
 {
