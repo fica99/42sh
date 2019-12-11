@@ -35,6 +35,7 @@
 // 	struct	s_sep_list  *next;
 // }				t_sep_list;
 
+t_job       *job_new(void);
 void        close_fds(t_job *first_job);
 t_process	*add_process(t_lex_tkn **token);
 int			syntax_err(t_lex_tkn *token);

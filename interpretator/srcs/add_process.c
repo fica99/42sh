@@ -48,3 +48,24 @@ t_process	*add_process(t_lex_tkn **token)
 	proc->args = ft_strtok((*token)->value);
     return (proc);
 }
+
+t_job *job_new(void)
+{
+	t_job *new;
+	t_job *tmp;
+
+	if (!(new = (t_job *)ft_memalloc(sizeof(t_job))))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	new->pgid = getpgrp();
+	new->tmodes = &g_shell_tmodes;
+	if (!g_first_job)
+		g_first_job = new;
+	else
+	{
+		tmp = g_first_job;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	return (new);
+}
