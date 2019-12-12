@@ -18,10 +18,7 @@ static void    ft_free_proc(t_process *p)
         return ;
     ft_free_proc(p->next);
     if (p->args)
-    {
         ft_free_dar(p->args);
-        free(p->args);
-    }
     ft_free_redir(p->redir);
     free(p);
 }
@@ -34,7 +31,5 @@ void    ft_free_jobs(t_job *j)
     ft_free_proc(j->first_process);
     if (j->command)
         free(j->command);
-    if (j->tmodes)
-        free (j->tmodes);
     free(j);
 }
