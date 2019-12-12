@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:39:33 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/11 18:23:31 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	term_start(void)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(get_env("PS1", SET_ENV), VI);
+		line = ft_readline(get_env("PS1", ALL_ENV), VI);
 		//subshell_expr(line); /* TODO перенести в парсер #96. */
 		//subgroups_expr(line); /* TODO перенести в парсер #99. */
 		check_valid_string(line);

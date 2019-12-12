@@ -6,23 +6,44 @@
 /*   By: jijerde <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 06:05:14 by jijerde           #+#    #+#             */
-/*   Updated: 2019/12/11 15:02:49 by jijerde          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:20:00 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
+
+int		isvalidword(char s)
+{
+	(void)s;
+	return (0);
+}
+
+int		isvalidparameter(char s)
+{
+	if (s == '_' || (s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'z') ||
+		(s >= '0' && s <= '9'))
+		return (1);
+	return (0);
+}
 
 int		check_bracket(char *s)
 {
 	int i;
 
 	i = 0;
-	if (s[i++] == '}')
+	if (s[i] == '}' || ((s[i] == '_' && s[i + 1] == '}')))
 		return (0);
 	while (s[i])
 	{
 		if (s[i] == '}')
 			return (1);
+		/*else if (s[i] == ':' && s[i + 1] != '}')
+		{
+			while (s[i] && isvalidword(s[i]))
+				i++;
+		}
+		else
+			isvalidparameter(s[i]);*/
 		i++;
 	}
 	return (0);
@@ -31,18 +52,29 @@ int		check_bracket(char *s)
 void	*expansions(char *s)
 {
 	//if we see $ character, and the next is {, we go here with pointer
-	//after {. And we sure for } at the end.
+	//after {.
 	int		i;
-	char	var[100];
+	//char	var[100];
 
-	ft_bzero(var, 100);
+	//ft_bzero(var, 100);
 	i = 0;
+	if (!(check_bracket(s)))
+		return (0);
 	if (s[i] == '#')
-		return ((int *)ft_strlen(sh_getenv(s + i)));
-	while (s[i] != '}' && s[i] != ':' && s[i] != '%' && s[i] != '#')
+		return ((int *)ft_strlen(get_env(s + i, ALL_ENV)));
+	while (s[i] != '}' && s[i])
 	{
-		var[i] = s[i];
+		if (s[i] == ':' && s[i + 1] != '}')
+		{
+			while (s[i] && (isvalidword(s[i])))
+				i++;
+		}
+		else if (!(isvalidparameter(s[i])))
+		{
+			ft_error("bash", s, "syntax error", "operand expected");
+			return (0);
+		}
 		i++;
 	}
-	return (0);
+	return (ft_strsub(s, 0, i - 1));
 }

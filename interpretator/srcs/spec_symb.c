@@ -28,7 +28,7 @@ char	*tilda_expr(char *args)
 	char	*index;
 
 	tmp = args;
-	if ((path = get_env("HOME", ENV)))
+	if ((path = get_env("HOME", ALL_ENV)))
 	{
 		index = ft_strchr(args, '~');
 		args = ft_strjoin(path, index + 1);
@@ -44,9 +44,16 @@ char	*dollar_expr(char *args)
 	char	*spec;
 	char	*copy;
 	char	*path;
+	int		i;
+	int		j;
 
+	i = 0;
 	spec = ft_strchr(args, '$');
+	if (spec[1] == '{')
+		if (!(expansions(args + 2))) // NEED TO GET_ENV HERE
+			return (0);
 	copy = NULL;
+	var = ft_strnew(LINE_MAX);
 	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);
 	if ((arr = ft_strchr(spec, ' ')))
@@ -54,10 +61,16 @@ char	*dollar_expr(char *args)
 		*arr = '\0';
 		arr++;
 	}
-	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = get_env(spec + 1, ENV)))
-		ft_strcat(var, path);
+	while ((ft_strchr(spec + i, '$')))
+	{
+		i++;
+		j = i;
+		while(spec[i] != '$' && spec[i])
+			i++;
+		if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
+			ft_strcat(var, path);
+	}
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);
 	ft_memdel((void**)&args);
