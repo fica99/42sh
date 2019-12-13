@@ -1,5 +1,14 @@
 #ifndef JOBS_H
 # define JOBS_H
+# define DEF_ARGS_SIZE 10
+# define DEF_REDIR_SIZE 10
+# define DEF_OPENFD_SIZE 10
+
+typedef struct	s_open_fd 	
+{
+	int	*fd;
+	int size;
+}				t_open_fd;
 
 /* A process is a single process.  */
 typedef struct s_process
@@ -11,6 +20,9 @@ typedef struct s_process
     char stopped;               /* true if process has stopped */
     int status;                 /* reported status value */
     int **redir;
+    int redir_size;
+    int args_size;
+    t_open_fd open_fd;
 }   t_process;
 
 /* A job is a pipeline of processes.  */
