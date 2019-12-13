@@ -164,8 +164,8 @@ int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 		io_number = *(*list)->value - 48;
 		list++;
 	}
-	if ((*list + 1)->type != T_WORD)
-		return(syntax_err(*list + 1));
+	if ((*(list + 1))->type != T_WORD)
+		return(syntax_err(*(list + 1)));
 	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
