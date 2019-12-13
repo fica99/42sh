@@ -7,7 +7,7 @@
 typedef struct	s_open_fd 	
 {
 	int	*fd;
-	int size;
+	size_t size;
 }				t_open_fd;
 
 /* A process is a single process.  */
@@ -20,8 +20,8 @@ typedef struct s_process
     char stopped;               /* true if process has stopped */
     int status;                 /* reported status value */
     int **redir;
-    int redir_size;
-    int args_size;
+    size_t redir_size;
+    size_t args_size;
     t_open_fd open_fd;
 }   t_process;
 
