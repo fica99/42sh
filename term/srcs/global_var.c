@@ -27,15 +27,11 @@ void	init_global_var(char **environ)
 	init_global_env(&g_set_env, values);
 	init_bin_table(&g_bin_table);
 	init_curr_pwd();
-	if (!(g_lexer = load_lexer()))
-		err_exit("42sh", "Error load lexor matrix", LEXER_MATRIX_PATH,
-		NOERROR);
 }
 
 void	free_globar_var(void)
 {
 	free(g_curr_dir);
-	clear_lexer(&g_lexer);
 	free_table(&g_bin_table);
 	unset_env_struct(&g_set_env);
 	unset_env_struct(&g_env);

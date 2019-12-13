@@ -133,9 +133,9 @@ void	ft_echo(int argc, char **argv, char **env_cp)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] == '$' && argv[i][j + 1] != '$' && argv[i][j + 1] == '{')
-				if (check_bracket(&(argv[i][j + 2])))
-					expansions(&(argv[i][j + 2]));
+			// if (argv[i][j] == '$' && argv[i][j + 1] != '$' && argv[i][j + 1] == '{')
+			// 	if (check_bracket(&(argv[i][j + 2])))
+			// 		expansions(&(argv[i][j + 2]));
 			while (argv[i][j] == '\\')
 			{
 				if (argv[i][j + 1] == '\\')
