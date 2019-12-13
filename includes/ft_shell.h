@@ -37,8 +37,9 @@
 # include "../bin_table/includes/bin_table.h"
 # include "../error/includes/error.h"
 # include "../ft_readline/includes/ft_readline.h"
-# include "../lexer/includes/lexer.h"
-# include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
+# include "../calc/includes/calc.h"
+# include "../lex/includes/lex.h"
+# include "../signal/includes/signals.h"
 #endif

@@ -48,17 +48,11 @@ void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action)
 void	set_sig_def(void)
 {
 	signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
-    signal(SIGTSTP, SIG_DFL);
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
-    signal(SIGCHLD, SIG_DFL);
-}
-
-void	signalling_chld(void)
-{
-	signal(SIGTSTP, sighandler_chld);
-	//signal(SIGINT, sighandler_chld);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+	signal(SIGTTIN, SIG_DFL);
+	signal(SIGTTOU, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
 }
 
 void 	sighandler_chld(int sign)
@@ -78,6 +72,12 @@ void 	sighandler_chld(int sign)
 	}
 }
 
+void	signalling_chld(void)
+{
+	signal(SIGTSTP, sighandler_chld);
+	//signal(SIGINT, sighandler_chld);
+}
+
 void	break_handler(int sign)
 {
 	if (sign == SIGINT)
@@ -93,27 +93,27 @@ void	signalling(void)
 	signal(SIGWINCH, break_handler);
 }
 
-void	win_handler(int sign)
-{
-	t_cord	*cord;
-	short	pos;
-
-	if (sign == SIGWINCH)
-	{
-		cord = g_line.cord;
-		pos = cord->pos;
-		cord->pos -= (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
-		cord->ws_col));
-		set_attr(&g_orig_mode);
-		get_win_size(g_line.cord);
-		go_to_cord(0, g_line.cord->y_start, STDIN_FILENO);
-		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
-		write_prompt(g_prompt);
-		set_input_mode(&g_raw_mode);
-		get_cur_cord(cord);
-		set_start_cord(cord);
-		set_end_cord(cord);
-		ft_putstr_cord(g_line.buffer.buffer + cord->pos, cord);
-		go_left(cord->pos - pos, cord);
-	}
-}
+//void	win_handler(int sign)
+//{
+//	t_cord	*cord;
+//	short	pos;
+//
+//	if (sign == SIGWINCH)
+//	{
+//		cord = g_line.cord;
+//		pos = cord->pos;
+//		cord->pos -= (cord->x_cur - cord->x_start + ((cord->y_cur - cord->y_start) *
+//		cord->ws_col));
+//		set_attr(&g_orig_mode);
+//		get_win_size(g_line.cord);
+//		go_to_cord(0, g_line.cord->y_start, STDIN_FILENO);
+//		ft_putstr_fd(CLEAR_END_SCREEN, STDIN_FILENO);
+//		write_prompt(g_prompt);
+//		set_input_mode(&g_raw_mode);
+//		get_cur_cord(cord);
+//		set_start_cord(cord);
+//		set_end_cord(cord);
+//		ft_putstr_cord(g_line.buffer.buffer + cord->pos, cord);
+//		go_left(cord->pos - pos, cord);
+//	}
+//}

@@ -46,7 +46,9 @@ void	term_start(void)
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(get_env("PS1", SET_ENV), VI);
+		line = ft_readline(get_env("PS1", ALL_ENV), EMACS);
+		if (!ft_strcmp(line, "exit"))
+			break ;
 		//subshell_expr(line); /* TODO перенести в парсер #96. */
 		//subgroups_expr(line); /* TODO перенести в парсер #99. */
 		check_valid_string(line);
@@ -60,13 +62,8 @@ void	term_start(void)
 
 void	check_valid_string(char *buffer)
 {
-	t_node	*ast;
+	t_lex_tkn	**tokens;
 
-	if (buffer && *buffer)
-	{
-		ast = parser(buffer);
-		if (!(g_parser_flags & PARSER_ERROR))
-			interpret_ast(ast);
-		free_ast(&ast);
-	}
+	tokens = lex_get_tkns(&buffer);
+	parse(tokens);
 }
