@@ -6,6 +6,8 @@ void launch_job(t_job *j, int foreground)
     pid_t       pid;
 
     p = j->first_process;
+    if (!p->args[0])
+        return ;
     pid = make_process();
     if (pid == 0)
         launch_process(p, j->pgid, foreground);
