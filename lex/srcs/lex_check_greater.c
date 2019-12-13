@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:07:33 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 22:42:08 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/12 22:02:01 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int				lex_is_greater_and(char *str, size_t *pos)
 	if (!ft_strncmp(str + *pos, ">&", 2))
 	{
 		(*pos) += 2;
-		return 1;
+		return (1);
 	}
 	return (0);
 }
@@ -42,7 +42,7 @@ int				lex_is_greater_greater(char *str, size_t *pos)
 	if (!ft_strncmp(str + *pos, ">>", 2))
 	{
 		(*pos) += 2;
-		return 1;
+		return (1);
 	}
 	return (0);
 }

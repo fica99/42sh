@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 22:40:56 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/12 21:51:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos)
 			return (T_ERR);
 	if (!(*str)[*pos])
 		return (lex_check_end(str, is_word, pos));
+	else if ((*str)[*pos] == ' ')
+		return (T_NULL);
 	else if (ft_isalnum((*str)[*pos]))
 		return (lex_check_alnum(str, is_word, pos));
 	else if ((*str)[*pos] == '|')
@@ -29,6 +31,10 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos)
 		return (lex_check_less(str, is_word, pos));
 	else if ((*str)[*pos] == ';')
 		return (lex_check_sep(str, is_word, pos));
+	else if ((*str)[*pos] == '=')
+		return (lex_check_eq(str, is_word, pos));
+	else if ((*str)[*pos] == '$')
+		return (lex_check_dol(str, is_word, pos));
 	else
 		return (lex_check_other(str, is_word, pos));
 }

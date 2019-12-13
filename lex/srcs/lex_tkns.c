@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 19:45:36 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 19:54:51 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/12 22:03:35 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_lex_tkn	**lex_del_tkns(t_lex_tkn **tokens)
 t_lex_tkn	**lex_del_s_tokens(t_lex_tkns *s_tokens)
 {
 	if (!s_tokens)
-		return (NULL);;
+		return (NULL);
 	lex_del_tkns(s_tokens->tokens);
 	free(s_tokens);
 	return (NULL);

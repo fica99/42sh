@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 22:41:15 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/12 22:08:18 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef enum	e_lex_tkn_type
 	T_ERR,
 	T_END,					// "\0"
 	T_WORD,					// "ls ."
+	T_ASSIGNMENT_WORD,		// varible name
+	T_EQ,					// "="
 	T_PIPE,					// "|"
 	T_GREATER,				// ">"
 	T_GREATER_GREATER,		// ">>"
@@ -43,6 +45,7 @@ typedef enum	e_lex_tkn_type
 	T_GREATER_AND,			// ">&"
 	T_IO_NUMBER,			// 0-9
 	T_SEP,					// ";"
+	T_CONTROL_SUB			// "$()"
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -50,9 +53,12 @@ typedef enum	e_lex_tkn_class
 	C_NULL,
 	C_END,
 	C_WORD,
+	C_ASSIGNMENT_WORD,
+	C_EQ,
 	C_PIPE,
 	C_REDIR,				// "T_GREATER, T_GREATER_GREATER, T_LESS, T_LESS_LESS, T_LESS_AND, T_GREATER_AND"
-	C_SEP
+	C_SEP,
+	C_CONTROL_SUB
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn
@@ -159,10 +165,44 @@ int				lex_is_quote(char c);
 int				lex_check_quotes(char *str, size_t *pos);
 
 /*
-** lex_check_quotes.c
+** lex_io_num.c
 */
 
 int				lex_is_ionum(char *str, short is_word, size_t *pos);
+t_lex_tkn_type	lex_ionum(short is_word);
+
+/*
+** lex_asig_name.c
+*/
+
+int				lex_is_asig_name(char *str, short is_word, size_t *pos,
+	int *err);
+t_lex_tkn_type	lex_asig_name(short is_word, int err);
+
+/*
+** lex_asig_name.c
+*/
+
+t_lex_tkn_type	lex_check_eq(char **str, short is_word, size_t *pos);
+
+/*
+** lex_dol.c
+*/
+
+t_lex_tkn_type	lex_check_dol(char **str, short is_word, size_t *pos);
+
+/*
+** lex_con_sub.c
+*/
+
+int				lex_is_control_sub(char *str, short is_word, size_t *pos, int *err);
+t_lex_tkn_type	lex_control_sub(short is_word, int err);
+
+/*
+** lex_tkn_value.c
+*/
+
+int				lex_is_value(t_lex_tkn_type type);
 
 /*
 ** lex_debug.c

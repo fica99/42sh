@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/10 22:40:06 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/12 22:14:57 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@ static void			rewind_spases(char *str, size_t *pos)
 		return ;
 	while (str[*pos] == ' ')
 		(*pos)++;
-}
-
-static int			lex_is_value(t_lex_tkn_type type)
-{
-	if (type == T_WORD || type == T_IO_NUMBER)
-		return (1);
-	return (0);
 }
 
 static void			rewind_end_spases(char *str, size_t *pos)
@@ -48,7 +41,6 @@ t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 	start_pos = pos;
 	while (1)
 	{
-		rewind_spases(*str, &pos);
 		is_word = (pos - start_pos > 0) ? 1 : 0;
 		type = lex_check_type(str, is_word, &pos);
 		if (type == T_ERR)
