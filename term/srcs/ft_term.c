@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/08 18:10:04 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/07 16:39:33 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,33 +40,30 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	t_calc_err	*error;
-	t_lex_tkn	**tokens;
 
 	init_readline();
 	init_jobs();
-	error = NULL;
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		line = ft_readline(get_env("PS1", SET_ENV), VI);
+		line = ft_readline(get_env("PS1", ALL_ENV), EMACS);
 		if (!ft_strcmp(line, "exit"))
 			break ;
-		tokens = lex_get_tkns(&line);
-		parse(tokens);
-		//lex_print_tkns(tokens);
-		//calc(line, error);
-		//check_valid_string(line);
-		//add_to_history_buff(line);
+		//subshell_expr(line); /* TODO перенести в парсер #96. */
+		//subgroups_expr(line); /* TODO перенести в парсер #99. */
+		check_valid_string(line);
+		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
-	free(error);
 	free_readline();
 }
 
 void	check_valid_string(char *buffer)
 {
-	(void)buffer;
+	t_lex_tkn	**tokens;
+
+	tokens = lex_get_tkns(&buffer);
+	parse(tokens);
 }

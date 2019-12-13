@@ -1,16 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+srcs := subshell.c\
+        subgroups.c\
+        subgroups_dot.c\
+        subgroups_comma.c\
 
-srcs := error.c\
 
 objs := $(srcs:.c=.o)
 
@@ -28,7 +20,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, error.h)
+header := $(addprefix $(inc_dir)/, sub.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
@@ -54,7 +46,7 @@ cflags := -Wall -Wextra -Werror -g -O0
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish error compilation\033[0m"
+	@echo "\033[32mFinish sub compilation\033[0m"
 
 $(objs_dir):
 	@mkdir -p $@

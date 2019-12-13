@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/07 20:50:53 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,8 @@ dir_builtins := builtins
 
 dir_jobs := jobs
 
+dir_sub := sub
+
 dir_calc := calc
 
 dir_lex := lex
@@ -48,6 +50,7 @@ objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_environ), /**/*.o))\
 		$(wildcard $(addprefix $(dir_error), /**/*.o))\
 		$(wildcard $(addprefix $(dir_interpretator), /**/*.o))\
+		$(wildcard $(addprefix $(dir_sub), /**/*.o))\
 		$(wildcard $(addprefix $(dir_ft_readline), /**/*.o))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
 		$(wildcard $(addprefix $(dir_term), /**/*.o))\

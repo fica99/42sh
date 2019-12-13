@@ -4,7 +4,7 @@
 # define DEF_REDIR_SIZE 10
 # define DEF_OPENFD_SIZE 10
 
-typedef struct	s_open_fd 	
+typedef struct	s_open_fd
 {
 	int	*fd;
 	size_t size;

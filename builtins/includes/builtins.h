@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 17:15:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 22:35:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:56:07 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define FC_FLAG_L (1 << 1)
 # define FC_FLAG_N (1 << 2)
 # define FC_FLAG_R (1 << 3)
-# define FC_FLAG_S (1 << 4)
+# define FC_DIGIT (1 << 4)
 # define FC_FLAG_ERROR (1 << 5)
 # define FC_FILE_EDITOR ".42sh-fc"
 # define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC
@@ -40,22 +40,18 @@ int				check_request(char **argv, char *path);
 void			ft_echo(int argc, char **argv, char **env_cp);
 void			env(int argc, char **argv, char **env_cp);
 void			set(int len, char **args, char **env_cp);
+void			unset(int len, char **args);
+void			export(int len, char **args);
 void			print_bin_table(t_hash **bin_table, size_t size);
 void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
 /*
 ***	fc.c
 */
-void			fc_print_usage(void);
-void			fc_open_editor(char *editor, char *first,
-							   char *last, char *path);
-void			fc_check_flags(int flags, char *editor,
-							   char *first, char *last);
-void			fc_check_error(int flags, char *editor,
-							   int argc, char **argv);
+char			**fc_get_list(int first, int last);
 void			fc(int argc, char **argv);
 /*
-***	fc_flags.c
+***	fc_print.c
 */
-void			fc_flag_l(int flags, char *first, char *last);
-void			fc_print_command(int flags, char *nb, char *elem);
+void			fc_print_command(int flags, int first, int last);
+void			fc_write_commands(int first, int last, char *path);
 #endif

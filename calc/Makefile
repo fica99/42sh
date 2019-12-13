@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/07 20:54:09 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ cflags := -Wall -Wextra -Werror -g -O0
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish ft_readline compilation\033[0m"
+	@echo "\033[32mFinish calc compilation\033[0m"
 
 $(objs_dir):
 	@mkdir -p $@

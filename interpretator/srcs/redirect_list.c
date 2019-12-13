@@ -50,13 +50,13 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 	tmp[i] = fd;
 }
 
-static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
-{
-	(void)io_number;
-	(void)list;
-	(void)curr_proc;
-	return (0);
-}
+// static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
+// {
+// 	(void)io_number;
+// 	(void)list;
+// 	(void)curr_proc;
+// 	return (0);
+// }
 
 static int write_here_doc(t_process *curr_proc, char **buf)
 {
