@@ -36,6 +36,7 @@ typedef struct	s_open_files
 	size_t size;
 }				t_open_files;
 
+void		ft_free_proc(t_process *p);
 int         get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token);
 t_job       *job_new(void);
 void        ft_free_jobs(t_job *j);

@@ -1,5 +1,16 @@
 #include "ft_shell.h"
 
+int check_file_access(char *fname)
+{
+	if (access(fname, F_OK))
+		ft_error("42sh", "no such file or directory", fname, NOERROR);
+	else if (access(fname, W_OK | R_OK))
+		ft_error("42sh", "permission denied", fname, NOERROR);
+	else
+		ft_error("42sh", "failed to open/create file", fname, NOERROR);
+	return (-1);
+}
+
 int	ft_open(t_process *curr_proc, char *fname, int fl)
 {
 	int fd;
@@ -7,11 +18,7 @@ int	ft_open(t_process *curr_proc, char *fname, int fl)
 
 	i = 0;
 	if ((fd = open(fname, fl, PERM_MODE)) < 0)
-	{
-		ft_putstr_fd("42sh: failed to open file: ", 2);
-		ft_putstr_fd(fname, 2);
-		return (fd);
-	}
+		return (check_file_access(fname));
 	while (curr_proc->open_fd.fd[i])
 	{
 		if (i >= curr_proc->open_fd.size - 2)
@@ -56,7 +63,8 @@ static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 
 	io_number = io_number < 0 ? 0 : io_number;
 	list++;
-	fd_w = ft_open(curr_proc, (*list)->value, LRED_OPEN);
+	if ((fd_w = ft_open(curr_proc, (*list)->value, LRED_OPEN)) < 0)
+		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
 }
@@ -69,7 +77,7 @@ static int write_here_doc(t_process *curr_proc, char **buf)
 	if (fd < 0)
 	{
 		ft_free_dar(buf);
-		return (fd);
+		return (-1);
 	}
 	while (*buf)
 	{
@@ -127,7 +135,8 @@ int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	if (io_number < 0)
 		io_number = 1;
 	++list;
-	fd_w = ft_open(curr_proc, (*list)->value, fl);
+	if ((fd_w = ft_open(curr_proc, (*list)->value, fl)) < 0)
+		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
 }

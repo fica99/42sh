@@ -54,6 +54,19 @@ int	logical_list(t_lex_tkn **list)
 	// return (logical_list(tmp));
 }
 
+void	rmjob_last_job(t_job **j)
+{
+	if (!*j)
+		return ;
+	while ((*j)->next)
+		j = &(*j)->next;
+    ft_free_proc((*j)->first_process);
+    if ((*j)->command)
+        free((*j)->command);
+    free(*j);
+	*j = NULL;
+}
+
 int	start(t_lex_tkn **list)
 {
 	t_lex_tkn **tmp;
@@ -64,7 +77,7 @@ int	start(t_lex_tkn **list)
 	if ((*list)->type != T_END)
 		job_new();
 	if ((logical_list(list)) < 0)
-		return (-1);
+		rmjob_last_job(&g_first_job);
 	return (start(tmp));
 }
 
@@ -123,7 +136,7 @@ void	parse(t_lex_tkn **tokens)
 	// return;
 	if (start(tokens) == 0 && g_first_job)
 		launch_job(g_first_job, 0);
-	close_fds(g_first_job);
+	//close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	//print_jobs(g_first_job);
 	ft_free_jobs(g_first_job);

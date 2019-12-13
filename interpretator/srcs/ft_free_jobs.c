@@ -1,6 +1,6 @@
 #include "ft_shell.h"
 
-static void    ft_free_redir(int **red)
+void    ft_free_redir(int **red)
 {
     int i;
 
@@ -12,7 +12,7 @@ static void    ft_free_redir(int **red)
     free(red);
 }
 
-static void    ft_free_proc(t_process *p)
+void    ft_free_proc(t_process *p)
 {
     if (!p)
         return ;
