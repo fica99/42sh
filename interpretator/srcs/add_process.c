@@ -27,12 +27,19 @@ t_process *proc_new()
 	t_process *new;
 	if (!(new = (t_process *)ft_memalloc(sizeof(t_process))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * 16)))
+	new->args_size = DEF_ARGS_SIZE;
+	new->redir_size = DEF_REDIR_SIZE;
+	new->open_fd.size = DEF_OPENFD_SIZE;
+	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * DEF_REDIR_SIZE)))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	if (!(new->args = (char **)ft_memalloc(sizeof(char *) * DEF_ARGS_SIZE)))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	if (!(new->open_fd.fd = (int *)ft_memalloc(sizeof(int) * DEF_OPENFD_SIZE)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	return (new);
 }
 
-t_process	*add_process(t_lex_tkn **token)
+t_process	*add_process(void)
 {
 	t_process	*proc;
 	t_process	*tmp;
@@ -45,7 +52,6 @@ t_process	*add_process(t_lex_tkn **token)
 		last_job->first_process = proc;
 	else
 		tmp->next = proc;
-	proc->args = ft_strtok((*token)->value);
     return (proc);
 }
 

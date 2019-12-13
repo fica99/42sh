@@ -29,6 +29,7 @@
 // int	fdaggr(t_lex_tkn *redir, t_process *curr_proc)
 // {
 // 	int *fd;
+// 	int ind;
 
 // 	if (!(fd = (int *)malloc(sizeof(int) * 2)))
 // 		err_exit("42sh", "malloc() error", NULL, NOERROR);

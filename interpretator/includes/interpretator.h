@@ -28,10 +28,19 @@
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5
 
+typedef int(*redirect_func)(t_lex_tkn **, t_process *, int);
+
+typedef struct	s_open_files 	
+{
+	int	*fd;
+	size_t size;
+}				t_open_files;
+
+int         get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token);
 t_job       *job_new(void);
 void        ft_free_jobs(t_job *j);
 void        close_fds(t_job *first_job);
-t_process	*add_process(t_lex_tkn **token);
+t_process	*add_process(void);
 int			syntax_err(t_lex_tkn *token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 void		parse(t_lex_tkn **tokens);

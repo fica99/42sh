@@ -18,8 +18,8 @@ int simp_command(t_lex_tkn **list)
 
 	if ((*list)->type == T_END)
 		return (0);
-	curr_proc = add_process(find_token(list, C_WORD));
-    return (redirect_list(find_token(list, C_REDIR), curr_proc));
+	curr_proc = add_process();
+    return (redirect_list(list, curr_proc));
 }
 
 int	pipe_sequence(t_lex_tkn **list)
@@ -103,6 +103,18 @@ void print_jobs(t_job *first_job)
 	}
 }
 
+int	get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token)
+{
+	int i;
+
+	i = 0;
+	if (!token)
+		return (-1);
+	while (token_list[i] != token)
+		i++;
+	return(i);
+}
+
 void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == T_END)
@@ -112,7 +124,7 @@ void	parse(t_lex_tkn **tokens)
 	if (start(tokens) == 0 && g_first_job)
 		launch_job(g_first_job, 0);
 	close_fds(g_first_job);
-	lex_del_tkns(tokens);
+	//lex_del_tkns(tokens);
 	//print_jobs(g_first_job);
 	//ft_free_jobs(g_first_job);
 	g_first_job = 0;
