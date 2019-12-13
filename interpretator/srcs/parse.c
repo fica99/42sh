@@ -54,19 +54,6 @@ int	logical_list(t_lex_tkn **list)
 	// return (logical_list(tmp));
 }
 
-void	rmjob_last_job(t_job **j)
-{
-	if (!*j)
-		return ;
-	while ((*j)->next)
-		j = &(*j)->next;
-    ft_free_proc((*j)->first_process);
-    if ((*j)->command)
-        free((*j)->command);
-    free(*j);
-	*j = NULL;
-}
-
 int	start(t_lex_tkn **list)
 {
 	t_lex_tkn **tmp;
