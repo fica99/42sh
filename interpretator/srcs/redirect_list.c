@@ -50,13 +50,16 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 	tmp[i] = fd;
 }
 
-// static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
-// {
-// 	(void)io_number;
-// 	(void)list;
-// 	(void)curr_proc;
-// 	return (0);
-// }
+static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
+{
+	int fd_w;
+
+	io_number = io_number < 0 ? 0 : io_number;
+	list++;
+	fd_w = ft_open(curr_proc, (*list)->value, LRED_OPEN);
+	add_redir(curr_proc, fd_w, io_number);
+	return (redirect_list(++list, curr_proc));
+}
 
 static int write_here_doc(t_process *curr_proc, char **buf)
 {
@@ -108,8 +111,6 @@ static int here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 	if (io_number < 0)
 		io_number = 0;
 	list++;
-	if ((*list)->type != T_WORD)
-		return (syntax_err(*list));
 	buf = read_heredoc((*list)->value);
 	fd = write_here_doc(curr, buf);
 	ft_free_dar(buf);
@@ -126,8 +127,6 @@ int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	if (io_number < 0)
 		io_number = 1;
 	++list;
-	if ((*list)->type != T_WORD)
-		return(syntax_err(*list));
 	fd_w = ft_open(curr_proc, (*list)->value, fl);
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
@@ -157,7 +156,7 @@ int parse_word(t_lex_tkn **list, t_process *curr_proc)
 int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 {
 	int io_number;
-	static redirect_func red[6] = {&g_redir, &g_redir, &here_doc, &here_doc, &here_doc, &here_doc};
+	static redirect_func red[6] = {&g_redir, &g_redir, &l_redir, &here_doc, &here_doc, &here_doc};
 
 	io_number = -1;
 	if ((*list)->type == T_IO_NUMBER)
@@ -165,6 +164,8 @@ int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 		io_number = *(*list)->value - 48;
 		list++;
 	}
+	if ((*list + 1)->type != T_WORD)
+		return(syntax_err(*list + 1));
 	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
