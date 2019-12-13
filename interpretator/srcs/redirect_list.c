@@ -1,5 +1,35 @@
 #include "ft_shell.h"
 
+void	file_err(char *s1, char *s2, char *s3, t_job *j)
+{
+	char *buf;
+	size_t len;
+
+	if (!s1 || !s2 || !s3)
+		return ;
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	if (!(buf = (char *)ft_memalloc(len + 1)))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	ft_strcat(buf, s1);
+	ft_strcat(buf, s2);
+	ft_strcat(buf, s3);
+	while (j->next)
+		j = j->next;
+	j->err_message = buf;
+	j->unactive = 1;
+}
+
+int check_file_access(char *fname)
+{
+	if (access(fname, F_OK))
+		file_err("42sh: ", "no such file or directory: ", fname, g_first_job);
+	else if (access(fname, W_OK | R_OK))
+		file_err("42sh: ", "permission denied: ", fname, g_first_job);
+	else
+		file_err("42sh: ", "failed to open/create file: ", fname, g_first_job);
+	return (0);
+}
+
 int	ft_open(t_process *curr_proc, char *fname, int fl)
 {
 	int fd;
@@ -7,11 +37,7 @@ int	ft_open(t_process *curr_proc, char *fname, int fl)
 
 	i = 0;
 	if ((fd = open(fname, fl, PERM_MODE)) < 0)
-	{
-		ft_putstr_fd("42sh: failed to open file: ", 2);
-		ft_putstr_fd(fname, 2);
-		return (fd);
-	}
+		return (check_file_access(fname));
 	while (curr_proc->open_fd.fd[i])
 	{
 		if (i >= curr_proc->open_fd.size - 2)
@@ -56,7 +82,8 @@ static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 
 	io_number = io_number < 0 ? 0 : io_number;
 	list++;
-	fd_w = ft_open(curr_proc, (*list)->value, LRED_OPEN);
+	if ((fd_w = ft_open(curr_proc, (*list)->value, LRED_OPEN)) < 0)
+		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
 }
@@ -69,7 +96,7 @@ static int write_here_doc(t_process *curr_proc, char **buf)
 	if (fd < 0)
 	{
 		ft_free_dar(buf);
-		return (fd);
+		return (-1);
 	}
 	while (*buf)
 	{
@@ -127,7 +154,8 @@ int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	if (io_number < 0)
 		io_number = 1;
 	++list;
-	fd_w = ft_open(curr_proc, (*list)->value, fl);
+	if ((fd_w = ft_open(curr_proc, (*list)->value, fl)) < 0)
+		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
 }

@@ -115,6 +115,21 @@ int	get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token)
 	return(i);
 }
 
+void	exec_jobs(t_job *j)
+{
+	while (j)
+	{
+		if (!j->unactive)
+			launch_job(j, 0);
+		else 
+		{
+			if (j->err_message)
+				ft_putln(j->err_message);
+		}
+		j = j->next;
+	}
+}
+
 void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == T_END)
@@ -122,8 +137,8 @@ void	parse(t_lex_tkn **tokens)
 	// lex_print_tkns(tokens);
 	// return;
 	if (start(tokens) == 0 && g_first_job)
-		launch_job(g_first_job, 0);
-	close_fds(g_first_job);
+		exec_jobs(g_first_job);
+	//close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	//print_jobs(g_first_job);
 	ft_free_jobs(g_first_job);
