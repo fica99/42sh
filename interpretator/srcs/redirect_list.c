@@ -157,7 +157,7 @@ int parse_word(t_lex_tkn **list, t_process *curr_proc)
 int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 {
 	int io_number;
-	static redirect_func red[6] = {&g_redir, &g_redir, &here_doc, &here_doc, &l_redir, 0};
+	static redirect_func red[6] = {&g_redir, &g_redir, &here_doc, &here_doc, &here_doc, &here_doc};
 
 	io_number = -1;
 	if ((*list)->type == T_IO_NUMBER)
