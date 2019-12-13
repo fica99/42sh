@@ -28,6 +28,8 @@ typedef struct s_process
 /* A job is a pipeline of processes.  */
 typedef struct s_job
 {
+    char unactive;
+    char *err_message;
     struct s_job *next;           /* next active job */
     char *command;              /* command line, used for messages */
     t_process *first_process;     /* process in this job */

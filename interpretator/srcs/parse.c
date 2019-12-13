@@ -77,7 +77,7 @@ int	start(t_lex_tkn **list)
 	if ((*list)->type != T_END)
 		job_new();
 	if ((logical_list(list)) < 0)
-		rmjob_last_job(&g_first_job);
+		return (-1);
 	return (start(tmp));
 }
 
@@ -128,12 +128,18 @@ int	get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token)
 	return(i);
 }
 
-void	exec_jobs(t_job *jobs)
+void	exec_jobs(t_job *j)
 {
-	while (jobs)
+	while (j)
 	{
-		launch_job(jobs, 0);
-		jobs = jobs->next;
+		if (!j->unactive)
+			launch_job(j, 0);
+		else 
+		{
+			if (j->err_message)
+				ft_putln(j->err_message);
+		}
+		j = j->next;
 	}
 }
 
