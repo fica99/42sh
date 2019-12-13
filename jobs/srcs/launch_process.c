@@ -43,7 +43,7 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	}
 	redir(p->redir);
 	if (!(fname = (char *)get_hash_data(g_bin_table.table, p->args[0], g_bin_table.size)))
-		err_exit("42sh", "no such file", p->args[0], NOERROR));
+		err_exit("42sh", "no such file", p->args[0], NOERROR);
 	else if (execve(fname, p->args, g_env.env) < 0)
 		err_exit("42sh", "execve() error", p->args[0], NOERROR);
   	exit(1);
