@@ -25,7 +25,7 @@
 # define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
 # define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
 # define INT_LEN 10
-# define HEREDOC_FILE "/tmp/.42sh_heredoc"
+# define HEREDOC_FILE ".42sh_heredoc"
 # define INIT_AGGR_FD -5
 
 typedef int(*redirect_func)(t_lex_tkn **, t_process *, int);
@@ -44,7 +44,7 @@ t_process	*add_process(void);
 int			syntax_err(t_lex_tkn *token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 void		parse(t_lex_tkn **tokens);
-void		*ft_realloc(void *buf, size_t new_size);
+void		*ft_realloc(void *buf, size_t old, size_t new_size);
 char		**ft_strtok(char *s);
 char		*ft_strccut(char *str, char c);
 char		*ft_stricut(char *str, int i);

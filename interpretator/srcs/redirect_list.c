@@ -17,7 +17,7 @@ int	ft_open(t_process *curr_proc, char *fname, int fl)
 		if (i >= curr_proc->open_fd.size - 2)
 		{
 			curr_proc->open_fd.size *= 2;
-			ft_realloc(curr_proc->open_fd.fd, curr_proc->open_fd.size);
+			ft_realloc(curr_proc->open_fd.fd, curr_proc->open_fd.size / 2, curr_proc->open_fd.size);
 		}
 		i++;
 	}
@@ -42,7 +42,7 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 		if (i >= curr_proc->redir_size - 1)
 		{
 			curr_proc->redir_size *= 2;
-			ft_realloc(curr_proc->redir, curr_proc->redir_size);
+			ft_realloc(curr_proc->redir, curr_proc->redir_size / 2, curr_proc->redir_size);
 			tmp = curr_proc->redir;
 		}
 		i++;
@@ -61,7 +61,7 @@ static int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 static int write_here_doc(t_process *curr_proc, char **buf)
 {
 	int fd;
-	
+
 	fd = ft_open(curr_proc, HEREDOC_FILE, RRED_OPEN);
 	if (fd < 0)
 	{
@@ -69,7 +69,11 @@ static int write_here_doc(t_process *curr_proc, char **buf)
 		return (fd);
 	}
 	while (*buf)
+	{
 		ft_putstr_fd(*buf++, fd);
+		ft_putchar_fd('\n', fd);
+	}
+	lseek(fd, 0, SEEK_SET);
 	return (fd);
 }
 
@@ -84,13 +88,13 @@ char **read_heredoc(char const *delim)
 	buf_size = DEF_HEREDOC_SIZE;
 	if (!(buf = (char **)ft_memalloc(sizeof(char *) * buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	while (ft_strcmp((tmp = ft_readline("heredoc>", EMACS)), delim))
+	while ((tmp = ft_readline("heredoc>", EMACS)) && ft_strcmp(tmp, delim))
 	{
 		buf[i++] = tmp;
 		if (i >= buf_size - 1)
 		{
+			buf = (char **)ft_realloc(buf, sizeof(char *) * buf_size, sizeof(char *) * (buf_size * 2));
 			buf_size *= 2;
-			buf = (char **)ft_realloc(buf, sizeof(char *) * buf_size);
 		}
 	}
 	return (buf);
@@ -109,7 +113,7 @@ static int here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 	buf = read_heredoc((*list)->value);
 	fd = write_here_doc(curr, buf);
 	ft_free_dar(buf);
-	add_redir(curr, io_number, fd);
+	add_redir(curr, fd, io_number);
 	return(redirect_list(++list, curr));
 }
 
@@ -141,7 +145,7 @@ int parse_word(t_lex_tkn **list, t_process *curr_proc)
 		if (i >= curr_proc->args_size - 2)
 		{
 			curr_proc->args_size *= 2;
-			ft_realloc(curr_proc->args, curr_proc->args_size);
+			ft_realloc(curr_proc->args, curr_proc->args_size / 2, curr_proc->args_size);
 			tmp = curr_proc->args;
 		}
 		i++;
@@ -153,7 +157,7 @@ int parse_word(t_lex_tkn **list, t_process *curr_proc)
 int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 {
 	int io_number;
-	static redirect_func red[6] = {&g_redir, &g_redir, &here_doc, &l_redir, 0, 0};
+	static redirect_func red[6] = {&g_redir, &g_redir, &here_doc, &here_doc, &l_redir, 0};
 
 	io_number = -1;
 	if ((*list)->type == T_IO_NUMBER)
