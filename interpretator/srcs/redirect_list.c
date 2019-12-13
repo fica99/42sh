@@ -165,7 +165,7 @@ int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 		io_number = *(*list)->value - 48;
 		list++;
 	}
-	return (red[(*list)->type - 5](list, curr_proc, io_number));
+	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
 int redirect_list(t_lex_tkn **list, t_process *cur_proc)
