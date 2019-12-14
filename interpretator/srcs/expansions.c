@@ -36,7 +36,7 @@ int		check_bracket(char *s)
 	while (s[i])
 	{
 		if (s[i] == '}')
-			return (1);
+			return (i - 1);
 		/*else if (s[i] == ':' && s[i + 1] != '}')
 		{
 			while (s[i] && isvalidword(s[i]))
@@ -54,14 +54,15 @@ void	*expansions(char *s)
 	//if we see $ character, and the next is {, we go here with pointer
 	//after {.
 	int		i;
+	int		paramlen;
 	//char	var[100];
 
 	//ft_bzero(var, 100);
 	i = 0;
-	if (!(check_bracket(s)))
+	if (!(paramlen = check_bracket(s)))
 		return (0);
 	if (s[i] == '#')
-		return ((int *)ft_strlen(get_env(s + i, ALL_ENV)));
+		return ((int *)ft_strlen(get_env(ft_strsub(s, 1, paramlen), ALL_ENV)));
 	while (s[i] != '}' && s[i])
 	{
 		if (s[i] == ':' && s[i + 1] != '}')
@@ -76,5 +77,5 @@ void	*expansions(char *s)
 		}
 		i++;
 	}
-	return (ft_strsub(s, 0, i - 1));
+	return (ft_strsub(s, 0, i));
 }

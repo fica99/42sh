@@ -49,12 +49,9 @@ char	*dollar_expr(char *args)
 
 	i = 0;
 	spec = ft_strchr(args, '$');
-	if (spec[1] == '{')
-		if (!(expansions(args + 2))) // NEED TO GET_ENV HERE
-			return (0);
-	copy = NULL;
 	var = ft_strnew(LINE_MAX);
-	if (spec != args)
+	copy = NULL;
+	if (spec != args)              // 3 кейса - sdjsd${HOME}; sdsd${HOME}fdf; ${HOME}dfdf
 		copy = ft_strsub(args, 0, spec - args);
 	if ((arr = ft_strchr(spec, ' ')))
 	{
@@ -62,14 +59,23 @@ char	*dollar_expr(char *args)
 		arr++;
 	}
 	ft_strcat(var, copy);
-	while ((ft_strchr(spec + i, '$')))
+	if (spec[1] == '{')
 	{
-		i++;
-		j = i;
-		while(spec[i] != '$' && spec[i])
+		var[0] = '$';
+		if (ft_strcmp("$", (ft_strcat(var, (expansions(spec + 2))))) == 0)
+			return (0);
+	}
+	if (!(spec[1] == '{'))
+	{
+		while ((ft_strchr(spec + i, '$')))
+		{
 			i++;
-		if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
-			ft_strcat(var, path);
+			j = i;
+			while(spec[i] != '$' && spec[i])
+				i++;
+			if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
+				ft_strcat(var, path);
+		}
 	}
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);
