@@ -14,11 +14,10 @@ srcs := parse.c\
 		err.c\
 		token_handle.c\
 		ft_realloc.c\
-		ft_strtok.c\
 		close_fds.c\
 		add_process.c\
 		fd_aggr.c\
-		redirect_list.c\
+		word_list.c\
 		ft_free_jobs.c\
 		heredoc.c\
 		ft_open.c\
