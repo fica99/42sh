@@ -22,7 +22,7 @@ int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	io_number = io_number > 0 ? io_number : 1;
 	++list;
 	if (!ft_strcmp((*list)->value, "-"))
-		fd_w = ft_open("/dev/null", RRED_OPEN);
+		fd_w = -1;
 	else if ((fd_w = get_fd((*list)->value)) < 0)
 		return (g_redir(--list, curr_proc, io_number));
 	else if (fd_w > 2)
@@ -33,3 +33,12 @@ int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	add_redir(curr_proc, fd_w, io_number);
 	return (redirect_list(++list, curr_proc));
 }
+
+// int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
+// {
+// 	int fd_w;
+
+// 	io_number = io_number > 0 ? io_number : 0;
+// 	++list;
+	
+// }
