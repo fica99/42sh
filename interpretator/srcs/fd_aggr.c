@@ -1,6 +1,6 @@
 #include "ft_shell.h"
 
-int	get_fd(char *str)
+static int	get_fd(char *str)
 {
 	int fd;
 	int i;

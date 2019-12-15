@@ -197,6 +197,20 @@ int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
+
+
+int	parse_assignment_word(t_lex_tkn **list, t_process *curr_proc)
+{
+	char *name;
+	char *value;
+
+	name = (*list)->value;
+	list += 2;
+	value = (*list)->value;
+	set_env(name, value, SET_ENV);
+	return (redirect_list(++list, curr_proc));
+}
+
 int redirect_list(t_lex_tkn **list, t_process *cur_proc)
 {
 	if ((*list)->type == T_END)
@@ -205,6 +219,8 @@ int redirect_list(t_lex_tkn **list, t_process *cur_proc)
 		return (parse_redirect(list, cur_proc));
 	else if ((*list)->type == T_WORD)
 		return (parse_word(list, cur_proc));
+	else if ((*list)->type == T_ASSIGNMENT_WORD)
+		return (parse_assignment_word(list, cur_proc));
 	else
 		return (syntax_err(*list));
 }

@@ -47,7 +47,6 @@ int	logical_list(t_lex_tkn **list)
 	// tmp = find_token(list, LOGICAL);
 	// add_logical(tmp);
 	// tmp = split_list(tmp);
-	
 	if ((pipe_sequence(list)) < 0)
 		return (-1);
 	return (0);
