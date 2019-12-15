@@ -12,8 +12,10 @@ static int parse_word(t_lex_tkn **list, t_process *curr_proc)
 		if (i >= curr_proc->args_size - 2)
 		{
 			curr_proc->args_size *= 2;
-			ft_realloc(curr_proc->args, curr_proc->args_size / 2, curr_proc->args_size);
-			tmp = curr_proc->args;
+			if (!(tmp = ft_realloc(curr_proc->args, curr_proc->args_size / 2, curr_proc->args_size)))
+				err_exit("42sh", "malloc() error", NULL, NOERROR);
+			ft_free_dar(curr_proc->args);
+			curr_proc->args = tmp;
 		}
 		i++;
 	}

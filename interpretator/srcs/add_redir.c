@@ -17,8 +17,10 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 		if (i >= curr_proc->redir_size - 1)
 		{
 			curr_proc->redir_size *= 2;
-			ft_realloc(curr_proc->redir, curr_proc->redir_size / 2, curr_proc->redir_size);
-			tmp = curr_proc->redir;
+			if (!(tmp = ft_realloc(curr_proc->redir, curr_proc->redir_size / 2, curr_proc->redir_size)))
+				err_exit("42sh", "malloc() error", NULL, NOERROR);
+			free(curr_proc->redir);
+			curr_proc->redir = tmp;
 		}
 		i++;
 	}

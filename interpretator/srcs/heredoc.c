@@ -25,6 +25,7 @@ char **read_heredoc(char const *delim)
 	size_t buf_size;
 	size_t i;
 	char *tmp;
+	char **tmpb;
 
 	i = 0;
 	buf_size = DEF_HEREDOC_SIZE;
@@ -35,7 +36,10 @@ char **read_heredoc(char const *delim)
 		buf[i++] = tmp;
 		if (i >= buf_size - 1)
 		{
-			buf = (char **)ft_realloc(buf, sizeof(char *) * buf_size, sizeof(char *) * (buf_size * 2));
+			if (!(tmpb = (char **)ft_realloc(buf, sizeof(char *) * buf_size, sizeof(char *) * (buf_size * 2))))
+				err_exit("42sh", "malloc() error", NULL, NOERROR);
+			free(buf);
+			buf = tmpb;
 			buf_size *= 2;
 		}
 	}
