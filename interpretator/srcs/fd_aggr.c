@@ -31,7 +31,7 @@ int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		return (0);
 	}
 	add_redir(curr_proc, fd_w, io_number);
-	return (redirect_list(++list, curr_proc));
+	return (word_list(++list, curr_proc));
 }
 
 int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
@@ -53,5 +53,5 @@ int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		return (0);
 	}
 	add_redir(curr_proc, fd_w, io_number);
-	return (redirect_list(++list, curr_proc));
+	return (word_list(++list, curr_proc));
 }

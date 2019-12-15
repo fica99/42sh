@@ -36,6 +36,9 @@ typedef struct	s_open_files
 	size_t size;
 }				t_open_files;
 
+void		exec_jobs(t_job *j);
+int			l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
+int			here_doc(t_lex_tkn **list, t_process *curr, int io_number);
 int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
 int			ft_open(/*t_process *curr_proc,*/char *fname, int fl);
 int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
@@ -58,6 +61,6 @@ char		*ft_stricut(char *str, int i);
 t_lex_tkn	**split_list(t_lex_tkn **token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 t_job		*job_new(void);
-int         redirect_list(t_lex_tkn **redir, t_process *cur_proc);
+int         word_list(t_lex_tkn **redir, t_process *cur_proc);
 
 #endif

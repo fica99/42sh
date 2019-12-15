@@ -19,7 +19,12 @@ srcs := parse.c\
 		add_process.c\
 		fd_aggr.c\
 		redirect_list.c\
-		ft_free_jobs.c
+		ft_free_jobs.c\
+		heredoc.c\
+		ft_open.c\
+		io_redir.c\
+		add_redir.c\
+		exec_jobs.c
 
 objs := $(srcs:.c=.o)
 
