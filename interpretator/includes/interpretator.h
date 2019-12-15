@@ -54,7 +54,6 @@ t_process	*add_process(void);
 int			syntax_err(t_lex_tkn *token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 void		parse(t_lex_tkn **tokens);
-void		*ft_realloc(void *buf, size_t old, size_t new_size);
 char		**ft_strtok(char *s);
 char		*ft_strccut(char *str, char c);
 char		*ft_stricut(char *str, int i);

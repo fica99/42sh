@@ -13,7 +13,6 @@
 srcs := parse.c\
 		err.c\
 		token_handle.c\
-		ft_realloc.c\
 		close_fds.c\
 		add_process.c\
 		fd_aggr.c\
