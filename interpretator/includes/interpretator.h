@@ -36,6 +36,11 @@ typedef struct	s_open_files
 	size_t size;
 }				t_open_files;
 
+int			ft_open(/*t_process *curr_proc,*/char *fname, int fl);
+int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
+void		add_redir(t_process *curr_proc, int fd0, int fd1);
+void		file_err(char *s1, char *s2, char *s3, t_job *j);
+int			g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
 void		ft_free_proc(t_process *p);
 int         get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token);
 t_job       *job_new(void);
