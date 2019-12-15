@@ -15,6 +15,17 @@ static int	get_fd(char *str)
 	return (fd);
 }
 
+int find_fd(int **redir, int fd)
+{
+	while (*redir)
+	{
+		if ((*redir)[1] == fd)
+			return (0);
+		redir++;
+	}
+	return (-1);
+}
+
 int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 {
 	int fd_w;
@@ -25,7 +36,7 @@ int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		fd_w = -1;
 	else if ((fd_w = get_fd((*list)->value)) < 0)
 		return (g_redir(--list, curr_proc, io_number));
-	else if (fd_w > 2 && fd_w != io_number)
+	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
 	{
 		file_err("42sh: ", (*list)->value, ": Bad file descriptor", g_first_job);
 		return (0);
@@ -47,7 +58,7 @@ int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		file_err("42sh: ", (*list)->value, ": ambiguous redirect", g_first_job);
 		return (0);
 	}
-	else if (fd_w > 2 && fd_w != io_number)
+	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
 	{
 		file_err("42sh: ", (*list)->value, ": Bad file descriptor", g_first_job);
 		return (0);
