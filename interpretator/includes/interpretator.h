@@ -36,6 +36,7 @@ typedef struct	s_open_files
 	size_t size;
 }				t_open_files;
 
+int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
 int			ft_open(/*t_process *curr_proc,*/char *fname, int fl);
 int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
 void		add_redir(t_process *curr_proc, int fd0, int fd1);
