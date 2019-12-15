@@ -29,13 +29,13 @@ t_process *proc_new()
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	new->args_size = DEF_ARGS_SIZE;
 	new->redir_size = DEF_REDIR_SIZE;
-	new->open_fd.size = DEF_OPENFD_SIZE;
+	//new->open_fd.size = DEF_OPENFD_SIZE;
 	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * DEF_REDIR_SIZE)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!(new->args = (char **)ft_memalloc(sizeof(char *) * DEF_ARGS_SIZE)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	if (!(new->open_fd.fd = (int *)ft_memalloc(sizeof(int) * DEF_OPENFD_SIZE)))
-		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	// if (!(new->open_fd.fd = (int *)ft_memalloc(sizeof(int) * DEF_OPENFD_SIZE)))
+	// 	err_exit("42sh", "malloc() error", NULL, NOERROR);
 	return (new);
 }
 

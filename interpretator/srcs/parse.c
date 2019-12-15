@@ -138,7 +138,7 @@ void	parse(t_lex_tkn **tokens)
 	// return;
 	if (start(tokens) == 0 && g_first_job)
 		exec_jobs(g_first_job);
-	//close_fds(g_first_job);
+	close_fds(g_first_job);
 	lex_del_tkns(tokens);
 	//print_jobs(g_first_job);
 	ft_free_jobs(g_first_job);

@@ -16,6 +16,8 @@ void	redir(int **red)
 {
 	while (*red)
 	{
+		if ((*red)[0] == -1)
+			close((*red)[1]);
 		dup2((*red)[0], (*red)[1]);
 		red++;
 	}
