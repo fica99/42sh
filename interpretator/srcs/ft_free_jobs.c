@@ -19,8 +19,8 @@ void    ft_free_proc(t_process *p)
     ft_free_proc(p->next);
     if (p->args)
         ft_free_dar(p->args);
-    if (p->open_fd.fd)
-        free(p->open_fd.fd);
+    // if (p->open_fd.fd)
+    //     free(p->open_fd.fd);
     ft_free_redir(p->redir);
     free(p);
 }

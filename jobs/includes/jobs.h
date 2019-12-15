@@ -4,11 +4,11 @@
 # define DEF_REDIR_SIZE 10
 # define DEF_OPENFD_SIZE 10
 
-typedef struct	s_open_fd
-{
-	int	*fd;
-	size_t size;
-}				t_open_fd;
+// typedef struct	s_open_fd
+// {
+// 	int	*fd;
+// 	size_t size;
+// }				t_open_fd;
 
 /* A process is a single process.  */
 typedef struct s_process
@@ -22,7 +22,7 @@ typedef struct s_process
     int **redir;
     size_t redir_size;
     size_t args_size;
-    t_open_fd open_fd;
+    // t_open_fd open_fd;
 }   t_process;
 
 /* A job is a pipeline of processes.  */
