@@ -37,13 +37,54 @@ char	*tilda_expr(char *args)
 	return (args);
 }
 
+char	*isexpansion(char *args)
+{
+	char	*var;
+	char	*spec;
+	char	*copy1;
+	char	*path;
+	int i;
+	int j;
+
+	var = ft_strnew(LINE_MAX);
+	while (*args)
+	{
+		i = 1;
+		j = 0;
+		spec = ft_strchr(args, '$');
+		if (!spec)
+		{
+			ft_strcat(var, args);
+			return (var);
+		}
+		copy1 = NULL;
+		if (spec != args)
+			copy1 = ft_strsub(args, 0, spec - args);
+		if (!(expansions(spec + 2)))
+			return (0); //invalid exp error here
+		while (spec[i] != '}')
+		{
+			i++;
+			j = i;
+			while (spec[i] != '}')
+				i++;
+			if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
+			{
+				ft_strcat(var, copy1);
+				ft_strcat(var, path); // вместо path готовый expans.
+			}
+		}
+		args += ((ft_strlen(copy1) + i) + 1); 
+	}
+	return (var);
+}
+
 char	*dollar_expr(char *args)
 {
 	char	*arr;
 	char	*var;
 	char	*spec;
 	char	*copy;
-	char	*path;
 	int		i;
 	int		j;
 
@@ -51,31 +92,25 @@ char	*dollar_expr(char *args)
 	spec = ft_strchr(args, '$');
 	var = ft_strnew(LINE_MAX);
 	copy = NULL;
-	if (spec != args)              // 3 кейса - sdjsd${HOME}; sdsd${HOME}fdf; ${HOME}dfdf
+	if (spec[1] == '{')
+	{
+		return (isexpansion(args));
+	}
+	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);
-	if ((arr = ft_strchr(spec, ' ')))
+	if ((arr = ft_strchr(spec, ' '))) // шо эта?
 	{
 		*arr = '\0';
 		arr++;
 	}
 	ft_strcat(var, copy);
-	if (spec[1] == '{')
+	while ((ft_strchr(spec + i, '$')))
 	{
-		var[0] = '$';
-		if (ft_strcmp("$", (ft_strcat(var, (expansions(spec + 2))))) == 0)
-			return (0);
-	}
-	if (!(spec[1] == '{'))
-	{
-		while ((ft_strchr(spec + i, '$')))
-		{
+		i++;
+		j = i;
+		while (spec[i] != '$' && spec[i])
 			i++;
-			j = i;
-			while(spec[i] != '$' && spec[i])
-				i++;
-			if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
-				ft_strcat(var, path);
-		}
+		ft_strcat(var, (get_env(ft_strsub(spec, j, i - j), ALL_ENV)));
 	}
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);

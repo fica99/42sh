@@ -36,14 +36,11 @@ int		check_bracket(char *s)
 	while (s[i])
 	{
 		if (s[i] == '}')
-			return (i - 1);
-		/*else if (s[i] == ':' && s[i + 1] != '}')
 		{
-			while (s[i] && isvalidword(s[i]))
-				i++;
+			if (i == 1)
+				return (1);
+			return (i - 1);
 		}
-		else
-			isvalidparameter(s[i]);*/
 		i++;
 	}
 	return (0);
@@ -55,9 +52,7 @@ void	*expansions(char *s)
 	//after {.
 	int		i;
 	int		paramlen;
-	//char	var[100];
 
-	//ft_bzero(var, 100);
 	i = 0;
 	if (!(paramlen = check_bracket(s)))
 		return (0);
