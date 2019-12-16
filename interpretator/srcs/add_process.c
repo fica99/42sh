@@ -36,6 +36,8 @@ t_process *proc_new()
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	// if (!(new->open_fd.fd = (int *)ft_memalloc(sizeof(int) * DEF_OPENFD_SIZE)))
 	// 	err_exit("42sh", "malloc() error", NULL, NOERROR);
+	new->inpipe = STDIN_FILENO;
+	new->outpipe = STDOUT_FILENO;
 	return (new);
 }
 
