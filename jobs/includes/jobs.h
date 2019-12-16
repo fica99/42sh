@@ -20,6 +20,8 @@ typedef struct s_process
     char stopped;               /* true if process has stopped */
     int status;                 /* reported status value */
     int **redir;
+    int inpipe;
+    int outpipe;
     size_t redir_size;
     size_t args_size;
     // t_open_fd open_fd;

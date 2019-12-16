@@ -30,3 +30,22 @@ int syntax_err(t_lex_tkn *token)
 	ft_putchar('\n');
 	return (-1);
 }
+
+void	file_err(char *s1, char *s2, char *s3, t_job *j)
+{
+	char *buf;
+	size_t len;
+
+	if (!s1 || !s2 || !s3)
+		return ;
+	len = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
+	if (!(buf = (char *)ft_memalloc(len + 1)))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	ft_strcat(buf, s1);
+	ft_strcat(buf, s2);
+	ft_strcat(buf, s3);
+	while (j->next)
+		j = j->next;
+	j->err_message = buf;
+	j->unactive = 1;
+}
