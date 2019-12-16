@@ -94,7 +94,7 @@ char *var_substitution(char *str, int ind)
 		return (NULL);
 	if (!(value = get_env(varname + 1, ALL_ENV)))
 		value = "";
-	if (!(new = (char *)ft_memalloc(ft_strlen(str) + ft_strlen(value) + 2)))
+	if (!(new = (char *)ft_memalloc(ft_strlen(str) + ft_strlen(value) + 1)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	while (ind)
 	{
@@ -110,12 +110,28 @@ char *var_substitution(char *str, int ind)
 	return(new);
 }	
 
+char *tilda_substitution(char *str)
+{
+	char *value;
+	char *new;
+
+	if (!(value = get_env("HOME", ALL_ENV)))
+		value = "";
+	if (!(new = (char *)ft_memalloc(ft_strlen(value) + ft_strlen(str))))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	ft_stricut(str, 0);
+	ft_strcat(new, value);
+	ft_strcat(new, str);
+	free(str);
+	return(new);
+}
+
 char *substitution(char *str)
 {
 	char *tmp;
 
-	// if (ft_strchr(str, '~'))
-	// 	return (tilda_substitution(str));
+	if (*str == '~' && *(str + 1) != '~')
+		str = tilda_substitution(str);
 	while ((tmp = ft_strchr(str, '$')))
 		str = var_substitution(str, tmp - str);
 	return (str);
