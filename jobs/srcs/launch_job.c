@@ -4,7 +4,7 @@ void launch_job(t_job *j, int foreground)
 {
     t_process   *p;
     pid_t       pid;
-    int         mypipe[2];
+
     p = j->first_process;
     while (p)
     {
