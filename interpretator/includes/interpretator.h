@@ -36,6 +36,7 @@ typedef struct	s_open_files
 	size_t size;
 }				t_open_files;
 
+char		*substitution(char *str);
 void		exec_jobs(t_job *j);
 int			l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
 int			here_doc(t_lex_tkn **list, t_process *curr, int io_number);

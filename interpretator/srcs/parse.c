@@ -114,12 +114,23 @@ void print_jobs(t_job *first_job)
 // 	return(i);
 // }
 
+void	ft_sub(t_lex_tkn **list)
+{
+	while ((*list)->type != T_END)
+	{
+		if ((*list)->type == T_WORD)
+			(*list)->value = substitution((*list)->value);
+		list++;
+	}
+}
+
 void	parse(t_lex_tkn **tokens)
 {
 	if (!*tokens || (*tokens)->type == T_END)
 		return ;
-	// lex_print_tkns(tokens);
-	// return;
+	ft_sub(tokens);
+	lex_print_tkns(tokens);
+	return;
 	if (start(tokens) == 0 && g_first_job)
 		exec_jobs(g_first_job);
 	close_fds(g_first_job);

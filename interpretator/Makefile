@@ -22,7 +22,8 @@ srcs := parse.c\
 		ft_open.c\
 		io_redir.c\
 		add_redir.c\
-		exec_jobs.c
+		exec_jobs.c\
+		expansions.c
 
 objs := $(srcs:.c=.o)
 
