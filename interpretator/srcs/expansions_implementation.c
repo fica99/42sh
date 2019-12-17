@@ -21,7 +21,7 @@ char *exp_implement(char *s)
 	
 	param = ft_strnew(LINE_MAX);
 	//value = ft_strnew(LINE_MAX);
-	while (s[i] != ':')
+	while (s[i] != ':' && s[i] != '}')
 	{
 		param[i] = s[i];
 		i++;
@@ -36,5 +36,8 @@ char *exp_implement(char *s)
 		}
 		
 	}
-	return (NULL);
+	else
+	{
+		return (get_env(param, ALL_ENV));
+	}
 }
