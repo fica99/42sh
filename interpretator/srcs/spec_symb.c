@@ -73,7 +73,7 @@ char	*isexpansion(char *args)
 			j = i;
 			while (spec[i] != '}')
 				i++;
-			if ((path = get_env(ft_strsub(spec, j, i - j), ALL_ENV)))
+			if (path)
 			{
 				ft_strcat(var, copy1);
 				ft_strcat(var, path); // вместо path готовый expans.

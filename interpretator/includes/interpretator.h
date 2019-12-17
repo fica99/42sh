@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/17 12:31:43 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,15 @@ char	*remove_dquotes(char **buff);
 pid_t	make_process(void);
 
 /*
-**	expansions.c
+**	expansions_validation.c
 */
 void	*expansions(char *s);
 int     check_bracket(char *s);
+
+/*
+**	expansions_implementation.c
+*/
+
+char	*exp_implement(char *s);
+
 #endif

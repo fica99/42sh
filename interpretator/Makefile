@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/11 18:18:32 by jijerde          ###   ########.fr        #
+#    Updated: 2019/12/17 12:31:59 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ srcs := interpretator.c\
 		spec_symb.c\
 		parse_quotes.c\
 		aggr_fd.c\
-		expansions.c\
+		expansions_validation.c\
+		expansions_implementation.c\
 
 objs := $(srcs:.c=.o)
 

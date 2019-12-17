@@ -24,9 +24,14 @@ int		isvalidword(char s, char snext)
 {
 	if ((isvalidparameter(s)) || (s == '=' || s == '-' || s == '+' || 
 		s == '?' || s == ' '))
+	{
 		if (s == '_')
-			if (snext && isvalidparameter(snext))
-				return (1);
+		{
+			if (snext && !(isvalidparameter(snext)))
+				return (0);
+		}
+		return (1);
+	}
 	return (0);
 }
 
@@ -95,5 +100,5 @@ void	*expansions(char *s)
 		}
 		i++;
 	}
-	return (ft_strsub(s, 0, i));
+	return (exp_implement(s));
 }
