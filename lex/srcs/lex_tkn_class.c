@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 21:33:58 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 22:42:27 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 		return (C_REDIR);
 	else if (type == T_SEP)
 		return (C_SEP);
-	else if (type == T_EQ)
-		return (C_EQ);
 	else if (type == T_CONTROL_SUB)
 		return (C_CONTROL_SUB);
 	else if (type == T_END)

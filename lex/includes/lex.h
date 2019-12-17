@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:08:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 22:41:28 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef enum	e_lex_tkn_type
 	T_END,					// "\0"
 	T_WORD,					// "ls ."
 	T_ASSIGNMENT_WORD,		// varible name
-	T_EQ,					// "="
 	T_PIPE,					// "|"
 	T_GREATER,				// ">"
 	T_GREATER_GREATER,		// ">>"
@@ -54,7 +53,6 @@ typedef enum	e_lex_tkn_class
 	C_END,
 	C_WORD,
 	C_ASSIGNMENT_WORD,
-	C_EQ,
 	C_PIPE,
 	C_REDIR,				// "T_GREATER, T_GREATER_GREATER, T_LESS, T_LESS_LESS, T_LESS_AND, T_GREATER_AND"
 	C_SEP,
@@ -178,12 +176,6 @@ t_lex_tkn_type	lex_ionum(short is_word);
 int				lex_is_asig_name(char *str, short is_word, size_t *pos,
 	int *err);
 t_lex_tkn_type	lex_asig_name(short is_word, int err);
-
-/*
-** lex_asig_name.c
-*/
-
-t_lex_tkn_type	lex_check_eq(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_dol.c

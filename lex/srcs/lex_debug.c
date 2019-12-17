@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 21:39:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 22:42:45 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ void	lex_print_type(t_lex_tkn_type type)
 		ft_putstr("IO_NUMBER\n");
 	else if (type == T_ASSIGNMENT_WORD)
 		ft_putstr("ASSIGNMENT_WORD\n");
-	else if (type == T_EQ)
-		ft_putstr("EQ\n");
 	else if (type == T_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
 	else
@@ -98,8 +96,6 @@ void	lex_print_class(t_lex_tkn_class class)
 		ft_putstr("REDIR\n");
 	else if (class == C_SEP)
 		ft_putstr("SEP\n");
-	else if (class == C_EQ)
-		ft_putstr("EQ\n");
 	else if (class == C_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
 	else

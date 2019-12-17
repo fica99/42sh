@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:05:07 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 22:43:06 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,19 @@ int				lex_is_asig_name(char *str, short is_word, size_t *pos,
 	if (!str)
 		return (0);
 	i = *pos;
-	while (ft_isdigit(str[i++]))
+	if (ft_isdigit(str[i]))
+	{
 		*err = 1;
+		i++;
+	}
 	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	if (str[i] != '=')
 		return (0);
+	else
+		i++;
+	while (str[i] && str[i] != ' ')
+		i++;
 	if (!is_word)
 		(*pos) = i;
 	return (1);
