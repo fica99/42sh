@@ -17,7 +17,11 @@ char	*spec_symbols(char *args)
 	while (ft_strchr(args, '~'))
 		args = tilda_expr(args);
 	while (ft_strchr(args, '$'))
+	{
 		args = dollar_expr(args);
+		if (args == NULL)
+			break ;
+	}
 	return (args);
 }
 
@@ -47,6 +51,7 @@ char	*isexpansion(char *args)
 	int j;
 
 	var = ft_strnew(LINE_MAX);
+	path = ft_strnew(LINE_MAX);
 	while (*args)
 	{
 		i = 1;
@@ -60,8 +65,8 @@ char	*isexpansion(char *args)
 		copy1 = NULL;
 		if (spec != args)
 			copy1 = ft_strsub(args, 0, spec - args);
-		if (!(expansions(spec + 2)))
-			return (0); //invalid exp error here
+		if (!(path = expansions(spec + 2)))
+			return (NULL); //invalid exp error here
 		while (spec[i] != '}')
 		{
 			i++;
@@ -74,7 +79,7 @@ char	*isexpansion(char *args)
 				ft_strcat(var, path); // вместо path готовый expans.
 			}
 		}
-		args += ((ft_strlen(copy1) + i) + 1); 
+		args += ((ft_strlen(copy1) + i) + 1);
 	}
 	return (var);
 }

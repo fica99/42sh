@@ -12,17 +12,21 @@
 
 #include "ft_shell.h"
 
-int		isvalidword(char s)
-{
-	(void)s;
-	return (0);
-}
-
 int		isvalidparameter(char s)
 {
 	if (s == '_' || (s >= 'A' && s <= 'Z') || (s >= 'a' && s <= 'z') ||
 		(s >= '0' && s <= '9'))
 		return (1);
+	return (0);
+}
+
+int		isvalidword(char s, char snext)
+{
+	if ((isvalidparameter(s)) || (s == '=' || s == '-' || s == '+' || 
+		s == '?' || s == ' '))
+		if (s == '_')
+			if (snext && isvalidparameter(snext))
+				return (1);
 	return (0);
 }
 
@@ -62,13 +66,32 @@ void	*expansions(char *s)
 	{
 		if (s[i] == ':' && s[i + 1] != '}')
 		{
-			while (s[i] && (isvalidword(s[i])))
+			i++;
+			while (s[i] != '}' && s[i])
+			{
+				if (s[i + 1])
+				{
+					if (!(isvalidword(s[i], s[i + 1])))
+					{
+						ft_error("bash", s, "operand expected", "syntax error");
+						return (NULL);
+					}
+				}
+				else
+				{
+					if (!isvalidword(s[i], 0))
+					{
+						ft_error("bash", s, "operand expected", "syntax error");
+						return (NULL);
+					}
+				}
 				i++;
+			}
 		}
 		else if (!(isvalidparameter(s[i])))
 		{
 			ft_error("bash", s, "syntax error", "operand expected");
-			return (0);
+			return (NULL);
 		}
 		i++;
 	}
