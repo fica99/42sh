@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2019/11/11 16:18:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	rl_write_prompt(char *str, t_rl_history history)
 	short	i;
 	short	j;
 
+	if (!str)
+		return ;
 	i = -1;
 	while (str[++i])
 	{

@@ -12,18 +12,21 @@
 
 #include "ft_shell.h"
 
-void	set_sig_def(void)
+void	redir(int **red)
 {
-	signal(SIGINT, SIG_DFL);
-    signal(SIGQUIT, SIG_DFL);
-    signal(SIGTSTP, SIG_DFL);
-    signal(SIGTTIN, SIG_DFL);
-    signal(SIGTTOU, SIG_DFL);
+	while (*red)
+	{
+		if ((*red)[0] == -1)
+			close((*red)[1]);
+		dup2((*red)[0], (*red)[1]);
+		red++;
+	}
 }
 
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t 	pid;
+	char *fname;
 
 	if (g_shell_is_interactive)
     {
@@ -40,7 +43,12 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		close(STDIN_FILENO);
 		close(STDERR_FILENO);*/
 	}
-	if (execve(p->args[0], p->args, g_env.env) < 0)
+	redir(p->redir);
+	if (ft_strchr(p->args[0], '/'))
+		fname = p->args[0];
+	else if (!(fname = (char *)get_hash_data(g_bin_table.table, p->args[0], g_bin_table.size)))
+		err_exit("42sh", "command not found", p->args[0], NOERROR);
+	else if (execve(fname, p->args, g_env.env) < 0)
 		err_exit("42sh", "execve() error", p->args[0], NOERROR);
   	exit(1);
 }

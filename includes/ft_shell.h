@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:23 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/07 20:42:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@
 # include "libfifo.h"
 # include "libstack.h"
 # include "libhash.h"
+# include "../sub/includes/sub.h"
 # include "../jobs/includes/jobs.h"
 # include "../term/includes/term.h"
 # include "../environ/includes/environ.h"
 # include "../bin_table/includes/bin_table.h"
 # include "../error/includes/error.h"
 # include "../ft_readline/includes/ft_readline.h"
-# include "../lexer/includes/lexer.h"
-# include "../parser/includes/parser.h"
 # include "../interpretator/includes/interpretator.h"
 # include "../builtins/includes/builtins.h"
 # include "../calc/includes/calc.h"
 # include "../lex/includes/lex.h"
+# include "../signal/includes/signals.h"
 #endif

@@ -6,19 +6,24 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/11/19 19:05:18 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := interpretator.c\
-		rredir.c\
-		lredir.c\
-		pipes.c\
-		dup_fd.c\
-		exec.c\
-		spec_symb.c\
-		parse_quotes.c\
-		aggr_fd.c\
+srcs := parse.c\
+		err.c\
+		token_handle.c\
+		close_fds.c\
+		add_process.c\
+		fd_aggr.c\
+		word_list.c\
+		ft_free_jobs.c\
+		heredoc.c\
+		ft_open.c\
+		io_redir.c\
+		add_redir.c\
+		exec_jobs.c\
+		expansions.c
 
 objs := $(srcs:.c=.o)
 
@@ -57,7 +62,7 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror -g -O0
+cflags := -Wall -Wextra -Werror -g
 
 .PHONY: all compilation clean re
 

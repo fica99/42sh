@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 19:46:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,11 @@ void	unset_env(char *name, t_env mode)
 {
 	if (mode == ENV)
 		ft_unsetenv(name, &g_env);
-	else
+	else if (mode == SET_ENV)
 		ft_unsetenv(name, &g_set_env);
+	else if (mode == ALL_ENV)
+	{
+		ft_unsetenv(name, &g_env);
+		ft_unsetenv(name, &g_set_env);
+	}
 }

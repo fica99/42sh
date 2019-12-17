@@ -1,5 +1,14 @@
 #ifndef JOBS_H
 # define JOBS_H
+# define DEF_ARGS_SIZE 10
+# define DEF_REDIR_SIZE 10
+# define DEF_OPENFD_SIZE 10
+
+// typedef struct	s_open_fd
+// {
+// 	int	*fd;
+// 	size_t size;
+// }				t_open_fd;
 
 /* A process is a single process.  */
 typedef struct s_process
@@ -10,20 +19,25 @@ typedef struct s_process
     char completed;             /* true if process has completed */
     char stopped;               /* true if process has stopped */
     int status;                 /* reported status value */
+    int **redir;
+    int inpipe;
+    int outpipe;
+    size_t redir_size;
+    size_t args_size;
+    // t_open_fd open_fd;
 }   t_process;
 
 /* A job is a pipeline of processes.  */
 typedef struct s_job
 {
+    char unactive;
+    char *err_message;
     struct s_job *next;           /* next active job */
     char *command;              /* command line, used for messages */
     t_process *first_process;     /* process in this job */
     pid_t pgid;                 /* process group ID */
     char notified;              /* true if user told about stopped job */
     struct termios *tmodes;      /* saved terminal modes */
-    int fdin;
-    int fdout; /* standard i/o channels */
-    int fderr;
 }   t_job;
 
 /* The active jobs are linked into a list.  This is its head.   */

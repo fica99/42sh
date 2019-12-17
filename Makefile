@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/07 20:50:53 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,9 @@ dir_ft_readline := ft_readline
 
 dir_bin_table := bin_table
 
-dir_parser := parser
-
 dir_interpretator := interpretator
 
 dir_term := term
-
-dir_lexer := lexer
 
 dir_environ := environ
 
@@ -40,9 +36,13 @@ dir_builtins := builtins
 
 dir_jobs := jobs
 
+dir_sub := sub
+
 dir_calc := calc
 
 dir_lex := lex
+
+dir_signal := signal
 
 objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
@@ -50,13 +50,13 @@ objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
 		$(wildcard $(addprefix $(dir_environ), /**/*.o))\
 		$(wildcard $(addprefix $(dir_error), /**/*.o))\
 		$(wildcard $(addprefix $(dir_interpretator), /**/*.o))\
-		$(wildcard $(addprefix $(dir_lexer), /**/*.o))\
+		$(wildcard $(addprefix $(dir_sub), /**/*.o))\
 		$(wildcard $(addprefix $(dir_ft_readline), /**/*.o))\
-		$(wildcard $(addprefix $(dir_parser), /**/*.o))\
 		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
 		$(wildcard $(addprefix $(dir_term), /**/*.o))\
 		$(wildcard $(addprefix $(dir_calc), /**/*.o))\
 		$(wildcard $(addprefix $(dir_lex), /**/*.o))\
+		$(wildcard $(addprefix $(dir_signal), /**/*.o))\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -68,7 +68,7 @@ lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
 
 .PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_lexer) $(dir_ft_readline) $(dir_parser) $(dir_term) $(dir_calc) $(dir_lex)\
+$(dir_ft_readline) $(dir_term) $(dir_calc) $(dir_lex) $(dir_signal)\
 lall llall llclean llfclean lfclean oclean clean fclean re
 
 all: $(name)
@@ -88,12 +88,11 @@ compilation:
 	@$(MAKE) --no-print-directory $(dir_jobs)
 	@$(MAKE) --no-print-directory $(dir_error)
 	@$(MAKE) --no-print-directory $(dir_interpretator)
-	@$(MAKE) --no-print-directory $(dir_lexer)
 	@$(MAKE) --no-print-directory $(dir_ft_readline)
-	@$(MAKE) --no-print-directory $(dir_parser)
 	@$(MAKE) --no-print-directory $(dir_term)
 	@$(MAKE) --no-print-directory $(dir_calc)
 	@$(MAKE) --no-print-directory $(dir_lex)
+	@$(MAKE) --no-print-directory $(dir_signal)
 
 $(objs):
 	@$(MAKE) --no-print-directory compilation
@@ -116,14 +115,8 @@ $(dir_error):
 $(dir_interpretator):
 	@$(MAKE) --no-print-directory -C $(dir_interpretator)
 
-$(dir_lexer):
-	@$(MAKE) --no-print-directory -C $(dir_lexer)
-
 $(dir_ft_readline):
 	@$(MAKE) --no-print-directory -C $(dir_ft_readline)
-
-$(dir_parser):
-	@$(MAKE) --no-print-directory -C $(dir_parser)
 
 $(dir_term):
 	@$(MAKE) --no-print-directory -C $(dir_term)
@@ -133,6 +126,9 @@ $(dir_calc):
 
 $(dir_lex):
 	@$(MAKE) --no-print-directory -C $(dir_lex)
+
+$(dir_signal):
+	@$(MAKE) --no-print-directory -C $(dir_signal)
 
 loadlibs:
 	@echo "\033[32mLoad Libraries\033[0m"
@@ -168,12 +164,11 @@ oclean:
 	@$(MAKE) clean --no-print-directory -C $(dir_jobs)
 	@$(MAKE) clean --no-print-directory -C $(dir_error)
 	@$(MAKE) clean --no-print-directory -C $(dir_interpretator)
-	@$(MAKE) clean --no-print-directory -C $(dir_lexer)
 	@$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
-	@$(MAKE) clean --no-print-directory -C $(dir_parser)
 	@$(MAKE) clean --no-print-directory -C $(dir_term)
 	@$(MAKE) clean --no-print-directory -C $(dir_calc)
 	@$(MAKE) clean --no-print-directory -C $(dir_lex)
+	@$(MAKE) clean --no-print-directory -C $(dir_signal)
 
 
 clean: $(lib_dir)
