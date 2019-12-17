@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/17 22:42:01 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 23:22:05 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos)
 		return (lex_check_greater(str, is_word, pos));
 	else if ((*str)[*pos] == '<')
 		return (lex_check_less(str, is_word, pos));
+	else if ((*str)[*pos] == '&')
+		return (lex_check_and(str, is_word, pos));
 	else if ((*str)[*pos] == ';')
 		return (lex_check_sep(str, is_word, pos));
 	else if ((*str)[*pos] == '$')

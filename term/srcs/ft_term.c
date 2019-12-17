@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/17 22:45:24 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	check_valid_string(char *buffer)
 	t_lex_tkn	**tokens;
 
 	tokens = lex_get_tkns(&buffer);
-	parse(tokens);
+	lex_print_tkns(tokens);
+	//parse(tokens);
 }

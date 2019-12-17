@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/17 22:41:28 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/17 23:24:24 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ typedef enum	e_lex_tkn_type
 	T_GREATER_AND,			// ">&"
 	T_IO_NUMBER,			// 0-9
 	T_SEP,					// ";"
-	T_CONTROL_SUB			// "$()"
+	T_CONTROL_SUB,			// "$()"
+	T_AND_AND,				// &&
+	T_OR_OR					// ||
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -56,7 +58,8 @@ typedef enum	e_lex_tkn_class
 	C_PIPE,
 	C_REDIR,				// "T_GREATER, T_GREATER_GREATER, T_LESS, T_LESS_LESS, T_LESS_AND, T_GREATER_AND"
 	C_SEP,
-	C_CONTROL_SUB
+	C_CONTROL_SUB,
+	C_LOG_OPERS				// T_AND_AND, T_OR_OR
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn
@@ -195,6 +198,21 @@ t_lex_tkn_type	lex_control_sub(short is_word, int err);
 */
 
 int				lex_is_value(t_lex_tkn_type type);
+
+/*
+** lex_log_opers.c
+*/
+
+int				lex_is_and_and(char *str, size_t pos);
+t_lex_tkn_type	lex_check_and_and(char **str, short is_word, size_t *pos);
+int				lex_is_or_or(char *str, size_t pos);
+t_lex_tkn_type	lex_check_or_or(char **str, short is_word, size_t *pos);
+
+/*
+** lex_check_and.c
+*/
+
+t_lex_tkn_type	lex_check_and(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_debug.c
