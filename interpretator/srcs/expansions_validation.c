@@ -67,12 +67,12 @@ void	*expansions(char *s)
 		return (0);
 	if (s[i] == '#')
 		return ((int *)ft_strlen(get_env(ft_strsub(s, 1, paramlen), ALL_ENV)));
-	while (s[i] != '}' && s[i])
+	while (s[i] != '}' && s[i] && s[i] != '$')
 	{
 		if (s[i] == ':' && s[i + 1] != '}')
 		{
 			i++;
-			while (s[i] != '}' && s[i])
+			while (s[i] != '}' && s[i] && s[i] != '$')
 			{
 				if (s[i + 1])
 				{

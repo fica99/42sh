@@ -15,12 +15,20 @@
 char *exp_implement(char *s)
 {
 	int		i;
+	int		j;
 	char	*param;
 	char	*value;
+
 	i = 0;
-	
+	j = 0;
 	param = ft_strnew(LINE_MAX);
 	//value = ft_strnew(LINE_MAX);
+	while (s[j])
+	{
+		j++;
+		if (s[j] == '}')
+			break ;
+	} 
 	while (s[i] != ':' && s[i] != '}')
 	{
 		param[i] = s[i];
@@ -29,12 +37,13 @@ char *exp_implement(char *s)
 	if (s[++i] == '-')
 	{
 		if ((value = (get_env(param, ALL_ENV))))
-			return (value);
-		else
 		{
-			return (ft_strsub(s, i + 1, ft_strlen(s) - (i + 2)));
+			if (!*value)
+				;
+			else
+				return (value);
 		}
-		
+		return (ft_strsub(s, i + 1, j - (i + 1)));
 	}
 	else
 	{
