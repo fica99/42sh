@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/19 22:32:43 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/19 22:44:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ void	lex_print_type(t_lex_tkn_type type)
 		ft_putstr("OR_OR\n");
 	else if (type == T_AND)
 		ft_putstr("AND\n");
+	else if (type == T_OPEN_FIG_BRACE)
+		ft_putstr("OPEN_FIG_BRACE\n");
+	else if (type == T_CLOSE_FIG_BRACE)
+		ft_putstr("CLOSE_FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }
@@ -108,6 +112,8 @@ void	lex_print_class(t_lex_tkn_class class)
 		ft_putstr("CONTROL_SUB\n");
 	else if (class == C_AND)
 		ft_putstr("AND\n");
+	else if (class == C_FIG_BRACE)
+		ft_putstr("FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }

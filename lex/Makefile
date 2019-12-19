@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/17 23:18:53 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/19 22:48:26 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ srcs := lex_lexer.c\
 		lex_tkn_value.c\
 		lex_log_opers.c\
 		lex_check_and.c\
+		lex_check_fig_brace.c\
 		lex_debug.c\
 
 objs := $(srcs:.c=.o)

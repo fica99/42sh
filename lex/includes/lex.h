@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/19 22:29:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/19 22:46:47 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ typedef enum	e_lex_tkn_type
 	T_CONTROL_SUB,			// "$()"
 	T_AND_AND,				// &&
 	T_OR_OR,				// ||
-	T_AND					// &
+	T_AND,					// &
+	T_OPEN_FIG_BRACE,		// {
+	T_CLOSE_FIG_BRACE		// }
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -61,7 +63,8 @@ typedef enum	e_lex_tkn_class
 	C_SEP,
 	C_CONTROL_SUB,
 	C_LOG_OPERS,			// T_AND_AND, T_OR_OR
-	C_AND
+	C_AND,
+	C_FIG_BRACE				// T_OPEN_FIG_BRACE, T_CLOSE_FIG_BRACE
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn
@@ -215,6 +218,12 @@ t_lex_tkn_type	lex_check_or_or(char **str, short is_word, size_t *pos);
 */
 
 t_lex_tkn_type	lex_check_and(char **str, short is_word, size_t *pos);
+
+/*
+** lex_check_fig_brace.c
+*/
+
+t_lex_tkn_type	lex_check_fig_brace(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_debug.c
