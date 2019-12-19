@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2019/12/17 12:31:59 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ srcs := parse.c\
 		io_redir.c\
 		add_redir.c\
 		exec_jobs.c\
-		expansions.c
+		spec_symb.c\
+		parse_quotes.c\
+		expansions_validation.c\
+		expansions_implementation.c\
 
 objs := $(srcs:.c=.o)
 

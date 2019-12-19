@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/17 12:31:43 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,15 @@ t_lex_tkn	**split_list(t_lex_tkn **token);
 t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 t_job		*job_new(void);
 int         word_list(t_lex_tkn **redir, t_process *cur_proc);
+
+/*
+**	expansions_validation.c
+*/
+void	*expansions(char *s);
+int     check_bracket(char *s);
+
+/*
+**	expansions_implementation.c
+*/
 
 #endif
