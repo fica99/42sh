@@ -43,6 +43,18 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		close(STDIN_FILENO);
 		close(STDERR_FILENO);*/
 	}
+	if (p->next && p->next->inpipe)
+		close (p->next->inpipe);
+	if (p->inpipe != STDIN_FILENO)
+	{
+		dup2(p->inpipe, STDIN_FILENO);
+		close(p->inpipe);
+	}
+	if (p->outpipe != STDOUT_FILENO)
+	{
+		dup2(p->outpipe, STDOUT_FILENO);
+		close(p->outpipe);
+	}
 	redir(p->redir);
 	if (ft_strchr(p->args[0], '/'))
 		fname = p->args[0];
