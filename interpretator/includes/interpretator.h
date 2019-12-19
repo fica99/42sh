@@ -63,4 +63,23 @@ t_lex_tkn	**find_token(t_lex_tkn **list, int type);
 t_job		*job_new(void);
 int         word_list(t_lex_tkn **redir, t_process *cur_proc);
 
+/*                                                                                                       
+**  spec_symb.c                                                                                          
+*/                                                                                                       
+char    *spec_symbols(char *args);                                                                       
+char    *tilda_expr(char *args);                                                                         
+char    *dollar_expr(char *args); 
+
+/*
+**	expansions_validation.c
+*/
+void	*expansions(char *s);
+int     check_bracket(char *s);
+
+/*
+**	expansions_implementation.c
+*/
+
+char *exp_implement(char *s);
+
 #endif
