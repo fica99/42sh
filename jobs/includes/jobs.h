@@ -102,7 +102,7 @@ void do_job_notification(void);
 /*
 **	launch_process.c
 */
-void    launch_process(t_process *p, pid_t pgid, int foreground);
+void	launch_process(t_process *p, pid_t pgid, int foreground);
 /*
 **  init_process.c
 */
