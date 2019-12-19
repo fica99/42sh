@@ -35,8 +35,15 @@
 //     return (pipes);
 // }
 
+void pr(int sig)
+{
+    (void)sig;
+    waitpid(-1, 0, 0);
+}
+
 void launch_job(t_job *j, int foreground)
 {
+   // int status;
     t_process   *p;
     pid_t       pid;
     int pipes[2];
@@ -71,14 +78,12 @@ void launch_job(t_job *j, int foreground)
         }
         p = p->next;
     }
-    // close(3);
-    // close(4);
-    // close((*pipes)[0]);
-    // close((*pipes)[1]);
-    // pipes++;
-    // close((*pipes)[0]);
-    // close((*pipes)[1]);
+    signal(SIGCHLD, &pr);
     waitpid(-1, 0, 0);
+    // if (waitpid(-1, &status, 0) < 0)
+    //     perror("waitpid");
+    // else
+    //     ft_putnbr(status);
     // if (g_shell_is_interactive)
     //     wait_for_job(j);
     // else if (foreground)
