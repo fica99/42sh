@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/17 23:24:24 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/19 22:29:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum	e_lex_tkn_type
 	T_SEP,					// ";"
 	T_CONTROL_SUB,			// "$()"
 	T_AND_AND,				// &&
-	T_OR_OR					// ||
+	T_OR_OR,				// ||
+	T_AND					// &
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -59,7 +60,8 @@ typedef enum	e_lex_tkn_class
 	C_REDIR,				// "T_GREATER, T_GREATER_GREATER, T_LESS, T_LESS_LESS, T_LESS_AND, T_GREATER_AND"
 	C_SEP,
 	C_CONTROL_SUB,
-	C_LOG_OPERS				// T_AND_AND, T_OR_OR
+	C_LOG_OPERS,			// T_AND_AND, T_OR_OR
+	C_AND
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn
