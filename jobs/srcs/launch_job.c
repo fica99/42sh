@@ -35,11 +35,11 @@
 //     return (pipes);
 // }
 
-void pr(int sig)
-{
-    (void)sig;
-    waitpid(-1, 0, 0);
-}
+// void pr(int sig)
+// {
+//     (void)sig;
+//     wait(0);
+// }
 
 void launch_job(t_job *j, int foreground)
 {
@@ -78,8 +78,8 @@ void launch_job(t_job *j, int foreground)
         }
         p = p->next;
     }
-    signal(SIGCHLD, &pr);
-    waitpid(-1, 0, 0);
+    while (waitpid(-1, 0, 0) != -1)
+        ;
     // if (waitpid(-1, &status, 0) < 0)
     //     perror("waitpid");
     // else
