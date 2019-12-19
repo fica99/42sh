@@ -119,7 +119,7 @@ void	ft_sub(t_lex_tkn **list)
 	while ((*list)->type != T_END)
 	{
 		if ((*list)->type == T_WORD)
-			(*list)->value = substitution((*list)->value);
+			(*list)->value = spec_symbols((*list)->value);
 		list++;
 	}
 }

@@ -51,7 +51,7 @@ char *exp_implement(char *s)
 	}
 }
 
-char *substitution(char *str)
+/*char *substitution(char *str)
 {
 	char *tmp;
 
@@ -60,4 +60,4 @@ char *substitution(char *str)
 	while ((tmp = ft_strchr(str, '$')))
 		str = var_substitution(str, tmp - str);
 	return (str);
-}
+}*/
