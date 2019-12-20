@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:08:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/19 23:44:10 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef enum	e_lex_tkn_type
 	T_END,					// "\0"
 	T_WORD,					// "ls ."
 	T_ASSIGNMENT_WORD,		// varible name
-	T_EQ,					// "="
 	T_PIPE,					// "|"
 	T_GREATER,				// ">"
 	T_GREATER_GREATER,		// ">>"
@@ -45,7 +44,13 @@ typedef enum	e_lex_tkn_type
 	T_GREATER_AND,			// ">&"
 	T_IO_NUMBER,			// 0-9
 	T_SEP,					// ";"
-	T_CONTROL_SUB			// "$()"
+	T_CONTROL_SUB,			// "$()"
+	T_AND_AND,				// &&
+	T_OR_OR,				// ||
+	T_AND,					// &
+	T_OPEN_FIG_BRACE,		// {
+	T_CLOSE_FIG_BRACE,		// }
+	T_ARITH_OPERS		// $(())
 }				t_lex_tkn_type;
 
 typedef enum	e_lex_tkn_class
@@ -54,11 +59,14 @@ typedef enum	e_lex_tkn_class
 	C_END,
 	C_WORD,
 	C_ASSIGNMENT_WORD,
-	C_EQ,
 	C_PIPE,
 	C_REDIR,				// "T_GREATER, T_GREATER_GREATER, T_LESS, T_LESS_LESS, T_LESS_AND, T_GREATER_AND"
 	C_SEP,
-	C_CONTROL_SUB
+	C_CONTROL_SUB,
+	C_LOG_OPERS,			// T_AND_AND, T_OR_OR
+	C_AND,
+	C_FIG_BRACE,			// T_OPEN_FIG_BRACE, T_CLOSE_FIG_BRACE
+	C_ARITH_OPERS
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn
@@ -108,6 +116,7 @@ t_lex_tkn		**lex_del_s_tokens(t_lex_tkns *s_tokens);
 t_lex_tkn		*lex_get_next_tkn(char	**str, size_t pos);
 void			lex_fill_value_pos(t_lex_tkn *token, char *str,
 	size_t start_pos, size_t pos);
+void			lex_rewind_end_spases(char *str, size_t *pos);
 
 /*
 ** lex_check_tkn.c
@@ -180,12 +189,6 @@ int				lex_is_asig_name(char *str, short is_word, size_t *pos,
 t_lex_tkn_type	lex_asig_name(short is_word, int err);
 
 /*
-** lex_asig_name.c
-*/
-
-t_lex_tkn_type	lex_check_eq(char **str, short is_word, size_t *pos);
-
-/*
 ** lex_dol.c
 */
 
@@ -197,12 +200,37 @@ t_lex_tkn_type	lex_check_dol(char **str, short is_word, size_t *pos);
 
 int				lex_is_control_sub(char *str, short is_word, size_t *pos, int *err);
 t_lex_tkn_type	lex_control_sub(short is_word, int err);
+void			lex_fill_control_sub_value(t_lex_tkn *token, char *str, size_t pos);
 
 /*
-** lex_tkn_value.c
+** lex_log_opers.c
 */
 
-int				lex_is_value(t_lex_tkn_type type);
+int				lex_is_and_and(char *str, size_t pos);
+t_lex_tkn_type	lex_check_and_and(char **str, short is_word, size_t *pos);
+int				lex_is_or_or(char *str, size_t pos);
+t_lex_tkn_type	lex_check_or_or(char **str, short is_word, size_t *pos);
+
+/*
+** lex_check_and.c
+*/
+
+t_lex_tkn_type	lex_check_and(char **str, short is_word, size_t *pos);
+
+/*
+** lex_check_fig_brace.c
+*/
+
+t_lex_tkn_type	lex_check_fig_brace(char **str, short is_word, size_t *pos);
+
+/*
+** lex_check_fig_brace.c
+*/
+
+int				lex_is_arith_opers(char *str, short is_word, size_t *pos,
+	int *err);
+t_lex_tkn_type	lex_arith_opers(short is_word, int err);
+void			lex_fill_arith_opers_value(t_lex_tkn *token, char *str, size_t pos);
 
 /*
 ** lex_debug.c

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:14:57 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/20 00:00:09 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void			rewind_spases(char *str, size_t *pos)
 		(*pos)++;
 }
 
-static void			rewind_end_spases(char *str, size_t *pos)
+void				lex_rewind_end_spases(char *str, size_t *pos)
 {
 	if (!str || !pos)
 		return ;
@@ -65,9 +65,13 @@ void				lex_fill_value_pos(t_lex_tkn *token, char *str,
 		return ;
 	token->start_pos = start_pos;
 	token->end_pos = pos;
-	if (lex_is_value(token->type))
+	if (token->type == T_CONTROL_SUB)
+		lex_fill_control_sub_value(token, str, pos);
+	else if (token->type == T_ARITH_OPERS)
+		lex_fill_arith_opers_value(token, str, pos);
+	else
 	{
-		rewind_end_spases(str, &pos);
+		lex_rewind_end_spases(str, &pos);
 		len = pos - start_pos;
 		token->value = ft_strsub(str, start_pos, len);
 	}

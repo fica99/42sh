@@ -1,48 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_asig_name.c                                    :+:      :+:    :+:   */
+/*   lex_log_opers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/17 22:43:06 by ggrimes          ###   ########.fr       */
+/*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/17 23:09:33 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-int				lex_is_asig_name(char *str, short is_word, size_t *pos,
-	int *err)
+int				lex_is_and_and(char *str, size_t pos)
 {
-	size_t	i;
-
 	if (!str)
 		return (0);
-	i = *pos;
-	if (ft_isdigit(str[i]))
-	{
-		*err = 1;
-		i++;
-	}
-	while (ft_isalnum(str[i]) || str[i] == '_')
-		i++;
-	if (str[i] != '=')
+	str += pos;
+	if (ft_strncmp(str, "&&", 2) != 0)
 		return (0);
-	else
-		i++;
-	while (str[i] && str[i] != ' ')
-		i++;
-	if (!is_word)
-		(*pos) = i;
 	return (1);
 }
 
-t_lex_tkn_type	lex_asig_name(short is_word, int err)
+t_lex_tkn_type	lex_check_and_and(char **str, short is_word, size_t *pos)
 {
-	if (err)
-		return (T_ERR);
+	(void)str;
 	if (is_word)
 		return (T_NULL);
-	return (T_ASSIGNMENT_WORD);
+	(*pos) += 2;
+	return (T_AND_AND);
+}
+
+int				lex_is_or_or(char *str, size_t pos)
+{
+	if (!str)
+		return (0);
+	str += pos;
+	if (ft_strncmp(str, "||", 2) != 0)
+		return (0);
+	return (1);
+}
+
+t_lex_tkn_type	lex_check_or_or(char **str, short is_word, size_t *pos)
+{
+	(void)str;
+	if (is_word)
+		return (T_NULL);
+	(*pos) += 2;
+	return (T_OR_OR);
 }

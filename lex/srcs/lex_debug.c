@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 21:39:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/19 23:57:43 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,20 @@ void	lex_print_type(t_lex_tkn_type type)
 		ft_putstr("IO_NUMBER\n");
 	else if (type == T_ASSIGNMENT_WORD)
 		ft_putstr("ASSIGNMENT_WORD\n");
-	else if (type == T_EQ)
-		ft_putstr("EQ\n");
 	else if (type == T_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
+	else if (type == T_ARITH_OPERS)
+		ft_putstr("ARITH_OPERS\n");
+	else if (type == T_AND_AND)
+		ft_putstr("AND_AND\n");
+	else if (type == T_OR_OR)
+		ft_putstr("OR_OR\n");
+	else if (type == T_AND)
+		ft_putstr("AND\n");
+	else if (type == T_OPEN_FIG_BRACE)
+		ft_putstr("OPEN_FIG_BRACE\n");
+	else if (type == T_CLOSE_FIG_BRACE)
+		ft_putstr("CLOSE_FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }
@@ -96,12 +106,18 @@ void	lex_print_class(t_lex_tkn_class class)
 		ft_putstr("PIPE\n");
 	else if (class == C_REDIR)
 		ft_putstr("REDIR\n");
+	else if (class == C_LOG_OPERS)
+		ft_putstr("LOG_OPERS\n");
 	else if (class == C_SEP)
 		ft_putstr("SEP\n");
-	else if (class == C_EQ)
-		ft_putstr("EQ\n");
 	else if (class == C_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
+	else if (class == C_ARITH_OPERS)
+		ft_putstr("ARITH_OPERS\n");
+	else if (class == C_AND)
+		ft_putstr("AND\n");
+	else if (class == C_FIG_BRACE)
+		ft_putstr("FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }
