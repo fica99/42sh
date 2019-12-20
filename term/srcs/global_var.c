@@ -26,6 +26,7 @@ void	init_global_var(char **environ)
 	init_global_env(&g_env, environ);
 	init_global_env(&g_set_env, values);
 	init_bin_table(&g_bin_table);
+	init_built_table(&g_built_table);
 	init_curr_pwd();
 }
 

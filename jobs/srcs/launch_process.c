@@ -23,6 +23,18 @@ void	redir(int **red)
 	}
 }
 
+int	launch_builtin(t_process *p)
+{
+	t_builtin func;
+
+	if (p->next)
+		return (-1);
+	if (!(func = (t_builtin)get_hash_data(g_built_table.table, p->args[0], g_built_table.size)))
+		return (-1);
+	func(ft_darlen(p->args), p->args);
+	return (0);
+}
+
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t 	pid;
