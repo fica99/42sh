@@ -49,6 +49,8 @@ void launch_job(t_job *j, int foreground)
     int pipes[2];
 
     p = j->first_process;
+    if (!launch_builtin(p))
+        return ; 
     while (p)
     {
         if (p->next)
@@ -59,9 +61,7 @@ void launch_job(t_job *j, int foreground)
         }
         pid = make_process();
         if (pid == 0)
-        {
             launch_process(p, j->pgid, foreground);
-        }
         else
         {
             p->pid = pid;

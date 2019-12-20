@@ -48,6 +48,7 @@ int   g_shell_terminal;
 int   g_shell_is_interactive;
 struct termios g_shell_tmodes;
 
+int	launch_builtin(t_process *p);
 /*
 ** init_jobs.c
 */
