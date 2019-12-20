@@ -1,7 +1,11 @@
 #include "ft_shell.h"
 
-void	set(int len, char **args, char **env_cp)
+int	set(int ac, char **args)
 {
-	env(len, args, env_cp);
-	env(len, args, g_set_env.env);
+	(void)ac;
+	(void)args;
+	
+	ft_putdar(g_env.env);
+	ft_putdar(g_set_env.env);
+	return (0);
 }

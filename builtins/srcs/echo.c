@@ -118,7 +118,7 @@ int		ft_echoflags(int *flags, char **argv)
 	return (i);
 }
 
-void	ft_echo(int argc, char **argv, char **env_cp)
+int	ft_echo(int argc, char **argv)
 {
 	int				i;
 	int				j;
@@ -127,7 +127,6 @@ void	ft_echo(int argc, char **argv, char **env_cp)
 	i = ft_echoflags(flags, argv);
 	if (flags[1] == 1)
 		i = ft_eflag(i, argv, argc, flags);
-	(void)env_cp;
 	while (argv[i])
 	{
 		j = 0;
@@ -156,4 +155,5 @@ void	ft_echo(int argc, char **argv, char **env_cp)
 	}
 	if (flags[0] == 0)
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	return (0);
 }

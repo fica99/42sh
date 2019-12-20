@@ -27,22 +27,25 @@
 # define FC_FILE_PERM S_IRUSR | S_IWUSR
 char *g_curr_dir; 					/* containing current logical path or physical if -P is active */
 
+typedef int(*t_builtin)(int, char **);
+
 typedef char t_flag;
 
 char			*ft_pathjoin(char *s1, char *s2);
 void			ft_putln(char *str);
 char			**check_flags(char **av, t_flag *no_links);
 int				change_wdir(char *path, t_flag no_links);
-int				pwd(char **av);
-int				cd(char **av);
+int				pwd(int ac, char **av);
+int				cd(int ac, char **av);
 void			rewrite_cwd(char *path);			/* rewrite current logical pwd */
 int				check_request(char **argv, char *path);
-void			ft_echo(int argc, char **argv, char **env_cp);
-void			env(int argc, char **argv, char **env_cp);
-void			set(int len, char **args, char **env_cp);
-void			unset(int len, char **args);
+int				ft_echo(int argc, char **argv);
+int				env(int argc, char **argv);
+int				set(int len, char **args);
+int				unset(int ac, char **args);
 void			export(int len, char **args);
 void			print_bin_table(t_hash **bin_table, size_t size);
+int				hash(int ac, char **av);						/*print hash table*/
 void			init_curr_pwd(void);				/* check current directory and rewrite PWD and g_curr_dir variables if it is invalid */
 /*
 ***	fc.c
