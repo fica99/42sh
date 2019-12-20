@@ -27,6 +27,8 @@
 # define FC_FILE_PERM S_IRUSR | S_IWUSR
 char *g_curr_dir; 					/* containing current logical path or physical if -P is active */
 
+typedef int(*t_builtin)(int, char **);
+
 typedef char t_flag;
 
 char			*ft_pathjoin(char *s1, char *s2);
