@@ -23,15 +23,65 @@ void	redir(int **red)
 	}
 }
 
-int	launch_builtin(t_process *p)
+static void restore_fd(int *fd)
+{
+	if (fd[0] > -1)
+	{
+		dup2(fd[0], STDIN_FILENO);
+		close(fd[0]);
+	}
+	if (fd[1] > -1)
+	{
+		dup2(fd[1], 1);
+		close(fd[1]);
+	}
+	if (fd[2] > -1)
+	{
+		dup2(fd[2], STDERR_FILENO);
+		close(fd[2]);
+	}
+}
+
+int find_dup(int **redir, int fd)
+{
+	int fd2;
+	while (*redir)
+	{
+		if ((*redir)[1] == fd)
+		{
+			if ((fd2 = dup(fd)) < 0)
+				perror ("dup");
+			return (fd2);
+		}
+		redir++;
+	}
+	return (-1);
+}
+
+static void	save_fd(int *fd, int **redir)
+{	
+	fd[0] = find_dup(redir, STDIN_FILENO);
+	fd[1] = find_dup(redir, STDOUT_FILENO);
+	fd[2] = find_dup(redir, STDERR_FILENO);
+}
+
+int	launch_builtin(t_process *p, int flag)
 {
 	t_builtin func;
+	int fd[3];
 
-	if (p->next)
+	if (p->next && flag == NO_FORK)
 		return (-1);
 	if (!(func = (t_builtin)get_hash_data(g_built_table.table, p->args[0], g_built_table.size)))
 		return (-1);
+	if (flag == NO_FORK)
+	{
+		save_fd(fd, p->redir);
+		redir(p->redir);
+	}
 	func(ft_darlen(p->args), p->args);
+	if (flag == NO_FORK)
+		restore_fd(fd);
 	return (0);
 }
 
@@ -68,6 +118,8 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		close(p->outpipe);
 	}
 	redir(p->redir);
+	if (!launch_builtin(p, FORK))
+		exit (0);
 	if (ft_strchr(p->args[0], '/'))
 		fname = p->args[0];
 	else if (!(fname = (char *)get_hash_data(g_bin_table.table, p->args[0], g_bin_table.size)))

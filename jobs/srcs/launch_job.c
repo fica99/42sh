@@ -49,7 +49,7 @@ void launch_job(t_job *j, int foreground)
     int pipes[2];
 
     p = j->first_process;
-    if (!launch_builtin(p))
+    if (!launch_builtin(p, NO_FORK))
         return ; 
     while (p)
     {
