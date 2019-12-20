@@ -12,16 +12,20 @@
 
 #include "ft_shell.h"
 
-void	env(int argc, char **argv, char **env_cp)
+int	env(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 	int j;
+	char **env_cp;
 
+	env_cp = g_env.env;
 	j = -1;
 	while (env_cp[++j])
 	{
 		ft_putstr(env_cp[j]);
 		ft_putchar('\n');
 	}
+	return (0);
 }
+

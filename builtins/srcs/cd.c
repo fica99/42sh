@@ -110,12 +110,13 @@ int cdpath_handle(char *path, t_flag no_links)
 	return (ret);
 }
 
-int	cd(char **av)
+int	cd(int ac, char **av)
 {
 	char	**dir;
 	t_flag	no_links;
 	char	*path;
 
+	(void)ac;
 	no_links = 0;
 	if (!(dir = check_flags(av, &no_links)))
 	{

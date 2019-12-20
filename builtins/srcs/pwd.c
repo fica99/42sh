@@ -12,11 +12,12 @@
 
 #include "ft_shell.h"
 
-int	pwd(char **av)
+int	pwd(int ac, char **av)
 {
 	char	*dir;
 	t_flag	no_links;
 
+	(void)ac;
 	no_links = 0;
 	if (!check_flags(av, &no_links))
 	{
