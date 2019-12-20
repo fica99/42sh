@@ -3,6 +3,8 @@
 # define DEF_ARGS_SIZE 10
 # define DEF_REDIR_SIZE 10
 # define DEF_OPENFD_SIZE 10
+# define NO_FORK 0
+# define FORK 1
 
 // typedef struct	s_open_fd
 // {
@@ -48,7 +50,7 @@ int   g_shell_terminal;
 int   g_shell_is_interactive;
 struct termios g_shell_tmodes;
 
-int	launch_builtin(t_process *p);
+int	launch_builtin(t_process *p, int flag);
 /*
 ** init_jobs.c
 */
