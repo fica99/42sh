@@ -36,7 +36,7 @@ static int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	}
 	if ((*(list + 1))->type != T_WORD)
 		return(syntax_err(*(list + 1)));
-	return (red[(*list)->type - 7](list, curr_proc, io_number));
+	return (red[(*list)->type - 6](list, curr_proc, io_number));
 }
 
 static int	parse_assignment_word(t_lex_tkn **list, t_process *curr_proc)
