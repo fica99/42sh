@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/11 18:23:31 by jijerde          ###   ########.fr       */
+/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void	check_valid_string(char *buffer)
 	t_lex_tkn	**tokens;
 
 	tokens = lex_get_tkns(&buffer);
+	//lex_print_tkns(tokens);
 	parse(tokens);
 }
