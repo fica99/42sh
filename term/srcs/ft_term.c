@@ -65,6 +65,6 @@ void	check_valid_string(char *buffer)
 	t_lex_tkn	**tokens;
 
 	tokens = lex_get_tkns(&buffer);
-	lex_print_tkns(tokens);
-	//parse(tokens);
+	//lex_print_tkns(tokens);
+	parse(tokens);
 }

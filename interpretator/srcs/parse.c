@@ -42,7 +42,7 @@ int	logical_list(t_lex_tkn **list)
 
 	// if (!*list)
 	// 	return (0);
-	// if ((*list)->class == C_LOGICAL)
+	// if ((*list)->class ==)
 	// 	return (syntax_err(list));
 	// tmp = find_token(list, LOGICAL);
 	// add_logical(tmp);
@@ -50,7 +50,7 @@ int	logical_list(t_lex_tkn **list)
 	if ((pipe_sequence(list)) < 0)
 		return (-1);
 	return (0);
-	// return (logical_list(tmp));
+	//return (logical_list(tmp));
 }
 
 int	start(t_lex_tkn **list)
