@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_templates.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/24 19:08:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/21 18:08:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,5 @@
 # define RL_K_CTRL_H 8
 # define RL_K_CTRL_D 4
 # define RL_K_CTRL_R 18
+# define RL_K_TAB 9
 #endif

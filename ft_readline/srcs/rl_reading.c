@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_reading.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:22:59 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/21 18:11:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ void	rl_find_template(t_readline *rl, char *c)
 {
 	void	(*handler)(t_readline *rl);
 
+	if (*c == RL_K_TAB)
+		autocomplite(&rl->line, &rl->cord);
+	else
+		autocomplite(NULL, NULL);
 	if (rl->mode == VI)
 	{
 		if (ft_isprint(*c) && !(g_rl_flags & RL_VI_COMMAND_MODE))
