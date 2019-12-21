@@ -31,6 +31,7 @@ typedef int(*t_builtin)(int, char **);
 
 typedef char t_flag;
 
+int				exit_built(int ac, char **av);
 char			*ft_pathjoin(char *s1, char *s2);
 void			ft_putln(char *str);
 char			**check_flags(char **av, t_flag *no_links);

@@ -27,17 +27,20 @@ static void restore_fd(int *fd)
 {
 	if (fd[0] > -1)
 	{
-		dup2(fd[0], STDIN_FILENO);
+		if (dup2(fd[0], STDIN_FILENO) < 0)
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		close(fd[0]);
 	}
 	if (fd[1] > -1)
 	{
-		dup2(fd[1], 1);
+		if (dup2(fd[1], 1) < 0)
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		close(fd[1]);
 	}
 	if (fd[2] > -1)
 	{
-		dup2(fd[2], STDERR_FILENO);
+		if (dup2(fd[2], STDERR_FILENO))
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		close(fd[2]);
 	}
 }
@@ -50,7 +53,7 @@ int find_dup(int **redir, int fd)
 		if ((*redir)[1] == fd)
 		{
 			if ((fd2 = dup(fd)) < 0)
-				perror ("dup");
+				err_exit("42sh", "dup() error", NULL, NOERROR);
 			return (fd2);
 		}
 		redir++;
@@ -65,22 +68,22 @@ static void	save_fd(int *fd, int **redir)
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int	launch_builtin(t_process *p, int flag)
+int	launch_builtin(t_process *p, int no_fork)
 {
 	t_builtin func;
 	int fd[3];
 
-	if (p->next && flag == NO_FORK)
+	if (p->next && no_fork)
 		return (-1);
 	if (!(func = (t_builtin)get_hash_data(g_built_table.table, p->args[0], g_built_table.size)))
 		return (-1);
-	if (flag == NO_FORK)
+	if (no_fork)
 	{
 		save_fd(fd, p->redir);
 		redir(p->redir);
 	}
 	func(ft_darlen(p->args), p->args);
-	if (flag == NO_FORK)
+	if (no_fork)
 		restore_fd(fd);
 	return (0);
 }
@@ -106,16 +109,21 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		close(STDERR_FILENO);*/
 	}
 	if (p->next && p->next->inpipe)
-		close (p->next->inpipe);
+		if (close (p->next->inpipe) < 0)
+			err_exit("42sh", "close() error", NULL, NOERROR);
 	if (p->inpipe != STDIN_FILENO)
 	{
-		dup2(p->inpipe, STDIN_FILENO);
-		close(p->inpipe);
+		if (dup2(p->inpipe, STDIN_FILENO) < 0)
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		if (close(p->inpipe) < 0)
+			err_exit("42sh", "close() error", NULL, NOERROR);
 	}
 	if (p->outpipe != STDOUT_FILENO)
 	{
-		dup2(p->outpipe, STDOUT_FILENO);
-		close(p->outpipe);
+		if (dup2(p->outpipe, STDOUT_FILENO) < 0)
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
+		if (close(p->outpipe) < 0)
+			err_exit("42sh", "close() error", NULL, NOERROR);
 	}
 	redir(p->redir);
 	if (!launch_builtin(p, FORK))

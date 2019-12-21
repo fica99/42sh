@@ -23,6 +23,7 @@ srcs := cd.c\
 		fc_print.c\
 		unset.c\
 		export.c\
+		exit_built.c
 
 objs := $(srcs:.c=.o)
 

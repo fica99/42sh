@@ -47,8 +47,6 @@ void	term_start(void)
 	{
 		g_flags = INIT_FLAGS;
 		line = ft_readline(get_env("PS1", ALL_ENV), EMACS);
-		if (!ft_strcmp(line, "exit"))
-			break ;
 		//subshell_expr(line); /* TODO перенести в парсер #96. */
 		//subgroups_expr(line); /* TODO перенести в парсер #99. */
 		check_valid_string(line);
