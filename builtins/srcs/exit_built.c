@@ -6,6 +6,7 @@ static int is_num(char *str)
 	{
 		if (*str < '0' || *str > '9')
 			return (-1);
+		str++;
 	}
 	return (0);
 }
