@@ -17,6 +17,7 @@
 # define PREV_D ".."
 # define CUR_D "."
 # define FT_PATH_MAX 1000
+# define BUILT_NUM 8
 
 typedef struct	s_table
 {
@@ -32,5 +33,8 @@ size_t			get_bin_table_size(char **path);
 t_hash			**make_bin_table(char **path, size_t size);
 void			free_table(t_table *table);
 
+void			init_built_table(t_table *g_built_table);
+
+t_table			g_built_table;
 t_table			g_bin_table;
 #endif

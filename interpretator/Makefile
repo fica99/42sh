@@ -6,20 +6,26 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2019/12/17 12:31:59 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 srcs := parse.c\
 		err.c\
 		token_handle.c\
-		ft_realloc.c\
-		ft_strtok.c\
 		close_fds.c\
 		add_process.c\
 		fd_aggr.c\
-		redirect_list.c\
-		ft_free_jobs.c
+		word_list.c\
+		ft_free_jobs.c\
+		heredoc.c\
+		ft_open.c\
+		io_redir.c\
+		add_redir.c\
+		exec_jobs.c\
+		spec_symb.c\
+		expansions_validation.c\
+		expansions_implementation.c\
 
 objs := $(srcs:.c=.o)
 

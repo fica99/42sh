@@ -1,11 +1,13 @@
 #include "ft_shell.h"
 
-void	unset(int len, char **args)
+int	unset(int ac, char **av)
 {
-	len--;
-	while (len > 0)
+	(void)ac;
+
+	if (av && *av)
 	{
-		unset_env(args[len], ALL_ENV);
-		len--;
+		while (*++av)
+			unset_env(*av, ALL_ENV);
 	}
+	return (0);
 }

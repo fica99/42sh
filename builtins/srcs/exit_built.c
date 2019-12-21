@@ -1,24 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   exit_built.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/01 16:29:46 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/01 16:29:47 by mmarti           ###   ########.fr       */
+/*   Created: 2019/12/21 13:04:49 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/21 13:04:50 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	*ft_realloc(void *buf, size_t old, size_t new_size)
+static int	is_num(char *str)
 {
-	unsigned char	*new_buf;
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (-1);
+		str++;
+	}
+	return (0);
+}
 
-	if (!(new_buf = (unsigned char *)ft_memalloc(new_size)))
-		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	if (buf)
-		ft_memcpy(new_buf, buf, old);
-	return (new_buf);
+int			exit_built(int ac, char **av)
+{
+	if (ac > 2)
+	{
+		ft_error("42sh", av[0], NULL, "too many arguments");
+		return (-1);
+	}
+	if (!av[1])
+		exit(last_exit_status);
+	if (is_num(av[1]) < 0)
+	{
+		ft_error("42sh", av[0], NULL, "numeric argument required");
+		exit(255);
+	}
+	exit(ft_atoi(av[1]));
+	return (0);
 }

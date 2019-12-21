@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/07 16:39:33 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	term_start(void)
 	{
 		g_flags = INIT_FLAGS;
 		line = ft_readline(get_env("PS1", ALL_ENV), EMACS);
-		if (!ft_strcmp(line, "exit"))
-			break ;
 		//subshell_expr(line); /* TODO перенести в парсер #96. */
 		//subgroups_expr(line); /* TODO перенести в парсер #99. */
 		check_valid_string(line);
@@ -65,5 +63,6 @@ void	check_valid_string(char *buffer)
 	t_lex_tkn	**tokens;
 
 	tokens = lex_get_tkns(&buffer);
+	//lex_print_tkns(tokens);
 	parse(tokens);
 }

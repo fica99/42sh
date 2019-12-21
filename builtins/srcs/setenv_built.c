@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strccut.c                                       :+:      :+:    :+:   */
+/*   setenv_built.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/29 16:26:08 by mmarti            #+#    #+#             */
-/*   Updated: 2019/11/29 16:26:10 by mmarti           ###   ########.fr       */
+/*   Created: 2019/12/21 13:09:22 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/21 13:09:24 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libstr.h"
+#include "ft_shell.h"
 
-char *ft_stricut(char *str, int i)
+int	setenv_built(int ac, char **av)
 {
-	if (!str)
-		return (0);
-	if (i > (int)ft_strlen(str) - 1)
-		return (str);
-	str += i;
-	while (*++str)
-		*(str - 1) = *str;
-	*(str - 1) = 0;
-	return (str);
-}
-
-char *ft_strccut(char *str, char c)
-{
-	char *tmp;
-
-	if (!str)
-		return (0);
-	while ((tmp = ft_strchr(str, c)))
-		ft_stricut(str, tmp - str);
-	return (str);
+	if (ac > 3)
+	{
+		ft_error("42sh", av[0], NULL, "too many arguments");
+		return (1);
+	}
+	if (ac == 1)
+		ft_putdar(g_env.env);
+	else
+		ft_setenv(av[1], av[2], &g_env);
+	return (0);
 }

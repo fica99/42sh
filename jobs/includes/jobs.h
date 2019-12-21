@@ -3,12 +3,16 @@
 # define DEF_ARGS_SIZE 10
 # define DEF_REDIR_SIZE 10
 # define DEF_OPENFD_SIZE 10
+# define NO_FORK 1
+# define FORK 0
 
-typedef struct	s_open_fd
-{
-	int	*fd;
-	size_t size;
-}				t_open_fd;
+int last_exit_status;
+
+// typedef struct	s_open_fd
+// {
+// 	int	*fd;
+// 	size_t size;
+// }				t_open_fd;
 
 /* A process is a single process.  */
 typedef struct s_process
@@ -20,14 +24,18 @@ typedef struct s_process
     char stopped;               /* true if process has stopped */
     int status;                 /* reported status value */
     int **redir;
+    int inpipe;
+    int outpipe;
     size_t redir_size;
     size_t args_size;
-    t_open_fd open_fd;
+    // t_open_fd open_fd;
 }   t_process;
 
 /* A job is a pipeline of processes.  */
 typedef struct s_job
 {
+    char unactive;
+    char *err_message;
     struct s_job *next;           /* next active job */
     char *command;              /* command line, used for messages */
     t_process *first_process;     /* process in this job */
@@ -44,6 +52,7 @@ int   g_shell_terminal;
 int   g_shell_is_interactive;
 struct termios g_shell_tmodes;
 
+int	launch_builtin(t_process *p, int flag);
 /*
 ** init_jobs.c
 */
@@ -98,7 +107,7 @@ void do_job_notification(void);
 /*
 **	launch_process.c
 */
-void    launch_process(t_process *p, pid_t pgid, int foreground);
+void	launch_process(t_process *p, pid_t pgid, int foreground);
 /*
 **  init_process.c
 */

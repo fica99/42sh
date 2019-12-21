@@ -33,3 +33,12 @@ void	print_bin_table(t_hash **bin_table, size_t size)
 		}
 	}
 }
+
+int hash(int ac, char **av)
+{
+	(void)ac;
+	(void)av;
+
+	print_bin_table(g_bin_table.table, g_bin_table.size);
+	return (0);
+}

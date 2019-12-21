@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2019/12/19 23:36:09 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,12 @@ srcs := lex_lexer.c\
 		lex_check_quotes.c\
 		lex_io_num.c\
 		lex_asig_name.c\
-		lex_eq.c\
 		lex_dol.c\
 		lex_con_sub.c\
-		lex_tkn_value.c\
+		lex_log_opers.c\
+		lex_check_and.c\
+		lex_check_fig_brace.c\
+		lex_arithmetic_opers.c\
 		lex_debug.c\
 
 objs := $(srcs:.c=.o)
