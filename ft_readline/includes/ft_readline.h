@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:20:50 by filip             #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/21 18:18:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,29 @@
 # define RL_PROMPT_TIME_BRACKETS 2
 # define RL_MIN(a, b) ((a > b) ? b : a)
 # define RL_MAX(a, b) ((a > b) ? a : b)
+# define SUCCESS 1
+# define FUILURE 0
+# define CHECK(val) if (!val) return (0)
+# define CHECKV(val) if (!val) return
 
+typedef struct	s_autocom
+{
+	int			max_len;
+	int			opts_size;
+	int			cols;
+	int			rows;
+	int			index;
+	int			index_print;
+	char		*start;
+	char		*path;
+	int			prog;
+	int			first;
+	int			scrolling;
+	int			delta_y;
+	int			opts_print;
+	int			fixed_opts_print;
+	char		**options;
+}				t_autocom;
 typedef struct		s_buff
 {
 	char			*buffer;
@@ -347,6 +369,66 @@ void				rl_err(char *name, char *str, char *err);
 **	rl_main2.c
 */
 int					get_hist_size(void);
+
+/*
+**	ac_autocom.c
+*/
+void				autocomplite(t_buff *buff, t_rl_cord *cord);
+void				ac_complement_line(t_buff *buffer, t_rl_cord *cord, t_autocom *ac);
+int					ac_rewrite_str(char *dest, char *src);
+/*
+**	ac_move_cursor.c
+*/
+void				move_cursor_pos(short x, short y);
+void				move_cursor_down(short count);
+void				move_cursor_left(short count);
+void				move_cursor_right(short count);
+void				move_cursor_up(short count);
+/*
+**	ac_options.c
+*/
+char				**ac_get_options(char *start, short is_prog, t_autocom *ac);
+char				**ac_newselection(char **options, char *search_arg);
+char				**ac_options_selection(char *arg, char **options);
+char				**ac_dir_options(char *dirpath, t_autocom *ac);
+char				**ac_prog_options(void);
+/*
+**	ac_options2.c
+*/
+char				**ac_add_options(char *path, char **options);
+void				clear_opts_args(char *arg, char *search_arg,
+char **options);
+/*
+**	ac_parse.c
+*/
+char				**ac_parse_cmd_line(char *line, t_autocom *ac);
+char				*ac_parse_path(char *buffer);
+char				*ac_parse_arg(char *dirpath);
+char				*ac_tilda(char *dirpath);
+/*
+**	ac_print_paramas.c
+*/
+void				ac_conversion_scrolling(int opt_rows, t_rl_cord *cord,
+t_autocom *ac);
+void				ac_get_rows_cols_count(char **options, t_rl_cord *cord,
+t_autocom *ac);
+int					ac_get_max_word_len(char **list);
+int					ac_get_rows(int count_options, int cols);
+void				ac_set_null_params(t_autocom *ac);
+/*
+**	ac_print.c
+*/
+void				ac_print_options(t_autocom *ac, t_rl_cord *cord);
+void				ac_print_coll(t_autocom *ac, int *index);
+void				ac_select_option(char *option);
+void				ac_clear_options(void);
+void				ac_return_carriage(short count);
+/*
+**	ac_recalc_index.c
+*/
+void				ac_index_tracking(t_autocom *ac);
+void				ac_opts_tracking(t_autocom *ac);
+
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

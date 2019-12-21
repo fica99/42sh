@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
+#    By: aashara- <aashara- <marvin@42.fr>>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2019/12/21 18:02:21 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,14 @@ srcs := rl_main.c\
 	rl_hist_expansions.c\
 	rl_err.c\
 	rl_main2.c\
+	ac_autocom.c\
+	ac_move_cursor.c\
+	ac_options.c\
+	ac_options2.c\
+	ac_parse.c\
+	ac_print_params.c\
+	ac_print.c\
+	ac_recalc_index.c\
 
 objs := $(srcs:.c=.o)
 
