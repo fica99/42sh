@@ -43,6 +43,8 @@ char **read_heredoc(char const *delim)
 			buf_size *= 2;
 		}
 	}
+	if (tmp)
+		free(tmp);
 	return (buf);
 }
 
