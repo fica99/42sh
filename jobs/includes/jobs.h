@@ -3,8 +3,10 @@
 # define DEF_ARGS_SIZE 10
 # define DEF_REDIR_SIZE 10
 # define DEF_OPENFD_SIZE 10
-# define NO_FORK 0
-# define FORK 1
+# define NO_FORK 1
+# define FORK 0
+
+int last_exit_status;
 
 // typedef struct	s_open_fd
 // {

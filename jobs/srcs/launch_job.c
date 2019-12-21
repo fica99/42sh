@@ -1,52 +1,11 @@
 #include "ft_shell.h"
 
-// int count_proc(t_process *p)
-// {
-//     int res;
-
-//     res = 0;
-//     while (p)
-//     {
-//         res++;
-//         p = p->next;
-//     }
-//     return (res);
-// }
-
-// int **make_pipe(t_process *p)
-// {
-//     int **pipes;
-//     int *fd;
-//     int i;
-
-//     i = 0;
-//     if (!(pipes = (int **)malloc(sizeof(int *) * count_proc(p) - 1)))
-//         err_exit("42sh", "malloc() error", NULL, NOERROR);
-//     while (p->next)
-//     {
-//         if (!(fd = (int *)malloc(sizeof(int) * 2)))
-//             err_exit("42sh", "malloc() error", NULL, NOERROR);
-//         pipe(fd);
-//         pipes[i++] = fd;
-//         p->outpipe = fd[1];
-//         p->next->inpipe = fd[0];
-//         p = p->next;
-//     }
-//     return (pipes);
-// }
-
-// void pr(int sig)
-// {
-//     (void)sig;
-//     wait(0);
-// }
-
 void launch_job(t_job *j, int foreground)
 {
    // int status;
     t_process   *p;
     pid_t       pid;
-    int pipes[2];
+    int         pipes[2];
 
     p = j->first_process;
     if (!launch_builtin(p, NO_FORK))
@@ -55,7 +14,8 @@ void launch_job(t_job *j, int foreground)
     {
         if (p->next)
         {
-            pipe(pipes);
+            if (pipe(pipes) < 0)
+                err_exit("42sh", "pipe() error", NULL, NOERROR);
             p->outpipe = pipes[1];
             p->next->inpipe = pipes[0];
         }
@@ -72,9 +32,11 @@ void launch_job(t_job *j, int foreground)
                 setpgid(pid, j->pgid);
             }
             if (p->inpipe != STDIN_FILENO)
-                close(p->inpipe);
+                if (close(p->inpipe) < 0)
+                    err_exit("42sh", "close() error", NULL, NOERROR);
             if (p->outpipe != STDOUT_FILENO)
-                close(p->outpipe);
+                if (close(p->outpipe) < 0)
+                    err_exit("42sh", "close() error", NULL, NOERROR);
         }
         p = p->next;
     }
