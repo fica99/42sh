@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/21 13:44:14 by mmarti           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_shell.h"
 
-static int write_here_doc(/*t_process *curr_proc,*/ char **buf)
+static int	write_here_doc(char **buf)
 {
 	int fd;
 
@@ -19,39 +31,37 @@ static int write_here_doc(/*t_process *curr_proc,*/ char **buf)
 	return (fd);
 }
 
-char **read_heredoc(char const *delim)
+char		**read_heredoc(char const *delim)
 {
-	char **buf;
-	size_t buf_size;
-	size_t i;
-	char *tmp;
-	char **tmpb;
+	t_her_vars v;
 
-	i = 0;
-	buf_size = DEF_HEREDOC_SIZE;
-	if (!(buf = (char **)ft_memalloc(sizeof(char *) * buf_size)))
+	v.i = 0;
+	v.tmp = NULL;
+	v.buf_size = DEF_HEREDOC_SIZE;
+	if (!(v.buf = (char **)ft_memalloc(sizeof(char *) * v.buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	while ((tmp = ft_readline("heredoc>", EMACS)) && ft_strcmp(tmp, delim))
+	while ((v.tmp = ft_readline("heredoc>", EMACS)) && ft_strcmp(v.tmp, delim))
 	{
-		buf[i++] = tmp;
-		if (i >= buf_size - 1)
+		v.buf[v.i++] = v.tmp;
+		if (v.i >= v.buf_size - 1)
 		{
-			if (!(tmpb = (char **)ft_realloc(buf, sizeof(char *) * buf_size, sizeof(char *) * (buf_size * 2))))
+			if (!(v.tmpb = (char **)ft_realloc(v.buf, sizeof(char *) *
+			v.buf_size, sizeof(char *) * (v.buf_size * 2))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
-			free(buf);
-			buf = tmpb;
-			buf_size *= 2;
+			free(v.buf);
+			v.buf = v.tmpb;
+			v.buf_size *= 2;
 		}
 	}
-	if (tmp)
-		free(tmp);
-	return (buf);
+	if (v.tmp)
+		free(v.tmp);
+	return (v.buf);
 }
 
-int here_doc(t_lex_tkn **list, t_process *curr, int io_number)
+int			here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 {
-	char **buf;
-	int fd;
+	char	**buf;
+	int		fd;
 
 	if (io_number < 0)
 		io_number = 0;
@@ -60,5 +70,5 @@ int here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 	fd = write_here_doc(buf);
 	ft_free_dar(buf);
 	add_redir(curr, fd, io_number);
-	return(word_list(++list, curr));
+	return (word_list(++list, curr));
 }

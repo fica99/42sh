@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fd_aggr.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/21 13:25:03 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/21 13:25:05 by mmarti           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_shell.h"
 
 static int	get_fd(char *str)
@@ -15,7 +27,7 @@ static int	get_fd(char *str)
 	return (fd);
 }
 
-int find_fd(int **redir, int fd)
+int			find_fd(int **redir, int fd)
 {
 	while (*redir)
 	{
@@ -26,7 +38,7 @@ int find_fd(int **redir, int fd)
 	return (-1);
 }
 
-int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
+int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 {
 	int fd_w;
 
@@ -38,14 +50,15 @@ int g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		return (g_redir(--list, curr_proc, io_number));
 	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
 	{
-		file_err("42sh: ", (*list)->value, ": Bad file descriptor", g_first_job);
+		file_err("42sh: ", (*list)->value,
+		": Bad file descriptor", g_first_job);
 		return (0);
 	}
 	add_redir(curr_proc, fd_w, io_number);
 	return (word_list(++list, curr_proc));
 }
 
-int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
+int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 {
 	int fd_w;
 
@@ -60,7 +73,8 @@ int l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	}
 	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
 	{
-		file_err("42sh: ", (*list)->value, ": Bad file descriptor", g_first_job);
+		file_err("42sh: ", (*list)->value,
+		": Bad file descriptor", g_first_job);
 		return (0);
 	}
 	add_redir(curr_proc, fd_w, io_number);

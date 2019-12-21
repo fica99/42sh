@@ -14,11 +14,11 @@
 
 int	env(int argc, char **argv)
 {
+	int		j;
+	char	**env_cp;
+
 	(void)argc;
 	(void)argv;
-	int j;
-	char **env_cp;
-
 	env_cp = g_env.env;
 	j = -1;
 	while (env_cp[++j])
@@ -28,4 +28,3 @@ int	env(int argc, char **argv)
 	}
 	return (0);
 }
-

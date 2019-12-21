@@ -21,7 +21,7 @@ void	init_curr_pwd(void)
 	set_env("PWD", g_curr_dir, ENV);
 }
 
-int	check_request(char **argv, char *path)
+int		check_request(char **argv, char *path)
 {
 	struct stat	buf;
 
@@ -65,52 +65,33 @@ char	**check_flags(char **av, t_flag *no_links)
 	return (&av[j]);
 }
 
-int try_cdpath(char *path, char **cdpath, t_flag no_links)
+char	*get_path(char **dir)
 {
-	int i;
-	char *tmp;
-	int ret;
+	char *path;
 
-	ret = -1;
-	i = -1;
-	while (cdpath[++i])
+	if (!*dir || !ft_strcmp(*dir, "--"))
 	{
-		if (!ft_strcmp(cdpath[i], ".."))
-			continue ;
-		if (!(tmp = ft_pathjoin(cdpath[i], path)))
-			err_exit("42sh", "malloc() error", NULL, NOERROR);
-		if (!(ret = change_wdir(tmp, no_links)))
+		if (!(path = get_env("HOME", ENV)))
 		{
-			if (no_links)
-				ft_putln(tmp);
-			else
-				ft_putln(g_curr_dir);
-			free(tmp);
-			break ;
+			ft_error("42sh", "cd", NULL, "HOME not set");
+			return (NULL);
 		}
-		free(tmp);
 	}
-	return (ret);
+	else if (!ft_strcmp(*dir, "-"))
+	{
+		if (!(path = get_env("OLDPWD", ENV)))
+		{
+			ft_error("42sh", "cd", NULL, "OLDPWD not set");
+			return (NULL);
+		}
+		ft_putln(path);
+	}
+	else
+		path = *dir;
+	return (path);
 }
 
-int cdpath_handle(char *path, t_flag no_links)
-{
-	char *var_val;
-	char **cdpath;
-	int ret;
-
-	if (!ft_strncmp(path, ".", 1) || !ft_strncmp(path, "..", 2))
-		return (-1);
-	if (!(var_val = get_env("CDPATH", ALL_ENV)))
-		return (-1);
-	if (!(cdpath = ft_strsplit(var_val, ':')))
-		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	ret = try_cdpath(path, cdpath, no_links);
-	ft_free_dar(cdpath);
-	return (ret);
-}
-
-int	cd(int ac, char **av)
+int		cd(int ac, char **av)
 {
 	char	**dir;
 	t_flag	no_links;
@@ -129,15 +110,8 @@ int	cd(int ac, char **av)
 		if (!(getcwd(g_curr_dir, MAXDIR)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
-	if (!*dir || !ft_strcmp(*dir, "--"))
-		path = get_env("HOME", ENV);
-	else if (!ft_strcmp(*dir, "-"))
-	{
-		path = get_env("OLDPWD", ENV);
-		ft_putln(path);
-	}
-	else
-		path = *dir;
+	if (!(path = get_path(dir)))
+		return (-1);
 	if (cdpath_handle(path, no_links) < 0)
 		if (change_wdir(path, no_links) < 0)
 			return (check_request(av, path));

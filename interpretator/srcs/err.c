@@ -12,7 +12,7 @@
 
 #include "ft_shell.h"
 
-int syntax_err(t_lex_tkn *token)
+int		syntax_err(t_lex_tkn *token)
 {
 	ft_putstr("42sh: ");
 	ft_putstr("syntax error near unexpected token: ");
@@ -33,8 +33,8 @@ int syntax_err(t_lex_tkn *token)
 
 void	file_err(char *s1, char *s2, char *s3, t_job *j)
 {
-	char *buf;
-	size_t len;
+	char	*buf;
+	size_t	len;
 
 	if (!s1 || !s2 || !s3)
 		return ;

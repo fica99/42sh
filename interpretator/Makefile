@@ -24,7 +24,6 @@ srcs := parse.c\
 		add_redir.c\
 		exec_jobs.c\
 		spec_symb.c\
-		parse_quotes.c\
 		expansions_validation.c\
 		expansions_implementation.c\
 
