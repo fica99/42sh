@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io_redir.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/21 13:44:50 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/21 13:44:52 by mmarti           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_shell.h"
 
-int l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
+int	l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 {
 	int fd_w;
 

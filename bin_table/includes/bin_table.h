@@ -25,8 +25,6 @@ typedef struct	s_table
 	t_hash		**table;
 }				t_table;
 
-t_table			g_built_table;
-
 /*
 **	hash_table.c
 */
@@ -35,9 +33,8 @@ size_t			get_bin_table_size(char **path);
 t_hash			**make_bin_table(char **path, size_t size);
 void			free_table(t_table *table);
 
+void			init_built_table(t_table *g_built_table);
 
-void	init_built_table(t_table *g_built_table);
-
-
+t_table			g_built_table;
 t_table			g_bin_table;
 #endif

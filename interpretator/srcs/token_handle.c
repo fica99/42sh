@@ -12,14 +12,14 @@
 
 #include "ft_shell.h"
 
-t_lex_tkn **find_token(t_lex_tkn **list, int class)
+t_lex_tkn	**find_token(t_lex_tkn **list, int class)
 {
 	while ((*list)->type != T_END && (*list)->class != class)
 		list++;
 	return (list);
 }
 
-t_lex_tkn **split_list(t_lex_tkn **token)
+t_lex_tkn	**split_list(t_lex_tkn **token)
 {
 	if (!*token || (*token)->type == T_END)
 		return (token);

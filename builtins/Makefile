@@ -24,7 +24,8 @@ srcs := cd.c\
 		unset.c\
 		export.c\
 		exit_built.c\
-		setenv_built.c
+		setenv_built.c\
+		cdpath.c
 
 objs := $(srcs:.c=.o)
 
