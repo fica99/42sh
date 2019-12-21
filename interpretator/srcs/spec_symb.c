@@ -84,6 +84,24 @@ char	*isexpansion(char *args)
 	return (var);
 }
 
+void	dollar_circle(char *spec, char **var)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	
+	i = 0;
+	while ((ft_strchr(spec + i, '$')))
+	{
+		i++;
+		j = i;
+		while (spec[i] != '$' && spec[i])
+			i++;
+		ft_strcat(*var, (get_env((tmp = ft_strsub(spec, j, i - j)), ALL_ENV)));
+		free(tmp);
+	}
+}
+
 char	*dollar_expr(char *args)
 {
 	char	*arr;
@@ -91,7 +109,6 @@ char	*dollar_expr(char *args)
 	char	*spec;
 	char	*copy;
 	int		i;
-	int		j;
 
 	i = 0;
 	spec = ft_strchr(args, '$');
@@ -103,20 +120,24 @@ char	*dollar_expr(char *args)
 	}
 	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);
+	/*if (!copy)
+		if (!(spec[1]))
+			return (args);*/
 	if ((arr = ft_strchr(spec, ' '))) // шо эта?
 	{
 		*arr = '\0';
 		arr++;
 	}
 	ft_strcat(var, copy);
-	while ((ft_strchr(spec + i, '$')))
+	dollar_circle(spec, &var);
+	/*while ((ft_strchr(spec + i, '$')))
 	{
 		i++;
 		j = i;
 		while (spec[i] != '$' && spec[i])
 			i++;
 		ft_strcat(var, (get_env(ft_strsub(spec, j, i - j), ALL_ENV)));
-	}
+	}*/
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);
 	ft_memdel((void**)&args);
