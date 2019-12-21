@@ -6,7 +6,7 @@ int	unset(int ac, char **av)
 
 	if (av && *av)
 	{
-		while (++*av)
+		while (*++av)
 			unset_env(*av, ALL_ENV);
 	}
 	return (0);
