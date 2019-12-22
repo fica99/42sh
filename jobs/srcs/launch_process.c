@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/12/01 11:20:18 by lcrawn           ###   ########.fr       */
+/*   Updated: 2019/12/22 16:18:58 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,15 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	pid_t 	pid;
 	char *fname;
 
-	if (g_shell_is_interactive)
-    {
-    	pid = getpid();
-    	if (pgid == 0)
-			pgid = pid;
-      	setpgid(pid, pgid);
-      	if (foreground)
-        	tcsetpgrp(g_shell_terminal, pgid);
-      	set_sig_def();
-    }
-	if (!foreground) {
-		/*close(STDOUT_FILENO);
-		close(STDIN_FILENO);
-		close(STDERR_FILENO);*/
-	}
-	if (p->next && p->next->inpipe)
-		if (close (p->next->inpipe) < 0)
+	pid = getpid();
+	if (pgid == 0)
+		pgid = pid;
+	fprintf(stderr, "%d %d\n", pid, pgid);
+	setpgid(pid, pgid);
+    if (foreground)
+    	tcsetpgrp(g_shell_terminal, pgid);
+    set_sig_def();
+	if (p->next && p->next->inpipe && close(p->next->inpipe) < 0)
 			err_exit("42sh", "close() error", NULL, NOERROR);
 	if (p->inpipe != STDIN_FILENO)
 	{
@@ -127,7 +119,7 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	}
 	redir(p->redir);
 	if (!launch_builtin(p, FORK))
-		exit (0);
+		exit(0);
 	if (ft_strchr(p->args[0], '/'))
 		fname = p->args[0];
 	else if (!(fname = (char *)get_hash_data(g_bin_table.table, p->args[0], g_bin_table.size)))

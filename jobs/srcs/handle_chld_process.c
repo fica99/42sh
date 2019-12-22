@@ -2,39 +2,29 @@
 
 int mark_process_status(pid_t pid, int status)
 {
-    t_job *j;
-    t_process *p;
+    t_job 		*j;
+    t_process 	*p;
 
-    if (pid > 0)
+    if (pid <= 0)
+    	return (-1);
+    j = g_first_job;
+    while (j)
     {
-        j = g_first_job;
-        while (j)
-        {
-            p = j->first_process;
-            if (p && p->pid == pid)
-            {
-                p->status = status;
-                if(WIFSTOPPED(status))
-                    p->stopped = 1;
-                else
-                {
-                    p->completed = 1;
-                    if (WIFSIGNALED(status))
-                        fprintf(stderr, "%d: Terminated by signal %d.\n",
-                            (int)pid, WTERMSIG(p->status));
-                }
-                return 0;
-            }
-            j = j->next;
-        }
-        fprintf(stderr, "No child process %d.\n", pid);
-        return -1;
-    }
-    else if (pid == 0)
-        return -1;
-    else {
-        perror ("waitpid");
-        return -1;
+    	p = j->first_process;
+    	if (p && p->pid == pid)
+    	{
+    		p->status = status;
+    		if(WIFSTOPPED(status))
+    			p->stopped = 1;
+    		else
+    		{
+    			p->completed = 1;
+    			if (WIFSIGNALED(status))
+    				fprintf(stderr, "%d: Terminated by signal %d.\n",
+    						(int)pid, WTERMSIG(p->status));
+    		}
+    	}
+    	j = j->next;
     }
     return (0);
 }
@@ -54,6 +44,7 @@ void wait_for_job(t_job *j)
     int status;
     pid_t pid;
 
+	job_is_stopped(j);
     do {
         pid = waitpid(WAIT_ANY, &status, WUNTRACED);
     } while (!mark_process_status(pid, status)
