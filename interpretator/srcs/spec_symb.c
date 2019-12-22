@@ -47,8 +47,8 @@ char	*isexpansion(char *args)
 	char	*spec;
 	char	*copy1;
 	char	*path;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	var = ft_strnew(LINE_MAX);
 	path = ft_strnew(LINE_MAX);

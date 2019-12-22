@@ -28,7 +28,7 @@ char *exp_implement(char *s)
 		j++;
 		if (s[j] == '}')
 			break ;
-	} 
+	}
 	while (s[i] != ':' && s[i] != '}')
 	{
 		param[i] = s[i];
@@ -41,7 +41,7 @@ char *exp_implement(char *s)
 			if (!*value)
 			{
 				if (s[i] == '=')
-					set_env(param, value, ALL_ENV);
+					set_env(param, (ft_strsub(s, i + 1, j - (i + 1))), ENV);
 			}
 			else
 				return (value);
