@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/23 17:49:56 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,6 @@ int	ft_echo(int argc, char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			// if (argv[i][j] == '$' && argv[i][j + 1] != '$' && argv[i][j + 1] == '{')
-			// 	if (check_bracket(&(argv[i][j + 2])))
-			// 		expansions(&(argv[i][j + 2]));
 			while (argv[i][j] == '\\')
 			{
 				if (argv[i][j + 1] == '\\')
