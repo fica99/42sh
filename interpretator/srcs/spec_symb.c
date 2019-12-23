@@ -16,7 +16,7 @@ char	*spec_symbols(char *args)
 {
 	while (ft_strchr(args, '~'))
 		args = tilda_expr(args);
-	while (ft_strchr(args, '$'))
+	while (ft_strchr(args, '$') && (!(ft_strcmp((ft_strchr(args, '$')), "$") == 0)))
 	{
 		args = dollar_expr(args);
 		if (args == NULL)
@@ -47,8 +47,8 @@ char	*isexpansion(char *args)
 	char	*spec;
 	char	*copy1;
 	char	*path;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	var = ft_strnew(LINE_MAX);
 	path = ft_strnew(LINE_MAX);
@@ -76,12 +76,32 @@ char	*isexpansion(char *args)
 			if (path)
 			{
 				ft_strcat(var, copy1);
-				ft_strcat(var, path); // вместо path готовый expans.
+				ft_strcat(var, path);
 			}
 		}
 		args += ((ft_strlen(copy1) + i) + 1);
 	}
 	return (var);
+}
+
+void	dollar_circle(char *spec, char **var)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+	
+	i = 0;
+	while ((ft_strchr(spec + i, '$')))
+	{
+		i++;
+		j = i;
+		while (spec[i] != '$' && spec[i])
+			i++;
+		ft_strcat(*var, (get_env((tmp = ft_strsub(spec, j, i - j)), ALL_ENV)));
+		if (spec[i] == '$' && (!(spec[i + 1])))
+			ft_strcat(*var, "$");
+		free(tmp);
+	}
 }
 
 char	*dollar_expr(char *args)
@@ -91,7 +111,6 @@ char	*dollar_expr(char *args)
 	char	*spec;
 	char	*copy;
 	int		i;
-	int		j;
 
 	i = 0;
 	spec = ft_strchr(args, '$');
@@ -109,14 +128,7 @@ char	*dollar_expr(char *args)
 		arr++;
 	}
 	ft_strcat(var, copy);
-	while ((ft_strchr(spec + i, '$')))
-	{
-		i++;
-		j = i;
-		while (spec[i] != '$' && spec[i])
-			i++;
-		ft_strcat(var, (get_env(ft_strsub(spec, j, i - j), ALL_ENV)));
-	}
+	dollar_circle(spec, &var);
 	ft_strcat(var, arr);
 	ft_memdel((void**)&copy);
 	ft_memdel((void**)&args);

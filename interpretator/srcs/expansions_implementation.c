@@ -34,15 +34,19 @@ char *exp_implement(char *s)
 		param[i] = s[i];
 		i++;
 	}
-	if (s[++i] == '-')
+	if (s[++i] == '-' || s[i] == '=')
 	{
 		if ((value = (get_env(param, ALL_ENV))))
 		{
 			if (!*value)
-				;
+			{
+				if (s[i] == '=')
+					set_env(param, (ft_strsub(s, i + 1, j - (i + 1))), ALL_ENV);
+			}
 			else
 				return (value);
 		}
+		//if (s[i] == '=')	
 		return (ft_strsub(s, i + 1, j - (i + 1)));
 	}
 	else
