@@ -6,20 +6,25 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/10/19 19:17:35 by aashara-         ###   ########.fr        #
+#    Updated: 2019/12/17 12:31:59 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := interpretator.c\
-		rredir.c\
-		lredir.c\
-		pipes.c\
-		dup_fd.c\
-		exec.c\
+srcs := parse.c\
+		err.c\
+		token_handle.c\
+		close_fds.c\
+		add_process.c\
+		fd_aggr.c\
+		word_list.c\
+		ft_free_jobs.c\
+		heredoc.c\
+		ft_open.c\
+		io_redir.c\
+		add_redir.c\
+		exec_jobs.c\
 		spec_symb.c\
-		parse_quotes.c\
-		aggr_fd.c\
-		process.c\
+		ft_strccut.c
 
 objs := $(srcs:.c=.o)
 
@@ -58,14 +63,14 @@ includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(in
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g
 
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
+	@echo "\033[32mFinish interpretator compilation\033[0m"
 
 $(objs_dir):
-	@echo "\033[32mCreate object directory $(CURDIR)/$@\033[0m"
 	@mkdir -p $@
 	@$(MAKE) --no-print-directory compilation
 
@@ -73,7 +78,6 @@ compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
 $(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@echo "\033[35m--->Compile $(CURDIR)/$@\033[0m"
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:
@@ -83,4 +87,3 @@ clean:
 re:
 	@$(MAKE) --no-print-directory clean
 	@$(MAKE) --no-print-directory all
-

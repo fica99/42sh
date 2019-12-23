@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 20:07:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/07 12:21:13 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,47 +17,61 @@ char	*spec_symbols(char *args)
 	while (ft_strchr(args, '~'))
 		args = tilda_expr(args);
 	while (ft_strchr(args, '$'))
+	{
 		args = dollar_expr(args);
+		if (args == NULL)
+			break ;
+	}
 	return (args);
 }
 
 char	*tilda_expr(char *args)
 {
+	char	*tmp;
 	char	*path;
-	int		index;
+	char	*index;
 
-	if ((path = sh_getenv("HOME")))
+	tmp = args;
+	if ((path = get_env("HOME", ALL_ENV)))
 	{
-		index = ft_strchr(args, '~') - args;
-		args = ft_strdel_el(args, index);
-		args = ft_stradd(args, path, index);
+		index = ft_strchr(args, '~');
+		args = ft_strjoin(path, index + 1);
+		free(tmp);
 	}
 	return (args);
 }
 
+void	dollar_circle(char *spec, char **var)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while ((ft_strchr(spec + i, '$')))
+	{
+		i++;
+		j = i;
+		while (spec[i] != '$' && spec[i])
+			i++;
+		ft_strcat(*var, (get_env((tmp = ft_strsub(spec, j, i - j)), ALL_ENV)));
+		free(tmp);
+	}
+}
+
 char	*dollar_expr(char *args)
 {
-	char	*arr;
 	char	*var;
 	char	*spec;
 	char	*copy;
-	char	*path;
 
 	spec = ft_strchr(args, '$');
-	arr = NULL;
+	var = ft_strnew(LINE_MAX);
 	copy = NULL;
 	if (spec != args)
 		copy = ft_strsub(args, 0, spec - args);
-	if ((arr = ft_strchr(spec, ' ')))
-	{
-		*arr = '\0';
-		arr++;
-	}
-	var = ft_strnew(LINE_MAX);
 	ft_strcat(var, copy);
-	if ((path = sh_getenv(spec + 1)))
-		ft_strcat(var, path);
-	ft_strcat(var, arr);
+	dollar_circle(spec, &var);
 	ft_memdel((void**)&copy);
 	ft_memdel((void**)&args);
 	return (var);

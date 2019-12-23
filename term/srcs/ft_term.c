@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/05 20:07:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,25 @@
 
 int		main(int argc, char **argv, char **environ)
 {
-	init_global_var(argv, environ);
+	(void)argv;
+	ft_putstr("*-------------------------------------------------------*\n");
+	ft_putstr("│                                                       │\n");
+	ft_putstr("|\033[0;31m");
+	ft_putstr("             Say hello to my little friend!!!          ");
+	ft_putstr("\033[0m|\n");
+	ft_putstr("|                                                       │\n");
+	ft_putstr("*-------------------------------------------------------*\n");
+	init_global_var(environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();
+	ft_putstr("*-------------------------------------------------------*\n");
+	ft_putstr("│                                                       │\n");
+	ft_putstr("|\033[0;35m");
+	ft_putstr("              Goodbye my love, goodbye!!!              ");
+	ft_putstr("\033[0m|\n");
+	ft_putstr("|                                                       │\n");
+	ft_putstr("*-------------------------------------------------------*\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -25,41 +40,26 @@ void	term_start(void)
 {
 	char	*line;
 
-	make_history_buff(&g_history);
-	save_attr(&g_orig_mode);
-	init_terminfo();
-	init_line(&g_line);
+	signalling();
+	init_readline();
 	while (RUNNING)
 	{
 		g_flags = INIT_FLAGS;
-		clr_buffs(&g_line);
-		line = ft_readline(sh_getenv("PS1"));
+		if (!(line = ft_readline(get_env("PS1", ALL_ENV), EMACS)))
+			continue ;
 		check_valid_string(line);
+		add_to_history_buff(line);
+		ft_memdel((void**)&line);
 		if (g_flags & TERM_EXIT)
 			break ;
 	}
-	free_line(&g_line);
-	reset_shell_mode();
-	set_attr(&g_orig_mode);
-	free_history(&g_history);
+	free_readline();
 }
 
 void	check_valid_string(char *buffer)
 {
-	t_node	*ast;
+	t_lex_tkn	**tokens;
 
-	if (buffer && *buffer)
-	{
-		ast = parser(buffer);
-		if (!(g_parser_flags & PARSER_ERROR))
-			interpret_ast(ast);
-		add_to_history_buff(buffer, &g_history);
-		if (g_flags & TERM_FREE_HASH || g_flags & TERM_INIT_HASH)
-		{
-			free_table(&g_bin_table);
-			if (g_flags & TERM_INIT_HASH)
-				init_bin_table(&g_bin_table);
-		}
-		free_ast(&ast);
-	}
+	tokens = lex_get_tkns(&buffer);
+	parse(tokens);
 }
