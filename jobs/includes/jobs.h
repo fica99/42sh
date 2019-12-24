@@ -17,8 +17,15 @@
 # define DEF_OPENFD_SIZE 10
 # define NO_FORK 1
 # define FORK 0
+# include "../lex/includes/lex.h"
 
 int						g_last_exit_status;
+
+typedef	struct			s_redir_list
+{
+	t_lex_tkn			**rd_token;
+	struct s_redir_list	*next;
+}						t_redir_list;
 
 typedef struct			s_process
 {
@@ -28,7 +35,8 @@ typedef struct			s_process
 	char				completed;
 	char				stopped;
 	int					status;
-	int					**redir;
+	int					**fd_list;
+	t_redir_list		*r;
 	int					inpipe;
 	int					outpipe;
 	size_t				redir_size;
@@ -37,8 +45,6 @@ typedef struct			s_process
 
 typedef struct			s_job
 {
-	char				unactive;
-	char				*err_message;
 	struct s_job		*next;
 	char				*command;
 	t_process			*first_process;
@@ -46,6 +52,9 @@ typedef struct			s_job
 	char				notified;
 	struct termios		*tmodes;
 }						t_job;
+
+void					dup_redir(int **fd_list);
+int						redir_handle(t_process *p);
 
 t_job					*g_first_job;
 

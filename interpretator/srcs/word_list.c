@@ -24,8 +24,8 @@ static int	parse_word(t_lex_tkn **list, t_process *curr_proc)
 		if (i >= curr_proc->args_size - 2)
 		{
 			curr_proc->args_size *= 2;
-			if (!(tmp = ft_realloc(curr_proc->args,
-			curr_proc->args_size / 2 * sizeof(char *), curr_proc->args_size * sizeof(char *))))
+			if (!(tmp = ft_realloc(curr_proc->args, curr_proc->args_size / 2
+			* sizeof(char *), curr_proc->args_size * sizeof(char *))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
 			curr_proc->args = tmp;
 		}
@@ -37,19 +37,26 @@ static int	parse_word(t_lex_tkn **list, t_process *curr_proc)
 
 static int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 {
-	int						io_number;
-	static	t_redirect_func	red[6] = {&g_redir, &g_redir, &l_redir,
-	&here_doc, &l_aggr, &g_aggr};
+	t_redir_list	*new;
+	t_redir_list	*first_red;
+	int				exp_w;
 
-	io_number = -1;
-	if ((*list)->type == T_IO_NUMBER)
+	exp_w = (*(list))->type == T_IO_NUMBER ? 2 : 1;
+	first_red = curr_proc->r;
+	if ((*(list + exp_w))->type != T_WORD)
+		return (syntax_err(*(list + exp_w)));
+	if (!(new = (t_redir_list *)ft_memalloc(sizeof(t_redir_list))))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	new->rd_token = list;
+	if (!first_red)
+		curr_proc->r = new;
+	else
 	{
-		io_number = *(*list)->value - 48;
-		list++;
+		while (first_red->next)
+			first_red = first_red->next;
+		first_red->next = new;
 	}
-	if ((*(list + 1))->type != T_WORD)
-		return (syntax_err(*(list + 1)));
-	return (red[(*list)->type - 6](list, curr_proc, io_number));
+	return (word_list(list + exp_w + 1, curr_proc));
 }
 
 t_lex_tkn	**check_valid_ass_word(t_lex_tkn **list)
@@ -83,7 +90,8 @@ t_lex_tkn	**parse_ass_words(t_lex_tkn **list, t_process *curr_proc)
 		{
 			curr_proc->args_size *= 2;
 			if (!(curr_proc->args = ft_realloc(curr_proc->args,
-			curr_proc->args_size / 2 * sizeof(char *), curr_proc->args_size * sizeof(char *))))
+			curr_proc->args_size / 2 * sizeof(char *),
+			curr_proc->args_size * sizeof(char *))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
 		}
 		list++;

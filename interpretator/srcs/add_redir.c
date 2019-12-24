@@ -19,7 +19,7 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 	int		*fd;
 
 	i = 0;
-	tmp = curr_proc->redir;
+	tmp = curr_proc->fd_list;
 	if (!(fd = (int *)malloc(sizeof(int) * 2)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	fd[0] = fd0;
@@ -29,11 +29,10 @@ void	add_redir(t_process *curr_proc, int fd0, int fd1)
 		if (i >= curr_proc->redir_size - 1)
 		{
 			curr_proc->redir_size *= 2;
-			if (!(tmp = ft_realloc(curr_proc->redir, curr_proc->redir_size / 2,
-			curr_proc->redir_size)))
+			if (!(tmp = ft_realloc(curr_proc->fd_list, curr_proc->redir_size / 2
+			* sizeof(int *), curr_proc->redir_size * sizeof(int *))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
-			free(curr_proc->redir);
-			curr_proc->redir = tmp;
+			curr_proc->fd_list = tmp;
 		}
 		i++;
 	}

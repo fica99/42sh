@@ -37,14 +37,3 @@ pid_t	make_process(void)
 		err_exit("42sh", "dup() error", NULL, NOERROR);
 	return (pid);
 }
-
-void	redir(int **red)
-{
-	while (*red)
-	{
-		if ((*red)[0] == -1)
-			close((*red)[1]);
-		dup2((*red)[0], (*red)[1]);
-		red++;
-	}
-}

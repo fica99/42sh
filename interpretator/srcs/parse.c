@@ -82,6 +82,5 @@ void	parse(t_lex_tkn **tokens)
 	}
 	ft_sub(tokens);
 	start(tokens);
-	close_fds(g_first_job);
 	lex_del_tkns(tokens);
 }

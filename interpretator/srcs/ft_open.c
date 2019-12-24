@@ -15,11 +15,11 @@
 static int	check_file_access(char *fname)
 {
 	if (access(fname, F_OK))
-		file_err("42sh: ", "no such file or directory: ", fname, g_first_job);
+		ft_error("42sh", "no such file or directory", NULL, fname);
 	else if (access(fname, W_OK | R_OK))
-		file_err("42sh: ", "permission denied: ", fname, g_first_job);
+		ft_error("42sh", "permission denied", NULL, fname);
 	else
-		file_err("42sh: ", "failed to open/create file: ", fname, g_first_job);
+		ft_error("42sh", "failed to open/create file", NULL, fname);
 	return (0);
 }
 

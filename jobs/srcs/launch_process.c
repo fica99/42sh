@@ -53,8 +53,13 @@ int		launch_builtin(t_process *p, int no_fork)
 		return (-1);
 	if (no_fork)
 	{
-		save_fd(fd, p->redir);
-		redir(p->redir);
+		if (redir_handle(p) < 0)
+		{
+			restore_fd(fd);
+			return (1);
+		}
+		save_fd(fd, p->fd_list);
+		dup_redir(p->fd_list);
 	}
 	func(ft_darlen(p->args), p->args);
 	if (no_fork)
@@ -99,7 +104,9 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		set_sig_def();
 	}
 	dup_pipes(p);
-	redir(p->redir);
+	if (redir_handle(p) < 0)
+		exit(1);
+	dup_redir(p->fd_list);
 	if (!launch_builtin(p, FORK))
 		exit(0);
 	fname = get_fname(p->args[0]);
