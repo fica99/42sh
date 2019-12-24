@@ -18,7 +18,7 @@ int		simp_command(t_lex_tkn **list)
 
 	if ((*list)->type == T_END)
 		return (0);
-	curr_proc = add_process();
+	curr_proc = add_process(g_first_job);
 	if (!(list = parse_ass_words(list, curr_proc)))
 		return (0);
 	return (word_list(list, curr_proc));
@@ -40,18 +40,18 @@ int		pipe_sequence(t_lex_tkn **list)
 
 int		start(t_lex_tkn **list)
 {
-	t_lex_tkn **tmp;
+	t_lex_tkn	**tmp;
+	t_job		*new;
 
 	if ((*list)->type == T_END)
 		return (0);
-	tmp = split_list(find_token(list, C_SEP));
-	if ((*list)->type != T_END)
-		job_new();
+	tmp = find_token(list, C_SEP);
+	new = job_new();
+	if ((*tmp)->type != T_END)
+		new->separator = (*tmp)->type;
+	tmp = split_list(tmp);
 	if ((pipe_sequence(list)) < 0)
 		return (-1);
-	exec_jobs(g_first_job);
-	ft_free_jobs(g_first_job);
-	g_first_job = 0;
 	return (start(tmp));
 }
 
@@ -82,5 +82,8 @@ void	parse(t_lex_tkn **tokens)
 	}
 	ft_sub(tokens);
 	start(tokens);
+	exec_jobs(g_first_job);
+	ft_free_jobs(g_first_job);
+	g_first_job = 0;
 	lex_del_tkns(tokens);
 }

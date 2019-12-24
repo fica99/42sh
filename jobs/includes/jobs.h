@@ -46,6 +46,7 @@ typedef struct			s_process
 typedef struct			s_job
 {
 	struct s_job		*next;
+	int					separator;
 	char				*command;
 	t_process			*first_process;
 	pid_t				pgid;
