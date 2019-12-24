@@ -46,6 +46,7 @@ void	ft_s(t_process *p, t_job *j, pid_t pid)
 
 void	launch_job(t_job *j, int foreground)
 {
+	char		*last_status;
 	t_process	*p;
 	pid_t		pid;
 	int			pipes[2];
@@ -66,6 +67,8 @@ void	launch_job(t_job *j, int foreground)
 		}
 		p = p->next;
 	}
-	while (waitpid(-1, 0, 0) != -1)
+	while (waitpid(-1, &g_last_exit_status, 0) != -1)
 		;
+	set_env("?", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
+	free(last_status);
 }

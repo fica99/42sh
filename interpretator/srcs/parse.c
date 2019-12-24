@@ -19,6 +19,8 @@ int		simp_command(t_lex_tkn **list)
 	if ((*list)->type == T_END)
 		return (0);
 	curr_proc = add_process();
+	if (!(list = parse_ass_words(list, curr_proc)))
+		return (0);
 	return (word_list(list, curr_proc));
 }
 

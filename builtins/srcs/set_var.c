@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathcmp.c                                       :+:      :+:    :+:   */
+/*   set_var.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/23 17:43:02 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/23 17:43:05 by mmarti           ###   ########.fr       */
+/*   Created: 2019/12/24 22:31:41 by mmarti            #+#    #+#             */
+/*   Updated: 2019/12/24 22:31:42 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int			ft_pathcmp(char *p1, char *p2)
+#include "ft_shell.h"
+
+int	set_var(int ac, char **av)
 {
-	while (*p1 && *p1 == *p2)
+	char *name;
+	char *value;
+
+	(void)ac;
+	while (*++av)
 	{
-		p1++;
-		p2++;
-		if (*p1 == '/' || *p2 == '/')
+		if (!(name = ft_strdup(*av)))
+			err_exit("42sh", "malloc() error", NULL, NOERROR);
+		if (!(value = ft_strchr(name, '=')))
 		{
-			while (*p1 == '/')
-				p1++;
-			while (*p2 == '/')
-				p2++;
-			continue ;
+			free(name);
+			return (1);
 		}
+		*value = 0;
+		++value;
+		if (get_env(name, ENV))
+			set_env(name, value, ENV);
+		else
+			set_env(name, value, SET_ENV);
+		free(name);
+		av++;
 	}
-	return (*p1 - *p2);
+	return (0);
 }

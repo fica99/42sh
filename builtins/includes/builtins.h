@@ -31,6 +31,7 @@ typedef int(*t_builtin)(int, char **);
 
 typedef char	t_flag;
 
+int				set_var(int ac, char **av);
 void			path_add(char *tmp);
 void			remove_slashes(void);
 int				cdpath_handle(char *path, t_flag no_links);
