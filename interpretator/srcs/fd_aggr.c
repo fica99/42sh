@@ -48,14 +48,13 @@ int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		fd_w = -1;
 	else if ((fd_w = get_fd((*list)->value)) < 0)
 		return (g_redir(--list, curr_proc, io_number));
-	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
+	else if (fd_w > 2 && find_fd(curr_proc->fd_list, fd_w) < 0)
 	{
-		file_err("42sh: ", (*list)->value,
-		": Bad file descriptor", g_first_job);
-		return (0);
+		ft_error("42sh", (*list)->value, NULL, "Bad file descriptor");
+		return (-1);
 	}
 	add_redir(curr_proc, fd_w, io_number);
-	return (word_list(++list, curr_proc));
+	return (0);
 }
 
 int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
@@ -68,15 +67,14 @@ int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		fd_w = -1;
 	else if ((fd_w = get_fd((*list)->value)) < 0)
 	{
-		file_err("42sh: ", (*list)->value, ": ambiguous redirect", g_first_job);
-		return (0);
+		ft_error("42sh", (*list)->value, NULL, "ambiguous redirect");
+		return (-1);
 	}
-	else if (fd_w > 2 && find_fd(curr_proc->redir, fd_w) < 0)
+	else if (fd_w > 2 && find_fd(curr_proc->fd_list, fd_w) < 0)
 	{
-		file_err("42sh: ", (*list)->value,
-		": Bad file descriptor", g_first_job);
-		return (0);
+		ft_error("42sh", (*list)->value, NULL, "Bad file descriptor");
+		return (-1);
 	}
 	add_redir(curr_proc, fd_w, io_number);
-	return (word_list(++list, curr_proc));
+	return (0);
 }

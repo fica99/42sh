@@ -42,7 +42,7 @@ t_process	*proc_new(void)
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	new->args_size = DEF_ARGS_SIZE;
 	new->redir_size = DEF_REDIR_SIZE;
-	if (!(new->redir = (int **)ft_memalloc(sizeof(int *) * DEF_REDIR_SIZE)))
+	if (!(new->fd_list = (int **)ft_memalloc(sizeof(int *) * DEF_REDIR_SIZE)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!(new->args = (char **)ft_memalloc(sizeof(char *) * DEF_ARGS_SIZE)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);

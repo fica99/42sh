@@ -68,8 +68,12 @@ int			here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 		io_number = 0;
 	list++;
 	buf = read_heredoc((*list)->value);
-	fd = write_here_doc(buf);
+	if ((fd = write_here_doc(buf)) < 0)
+	{
+		ft_error("42sh", "failed to create heredoc file", NULL, HEREDOC_FILE);
+		return (-1);
+	}
 	ft_free_dar(buf);
 	add_redir(curr, fd, io_number);
-	return (word_list(++list, curr));
+	return (0);
 }

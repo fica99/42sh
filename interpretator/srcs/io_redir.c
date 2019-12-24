@@ -21,7 +21,7 @@ int	l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	if ((fd_w = ft_open((*list)->value, LRED_OPEN)) < 0)
 		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
-	return (word_list(++list, curr_proc));
+	return (0);
 }
 
 int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
@@ -36,5 +36,5 @@ int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	if ((fd_w = ft_open((*list)->value, fl)) < 0)
 		return (-1);
 	add_redir(curr_proc, fd_w, io_number);
-	return (word_list(++list, curr_proc));
+	return (0);
 }

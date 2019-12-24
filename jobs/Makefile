@@ -2,7 +2,8 @@ srcs := launch_job.c\
 		launch_process.c\
 		red.c\
 		get_fname.c\
-		ft_pathcmp.c
+		ft_pathcmp.c\
+		make_redir.c
 
 objs := $(srcs:.c=.o)
 
