@@ -51,17 +51,22 @@ t_process	*proc_new(void)
 	return (new);
 }
 
-t_process	*add_process(void)
+t_process	*add_process(t_job *first_job)
 {
 	t_process	*proc;
 	t_process	*tmp;
-	t_job		*last_job;
 
 	proc = proc_new();
-	last_job = get_last_job();
-	tmp = get_last_proc(last_job);
+	while (first_job->next)
+		first_job = first_job->next;
+	tmp = first_job->first_process;
+	if (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+	}
 	if (!tmp)
-		last_job->first_process = proc;
+		first_job->first_process = proc;
 	else
 		tmp->next = proc;
 	return (proc);

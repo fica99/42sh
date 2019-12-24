@@ -23,7 +23,7 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 	else if (type >= T_GREATER && type <= T_IO_NUMBER)
 		return (C_REDIR);
 	else if (type >= T_AND_AND && type <= T_OR_OR)
-		return (C_LOG_OPERS);
+		return (C_SEP);
 	else if (type == T_AND)
 		return (C_AND);
 	else if (type == T_OPEN_FIG_BRACE || type == T_CLOSE_FIG_BRACE)
