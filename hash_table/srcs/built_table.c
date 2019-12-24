@@ -26,5 +26,7 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "exit", &exit_built, BUILT_NUM);
 	push_hash(table, "setenv", &setenv_built, BUILT_NUM);
 	push_hash(table, "hash", &hash, BUILT_NUM);
+	push_hash(table, "set", &set, BUILT_NUM);
+	push_hash(table, "set_var", &set_var, BUILT_NUM);
 	g_built_table->table = table;
 }
