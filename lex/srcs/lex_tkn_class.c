@@ -25,7 +25,7 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 	else if (type >= T_AND_AND && type <= T_OR_OR)
 		return (C_SEP);
 	else if (type == T_AND)
-		return (C_AND);
+		return (C_SEP);
 	else if (type == T_OPEN_FIG_BRACE || type == T_CLOSE_FIG_BRACE)
 		return (C_FIG_BRACE);
 	else if (type == T_SEP)

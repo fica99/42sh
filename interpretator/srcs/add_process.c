@@ -81,6 +81,7 @@ t_job		*job_new(void)
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	new->pgid = getpgrp();
 	new->tmodes = &g_shell_tmodes;
+	new->foreground = 1;
 	if (!g_first_job)
 		g_first_job = new;
 	else
