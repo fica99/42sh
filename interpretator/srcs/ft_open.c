@@ -12,7 +12,7 @@
 
 #include "ft_shell.h"
 
-static int	check_file_access(char *fname)
+static void	check_file_access(char *fname)
 {
 	if (access(fname, F_OK))
 		ft_error("42sh", "no such file or directory", NULL, fname);
@@ -20,7 +20,6 @@ static int	check_file_access(char *fname)
 		ft_error("42sh", "permission denied", NULL, fname);
 	else
 		ft_error("42sh", "failed to open/create file", NULL, fname);
-	return (0);
 }
 
 int			ft_open(char *fname, int fl)
@@ -30,6 +29,6 @@ int			ft_open(char *fname, int fl)
 
 	i = 0;
 	if ((fd = open(fname, fl, PERM_MODE)) < 0)
-		return (check_file_access(fname));
+		check_file_access(fname);
 	return (fd);
 }
