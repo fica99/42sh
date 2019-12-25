@@ -45,6 +45,8 @@ int		start(t_lex_tkn **list)
 
 	if ((*list)->type == T_END)
 		return (0);
+	if ((*list)->type == T_SEP)
+		return (start(++list));
 	else if ((*list)->class == C_SEP)
 		return (syntax_err(*list));
 	tmp = find_token(list, C_SEP);
