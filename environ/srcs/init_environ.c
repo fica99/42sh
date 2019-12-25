@@ -65,6 +65,13 @@ void		set_env(char *name, char *new_value, t_env mode)
 {
 	if (mode == ENV)
 		ft_setenv(name, new_value, &g_env);
-	else
+	else if (mode == SET_ENV)
 		ft_setenv(name, new_value, &g_set_env);
+	else
+	{
+		if (ft_getenv(name, g_env.env))
+			ft_setenv(name, new_value, &g_env);
+		else
+			ft_setenv(name, new_value, &g_set_env);
+	}
 }
