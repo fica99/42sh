@@ -20,7 +20,14 @@
 # define FREE_TABLE_DATA 1
 # define DONT_FREE_TABLE_DATA 0
 # define RULES_NUM 14
+# define MAX_CLASS 5
 
+typedef struct		s_ast
+{
+	t_lex_tkn		**token;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
 /*
 **	ft_term.c
 */

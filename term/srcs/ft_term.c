@@ -74,34 +74,53 @@ int		status_update(int rules[RULES_NUM][3], int *status, t_lex_tkn **list)
 	return (-1);
 }
 
-int		check_valid_list(t_lex_tkn **list)
+void	create_node(t_lex_tkn **list, t_ast **root)
 {
-	int			status;
-	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 1}, {1, 0, 1},
-	{0, 3, 0}, {3, 0, 0}, {3, 3, 0}, {2, 1, 1}, {2, 0, 0},
-	{0, 2, 0}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 0}};
 
-	status = 0;
+}
+
+int		make_ast(t_lex_tkn **list, t_ast **root)
+{
+	int			curr_status;
+	int			old_status;
+	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 1}, {1, 0, 1},
+	{0, 3, 3}, {3, 0, 0}, {3, 3, 3}, {2, 1, 1}, {2, 0, 0},
+	{0, 2, 2}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 3}};
+
+	curr_status = (*list)->class;
 	while (*(list + 1))
 	{
-		if (status_update(rules, &status, list) < 0)
+		old_status = curr_status;
+		if (status_update(rules, &curr_status, list) < 0)
 			return (syntax_err(*(list + 1)));
-		if (status == 255)
-			/*
-			** дополнить строку
-			*/
-			return (-1);
+		if (curr_status != old_status)
+			create_node(list, root);
 		list++;
 	}
 	return (0);
 }
 
+t_ast	*new_node(t_lex_tkn **token)
+{
+	t_ast *new;
+
+	if (!(new = (t_ast *)malloc(sizeof(t_ast))))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	new->token = token;
+	new->left = NULL;
+	new->right = NULL;
+	return (new);
+}
+
 void	check_valid_string(char *buffer)
 {
 	t_lex_tkn	**tokens;
+	t_ast		*root;
 
 	tokens = lex_get_tkns(&buffer);
-	if (!check_valid_list(tokens))
-		parse(tokens);
+	if (!tokens)
+		return ;
+	root = new_node(tokens);
+	make_ast(tokens, &root);
 	lex_del_tkns(tokens);
 }
