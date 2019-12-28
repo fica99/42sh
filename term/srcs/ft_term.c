@@ -56,10 +56,52 @@ void	term_start(void)
 	free_readline();
 }
 
+int		status_update(int rules[RULES_NUM][3], int *status, t_lex_tkn **list)
+{
+	int i;
+
+	i = 0;
+	while (i < RULES_NUM)
+	{
+		if (rules[i][0] == (*list)->class
+		&& rules[i][1] == (*(list + 1))->class)
+		{
+			*status = rules[i][2];
+			return (0);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int		check_valid_list(t_lex_tkn **list)
+{
+	int			status;
+	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 1}, {1, 0, 1},
+	{0, 3, 0}, {3, 0, 0}, {3, 3, 0}, {2, 1, 1}, {2, 0, 0},
+	{0, 2, 0}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 0}};
+
+	status = 0;
+	while (*(list + 1))
+	{
+		if (status_update(rules, &status, list) < 0)
+			return (syntax_err(*(list + 1)));
+		if (status == 255)
+			/*
+			** дополнить строку
+			*/
+			return (-1);
+		list++;
+	}
+	return (0);
+}
+
 void	check_valid_string(char *buffer)
 {
 	t_lex_tkn	**tokens;
 
 	tokens = lex_get_tkns(&buffer);
-	parse(tokens);
+	if (!check_valid_list(tokens))
+		parse(tokens);
+	lex_del_tkns(tokens);
 }

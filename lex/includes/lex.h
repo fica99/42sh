@@ -55,18 +55,17 @@ typedef enum	e_lex_tkn_type
 
 typedef enum	e_lex_tkn_class
 {
-	C_NULL,
-	C_END,
 	C_WORD,
-	C_ASSIGNMENT_WORD,
-	C_PIPE,
 	C_REDIR,
+	C_PIPE,
 	C_SEP,
 	C_CONTROL_SUB,
 	C_LOG_OPERS,
 	C_AND,
 	C_FIG_BRACE,
-	C_ARITH_OPERS
+	C_ARITH_OPERS,
+	C_NULL,
+	C_END
 }				t_lex_tkn_class;
 
 typedef struct	s_lex_tkn

@@ -30,11 +30,8 @@ int		pipe_sequence(t_lex_tkn **list)
 
 	if ((*list)->type == T_END)
 		return (0);
-	if ((*list)->class == C_PIPE)
-		return (syntax_err(*list));
 	tmp = split_list(find_token(list, C_PIPE));
-	if ((simp_command(list) < 0))
-		return (-1);
+	simp_command(list);
 	return (pipe_sequence(tmp));
 }
 
@@ -47,8 +44,6 @@ int		start(t_lex_tkn **list)
 		return (0);
 	if ((*list)->type == T_SEP)
 		return (start(++list));
-	else if ((*list)->class == C_SEP)
-		return (syntax_err(*list));
 	tmp = find_token(list, C_SEP);
 	new = job_new();
 	if ((*tmp)->type != T_END)
@@ -56,8 +51,7 @@ int		start(t_lex_tkn **list)
 	if (new->separator == T_AND)
 		new->foreground = 0;
 	tmp = split_list(tmp);
-	if ((pipe_sequence(list)) < 0)
-		return (-1);
+	pipe_sequence(list);
 	return (start(tmp));
 }
 
@@ -79,17 +73,20 @@ void	ft_sub(t_lex_tkn **list)
 
 void	parse(t_lex_tkn **tokens)
 {
+	t_lex_tkn **tmp;
+
 	if (!tokens)
 		return ;
 	if (!*tokens || (*tokens)->type == T_END)
-	{
-		lex_del_tkns(tokens);
 		return ;
-	}
-	ft_sub(tokens);
-	if (!start(tokens))
+	while ((*tokens)->type != T_END)
+	{
+		tmp = split_list(find_token(tokens, C_SEP));
+		ft_sub(tokens);
+		start(tokens);
 		exec_jobs(g_first_job);
-	ft_free_jobs(g_first_job);
-	g_first_job = 0;
-	lex_del_tkns(tokens);
+		ft_free_jobs(g_first_job);
+		g_first_job = 0;
+		tokens = tmp;
+	}
 }

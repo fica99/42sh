@@ -14,16 +14,16 @@
 
 t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 {
-	if (type == T_WORD)
+	if (type == T_WORD || type == T_IO_NUMBER)
 		return (C_WORD);
 	else if (type == T_ASSIGNMENT_WORD)
-		return (C_ASSIGNMENT_WORD);
+		return (C_WORD);
 	else if (type == T_PIPE)
 		return (C_PIPE);
-	else if (type >= T_GREATER && type <= T_IO_NUMBER)
+	else if (type >= T_GREATER && type <= T_GREATER_AND)
 		return (C_REDIR);
 	else if (type >= T_AND_AND && type <= T_OR_OR)
-		return (C_SEP);
+		return (C_LOG_OPERS);
 	else if (type == T_AND)
 		return (C_SEP);
 	else if (type == T_OPEN_FIG_BRACE || type == T_CLOSE_FIG_BRACE)
@@ -31,9 +31,9 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 	else if (type == T_SEP)
 		return (C_SEP);
 	else if (type == T_CONTROL_SUB)
-		return (C_CONTROL_SUB);
+		return (C_WORD);
 	else if (type == T_ARITH_OPERS)
-		return (C_ARITH_OPERS);
+		return (C_WORD);
 	else if (type == T_END)
 		return (C_END);
 	else

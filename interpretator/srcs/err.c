@@ -16,6 +16,7 @@ int		syntax_err(t_lex_tkn *token)
 {
 	ft_putstr("42sh: ");
 	ft_putstr("syntax error near unexpected token: ");
+	ft_putchar('`');
 	if (token->value)
 		ft_putstr(token->value);
 	else
@@ -23,6 +24,7 @@ int		syntax_err(t_lex_tkn *token)
 		if (token->type == T_END)
 			ft_putstr("end of line");
 	}
+	ft_putchar('\'');
 	ft_putchar('\n');
 	return (-1);
 }

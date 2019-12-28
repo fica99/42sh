@@ -43,8 +43,6 @@ static int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 
 	exp_w = (*(list))->type == T_IO_NUMBER ? 2 : 1;
 	first_red = curr_proc->r;
-	if ((*(list + exp_w))->type != T_WORD)
-		return (syntax_err(*(list + exp_w)));
 	if (!(new = (t_redir_list *)ft_memalloc(sizeof(t_redir_list))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	new->rd_token = list;
@@ -105,8 +103,6 @@ int			word_list(t_lex_tkn **list, t_process *cur_proc)
 		return (0);
 	else if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
 		return (parse_redirect(list, cur_proc));
-	else if ((*list)->type == T_WORD)
-		return (parse_word(list, cur_proc));
 	else
-		return (syntax_err(*list));
+		return (parse_word(list, cur_proc));
 }
