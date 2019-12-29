@@ -85,6 +85,13 @@ typedef	struct	s_lex_tkns
 	size_t		size;
 }				t_lex_tkns;
 
+typedef struct		s_ast
+{
+	t_lex_tkn		**token;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
+
 char			*del_spc(char *str);
 char			*ft_stricut(char *str, int i);
 /*

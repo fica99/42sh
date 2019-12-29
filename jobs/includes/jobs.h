@@ -17,7 +17,6 @@
 # define DEF_OPENFD_SIZE 10
 # define NO_FORK 1
 # define FORK 0
-# include "../lex/includes/lex.h"
 
 int						g_last_exit_status;
 
