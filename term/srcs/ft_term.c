@@ -114,7 +114,7 @@ int		make_ast(t_lex_tkn **list, t_ast **root)
 	int			old_status;
 	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0},
 	{0, 3, 3}, {3, 0, 0}, {3, 3, 3}, {2, 1, 1}, {2, 0, 0},
-	{0, 2, 2}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 3}};
+	{0, 2, 2}, {0, 10, 0}, {0, 4, 4}, {4, 0, 0}, {3, 10, 3}};
 
 	curr_status = (*list)->class;
 	while (*(list + 1))

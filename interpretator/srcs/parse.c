@@ -25,7 +25,10 @@ void	parse_pipe(t_ast *node, t_job *curr)
 	if ((*node->token)->class != C_PIPE)
 		return (parse_ass_words(node, curr));
 	parse_ass_words(node->left, curr);
-	parse_ass_words(node->right, curr);
+	if ((*node->right->token)->class == C_PIPE)
+		parse_pipe(node->right, curr);
+	else
+		parse_ass_words(node->right, curr);
 }
 
 void	parse_logical(t_ast *root)
@@ -35,7 +38,10 @@ void	parse_logical(t_ast *root)
 	if ((*root->token)->class != C_LOG_OPERS)
 		return (parse_pipe(root, job_new(NULL)));
 	parse_pipe(root->left, job_new(root->token));
-	parse_pipe(root->right, job_new(root->token));
+	if ((*root->right->token)->class == C_LOG_OPERS)
+		parse_logical(root->right);
+	else
+		parse_pipe(root->right, job_new(root->token));
 }
 
 void	parse(t_ast *root)
