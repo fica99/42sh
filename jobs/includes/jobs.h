@@ -53,6 +53,7 @@ typedef struct			s_job
 	struct termios		*tmodes;
 }						t_job;
 
+void					ft_sub(char **args);
 void					dup_redir(int **fd_list);
 int						redir_handle(t_process *p);
 

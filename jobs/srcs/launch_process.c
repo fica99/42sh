@@ -37,7 +37,7 @@ void	ft_sub(char **args)
 {
 	while (*args)
 	{
-		spec_symbols(*args);
+		*args = spec_symbols(*args);
 		args++;
 	}
 }
@@ -57,13 +57,13 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 			tcsetpgrp(g_shell_terminal, pgid);
 		set_sig_def();
 	}
-	ft_sub(p->args);
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);
 	dup_redir(p->fd_list);
 	if (!launch_builtin(p, FORK))
 		exit(0);
+	ft_sub(p->args);
 	fname = get_fname(p->args[0]);
 	if (execve(fname, p->args, g_env.env) < 0)
 		err_exit("42sh", "permission denied", p->args[0], NOERROR);
