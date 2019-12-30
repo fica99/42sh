@@ -3,7 +3,8 @@ srcs := launch_job.c\
 		red.c\
 		get_fname.c\
 		ft_pathcmp.c\
-		make_redir.c
+		make_redir.c\
+		launch_builtin.c
 
 objs := $(srcs:.c=.o)
 

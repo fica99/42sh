@@ -12,6 +12,7 @@
 
 srcs := ft_term.c\
 		global_var.c\
+		make_ast.c
 
 objs := $(srcs:.c=.o)
 

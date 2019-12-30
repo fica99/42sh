@@ -28,6 +28,7 @@ void	init_global_var(char **environ)
 	init_bin_table(&g_bin_table);
 	init_built_table(&g_built_table);
 	init_curr_pwd();
+	set_env("\'?\'", "0", ALL_ENV);
 }
 
 void	free_globar_var(void)

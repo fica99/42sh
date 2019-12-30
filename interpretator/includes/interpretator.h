@@ -46,6 +46,8 @@ typedef struct	s_open_files
 	size_t		size;
 }				t_open_files;
 
+int				make_ast(t_lex_tkn **list, t_ast **root);
+void			clean_tree(t_ast *ast);
 void			cls_redir(int **red);
 t_lex_tkn		**set_ass_words(t_lex_tkn **list, t_process *curr_proc);
 char			*ft_stricut(char *str, int i);

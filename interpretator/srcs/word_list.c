@@ -57,20 +57,6 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	return (word_list(list + exp_w + 1, curr_proc));
 }
 
-// t_lex_tkn	**check_valid_ass_word(t_lex_tkn **list)
-// {
-// 	t_lex_tkn **tmp;
-
-// 	tmp = list;
-// 	while ((*list)->class == C_WORD || (*list)->class != C_REDIR)
-// 	{
-// 		if ((*list)->type != T_ASSIGNMENT_WORD)
-// 			return (list);
-// 		list++;
-// 	}
-// 	return (tmp);
-// }
-
 t_lex_tkn	**set_ass_words(t_lex_tkn **list, t_process *curr_proc)
 {
 	size_t	i;
@@ -94,7 +80,7 @@ t_lex_tkn	**set_ass_words(t_lex_tkn **list, t_process *curr_proc)
 	return (list);
 }
 
-void	word_list(t_lex_tkn **list, t_process *cur_proc)
+void		word_list(t_lex_tkn **list, t_process *cur_proc)
 {
 	if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
 		parse_redirect(list, cur_proc);
