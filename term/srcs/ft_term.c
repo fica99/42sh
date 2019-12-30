@@ -74,34 +74,86 @@ int		status_update(int rules[RULES_NUM][3], int *status, t_lex_tkn **list)
 	return (-1);
 }
 
-int		check_valid_list(t_lex_tkn **list)
+t_ast	*new_node(t_lex_tkn **token)
 {
-	int			status;
-	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 1}, {1, 0, 1},
-	{0, 3, 0}, {3, 0, 0}, {3, 3, 0}, {2, 1, 1}, {2, 0, 0},
-	{0, 2, 0}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 0}};
+	t_ast *new;
 
-	status = 0;
+	if (!(new = (t_ast *)malloc(sizeof(t_ast))))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
+	new->token = token;
+	new->left = NULL;
+	new->right = NULL;
+	return (new);
+}
+
+void	insert(t_ast *node, t_ast **root, enum e_lex_tkn_class node_class)
+{
+	t_ast *tmp;
+	t_ast *prev_node;
+
+	if ((*(*root)->token)->class < node_class)
+	{
+		node->left = *root;
+		*root = node;
+		return ;
+	}
+	tmp = *root;
+	while (tmp && node_class <= (*tmp->token)->class)
+	{
+		prev_node = tmp;
+		tmp = tmp->right;
+	}
+	if (tmp)
+		node->left = tmp;
+	prev_node->right = node;
+}
+
+int		make_ast(t_lex_tkn **list, t_ast **root)
+{
+	int			curr_status;
+	int			old_status;
+	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0},
+	{0, 3, 3}, {3, 0, 0}, {3, 3, 3}, {2, 1, 1}, {2, 0, 0},
+	{0, 2, 2}, {0, 10, 0}, {2, 10, 255}, {5, 10, 255}, {3, 10, 3}};
+
+	curr_status = (*list)->class;
 	while (*(list + 1))
 	{
-		if (status_update(rules, &status, list) < 0)
+		old_status = curr_status;
+		if (status_update(rules, &curr_status, list) < 0)
 			return (syntax_err(*(list + 1)));
-		if (status == 255)
-			/*
-			** дополнить строку
-			*/
-			return (-1);
 		list++;
+		if (curr_status != old_status)
+			insert(new_node(list), root, (*list)->class);
 	}
 	return (0);
+}
+
+void	clean_tree(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	clean_tree(ast->left);
+	clean_tree(ast->right);
+	free(ast);
 }
 
 void	check_valid_string(char *buffer)
 {
 	t_lex_tkn	**tokens;
+	t_ast		*root;
 
 	tokens = lex_get_tkns(&buffer);
-	if (!check_valid_list(tokens))
-		parse(tokens);
+	if (!tokens)
+		return ;
+	root = new_node(tokens);
+	if (!make_ast(tokens, &root))
+	{
+		parse(root);
+		exec_jobs(g_first_job);
+	}
+	ft_free_jobs(g_first_job);
+	g_first_job = NULL;
+	clean_tree(root);
 	lex_del_tkns(tokens);
 }

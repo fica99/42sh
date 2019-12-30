@@ -46,8 +46,8 @@ typedef enum	e_lex_tkn_type
 	T_SEP,
 	T_CONTROL_SUB,
 	T_AND_AND,
-	T_OR_OR,
 	T_AND,
+	T_OR_OR,
 	T_OPEN_FIG_BRACE,
 	T_CLOSE_FIG_BRACE,
 	T_ARITH_OPERS
@@ -59,9 +59,9 @@ typedef enum	e_lex_tkn_class
 	C_REDIR,
 	C_PIPE,
 	C_SEP,
-	C_CONTROL_SUB,
 	C_LOG_OPERS,
 	C_AND,
+	C_CONTROL_SUB,
 	C_FIG_BRACE,
 	C_ARITH_OPERS,
 	C_NULL,
@@ -84,6 +84,13 @@ typedef	struct	s_lex_tkns
 	size_t		malloc_size;
 	size_t		size;
 }				t_lex_tkns;
+
+typedef struct		s_ast
+{
+	t_lex_tkn		**token;
+	struct s_ast	*left;
+	struct s_ast	*right;
+}					t_ast;
 
 char			*del_spc(char *str);
 char			*ft_stricut(char *str, int i);

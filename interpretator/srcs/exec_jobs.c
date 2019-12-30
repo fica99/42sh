@@ -16,7 +16,7 @@ void	exec_jobs(t_job *j)
 {
 	while (j)
 	{
-		launch_job(j, 1);
+		launch_job(j, j->separator == T_AND ? 0 : 1);
 		j = j->next;
 	}
 }

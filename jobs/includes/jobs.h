@@ -17,7 +17,6 @@
 # define DEF_OPENFD_SIZE 10
 # define NO_FORK 1
 # define FORK 0
-# include "../lex/includes/lex.h"
 
 int						g_last_exit_status;
 
@@ -52,7 +51,6 @@ typedef struct			s_job
 	pid_t				pgid;
 	char				notified;
 	struct termios		*tmodes;
-	int					foreground;
 }						t_job;
 
 void					dup_redir(int **fd_list);
