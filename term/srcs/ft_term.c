@@ -129,6 +129,15 @@ int		make_ast(t_lex_tkn **list, t_ast **root)
 	return (0);
 }
 
+void	clean_tree(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	clean_tree(ast->left);
+	clean_tree(ast->right);
+	free(ast);
+}
+
 void	check_valid_string(char *buffer)
 {
 	t_lex_tkn	**tokens;
@@ -138,6 +147,13 @@ void	check_valid_string(char *buffer)
 	if (!tokens)
 		return ;
 	root = new_node(tokens);
-	make_ast(tokens, &root);
+	if (!make_ast(tokens, &root))
+	{
+		parse(root);
+		exec_jobs(g_first_job);
+	}
+	ft_free_jobs(g_first_job);
+	g_first_job = NULL;
+	clean_tree(root);
 	lex_del_tkns(tokens);
 }

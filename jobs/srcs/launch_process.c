@@ -88,6 +88,15 @@ void	dup_pipes(t_process *p)
 	}
 }
 
+void	ft_sub(char **args)
+{
+	while (*args)
+	{
+		spec_symbols(*args);
+		args++;
+	}
+}
+
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t	pid;
@@ -103,6 +112,7 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 			tcsetpgrp(g_shell_terminal, pgid);
 		set_sig_def();
 	}
+	ft_sub(p->args);
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);

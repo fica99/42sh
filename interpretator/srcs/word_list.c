@@ -12,7 +12,7 @@
 
 #include "ft_shell.h"
 
-static int	parse_word(t_lex_tkn **list, t_process *curr_proc)
+static void	parse_word(t_lex_tkn **list, t_process *curr_proc)
 {
 	size_t	i;
 	char	**tmp;
@@ -35,7 +35,7 @@ static int	parse_word(t_lex_tkn **list, t_process *curr_proc)
 	return (word_list(++list, curr_proc));
 }
 
-static int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
+static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 {
 	t_redir_list	*new;
 	t_redir_list	*first_red;
@@ -57,30 +57,27 @@ static int	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	return (word_list(list + exp_w + 1, curr_proc));
 }
 
-t_lex_tkn	**check_valid_ass_word(t_lex_tkn **list)
-{
-	t_lex_tkn **tmp;
+// t_lex_tkn	**check_valid_ass_word(t_lex_tkn **list)
+// {
+// 	t_lex_tkn **tmp;
 
-	tmp = list;
-	while ((*list)->type != T_END)
-	{
-		if ((*list)->type != T_ASSIGNMENT_WORD)
-			return (list);
-		list++;
-	}
-	return (tmp);
-}
+// 	tmp = list;
+// 	while ((*list)->class == C_WORD || (*list)->class != C_REDIR)
+// 	{
+// 		if ((*list)->type != T_ASSIGNMENT_WORD)
+// 			return (list);
+// 		list++;
+// 	}
+// 	return (tmp);
+// }
 
-t_lex_tkn	**parse_ass_words(t_lex_tkn **list, t_process *curr_proc)
+t_lex_tkn	**set_ass_words(t_lex_tkn **list, t_process *curr_proc)
 {
 	size_t	i;
 
 	i = 1;
-	list = check_valid_ass_word(list);
-	if ((*list)->type != T_ASSIGNMENT_WORD)
-		return (list);
 	curr_proc->args[0] = ft_strdup("set_var");
-	while ((*list)->type != T_END)
+	while ((*list)->type == T_ASSIGNMENT_WORD)
 	{
 		if (!(curr_proc->args[i++] = ft_strdup((*list)->value)))
 			err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -94,15 +91,15 @@ t_lex_tkn	**parse_ass_words(t_lex_tkn **list, t_process *curr_proc)
 		}
 		list++;
 	}
-	return (NULL);
+	return (list);
 }
 
-int			word_list(t_lex_tkn **list, t_process *cur_proc)
+void	word_list(t_lex_tkn **list, t_process *cur_proc)
 {
-	if ((*list)->type == T_END)
-		return (0);
-	else if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
-		return (parse_redirect(list, cur_proc));
+	if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
+		parse_redirect(list, cur_proc);
+	else if ((*list)->type == T_WORD)
+		parse_word(list, cur_proc);
 	else
-		return (parse_word(list, cur_proc));
+		return ;
 }

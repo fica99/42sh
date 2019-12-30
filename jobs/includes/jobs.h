@@ -51,7 +51,6 @@ typedef struct			s_job
 	pid_t				pgid;
 	char				notified;
 	struct termios		*tmodes;
-	int					foreground;
 }						t_job;
 
 void					dup_redir(int **fd_list);

@@ -46,8 +46,8 @@ typedef enum	e_lex_tkn_type
 	T_SEP,
 	T_CONTROL_SUB,
 	T_AND_AND,
-	T_OR_OR,
 	T_AND,
+	T_OR_OR,
 	T_OPEN_FIG_BRACE,
 	T_CLOSE_FIG_BRACE,
 	T_ARITH_OPERS

@@ -51,28 +51,26 @@ t_process	*proc_new(void)
 	return (new);
 }
 
-t_process	*add_process(t_job *first_job)
+t_process	*add_process(t_job *j)
 {
 	t_process	*proc;
 	t_process	*tmp;
 
 	proc = proc_new();
-	while (first_job->next)
-		first_job = first_job->next;
-	tmp = first_job->first_process;
+	tmp = j->first_process;
 	if (tmp)
 	{
 		while (tmp->next)
 			tmp = tmp->next;
 	}
 	if (!tmp)
-		first_job->first_process = proc;
+		j->first_process = proc;
 	else
 		tmp->next = proc;
 	return (proc);
 }
 
-t_job		*job_new(void)
+t_job		*job_new(t_lex_tkn **sep)
 {
 	t_job *new;
 	t_job *tmp;
@@ -81,7 +79,8 @@ t_job		*job_new(void)
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	new->pgid = getpgrp();
 	new->tmodes = &g_shell_tmodes;
-	new->foreground = 1;
+	if (sep)
+		new->separator = (*sep)->type;
 	if (!g_first_job)
 		g_first_job = new;
 	else

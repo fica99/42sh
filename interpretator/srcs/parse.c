@@ -12,81 +12,36 @@
 
 #include "ft_shell.h"
 
-int		simp_command(t_lex_tkn **list)
+void	parse_ass_words(t_ast *node, t_job *curr)
 {
-	t_process	*curr_proc;
-
-	if ((*list)->type == T_END)
-		return (0);
-	curr_proc = add_process(g_first_job);
-	if (!(list = parse_ass_words(list, curr_proc)))
-		return (0);
-	return (word_list(list, curr_proc));
+	if ((*node->token)->type == T_ASSIGNMENT_WORD)
+		node->token = set_ass_words(node->token, add_process(curr));
+	if ((*node->token)->type == T_WORD || (*node->token)->class == C_REDIR)
+		word_list(node->token, add_process(curr));
 }
 
-int		pipe_sequence(t_lex_tkn **list)
+void	parse_pipe(t_ast *node, t_job *curr)
 {
-	t_lex_tkn **tmp;
-
-	if ((*list)->type == T_END)
-		return (0);
-	tmp = split_list(find_token(list, C_PIPE));
-	simp_command(list);
-	return (pipe_sequence(tmp));
+	if ((*node->token)->class != C_PIPE)
+		return (parse_ass_words(node, curr));
+	parse_ass_words(node->left, curr);
+	parse_ass_words(node->right, curr);
 }
 
-int		start(t_lex_tkn **list)
+void	parse_logical(t_ast *root)
 {
-	t_lex_tkn	**tmp;
-	t_job		*new;
-
-	if ((*list)->type == T_END)
-		return (0);
-	if ((*list)->type == T_SEP)
-		return (start(++list));
-	tmp = find_token(list, C_SEP);
-	new = job_new();
-	if ((*tmp)->type != T_END)
-		new->separator = (*tmp)->type;
-	if (new->separator == T_AND)
-		new->foreground = 0;
-	tmp = split_list(tmp);
-	pipe_sequence(list);
-	return (start(tmp));
-}
-
-void	ft_sub(t_lex_tkn **list)
-{
-	while ((*list)->type != T_END)
-	{
-		if ((*list)->type == T_WORD)
-		{
-			if (ft_strchr((*list)->value, '"'))
-				ft_strccut((*list)->value, '"');
-			if (ft_strchr((*list)->value, '\''))
-				ft_strccut((*list)->value, '\'');
-			(*list)->value = spec_symbols((*list)->value);
-		}
-		list++;
-	}
-}
-
-void	parse(t_lex_tkn **tokens)
-{
-	t_lex_tkn **tmp;
-
-	if (!tokens)
+	if (!root)
 		return ;
-	if (!*tokens || (*tokens)->type == T_END)
-		return ;
-	while ((*tokens)->type != T_END)
-	{
-		tmp = split_list(find_token(tokens, C_SEP));
-		ft_sub(tokens);
-		start(tokens);
-		exec_jobs(g_first_job);
-		ft_free_jobs(g_first_job);
-		g_first_job = 0;
-		tokens = tmp;
-	}
+	if ((*root->token)->class != C_LOG_OPERS)
+		return (parse_pipe(root, job_new(NULL)));
+	parse_pipe(root->left, job_new(root->token));
+	parse_pipe(root->right, job_new(root->token));
+}
+
+void	parse(t_ast *root)
+{
+	if ((*root->token)->type != T_SEP)
+		return (parse_logical(root));
+	parse_logical(root->left);
+	parse_logical(root->right);
 }

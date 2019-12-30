@@ -47,7 +47,7 @@ typedef struct	s_open_files
 }				t_open_files;
 
 void			cls_redir(int **red);
-t_lex_tkn		**parse_ass_words(t_lex_tkn **list, t_process *curr_proc);
+t_lex_tkn		**set_ass_words(t_lex_tkn **list, t_process *curr_proc);
 char			*ft_stricut(char *str, int i);
 char			*substitution(char *str);
 void			exec_jobs(t_job *j);
@@ -61,20 +61,19 @@ void			file_err(char *s1, char *s2, char *s3, t_job *j);
 int				g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
 void			ft_free_proc(t_process *p);
 int				get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token);
-t_job			*job_new(void);
+t_job			*job_new(t_lex_tkn **sep);
 void			ft_free_jobs(t_job *j);
 void			close_fds(t_job *first_job);
 t_process		*add_process(t_job *first_job);
 int				syntax_err(t_lex_tkn *token);
 t_lex_tkn		**find_token(t_lex_tkn **list, int type);
-void			parse(t_lex_tkn **tokens);
+void			parse(t_ast *root);
 char			**ft_strtok(char *s);
 char			*ft_strccut(char *str, char c);
 char			*ft_stricut(char *str, int i);
 t_lex_tkn		**split_list(t_lex_tkn **token);
 t_lex_tkn		**find_token(t_lex_tkn **list, int type);
-t_job			*job_new(void);
-int				word_list(t_lex_tkn **redir, t_process *cur_proc);
+void			word_list(t_lex_tkn **redir, t_process *cur_proc);
 
 /*
 **  spec_symb.c
