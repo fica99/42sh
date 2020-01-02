@@ -85,7 +85,7 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 
 	curr_status = (*list)->class;
 	*root = new_node(list);
-	if (curr_status != C_WORD && curr_status != C_REDIR)
+	if (curr_status != C_WORD && curr_status != C_REDIR && curr_status != C_SEP)
 		return (syntax_err(*list));
 	while (*(list + 1))
 	{

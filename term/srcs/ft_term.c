@@ -62,7 +62,7 @@ void	check_valid_string(char *buffer)
 	t_ast		*root;
 
 	tokens = lex_get_tkns(&buffer);
-	if (!tokens)
+	if (!tokens || !*tokens || (*tokens)->type == T_END)
 		return ;
 	if (!make_ast(tokens, &root))
 	{

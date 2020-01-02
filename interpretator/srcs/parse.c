@@ -49,7 +49,7 @@ void	parse(t_ast *root)
 	if ((*root->token)->type != T_SEP)
 		return (parse_logical(root));
 	parse_logical(root->left);
-	if ((*root->right->token)->type == T_SEP)
+	if (root->right && (*root->right->token)->type == T_SEP)
 		parse(root->right);
 	else
 		parse_logical(root->right);
