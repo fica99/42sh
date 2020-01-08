@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_built.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:04:49 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:04:50 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/08 18:57:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int			exit_built(int ac, char **av)
 		ft_error("42sh", av[0], NULL, "too many arguments");
 		return (-1);
 	}
+	free_readline();
 	if (!av[1])
 		exit(last_exit_status);
 	if (is_num(av[1]) < 0)

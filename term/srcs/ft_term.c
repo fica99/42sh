@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/08 18:58:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ void	term_start(void)
 	init_jobs();
 	while (RUNNING)
 	{
-		g_flags = INIT_FLAGS;
 		line = ft_readline(get_env("PS1", ALL_ENV), EMACS);
 		//subshell_expr(line); /* TODO перенести в парсер #96. */
 		//subgroups_expr(line); /* TODO перенести в парсер #99. */
 		check_valid_string(line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);
-		if (g_flags & TERM_EXIT)
-			break ;
 	}
 	free_readline();
 }
