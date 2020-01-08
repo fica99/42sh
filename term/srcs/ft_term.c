@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_term.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/17 23:13:00 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/08 19:46:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,11 @@ void	term_start(void)
 	init_readline();
 	while (RUNNING)
 	{
-		g_flags = INIT_FLAGS;
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV), EMACS)))
 			continue ;
 		check_valid_string(line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);
-		if (g_flags & TERM_EXIT)
-			break ;
 	}
 	free_readline();
 }
