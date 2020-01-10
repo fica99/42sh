@@ -24,7 +24,7 @@
 **	ft_term.c
 */
 void				term_start(void);
-t_job				*check_valid_string(char *buffer, t_job *last_job);
+void				check_valid_string(char *buffer);
 /*
 **	global_var.c
 */

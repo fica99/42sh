@@ -10,6 +10,7 @@ srcs := launch_job.c\
 		check_job.c\
 		put_in.c\
 		init_jobs.c\
+		find_job.c\
 
 objs := $(srcs:.c=.o)
 

@@ -39,39 +39,35 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	t_job 	*last_job;
 
 	signalling();
 	init_readline();
+	g_last_job = NULL;
 	init_jobs();
-	last_job = NULL;
 	while (RUNNING)
 	{
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV), EMACS)))
 			continue ;
-		last_job = check_valid_string(line, last_job);
+		check_valid_string(line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 	}
 	free_readline();
 }
 
-t_job	*check_valid_string(char *buffer, t_job *last_job)
+void	check_valid_string(char *buffer)
 {
 	t_lex_tkn	**tokens;
 	t_ast		*root;
 
 	tokens = lex_get_tkns(&buffer);
 	if (!tokens || !*tokens || (*tokens)->type == T_END)
-		return (0);
+		return ;
 	if (!make_ast(tokens, &root))
 	{
 		parse(root);
-		last_job = exec_jobs(last_job->next);
+		exec_jobs();
 	}
-	//ft_free_jobs(g_first_job);
-	//g_first_job = NULL;
 	clean_tree(root);
 	lex_del_tkns(tokens);
-	return (last_job);
 }

@@ -12,18 +12,21 @@
 
 #include "ft_shell.h"
 
-t_job	*exec_jobs(t_job *j)
+void	exec_jobs(void)
 {
-	t_job *last_job;
+	t_job *j;
 
-	if (!j)
+	if (!g_last_job || !g_last_job->next)
 		j = g_first_job;
-	last_job = j;
+	else
+	{
+		g_last_job = g_last_job->next;
+		j = g_last_job;
+	}
 	while (j)
 	{
-		last_job = j;
+		g_last_job = j;
 		launch_job(j, j->separator == T_AND ? 0 : 1);
 		j = j->next;
 	}
-	return (last_job);
 }

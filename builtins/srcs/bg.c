@@ -10,10 +10,13 @@ void    bg(int argc, char **argv)
     else
         i = 1;
     j = g_first_job;
-    while (j && i--)
+    while (j && j->num != i)
         j = j->next;
     if (j)
+    {
+        mark_job_as_running(j);
         put_job_in_background(j, 1);
+    }
     else
         err("42sh", "bg", argv[1], "no such job");
 }

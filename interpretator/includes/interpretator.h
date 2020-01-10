@@ -52,7 +52,7 @@ void			cls_redir(int **red);
 t_lex_tkn		**set_ass_words(t_lex_tkn **list, t_process *curr_proc);
 char			*ft_stricut(char *str, int i);
 char			*substitution(char *str);
-t_job			*exec_jobs(t_job *j);
+void			exec_jobs(void);
 int				l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
 int				here_doc(t_lex_tkn **list, t_process *curr, int io_number);
 int				l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);

@@ -11,13 +11,13 @@ static void    init_signals(void)
 
 void    init_jobs(void)
 {
-    /*g_first_job = NULL;
+    g_first_job = NULL;
     g_shell_terminal = STDIN_FILENO;
-    fprintf(stderr, "%d\n", isatty(g_shell_terminal));
     while(tcgetpgrp(g_shell_terminal) != (g_shell_pgid = getpgrp()))
-        kill(-g_shell_pgid, SIGTTIN);*/
+        kill(-g_shell_pgid, SIGTTIN);
     init_signals();
-    /*g_shell_pgid = getpid();
+    g_shell_pgid = getpid();
     setpgid(g_shell_pgid, g_shell_pgid);
-    tcsetpgrp(g_shell_terminal, g_shell_pgid);*/
+    tcsetpgrp(g_shell_terminal, g_shell_pgid);
+    tcgetattr(g_shell_terminal, &g_shell_tmodes);
 }

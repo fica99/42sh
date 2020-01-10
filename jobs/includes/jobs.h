@@ -60,6 +60,8 @@ void					dup_redir(int **fd_list);
 int						redir_handle(t_process *p);
 
 t_job					*g_first_job;
+t_job					*g_last_job;
+int					g_last_exit_status;
 
 pid_t					g_shell_pgid;
 int						g_shell_terminal;
@@ -82,8 +84,8 @@ pid_t					make_process(void);
 
 void					launch_job(t_job *j, int foreground);
 
-void do_job_notification(void);
-void format_job_info(t_job *j, const char *status);
+void do_job_notification(t_job *start_job, int options);
+void format_job_info(t_job *j, int num, const char *status, int options);
 void wait_for_job(t_job *j);
 void update_status (void);
 int mark_process_status(pid_t pid, int status);
@@ -94,8 +96,11 @@ void put_job_in_background (t_job *j, int cont);
 void    free_job(t_job *j);
 
 int job_is_stopped (t_job *j);
+void mark_job_as_running (t_job *j);
 int job_is_completed (t_job *j);
 
 void    init_jobs(void);
+
+t_job   *find_job(int num);
 
 #endif
