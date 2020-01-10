@@ -25,9 +25,7 @@ static void	check_file_access(char *fname)
 int			ft_open(char *fname, int fl)
 {
 	int		fd;
-	size_t	i;
 
-	i = 0;
 	if ((fd = open(fname, fl, PERM_MODE)) < 0)
 		check_file_access(fname);
 	return (fd);

@@ -23,7 +23,10 @@ srcs := cd.c\
 		exit_built.c\
 		setenv_built.c\
 		cdpath.c\
-		set_var.c
+		set_var.c\
+		fg.c\
+		bg.c\
+		jobs.c\
 
 objs := $(srcs:.c=.o)
 

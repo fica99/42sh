@@ -64,4 +64,8 @@ void			fc(int argc, char **argv);
 void			fc_print_command(int flags, int first, int last);
 void			fc_write_commands(int first, int last, char *path);
 
+void    bg(int argc, char **argv);
+void    fg(int argc, char **argv);
+void    jobs(int argc, char **argv);
+
 #endif

@@ -36,12 +36,9 @@ void	open_pipe(t_process *p, int *pipes)
 void	ft_s(t_process *p, t_job *j, pid_t pid)
 {
 	p->pid = pid;
-	if (g_shell_is_interactive)
-	{
-		if (!j->pgid)
-			j->pgid = pid;
-		setpgid(pid, j->pgid);
-	}
+	if (!j->pgid)
+		j->pgid = pid;
+	setpgid(pid, j->pgid);
 }
 
 void	launch_job(t_job *j, int foreground)
@@ -62,13 +59,19 @@ void	launch_job(t_job *j, int foreground)
 			launch_process(p, j->pgid, foreground);
 		else
 		{
+			p->pid = pid;
+			if (!j->pgid)
+				j->pgid = pid;
+			setpgid(pid, j->pgid);
 			ft_s(p, j, pid);
 			close_pipes(p);
 		}
 		p = p->next;
 	}
-	while (waitpid(-1, &g_last_exit_status, 0) != -1)
-		;
+	if (foreground)
+		put_job_in_foreground(j, 0);
+	else
+		put_job_in_background(j, 0);
 	set_env("\'?\'", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
 	free(last_status);
 }

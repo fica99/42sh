@@ -50,10 +50,7 @@ void	rl_k_comma(t_readline *rl)
 void	rl_k_r_upper(t_readline *rl)
 {
 	char	c[RL_MAX_BUFF + 1];
-	char	symb[2];
 
-	symb[1] = '\0';
-	symb[0] = rl->line.buffer[rl->cord.pos];
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
@@ -67,10 +64,7 @@ void	rl_k_r_upper(t_readline *rl)
 void	rl_k_r_lower(t_readline *rl)
 {
 	char	c[RL_MAX_BUFF + 1];
-	char	symb[2];
 
-	symb[1] = '\0';
-	symb[0] = rl->line.buffer[rl->cord.pos];
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);

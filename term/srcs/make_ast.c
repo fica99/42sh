@@ -29,8 +29,8 @@ int *status, t_lex_tkn **list)
 	i = 0;
 	while (i < RULES_NUM)
 	{
-		if (rules[i][0] == (*list)->class
-		&& rules[i][1] == (*(list + 1))->class)
+		if (rules[i][0] == (int)(*list)->class
+		&& rules[i][1] == (int)(*(list + 1))->class)
 		{
 			*status = rules[i][2];
 			return (0);

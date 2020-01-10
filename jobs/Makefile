@@ -4,7 +4,12 @@ srcs := launch_job.c\
 		get_fname.c\
 		ft_pathcmp.c\
 		make_redir.c\
-		launch_builtin.c
+		launch_builtin.c\
+		hndl_chld.c\
+		free_job.c\
+		check_job.c\
+		put_in.c\
+		init_jobs.c\
 
 objs := $(srcs:.c=.o)
 

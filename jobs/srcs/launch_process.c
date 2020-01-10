@@ -47,16 +47,13 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	pid_t	pid;
 	char	*fname;
 
-	if (g_shell_is_interactive)
-	{
-		pid = getpid();
-		if (pgid == 0)
-			pgid = pid;
-		setpgid(pid, pgid);
-		if (foreground)
-			tcsetpgrp(g_shell_terminal, pgid);
-		set_sig_def();
-	}
+	pid = getpid();
+	if (pgid == 0)
+		pgid = pid;
+	setpgid(pid, pgid);
+	if (foreground)
+		tcsetpgrp(g_shell_terminal, pgid);
+	set_sig_def();
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);

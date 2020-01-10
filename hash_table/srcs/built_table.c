@@ -28,5 +28,8 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "hash", &hash, BUILT_NUM);
 	push_hash(table, "set", &set, BUILT_NUM);
 	push_hash(table, "set_var", &set_var, BUILT_NUM);
+	push_hash(table, "fg", &fg, BUILT_NUM);
+	push_hash(table, "bg", &bg, BUILT_NUM);
+	push_hash(table, "jobs", &jobs, BUILT_NUM);
 	g_built_table->table = table;
 }
