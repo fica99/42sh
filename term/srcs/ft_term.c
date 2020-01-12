@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 20:40:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/12 21:01:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	term_start(void)
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV), VI)))
 			continue ;
 		ft_system(line);
+		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 	}
 	free_readline();
