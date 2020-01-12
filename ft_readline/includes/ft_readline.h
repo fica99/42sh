@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 18:44:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/12 19:12:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "rl_errors.h"
 # include "rl_templates.h"
 # include "../../environ/includes/environ.h"
+# include "../../error/includes/error.h"
 
 # define LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
@@ -306,7 +307,7 @@ void				rl_k_x_lower(t_readline *rl);
 **	rl_k_vi3.c
 */
 void				rl_k_x_upper(t_readline *rl);
-//void	rl_k_v(t_readline *rl);
+void				rl_k_v(t_readline *rl);
 void				rl_k_f_lower(t_readline *rl);
 void				rl_k_f_upper(t_readline *rl);
 /*

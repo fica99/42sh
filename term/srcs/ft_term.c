@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 19:46:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/12 20:40:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,10 @@
 int		main(int argc, char **argv, char **environ)
 {
 	(void)argv;
-	ft_putstr("*-------------------------------------------------------*\n");
-	ft_putstr("│                                                       │\n");
-	ft_putstr("|\033[0;31m");
-	ft_putstr("             Say hello to my little friend!!!          ");
-	ft_putstr("\033[0m|\n");
-	ft_putstr("|                                                       │\n");
-	ft_putstr("*-------------------------------------------------------*\n");
 	init_global_var(environ);
 	if (argc == 1)
 		term_start();
 	free_globar_var();
-	ft_putstr("*-------------------------------------------------------*\n");
-	ft_putstr("│                                                       │\n");
-	ft_putstr("|\033[0;35m");
-	ft_putstr("              Goodbye my love, goodbye!!!              ");
-	ft_putstr("\033[0m|\n");
-	ft_putstr("|                                                       │\n");
-	ft_putstr("*-------------------------------------------------------*\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -44,16 +30,15 @@ void	term_start(void)
 	init_readline();
 	while (RUNNING)
 	{
-		if (!(line = ft_readline(get_env("PS1", ALL_ENV), EMACS)))
+		if (!(line = ft_readline(get_env("PS1", ALL_ENV), VI)))
 			continue ;
-		check_valid_string(line);
-		add_to_history_buff(line);
+		ft_system(line);
 		ft_memdel((void**)&line);
 	}
 	free_readline();
 }
 
-void	check_valid_string(char *buffer)
+void	ft_system(char *buffer)
 {
 	t_lex_tkn	**tokens;
 	t_ast		*root;

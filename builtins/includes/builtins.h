@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 12:24:24 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/12 19:23:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			init_curr_pwd(void);
 ***	fc.c
 */
 char			**fc_get_list(int first, int last);
-void			fc(int argc, char **argv);
+int				fc(int argc, char **argv);
 /*
 ***	fc_print.c
 */
