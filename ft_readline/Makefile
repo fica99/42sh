@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/12 19:13:54 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/12 22:52:12 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,17 +71,11 @@ includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_environ := ../environ/includes
-
-includes_error := ../error/includes
-
-includes_flags := -I $(inc_dir)\
-				-I $(includes_libft)\
+includes_flags := -I $(includes_libft)\
 				-I $(includes_libhash)\
 				-I $(includes_libdar)\
 				-I $(includes_libstr)\
-				-I $(includes_environ)\
-				-I $(includes_error)\
+				-I $(inc_dir)\
 
 cc := gcc
 

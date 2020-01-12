@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/12 19:23:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/12 22:44:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,6 @@
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
-# define FC_FLAG_L (1 << 1)
-# define FC_FLAG_N (1 << 2)
-# define FC_FLAG_R (1 << 3)
-# define FC_DIGIT (1 << 4)
-# define FC_FLAG_ERROR (1 << 5)
 # define FC_FILE_EDITOR ".42sh-fc"
 # define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC
 # define FC_FILE_PERM S_IRUSR | S_IWUSR
@@ -30,6 +25,17 @@ char *g_curr_dir;
 typedef int(*t_builtin)(int, char **);
 
 typedef char	t_flag;
+
+typedef struct		s_fc
+{
+	char			*editor;
+	char			*first;
+	char			*last;
+	char			flag_n;
+	char			flag_l;
+	char			flag_r;
+}					t_fc;
+
 
 int				set_var(int ac, char **av);
 void			path_add(char *tmp);
@@ -56,12 +62,16 @@ void			init_curr_pwd(void);
 /*
 ***	fc.c
 */
-char			**fc_get_list(int first, int last);
+//char			**fc_get_list(int first, int last);
 int				fc(int argc, char **argv);
 /*
-***	fc_print.c
+***	fc_parse.c
 */
-void			fc_print_command(int flags, int first, int last);
-void			fc_write_commands(int first, int last, char *path);
+char			fc_parse_args(t_fc *fc, int argc, char **argv);
+// /*
+// ***	fc_print.c
+// */
+// void			fc_print_command(int flags, int first, int last);
+// void			fc_write_commands(int first, int last, char *path);
 
 #endif
