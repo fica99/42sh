@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:35:49 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:35:50 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/14 15:28:08 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	check_file_access(char *fname)
 int			ft_open(char *fname, int fl)
 {
 	int		fd;
-	size_t	i;
 
-	i = 0;
 	if ((fd = open(fname, fl, PERM_MODE)) < 0)
 		check_file_access(fname);
 	return (fd);

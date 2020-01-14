@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/12 22:44:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/14 15:18:44 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct		s_fc
 	char			*editor;
 	char			*first;
 	char			*last;
+	int				first_i;
+	int				last_i;
 	char			flag_n;
 	char			flag_l;
 	char			flag_r;
@@ -62,16 +64,14 @@ void			init_curr_pwd(void);
 /*
 ***	fc.c
 */
-//char			**fc_get_list(int first, int last);
 int				fc(int argc, char **argv);
 /*
 ***	fc_parse.c
 */
 char			fc_parse_args(t_fc *fc, int argc, char **argv);
-// /*
-// ***	fc_print.c
-// */
-// void			fc_print_command(int flags, int first, int last);
-// void			fc_write_commands(int first, int last, char *path);
+/*
+***	fc_execc
+*/
+void			fc_exec(t_fc *fc);
 
 #endif

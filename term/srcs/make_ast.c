@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/30 23:37:48 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/14 15:32:01 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int *status, t_lex_tkn **list)
 	i = 0;
 	while (i < RULES_NUM)
 	{
-		if (rules[i][0] == (*list)->class
-		&& rules[i][1] == (*(list + 1))->class)
+		if (rules[i][0] == (int)(*list)->class
+		&& rules[i][1] == (int)(*(list + 1))->class)
 		{
 			*status = rules[i][2];
 			return (0);

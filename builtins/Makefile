@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: aashara <aashara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/12 22:45:15 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/14 15:32:34 by aashara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ srcs := cd.c\
 		set_var.c\
 		fc.c\
 		fc_parse.c\
-	#	fc_print.c\
+		fc_exec.c\
 
 objs := $(srcs:.c=.o)
 
