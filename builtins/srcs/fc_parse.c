@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 22:41:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 22:54:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/15 10:31:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char		fc_parse_args(t_fc *fc, int argc, char **argv)
 			if (!fc_parse_editor(fc, argc, argv, &i))
 				return (FALSE);
 		}
-		else if (*argv[i] == '-')
+		else if (argv[i][0] == '-' && ft_isalpha(argv[i][1]))
 		{
 			if (flags == FALSE || !fc_parse_flags(fc, argv[i]))
 				return (FALSE);

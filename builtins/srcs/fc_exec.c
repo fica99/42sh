@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fc_exec.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/14 15:53:48 by aashara          ###   ########.fr       */
+/*   Updated: 2020/01/15 10:36:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		**fc_get_list(int first, int last)
 	return (res);
 }
 
-static void	fc_write_commands(int first, int last, char *path)
+static void		fc_write_commands(int first, int last, char *path)
 {
 	char	**line;
 	char	*new_line;
@@ -52,7 +52,7 @@ static void	fc_write_commands(int first, int last, char *path)
 	}
 }
 
-static void	fc_print_list(t_fc *fc)
+static void		fc_print_list(t_fc *fc)
 {
 	char	**line;
 	int		i;
@@ -77,7 +77,7 @@ static void	fc_print_list(t_fc *fc)
 	ft_free_dar(line);
 }
 
-void	fc_exec(t_fc *fc)
+void			fc_exec(t_fc *fc)
 {
 	char	*path;
 	char	*line;

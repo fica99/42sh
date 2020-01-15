@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/14 15:18:44 by aashara          ###   ########.fr       */
+/*   Updated: 2020/01/15 10:37:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,40 +38,39 @@ typedef struct		s_fc
 	char			flag_r;
 }					t_fc;
 
-
-int				set_var(int ac, char **av);
-void			path_add(char *tmp);
-void			remove_slashes(void);
-int				cdpath_handle(char *path, t_flag no_links);
-int				setenv_built(int ac, char **av);
-int				exit_built(int ac, char **av);
-char			*ft_pathjoin(char *s1, char *s2);
-void			ft_putln(char *str);
-char			**check_flags(char **av, t_flag *no_links);
-int				change_wdir(char *path, t_flag no_links);
-int				pwd(int ac, char **av);
-int				cd(int ac, char **av);
-void			rewrite_cwd(char *path);
-int				check_request(char **argv, char *path);
-int				ft_echo(int argc, char **argv);
-int				env(int argc, char **argv);
-int				set(int len, char **args);
-int				unset(int ac, char **args);
-void			export(int len, char **args);
-void			print_bin_table(t_hash **bin_table, size_t size);
-int				hash(int ac, char **av);
-void			init_curr_pwd(void);
+int					set_var(int ac, char **av);
+void				path_add(char *tmp);
+void				remove_slashes(void);
+int					cdpath_handle(char *path, t_flag no_links);
+int					setenv_built(int ac, char **av);
+int					exit_built(int ac, char **av);
+char				*ft_pathjoin(char *s1, char *s2);
+void				ft_putln(char *str);
+char				**check_flags(char **av, t_flag *no_links);
+int					change_wdir(char *path, t_flag no_links);
+int					pwd(int ac, char **av);
+int					cd(int ac, char **av);
+void				rewrite_cwd(char *path);
+int					check_request(char **argv, char *path);
+int					ft_echo(int argc, char **argv);
+int					env(int argc, char **argv);
+int					set(int len, char **args);
+int					unset(int ac, char **args);
+void				export(int len, char **args);
+void				print_bin_table(t_hash **bin_table, size_t size);
+int					hash(int ac, char **av);
+void				init_curr_pwd(void);
 /*
 ***	fc.c
 */
-int				fc(int argc, char **argv);
+int					fc(int argc, char **argv);
 /*
 ***	fc_parse.c
 */
-char			fc_parse_args(t_fc *fc, int argc, char **argv);
+char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
 ***	fc_execc
 */
-void			fc_exec(t_fc *fc);
+void				fc_exec(t_fc *fc);
 
 #endif
