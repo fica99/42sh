@@ -6,12 +6,13 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2020/01/16 23:04:13 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 srcs = get_env.c\
 		init_environ.c\
+		get_env_dar.c\
 
 objs := $(srcs:.c=.o)
 
@@ -20,8 +21,6 @@ srcs_dir := srcs
 objs_dir := objs
 
 inc_dir := includes
-
-main_inc_dir := ../includes
 
 lib_dir := ../libraries
 
@@ -33,24 +32,15 @@ header := $(addprefix $(inc_dir)/, environ.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
-
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
-
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
-
-includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
-
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
-
-includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
+includes_flags := -I $(includes_libft)\
+				-I $(includes_libdar)\
+				-I $(inc_dir)\
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror -g -O0
+cflags := -Wall -Wextra -Werror
 
 .PHONY: all compilation clean re
 

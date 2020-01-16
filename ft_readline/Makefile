@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/12 22:52:12 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/16 23:00:00 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ srcs := add_to_history_buff.c\
 		rl_prompt_time.c\
 		rl_str.c\
 		rl_term_mode.c\
-		rl_hist_exp.c
+		rl_hist_exp.c\
+		rl_k_tab.c\
 
 objs := $(srcs:.c=.o)
 
@@ -93,7 +94,7 @@ $(objs_dir):
 compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
+$(objs_dir)/%.o: $(srcs_dir)/%.c $(headers)
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:

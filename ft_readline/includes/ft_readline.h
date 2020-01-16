@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 22:52:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:40:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,10 @@ void				rl_k_p_lower(t_readline *rl);
 void				rl_k_p_upper(t_readline *rl);
 void				rl_k_y_upper(t_readline *rl);
 void				rl_k_d_upper(t_readline *rl);
+/*
+**	rl_k_tab.c
+*/
+void				rl_k_tab(t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

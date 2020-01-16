@@ -6,15 +6,15 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:43:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/16 21:34:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RL_TEMPLATES_H
 # define RL_TEMPLATES_H
 
-# define VI_HASH_SIZE 59
-# define EMACS_HASH_SIZE 46
+# define VI_HASH_SIZE 60
+# define EMACS_HASH_SIZE 47
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
 # define RL_CUR_CORD tigetstr("u7")
