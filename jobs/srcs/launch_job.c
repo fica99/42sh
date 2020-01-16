@@ -69,6 +69,6 @@ void	launch_job(t_job *j, int foreground)
 	}
 	while (waitpid(-1, &g_last_exit_status, 0) != -1)
 		;
-	set_env("\'?\'", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
+	set_env("?", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
 	free(last_status);
 }
