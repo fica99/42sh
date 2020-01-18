@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 12:24:24 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/18 04:42:18 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,23 @@ void			fc(int argc, char **argv);
 */
 void			fc_print_command(int flags, int first, int last);
 void			fc_write_commands(int first, int last, char *path);
+/*
+***	echo_eflag.c
+*/
+int				ft_eflag(int i, char **argv, int argc, int *flags);
+int				ft_isoct(char c);
+int				ft_hexout(char **argv, int i, int j);
+/*
+***	echo.c
+*/
+int				ft_echo(int argc, char **argv);
+int				ft_common_escape(char **argv, int i, int j);
+int				ft_octal(char **argv, int i, int j);
+/*
+***	echo_one_escape.c
+*/
+int				echo_one_escape(char **argv, int i, int j);
+void			echo_slashes(char **argv, int i, int j);
+void			echo_text(char **argv, int i, int j);
 
 #endif

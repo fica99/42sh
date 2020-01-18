@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
+#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:47:09 by lcrawn           ###   ########.fr        #
+#    Updated: 2020/01/18 04:41:01 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ srcs := cd.c\
 		exit_built.c\
 		setenv_built.c\
 		cdpath.c\
-		set_var.c
+		set_var.c \
+		echo_eflag.c \
+		echo_one_escape.c
 
 objs := $(srcs:.c=.o)
 
