@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/18 04:42:18 by jijerde          ###   ########.fr       */
-=======
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/15 10:37:26 by aashara-         ###   ########.fr       */
->>>>>>> 8d4691d865b76069cef733ab6f064bd0fe654d91
+/*   Updated: 2020/01/18 04:49:23 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +71,6 @@ char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
 ***	fc_execc
 */
-<<<<<<< HEAD
 void			fc_print_command(int flags, int first, int last);
 void			fc_write_commands(int first, int last, char *path);
 /*
@@ -99,8 +91,6 @@ int				ft_octal(char **argv, int i, int j);
 int				echo_one_escape(char **argv, int i, int j);
 void			echo_slashes(char **argv, int i, int j);
 void			echo_text(char **argv, int i, int j);
-=======
 void				fc_exec(t_fc *fc);
->>>>>>> 8d4691d865b76069cef733ab6f064bd0fe654d91
 
 #endif
