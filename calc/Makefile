@@ -6,31 +6,28 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/19 23:36:09 by ggrimes          ###   ########.fr        #
+#    Updated: 2019/12/21 13:38:35 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := lex_lexer.c\
-		lex_tkn.c\
-		lex_tkns.c\
-		lex_get_tkn.c\
-		lex_check_tkn.c\
-		lex_check_or.c\
-		lex_tkn_type.c\
-		lex_tkn_class.c\
-		lex_check_greater.c\
-		lex_check_less.c\
-		lex_check_sep.c\
-		lex_check_quotes.c\
-		lex_io_num.c\
-		lex_asig_name.c\
-		lex_dol.c\
-		lex_con_sub.c\
-		lex_log_opers.c\
-		lex_check_and.c\
-		lex_check_fig_brace.c\
-		lex_arithmetic_opers.c\
-		lex_debug.c\
+srcs := calc_add_fun.c\
+		calc.c\
+		calc_lexer.c\
+		calc_debug.c\
+		calc_arr_tkns.c\
+		calc_mul_fun.c\
+		calc_inc_fun.c\
+		calc_com_fun.c\
+		calc_eq_fun.c\
+		calc_log_fun.c\
+		calc_tkn.c\
+		calc_num_fun.c\
+		calc_parent_fun.c\
+		calc_error_fun.c\
+		calc_var_fun.c\
+		calc_var_tkn.c\
+		calc_arr_reloc.c\
+		calc_atoi.c\
 
 objs := $(srcs:.c=.o)
 
@@ -46,7 +43,7 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, lex.h)
+header := $(addprefix $(inc_dir)/, calc.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
@@ -66,7 +63,7 @@ cflags := -Wall -Wextra -Werror -g -O0
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish lexer compilation\033[0m"
+	@echo "\033[32mFinish calc compilation\033[0m"
 
 $(objs_dir):
 	@mkdir -p $@

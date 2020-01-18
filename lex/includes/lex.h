@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/21 16:08:44 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/16 22:44:03 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct		s_ast
 
 char				*del_spc(char *str);
 char				*ft_stricut(char *str, int i);
+
 /*
 ** lex_lexer.c
 */
