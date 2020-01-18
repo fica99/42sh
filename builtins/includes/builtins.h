@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/18 04:49:23 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/01/18 05:45:05 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,9 @@ int					fc(int argc, char **argv);
 */
 char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
-***	fc_execc
+***	fc_exec.c
 */
-void			fc_print_command(int flags, int first, int last);
-void			fc_write_commands(int first, int last, char *path);
+void				fc_exec(t_fc *fc);
 /*
 ***	echo_eflag.c
 */
@@ -91,6 +90,5 @@ int				ft_octal(char **argv, int i, int j);
 int				echo_one_escape(char **argv, int i, int j);
 void			echo_slashes(char **argv, int i, int j);
 void			echo_text(char **argv, int i, int j);
-void				fc_exec(t_fc *fc);
 
 #endif
