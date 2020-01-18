@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/16 23:04:13 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/18 17:40:36 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ includes_flags := -I $(includes_libft)\
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 

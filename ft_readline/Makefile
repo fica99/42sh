@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/16 23:00:00 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/18 17:21:04 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,9 @@ srcs := add_to_history_buff.c\
 		rl_prompt_time.c\
 		rl_str.c\
 		rl_term_mode.c\
-		rl_hist_exp.c\
+		history_exp.c\
 		rl_k_tab.c\
+		rl_autocom_print.c\
 
 objs := $(srcs:.c=.o)
 
@@ -80,7 +81,7 @@ includes_flags := -I $(includes_libft)\
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 

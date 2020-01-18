@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 23:03:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/16 23:35:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/18 18:00:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,15 @@ static char		**ft_getenv_dar(char *name, char **arr)
 	j = -1;
 	len = ft_strlen(name);
 	while (arr[++i])
+	{
 		if (!ft_strncmp(arr[i], name, len))
-			if (!(res[++j] = ft_strdup(ft_strchr(arr[i], '=') + 1)))
+		{
+			if (!(res[++j] = ft_strnew(ft_strchr(arr[i], '=') - arr[i] + 1)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
+			ft_strncat(ft_strcpy(res[j], "$"), arr[i], ft_strchr(arr[i], '=')
+																	- arr[i]);
+		}
+	}
 	return (res);
 }
 

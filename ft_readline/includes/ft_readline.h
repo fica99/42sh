@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/16 21:40:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/18 16:40:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,16 @@ typedef struct		s_readline
 	t_rl_mode		mode;
 }					t_readline;
 
+typedef struct		s_rl_autocom
+{
+	short			rows;
+	short			cols;
+	short			max_word;
+	short			arr_len;
+	char			**arr;
+}					t_rl_autocom;
+
+
 /*
 **	init_readline.c
 */
@@ -169,7 +179,7 @@ void				rl_free_history(t_rl_history *history);
 */
 void				add_to_history_buff(char *line);
 /*
-**	rl_hist_exp.c
+**	history_exp.c
 */
 char				*get_hist_expansions(char *line);
 size_t				get_hist_size(void);
@@ -328,6 +338,10 @@ void				rl_k_d_upper(t_readline *rl);
 **	rl_k_tab.c
 */
 void				rl_k_tab(t_readline *rl);
+/*
+**	rl_autocom_print.c
+*/
+void				rl_autocom_print(char **res, t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
