@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/24 16:47:45 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/24 16:48:01 by aashara-         ###   ########.fr       */
+/*   Created: 2019/12/22 15:36:57 by aashara-          #+#    #+#             */
+/*   Updated: 2020/01/12 19:14:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,8 @@
 
 void	rl_err(char *name, char *str, char *err)
 {
-	ft_putstr_fd(name, STDERR_FILENO);
-	if (str)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-	}
-	if (err)
-	{
-		ft_putstr_fd(": ", STDERR_FILENO);
-		ft_putstr_fd(err, STDERR_FILENO);
-	}
-	ft_putstr_fd("\n", STDERR_FILENO);
-	rl_set_attr(&g_rl.canon_mode);
+	ft_error(name, str, NULL, err);
+	reset_shell_mode();
+	rl_set_mode(&g_rl.start_mode);
 	exit(EXIT_FAILURE);
 }

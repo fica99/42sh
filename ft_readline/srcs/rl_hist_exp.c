@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_hist_expansions.c                               :+:      :+:    :+:   */
+/*   rl_hist_exp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/19 20:13:26 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Created: 2020/01/08 17:05:44 by aashara-          #+#    #+#             */
+/*   Updated: 2020/01/08 17:39:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-char	*rl_search_exp(char *line, t_rl_history history)
+static char	*rl_search_exp(char *line, t_rl_history history)
 {
 	int		i;
 	char	*new_line;
@@ -31,7 +31,18 @@ char	*rl_search_exp(char *line, t_rl_history history)
 	return (new_line);
 }
 
-char	*rl_digit_exp(int i, t_rl_history history)
+static char	*rl_hist_copy(short index, char **hist_buff)
+{
+	char	*new_line;
+
+	if (index < 0 || index >= (short)get_hist_size())
+		return (NULL);
+	if (!(new_line = ft_strdup(hist_buff[index])))
+		rl_err("42sh", "malloc() error", UNDEFERR);
+	return (new_line);
+}
+
+static char	*rl_digit_exp(int i, t_rl_history history)
 {
 	char	*line;
 
@@ -43,13 +54,25 @@ char	*rl_digit_exp(int i, t_rl_history history)
 	return (line);
 }
 
-char	*rl_hist_copy(short index, char **hist_buff)
+char		*get_hist_expansions(char *line)
 {
 	char	*new_line;
 
-	if (index < 0 || index >= get_hist_size())
-		return (NULL);
-	if (!(new_line = ft_strdup(hist_buff[index])))
-		rl_err("42sh", "malloc() error", UNDEFERR);
+	new_line = NULL;
+	if (line && *line)
+	{
+		if ((line[0] == '-' && ft_isdigit(line[1]))
+		|| ft_isdigit(line[0]))
+			new_line = rl_digit_exp(ft_atoi(line), g_rl.history);
+		else if (ft_strlen(line) == 1 && line[0] == '!')
+			new_line = rl_digit_exp(-1, g_rl.history);
+		else
+			new_line = rl_search_exp(line, g_rl.history);
+	}
 	return (new_line);
+}
+
+size_t		get_hist_size(void)
+{
+	return (g_rl.history.hist_len);
 }

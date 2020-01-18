@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rl_templates.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/21 18:55:49 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 18:55:51 by mmarti           ###   ########.fr       */
+/*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
+/*   Updated: 2020/01/08 17:43:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define VI_HASH_SIZE 59
 # define EMACS_HASH_SIZE 46
-# define NOEDIT_HASH_SIZE 3
 # define RL_TRANSMIT_MODE tigetstr("smkx")
 # define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
 # define RL_CUR_CORD tigetstr("u7")
@@ -115,4 +114,5 @@
 # define RL_K_CTRL_D 4
 # define RL_K_CTRL_R 18
 # define RL_K_TAB 9
+
 #endif

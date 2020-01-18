@@ -6,28 +6,33 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:56:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/11 16:22:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/08 17:36:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-short	rl_prompt_time(char *str, short i)
+static short	rl_time_format_flag(char *str, short i, struct tm *info)
 {
-	time_t		t;
-	short		j;
-	struct tm	*info;
+	char	buffer[RL_MAX_BUFF];
+	char	format[RL_MAX_BUFF];
+	short	j;
 
-	time(&t);
-	if (t == -1)
-		rl_err("42sh", "time() error", UNDEFERR);
-	info = localtime(&t);
-	if ((j = rl_check_time_flags(str, i, info)) != i)
-		return (j);
+	str = ft_strchr(str + i, '{') + 1;
+	j = 0;
+	while (*(str + j) != '\0' && *(str + j) != '}')
+	{
+		format[j] = *(str + j);
+		j++;
+	}
+	format[j] = '\0';
+	strftime(buffer, RL_MAX_BUFF, format, info);
+	ft_putstr(buffer);
+	i += (j + RL_PROMPT_TIME_BRACKETS);
 	return (i);
 }
 
-short	rl_check_time_flags(char *str, short i, struct tm *info)
+static short	rl_check_time_flags(char *str, short i, struct tm *info)
 {
 	char	buffer[RL_MAX_BUFF];
 
@@ -50,22 +55,17 @@ short	rl_check_time_flags(char *str, short i, struct tm *info)
 	return (++i);
 }
 
-short	rl_time_format_flag(char *str, short i, struct tm *info)
+short			rl_prompt_time(char *str, short i)
 {
-	char	buffer[RL_MAX_BUFF];
-	char	format[RL_MAX_BUFF];
-	short	j;
+	time_t		t;
+	short		j;
+	struct tm	*info;
 
-	str = ft_strchr(str + i, '{') + 1;
-	j = 0;
-	while (*(str + j) != '\0' && *(str + j) != '}')
-	{
-		format[j] = *(str + j);
-		j++;
-	}
-	format[j] = '\0';
-	strftime(buffer, RL_MAX_BUFF, format, info);
-	ft_putstr(buffer);
-	i += (j + RL_PROMPT_TIME_BRACKETS);
+	time(&t);
+	if (t == -1)
+		rl_err("42sh", "time() error", UNDEFERR);
+	info = localtime(&t);
+	if ((j = rl_check_time_flags(str, i, info)) != i)
+		return (j);
 	return (i);
 }

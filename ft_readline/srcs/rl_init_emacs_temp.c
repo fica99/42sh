@@ -1,0 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_init_emacs_temp.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/22 16:31:14 by aashara-          #+#    #+#             */
+/*   Updated: 2020/01/08 17:40:02 by aashara-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_readline.h"
+
+static t_hash	**init_emacs_temp2(t_hash **table, int hash_size)
+{
+	char	symb[2];
+
+	symb[1] = '\0';
+	symb[0] = RL_K_CTRL_B;
+	table = push_hash(table, symb, (void*)&rl_k_left, hash_size);
+	symb[0] = RL_K_CTRL_F;
+	table = push_hash(table, symb, (void*)&rl_k_right, hash_size);
+	symb[0] = RL_K_CTRL_A;
+	table = push_hash(table, symb, (void*)&rl_k_home, hash_size);
+	symb[0] = RL_K_CTRL_E;
+	table = push_hash(table, symb, (void*)&rl_k_end, hash_size);
+	symb[0] = RL_K_CTRL_P;
+	table = push_hash(table, symb, (void*)&rl_k_up, hash_size);
+	symb[0] = RL_K_CTRL_N;
+	table = push_hash(table, symb, (void*)&rl_k_down, hash_size);
+	symb[0] = RL_K_CTRL_L;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_l, hash_size);
+	symb[0] = RL_K_CTRL_U;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_u, hash_size);
+	symb[0] = RL_K_CTRL_K;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_k, hash_size);
+	symb[0] = RL_K_CTRL_Y;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_v, hash_size);
+	return (table);
+}
+
+t_hash			**init_emacs_temp(int hash_size)
+{
+	t_hash	**table;
+	char	symb[2];
+
+	symb[1] = '\0';
+	table = init_temp(hash_size);
+	table = init_emacs_temp2(table, hash_size);
+	symb[0] = RL_K_CTRL_W;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_w, hash_size);
+	symb[0] = RL_K_CTRL_T;
+	table = push_hash(table, symb, (void*)&rl_k_ctrl_t, hash_size);
+	table = push_hash(table, RL_K_ALT_B, (void*)&rl_k_ctrl_left, hash_size);
+	table = push_hash(table, RL_K_ALT_F, (void*)&rl_k_ctrl_right, hash_size);
+	table = push_hash(table, RL_K_ALT_D, (void*)&rl_k_alt_d, hash_size);
+	table = push_hash(table, RL_K_ALT_R, (void*)&rl_k_alt_r, hash_size);
+	table = push_hash(table, RL_K_ALT_RIGHT, (void*)&rl_k_alt_right,
+	hash_size);
+	table = push_hash(table, RL_K_ALT_T, (void*)&rl_k_alt_t, hash_size);
+	table = push_hash(table, RL_K_ALT_U, (void*)&rl_k_alt_u, hash_size);
+	table = push_hash(table, RL_K_ALT_L, (void*)&rl_k_alt_l, hash_size);
+	table = push_hash(table, RL_K_ALT_C, (void*)&rl_k_alt_c, hash_size);
+	table = push_hash(table, RL_K_ALT_LEFT, (void*)&rl_k_alt_left,
+	hash_size);
+	return (table);
+}

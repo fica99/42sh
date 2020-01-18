@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 00:01:27 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 21:56:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/08 15:47:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void	rl_k_x_lower(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
+	rl_check_str_mem(&rl->copy_buff, symb);
+	ft_strcpy(rl->copy_buff.buffer, symb);
 	rl_go_left(1, &rl->cord);
 	rl_del_symb(rl->line.buffer, &rl->cord);
 }

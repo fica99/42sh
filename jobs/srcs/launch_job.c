@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 16:00:59 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/12 20:12:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	launch_job(t_job *j, int foreground)
 	}
 	while (waitpid(-1, &g_last_exit_status, 0) != -1)
 		;
-	set_env("\'?\'", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
+	set_env("?", last_status = ft_itoa(g_last_exit_status), ALL_ENV);
 	free(last_status);
 }

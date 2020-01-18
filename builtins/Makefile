@@ -3,10 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
 #    Updated: 2020/01/18 04:41:01 by jijerde          ###   ########.fr        #
+=======
+#    By: aashara <aashara@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
+#    Updated: 2020/01/14 15:32:34 by aashara          ###   ########.fr        #
+>>>>>>> 8d4691d865b76069cef733ab6f064bd0fe654d91
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +30,16 @@ srcs := cd.c\
 		exit_built.c\
 		setenv_built.c\
 		cdpath.c\
+<<<<<<< HEAD
 		set_var.c \
 		echo_eflag.c \
 		echo_one_escape.c
+=======
+		set_var.c\
+		fc.c\
+		fc_parse.c\
+		fc_exec.c\
+>>>>>>> 8d4691d865b76069cef733ab6f064bd0fe654d91
 
 objs := $(srcs:.c=.o)
 
