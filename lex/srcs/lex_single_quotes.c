@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_single_quote.c                                 :+:      :+:    :+:   */
+/*   lex_single_quotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:42:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/19 19:45:05 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/20 21:25:45 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				lex_is_open_sq(char *str, size_t pos, size_t *offset)
 {
 	if (!str || !offset)
 		return (0);
-	while(str[pos + *offset])
+	while (str[pos + *offset])
 	{
 		if (str[pos + *offset] == '\'')
 			if (!lex_is_esc_dq(str, pos + *offset))

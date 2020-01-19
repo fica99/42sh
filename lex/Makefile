@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/19 19:43:04 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/01/19 20:00:34 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ srcs := lex_lexer.c\
 		lex_arithmetic_opers.c\
 		lex_str.c\
 		lex_double_quotes.c\
-		lex_single_quote.c\
+		lex_single_quotes.c\
+		lex_back_quotes.c\
 		lex_debug.c\
 
 objs := $(srcs:.c=.o)
