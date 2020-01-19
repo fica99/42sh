@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_check_quotes.c                                 :+:      :+:    :+:   */
+/*   lex_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/08 20:50:33 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:04:19 by ggrimes          ###   ########.fr       */
+/*   Created: 2020/01/19 17:45:59 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/01/19 18:15:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-int	lex_is_quote(char c)
+char	*lex_strjoin(char **s1, char **s2)
 {
-	if (c == '"' || c == '`' || c == '\'')
-		return (1);
-	return (0);
+	char	*result_str;
+
+	if (!(*s1) || !(*s2))
+		return (NULL);
+	if (!(result_str = ft_strjoin(*s1, *s2)))
+		return (NULL);
+	ft_strdel(s1);
+	ft_strdel(s2);
+	return (result_str);
 }
 
-int	lex_check_quotes(char *str, size_t *pos)
+char	*lex_add_eol(char **str)
 {
-	size_t	i;
+	char	*newstr;
 
-	if (!str || !pos)
-		return (0);
-	i = *pos + 1;
-	while (str[i] && !lex_is_quote(str[i]))
-		i++;
-	if (!str[i])
-		return (0);
-	(*pos) = i;
-	return (1);
+	if (!(*str))
+		return (NULL);
+	if (!(newstr = ft_strjoin(*str, "\n")))
+		return (NULL);
+	ft_strdel(str);
+	return (newstr);
 }
