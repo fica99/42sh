@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/19 18:13:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:45:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ t_lex_tkn_type		lex_check_sep(char **str, short is_word, size_t *pos);
 ** lex_lex_str.c
 */
 
-char				*lex_strjoin(char **s1, char **s2);
-char				*lex_add_eol(char **str);
+char				*lex_strjoin(char *s1, char *s2);
+char				*lex_add_eol(char *str);
 
 /*
 ** lex_quotation_marks.c
@@ -198,6 +198,14 @@ t_lex_tkn_type		lex_quotation_marks(char **str, short is_word, size_t *pos);
 t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
 int					lex_is_open_dq(char *str, size_t pos, size_t *offset);
 size_t				lex_is_esc_dq(char *str, size_t pos);
+
+/*
+** lex_single_quotes.c
+*/
+
+t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
+int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
+size_t				lex_is_esc_sq(char *str, size_t pos);
 
 /*
 ** lex_io_num.c
