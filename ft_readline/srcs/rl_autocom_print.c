@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:45:32 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/18 19:03:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:04:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static short	rl_words_len(char **arr)
 	return (max_word_len);
 }
 
-static void	rl_autocom_print_arr(t_rl_autocom *autocom)
+static void	rl_autocom_print_arr(t_rl_autocom_print *autocom)
 {
 	short	j;
 	short	i;
@@ -36,17 +36,15 @@ static void	rl_autocom_print_arr(t_rl_autocom *autocom)
 
 	j = 0;
 	row = 1;
+	ft_putstr(RL_CLEAR_END_SCREEN);
 	ft_putchar('\n');
 	while (j < autocom->arr_len)
 	{
 		i = -1;
 		while (autocom->arr[j][++i])
 			ft_putchar(autocom->arr[j][i]);
-		while (i < autocom->max_word)
-		{
+		while (++i <= autocom->max_word)
 			ft_putchar(' ');
-			++i;
-		}
 		j += autocom->rows;
 		if (row < autocom->rows && j >= autocom->arr_len)
 		{
@@ -57,8 +55,8 @@ static void	rl_autocom_print_arr(t_rl_autocom *autocom)
 	ft_putchar('\n');
 }
 
-static void	rl_autocom_print_params(t_rl_autocom *autocom, char **res,
-															t_readline *rl)
+static void	rl_autocom_print_params(t_rl_autocom_print *autocom,
+										char **res, t_readline *rl)
 {
 	autocom->arr = res;
 	autocom->arr_len = ft_darlen(res);
@@ -69,31 +67,27 @@ static void	rl_autocom_print_params(t_rl_autocom *autocom, char **res,
 		 	++autocom->rows;
 }
 
-void		rl_autocom_print(char **res, t_readline *rl)
+void		rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl)
 {
-	t_rl_autocom	autocom;
-	short			pos;
-	short			i;
+	t_rl_autocom_print	autocom;
+	short				pos;
 
-	if (!res || !*res)
+	if (!parse->res || !*parse->res)
 		return ;
-	rl_autocom_print_params(&autocom, res, rl);
+	rl_autocom_print_params(&autocom, parse->res, rl);
 	if (autocom.arr_len > 1)
 	{
 		pos = rl->cord.pos;
 		rl_go_to_cord(rl->cord.x_end, rl->cord.y_end);
-		ft_putstr(RL_CLEAR_END_SCREEN);
 		rl_autocom_print_arr(&autocom);
 		rl_write_prompt(rl->prompt, rl->history);
 		rl_start_cord_data(&rl->cord);
 	}
 	else
 	{
-		i = 0;
-		while (autocom.arr[0][i] != rl->line.buffer[rl->cord.pos - 1])
-			++i;
-		ft_stradd(rl->line.buffer, autocom.arr[0] + i + 1, rl->cord.pos);
-		pos = ft_strlen(autocom.arr[0] + i + 1);
+		ft_stradd(rl->line.buffer, parse->res[0] + ft_strlen(parse->to_find) + 1,
+																	rl->cord.pos);
+		pos = ft_strlen(parse->res[0] + ft_strlen(parse->to_find) + 1);
 	}
 	rl_disable_line(rl);
 	rl_go_right(pos, &rl->cord);

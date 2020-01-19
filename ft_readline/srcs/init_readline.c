@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:16:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 13:18:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:41:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void		init_readline(void)
 {
 	char	*ps1;
 	char	*ps2;
-	char	*ps4;
 
 	rl_save_mode(&g_rl.start_mode);
 	rl_init_terminfo();
@@ -67,8 +66,6 @@ void		init_readline(void)
 	if (!(ps2 = get_env("PS2", ALL_ENV)))
 		ps2 = "> ";
 	set_env("PS2", ps2, SET_ENV);
-	if (!(ps4 = get_env("PS4", ALL_ENV)))
-		ps4 = "+ ";
-	set_env("PS4", ps4, SET_ENV);
+	set_env("READMODE", "EMACS", SET_ENV);
 	rl_init_readline_struct(&g_rl);
 }

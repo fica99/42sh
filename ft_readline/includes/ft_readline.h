@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/18 16:40:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:41:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,16 +114,24 @@ typedef struct		s_readline
 	t_rl_mode		mode;
 }					t_readline;
 
-typedef struct		s_rl_autocom
+typedef struct		s_rl_autocom_print
 {
 	short			rows;
 	short			cols;
 	short			max_word;
 	short			arr_len;
 	char			**arr;
-}					t_rl_autocom;
+}					t_rl_autocom_print;
 
-
+typedef struct		s_rl_autocom_parse
+{
+	char			*to_find;
+	char			**res;
+	short			pos;
+	uint8_t			is_env;
+	uint8_t			is_path;
+	uint8_t			is_bin;
+}					t_rl_autocom_parse;
 /*
 **	init_readline.c
 */
@@ -186,7 +194,7 @@ size_t				get_hist_size(void);
 /*
 **	ft_readline.c
 */
-char				*ft_readline(char *prompt, t_rl_mode mode);
+char				*ft_readline(char *prompt);
 void				rl_read_handler(char *c, int fd);
 /*
 **	rl_prompt.c
@@ -341,7 +349,7 @@ void				rl_k_tab(t_readline *rl);
 /*
 **	rl_autocom_print.c
 */
-void				rl_autocom_print(char **res, t_readline *rl);
+void				rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

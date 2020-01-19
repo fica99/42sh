@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 20:59:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:43:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,16 @@ static char	*rl_reading(t_readline *rl)
 	return (rl->line.buffer);
 }
 
-char		*ft_readline(char *prompt, t_rl_mode mode)
+char		*ft_readline(char *prompt)
 {
 	char	*buff;
+	char	*mode;
 
-	g_rl.mode = mode;
+	mode = get_env("READMODE", SET_ENV);
+	if (ft_strcmp(mode, "VI"))
+		g_rl.mode = VI;
+	else
+		g_rl.mode = EMACS;
 	g_rl.prompt = prompt;
 	rl_write_prompt(g_rl.prompt, g_rl.history);
 	rl_clr_data(&g_rl);

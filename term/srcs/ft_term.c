@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 21:01:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:43:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	term_start(void)
 	init_readline();
 	while (RUNNING)
 	{
-		if (!(line = ft_readline(get_env("PS1", ALL_ENV), VI)))
+		if (!(line = ft_readline(get_env("PS1", ALL_ENV))))
 			continue ;
 		ft_system(line);
 		add_to_history_buff(line);
@@ -46,7 +46,10 @@ void	ft_system(char *buffer)
 
 	tokens = lex_get_tkns(&buffer);
 	if (!tokens || !*tokens || (*tokens)->type == T_END)
+	{
+		lex_del_tkns(tokens);
 		return ;
+	}
 	if (!make_ast(tokens, &root))
 	{
 		parse(root);

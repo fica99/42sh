@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/16 23:04:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 13:32:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void			unset_env(char *name, t_env mode);
 /*
 **	get_env_dar.c
 */
-char			**get_env_dar(char *name, t_env mode);
+char			**get_env_names_dar(char *name, t_env mode);
 t_environ		g_set_env;
 t_environ		g_env;
 #endif

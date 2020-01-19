@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 23:03:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/18 18:00:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 13:45:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static short	get_counter_env_dar(char *arr, char **env)
 	short	counter;
 
 	counter = 0;
-	if (arr && *arr)
+	if (arr)
 	{
 		i = -1;
 		len = ft_strlen(arr);
@@ -30,7 +30,7 @@ static short	get_counter_env_dar(char *arr, char **env)
 	return (counter);
 }
 
-static char		**ft_getenv_dar(char *name, char **arr)
+static char		**ft_getenv_names_dar(char *name, char **arr)
 {
 	int		size;
 	char	**res;
@@ -57,12 +57,12 @@ static char		**ft_getenv_dar(char *name, char **arr)
 	return (res);
 }
 
-char			**get_env_dar(char *name, t_env mode)
+char			**get_env_names_dar(char *name, t_env mode)
 {
 	if (mode == ENV)
-		return (ft_getenv_dar(name, g_env.env));
+		return (ft_getenv_names_dar(name, g_env.env));
 	else if (mode == SET_ENV)
-		return (ft_getenv_dar(name, g_set_env.env));
-	return (ft_darjoin(ft_getenv_dar(name, g_set_env.env),
-						ft_getenv_dar(name, g_env.env)));
+		return (ft_getenv_names_dar(name, g_set_env.env));
+	return (ft_darjoin(ft_getenv_names_dar(name, g_set_env.env),
+						ft_getenv_names_dar(name, g_env.env)));
 }
