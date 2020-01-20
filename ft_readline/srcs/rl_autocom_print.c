@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:45:32 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/19 16:04:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:47:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl)
 {
 	t_rl_autocom_print	autocom;
 	short				pos;
+	short				len;
 
 	if (!parse->res || !*parse->res)
 		return ;
@@ -85,9 +86,11 @@ void		rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl)
 	}
 	else
 	{
-		ft_stradd(rl->line.buffer, parse->res[0] + ft_strlen(parse->to_find) + 1,
-																	rl->cord.pos);
-		pos = ft_strlen(parse->res[0] + ft_strlen(parse->to_find) + 1);
+		len = ft_strlen(parse->to_find);
+		if (parse->is_env)
+			++len;
+		ft_stradd(rl->line.buffer, parse->res[0] + len, rl->cord.pos);
+		pos = ft_strlen(parse->res[0] + len);
 	}
 	rl_disable_line(rl);
 	rl_go_right(pos, &rl->cord);

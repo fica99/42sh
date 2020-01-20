@@ -6,59 +6,83 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 21:38:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/19 18:07:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:50:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void		rl_autocom_env_params(t_rl_autocom_parse *autocom,
-													t_readline *rl)
+static void		rl_autocom_word_split(char *word, char **file)
 {
-	if (!rl->line.buffer[autocom->pos] || autocom->pos == rl->cord.pos)
-	{
-		if (!(autocom->to_find = ft_strnew(1)))
-			rl_err("42sh", "malloc() error", UNDEFERR);
-	}
-	else
-	{
-		if (!(autocom->to_find = ft_strsub(rl->line.buffer, autocom->pos ,
-												rl->cord.pos - autocom->pos)))
-			rl_err("42sh", "malloc() error", UNDEFERR);
-	}
-	autocom->res = get_env_names_dar(autocom->to_find, ALL_ENV);
+	int		i;
+
+	if (!word || !*word)
+		return ;
+	i = ft_strlen(word);
+	while (i >= 0 && word[i] != '/')
+		--i;
+	if (i < 0)
+		++i;
+	if (word[i] == '/')
+		word[i++] = '\0';
+	if (!(*file = ft_strdup(word + i)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	if (i == 0)
+		ft_strclr(word);
 }
 
-static short	rl_autocom_find_pos(t_rl_autocom_parse *autocom,
-															t_readline *rl)
+static void		rl_autocom_check_files(char **files, char *file)
 {
-	short	pos;
+	short	len;
+	short	i;
+	short	j;
 
-	pos = rl->cord.pos;
-	while (--pos >= 0)
+	i = -1;
+	len = ft_strlen(file);
+	while (files[++i])
 	{
-		if (rl->line.buffer[pos] == '$' && (!pos ||
-						!ft_isalnum(rl->line.buffer[pos - 1])))
+		if (ft_strncmp(files[i], file, len))
 		{
-			autocom->is_env = TRUE;
-			return (pos + 1);
+			j = i;
+			ft_strdel(&files[j]);
+			while (files[j + 1])
+			{
+				files[j] = files[j + 1];
+				++j;
+			}
+			files[j] = NULL;
+			--i;
 		}
 	}
-	if (pos == -1)
-		autocom->is_bin = TRUE;
-	return (0);
 }
 
-static void		rl_autocom_parse(t_rl_autocom_parse *autocom, t_readline *rl)
+static char		**rl_autocom_path(char *word)
 {
-	autocom->res = NULL;
-	autocom->to_find = NULL;
-	autocom->is_bin = FALSE;
-	autocom->is_path = FALSE;
-	autocom->is_env = FALSE;
-	autocom->pos = rl_autocom_find_pos(autocom, rl);
-	if (autocom->is_env == TRUE)
-		rl_autocom_env_params(autocom, rl);
+	char	*file;
+	char	**content;
+	char	*pwd;
+	char	*full_path;
+
+	file = NULL;
+	content = NULL;
+	rl_autocom_word_split(word, &file);
+	if (!(pwd = get_env("PWD", ENV)))
+		rl_err("42sh", "pwd error", NOERROR);
+	if (!(full_path = ft_strnew(ft_strlen(pwd) + ft_strlen(word) + 1)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	full_path = ft_strcat(full_path, pwd);
+	if (*word)
+		full_path = ft_strcat(ft_strcat(full_path, "/"), word);
+	if (!access(full_path, 4) && ft_file_type(full_path) == 'd')
+	{
+		if (!(content = ft_dir_content(full_path, 0)))
+			rl_err("42sh", "malloc() error", ENOMEM);
+		rl_autocom_check_files(content, file);
+	}
+	ft_strdel(&full_path);
+	ft_strcpy(word, file);
+	ft_strdel(&file);
+	return (content);
 }
 
 void			rl_k_tab(t_readline *rl)
@@ -69,6 +93,10 @@ void			rl_k_tab(t_readline *rl)
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	rl_autocom_parse(&autocom, rl);
+	if (autocom.is_env == TRUE)
+		autocom.res = get_env_names_dar(autocom.to_find, ALL_ENV);
+	else if (autocom.is_path == TRUE)
+		autocom.res = rl_autocom_path(autocom.to_find);
 	rl_autocom_print(&autocom, rl);
 	ft_strdel(&autocom.to_find);
 	ft_free_dar(autocom.res);

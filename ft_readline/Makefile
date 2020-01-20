@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/18 17:21:04 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/20 22:09:26 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ srcs := add_to_history_buff.c\
 		history_exp.c\
 		rl_k_tab.c\
 		rl_autocom_print.c\
+		rl_autocom_parse.c\
 
 objs := $(srcs:.c=.o)
 
@@ -62,7 +63,6 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
 headers := $(addprefix $(inc_dir)/, ft_readline.h)\
-			$(addprefix $(inc_dir)/, rl_errors.h)\
 			$(addprefix $(inc_dir)/, rl_templates.h)\
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
@@ -73,10 +73,13 @@ includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
+includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+
 includes_flags := -I $(includes_libft)\
 				-I $(includes_libhash)\
 				-I $(includes_libdar)\
 				-I $(includes_libstr)\
+				-I $(includes_libdir)\
 				-I $(inc_dir)\
 
 cc := gcc

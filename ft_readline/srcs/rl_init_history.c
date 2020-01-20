@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:44:51 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:39:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:11:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static size_t	rl_find_hist_len(char *path)
 	char	*buff;
 
 	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
-		rl_err("42sh", "open() error", UNDEFERR);
+		rl_err("42sh", "open() error", NOERROR);
 	len = 0;
 	while ((res = get_next_line(fd, &buff)) > 0)
 	{
@@ -28,9 +28,9 @@ static size_t	rl_find_hist_len(char *path)
 		++len;
 	}
 	if (res < 0)
-		rl_err("42sh", "get_next_line() error", UNDEFERR);
+		rl_err("42sh", "get_next_line() error", NOERROR);
 	if (close(fd) == -1)
-		rl_err("42sh", "close() error", UNDEFERR);
+		rl_err("42sh", "close() error", NOERROR);
 	return (len);
 }
 
@@ -45,7 +45,7 @@ static void		rl_set_hist_buff(char *path, t_rl_history *history,
 	if (!(history->history_buff = ft_darnew(history->histsize)))
 		rl_err("42sh", "malloc() error", ENOMEM);
 	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
-		rl_err("42sh", "open() error", UNDEFERR);
+		rl_err("42sh", "open() error", NOERROR);
 	if (hist_len > history->histsize)
 		len = hist_len - history->histsize;
 	while (len && (get_next_line(fd, &buff) > 0))
@@ -57,7 +57,7 @@ static void		rl_set_hist_buff(char *path, t_rl_history *history,
 	(get_next_line(fd, &history->history_buff[len]) > 0))
 		++len;
 	if (close(fd) == -1)
-		rl_err("42sh", "close() error", UNDEFERR);
+		rl_err("42sh", "close() error", ENOMEM);
 	history->hist_len = len;
 	history->hist_index = len;
 	history->cur_command_nb = 0;

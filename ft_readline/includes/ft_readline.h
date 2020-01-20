@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/19 17:41:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:09:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "libhash.h"
 # include "libdar.h"
 # include "libstr.h"
-# include "rl_errors.h"
+# include "libdir.h"
 # include "rl_templates.h"
 # include "../../environ/includes/environ.h"
 # include "../../error/includes/error.h"
@@ -350,6 +350,10 @@ void				rl_k_tab(t_readline *rl);
 **	rl_autocom_print.c
 */
 void				rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl);
+/*
+**	rl_autocom_parse.c
+*/
+void				rl_autocom_parse(t_rl_autocom_parse *autocom, t_readline *rl);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

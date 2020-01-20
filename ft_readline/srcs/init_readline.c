@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:16:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/19 17:41:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:10:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	rl_init_terminfo(void)
 	int	err;
 
 	if (!isatty(STDIN_FILENO))
-		rl_err("42sh", "stdin is not a terminal", UNDEFERR);
+		rl_err("42sh", "stdin is not a terminal", NOERROR);
 	if ((setupterm(0, STDIN_FILENO, &err) == ERR))
 	{
 		if (err == 1)
@@ -36,7 +36,7 @@ static void	rl_check_terminfo_templates(void)
 	!RL_SHIFT_LEFT || !RL_SHIFT_RIGHT || !RL_CUR_VIS || !RL_CUR_INVIS ||
 	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP
 	|| !RL_CLEAR_SCREEN)
-		rl_err("42sh", "no correct capabilities", UNDEFERR);
+		rl_err("42sh", "no correct capabilities", NOERROR);
 }
 
 static void	rl_init_readline_struct(t_readline *rl)
