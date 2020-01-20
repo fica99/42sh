@@ -49,7 +49,6 @@ char		**read_heredoc(char const *delim)
 			if (!(v.tmpb = (char **)ft_realloc(v.buf, sizeof(char *) *
 			v.buf_size, sizeof(char *) * (v.buf_size * 2))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
-			free(v.buf);
 			v.buf = v.tmpb;
 			v.buf_size *= 2;
 		}
