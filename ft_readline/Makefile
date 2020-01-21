@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/20 22:09:26 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/21 15:53:48 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,8 @@ srcs := add_to_history_buff.c\
 		rl_k_tab.c\
 		rl_autocom_print.c\
 		rl_autocom_parse.c\
+		rl_autocom_path.c\
+		rl_autocom_bin.c\
 
 objs := $(srcs:.c=.o)
 

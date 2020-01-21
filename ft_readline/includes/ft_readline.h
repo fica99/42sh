@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/20 22:09:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:00:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,6 +354,14 @@ void				rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl);
 **	rl_autocom_parse.c
 */
 void				rl_autocom_parse(t_rl_autocom_parse *autocom, t_readline *rl);
+/*
+**	rl_autocom_path.c
+*/
+char				**rl_autocom_path(char *word);
+/*
+**	rl_autocom_bin.c
+*/
+char				**rl_autocom_bin(char *word);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
