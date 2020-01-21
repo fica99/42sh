@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/19 20:00:34 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/01/21 19:49:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,10 @@ includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
+includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+
 includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
--I $(includes_libdar)
+-I $(includes_libdar) -I $(includes_libdir)
 
 cc := gcc
 

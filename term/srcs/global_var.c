@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 18:52:08 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/01/21 20:02:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_globar_var(void)
 {
 	free(g_curr_dir);
 	free_table(&g_bin_table);
+	g_built_table.table = free_hash_table(g_built_table.table,
+									g_built_table.size, DONT_FREE_TABLE_DATA);
 	free_keyw(&g_keyw);
 	unset_env_struct(&g_set_env);
 	unset_env_struct(&g_env);
