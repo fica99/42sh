@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 21:21:08 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 21:55:21 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ void				lex_fill_control_sub_value(t_lex_tkn *token,
 ** lex_log_opers.c
 */
 
-int					lex_is_and_and(char *str, size_t pos);
+t_lex_tkn_type		lex_is_and_and(char **str, size_t pos);
 t_lex_tkn_type		lex_check_and_and(char **str, short is_word, size_t *pos);
 t_lex_tkn_type		lex_is_or_or(char **str, size_t pos);
 t_lex_tkn_type		lex_check_or_or(char **str, short is_word, size_t *pos);
