@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/25 17:13:53 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:42:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/19 14:50:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,13 @@ void	rl_k_ctrl_up(t_readline *rl)
 
 void	rl_k_ctrl_left(t_readline *rl)
 {
-	short	pos;
-	char	*buff;
-
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	if (rl_is_start_pos(rl->cord))
 		return ;
-	pos = rl->cord.pos;
-	buff = rl->line.buffer;
-	while (--pos > 0)
-		if (ft_isspace(buff[pos - 1]) && ft_isalnum(buff[pos]))
-			break ;
-	rl_go_left(rl->cord.pos - pos, &rl->cord);
+	rl_go_left(rl->cord.pos - rl_prev_word(rl->line.buffer,
+	rl->cord.pos - 1), &rl->cord);
 }
 
 void	rl_k_shift_left(t_readline *rl)

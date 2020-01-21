@@ -1,0 +1,14 @@
+echo
+cd
+export
+set
+env
+fc
+bg
+fg
+env
+hash
+unset
+type
+test
+pwd

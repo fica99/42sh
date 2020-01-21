@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 22:52:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:31:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "libhash.h"
 # include "libdar.h"
 # include "libstr.h"
-# include "rl_errors.h"
+# include "libdir.h"
 # include "rl_templates.h"
 # include "../../environ/includes/environ.h"
 # include "../../error/includes/error.h"
@@ -34,6 +34,9 @@
 # define LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
 # define RL_HISTORY_FILE "/.42sh_history"
+# define RL_BUILTINS_LIST "builtins/builtins_list/builtins_list"
+# define RL_PERM_BUILTINS_LIST S_IRUSR | S_IWUSR
+# define RL_OPEN_BUILTINS_LIST O_RDWR | O_CREAT
 # define RL_HISTSIZE "500"
 # define RL_HISTFILESIZE "500"
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
@@ -114,6 +117,24 @@ typedef struct		s_readline
 	t_rl_mode		mode;
 }					t_readline;
 
+typedef struct		s_rl_autocom_print
+{
+	short			rows;
+	short			cols;
+	short			max_word;
+	short			arr_len;
+	char			**arr;
+}					t_rl_autocom_print;
+
+typedef struct		s_rl_autocom_parse
+{
+	char			*to_find;
+	char			**res;
+	short			pos;
+	uint8_t			is_env;
+	uint8_t			is_path;
+	uint8_t			is_bin;
+}					t_rl_autocom_parse;
 /*
 **	init_readline.c
 */
@@ -169,14 +190,14 @@ void				rl_free_history(t_rl_history *history);
 */
 void				add_to_history_buff(char *line);
 /*
-**	rl_hist_exp.c
+**	history_exp.c
 */
 char				*get_hist_expansions(char *line);
 size_t				get_hist_size(void);
 /*
 **	ft_readline.c
 */
-char				*ft_readline(char *prompt, t_rl_mode mode);
+char				*ft_readline(char *prompt);
 void				rl_read_handler(char *c, int fd);
 /*
 **	rl_prompt.c
@@ -324,6 +345,27 @@ void				rl_k_p_lower(t_readline *rl);
 void				rl_k_p_upper(t_readline *rl);
 void				rl_k_y_upper(t_readline *rl);
 void				rl_k_d_upper(t_readline *rl);
+/*
+**	rl_k_tab.c
+*/
+void				rl_k_tab(t_readline *rl);
+/*
+**	rl_autocom_print.c
+*/
+void				rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl);
+/*
+**	rl_autocom_parse.c
+*/
+void				rl_autocom_parse(t_rl_autocom_parse *autocom,
+															t_readline *rl);
+/*
+**	rl_autocom_path.c
+*/
+char				**rl_autocom_path(char *word);
+/*
+**	rl_autocom_bin.c
+*/
+char				**rl_autocom_bin(char *word);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif
