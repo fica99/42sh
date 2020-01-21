@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   global_var.c                                       :+:      :+:    :+:   */
+/*   echo_one_escape.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 18:52:08 by jijerde          ###   ########.fr       */
+/*   Created: 2020/01/17 23:47:29 by jijerde           #+#    #+#             */
+/*   Updated: 2020/01/18 04:32:00 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	init_global_var(char **environ)
+int		echo_one_escape(char **argv, int i, int j)
 {
-	char	*values[1];
-
-	values[0] = NULL;
-	init_global_env(&g_env, environ);
-	init_global_env(&g_set_env, values);
-	init_bin_table(&g_bin_table);
-	init_built_table(&g_built_table);
-	fill_keyw(&g_keyw);
-	init_curr_pwd();
-	set_env("?", "0", ALL_ENV);
+	if (argv[i][j] == '0')
+		return (j = ft_octal(argv, i, j));
+	else
+		return (j = ft_hexout(argv, i, j));
 }
 
-void	free_globar_var(void)
+void	echo_slashes(char **argv, int i, int j)
 {
-	free(g_curr_dir);
-	free_table(&g_bin_table);
-	free_keyw(&g_keyw);
-	unset_env_struct(&g_set_env);
-	unset_env_struct(&g_env);
+	if (argv[i][j - 3] != '\\')
+		ft_putchar_fd('\\', STDOUT_FILENO);
+	ft_putchar_fd(argv[i][j], STDOUT_FILENO);
+}
+
+void	echo_text(char **argv, int i, int j)
+{
+	if (argv[i][j] == '\\')
+		;
+	else
+		ft_putchar_fd(argv[i][j], STDOUT_FILENO);
 }

@@ -6,11 +6,18 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/17 22:43:06 by ggrimes          ###   ########.fr       */
+/*   Updated: 2019/12/27 18:53:32 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
+
+static int		lex_is_an_sep(char c)
+{
+	if (c == ' ' || c == ';')
+		return (1);
+	return (0);
+}
 
 int				lex_is_asig_name(char *str, short is_word, size_t *pos,
 	int *err)
@@ -31,7 +38,7 @@ int				lex_is_asig_name(char *str, short is_word, size_t *pos,
 		return (0);
 	else
 		i++;
-	while (str[i] && str[i] != ' ')
+	while (str[i] && !lex_is_an_sep(str[i]))
 		i++;
 	if (!is_word)
 		(*pos) = i;

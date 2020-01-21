@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/15 10:37:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:49:24 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@ char *g_curr_dir;
 
 typedef int(*t_builtin)(int, char **);
 
-typedef char	t_flag;
+typedef char		t_flag;
+
+typedef struct		s_keyw
+{
+	char			*data;
+	struct s_keyw	*next;
+}					t_keyw;
+
+t_keyw				g_keyw;
 
 typedef struct		s_fc
 {
@@ -52,7 +60,6 @@ int					pwd(int ac, char **av);
 int					cd(int ac, char **av);
 void				rewrite_cwd(char *path);
 int					check_request(char **argv, char *path);
-int					ft_echo(int argc, char **argv);
 int					env(int argc, char **argv);
 int					set(int len, char **args);
 int					unset(int ac, char **args);
@@ -69,8 +76,35 @@ int					fc(int argc, char **argv);
 */
 char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
-***	fc_execc
+***	fc_exec.c
 */
 void				fc_exec(t_fc *fc);
+/*
+***	echo_eflag.c
+*/
+int					ft_eflag(int i, char **argv, int argc, int *flags);
+int					ft_isoct(char c);
+int					ft_hexout(char **argv, int i, int j);
+/*
+***	echo.c
+*/
+int					ft_echo(int argc, char **argv);
+int					ft_common_escape(char **argv, int i, int j);
+int					ft_octal(char **argv, int i, int j);
+/*
+***	echo_one_escape.c
+*/
+int					echo_one_escape(char **argv, int i, int j);
+void				echo_slashes(char **argv, int i, int j);
+void				echo_text(char **argv, int i, int j);
+/*
+***	type.c
+*/
+int					ft_type(int argc, char **argv);
+/*
+***	keywords.c
+*/
+char				*type_error(char *arg);
+void				fill_keyw(t_keyw *keyw);
 
 #endif

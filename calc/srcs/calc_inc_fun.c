@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_check_quotes.c                                 :+:      :+:    :+:   */
+/*   calc_inc_fun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/08 20:50:33 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:04:19 by ggrimes          ###   ########.fr       */
+/*   Created: 2019/11/16 20:58:29 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/06 20:43:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lex.h"
+#include "calc.h"
 
-int	lex_is_quote(char c)
+t_calc_tkn	*calc_get_inc_tkn(char *str, size_t pos)
 {
-	if (c == '"' || c == '`' || c == '\'')
-		return (1);
-	return (0);
-}
+	t_calc_tkn		*token;
+	t_calc_tkntype	type;
 
-int	lex_check_quotes(char *str, size_t *pos)
-{
-	size_t	i;
-
-	if (!str || !pos)
-		return (0);
-	i = *pos + 1;
-	while (str[i] && !lex_is_quote(str[i]))
-		i++;
-	if (!str[i])
-		return (0);
-	(*pos) = i;
-	return (1);
+	if (!str)
+		return (NULL);
+	type = (*str == '+') ? CALC_INC : CALC_DEC;
+	if (!(token = calc_newtkn(NULL, type)))
+		return (NULL);
+	token->start_pos = pos;
+	token->end_pos = pos + 2;
+	return (token);
 }

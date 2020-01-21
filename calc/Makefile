@@ -3,35 +3,31 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/21 18:50:25 by jijerde          ###   ########.fr        #
+#    Updated: 2019/12/21 13:38:35 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := cd.c\
-		echo.c\
-		env.c\
-		hash.c\
-		rewrite_cwd.c\
-		set.c\
-		ft_putln.c\
-		pwd.c\
-		ft_pathjoin.c\
-		unset.c\
-		exit_built.c\
-		setenv_built.c\
-		cdpath.c\
-		set_var.c \
-		echo_eflag.c \
-		echo_one_escape.c \
-		set_var.c\
-		fc.c\
-		fc_parse.c\
-		fc_exec.c\
-		type.c\
-		keywords.c
+srcs := calc_add_fun.c\
+		calc.c\
+		calc_lexer.c\
+		calc_debug.c\
+		calc_arr_tkns.c\
+		calc_mul_fun.c\
+		calc_inc_fun.c\
+		calc_com_fun.c\
+		calc_eq_fun.c\
+		calc_log_fun.c\
+		calc_tkn.c\
+		calc_num_fun.c\
+		calc_parent_fun.c\
+		calc_error_fun.c\
+		calc_var_fun.c\
+		calc_var_tkn.c\
+		calc_arr_reloc.c\
+		calc_atoi.c\
 
 objs := $(srcs:.c=.o)
 
@@ -41,32 +37,24 @@ objs_dir := objs
 
 inc_dir := includes
 
-main_inc_dir := ../includes
-
 lib_dir := ../libraries
 
 objects := $(addprefix $(objs_dir)/, $(objs))
 
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
-header := $(addprefix $(inc_dir)/, builtins.h)
+header := $(addprefix $(inc_dir)/, calc.h)
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
 
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
-
-includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
-
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
-
-includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
+includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
+-I $(includes_libdar)
 
 cc := gcc
 
@@ -75,7 +63,7 @@ cflags := -Wall -Wextra -Werror -g -O0
 .PHONY: all compilation clean re
 
 all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish builtins compilation\033[0m"
+	@echo "\033[32mFinish calc compilation\033[0m"
 
 $(objs_dir):
 	@mkdir -p $@
@@ -94,4 +82,3 @@ clean:
 re:
 	@$(MAKE) --no-print-directory clean
 	@$(MAKE) --no-print-directory all
-

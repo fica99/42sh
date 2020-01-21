@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/19 22:47:38 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/19 17:19:30 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos)
 {
-	if (lex_is_quote((*str)[*pos]))
-		if (!lex_check_quotes(*str, pos))
-			return (T_ERR);
-	if (!(*str)[*pos])
+	if (lex_is_quotation_marks(*str, *pos))
+		return (lex_quotation_marks(str, is_word, pos));
+	else if (!(*str)[*pos])
 		return (lex_check_end(str, is_word, pos));
 	else if ((*str)[*pos] == ' ')
 		return (T_NULL);

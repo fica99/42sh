@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2020/01/12 18:45:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:55:44 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERM_H
 # define TERM_H
 
+# include "../../builtins/includes/builtins.h"
 # define RUNNING 1
 # define INIT_FLAGS 0
 # define LINE_MAX 2048
@@ -30,5 +31,6 @@ void				ft_system(char *buffer);
 */
 void				init_global_var(char **environ);
 void				free_globar_var(void);
+void				free_keyw(t_keyw *keyw);
 
 #endif
