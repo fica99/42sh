@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 20:35:26 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/20 22:11:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:30:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			rl_autocom_parse(t_rl_autocom_parse *autocom, t_readline *rl)
 	}
 	else
 	{
-		if (!(autocom->to_find = ft_strsub(rl->line.buffer, autocom->pos ,
+		if (!(autocom->to_find = ft_strsub(rl->line.buffer, autocom->pos,
 												rl->cord.pos - autocom->pos)))
 			rl_err("42sh", "malloc() error", ENOMEM);
 	}

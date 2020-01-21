@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:53:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:00:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:28:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void			rl_autocom_get_builtins(char **res, char *word, short index)
 		rl_err("42sh", "get_next_line() error", NOERROR);
 	if (close(fd) == -1)
 		rl_err("42sh", "close() error", NOERROR);
-
 }
 
 static void			rl_autocom_get_bins(char **res, char *word, char **path)

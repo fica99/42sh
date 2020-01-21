@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:45:32 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:10:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 19:30:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static short	rl_words_len(char **arr)
 	return (max_word_len);
 }
 
-static void	rl_autocom_print_arr(t_rl_autocom_print *autocom)
+static void		rl_autocom_print_arr(t_rl_autocom_print *autocom)
 {
 	short	j;
 	short	i;
@@ -55,7 +55,7 @@ static void	rl_autocom_print_arr(t_rl_autocom_print *autocom)
 	ft_putchar('\n');
 }
 
-static void	rl_autocom_print_params(t_rl_autocom_print *autocom,
+static void		rl_autocom_print_params(t_rl_autocom_print *autocom,
 										char **res, t_readline *rl)
 {
 	autocom->arr = res;
@@ -63,11 +63,11 @@ static void	rl_autocom_print_params(t_rl_autocom_print *autocom,
 	autocom->max_word = rl_words_len(res) + 2;
 	autocom->cols = rl->cord.ws_col / autocom->max_word;
 	autocom->rows = autocom->arr_len / autocom->cols;
-		if (autocom->arr_len % autocom->cols != 0)
-		 	++autocom->rows;
+	if (autocom->arr_len % autocom->cols != 0)
+		++autocom->rows;
 }
 
-void		rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl)
+void			rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl)
 {
 	t_rl_autocom_print	autocom;
 	short				pos;
