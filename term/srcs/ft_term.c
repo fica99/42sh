@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 21:04:35 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 23:11:00 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		main(int argc, char **argv, char **environ)
 void	term_start(void)
 {
 	char	*line;
-	t_lex_tkn **tokens;
 
 	signalling();
 	init_readline();
@@ -33,23 +32,19 @@ void	term_start(void)
 	{
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV))))
 			continue ;
-		if (!ft_strcmp(line, "exit"))
-			break ;
-		tokens = lex_get_tkns(&line);
-		lex_print_tkns(tokens);
-		//ft_system(line);
+		ft_system(&line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 	}
 	free_readline();
 }
 
-void	ft_system(char *buffer)
+void	ft_system(char **buffer)
 {
 	t_lex_tkn	**tokens;
 	t_ast		*root;
 
-	tokens = lex_get_tkns(&buffer);
+	tokens = lex_get_tkns(buffer);
 	if (!tokens || !*tokens || (*tokens)->type == T_END)
 	{
 		lex_del_tkns(tokens);

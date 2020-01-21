@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 22:12:45 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 23:03:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_lex_tkn_type	lex_is_and_and(char **str, size_t pos)
 	char	*new_line;
 	size_t	offset;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	offset = 0;
 	if (ft_strncmp(*str + pos, "&&", 2) != 0)
@@ -51,7 +51,7 @@ t_lex_tkn_type	lex_is_or_or(char **str, size_t pos)
 	char	*new_line;
 	size_t	offset;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	offset = 0;
 	if (ft_strncmp(*str + pos, "||", 2) != 0)
@@ -90,9 +90,10 @@ int				lex_is_fin_log_oper(char *str, size_t pos, size_t *offset)
 			|| !ft_strncmp(str + pos + *offset, "&&", 2)
 			|| str[pos + *offset] == '|')
 		{
-			(*offset)++;
-			if (str[pos + *offset] == '|' || str[pos + *offset] == '&')
+			if (!ft_strncmp(str + pos + *offset, "||", 2)
+				|| !ft_strncmp(str + pos + *offset, "&&", 2))
 				(*offset)++;
+			(*offset)++;
 			while (ft_isspace(str[pos + *offset]))
 				(*offset)++;
 			if (!str[pos + *offset])

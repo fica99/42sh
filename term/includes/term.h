@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2020/01/21 18:55:44 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/01/21 23:11:26 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 **	ft_term.c
 */
 void				term_start(void);
-void				ft_system(char *buffer);
+void				ft_system(char **buffer);
 /*
 **	global_var.c
 */
