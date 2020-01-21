@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/20 22:49:42 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 21:04:35 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	term_start(void)
 	init_readline();
 	while (RUNNING)
 	{
-		if (!(line = ft_readline(get_env("PS1", ALL_ENV), VI)))
+		if (!(line = ft_readline(get_env("PS1", ALL_ENV))))
 			continue ;
 		if (!ft_strcmp(line, "exit"))
 			break ;
@@ -51,7 +51,10 @@ void	ft_system(char *buffer)
 
 	tokens = lex_get_tkns(&buffer);
 	if (!tokens || !*tokens || (*tokens)->type == T_END)
+	{
+		lex_del_tkns(tokens);
 		return ;
+	}
 	if (!make_ast(tokens, &root))
 	{
 		parse(root);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 16:10:14 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/21 19:07:03 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,8 @@ t_process				*new_process(char **args);
 pid_t					make_process(void);
 
 void					launch_job(t_job *j, int foreground);
+
+char					*find_in_path(char *filename);
+int						check_path_var(char *fname);
 
 #endif

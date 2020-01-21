@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/27 19:17:26 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 21:17:21 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 	{
 		is_word = (pos - start_pos > 0) ? 1 : 0;
 		type = lex_check_type(str, is_word, &pos);
-		if (type == T_ERR)
+		if (type == T_ERR || type == T_CTRL_C)
 			return (NULL);
 		if (type != T_WORD)
 			break ;

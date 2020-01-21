@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 23:13:41 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 15:03:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 20:00:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	rl_k_ctrl_c(t_readline *rl)
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 	{
 		ft_strclr(rl->line.buffer);
+		*rl->line.buffer = RL_K_CTRL_C;
 		rl_k_enter(rl);
 	}
 	else

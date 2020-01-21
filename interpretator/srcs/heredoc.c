@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:44:14 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/20 21:10:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char		**read_heredoc(char const *delim)
 	v.buf_size = DEF_HEREDOC_SIZE;
 	if (!(v.buf = (char **)ft_memalloc(sizeof(char *) * v.buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	while ((v.tmp = ft_readline("heredoc>", EMACS)) && ft_strcmp(v.tmp, delim)
-	&& ft_strcmp(v.tmp, "exit"))
+	while ((v.tmp = ft_readline("heredoc>")) && ft_strcmp(v.tmp, delim)
+	&& ft_strcmp(v.tmp, "exit") && *v.tmp != RL_K_CTRL_C)
 	{
 		v.buf[v.i++] = v.tmp;
 		if (v.i >= v.buf_size - 1)
@@ -49,7 +49,6 @@ char		**read_heredoc(char const *delim)
 			if (!(v.tmpb = (char **)ft_realloc(v.buf, sizeof(char *) *
 			v.buf_size, sizeof(char *) * (v.buf_size * 2))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
-			free(v.buf);
 			v.buf = v.tmpb;
 			v.buf_size *= 2;
 		}

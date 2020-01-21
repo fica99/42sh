@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 19:46:37 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/16 23:35:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "environ.h"
 
-short	get_count_env(char *arr, char **env)
+static short	get_count_env(char *arr, char **env)
 {
 	short	i;
 	short	len;
@@ -28,7 +28,22 @@ short	get_count_env(char *arr, char **env)
 	return (-1);
 }
 
-void	ft_setenv(char *name, char *new_value, t_environ *env)
+static char		*join_env(char *name, char *new_value)
+{
+	char *name1;
+	char *name2;
+
+	if (!(name1 = ft_strjoin(name, "=")))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	if (!new_value)
+		return (name1);
+	if (!(name2 = ft_strjoin(name1, new_value)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	ft_memdel((void**)&name1);
+	return (name2);
+}
+
+void			ft_setenv(char *name, char *new_value, t_environ *env)
 {
 	short	j;
 	char	**envp;
@@ -57,22 +72,7 @@ void	ft_setenv(char *name, char *new_value, t_environ *env)
 	}
 }
 
-char	*join_env(char *name, char *new_value)
-{
-	char *name1;
-	char *name2;
-
-	if (!(name1 = ft_strjoin(name, "=")))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	if (!new_value)
-		return (name1);
-	if (!(name2 = ft_strjoin(name1, new_value)))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	ft_memdel((void**)&name1);
-	return (name2);
-}
-
-void	ft_unsetenv(char *arr, t_environ *env)
+void			ft_unsetenv(char *arr, t_environ *env)
 {
 	int		j;
 	char	*copy;
@@ -89,7 +89,7 @@ void	ft_unsetenv(char *arr, t_environ *env)
 	ft_memdel((void**)&copy);
 }
 
-void	unset_env(char *name, t_env mode)
+void			unset_env(char *name, t_env mode)
 {
 	if (mode == ENV)
 		ft_unsetenv(name, &g_env);

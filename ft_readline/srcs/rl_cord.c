@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 18:11:14 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:40:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:10:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void		rl_get_win_size(t_rl_cord *cord)
 	struct winsize	size;
 
 	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &size) < 0)
-		rl_err("42sh", "ioctl() error", UNDEFERR);
+		rl_err("42sh", "ioctl() error", NOERROR);
 	cord->ws_col = size.ws_col;
 	cord->ws_row = size.ws_row;
 }

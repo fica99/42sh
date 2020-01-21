@@ -6,7 +6,7 @@
 #    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/18 04:49:41 by jijerde          ###   ########.fr        #
+#    Updated: 2020/01/21 18:50:25 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,8 @@ srcs := cd.c\
 		fc.c\
 		fc_parse.c\
 		fc_exec.c\
+		type.c\
+		keywords.c
 
 objs := $(srcs:.c=.o)
 
