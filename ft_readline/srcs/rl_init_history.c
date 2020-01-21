@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:44:51 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/20 22:11:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:20:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		rl_set_hist_buff(char *path, t_rl_history *history,
 	(get_next_line(fd, &history->history_buff[len]) > 0))
 		++len;
 	if (close(fd) == -1)
-		rl_err("42sh", "close() error", ENOMEM);
+		rl_err("42sh", "close() error", NOERROR);
 	history->hist_len = len;
 	history->hist_index = len;
 	history->cur_command_nb = 0;

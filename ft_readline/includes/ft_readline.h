@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 16:00:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/21 18:47:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
 # define RL_HISTORY_FILE "/.42sh_history"
+# define RL_BUILTINS_LIST "builtins/builtins_list/builtins_list"
+# define RL_PERM_BUILTINS_LIST S_IRUSR | S_IWUSR
+# define RL_OPEN_BUILTINS_LIST O_RDWR | O_CREAT
 # define RL_HISTSIZE "500"
 # define RL_HISTFILESIZE "500"
 # define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
