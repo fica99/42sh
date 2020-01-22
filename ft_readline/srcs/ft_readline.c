@@ -6,11 +6,30 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:44:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:54:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
+
+static void	win_handler(int sign)
+{
+	short	pos;
+
+	if (sign == SIGWINCH)
+	{
+		g_rl_flags = RL_INIT_FLAGS;
+		pos = g_rl.cord.pos;
+		rl_set_mode(&g_rl.start_mode);
+		ft_putchar('\n');
+		ft_putstr(tigetstr("ed"));
+		rl_write_prompt(g_rl.prompt, g_rl.history);
+		rl_set_non_canon_mode(&g_rl.non_canon_mode);
+		rl_start_cord_data(&g_rl.cord);
+		rl_print(g_rl.line.buffer + g_rl.cord.pos, &g_rl.cord);
+		rl_go_left(g_rl.cord.pos - pos, &g_rl.cord);
+	}
+}
 
 static void	rl_find_template(t_readline *rl, char *c)
 {
@@ -42,6 +61,7 @@ static char	*rl_reading(t_readline *rl)
 		g_rl_flags |= RL_VI_INPUT_MODE;
 	while (READING)
 	{
+		signal(SIGWINCH, win_handler);
 		rl_read_handler(c, STDIN_FILENO);
 		rl_find_template(rl, c);
 		if (g_rl_flags & RL_BREAK_FLAG)
