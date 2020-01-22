@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:45:32 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:47:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 20:54:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		rl_autocom_print_arr(t_rl_autocom_print *autocom)
 		j += autocom->rows;
 		if (row < autocom->rows && j >= autocom->arr_len)
 		{
-			j = ++row;
+			j = row++;
 			ft_putchar('\n');
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 21:38:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:25:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 21:53:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static void		rl_autocom_delete_copy(char **res)
 void			rl_k_tab(t_readline *rl)
 {
 	t_rl_autocom_parse	autocom;
-	size_t				len;
 
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
@@ -53,8 +52,7 @@ void			rl_k_tab(t_readline *rl)
 		autocom.res = rl_autocom_path(autocom.to_find);
 	else if (autocom.is_bin == TRUE)
 		autocom.res = rl_autocom_bin(autocom.to_find);
-	len = ft_darlen(autocom.res);
-	ft_dar_quick_sort(autocom.res, len);
+	ft_dar_sort(autocom.res);
 	rl_autocom_delete_copy(autocom.res);
 	rl_autocom_print(&autocom, rl);
 	ft_strdel(&autocom.to_find);

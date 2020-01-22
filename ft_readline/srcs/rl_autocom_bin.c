@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:53:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:06:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 20:56:16 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,43 +40,33 @@ static size_t		rl_autocom_bin_size(char *word, char **path)
 	return (counter);
 }
 
-static void			rl_autocom_get_builtins(char **res, char *word, short index)
+static void			rl_autocom_get_builtins(char **res, char *word,
+											char **builtins, short index)
 {
-	char	*buf;
-	int		fd;
+	int		j;
 	short	len;
-	int		gnl;
-
-	buf = NULL;
-	len = ft_strlen(word);
-	if ((fd = open(RL_BUILTINS_LIST, O_RDWR | O_CREAT,
-		S_IRUSR | S_IWUSR)) == -1)
-		rl_err("42sh", "open() error", NOERROR);
-	while ((gnl = get_next_line(fd, &buf)) > 0)
-	{
-		if (!ft_strncmp(buf, word, len))
-			res[++index] = buf;
-		else
-			ft_strdel(&buf);
-	}
-	if (gnl < 0)
-		rl_err("42sh", "get_next_line() error", NOERROR);
-	if (close(fd) == -1)
-		rl_err("42sh", "close() error", NOERROR);
-}
-
-static void			rl_autocom_get_bins(char **res, char *word, char **path)
-{
-	short	i;
-	short	j;
-	short	index;
-	char	**content;
 
 	j = -1;
+	len = ft_strlen(word);
+	while (++j < RL_BUILTINS_COUNT)
+		if (!ft_strncmp(builtins[j], word, len))
+			if (!(res[++index] = ft_strdup(builtins[j])))
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
+}
+
+static void			rl_autocom_get_files(char **res, char *word,
+										char **path, char **builtins)
+{
+	short	i;
+	short	index;
+	char	**content;
+	int		j;
+
 	index = -1;
+	j = -1;
 	while (path[++j])
 	{
-		if ((content = ft_dir_content(path[j], 0)))
+		if ((content = ft_dir_content(path[++j], 0)))
 		{
 			i = -1;
 			while (content[++i])
@@ -91,52 +81,46 @@ static void			rl_autocom_get_bins(char **res, char *word, char **path)
 			ft_free_dar(content);
 		}
 	}
-	rl_autocom_get_builtins(res, word, index);
+	rl_autocom_get_builtins(res, word, builtins, index);
 }
 
-static size_t		rl_autocom_builtins_size(char *word)
+static void			rl_autocom_set_builtins(char *builtins[15])
 {
-	char	*buf;
-	size_t	size;
-	int		fd;
-	short	len;
-	int		gnl;
-
-	buf = NULL;
-	size = 0;
-	len = ft_strlen(word);
-	if ((fd = open(RL_BUILTINS_LIST, O_RDWR | O_CREAT,
-		S_IRUSR | S_IWUSR)) == -1)
-		rl_err("42sh", "open() error", NOERROR);
-	while ((gnl = get_next_line(fd, &buf)) > 0)
-	{
-		if (!ft_strncmp(buf, word, len))
-			++size;
-		ft_strdel(&buf);
-	}
-	if (gnl < 0)
-		rl_err("42sh", "get_next_line() error", NOERROR);
-	if (close(fd) == -1)
-		rl_err("42sh", "close() error", NOERROR);
-	return (size);
+	builtins[0] = "echo";
+	builtins[1] = "cd";
+	builtins[2] = "export";
+	builtins[3] = "set";
+	builtins[4] = "env";
+	builtins[5] = "fc";
+	builtins[6] = "bg";
+	builtins[7] = "fg";
+	builtins[8] = "env";
+	builtins[9] = "hash";
+	builtins[10] = "unset";
+	builtins[11] = "type";
+	builtins[12] = "test";
+	builtins[13] = "exit";
+	builtins[14] = "pwd";
 }
 
 char				**rl_autocom_bin(char *word)
 {
-	char	*env_path;
-	char	**path;
-	size_t	bin_size;
-	char	**res;
+	char		*env_path;
+	char		**path;
+	size_t		bin_size;
+	char		**res;
+	static char	*builtins[RL_BUILTINS_COUNT];
 
+	if (!*builtins)
+		rl_autocom_set_builtins(builtins);
 	if (!(env_path = get_env("PATH", ENV)))
 		env_path = "\0";
 	if (!(path = ft_strsplit(env_path, ':')))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	bin_size = rl_autocom_bin_size(word, path);
-	bin_size += rl_autocom_builtins_size(word);
+	bin_size = rl_autocom_bin_size(word, path) + RL_BUILTINS_COUNT;
 	if (!(res = ft_darnew(bin_size)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	rl_autocom_get_bins(res, word, path);
+	rl_autocom_get_files(res, word, path, builtins);
 	ft_free_dar(path);
 	return (res);
 }
