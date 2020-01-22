@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:06:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/12 19:18:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:17:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "set", &set, BUILT_NUM);
 	push_hash(table, "set_var", &set_var, BUILT_NUM);
 	push_hash(table, "fc", &fc, BUILT_NUM);
+	push_hash(table, "type", &ft_type, BUILT_NUM);
 	g_built_table->table = table;
 }

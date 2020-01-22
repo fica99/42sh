@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:44:51 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 18:20:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:42:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static size_t	rl_find_hist_len(char *path)
 {
 	int		fd;
 	int		res;
-	size_t	len;
+	int		len;
 	char	*buff;
 
 	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
@@ -35,9 +35,9 @@ static size_t	rl_find_hist_len(char *path)
 }
 
 static void		rl_set_hist_buff(char *path, t_rl_history *history,
-														size_t hist_len)
+														int hist_len)
 {
-	size_t	len;
+	int		len;
 	int		fd;
 	char	*buff;
 
@@ -66,27 +66,27 @@ static void		rl_set_hist_buff(char *path, t_rl_history *history,
 void			rl_init_history(t_rl_history *history)
 {
 	char	*path;
-	char	*home;
 	char	*rl_histsize;
 	char	*rl_histfilesize;
 
-	if ((home = get_env("HOME", ENV)))
+	if ((get_env("HOME", ENV)))
 	{
-		if (!(path = ft_strjoin(home, RL_HISTORY_FILE)))
+		if (!(path = ft_strjoin(get_env("HOME", ENV), RL_HISTORY_FILE)))
 			rl_err("42sh", "malloc() error", ENOMEM);
 	}
-	else
-	{
-		if (!(path = ft_strdup(RL_HISTORY_FILE)))
-			rl_err("42sh", "malloc() error", ENOMEM);
-	}
+	else if (!(path = ft_strdup(RL_HISTORY_FILE)))
+		rl_err("42sh", "malloc() error", ENOMEM);
 	set_env("HISTFILE", path, SET_ENV);
-	if (!(rl_histsize = get_env("HISTSIZE", ENV)))
+	if (!(rl_histsize = get_env("HISTSIZE", ALL_ENV)))
+	{
 		rl_histsize = RL_HISTSIZE;
-	set_env("HISTSIZE", rl_histsize, SET_ENV);
-	if (!(rl_histfilesize = get_env("HISTFILESIZE", ENV)))
+		set_env("HISTSIZE", rl_histsize, SET_ENV);
+	}
+	if (!(rl_histfilesize = get_env("HISTFILESIZE", ALL_ENV)))
+	{
 		rl_histfilesize = RL_HISTFILESIZE;
-	set_env("HISTFILESIZE", rl_histfilesize, SET_ENV);
+		set_env("HISTFILESIZE", rl_histfilesize, SET_ENV);
+	}
 	rl_get_hist_size(history);
 	rl_set_hist_buff(path, history, rl_find_hist_len(path));
 	ft_strdel(&path);
