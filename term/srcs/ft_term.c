@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:45:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:49:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	term_start(void)
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV))))
 			continue ;
 		ft_system(&line);
+		add_to_history_buff(line);
 		ft_memdel((void**)&line);
 	}
 	free_readline();
@@ -58,5 +59,4 @@ void	ft_system(char **buffer)
 	g_first_job = NULL;
 	clean_tree(root);
 	lex_del_tkns(tokens);
-	add_to_history_buff(buffer);
 }

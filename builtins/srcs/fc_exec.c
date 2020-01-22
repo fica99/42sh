@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/15 10:36:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:50:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ void			fc_exec(t_fc *fc)
 		if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(fc->editor) + 1)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		ft_strcat(ft_strcat(ft_strcpy(line, fc->editor), " "), path);
-		ft_system(line);
+		ft_system(&line);
 		ft_strdel(&line);
 		if (!(line = ft_read_file(path)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		ft_strdel(&path);
 		ft_putendl(line);
-		ft_system(line);
+		ft_system(&line);
 		ft_strdel(&line);
 	}
 }
