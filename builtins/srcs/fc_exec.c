@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:50:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:52:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static void		fc_write_commands(int first, int last, char *path)
 		if (!(new_line = ft_dar2str(line, "\n")))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		ft_free_dar(line);
-		ft_write_to_file(path, FC_FILE_FLAGS, FC_FILE_PERM, new_line);
+		ft_write_to_file(path, O_RDWR | O_CREAT | O_TRUNC,
+								S_IRUSR | S_IWUSR, new_line);
 		ft_strdel(&new_line);
 	}
 }

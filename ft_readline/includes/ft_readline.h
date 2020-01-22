@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:03:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:54:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,18 @@
 # define DONT_FREE_HASH_DATA 0
 # define RL_HISTORY_FILE "/.42sh_history"
 # define RL_BUILTINS_LIST "builtins/builtins_list/builtins_list"
-# define RL_PERM_BUILTINS_LIST S_IRUSR | S_IWUSR
-# define RL_OPEN_BUILTINS_LIST O_RDWR | O_CREAT
 # define RL_HISTSIZE "500"
 # define RL_HISTFILESIZE "500"
-# define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
-# define RL_OPEN_HISTFILE O_RDWR | O_CREAT
-# define RL_WRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
 # define RL_INIT_FLAGS 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
 # define RL_MAX_BUFF 1000
 # define RL_PROMPT_TIME_BRACKETS 2
-# define RL_BREAK_FLAG (1 << 1)
-# define RL_VI_COMMAND_MODE (1 << 4)
-# define RL_VI_INPUT_MODE (1 << 5)
-# define RL_HIGHLIGHT_FLAG (1 << 2)
-# define RL_HISTORY_SEARCH_FLAG (1 << 3)
-# define RL_MIN(a, b) ((a > b) ? b : a)
-# define RL_MAX(a, b) ((a > b) ? a : b)
+# define RL_BREAK_FLAG 2
+# define RL_VI_COMMAND_MODE 16
+# define RL_VI_INPUT_MODE 32
+# define RL_HIGHLIGHT_FLAG 4
+# define RL_HISTORY_SEARCH_FLAG 8
 # define STANDART "\033[0m"
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"

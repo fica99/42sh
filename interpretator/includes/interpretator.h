@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/22 15:55:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
-# define DEF_HEREDOC_SIZE 10;
-# define LRED_OPEN O_RDONLY
-# define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
-# define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
-# define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+# define DEF_HEREDOC_SIZE 10
+
 # define INT_LEN 10
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5

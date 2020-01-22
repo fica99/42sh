@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 19:13:16 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/22 16:48:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	rl_k_ctrl_l(t_readline *rl)
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
 	pos = rl->cord.pos;
-	ft_putstr(RL_CUR_INVIS);
-	ft_putstr(RL_CLEAR_SCREEN);
+	ft_putstr(tigetstr("civis"));
+	ft_putstr(tigetstr("clear"));
 	rl_write_prompt(rl->prompt, rl->history);
 	rl_start_cord_data(&rl->cord);
 	rl_print(rl->line.buffer, &rl->cord);
 	rl_go_left(rl->cord.pos - pos, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_k_alt_d(t_readline *rl)

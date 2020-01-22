@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/20 22:09:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:44:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void		rl_read_handler(char *c, int fd)
 {
 	short	nb;
 
-	ft_putstr_fd(RL_TRANSMIT_MODE, STDOUT_FILENO);
+	ft_putstr_fd(tigetstr("smkx"), STDOUT_FILENO);
 	while ((nb = read(fd, c, RL_MAX_BUFF)) == 0)
 		continue ;
 	if (nb < 0)
 		rl_err("42sh", "read() error", NOERROR);
 	c[nb] = '\0';
-	ft_putstr_fd(RL_STOP_TRANSMIT_MODE, STDOUT_FILENO);
+	ft_putstr_fd(tigetstr("rmkx"), STDOUT_FILENO);
 }

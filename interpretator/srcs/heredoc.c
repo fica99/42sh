@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/20 21:10:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:54:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	write_here_doc(char **buf)
 {
 	int fd;
 
-	fd = ft_open(HEREDOC_FILE, RRED_OPEN);
+	fd = ft_open(HEREDOC_FILE, O_RDWR | O_CREAT | O_TRUNC);
 	if (fd < 0)
 	{
 		ft_free_dar(buf);

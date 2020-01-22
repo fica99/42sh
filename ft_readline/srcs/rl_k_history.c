@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 15:25:49 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/16 23:44:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:48:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void	rl_k_up(t_readline *rl)
 	rl->history.history_buff[rl->history.hist_index]);
 	ft_strcpy(rl->line.buffer,
 	rl->history.history_buff[rl->history.hist_index]);
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);
 	rl->cord.pos = 0;
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_k_down(t_readline *rl)
@@ -54,15 +54,15 @@ void	rl_k_down(t_readline *rl)
 		hist = rl->history.history_buff[rl->history.hist_index];
 	rl_check_str_mem(&rl->line, hist);
 	ft_strcpy(rl->line.buffer, hist);
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);
 	rl->cord.pos = 0;
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_k_alt_right(t_readline *rl)
@@ -78,15 +78,15 @@ void	rl_k_alt_right(t_readline *rl)
 	hist = rl->history.save_line.buffer;
 	rl_check_str_mem(&rl->line, hist);
 	ft_strcpy(rl->line.buffer, hist);
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);
 	rl->cord.pos = 0;
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_k_alt_left(t_readline *rl)
@@ -106,13 +106,13 @@ void	rl_k_alt_left(t_readline *rl)
 	rl->history.history_buff[rl->history.hist_index]);
 	ft_strcpy(rl->line.buffer,
 	rl->history.history_buff[rl->history.hist_index]);
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);
 	rl->cord.pos = 0;
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }

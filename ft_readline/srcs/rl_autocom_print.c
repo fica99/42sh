@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 15:45:32 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:30:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:47:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		rl_autocom_print_arr(t_rl_autocom_print *autocom)
 
 	j = 0;
 	row = 1;
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	ft_putchar('\n');
 	while (j < autocom->arr_len)
 	{

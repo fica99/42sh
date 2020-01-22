@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:44:51 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:42:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:07:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	rl_find_hist_len(char *path)
 	int		len;
 	char	*buff;
 
-	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
+	if ((fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
 		rl_err("42sh", "open() error", NOERROR);
 	len = 0;
 	while ((res = get_next_line(fd, &buff)) > 0)
@@ -44,7 +44,7 @@ static void		rl_set_hist_buff(char *path, t_rl_history *history,
 	len = 0;
 	if (!(history->history_buff = ft_darnew(history->histsize)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	if ((fd = open(path, RL_OPEN_HISTFILE, RL_PERM_HISTFILE)) == -1)
+	if ((fd = open(path, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
 		rl_err("42sh", "open() error", NOERROR);
 	if (hist_len > history->histsize)
 		len = hist_len - history->histsize;

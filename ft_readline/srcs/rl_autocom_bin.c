@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:53:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:28:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:06:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static void			rl_autocom_get_builtins(char **res, char *word, short index)
 
 	buf = NULL;
 	len = ft_strlen(word);
-	if ((fd = open(RL_BUILTINS_LIST, RL_OPEN_BUILTINS_LIST,
-		RL_PERM_BUILTINS_LIST)) == -1)
+	if ((fd = open(RL_BUILTINS_LIST, O_RDWR | O_CREAT,
+		S_IRUSR | S_IWUSR)) == -1)
 		rl_err("42sh", "open() error", NOERROR);
 	while ((gnl = get_next_line(fd, &buf)) > 0)
 	{
@@ -105,8 +105,8 @@ static size_t		rl_autocom_builtins_size(char *word)
 	buf = NULL;
 	size = 0;
 	len = ft_strlen(word);
-	if ((fd = open(RL_BUILTINS_LIST, RL_OPEN_BUILTINS_LIST,
-		RL_PERM_BUILTINS_LIST)) == -1)
+	if ((fd = open(RL_BUILTINS_LIST, O_RDWR | O_CREAT,
+		S_IRUSR | S_IWUSR)) == -1)
 		rl_err("42sh", "open() error", NOERROR);
 	while ((gnl = get_next_line(fd, &buf)) > 0)
 	{

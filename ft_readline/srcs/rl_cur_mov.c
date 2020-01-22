@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:50:40 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 14:51:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:45:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		rl_go_to_cord(short x, short y)
 {
-	ft_putstr(tparm(RL_SET_CUR, y, x));
+	ft_putstr(tparm(tigetstr("cup"), y, x));
 }
 
 void		rl_go_left(short i, t_rl_cord *cord)

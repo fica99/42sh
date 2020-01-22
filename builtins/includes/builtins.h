@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/21 18:49:24 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:52:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
 # define FC_FILE_EDITOR ".42sh-fc"
-# define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC
-# define FC_FILE_PERM S_IRUSR | S_IWUSR
 
 char *g_curr_dir;
 

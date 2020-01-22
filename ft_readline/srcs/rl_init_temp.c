@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:35:08 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/16 23:36:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:07:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ t_hash			**init_temp(int hash_size)
 
 	if (!(table = init_hash_table(hash_size)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	table = push_hash(table, RL_K_LFT, (void*)&rl_k_left, hash_size);
-	table = push_hash(table, RL_K_RGHT, (void*)&rl_k_right, hash_size);
-	table = push_hash(table, RL_K_HOME, (void*)&rl_k_home, hash_size);
-	table = push_hash(table, RL_K_END, (void*)&rl_k_end, hash_size);
+	table = push_hash(table, tigetstr("kcub1"), (void*)&rl_k_left, hash_size);
+	table = push_hash(table, tigetstr("kcuf1"), (void*)&rl_k_right, hash_size);
+	table = push_hash(table, tigetstr("khome"), (void*)&rl_k_home, hash_size);
+	table = push_hash(table, tigetstr("kend"), (void*)&rl_k_end, hash_size);
 	table = push_hash(table, RL_K_CTRL_UP, (void*)&rl_k_ctrl_up, hash_size);
 	table = push_hash(table, RL_K_CTRL_DOWN, (void*)&rl_k_ctrl_down,
 	hash_size);
@@ -69,13 +69,13 @@ t_hash			**init_temp(int hash_size)
 	hash_size);
 	table = push_hash(table, RL_K_CTRL_LEFT, (void*)&rl_k_ctrl_left,
 	hash_size);
-	table = push_hash(table, RL_SHIFT_RIGHT, (void*)&rl_k_shift_right,
+	table = push_hash(table, tigetstr("kRIT"), (void*)&rl_k_shift_right,
 	hash_size);
-	table = push_hash(table, RL_SHIFT_LEFT, (void*)&rl_k_shift_left,
+	table = push_hash(table, tigetstr("kLFT"), (void*)&rl_k_shift_left,
 	hash_size);
-	table = push_hash(table, RL_K_DEL, (void*)&rl_k_del, hash_size);
-	table = push_hash(table, RL_K_UP, (void*)&rl_k_up, hash_size);
-	table = push_hash(table, RL_K_DOWN, (void*)&rl_k_down, hash_size);
+	table = push_hash(table, tigetstr("kdch1"), (void*)&rl_k_del, hash_size);
+	table = push_hash(table, tigetstr("kcuu1"), (void*)&rl_k_up, hash_size);
+	table = push_hash(table, tigetstr("kcud1"), (void*)&rl_k_down, hash_size);
 	table = init_temp2(table, hash_size);
 	return (table);
 }
