@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 19:17:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:17:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define PREV_D ".."
 # define CUR_D "."
 # define FT_PATH_MAX 1000
-# define BUILT_NUM 11
+# define BUILT_NUM 12
 
 typedef struct	s_table
 {

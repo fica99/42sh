@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/21 15:53:48 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/22 14:58:21 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ srcs := add_to_history_buff.c\
 		rl_cur_mov.c\
 		rl_err.c\
 		rl_free_history.c\
-		rl_history.c\
 		rl_init_emacs_temp.c\
 		rl_init_history.c\
 		rl_init_structs.c\

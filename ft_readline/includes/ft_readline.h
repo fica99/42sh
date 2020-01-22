@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 19:31:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:03:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ typedef struct		s_rl_history
 	char			**history_buff;
 	t_buff			save_line;
 	t_buff			search;
-	size_t			hist_len;
-	size_t			hist_index;
-	size_t			histsize;
-	size_t			histfilesize;
-	size_t			cur_command_nb;
+	int				hist_len;
+	int				hist_index;
+	int				histsize;
+	int				histfilesize;
+	int				cur_command_nb;
 }					t_rl_history;
 
 typedef struct		s_readline
@@ -171,11 +171,6 @@ t_hash				**init_vi_temp(int hash_size);
 */
 void				rl_init_history(t_rl_history *history);
 /*
-**	rl_history.c
-*/
-void				rl_get_hist_size(t_rl_history *history);
-void				rl_check_history_size(t_rl_history *history);
-/*
 **	free_readline.c
 */
 void				rl_clr_data(t_readline *rl);
@@ -188,6 +183,8 @@ void				rl_free_history(t_rl_history *history);
 /*
 **	add_to_history_buff.c
 */
+void				rl_get_hist_size(t_rl_history *history);
+void				rl_check_history_size(t_rl_history *history);
 void				add_to_history_buff(char *line);
 /*
 **	history_exp.c
