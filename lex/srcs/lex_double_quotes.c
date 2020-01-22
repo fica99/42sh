@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_double_quotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 14:32:43 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 19:50:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 20:28:55 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_lex_tkn_type	lex_double_quotes(char **str, size_t *pos)
 			return (T_ERR);
 		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
 			return (T_ERR);
+		if (*new_line == RL_K_CTRL_C)
+			return (lex_ctrl_c(str, &new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}

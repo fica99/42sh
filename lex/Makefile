@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/21 21:04:34 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/01/22 20:21:47 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ srcs := lex_lexer.c\
 		lex_double_quotes.c\
 		lex_single_quotes.c\
 		lex_back_quotes.c\
+		lex_ctrl_c.c\
 		lex_debug.c\
 
 objs := $(srcs:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 22:56:10 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/22 20:48:14 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,6 @@ t_lex_tkn_type		lex_check_sep(char **str, short is_word, size_t *pos);
 
 char				*lex_strjoin(char *s1, char *s2);
 char				*lex_add_eol(char *str);
-void				lex_clear_strs(char **s1, char **s2);
 
 /*
 ** lex_quotation_marks.c
@@ -279,6 +278,12 @@ int					lex_is_arith_opers(char *str, short is_word, size_t *pos,
 t_lex_tkn_type		lex_arith_opers(short is_word, int err);
 void				lex_fill_arith_opers_value(t_lex_tkn *token,
 	char *str, size_t pos);
+
+/*
+** lex_ctrl_c.c
+*/
+
+t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
 
 /*
 ** lex_debug.c

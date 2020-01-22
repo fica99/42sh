@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:27:21 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 22:41:28 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/22 20:49:34 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static t_lex_tkn_type	lex_pipe(char **str, size_t *pos)
 		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
-		{
-			lex_clear_strs(str, &new_line);
-			return (T_CTRL_C);
-		}
+			return (lex_ctrl_c(str, &newline));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}

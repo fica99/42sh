@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 23:03:07 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/22 20:25:04 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ t_lex_tkn_type	lex_is_and_and(char **str, size_t pos)
 		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
-		{
-			lex_clear_strs(str, &new_line);
-			return (T_CTRL_C);
-		}
+			return (lex_ctrl_c(str, &new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}
@@ -61,10 +58,7 @@ t_lex_tkn_type	lex_is_or_or(char **str, size_t pos)
 		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
-		{
-			lex_clear_strs(str, &new_line);
-			return (T_CTRL_C);
-		}
+			return (lex_ctrl_c(str, &new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}

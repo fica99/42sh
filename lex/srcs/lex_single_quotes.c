@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_single_quotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:42:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 19:50:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 20:29:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_lex_tkn_type	lex_single_quotes(char **str, size_t *pos)
 			return (T_ERR);
 		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
 			return (T_ERR);
+		if (*new_line == RL_K_CTRL_C)
+			return (lex_ctrl_c(str, &new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}
