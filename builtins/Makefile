@@ -31,6 +31,7 @@ srcs := cd.c\
 		fc_exec.c\
 		type.c\
 		keywords.c\
+		export.c
 
 objs := $(srcs:.c=.o)
 

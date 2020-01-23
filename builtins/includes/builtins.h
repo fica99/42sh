@@ -61,7 +61,7 @@ int					check_request(char **argv, char *path);
 int					env(int argc, char **argv);
 int					set(int len, char **args);
 int					unset(int ac, char **args);
-void				export(int len, char **args);
+int					export(int ac, char **av);
 void				print_bin_table(t_hash **bin_table, size_t size);
 int					hash(int ac, char **av);
 void				init_curr_pwd(void);

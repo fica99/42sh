@@ -30,5 +30,6 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "set_var", &set_var, BUILT_NUM);
 	push_hash(table, "fc", &fc, BUILT_NUM);
 	push_hash(table, "type", &ft_type, BUILT_NUM);
+	push_hash(table, "export", &export, BUILT_NUM);
 	g_built_table->table = table;
 }
