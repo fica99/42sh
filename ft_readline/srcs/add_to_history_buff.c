@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:47:49 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:06:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 21:53:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,27 @@ void	rl_check_history_size(t_rl_history *history)
 	}
 }
 
+char	rl_is_all_spaces(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (!ft_isspace(line[i]))
+			return (FALSE);
+		++i;
+	}
+	return (TRUE);
+}
+
 void	add_to_history_buff(char *line)
 {
 	int			i;
 	char		*nl;
 
-	if (!line || !*line)
-		return ;
 	rl_check_history_size(&g_rl.history);
-	if (!g_rl.history.histsize)
+	if (!line || !*line || !g_rl.history.histsize)
 		return ;
 	while ((nl = ft_strchr(line, '\n')))
 	{
@@ -49,6 +61,8 @@ void	add_to_history_buff(char *line)
 		add_to_history_buff(line);
 		line = nl + 1;
 	}
+	if (rl_is_all_spaces(line))
+		return ;
 	if (g_rl.history.hist_len >= g_rl.history.histsize)
 	{
 		ft_memdel((void**)&(g_rl.history.history_buff[0]));
