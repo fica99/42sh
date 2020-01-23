@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/23 18:52:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 21:15:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ static void	win_handler(int sign)
 		g_rl_flags = RL_INIT_FLAGS;
 		pos = g_rl.cord.pos;
 		rl_set_mode(&g_rl.start_mode);
-		ft_putchar('\n');
+		rl_set_non_canon_mode(&g_rl.non_canon_mode);
+		rl_get_cur_cord(&g_rl.cord);
+		rl_go_to_cord(0, g_rl.cord.y_cur);
 		ft_putstr(tigetstr("ed"));
 		rl_write_prompt(g_rl.prompt, g_rl.history);
-		rl_set_non_canon_mode(&g_rl.non_canon_mode);
 		rl_start_cord_data(&g_rl.cord);
 		rl_print(g_rl.line.buffer + g_rl.cord.pos, &g_rl.cord);
 		rl_go_left(g_rl.cord.pos - pos, &g_rl.cord);
