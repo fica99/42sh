@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 19:56:50 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:47:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 22:59:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	rl_k_r_upper(t_readline *rl)
 	rl_disable_line(rl);
 	rl_check_str_mem(&rl->copy_buff, symb);
 	ft_strcpy(rl->copy_buff.buffer, symb);
-	rl_del_symb(rl->line.buffer, &rl->cord);
 	g_rl_flags |= RL_VI_INPUT_MODE;
 	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 }
@@ -81,7 +80,6 @@ void	rl_k_r_lower(t_readline *rl)
 	rl->line.buffer[rl->cord.pos] = *c;
 	rl_check_str_mem(&rl->copy_buff, symb);
 	ft_strcpy(rl->copy_buff.buffer, symb);
-	rl_del_symb(rl->line.buffer, &rl->cord);
 	rl_disable_line(rl);
 }
 

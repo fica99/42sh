@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/23 21:15:43 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 22:11:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char		*ft_readline(char *prompt)
 	char	*mode;
 
 	mode = get_env("READMODE", SET_ENV);
-	if (ft_strcmp(mode, "VI"))
+	if (!ft_strcmp(mode, "VI"))
 		g_rl.mode = VI;
 	else
 		g_rl.mode = EMACS;
