@@ -6,29 +6,36 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:51:02 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/21 15:52:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 21:03:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-static void		rl_autocom_word_split(char *word, char **file)
+static char		*rl_autocom_path_split(char *path, char **file)
 {
 	int		i;
+	char	*pwd;
+	char	*full_path;
 
-	if (!word || !*word)
-		return ;
-	i = ft_strlen(word);
-	while (i >= 0 && word[i] != '/')
-		--i;
-	if (i < 0)
-		++i;
-	if (word[i] == '/')
-		word[i++] = '\0';
-	if (!(*file = ft_strdup(word + i)))
+	i = ft_strlen(path) - 1;
+	if (!(pwd = get_env("PWD", ENV)))
+		rl_err("42sh", "pwd error", NOERROR);
+	if (!(full_path = ft_strnew(ft_strlen(pwd) + ft_strlen(path) + 1)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	if (i == 0)
-		ft_strclr(word);
+	while (i >= 0 && path[i] != '/')
+		--i;
+	if (path[0] != '/')
+	{
+		ft_strcat(ft_strcpy(full_path, pwd), "/");
+		if (i > 0)
+			full_path = ft_strncat(full_path, path, i);
+	}
+	else
+		ft_strncpy(full_path, path, i + 1);
+	if (!(*file = ft_strdup(path + i + 1)))
+		rl_err("42sh", "malloc() error", ENOMEM);
+	return (full_path);
 }
 
 static void		rl_autocom_check_files(char **files, char *file)
@@ -56,23 +63,15 @@ static void		rl_autocom_check_files(char **files, char *file)
 	}
 }
 
-char			**rl_autocom_path(char *word)
+char			**rl_autocom_path(char *path)
 {
 	char	*file;
 	char	**content;
-	char	*pwd;
 	char	*full_path;
 
 	file = NULL;
 	content = NULL;
-	rl_autocom_word_split(word, &file);
-	if (!(pwd = get_env("PWD", ENV)))
-		rl_err("42sh", "pwd error", NOERROR);
-	if (!(full_path = ft_strnew(ft_strlen(pwd) + ft_strlen(word) + 1)))
-		rl_err("42sh", "malloc() error", ENOMEM);
-	full_path = ft_strcat(full_path, pwd);
-	if (*word)
-		full_path = ft_strcat(ft_strcat(full_path, "/"), word);
+	full_path = rl_autocom_path_split(path, &file);
 	if (!access(full_path, 4) && ft_file_type(full_path) == 'd')
 	{
 		if (!(content = ft_dir_content(full_path, 0)))
@@ -80,7 +79,7 @@ char			**rl_autocom_path(char *word)
 		rl_autocom_check_files(content, file);
 	}
 	ft_strdel(&full_path);
-	ft_strcpy(word, file);
+	ft_strcpy(path, file);
 	ft_strdel(&file);
 	return (content);
 }

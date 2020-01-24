@@ -14,10 +14,10 @@
 
 static void	e_err(char opt)
 {
-	ft_putstr_fd("bash: export: -", 2);
+	ft_putstr_fd("42sh: export: -", 2);
 	ft_putchar_fd(opt, 2);
-	ft_putstr_fd(": invalid option\n", 2);
-	ft_putstr_fd("export: usage: export [-p] [name[=value]]", 2);
+	ft_putendl_fd(": invalid option", 2);
+	ft_putendl_fd("export: usage: export [-p] [name[=value]]", 2);
 }
 
 static void	e_print(char const *av)

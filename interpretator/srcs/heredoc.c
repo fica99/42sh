@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/22 15:54:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 21:32:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		**read_heredoc(char const *delim)
 	v.buf_size = DEF_HEREDOC_SIZE;
 	if (!(v.buf = (char **)ft_memalloc(sizeof(char *) * v.buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	while ((v.tmp = ft_readline("heredoc>")) && ft_strcmp(v.tmp, delim)
+	while ((v.tmp = ft_readline(get_env("PS2", ALL_ENV))) && ft_strcmp(v.tmp, delim)
 	&& ft_strcmp(v.tmp, "exit") && *v.tmp != RL_K_CTRL_C)
 	{
 		v.buf[v.i++] = v.tmp;
