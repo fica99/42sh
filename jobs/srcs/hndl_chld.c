@@ -13,18 +13,13 @@ int mark_process_status(pid_t pid, int status)
     	p = j->first_process;
         while (p)
         {
-    	    if (p && p->pid == pid)
+    	    if (p->pid == pid)
     	    {
     		    p->status = status;
     		    if (WIFSTOPPED(status))
     			    p->stopped = 1;
     		    else
-    		    {
     			    p->completed = 1;
-    			    if (WIFSIGNALED(status))
-    				    fprintf(stderr, "%d: Terminated by signal %d.\n",
-    						(int)pid, WTERMSIG(p->status));
-    	        }
                 return (0);
             }
             p = p->next;
@@ -38,20 +33,20 @@ void update_status (void)
 {
     pid_t pid;
 
-    do
-        pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED|WNOHANG);
-    while (!mark_process_status(pid, g_last_exit_status));
+	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED|WNOHANG);
+    while (!mark_process_status(pid, g_last_exit_status))
+		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED|WNOHANG);
 }
 
 void wait_for_job(t_job *j)
 {
     pid_t pid;
 
-    do {
-        pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
-    } while (!mark_process_status(pid, g_last_exit_status)
+	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
+    while (!mark_process_status(pid, g_last_exit_status)
          && !job_is_stopped(j)
-         && !job_is_completed(j));
+         && !job_is_completed(j))
+		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
 }
 
 static void print_command(char **command)
@@ -67,18 +62,18 @@ static void print_command(char **command)
 	fprintf(stderr, "\n");
 }
 
-void format_job_info(t_job *j, int num, const char *status, int options)
+void format_job_info(t_job *j, const char *status, int options)
 {
 	if (options == NO_INFO)
 	{
-		fprintf(stderr, "[%d]%c %s: ", num, !j->next ? '+' : '-', status);
+		fprintf(stderr, "[%d]%c %s: ", j->num, j->num == max_job() - 1 ? '+' : '-', status);
 		print_command(j->command);
 	}
 	else if (options == PID_INFO)
 		fprintf(stderr, "%ld\n", (long) j->pgid);
 	else if (options == EXPAND_INFO)
 	{
-		fprintf(stderr, "[%d]%c %ld %s: ", num, !j->next ? '+' : '-', (long) j->pgid,
+		fprintf(stderr, "[%d]%c %ld %s: ", j->num, j->num == max_job() - 1 ? '+' : '-', (long) j->pgid,
 				status);
 		print_command(j->command);
 	}
@@ -91,7 +86,7 @@ void print_jobs(void)
 	j = g_first_job;
 	while (j)
 	{
-		fprintf(stderr, "c = %d | s = %d ", j->first_process->completed,
+		fprintf(stderr, "num = %d | c = %d | s = %d ", j->num, j->first_process->completed,
 				j->first_process->stopped);
 		print_command(j->command);
 		j = j->next;
@@ -99,7 +94,7 @@ void print_jobs(void)
 	fprintf(stderr, "\n");
 }
 
-void do_job_notification(t_job *start_job, int options)
+void do_job_notification(t_job *start_job, int options, int stop_flag)
 {
     t_job 	*j;
 
@@ -108,16 +103,17 @@ void do_job_notification(t_job *start_job, int options)
 	//print_jobs();
     while (j)
     {
-        //fprintf(stderr, "%d\n", j->num);
         if (job_is_completed(j) && j->num > 0)
         {
-            format_job_info(j, j->num, "completed", options);
+            format_job_info(j, "completed", options);
             free_job(&g_first_job, j);
         }
         else if (job_is_stopped(j) && j->num > 0)
-            format_job_info(j, j->num, "stopped", options);
-		/*if (start_job != g_first_job)
-			break ;*/
+            format_job_info(j, "stopped", options);
+		else if (j->num > 0)
+			format_job_info(j, "running", options);
+		if (stop_flag)
+			break ;
 		j = j->next;
     }
 }

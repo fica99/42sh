@@ -1,12 +1,28 @@
 #include "ft_shell.h"
 
+int	max_job(void)
+{
+	t_job *j;
+	int max;
+
+	max = 0;
+	j = g_first_job;
+	while (j)
+	{
+		if (j->num > max)
+			max = j->num;
+		j = j->next;
+	}
+	return (max + 1);
+}
+
 void mark_job_as_running (t_job *j)
 {
-  t_process *p;
+  	t_process *p;
 
-  for (p = j->first_process; p; p = p->next)
-    p->stopped = 0;
-  j->notified = 0;
+  	for (p = j->first_process; p; p = p->next)
+    	p->stopped = 0;
+  	j->notified = 0;
 }
 
 int job_is_completed (t_job *j)

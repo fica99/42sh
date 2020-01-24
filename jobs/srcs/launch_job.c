@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 15:37:37 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:03:40 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,13 @@ static void check_builtin(t_job **j)
 	}
 }
 
-void	launch_job(t_job *j, int foreground)
+static void launch_loop(t_job *j, t_process *p, int foreground)
 {
-	char		*last_status;
-	t_process	*p;
 	int 		i;
 	pid_t		pid;
 	int			pipes[2];
 
 	i = 0;
-	check_builtin(&j);
-	p = j->first_process;
-	j->command = fill_command(p);
-	if (!launch_builtin(p, NO_FORK))
-	{
-		p->completed = 1;
-		return;
-	}
 	while (p)
 	{
 		open_pipe(p, pipes);
@@ -117,6 +107,23 @@ void	launch_job(t_job *j, int foreground)
 		i++;
 		p = p->next;
 	}
+}
+
+void	launch_job(t_job *j, int foreground)
+{
+	char		*last_status;
+	t_process	*p;
+
+
+	check_builtin(&j);
+	p = j->first_process;
+	j->command = fill_command(p);
+	if (!launch_builtin(p, NO_FORK))
+	{
+		p->completed = 1;
+		return;
+	}
+	launch_loop(j, p, foreground);
 	if (foreground)
 		put_job_in_foreground(j, 0);
 	else

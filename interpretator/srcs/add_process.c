@@ -70,22 +70,6 @@ t_process	*add_process(t_job *j)
 	return (proc);
 }
 
-static int	max_job(void)
-{
-	t_job *j;
-	int max;
-
-	max = 0;
-	j = g_first_job;
-	while (j)
-	{
-		if (j->num > max)
-			max = j->num;
-		j = j->next;
-	}
-	return (max + 1);
-}
-
 t_job		*job_new(t_lex_tkn **sep)
 {
 	t_job 	*new;

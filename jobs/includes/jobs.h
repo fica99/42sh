@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 14:34:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/24 17:32:40 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,56 +56,75 @@ typedef struct			s_job
 	struct termios		*tmodes;
 }						t_job;
 
+t_job					*g_first_job;
+t_job					*g_last_job;
+int						g_last_exit_status;
+pid_t					g_shell_pgid;
+pid_t 					g_job_pgid;
+int						g_shell_terminal;
+struct termios			g_shell_tmodes;
+
+/*
+**	launch_process.c
+*/
+void					launch_process(t_process *p,
+		pid_t pgid, int foreground);
 void					ft_sub(char **args);
 void					dup_redir(int **fd_list);
 int						redir_handle(t_process *p);
 
-t_job					*g_first_job;
-t_job					*g_last_job;
-int					g_last_exit_status;
-
-pid_t					g_shell_pgid;
-pid_t 					g_job_pgid;
-int						g_shell_terminal;
-int						g_shell_is_interactive;
-struct termios			g_shell_tmodes;
-
+/*
+**	ft_pathcmp.c
+*/
 int						ft_pathcmp(char *p1, char *p2);
+/*
+**	get_fname.c
+*/
 char					*get_fname(char *arg);
+/*
+**	red.c
+*/
 int						find_dup(int **redir, int fd);
-void					redir(int **red);
-
-int						launch_builtin(t_process *p, int flag);
-
-void					launch_process(t_process *p,
-						pid_t pgid, int foreground);
-
-t_process				*new_process(char **args);
-
 pid_t					make_process(void);
-
+/*
+**	launch_builtin.c
+*/
+int						launch_builtin(t_process *p, int flag);
+/*
+**	launch_job.c
+*/
 void					launch_job(t_job *j, int foreground);
 
-void do_job_notification(t_job *start_job, int options);
-void format_job_info(t_job *j, int num, const char *status, int options);
-void wait_for_job(t_job *j);
-void update_status (void);
-int mark_process_status(pid_t pid, int status);
-
-void put_job_in_foreground(t_job *j, int cont);
-void put_job_in_background (t_job *j, int cont);
-
-void print_jobs(void);
-
-void    free_job(t_job **head, t_job *j);
-void	free_completed_jobs(void);
-
-int job_is_stopped (t_job *j);
-void mark_job_as_running (t_job *j);
-int job_is_completed (t_job *j);
-
-void    init_jobs(void);
-
-t_job   *find_job(int num);
+void					do_job_notification(t_job *start_job, int options, int stop_flag);
+void					format_job_info(t_job *j, const char *status, int options);
+void					wait_for_job(t_job *j);
+void					update_status (void);
+int						mark_process_status(pid_t pid, int status);
+/*
+**	put_in.c
+*/
+void					put_job_in_foreground(t_job *j, int cont);
+void					put_job_in_background (t_job *j, int cont);
+void		print_jobs(void); // del after test
+/*
+**	free_job.c
+*/
+void					free_job(t_job **head, t_job *j);
+void					free_completed_jobs(void);
+/*
+**	check_job.c
+*/
+int						max_job(void);
+int						job_is_stopped (t_job *j);
+void					mark_job_as_running (t_job *j);
+int						job_is_completed (t_job *j);
+/*
+**	init_jobs.c
+*/
+void					init_jobs(void);
+/*
+**	find_job.c
+*/
+t_job					*find_job(int num);
 
 #endif

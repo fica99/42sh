@@ -17,5 +17,5 @@ void    put_job_in_foreground(t_job *j, int cont)
 void put_job_in_background (t_job *j, int cont)
 {
 	if (cont)
-		fprintf(stderr, "%d\n", kill(-j->pgid, SIGCONT));
+		kill(-j->pgid, SIGCONT);
 }
