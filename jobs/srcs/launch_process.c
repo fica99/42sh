@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2019/12/21 16:09:18 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/24 14:41:54 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	char	*fname;
 
 	pid = getpid();
-	if (pgid == 0)
-		pgid = pid;
+	/*if (pgid == 0)
+		pgid = pid;*/
 	setpgid(pid, pgid);
 	if (foreground)
 		tcsetpgrp(g_shell_terminal, pgid);
@@ -59,10 +59,17 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		exit(1);
 	dup_redir(p->fd_list);
 	if (!launch_builtin(p, FORK))
+	{
+		p->completed = 1;
 		exit(0);
-	ft_sub(p->args);
-	fname = get_fname(p->args[0]);
-	if (execve(fname, p->args, g_env.env) < 0)
-		err_exit("42sh", "permission denied", p->args[0], NOERROR);
-	exit(1);
+	}
+	else
+	{
+		ft_sub(p->args);
+		fname = get_fname(p->args[0]);
+		if (execve(fname, p->args, g_env.env) < 0)
+			err_exit("42sh", "permission denied", p->args[0], NOERROR);
+		//p->completed = 1;
+		exit(1);
+	}
 }

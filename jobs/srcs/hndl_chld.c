@@ -54,16 +54,49 @@ void wait_for_job(t_job *j)
          && !job_is_completed(j));
 }
 
+static void print_command(char **command)
+{
+	int i;
+
+	i = 0;
+	while (command[i])
+	{
+		fprintf(stderr, "%s ", command[i]);
+		i++;
+	}
+	fprintf(stderr, "\n");
+}
+
 void format_job_info(t_job *j, int num, const char *status, int options)
 {
 	if (options == NO_INFO)
-		fprintf(stderr, "[%d]%c %s: %s\n", num, !j->next ? '+' : '-', status,
-					j->command);
+	{
+		fprintf(stderr, "[%d]%c %s: ", num, !j->next ? '+' : '-', status);
+		print_command(j->command);
+	}
 	else if (options == PID_INFO)
-		fprintf(stderr, "%ld\n", (long)j->pgid);
+		fprintf(stderr, "%ld\n", (long) j->pgid);
 	else if (options == EXPAND_INFO)
-		fprintf(stderr, "[%d]%c %ld %s: %s\n", num, !j->next ? '+' : '-', (long)j->pgid,
-        status, j->command);
+	{
+		fprintf(stderr, "[%d]%c %ld %s: ", num, !j->next ? '+' : '-', (long) j->pgid,
+				status);
+		print_command(j->command);
+	}
+}
+
+void print_jobs(void)
+{
+	t_job *j;
+
+	j = g_first_job;
+	while (j)
+	{
+		fprintf(stderr, "c = %d | s = %d ", j->first_process->completed,
+				j->first_process->stopped);
+		print_command(j->command);
+		j = j->next;
+	}
+	fprintf(stderr, "\n");
 }
 
 void do_job_notification(t_job *start_job, int options)
@@ -72,21 +105,19 @@ void do_job_notification(t_job *start_job, int options)
 
 	update_status();
 	j = start_job;
+	//print_jobs();
     while (j)
     {
-        fprintf(stderr, "%d\n", j->num);
-        if (job_is_completed(j))
+        //fprintf(stderr, "%d\n", j->num);
+        if (job_is_completed(j) && j->num > 0)
         {
             format_job_info(j, j->num, "completed", options);
-            free_job(j);
+            free_job(&g_first_job, j);
         }
-        else if (job_is_stopped(j) && !j->notified)
-        {
-            j->notified = 0;
+        else if (job_is_stopped(j) && j->num > 0)
             format_job_info(j, j->num, "stopped", options);
-        }
-		if (start_job != g_first_job)
-			break ;
+		/*if (start_job != g_first_job)
+			break ;*/
 		j = j->next;
     }
 }

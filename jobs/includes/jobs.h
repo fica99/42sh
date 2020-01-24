@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 16:10:14 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/24 14:34:19 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_process
 	char				completed;
 	char				stopped;
 	int					status;
+	int					builtin;
 	int					**fd_list;
 	t_redir_list		*r;
 	int					inpipe;
@@ -48,7 +49,7 @@ typedef struct			s_job
 	struct s_job		*next;
 	int					separator;
 	int					num;
-	char				*command;
+	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
 	char				notified;
@@ -64,6 +65,7 @@ t_job					*g_last_job;
 int					g_last_exit_status;
 
 pid_t					g_shell_pgid;
+pid_t 					g_job_pgid;
 int						g_shell_terminal;
 int						g_shell_is_interactive;
 struct termios			g_shell_tmodes;
@@ -93,7 +95,10 @@ int mark_process_status(pid_t pid, int status);
 void put_job_in_foreground(t_job *j, int cont);
 void put_job_in_background (t_job *j, int cont);
 
-void    free_job(t_job *j);
+void print_jobs(void);
+
+void    free_job(t_job **head, t_job *j);
+void	free_completed_jobs(void);
 
 int job_is_stopped (t_job *j);
 void mark_job_as_running (t_job *j);
