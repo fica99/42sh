@@ -19,7 +19,7 @@
 # define LINE_MAX 2048
 # define FREE_TABLE_DATA 1
 # define DONT_FREE_TABLE_DATA 0
-# define RULES_NUM 14
+# define RULES_NUM 15
 
 /*
 **	ft_term.c
