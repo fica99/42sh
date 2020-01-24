@@ -26,7 +26,7 @@ static int	make_redir(t_lex_tkn **list, t_process *curr_proc)
 	}
 	if ((*(list + 1))->type != T_WORD)
 		return (syntax_err(*(list + 1)));
-	return (red[(*list)->type - 6](list, curr_proc, io_number));
+	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
 void		dup_redir(int **fd_list)
