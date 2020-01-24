@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/24 18:04:07 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,10 @@
 # define MAXDIR 4097
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
 # define PWD_USAGE "usage: pwd [-LP]"
-# define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
-# define FC_FLAG_L (1 << 1)
-# define FC_FLAG_N (1 << 2)
-# define FC_FLAG_R (1 << 3)
-# define FC_DIGIT (1 << 4)
-# define FC_FLAG_ERROR (1 << 5)
-# define FC_FILE_EDITOR ".42sh-fc"
-# define FC_FILE_FLAGS O_RDWR | O_CREAT | O_TRUNC
-# define FC_FILE_PERM S_IRUSR | S_IWUSR
 
-char *g_curr_dir;
-
-typedef int(*t_builtin)(int, char **);
-
+char			*g_curr_dir;
+typedef			int(*t_builtin)(int, char **);
 typedef char	t_flag;
-
 int				set_var(int ac, char **av);
 void			path_add(char *tmp);
 void			remove_slashes(void);
@@ -63,9 +51,17 @@ void			fc(int argc, char **argv);
 */
 void			fc_print_command(int flags, int first, int last);
 void			fc_write_commands(int first, int last, char *path);
-
-void    bg(int argc, char **argv);
-void    fg(int argc, char **argv);
-void    jobs(int argc, char **argv);
+/*
+**	jobs.c
+*/
+void			jobs(int argc, char **argv);
+/*
+**	bg.c
+*/
+void			bg(int argc, char **argv);
+/*
+**	fg.c
+*/
+void			fg(int argc, char **argv);
 
 #endif

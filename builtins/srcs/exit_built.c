@@ -38,6 +38,7 @@ int			exit_built(int ac, char **av)
 		ft_error("42sh", av[0], NULL, "numeric argument required");
 		exit(255);
 	}
+	ft_free_jobs(g_first_job);
 	exit(ft_atoi(av[1]));
 	return (0);
 }

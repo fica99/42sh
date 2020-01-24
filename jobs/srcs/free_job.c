@@ -17,6 +17,31 @@ void	free_completed_jobs(void)
 	}
 }
 
+void	free_command(char **command)
+{
+	int i;
+
+	i = 0;
+	while (command[i])
+	{
+		ft_strdel(&command[i]);
+		i++;
+	}
+	free(command);
+}
+
+static void del_head(t_job **head)
+{
+	t_job *tmp;
+
+	tmp = *head;
+	*head = (*head)->next;
+	ft_free_proc(tmp->first_process);
+	free_command(tmp->command);
+	free(tmp);
+	tmp = NULL;
+}
+
 void    free_job(t_job **head, t_job *to_del)
 {
 	t_job *tmp;
@@ -26,9 +51,7 @@ void    free_job(t_job **head, t_job *to_del)
 		return ;
 	if ((*head) == to_del)
 	{
-		tmp = *head;
-		*head = (*head)->next;
-		free(tmp);
+		del_head(head);
 		return ;
 	}
 	tmp = *head;
@@ -37,8 +60,10 @@ void    free_job(t_job **head, t_job *to_del)
 		if (tmp == to_del)
 		{
 			prev->next = tmp->next;
+			ft_free_proc(tmp->first_process);
+			free_command(tmp->command);
 			free(tmp);
-			tmp = prev;
+			tmp = NULL;
 			return ;
 		}
 		prev = tmp;

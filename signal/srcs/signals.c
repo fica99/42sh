@@ -22,15 +22,6 @@ void	set_sig_def(void)
 	signal(SIGCHLD, SIG_DFL);
 }
 
-void	sighandler_chld(int sign)
-{
-	write(STDOUT_FILENO, "\nIM THE CHILD\n", 15);
-	if (sign == SIGTSTP)
-	{
-		pause();
-	}
-}
-
 void	break_handler(int sign)
 {
 	if (sign == SIGINT)

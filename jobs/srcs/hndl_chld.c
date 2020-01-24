@@ -15,7 +15,6 @@ int mark_process_status(pid_t pid, int status)
         {
     	    if (p->pid == pid)
     	    {
-    		    p->status = status;
     		    if (WIFSTOPPED(status))
     			    p->stopped = 1;
     		    else
@@ -114,6 +113,7 @@ void do_job_notification(t_job *start_job, int options, int stop_flag)
 			format_job_info(j, "running", options);
 		if (stop_flag)
 			break ;
-		j = j->next;
+		if (j)
+			j = j->next;
     }
 }

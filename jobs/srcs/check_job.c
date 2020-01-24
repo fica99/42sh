@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_job.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/24 18:45:34 by lcrawn            #+#    #+#             */
+/*   Updated: 2020/01/24 18:45:40 by lcrawn           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_shell.h"
 
 int	max_job(void)
@@ -22,7 +34,6 @@ void mark_job_as_running (t_job *j)
 
   	for (p = j->first_process; p; p = p->next)
     	p->stopped = 0;
-  	j->notified = 0;
 }
 
 int job_is_completed (t_job *j)

@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 17:32:40 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/24 18:48:03 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct			s_process
 	pid_t				pid;
 	char				completed;
 	char				stopped;
-	int					status;
+	int 				error;
 	int					builtin;
 	int					**fd_list;
 	t_redir_list		*r;
@@ -52,7 +52,6 @@ typedef struct			s_job
 	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
-	char				notified;
 	struct termios		*tmodes;
 }						t_job;
 
