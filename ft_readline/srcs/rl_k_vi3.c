@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:52:34 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/12 20:51:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/25 20:47:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	rl_k_v(t_readline *rl)
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
-	add_to_history_buff(rl->line.buffer);
+	if (*rl->line.buffer)
+		add_to_history_buff(rl->line.buffer);
+	else
+		add_to_history_buff("Empty line? Seriosly?");
 	rl_check_str_mem(&rl->line, "fc");
 	ft_strcpy(rl->line.buffer, "fc");
 	rl_k_enter(rl);

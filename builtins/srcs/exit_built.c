@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:04:49 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/08 19:49:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			exit_built(int ac, char **av)
 		ft_error("42sh", av[0], NULL, "numeric argument required");
 		exit(255);
 	}
+	ft_free_jobs(g_first_job);
 	exit(ft_atoi(av[1]));
 	return (0);
 }

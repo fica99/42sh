@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_jobs.c                                        :+:      :+:    :+:   */
+/*   find_job.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Created: 2020/01/25 17:28:16 by lcrawn            #+#    #+#             */
+/*   Updated: 2020/01/25 17:28:36 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	exec_jobs(void)
+t_job	*find_job(int num)
 {
-	t_job *j;
+	t_job	*j;
 
-	if (!g_last_job || !g_last_job->next)
-		j = g_first_job;
-	else
-	{
-		g_last_job = g_last_job->next;
-		j = g_last_job;
-	}
-	while (j)
-	{
-		g_last_job = j;
-		launch_job(j, j->separator == T_AND ? 0 : 1);
+	j = g_first_job;
+	while (j && j->num != num)
 		j = j->next;
-	}
+	return (j);
 }

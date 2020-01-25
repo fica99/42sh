@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:49:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	term_start(void)
 {
 	char	*line;
 
-	signalling();
+	//signalling();
 	init_readline();
+	g_last_job = NULL;
+	init_jobs();
 	while (RUNNING)
 	{
 		if (!(line = ft_readline(get_env("PS1", ALL_ENV))))
@@ -53,10 +55,8 @@ void	ft_system(char **buffer)
 	if (!make_ast(tokens, &root))
 	{
 		parse(root);
-		exec_jobs(g_first_job);
+		exec_jobs();
 	}
-	ft_free_jobs(g_first_job);
-	g_first_job = NULL;
 	clean_tree(root);
 	lex_del_tkns(tokens);
 }

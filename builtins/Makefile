@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/21 22:55:34 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ srcs := cd.c\
 		exit_built.c\
 		setenv_built.c\
 		cdpath.c\
-		set_var.c \
+		set_var.c\
+		fg.c\
+		bg.c\
+		jobs.c\
 		echo_eflag.c \
 		echo_one_escape.c \
 		fc.c\

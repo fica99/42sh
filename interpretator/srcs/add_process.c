@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:18:31 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:18:33 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/24 15:37:49 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ t_process	*add_process(t_job *j)
 
 t_job		*job_new(t_lex_tkn **sep)
 {
-	t_job *new;
-	t_job *tmp;
+	t_job 	*new;
+	t_job 	*tmp;
 
 	if (!(new = (t_job *)ft_memalloc(sizeof(t_job))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	new->pgid = getpgrp();
+	new->pgid = 0;
 	new->tmodes = &g_shell_tmodes;
 	if (sep)
 		new->separator = (*sep)->type;
@@ -90,5 +90,6 @@ t_job		*job_new(t_lex_tkn **sep)
 			tmp = tmp->next;
 		tmp->next = new;
 	}
+	new->num = max_job();
 	return (new);
 }

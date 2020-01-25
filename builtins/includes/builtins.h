@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/22 15:52:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/25 17:54:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
 # define FC_FILE_EDITOR ".42sh-fc"
+
+char			*g_curr_dir;
+typedef			int(*t_builtin)(int, char **);
+typedef char	t_flag;
 
 char *g_curr_dir;
 
@@ -104,5 +108,17 @@ int					ft_type(int argc, char **argv);
 */
 char				*type_error(char *arg);
 void				fill_keyw(t_keyw *keyw);
+/*
+**	jobs.c
+*/
+void			jobs(int argc, char **argv);
+/*
+**	bg.c
+*/
+void			bg(int argc, char **argv);
+/*
+**	fg.c
+*/
+void			fg(int argc, char **argv);
 
 #endif
