@@ -6,34 +6,13 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 17:03:40 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:37:16 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_shell.h"
 
-void	close_pipes(t_process *p)
-{
-	if (p->inpipe != STDIN_FILENO)
-		if (close(p->inpipe) < 0)
-			err_exit("42sh", "close() error", NULL, NOERROR);
-	if (p->outpipe != STDOUT_FILENO)
-		if (close(p->outpipe) < 0)
-			err_exit("42sh", "close() error", NULL, NOERROR);
-}
-
-void	open_pipe(t_process *p, int *pipes)
-{
-	if (p->next)
-	{
-		if (pipe(pipes) < 0)
-			err_exit("42sh", "pipe() error", NULL, NOERROR);
-		p->outpipe = pipes[1];
-		p->next->inpipe = pipes[0];
-	}
-}
-
-void	ft_s(t_process *p, t_job *j, pid_t pid)
+void			ft_s(t_process *p, t_job *j, pid_t pid)
 {
 	p->pid = pid;
 	if (!j->pgid)
@@ -41,11 +20,11 @@ void	ft_s(t_process *p, t_job *j, pid_t pid)
 	setpgid(pid, j->pgid);
 }
 
-static char **fill_command(t_process *process)
+static char		**fill_command(t_process *process)
 {
-	char **command;
-	t_process *p;
-	int i;
+	char		**command;
+	t_process	*p;
+	int			i;
 
 	i = 0;
 	p = process;
@@ -66,9 +45,9 @@ static char **fill_command(t_process *process)
 	return (command);
 }
 
-static void check_builtin(t_job **j)
+static void		check_builtin(t_job **j)
 {
-	t_process *p;
+	t_process	*p;
 
 	p = (*j)->first_process;
 	while (p)
@@ -80,9 +59,9 @@ static void check_builtin(t_job **j)
 	}
 }
 
-static void launch_loop(t_job *j, t_process *p, int foreground)
+static void		launch_loop(t_job *j, t_process *p, int foreground)
 {
-	int 		i;
+	int			i;
 	pid_t		pid;
 	int			pipes[2];
 
@@ -106,11 +85,10 @@ static void launch_loop(t_job *j, t_process *p, int foreground)
 	}
 }
 
-void	launch_job(t_job *j, int foreground)
+void			launch_job(t_job *j, int foreground)
 {
 	char		*last_status;
 	t_process	*p;
-
 
 	check_builtin(&j);
 	p = j->first_process;
@@ -118,7 +96,7 @@ void	launch_job(t_job *j, int foreground)
 	if (!launch_builtin(p, NO_FORK))
 	{
 		p->completed = 1;
-		return;
+		return ;
 	}
 	launch_loop(j, p, foreground);
 	if (foreground)

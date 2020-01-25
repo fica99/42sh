@@ -11,6 +11,8 @@ srcs := launch_job.c\
 		put_in.c\
 		init_jobs.c\
 		find_job.c\
+		job_print.c\
+		pipes_routine.c\
 
 objs := $(srcs:.c=.o)
 

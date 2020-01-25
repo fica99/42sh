@@ -1,23 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_job.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/25 17:28:58 by lcrawn            #+#    #+#             */
+/*   Updated: 2020/01/25 17:29:23 by lcrawn           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_shell.h"
 
-void	free_completed_jobs(void)
-{
-	t_job *j;
-
-	j = g_first_job;
-	while (j)
-	{
-		if (job_is_completed(j))
-		{
-			free_job(&g_first_job, j);
-			j = g_first_job;
-		}
-		if (j)
-			j = j->next;
-	}
-}
-
-void	free_command(char **command)
+void			free_command(char **command)
 {
 	int i;
 
@@ -30,7 +25,7 @@ void	free_command(char **command)
 	free(command);
 }
 
-static void del_head(t_job **head)
+static void		del_head(t_job **head)
 {
 	t_job *tmp;
 
@@ -42,7 +37,7 @@ static void del_head(t_job **head)
 	tmp = NULL;
 }
 
-void    free_job(t_job **head, t_job *to_del)
+void			free_job(t_job **head, t_job *to_del)
 {
 	t_job *tmp;
 	t_job *prev;

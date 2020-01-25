@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 16:31:32 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:23:18 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct			s_process
 	pid_t				pid;
 	char				completed;
 	char				stopped;
-	int 				error;
+	int					error;
 	int					**fd_list;
 	t_redir_list		*r;
 	int					inpipe;
@@ -58,7 +58,7 @@ t_job					*g_first_job;
 t_job					*g_last_job;
 int						g_last_exit_status;
 pid_t					g_shell_pgid;
-pid_t 					g_job_pgid;
+pid_t					g_job_pgid;
 int						g_shell_terminal;
 struct termios			g_shell_tmodes;
 
@@ -70,7 +70,6 @@ void					launch_process(t_process *p,
 void					ft_sub(char **args);
 void					dup_redir(int **fd_list);
 int						redir_handle(t_process *p);
-
 /*
 **	ft_pathcmp.c
 */
@@ -96,9 +95,11 @@ void					launch_job(t_job *j, int foreground);
 /*
 **	hndl_chld.c
 */
-void 					print_command(char **command);
-void					do_job_notification(t_job *start_job, int options, int stop_flag);
-void					format_job_info(t_job *j, const char *status, int options);
+void					print_command(char **command);
+void					do_job_notification(t_job *start_job,
+		int options, int stop_flag);
+void					format_job_info(t_job *j,
+		const char *status, int options);
 void					wait_for_job(t_job *j);
 void					update_status (void);
 int						mark_process_status(pid_t pid, int status);
@@ -107,12 +108,10 @@ int						mark_process_status(pid_t pid, int status);
 */
 void					put_job_in_foreground(t_job *j, int cont);
 void					put_job_in_background (t_job *j, int cont);
-void		print_jobs(void); // del after test
 /*
 **	free_job.c
 */
 void					free_job(t_job **head, t_job *j);
-void					free_completed_jobs(void);
 /*
 **	check_job.c
 */
@@ -128,5 +127,10 @@ void					init_jobs(void);
 **	find_job.c
 */
 t_job					*find_job(int num);
+/*
+**	pipes_routine.c
+*/
+void					open_pipe(t_process *p, int *pipes);
+void					close_pipes(t_process *p);
 
 #endif

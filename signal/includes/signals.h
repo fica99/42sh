@@ -14,12 +14,5 @@
 # define SIGNALS_H
 
 void	set_sig_def(void);
-void	synch_signal(int sig);
-void	sigaction_set(void (*f)(int sig), struct sigaction *usr_action);
-void	signalling(void);
-void	signalling_chld(void);
-void	sighandler_chld(int sign);
-void	sighandler(int sign);
-void	win_handler(int sign);
 
 #endif
