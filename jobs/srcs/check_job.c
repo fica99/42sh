@@ -6,7 +6,7 @@
 /*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:45:34 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/24 18:45:40 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/25 17:02:10 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,36 @@ int job_is_completed (t_job *j)
 {
     t_process *p;
 
+	//fprintf(stderr, "checking job for completion\n");
+	//print_command(j->command);
     p = j->first_process;
-
     while (p)
     {
-        if (!p->completed)
+        if (!p->completed && !p->stopped) {
+			//fprintf(stderr, "process [%s] is not completed\n", p->args[0]);
 			return (0);
+		}
         p = p->next;
     }
+	//fprintf(stderr, "job is completed\n");
     return (1);
 }
 
 int job_is_stopped(t_job *j)
 {
-    t_process *p;
+	t_process *p;
 
+    //fprintf(stderr, "checking job for stopping\n");
+    //print_command(j->command);
     p = j->first_process;
     while (p)
     {
-		  if (!p->stopped)
-			  return (0);
-		  p = p->next;
+		if (!p->stopped && !p->completed) {
+			//fprintf(stderr, "process [%s] is not stopped\n", p->args[0]);
+				return (0);
+		}
+		p = p->next;
     }
+	//fprintf(stderr, "job is stopped\n");
 	return (1);
 }

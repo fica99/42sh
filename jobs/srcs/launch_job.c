@@ -75,10 +75,7 @@ static void check_builtin(t_job **j)
 	{
 		if (get_hash_data(g_built_table.table,
 					p->args[0], g_built_table.size))
-		{
-			p->builtin = 1;
 			(*j)->num = -1;
-		}
 		p = p->next;
 	}
 }

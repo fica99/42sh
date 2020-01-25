@@ -5,20 +5,34 @@ int mark_process_status(pid_t pid, int status)
     t_job 		*j;
     t_process 	*p;
 
-    if (pid <= 0)
-    	return (-1);
+    if (pid <= 0) {
+    	//fprintf(stderr, "pid <= 0\n");
+		return (-1);
+	}
+    //fprintf(stderr, "marking process status\n");
     j = g_first_job;
     while (j)
     {
     	p = j->first_process;
         while (p)
         {
+        	//fprintf(stderr, "%d %d\n", p->pid, pid);
     	    if (p->pid == pid)
     	    {
-    		    if (WIFSTOPPED(status))
-    			    p->stopped = 1;
+    	    	//fprintf(stderr, "checking for stopped or completion\n");
+    	    	//p->status = status;
+    		    if (WIFSTOPPED(status)) {
+    		    	//fprintf(stderr, "[%s] set as stopped\n", p->args[0]);
+					p->stopped = 1;
+				}
     		    else
-    			    p->completed = 1;
+    		    {
+					//fprintf(stderr, "[%s] set as completed\n", p->args[0]);
+					p->completed = 1;
+					/*if (WIFSIGNALED (status))
+						fprintf (stderr, "%d: Terminated by signal %d.\n",
+								 (int) pid, WTERMSIG(p->status));*/
+				}
                 return (0);
             }
             p = p->next;
@@ -41,14 +55,21 @@ void wait_for_job(t_job *j)
 {
     pid_t pid;
 
+    //fprintf(stderr, "here\n");
 	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
+	//fprintf(stderr, "here 2 | pid = %d\n", pid);
     while (!mark_process_status(pid, g_last_exit_status)
          && !job_is_stopped(j)
          && !job_is_completed(j))
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
+	//fprintf(stderr, "here 3\n");
+	/*do
+		pid = waitpid (WAIT_ANY, &g_last_exit_status, WUNTRACED);
+	while (!mark_process_status (pid, g_last_exit_status)
+		   && !job_is_stopped(j) && !job_is_completed (j));*/
 }
 
-static void print_command(char **command)
+void print_command(char **command)
 {
 	int i;
 

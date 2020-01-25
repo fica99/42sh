@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 00:54:51 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/25 16:31:33 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	make_redir(t_lex_tkn **list, t_process *curr_proc)
 	}
 	if ((*(list + 1))->type != T_WORD)
 		return (syntax_err(*(list + 1)));
-	return (red[(*list)->type - 6](list, curr_proc, io_number));
+	return (red[(*list)->type - 7](list, curr_proc, io_number));
 }
 
 void		dup_redir(int **fd_list)

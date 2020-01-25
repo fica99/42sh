@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 19:46:48 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	term_start(void)
 {
 	char	*line;
 
-	signalling();
+	//signalling();
 	init_readline();
 	g_last_job = NULL;
 	init_jobs();

@@ -6,7 +6,7 @@
 /*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 18:48:03 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/25 16:31:32 by lcrawn           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct			s_process
 	char				completed;
 	char				stopped;
 	int 				error;
-	int					builtin;
 	int					**fd_list;
 	t_redir_list		*r;
 	int					inpipe;
@@ -94,6 +93,10 @@ int						launch_builtin(t_process *p, int flag);
 */
 void					launch_job(t_job *j, int foreground);
 
+/*
+**	hndl_chld.c
+*/
+void 					print_command(char **command);
 void					do_job_notification(t_job *start_job, int options, int stop_flag);
 void					format_job_info(t_job *j, const char *status, int options);
 void					wait_for_job(t_job *j);
