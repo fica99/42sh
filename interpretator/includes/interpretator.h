@@ -19,11 +19,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 
-# define DEF_HEREDOC_SIZE 10;
-# define LRED_OPEN O_RDONLY
-# define RRED_OPEN O_RDWR | O_CREAT | O_TRUNC
-# define DRRED_OPEN O_RDWR | O_CREAT | O_APPEND
-# define PERM_MODE S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+# define DEF_HEREDOC_SIZE 10
+
 # define INT_LEN 10
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5

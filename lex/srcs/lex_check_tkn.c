@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:37:30 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/12 22:06:07 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:15:27 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ t_lex_tkn_type	lex_check_other(char **str, short is_word, size_t *pos)
 t_lex_tkn_type	lex_check_end(char **str, short is_word, size_t *pos)
 {
 	(void)str;
-	(void)pos;
 	if (is_word)
 		return (T_NULL);
+	(*pos)++;
 	return (T_END);
 }
 

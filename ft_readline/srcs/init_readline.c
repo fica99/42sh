@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:16:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 13:18:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:01:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	rl_init_terminfo(void)
 	int	err;
 
 	if (!isatty(STDIN_FILENO))
-		rl_err("42sh", "stdin is not a terminal", UNDEFERR);
+		rl_err("42sh", "stdin is not a terminal", NOERROR);
 	if ((setupterm(0, STDIN_FILENO, &err) == ERR))
 	{
 		if (err == 1)
@@ -31,12 +31,13 @@ static void	rl_init_terminfo(void)
 
 static void	rl_check_terminfo_templates(void)
 {
-	if (!RL_TRANSMIT_MODE || !RL_CUR_CORD || !RL_STOP_TRANSMIT_MODE ||
-	!RL_SET_CUR || !RL_K_LFT || !RL_K_RGHT || !RL_K_HOME || !RL_K_END ||
-	!RL_SHIFT_LEFT || !RL_SHIFT_RIGHT || !RL_CUR_VIS || !RL_CUR_INVIS ||
-	!RL_CLEAR_END_SCREEN || !RL_K_DEL || !RL_K_DOWN || !RL_K_UP
-	|| !RL_CLEAR_SCREEN)
-		rl_err("42sh", "no correct capabilities", UNDEFERR);
+	if (!tigetstr("smkx") || !tigetstr("u7") || !tigetstr("rmkx") ||
+	!tigetstr("cup") || !tigetstr("kcub1") || !tigetstr("kcuf1") ||
+	!tigetstr("khome") || !tigetstr("kend") || !tigetstr("kLFT") ||
+	!tigetstr("kRIT") || !tigetstr("cvvis") || !tigetstr("civis") ||
+	!tigetstr("ed") || !tigetstr("kdch1") || !tigetstr("kcud1") ||
+	!tigetstr("kcuu1") || !tigetstr("clear"))
+		rl_err("42sh", "no correct capabilities", NOERROR);
 }
 
 static void	rl_init_readline_struct(t_readline *rl)
@@ -56,19 +57,16 @@ void		init_readline(void)
 {
 	char	*ps1;
 	char	*ps2;
-	char	*ps4;
 
 	rl_save_mode(&g_rl.start_mode);
 	rl_init_terminfo();
 	rl_check_terminfo_templates();
 	if (!(ps1 = get_env("PS1", ALL_ENV)))
-		ps1 = "\033[0;36m\\u\033[0;31m@\033[0;32m\\H\033[0;31m:\033[0;33m\\w\n\033[0;35m\\$> \033[0m";
+		ps1 = "\033[0;36m\\u \033[0;32m\\H \033[0;33m\\w\n\033[0m\\$> ";
 	set_env("PS1", ps1, SET_ENV);
 	if (!(ps2 = get_env("PS2", ALL_ENV)))
 		ps2 = "> ";
 	set_env("PS2", ps2, SET_ENV);
-	if (!(ps4 = get_env("PS4", ALL_ENV)))
-		ps4 = "+ ";
-	set_env("PS4", ps4, SET_ENV);
+	set_env("READMODE", "EMACS", SET_ENV);
 	rl_init_readline_struct(&g_rl);
 }

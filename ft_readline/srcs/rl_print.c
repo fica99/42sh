@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:41:21 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:13:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:48:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	rl_disable_line(t_readline *rl)
 	rl->cord.y_cur = rl->cord.y_start;
 	rl_set_end_cord(&rl->cord);
 	rl->cord.pos = 0;
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
 	rl_go_left(rl->cord.pos - pos, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_print_highlight(char *str, short start, short end, t_rl_cord *cord)
@@ -66,7 +66,7 @@ void	rl_print_highlight(char *str, short start, short end, t_rl_cord *cord)
 	short	i;
 	char	symb[2];
 
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	i = -1;
 	if (start <= i)
 		ft_putstr(HIGHLIGHT);
@@ -81,7 +81,7 @@ void	rl_print_highlight(char *str, short start, short end, t_rl_cord *cord)
 		rl_print(symb, cord);
 	}
 	ft_putstr(STANDART);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 	g_rl_flags |= RL_HIGHLIGHT_FLAG;
 }
 
@@ -91,19 +91,19 @@ void	rl_del_symb(char *buf, t_rl_cord *cord)
 
 	pos = cord->pos;
 	buf = ft_strdel_el(buf, pos);
-	ft_putstr(RL_CUR_INVIS);
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("civis"));
+	ft_putstr(tigetstr("ed"));
 	rl_print(buf + cord->pos, cord);
 	rl_go_left(cord->pos - pos, cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 }
 
 void	rl_print_hist_search(t_readline *rl)
 {
-	ft_putstr(RL_CUR_INVIS);
+	ft_putstr(tigetstr("civis"));
 	rl_go_left(rl->cord.pos, &rl->cord);
 	rl_set_end_cord(&rl->cord);
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_print(rl->line.buffer, &rl->cord);
 	ft_putchar('\n');
 	if (rl->cord.y_cur >= rl->cord.ws_row - 1)
@@ -118,6 +118,6 @@ void	rl_print_hist_search(t_readline *rl)
 	rl->cord.y_cur = rl->cord.y_start;
 	rl->cord.pos = 0;
 	rl_print(rl->line.buffer, &rl->cord);
-	ft_putstr(RL_CUR_VIS);
+	ft_putstr(tigetstr("cvvis"));
 	g_rl_flags |= RL_HISTORY_SEARCH_FLAG;
 }

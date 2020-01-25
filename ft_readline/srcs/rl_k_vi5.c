@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 20:51:04 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 21:24:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:48:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	rl_k_p_upper(t_readline *rl)
 		rl_check_str_mem(&rl->line, rl->copy_buff.buffer);
 		if (!(ft_stradd(rl->line.buffer, rl->copy_buff.buffer, pos)))
 			rl_err("42sh", "malloc() error", ENOMEM);
-		ft_putstr(RL_CUR_INVIS);
+		ft_putstr(tigetstr("civis"));
 		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
 		rl_go_left(rl->cord.pos - (pos +
 		ft_strlen(rl->copy_buff.buffer)), &rl->cord);
-		ft_putstr(RL_CUR_VIS);
+		ft_putstr(tigetstr("cvvis"));
 	}
 }
 
@@ -50,6 +50,6 @@ void	rl_k_d_upper(t_readline *rl)
 	rl_check_str_mem(&rl->copy_buff, rl->line.buffer + rl->cord.pos);
 	ft_strcpy(rl->copy_buff.buffer, rl->line.buffer + rl->cord.pos);
 	ft_strclr(rl->line.buffer + rl->cord.pos);
-	ft_putstr(RL_CLEAR_END_SCREEN);
+	ft_putstr(tigetstr("ed"));
 	rl_set_end_cord(&rl->cord);
 }

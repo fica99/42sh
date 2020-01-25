@@ -6,23 +6,15 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/30 17:30:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:43:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:52:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RL_TEMPLATES_H
 # define RL_TEMPLATES_H
 
-# define VI_HASH_SIZE 59
-# define EMACS_HASH_SIZE 46
-# define RL_TRANSMIT_MODE tigetstr("smkx")
-# define RL_STOP_TRANSMIT_MODE tigetstr("rmkx")
-# define RL_CUR_CORD tigetstr("u7")
-# define RL_SET_CUR tigetstr("cup")
-# define RL_CUR_INVIS tigetstr("civis")
-# define RL_CUR_VIS tigetstr("cvvis")
-# define RL_CLEAR_END_SCREEN tigetstr("ed")
-# define RL_CLEAR_SCREEN tigetstr("clear")
+# define VI_HASH_SIZE 60
+# define EMACS_HASH_SIZE 47
 /*
 **	VI
 */
@@ -89,15 +81,6 @@
 /*
 **	STANDART
 */
-# define RL_K_LFT tigetstr("kcub1")
-# define RL_K_RGHT tigetstr("kcuf1")
-# define RL_K_HOME tigetstr("khome")
-# define RL_K_END tigetstr("kend")
-# define RL_SHIFT_LEFT tigetstr("kLFT")
-# define RL_SHIFT_RIGHT tigetstr("kRIT")
-# define RL_K_DEL tigetstr("kdch1")
-# define RL_K_UP tigetstr("kcuu1")
-# define RL_K_DOWN tigetstr("kcud1")
 # define RL_K_CTRL_UP "\033[1;5A"
 # define RL_K_CTRL_DOWN "\033[1;5B"
 # define RL_K_CTRL_RIGHT "\033[1;5C"

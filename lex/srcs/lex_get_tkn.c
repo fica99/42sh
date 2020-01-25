@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/20 00:00:09 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/21 21:17:21 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 	{
 		is_word = (pos - start_pos > 0) ? 1 : 0;
 		type = lex_check_type(str, is_word, &pos);
-		if (type == T_ERR)
+		if (type == T_ERR || type == T_CTRL_C)
 			return (NULL);
 		if (type != T_WORD)
 			break ;
@@ -71,11 +71,8 @@ void				lex_fill_value_pos(t_lex_tkn *token, char *str,
 		lex_fill_arith_opers_value(token, str, pos);
 	else
 	{
-		if (pos > start_pos)
-		{
-			lex_rewind_end_spases(str, &pos);
-			len = pos - start_pos;
-			token->value = ft_strsub(str, start_pos, len);
-		}
+		lex_rewind_end_spases(str, &pos);
+		len = pos - start_pos;
+		token->value = ft_strsub(str, start_pos, len);
 	}
 }

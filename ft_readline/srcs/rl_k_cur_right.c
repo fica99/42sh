@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:08:14 by aashara-          #+#    #+#             */
-/*   Updated: 2019/11/18 13:33:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:57:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	rl_k_shift_right(t_readline *rl)
 		return ;
 	if (!(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl->cord.highlight_pos = rl->cord.pos;
-	start = RL_MIN(rl->cord.pos + 1, rl->cord.highlight_pos);
-	end = RL_MAX(rl->cord.pos + 1, rl->cord.highlight_pos);
+	start = ft_min(rl->cord.pos + 1, rl->cord.highlight_pos);
+	end = ft_max(rl->cord.pos + 1, rl->cord.highlight_pos);
 	pos = rl->cord.pos;
 	rl_go_left(rl->cord.pos, &rl->cord);
 	rl_print_highlight(rl->line.buffer, start, end, &rl->cord);

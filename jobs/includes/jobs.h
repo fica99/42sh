@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
 /*   Updated: 2020/01/25 17:23:18 by lcrawn           ###   ########.fr       */
@@ -132,5 +132,8 @@ t_job					*find_job(int num);
 */
 void					open_pipe(t_process *p, int *pipes);
 void					close_pipes(t_process *p);
+
+char					*find_in_path(char *filename);
+int						check_path_var(char *fname);
 
 #endif

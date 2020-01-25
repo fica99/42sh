@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 19:56:50 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 16:53:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/23 22:59:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	rl_k_r_upper(t_readline *rl)
 	rl_read_handler(c, STDOUT_FILENO);
 	rl->line.buffer[rl->cord.pos] = *c;
 	rl_disable_line(rl);
+	rl_check_str_mem(&rl->copy_buff, symb);
+	ft_strcpy(rl->copy_buff.buffer, symb);
 	g_rl_flags |= RL_VI_INPUT_MODE;
 	g_rl_flags &= ~RL_VI_COMMAND_MODE;
 }
@@ -70,6 +72,8 @@ void	rl_k_r_lower(t_readline *rl)
 		rl_disable_line(rl);
 	rl_read_handler(c, STDOUT_FILENO);
 	rl->line.buffer[rl->cord.pos] = *c;
+	rl_check_str_mem(&rl->copy_buff, symb);
+	ft_strcpy(rl->copy_buff.buffer, symb);
 	rl_disable_line(rl);
 }
 
@@ -86,9 +90,9 @@ void	rl_k_p_lower(t_readline *rl)
 		rl_check_str_mem(&rl->line, rl->copy_buff.buffer);
 		if (!(ft_stradd(rl->line.buffer, rl->copy_buff.buffer, pos + 1)))
 			rl_err("42sh", "malloc() error", ENOMEM);
-		ft_putstr(RL_CUR_INVIS);
+		ft_putstr(tigetstr("civis"));
 		rl_print(rl->line.buffer + rl->cord.pos, &rl->cord);
 		rl_go_left(rl->cord.pos - pos, &rl->cord);
-		ft_putstr(RL_CUR_VIS);
+		ft_putstr(tigetstr("cvvis"));
 	}
 }

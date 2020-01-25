@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 18:44:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 20:37:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,27 @@
 # include "libhash.h"
 # include "libdar.h"
 # include "libstr.h"
-# include "rl_errors.h"
+# include "libdir.h"
 # include "rl_templates.h"
 # include "../../environ/includes/environ.h"
+# include "../../error/includes/error.h"
 
 # define LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0
 # define RL_HISTORY_FILE "/.42sh_history"
+# define RL_BUILTINS_LIST "builtins/builtins_list/builtins_list"
 # define RL_HISTSIZE "500"
 # define RL_HISTFILESIZE "500"
-# define RL_PERM_HISTFILE S_IRUSR | S_IWUSR
-# define RL_OPEN_HISTFILE O_RDWR | O_CREAT
-# define RL_WRITE_HISTFILE O_RDWR | O_TRUNC | O_CREAT
 # define RL_INIT_FLAGS 0
 # define FT_HOST_NAME_MAX 255
 # define READING 1
 # define RL_MAX_BUFF 1000
 # define RL_PROMPT_TIME_BRACKETS 2
-# define RL_BREAK_FLAG (1 << 1)
-# define RL_VI_COMMAND_MODE (1 << 4)
-# define RL_VI_INPUT_MODE (1 << 5)
-# define RL_HIGHLIGHT_FLAG (1 << 2)
-# define RL_HISTORY_SEARCH_FLAG (1 << 3)
-# define RL_MIN(a, b) ((a > b) ? b : a)
-# define RL_MAX(a, b) ((a > b) ? a : b)
+# define RL_BREAK_FLAG 2
+# define RL_VI_COMMAND_MODE 16
+# define RL_VI_INPUT_MODE 32
+# define RL_HIGHLIGHT_FLAG 4
+# define RL_HISTORY_SEARCH_FLAG 8
 # define STANDART "\033[0m"
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
@@ -58,6 +55,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define HIGHLIGHT "\033[35;4m"
+# define RL_BUILTINS_COUNT 15
 
 typedef enum		e_rl_mode
 {
@@ -90,11 +88,11 @@ typedef struct		s_rl_history
 	char			**history_buff;
 	t_buff			save_line;
 	t_buff			search;
-	size_t			hist_len;
-	size_t			hist_index;
-	size_t			histsize;
-	size_t			histfilesize;
-	size_t			cur_command_nb;
+	int				hist_len;
+	int				hist_index;
+	int				histsize;
+	int				histfilesize;
+	int				cur_command_nb;
 }					t_rl_history;
 
 typedef struct		s_readline
@@ -113,6 +111,24 @@ typedef struct		s_readline
 	t_rl_mode		mode;
 }					t_readline;
 
+typedef struct		s_rl_autocom_print
+{
+	short			rows;
+	short			cols;
+	short			max_word;
+	short			arr_len;
+	char			**arr;
+}					t_rl_autocom_print;
+
+typedef struct		s_rl_autocom_parse
+{
+	char			*to_find;
+	char			**res;
+	short			pos;
+	uint8_t			is_env;
+	uint8_t			is_path;
+	uint8_t			is_bin;
+}					t_rl_autocom_parse;
 /*
 **	init_readline.c
 */
@@ -149,11 +165,6 @@ t_hash				**init_vi_temp(int hash_size);
 */
 void				rl_init_history(t_rl_history *history);
 /*
-**	rl_history.c
-*/
-void				rl_get_hist_size(t_rl_history *history);
-void				rl_check_history_size(t_rl_history *history);
-/*
 **	free_readline.c
 */
 void				rl_clr_data(t_readline *rl);
@@ -166,16 +177,18 @@ void				rl_free_history(t_rl_history *history);
 /*
 **	add_to_history_buff.c
 */
+void				rl_get_hist_size(t_rl_history *history);
+void				rl_check_history_size(t_rl_history *history);
 void				add_to_history_buff(char *line);
 /*
-**	rl_hist_exp.c
+**	history_exp.c
 */
 char				*get_hist_expansions(char *line);
 size_t				get_hist_size(void);
 /*
 **	ft_readline.c
 */
-char				*ft_readline(char *prompt, t_rl_mode mode);
+char				*ft_readline(char *prompt);
 void				rl_read_handler(char *c, int fd);
 /*
 **	rl_prompt.c
@@ -306,7 +319,7 @@ void				rl_k_x_lower(t_readline *rl);
 **	rl_k_vi3.c
 */
 void				rl_k_x_upper(t_readline *rl);
-//void	rl_k_v(t_readline *rl);
+void				rl_k_v(t_readline *rl);
 void				rl_k_f_lower(t_readline *rl);
 void				rl_k_f_upper(t_readline *rl);
 /*
@@ -323,6 +336,27 @@ void				rl_k_p_lower(t_readline *rl);
 void				rl_k_p_upper(t_readline *rl);
 void				rl_k_y_upper(t_readline *rl);
 void				rl_k_d_upper(t_readline *rl);
+/*
+**	rl_k_tab.c
+*/
+void				rl_k_tab(t_readline *rl);
+/*
+**	rl_autocom_print.c
+*/
+void				rl_autocom_print(t_rl_autocom_parse *parse, t_readline *rl);
+/*
+**	rl_autocom_parse.c
+*/
+void				rl_autocom_parse(t_rl_autocom_parse *autocom,
+															t_readline *rl);
+/*
+**	rl_autocom_path.c
+*/
+char				**rl_autocom_path(char *word);
+/*
+**	rl_autocom_bin.c
+*/
+char				**rl_autocom_bin(char *word);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

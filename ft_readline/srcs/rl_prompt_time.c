@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:56:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:36:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:11:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ short			rl_prompt_time(char *str, short i)
 
 	time(&t);
 	if (t == -1)
-		rl_err("42sh", "time() error", UNDEFERR);
+		rl_err("42sh", "time() error", NOERROR);
 	info = localtime(&t);
 	if ((j = rl_check_time_flags(str, i, info)) != i)
 		return (j);

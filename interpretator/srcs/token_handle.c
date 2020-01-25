@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   token_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 07:50:39 by mmarti            #+#    #+#             */
 /*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
@@ -14,7 +14,7 @@
 
 t_lex_tkn	**find_token(t_lex_tkn **list, int class)
 {
-	while ((*list)->type != T_END && (int)(*list)->class != class)
+	while ((*list)->type != T_END && (*list)->class != (t_lex_tkn_class)class)
 		list++;
 	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:40:42 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:37:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/22 16:57:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_hash	**init_vi_temp2(t_hash **table, int hash_size)
 {
 	table = push_hash(table, RL_K_X_UPPER, (void*)&rl_k_x_upper, hash_size);
 	table = push_hash(table, RL_K_X_LOWER, (void*)&rl_k_x_lower, hash_size);
-//	table = push_hash(table, RL_K_V, (void*)&rl_k_v, hash_size);
+	table = push_hash(table, RL_K_V, (void*)&rl_k_v, hash_size);
 	table = push_hash(table, RL_K_F_LOWER, (void*)&rl_k_f_lower, hash_size);
 	table = push_hash(table, RL_K_F_UPPER, (void*)&rl_k_f_upper, hash_size);
 	table = push_hash(table, RL_K_SEMICOLON, (void*)&rl_k_semicolon, hash_size);

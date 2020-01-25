@@ -84,7 +84,7 @@ void		word_list(t_lex_tkn **list, t_process *cur_proc)
 {
 	if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
 		parse_redirect(list, cur_proc);
-	else if ((*list)->type == T_WORD)
+	else if ((*list)->class == C_WORD)
 		parse_word(list, cur_proc);
 	else
 		return ;

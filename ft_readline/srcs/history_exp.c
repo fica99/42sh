@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rl_hist_exp.c                                      :+:      :+:    :+:   */
+/*   history_exp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 17:05:44 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:39:47 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:11:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*rl_search_exp(char *line, t_rl_history history)
 		if ((ft_strstr(history.history_buff[i], line)))
 		{
 			if (!(new_line = ft_strdup(history.history_buff[i])))
-				rl_err("42sh", "malloc() error", UNDEFERR);
+				rl_err("42sh", "malloc() error", ENOMEM);
 			break ;
 		}
 	}
@@ -38,7 +38,7 @@ static char	*rl_hist_copy(short index, char **hist_buff)
 	if (index < 0 || index >= (short)get_hist_size())
 		return (NULL);
 	if (!(new_line = ft_strdup(hist_buff[index])))
-		rl_err("42sh", "malloc() error", UNDEFERR);
+		rl_err("42sh", "malloc() error", ENOMEM);
 	return (new_line);
 }
 

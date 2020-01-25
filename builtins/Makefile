@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.21-school.ru    +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
 #    Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr        #
@@ -27,6 +27,14 @@ srcs := cd.c\
 		fg.c\
 		bg.c\
 		jobs.c\
+		echo_eflag.c \
+		echo_one_escape.c \
+		fc.c\
+		fc_parse.c\
+		fc_exec.c\
+		type.c\
+		keywords.c\
+		export.c
 
 objs := $(srcs:.c=.o)
 

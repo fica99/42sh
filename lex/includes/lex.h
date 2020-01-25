@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/21 16:08:44 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/22 20:48:14 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,15 @@
 # include "libhash.h"
 # include "libstr.h"
 # include "libdar.h"
+# include "../../ft_readline/includes/ft_readline.h"
+# include "../../environ/includes/environ.h"
 
 # define LEX_TOKENS_SIZE 100
 
 typedef enum		e_lex_tkn_type
 {
 	T_NULL,
+	T_CTRL_C,
 	T_ERR,
 	T_END,
 	T_WORD,
@@ -94,6 +97,7 @@ typedef struct		s_ast
 
 char				*del_spc(char *str);
 char				*ft_stricut(char *str, int i);
+
 /*
 ** lex_lexer.c
 */
@@ -175,11 +179,42 @@ int					lex_is_less_less(char *str, size_t *pos);
 t_lex_tkn_type		lex_check_sep(char **str, short is_word, size_t *pos);
 
 /*
-** lex_check_quotes.c
+** lex_lex_str.c
 */
 
-int					lex_is_quote(char c);
-int					lex_check_quotes(char *str, size_t *pos);
+char				*lex_strjoin(char *s1, char *s2);
+char				*lex_add_eol(char *str);
+
+/*
+** lex_quotation_marks.c
+*/
+
+int					lex_is_quotation_marks(char *str, size_t pos);
+t_lex_tkn_type		lex_quotation_marks(char **str, short is_word, size_t *pos);
+
+/*
+** lex_double_quotes.c
+*/
+
+t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
+int					lex_is_open_dq(char *str, size_t pos, size_t *offset);
+size_t				lex_is_esc_dq(char *str, size_t pos);
+
+/*
+** lex_single_quotes.c
+*/
+
+t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
+int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
+size_t				lex_is_esc_sq(char *str, size_t pos);
+
+/*
+** lex_back_quotes.c
+*/
+
+t_lex_tkn_type		lex_back_quotes(char **str, size_t *pos);
+int					lex_is_open_bq(char *str, size_t pos, size_t *offset);
+size_t				lex_is_esc_bq(char *str, size_t pos);
 
 /*
 ** lex_io_num.c
@@ -216,10 +251,11 @@ void				lex_fill_control_sub_value(t_lex_tkn *token,
 ** lex_log_opers.c
 */
 
-int					lex_is_and_and(char *str, size_t pos);
+t_lex_tkn_type		lex_is_and_and(char **str, size_t pos);
 t_lex_tkn_type		lex_check_and_and(char **str, short is_word, size_t *pos);
-int					lex_is_or_or(char *str, size_t pos);
+t_lex_tkn_type		lex_is_or_or(char **str, size_t pos);
 t_lex_tkn_type		lex_check_or_or(char **str, short is_word, size_t *pos);
+int					lex_is_fin_log_oper(char *str, size_t pos, size_t *offset);
 
 /*
 ** lex_check_and.c
@@ -242,6 +278,12 @@ int					lex_is_arith_opers(char *str, short is_word, size_t *pos,
 t_lex_tkn_type		lex_arith_opers(short is_word, int err);
 void				lex_fill_arith_opers_value(t_lex_tkn *token,
 	char *str, size_t pos);
+
+/*
+** lex_ctrl_c.c
+*/
+
+t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
 
 /*
 ** lex_debug.c

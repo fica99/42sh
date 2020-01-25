@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/08 17:10:47 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/22 14:58:21 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ srcs := add_to_history_buff.c\
 		rl_cur_mov.c\
 		rl_err.c\
 		rl_free_history.c\
-		rl_history.c\
 		rl_init_emacs_temp.c\
 		rl_init_history.c\
 		rl_init_structs.c\
@@ -43,7 +42,12 @@ srcs := add_to_history_buff.c\
 		rl_prompt_time.c\
 		rl_str.c\
 		rl_term_mode.c\
-		rl_hist_exp.c
+		history_exp.c\
+		rl_k_tab.c\
+		rl_autocom_print.c\
+		rl_autocom_parse.c\
+		rl_autocom_path.c\
+		rl_autocom_bin.c\
 
 objs := $(srcs:.c=.o)
 
@@ -60,7 +64,6 @@ objects := $(addprefix $(objs_dir)/, $(objs))
 sources := $(addprefix $(srcs_dir)/, $(srcs))
 
 headers := $(addprefix $(inc_dir)/, ft_readline.h)\
-			$(addprefix $(inc_dir)/, rl_errors.h)\
 			$(addprefix $(inc_dir)/, rl_templates.h)\
 
 includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
@@ -71,19 +74,18 @@ includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
 
 includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
 
-includes_environ := ../environ/includes
+includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
 
-# includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
-
-includes_flags := -I $(inc_dir)\
-				-I $(includes_libft)\
+includes_flags := -I $(includes_libft)\
 				-I $(includes_libhash)\
 				-I $(includes_libdar)\
-				-I $(includes_libstr)
+				-I $(includes_libstr)\
+				-I $(includes_libdir)\
+				-I $(inc_dir)\
 
 cc := gcc
 
-cflags := -Wall -Wextra -Werror
+cflags := -Wall -Wextra -Werror -g -O0
 
 .PHONY: all compilation clean re
 
@@ -97,7 +99,7 @@ $(objs_dir):
 compilation:
 	@$(MAKE) --no-print-directory $(objects)
 
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
+$(objs_dir)/%.o: $(srcs_dir)/%.c $(headers)
 	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
 
 clean:

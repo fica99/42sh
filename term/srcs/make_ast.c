@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   make_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
 /*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
@@ -81,7 +81,7 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 	int			old_status;
 	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0},
 	{0, 3, 3}, {3, 0, 0}, {3, 3, 3}, {2, 1, 1}, {2, 0, 0},
-	{0, 2, 2}, {0, 10, 0}, {0, 4, 4}, {4, 0, 0}, {3, 10, 3}};
+	{0, 2, 2}, {0, 10, 0}, {0, 4, 4}, {4, 0, 0}, {3, 10, 3}, {4, 10, 4}};
 
 	curr_status = (*list)->class;
 	*root = new_node(list);

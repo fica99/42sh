@@ -31,6 +31,7 @@ int			exit_built(int ac, char **av)
 		return (-1);
 	}
 	free_readline();
+	free_globar_var();
 	if (!av[1])
 		exit(g_last_exit_status);
 	if (is_num(av[1]) < 0)
