@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   setenv_built.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:09:22 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:09:24 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 15:14:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 int	setenv_built(int ac, char **av)
 {
 	if (ac > 3)
 	{
-		ft_error("42sh", av[0], NULL, "too many arguments");
+		err("42sh", av[0], NULL, "too many arguments");
 		return (1);
 	}
 	if (ac == 1)

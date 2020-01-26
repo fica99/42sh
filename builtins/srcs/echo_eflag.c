@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   echo_eflag.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 18:33:58 by jijerde           #+#    #+#             */
-/*   Updated: 2020/01/18 04:29:16 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/01/26 16:16:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
-int		ft_isoct(char c)
+int				ft_isoct(char c)
 {
 	if ('0' <= c && c <= '7')
 		return (1);
 	return (0);
 }
 
-int		ft_ishex(char c)
+static int		ft_ishex(char c)
 {
 	if (('0' <= c && c <= '9') || ('A' <= c && c <= 'F')
 	|| ('a' <= c && c <= 'f'))
@@ -27,7 +27,7 @@ int		ft_ishex(char c)
 	return (0);
 }
 
-int		ft_hex(char c)
+static int		ft_hex(char c)
 {
 	if (c == 'A' || c == 'a')
 		return (10);
@@ -44,7 +44,7 @@ int		ft_hex(char c)
 	return (c - '0');
 }
 
-int		ft_hexout(char **argv, int i, int j)
+int				ft_hexout(char **argv, int i, int j)
 {
 	int hex;
 
@@ -70,7 +70,7 @@ int		ft_hexout(char **argv, int i, int j)
 	return (j);
 }
 
-int		ft_eflag(int i, char **argv, int argc, int *flags)
+int				ft_eflag(int i, char **argv, int argc, int *flags)
 {
 	int				j;
 

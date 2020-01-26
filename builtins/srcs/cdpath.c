@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cdpath.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:00:21 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:00:23 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:33:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 void			remove_slashes(void)
 {
@@ -44,9 +44,9 @@ static int		try_cdpath(char *path, char **cdpath, t_flag no_links)
 		if (!(ret = change_wdir(tmp, no_links)))
 		{
 			if (no_links)
-				ft_putln(tmp);
+				ft_putendl(tmp);
 			else
-				ft_putln(g_curr_dir);
+				ft_putendl(g_curr_dir);
 			free(tmp);
 			break ;
 		}

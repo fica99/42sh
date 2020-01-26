@@ -6,26 +6,35 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 17:54:32 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 16:19:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
 # define MAXDIR 4097
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
 # define FC_FILE_EDITOR ".42sh-fc"
+# define FALSE 0
+# define TRUE 1
 
-char			*g_curr_dir;
-typedef			int(*t_builtin)(int, char **);
-typedef char	t_flag;
+# include <sys/stat.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "libdar.h"
+# include "libdir.h"
+# include "error.h"
+# include "environ.h"
+# include "jobs.h"
+# include "term.h"
+# include "hash_table.h"
 
-char *g_curr_dir;
-
-typedef int(*t_builtin)(int, char **);
-
+char				*g_curr_dir;
+typedef	int			(*t_builtin)(int, char **);
 typedef char		t_flag;
 
 typedef struct		s_keyw
@@ -48,39 +57,30 @@ typedef struct		s_fc
 	char			flag_r;
 }					t_fc;
 
-int					set_var(int ac, char **av);
-void				path_add(char *tmp);
+/*
+**	bg.c
+*/
+void				bg(int argc, char **argv);
+/*
+**	cd.c
+*/
+void				init_curr_pwd(void);
+char				**check_flags(char **av, t_flag *no_links);
+int					cd(int ac, char **av);
+/*
+**	cdpath.c
+*/
 void				remove_slashes(void);
 int					cdpath_handle(char *path, t_flag no_links);
-int					setenv_built(int ac, char **av);
-int					exit_built(int ac, char **av);
+/*
+**	ft_pathjoin.c
+*/
 char				*ft_pathjoin(char *s1, char *s2);
-void				ft_putln(char *str);
-char				**check_flags(char **av, t_flag *no_links);
+/*
+**	rewrite_cwd.c
+*/
+void				path_add(char *tmp);
 int					change_wdir(char *path, t_flag no_links);
-int					pwd(int ac, char **av);
-int					cd(int ac, char **av);
-void				rewrite_cwd(char *path);
-int					check_request(char **argv, char *path);
-int					env(int argc, char **argv);
-int					set(int len, char **args);
-int					unset(int ac, char **args);
-int					export(int ac, char **av);
-void				print_bin_table(t_hash **bin_table, size_t size);
-int					hash(int ac, char **av);
-void				init_curr_pwd(void);
-/*
-***	fc.c
-*/
-int					fc(int argc, char **argv);
-/*
-***	fc_parse.c
-*/
-char				fc_parse_args(t_fc *fc, int argc, char **argv);
-/*
-***	fc_exec.c
-*/
-void				fc_exec(t_fc *fc);
 /*
 ***	echo_eflag.c
 */
@@ -100,25 +100,70 @@ int					echo_one_escape(char **argv, int i, int j);
 void				echo_slashes(char **argv, int i, int j);
 void				echo_text(char **argv, int i, int j);
 /*
-***	type.c
+***	env.c
 */
-int					ft_type(int argc, char **argv);
+int					env(int argc, char **argv);
+/*
+***	exit.c
+*/
+int					exit_built(int ac, char **av);
+/*
+***	export.c
+*/
+int					export(int ac, char **av);
+/*
+***	fc.c
+*/
+int					fc(int argc, char **argv);
+/*
+***	fc_parse.c
+*/
+char				fc_parse_args(t_fc *fc, int argc, char **argv);
+/*
+***	fc_exec.c
+*/
+void				fc_exec(t_fc *fc);
+/*
+**	fg.c
+*/
+void				fg(int argc, char **argv);
+/*
+**	hash.c
+*/
+int					hash(int ac, char **av);
+/*
+**	jobs.c
+*/
+void				jobs(int argc, char **argv);
 /*
 ***	keywords.c
 */
 char				*type_error(char *arg);
 void				fill_keyw(t_keyw *keyw);
+void				free_keyw(t_keyw *keyw);
 /*
-**	jobs.c
+**	pwd.c
 */
-void			jobs(int argc, char **argv);
+int					pwd(int ac, char **av);
 /*
-**	bg.c
+**	set_var.c
 */
-void			bg(int argc, char **argv);
+int					set_var(int ac, char **av);
 /*
-**	fg.c
+**	set.c
 */
-void			fg(int argc, char **argv);
+int					set(int len, char **args);
+/*
+**	setenv_built.c
+*/
+int					setenv_built(int ac, char **av);
+/*
+***	type.c
+*/
+int					ft_type(int argc, char **argv);
+/*
+**	unset.c
+*/
+int					unset(int ac, char **args);
 
 #endif

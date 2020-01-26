@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   rewrite_cwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 18:47:52 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:38:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
-void	path_back(void)
+static void	path_back(void)
 {
 	int i;
 
@@ -24,7 +24,7 @@ void	path_back(void)
 	ft_bzero(&g_curr_dir[i], ft_strlen(&g_curr_dir[i]));
 }
 
-void	path_add(char *tmp)
+void		path_add(char *tmp)
 {
 	int len;
 
@@ -34,7 +34,7 @@ void	path_add(char *tmp)
 	ft_strcat(g_curr_dir, tmp);
 }
 
-void	rewrite_global(char **split_path)
+static void	rewrite_global(char **split_path)
 {
 	char **tmp;
 
@@ -57,7 +57,7 @@ void	rewrite_global(char **split_path)
 	ft_free_dar(tmp);
 }
 
-void	rewrite_cwd(char *path)
+static void	rewrite_cwd(char *path)
 {
 	if (*path == '/')
 	{
@@ -69,7 +69,7 @@ void	rewrite_cwd(char *path)
 		rewrite_global(ft_strsplit(path, '/'));
 }
 
-int		change_wdir(char *path, t_flag no_links)
+int			change_wdir(char *path, t_flag no_links)
 {
 	char	*tmp;
 	int		ret;

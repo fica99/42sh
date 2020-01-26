@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 16:15:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
-int		ft_octal(char **argv, int i, int j)
+int				ft_octal(char **argv, int i, int j)
 {
 	int				octcount;
 	int				oct;
@@ -33,7 +33,7 @@ int		ft_octal(char **argv, int i, int j)
 	return (j);
 }
 
-int		ft_common_escape(char **argv, int i, int j)
+int				ft_common_escape(char **argv, int i, int j)
 {
 	if (argv[i][j] == 'n')
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -56,7 +56,7 @@ int		ft_common_escape(char **argv, int i, int j)
 	return (1);
 }
 
-int		ft_echoflags(int *flags, char **argv)
+static int		ft_echoflags(int *flags, char **argv)
 {
 	int				i;
 	int				j;
@@ -85,7 +85,7 @@ int		ft_echoflags(int *flags, char **argv)
 	return (i);
 }
 
-void	ft_echo_wo_e(char **argv, int i)
+static void		ft_echo_wo_e(char **argv, int i)
 {
 	int				j;
 
@@ -108,7 +108,7 @@ void	ft_echo_wo_e(char **argv, int i)
 	}
 }
 
-int		ft_echo(int argc, char **argv)
+int				ft_echo(int argc, char **argv)
 {
 	int				i;
 	int				flags[3];

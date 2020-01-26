@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pathjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:57:29 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/04 22:57:30 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 14:33:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 char	*ft_pathjoin(char *s1, char *s2)
 {

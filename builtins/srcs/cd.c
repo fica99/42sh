@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 16:15:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
-void	init_curr_pwd(void)
+void		init_curr_pwd(void)
 {
 	if (!(g_curr_dir = (char *)ft_memalloc(MAXDIR)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -21,7 +21,7 @@ void	init_curr_pwd(void)
 	set_env("PWD", g_curr_dir, ENV);
 }
 
-int		check_request(char **argv, char *path)
+static int	check_request(char **argv, char *path)
 {
 	struct stat	buf;
 
@@ -39,7 +39,7 @@ int		check_request(char **argv, char *path)
 	return (-1);
 }
 
-char	**check_flags(char **av, t_flag *no_links)
+char		**check_flags(char **av, t_flag *no_links)
 {
 	int i;
 	int j;
@@ -65,7 +65,7 @@ char	**check_flags(char **av, t_flag *no_links)
 	return (&av[j]);
 }
 
-char	*get_path(char **dir)
+static char	*get_path(char **dir)
 {
 	char *path;
 
@@ -73,7 +73,7 @@ char	*get_path(char **dir)
 	{
 		if (!(path = get_env("HOME", ENV)))
 		{
-			ft_error("42sh", "cd", NULL, "HOME not set");
+			err("42sh", "cd", NULL, "HOME not set");
 			return (NULL);
 		}
 	}
@@ -81,17 +81,17 @@ char	*get_path(char **dir)
 	{
 		if (!(path = get_env("OLDPWD", ENV)))
 		{
-			ft_error("42sh", "cd", NULL, "OLDPWD not set");
+			err("42sh", "cd", NULL, "OLDPWD not set");
 			return (NULL);
 		}
-		ft_putln(path);
+		ft_putendl(path);
 	}
 	else
 		path = *dir;
 	return (path);
 }
 
-int		cd(int ac, char **av)
+int			cd(int ac, char **av)
 {
 	char	**dir;
 	t_flag	no_links;
@@ -101,7 +101,7 @@ int		cd(int ac, char **av)
 	no_links = 0;
 	if (!(dir = check_flags(av, &no_links)))
 	{
-		ft_error("42sh", av[0], CD_USAGE, "invalid option\n");
+		err("42sh", av[0], CD_USAGE, "invalid option\n");
 		return (-1);
 	}
 	if (no_links || access(g_curr_dir, F_OK))

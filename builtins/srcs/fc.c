@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fc.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 20:01:57 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/14 15:18:00 by aashara          ###   ########.fr       */
+/*   Updated: 2020/01/26 16:14:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
+#include "ft_readline.h"
 
 static void	fc_check_first_last(t_fc *fc)
 {

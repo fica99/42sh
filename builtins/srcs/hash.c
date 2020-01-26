@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:18:15 by aashara-          #+#    #+#             */
-/*   Updated: 2019/10/19 18:14:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 16:17:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
-void	print_bin_table(t_hash **bin_table, size_t size)
+static void	print_bin_table(t_hash **bin_table, size_t size)
 {
 	size_t	i;
 	t_hash	**table_copy;
@@ -34,7 +34,7 @@ void	print_bin_table(t_hash **bin_table, size_t size)
 	}
 }
 
-int		hash(int ac, char **av)
+int			hash(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
