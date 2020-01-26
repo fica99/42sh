@@ -6,61 +6,79 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/18 17:40:36 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/26 17:21:16 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs = get_env.c\
-		init_environ.c\
-		get_env_dar.c\
+# ------------  PROJECT  ----------------------------------------------------- #
+NAME	=		environ
 
-objs := $(srcs:.c=.o)
+# ------------  DIRECTORIES  ------------------------------------------------- #
+SRC_DIR	=		srcs
+HDR_DIR	=		includes
+OBJ_DIR	=		objs
+LIB_DIR =		../libraries
 
-srcs_dir := srcs
+# ------------  LIBFT  ------------------------------------------------------- #
+LFT		=		libft.a
+LFT_DIR	=		$(LIB_DIR)/libft
+LHS_DIR	=		$(LFT_DIR)/includes
 
-objs_dir := objs
+# ------------  LIBDAR  ------------------------------------------------------- #
+LDAR		=		libdar.a
+LDAR_DIR	=		$(LIB_DIR)/libdar
+LDARHS_DIR	=		$(LDAR_DIR)/includes
 
-inc_dir := includes
+# ------------  SOURCE FILES  ------------------------------------------------ #
+SRC_FLS	=		get_env.c\
+				init_environ.c\
+				get_env_dar.c\
 
-lib_dir := ../libraries
+HDR_FLS =		environ.h
 
-objects := $(addprefix $(objs_dir)/, $(objs))
+# ------------  FILEPATHS  --------------------------------------------------- #
+SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
+OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
+HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
+DEPS	=		$(OBJS:.o=.d)
 
-sources := $(addprefix $(srcs_dir)/, $(srcs))
+# ------------  FLAGS  ------------------------------------------------------- #
+CC		=		gcc
+RM		=		rm -rf
+CFLGS	=		-Wall -Werror -Wextra
+IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) \
+				-I ../error/includes/
+DFLGS	=		-MMD
 
-header := $(addprefix $(inc_dir)/, environ.h)
+# ------------  RULES  ------------------------------------------------------- #
+.PHONY: all clean fclean re
 
-includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
+all: $(NAME)
 
-includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+$(LFT_DIR)/$(LFT):
+	$(MAKE) -C $(LFT_DIR)
 
-includes_flags := -I $(includes_libft)\
-				-I $(includes_libdar)\
-				-I $(inc_dir)\
+$(LDAR_DIR)/$(LDAR):
+	$(MAKE) -C $(LDAR_DIR)
 
-cc := gcc
+-include $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
-cflags := -Wall -Wextra -Werror -g -O0
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-.PHONY: all compilation clean re
-
-all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish environ compilation\033[0m"
-
-$(objs_dir):
-	@mkdir -p $@
-	@$(MAKE) --no-print-directory compilation
-
-compilation:
-	@$(MAKE) --no-print-directory $(objects)
-
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
+$(NAME): $(LFT_DIR)/$(LFT) $(LDAR_DIR)/$(LDAR) $(OBJS)
 
 clean:
-	@-rm -rf $(objs_dir)
-	@echo "\033[31mRemove $(CURDIR)/$(objs_dir)\033[0m"
+	$(MAKE) -C $(LFT_DIR) clean
+	$(MAKE) -C $(LDAR_DIR) clean
+	$(RM) $(OBJ_DIR)
 
-re:
-	@$(MAKE) --no-print-directory clean
-	@$(MAKE) --no-print-directory all
+fclean:
+	$(MAKE) -C $(LFT_DIR) fclean
+	$(MAKE) -C $(LDAR_DIR) fclean
+	$(RM) $(OBJ_DIR)
+	$(RM) $(NAME)
+
+re: fclean all

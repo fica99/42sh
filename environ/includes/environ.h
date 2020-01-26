@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 21:01:08 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/19 13:32:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:17:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libdar.h"
 # include "libft.h"
-# include "../../error/includes/error.h"
+# include "error.h"
 
 # define DEFAULT_ENV_MALLOC_SIZE 500
 
