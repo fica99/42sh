@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hndl_chld.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:30:05 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/26 19:54:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 21:02:33 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ int			mark_process_status(pid_t pid, int status)
 					err("42sh", "suspended", p->args[0], NOERROR);
 				}
 				else
-				{
 					p->completed = 1;
-					// if (WIFSIGNALED(status))
-					// 	j->notified = 0
-				}
 				return (0);
 			}
 			p = p->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2020/01/26 18:20:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 21:00:29 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,17 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		exit(1);
 	dup_redir(p->fd_list);
 	if (!launch_builtin(p, FORK))
+	{
+		p->completed = 1;
 		exit(g_last_exit_status);
+	}
 	else
 	{
 		ft_sub(p->args);
 		fname = get_fname(p->args[0]);
 		if (execve(fname, p->args, g_env.env) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
+		p->completed = 1;
 		exit(g_last_exit_status);
 	}
 }
