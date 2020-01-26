@@ -38,6 +38,7 @@ void	mark_job_as_running(t_job *j)
 		p->stopped = 0;
 		p = p->next;
 	}
+	j->notified = 0;
 }
 
 int		job_is_completed(t_job *j)

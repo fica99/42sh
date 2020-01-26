@@ -43,3 +43,29 @@ void	format_job_info(t_job *j, const char *status, int options)
 		print_command(j->command);
 	}
 }
+
+void	ft_completion_error(char *name, char *str, char **command, char *err)
+{
+    ft_putstr_fd(name, STDERR_FILENO);
+    if (str)
+    {
+        ft_putstr_fd(": ", STDERR_FILENO);
+        ft_putstr_fd(str, STDERR_FILENO);
+    }
+    if (err)
+    {
+        ft_putstr_fd(": ", STDERR_FILENO);
+        ft_putstr_fd(err, STDERR_FILENO);
+    }
+    if (command)
+    {
+        ft_putstr_fd(": ", STDERR_FILENO);
+        print_command(command);
+    }
+    ft_putchar_fd('\n', STDERR_FILENO);
+}
+
+void	completion_err(char *name, char *str, char **command, char *err)
+{
+    ft_completion_error(name, str, command, err);
+}

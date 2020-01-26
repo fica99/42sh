@@ -48,6 +48,7 @@ typedef struct			s_job
 	struct s_job		*next;
 	int					separator;
 	int					num;
+	int                 notified;
 	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
@@ -91,18 +92,22 @@ int						launch_builtin(t_process *p, int flag);
 **	launch_job.c
 */
 void					launch_job(t_job *j, int foreground);
-
 /*
 **	hndl_chld.c
 */
-void					print_command(char **command);
 void					do_job_notification(t_job *start_job,
 		int options, int stop_flag);
-void					format_job_info(t_job *j,
-		const char *status, int options);
 void					wait_for_job(t_job *j);
 void					update_status (void);
 int						mark_process_status(pid_t pid, int status);
+/*
+**  job_print.c
+*/
+void					print_command(char **command);
+void					format_job_info(t_job *j,
+                                        const char *status, int options);
+void	                completion_err(char *name, char *str, char **command, char *err);
+void	                ft_completion_error(char *name, char *str, char **command, char *err);
 /*
 **	put_in.c
 */

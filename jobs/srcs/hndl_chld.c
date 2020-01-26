@@ -28,9 +28,16 @@ int			mark_process_status(pid_t pid, int status)
 			if (p->pid == pid)
 			{
 				if (WIFSTOPPED(status))
-					p->stopped = 1;
+				{
+                    p->stopped = 1;
+                    err("42sh", "suspended", p->args[0], NOERROR);
+                }
 				else
-					p->completed = 1;
+				{
+                    p->completed = 1;
+                    if (WIFSIGNALED(status))
+                        j->notified =
+                }
 				return (0);
 			}
 			p = p->next;
