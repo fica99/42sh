@@ -3,92 +3,136 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/22 20:21:47 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/01/26 18:40:31 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := lex_lexer.c\
-		lex_tkn.c\
-		lex_tkns.c\
-		lex_get_tkn.c\
-		lex_check_tkn.c\
-		lex_check_or.c\
-		lex_tkn_type.c\
-		lex_tkn_class.c\
-		lex_check_greater.c\
-		lex_check_less.c\
-		lex_check_sep.c\
-		lex_quotation_marks.c\
-		lex_io_num.c\
-		lex_asig_name.c\
-		lex_dol.c\
-		lex_con_sub.c\
-		lex_log_opers.c\
-		lex_check_and.c\
-		lex_check_fig_brace.c\
-		lex_arithmetic_opers.c\
-		lex_str.c\
-		lex_double_quotes.c\
-		lex_single_quotes.c\
-		lex_back_quotes.c\
-		lex_ctrl_c.c\
-		lex_debug.c\
+# ------------  PROJECT  ----------------------------------------------------- #
+NAME	=		lex
 
-objs := $(srcs:.c=.o)
+# ------------  DIRECTORIES  ------------------------------------------------- #
+SRC_DIR	=		srcs
+HDR_DIR	=		includes
+OBJ_DIR	=		objs
+LIB_DIR =		../libraries
 
-srcs_dir := srcs
+# ------------  LIBFT  ------------------------------------------------------- #
+LFT		=		libft.a
+LFT_DIR	=		$(LIB_DIR)/libft
+LHS_DIR	=		$(LFT_DIR)/includes
 
-objs_dir := objs
+# ------------  LIBDAR  ------------------------------------------------------- #
+LDAR		=		libdar.a
+LDAR_DIR	=		$(LIB_DIR)/libdar
+LDARHS_DIR	=		$(LDAR_DIR)/includes
 
-inc_dir := includes
+# ------------  LIBDIR  ------------------------------------------------------- #
+LDIR		=		libdir.a
+LDIR_DIR	=		$(LIB_DIR)/libdir
+LDIRHS_DIR	=		$(LDIR_DIR)/includes
 
-lib_dir := ../libraries
+# ------------  LIBHASH  ------------------------------------------------------- #
+LHASH		=		libhash.a
+LHASH_DIR	=		$(LIB_DIR)/libhash
+LHASHHS_DIR	=		$(LHASH_DIR)/includes
 
-objects := $(addprefix $(objs_dir)/, $(objs))
+# ------------  LIBSTR  ------------------------------------------------------- #
+LSTR		=		libstr.a
+LSTR_DIR	=		$(LIB_DIR)/libstr
+LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
-sources := $(addprefix $(srcs_dir)/, $(srcs))
+# ------------  SOURCE FILES  ------------------------------------------------ #
+SRC_FLS	=		lex_lexer.c\
+				lex_tkn.c\
+				lex_tkns.c\
+				lex_get_tkn.c\
+				lex_check_tkn.c\
+				lex_check_or.c\
+				lex_tkn_type.c\
+				lex_tkn_class.c\
+				lex_check_greater.c\
+				lex_check_less.c\
+				lex_check_sep.c\
+				lex_quotation_marks.c\
+				lex_io_num.c\
+				lex_asig_name.c\
+				lex_dol.c\
+				lex_con_sub.c\
+				lex_log_opers.c\
+				lex_check_and.c\
+				lex_check_fig_brace.c\
+				lex_arithmetic_opers.c\
+				lex_str.c\
+				lex_double_quotes.c\
+				lex_single_quotes.c\
+				lex_back_quotes.c\
+				lex_ctrl_c.c\
+				lex_debug.c\
 
-header := $(addprefix $(inc_dir)/, lex.h)
+HDR_FLS =		lex.h
 
-includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
+# ------------  FILEPATHS  --------------------------------------------------- #
+SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
+OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
+HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
+DEPS	=		$(OBJS:.o=.d)
 
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
+# ------------  FLAGS  ------------------------------------------------------- #
+CC		=		gcc
+RM		=		rm -rf
+CFLGS	=		-Wall -Werror -Wextra
+IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
+				-I ../environ/includes -I ../error/includes
+DFLGS	=		-MMD
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+# ------------  RULES  ------------------------------------------------------- #
+.PHONY: all clean fclean re
 
-includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+all: $(NAME)
 
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+$(LFT_DIR)/$(LFT):
+	$(MAKE) -C $(LFT_DIR)
 
-includes_flags := -I $(inc_dir) -I $(includes_libft) -I $(includes_libhash) -I $(includes_libstr)\
--I $(includes_libdar) -I $(includes_libdir)
+$(LDIR_DIR)/$(LDIR):
+	$(MAKE) -C $(LDIR_DIR)
 
-cc := gcc
+$(LDAR_DIR)/$(LDAR):
+	$(MAKE) -C $(LDAR_DIR)
 
-cflags := -Wall -Wextra -Werror -g -O0
+$(LSTR_DIR)/$(LSTR):
+	$(MAKE) -C $(LSTR_DIR)
 
-.PHONY: all compilation clean re
+$(LHASH_DIR)/$(LHASH):
+	$(MAKE) -C $(LHASH_DIR)
 
-all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish lexer compilation\033[0m"
+-include $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
-$(objs_dir):
-	@mkdir -p $@
-	@$(MAKE) --no-print-directory compilation
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-compilation:
-	@$(MAKE) --no-print-directory $(objects)
-
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
+$(NAME): $(LFT_DIR)/$(LFT) $(LDAR_DIR)/$(LDAR) $(LDIR_DIR)/$(LDIR) $(LHASH_DIR)/$(LHASH) $(LSTR_DIR)/$(LSTR) $(OBJS)
 
 clean:
-	@-rm -rf $(objs_dir)
-	@echo "\033[31mRemove $(CURDIR)/$(objs_dir)\033[0m"
+	$(MAKE) -C $(LFT_DIR) clean
+	$(MAKE) -C $(LDAR_DIR) clean
+	$(MAKE) -C $(LDIR_DIR) clean
+	$(MAKE) -C $(LSTR_DIR) clean
+	$(MAKE) -C $(LHASH_DIR) clean
+	$(RM) $(OBJ_DIR)
 
-re:
-	@$(MAKE) --no-print-directory clean
-	@$(MAKE) --no-print-directory all
+fclean:
+	$(MAKE) -C $(LFT_DIR) fclean
+	$(MAKE) -C $(LDIR_DIR) fclean
+	$(MAKE) -C $(LDAR_DIR) fclean
+	$(MAKE) -C $(LSTR_DIR) fclean
+	$(MAKE) -C $(LHASH_DIR) fclean
+	$(RM) $(OBJ_DIR)
+	$(RM) $(NAME)
+
+re: fclean all

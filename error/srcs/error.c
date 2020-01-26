@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:21:21 by filip             #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:20:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "error.h"
 
-void	ft_error(char *name, char *str, char *command, char *err)
+static void	ft_error(char *name, char *str, char *command, char *err)
 {
 	ft_putstr_fd(name, STDERR_FILENO);
 	if (str)
@@ -33,13 +33,13 @@ void	ft_error(char *name, char *str, char *command, char *err)
 	ft_putchar_fd('\n', STDERR_FILENO);
 }
 
-void	err_exit(char *name, char *str, char *command, char *err)
+void		err_exit(char *name, char *str, char *command, char *err)
 {
 	ft_error(name, str, command, err);
 	exit(EXIT_FAILURE);
 }
 
-void	err(char *name, char *str, char *command, char *err)
+void		err(char *name, char *str, char *command, char *err)
 {
 	ft_error(name, str, command, err);
 }

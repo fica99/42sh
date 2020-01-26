@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:50 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 int	l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 {

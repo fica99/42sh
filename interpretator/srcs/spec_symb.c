@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/07 12:21:13 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 char	*spec_symbols(char *args)
 {

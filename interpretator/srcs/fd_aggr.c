@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fd_aggr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:25:03 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:25:05 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:12:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 static int	get_fd(char *str)
 {
@@ -50,7 +50,7 @@ int			g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		return (g_redir(--list, curr_proc, io_number));
 	else if (fd_w > 2 && find_fd(curr_proc->fd_list, fd_w) < 0)
 	{
-		ft_error("42sh", (*list)->value, NULL, "Bad file descriptor");
+		err("42sh", (*list)->value, NULL, "Bad file descriptor");
 		return (-1);
 	}
 	add_redir(curr_proc, fd_w, io_number);
@@ -67,12 +67,12 @@ int			l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number)
 		fd_w = -1;
 	else if ((fd_w = get_fd((*list)->value)) < 0)
 	{
-		ft_error("42sh", (*list)->value, NULL, "ambiguous redirect");
+		err("42sh", (*list)->value, NULL, "ambiguous redirect");
 		return (-1);
 	}
 	else if (fd_w > 2 && find_fd(curr_proc->fd_list, fd_w) < 0)
 	{
-		ft_error("42sh", (*list)->value, NULL, "Bad file descriptor");
+		err("42sh", (*list)->value, NULL, "Bad file descriptor");
 		return (-1);
 	}
 	add_redir(curr_proc, fd_w, io_number);

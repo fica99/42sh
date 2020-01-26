@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/21 20:57:34 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:42:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "term.h"
 
 void	init_global_var(char **environ)
 {

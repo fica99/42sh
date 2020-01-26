@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 18:06:10 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 15:17:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:52:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # define CUR_D "."
 # define FT_PATH_MAX 1000
 # define BUILT_NUM 17
+# define FREE_TABLE_DATA 1
+
+# include "error.h"
+# include "libft.h"
+# include "libdir.h"
+# include "libdar.h"
+# include "libhash.h"
 
 typedef struct	s_table
 {

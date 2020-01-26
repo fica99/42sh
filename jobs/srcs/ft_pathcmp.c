@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pathcmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 17:43:02 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/23 17:43:05 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:18:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 int			ft_pathcmp(char *p1, char *p2)
 {

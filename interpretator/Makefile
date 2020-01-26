@@ -6,84 +6,124 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/17 12:31:59 by jijerde          ###   ########.fr        #
+#    Updated: 2020/01/26 19:08:31 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := parse.c\
-		err.c\
-		token_handle.c\
-		close_fds.c\
-		add_process.c\
-		fd_aggr.c\
-		word_list.c\
-		ft_free_jobs.c\
-		heredoc.c\
-		ft_open.c\
-		io_redir.c\
-		add_redir.c\
-		exec_jobs.c\
-		spec_symb.c\
-		ft_strccut.c
+# ------------  PROJECT  ----------------------------------------------------- #
+NAME	=		interpretator
 
-objs := $(srcs:.c=.o)
+# ------------  DIRECTORIES  ------------------------------------------------- #
+SRC_DIR	=		srcs
+HDR_DIR	=		includes
+OBJ_DIR	=		objs
+LIB_DIR =		../libraries
 
-srcs_dir := srcs
+# ------------  LIBFT  ------------------------------------------------------- #
+LFT		=		libft.a
+LFT_DIR	=		$(LIB_DIR)/libft
+LHS_DIR	=		$(LFT_DIR)/includes
 
-objs_dir := objs
+# ------------  LIBHASH  ------------------------------------------------------- #
+LHASH		=		libhash.a
+LHASH_DIR	=		$(LIB_DIR)/libhash
+LHASHHS_DIR	=		$(LHASH_DIR)/includes
 
-inc_dir := includes
+# ------------  LIBSTR  ------------------------------------------------------- #
+LSTR		=		libstr.a
+LSTR_DIR	=		$(LIB_DIR)/libstr
+LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
-main_inc_dir := ../includes
+# ------------  LIBDAR  ------------------------------------------------------- #
+LDAR		=		libdar.a
+LDAR_DIR	=		$(LIB_DIR)/libdar
+LDARHS_DIR	=		$(LDAR_DIR)/includes
 
-lib_dir := ../libraries
+# ------------  LIBDIR  ------------------------------------------------------- #
+LDIR		=		libdir.a
+LDIR_DIR	=		$(LIB_DIR)/libdir
+LDIRHS_DIR	=		$(LDIR_DIR)/includes
 
-objects := $(addprefix $(objs_dir)/, $(objs))
+# ------------  SOURCE FILES  ------------------------------------------------ #
+SRC_FLS	=		parse.c\
+				err.c\
+				token_handle.c\
+				close_fds.c\
+				add_process.c\
+				fd_aggr.c\
+				word_list.c\
+				ft_free_jobs.c\
+				heredoc.c\
+				ft_open.c\
+				io_redir.c\
+				add_redir.c\
+				exec_jobs.c\
+				spec_symb.c\
+				ft_strccut.c
 
-sources := $(addprefix $(srcs_dir)/, $(srcs))
+HDR_FLS =		interpretator.h
 
-header := $(addprefix $(inc_dir)/, interpretator.h)
+# ------------  FILEPATHS  --------------------------------------------------- #
+SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
+OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
+HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
+DEPS	=		$(OBJS:.o=.d)
 
-includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
+# ------------  FLAGS  ------------------------------------------------------- #
+CC		=		gcc
+RM		=		rm -rf
+CFLGS	=		-Wall -Werror -Wextra
+IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../error/includes/ \
+				-I ../environ/includes -I ../jobs/includes/ -I ../lex/includes\
+				-I ../ft_readline/includes/ -I ../hash_table/includes/ -I ../interpretator/includes/\
+				-I ../builtins/includes/
+DFLGS	=		-MMD
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+# ------------  RULES  ------------------------------------------------------- #
+.PHONY: all clean fclean re
 
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+all: $(NAME)
 
-includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
+$(LFT_DIR)/$(LFT):
+	$(MAKE) -C $(LFT_DIR)
 
-includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
+$(LDIR_DIR)/$(LDIR):
+	$(MAKE) -C $(LDIR_DIR)
 
-includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
+$(LDAR_DIR)/$(LDAR):
+	$(MAKE) -C $(LDAR_DIR)
 
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
+$(LSTR_DIR)/$(LSTR):
+	$(MAKE) -C $(LSTR_DIR)
 
-includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
+$(LHASH_DIR)/$(LHASH):
+	$(MAKE) -C $(LHASH_DIR)
 
-cc := gcc
+-include $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
-cflags := -Wall -Wextra -Werror -g
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-.PHONY: all compilation clean re
-
-all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish interpretator compilation\033[0m"
-
-$(objs_dir):
-	@mkdir -p $@
-	@$(MAKE) --no-print-directory compilation
-
-compilation:
-	@$(MAKE) --no-print-directory $(objects)
-
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
+$(NAME): $(LFT_DIR)/$(LFT) $(LDAR_DIR)/$(LDAR) $(LDIR_DIR)/$(LDIR) $(LHASH_DIR)/$(LHASH) $(LSTR_DIR)/$(LSTR) $(OBJS)
 
 clean:
-	@-rm -rf $(objs_dir)
-	@echo "\033[31mRemove $(CURDIR)/$(objs_dir)\033[0m"
+	$(MAKE) -C $(LFT_DIR) clean
+	$(MAKE) -C $(LDAR_DIR) clean
+	$(MAKE) -C $(LDIR_DIR) clean
+	$(MAKE) -C $(LSTR_DIR) clean
+	$(MAKE) -C $(LHASH_DIR) clean
+	$(RM) $(OBJ_DIR)
 
-re:
-	@$(MAKE) --no-print-directory clean
-	@$(MAKE) --no-print-directory all
+fclean:
+	$(MAKE) -C $(LFT_DIR) fclean
+	$(MAKE) -C $(LDIR_DIR) fclean
+	$(MAKE) -C $(LDAR_DIR) fclean
+	$(MAKE) -C $(LSTR_DIR) fclean
+	$(MAKE) -C $(LHASH_DIR) fclean
+	$(RM) $(OBJ_DIR)
+	$(RM) $(NAME)
+
+re: fclean all

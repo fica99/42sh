@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_handle.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 07:50:39 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:57 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 t_lex_tkn	**find_token(t_lex_tkn **list, int class)
 {

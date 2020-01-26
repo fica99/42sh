@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_fname.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 11:42:38 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/22 11:42:39 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:34:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 char	*locate(char *fname, char **path)
 {

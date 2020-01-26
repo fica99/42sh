@@ -6,12 +6,14 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 10:56:22 by filip             #+#    #+#             */
-/*   Updated: 2019/09/22 15:26:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:30:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
+
+# include "libft.h"
 
 # define NOERROR NULL
 # define ENOENT "No such file or directory"
@@ -24,9 +26,8 @@
 # define ENOTERMINFO "the terminfo database could not be found"
 
 /*
-**	ft_errno.c
+**	error.c
 */
 void			err_exit(char *name, char *str, char *command, char *err);
 void			err(char *name, char *str, char *command, char *err);
-void			ft_error(char *name, char *str, char *command, char *err);
 #endif

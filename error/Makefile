@@ -6,70 +6,67 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2020/01/26 18:05:52 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-srcs := error.c\
+# ------------  PROJECT  ----------------------------------------------------- #
+NAME	=		error
 
-objs := $(srcs:.c=.o)
+# ------------  DIRECTORIES  ------------------------------------------------- #
+SRC_DIR	=		srcs
+HDR_DIR	=		includes
+OBJ_DIR	=		objs
+LIB_DIR =		../libraries
 
-srcs_dir := srcs
+# ------------  LIBFT  ------------------------------------------------------- #
+LFT		=		libft.a
+LFT_DIR	=		$(LIB_DIR)/libft
+LHS_DIR	=		$(LFT_DIR)/includes
 
-objs_dir := objs
+# ------------  SOURCE FILES  ------------------------------------------------ #
+SRC_FLS	=		error.c\
 
-inc_dir := includes
+HDR_FLS =		error.h
 
-main_inc_dir := ../includes
+# ------------  FILEPATHS  --------------------------------------------------- #
+SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
+OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
+HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
+DEPS	=		$(OBJS:.o=.d)
 
-lib_dir := ../libraries
+# ------------  FLAGS  ------------------------------------------------------- #
+CC		=		gcc
+RM		=		rm -rf
+CFLGS	=		-Wall -Werror -Wextra
+IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR)
+DFLGS	=		-MMD
 
-objects := $(addprefix $(objs_dir)/, $(objs))
+# ------------  RULES  ------------------------------------------------------- #
+.PHONY: all clean fclean re
 
-sources := $(addprefix $(srcs_dir)/, $(srcs))
+all: $(NAME)
 
-header := $(addprefix $(inc_dir)/, error.h)
+$(LFT_DIR)/$(LFT):
+	$(MAKE) -C $(LFT_DIR)
 
-includes_libft := $(addprefix $(addprefix $(lib_dir)/, libft/), includes)
 
-includes_libstr := $(addprefix $(addprefix $(lib_dir)/, libstr/), includes)
+-include $(DEPS)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
-includes_libdir := $(addprefix $(addprefix $(lib_dir)/, libdir/), includes)
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-includes_libdar := $(addprefix $(addprefix $(lib_dir)/, libdar/), includes)
-
-includes_libstack := $(addprefix $(addprefix $(lib_dir)/, libstack/), includes)
-
-includes_libfifo := $(addprefix $(addprefix $(lib_dir)/, libfifo/), includes)
-
-includes_libhash := $(addprefix $(addprefix $(lib_dir)/, libhash/), includes)
-
-includes_flags := -I $(inc_dir) -I $(main_inc_dir) -I $(includes_libdar) -I $(includes_libdir) \
-	-I $(includes_libfifo) -I $(includes_libft) -I $(includes_libstack) -I $(includes_libstr) -I $(includes_libhash)
-
-cc := gcc
-
-cflags := -Wall -Wextra -Werror -g -O0
-
-.PHONY: all compilation clean re
-
-all: $(objs_dir) $(objects)
-	@echo "\033[32mFinish error compilation\033[0m"
-
-$(objs_dir):
-	@mkdir -p $@
-	@$(MAKE) --no-print-directory compilation
-
-compilation:
-	@$(MAKE) --no-print-directory $(objects)
-
-$(objs_dir)/%.o: $(srcs_dir)/%.c $(header)
-	@$(cc) $(cflags) $(includes_flags) -o $@ -c $<
+$(NAME): $(LFT_DIR)/$(LFT) $(OBJS)
 
 clean:
-	@-rm -rf $(objs_dir)
-	@echo "\033[31mRemove $(CURDIR)/$(objs_dir)\033[0m"
+	$(MAKE) -C $(LFT_DIR) clean
+	$(RM) $(OBJ_DIR)
 
-re:
-	@$(MAKE) --no-print-directory clean
-	@$(MAKE) --no-print-directory all
+fclean:
+	$(MAKE) -C $(LFT_DIR) fclean
+	$(RM) $(OBJ_DIR)
+	$(RM) $(NAME)
+
+re: fclean all

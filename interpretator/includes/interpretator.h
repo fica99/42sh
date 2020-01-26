@@ -6,21 +6,25 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:01:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERPRETATOR_H
 # define INTERPRETATOR_H
 
-# include "../lex/includes/lex.h"
+# include "libft.h"
+# include "lex.h"
+# include "error.h"
+# include "jobs.h"
+# include "environ.h"
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
 
 # define DEF_HEREDOC_SIZE 10
-
+# define LINE_MAX 2048
 # define INT_LEN 10
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5

@@ -6,11 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/19 17:25:18 by aashara-          #+#    #+#             */
-/*   Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:50:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "hash_table.h"
+#include "environ.h"
 
 void	init_bin_table(t_table *table)
 {

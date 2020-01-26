@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_jobs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 void	exec_jobs(void)
 {

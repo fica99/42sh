@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/26 17:16:03 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/26 18:05:35 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ $(LHASH_DIR)/$(LHASH):
 	$(MAKE) -C $(LHASH_DIR)
 
 -include $(DEPS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
 	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
 $(OBJ_DIR):

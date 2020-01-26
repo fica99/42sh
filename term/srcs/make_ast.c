@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_ast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:42:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "term.h"
 
 void			clean_tree(t_ast *ast)
 {

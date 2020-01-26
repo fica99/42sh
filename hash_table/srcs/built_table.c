@@ -6,11 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:06:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/22 15:17:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:50:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "hash_table.h"
+#include "builtins.h"
 
 void	init_built_table(t_table *g_built_table)
 {

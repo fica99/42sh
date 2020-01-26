@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:04:49 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 16:13:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:31:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			exit_built(int ac, char **av)
 {
 	if (ac > 2)
 	{
-		ft_error("42sh", av[0], NULL, "too many arguments");
+		err("42sh", av[0], NULL, "too many arguments");
 		return (-1);
 	}
 	free_readline();
@@ -37,7 +37,7 @@ int			exit_built(int ac, char **av)
 		exit(g_last_exit_status);
 	if (is_num(av[1]) < 0)
 	{
-		ft_error("42sh", av[0], NULL, "numeric argument required");
+		err("42sh", av[0], NULL, "numeric argument required");
 		exit(255);
 	}
 	ft_free_jobs(g_first_job);

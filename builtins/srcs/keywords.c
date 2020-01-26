@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 20:49:36 by jijerde           #+#    #+#             */
-/*   Updated: 2020/01/26 15:10:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:31:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char		*type_error(char *arg)
 {
-	ft_error("42sh", "type", "not found", arg);
+	err("42sh", "type", "not found", arg);
 	return (NULL);
 }
 

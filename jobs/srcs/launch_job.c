@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 17:37:16 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:20:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 void			ft_s(t_process *p, t_job *j, pid_t pid)
 {

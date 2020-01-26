@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   add_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:20:57 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 13:20:58 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 void	add_redir(t_process *curr_proc, int fd0, int fd1)
 {

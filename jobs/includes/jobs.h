@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 17:23:18 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:37:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@
 # define NO_INFO 0
 # define EXPAND_INFO 1
 # define PID_INFO 2
+# define CUR_D "."
+
+
+# include <dirent.h>
+# include <signal.h>
+# include "libft.h"
+# include "lex.h"
+# include "error.h"
+# include "environ.h"
+# include "hash_table.h"
+# include "builtins.h"
 
 typedef	struct			s_redir_list
 {
@@ -135,5 +146,9 @@ void					close_pipes(t_process *p);
 
 char					*find_in_path(char *filename);
 int						check_path_var(char *fname);
-
+/*
+**	signals.c
+*/
+void					set_sig_def(void);
+# include "interpretator.h"
 #endif

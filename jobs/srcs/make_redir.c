@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 00:54:51 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/25 16:31:33 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:20:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 static int	make_redir(t_lex_tkn **list, t_process *curr_proc)
 {

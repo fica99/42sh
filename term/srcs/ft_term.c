@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:05:12 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:41:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "term.h"
 
 int		main(int argc, char **argv, char **environ)
 {
@@ -26,7 +26,6 @@ void	term_start(void)
 {
 	char	*line;
 
-	//signalling();
 	init_readline();
 	g_last_job = NULL;
 	init_jobs();

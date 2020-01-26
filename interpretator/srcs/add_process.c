@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   add_process.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:18:31 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 15:37:49 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:56:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 t_job		*get_last_job(void)
 {

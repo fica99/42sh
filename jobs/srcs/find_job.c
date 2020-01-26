@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   find_job.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:28:16 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/25 17:28:36 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:18:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 t_job	*find_job(int num)
 {

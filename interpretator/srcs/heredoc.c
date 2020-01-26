@@ -6,11 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/24 13:38:25 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:12:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 static int	write_here_doc(char **buf)
 {
@@ -69,7 +69,7 @@ int			here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 	buf = read_heredoc((*list)->value);
 	if ((fd = write_here_doc(buf)) < 0)
 	{
-		ft_error("42sh", "failed to create heredoc file", NULL, HEREDOC_FILE);
+		err("42sh", "failed to create heredoc file", NULL, HEREDOC_FILE);
 		return (-1);
 	}
 	ft_free_dar(buf);

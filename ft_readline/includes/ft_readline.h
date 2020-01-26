@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 20:37:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:34:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 # include "libstr.h"
 # include "libdir.h"
 # include "rl_templates.h"
-# include "../../environ/includes/environ.h"
-# include "../../error/includes/error.h"
+# include "environ.h"
 
 # define LINE_SIZE 10000
 # define DONT_FREE_HASH_DATA 0

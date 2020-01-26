@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:37:50 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 15:11:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/26 17:30:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	pwd(int ac, char **av)
 	no_links = 0;
 	if (!check_flags(av, &no_links))
 	{
-		ft_error("42sh", av[0], PWD_USAGE, NULL);
+		err("42sh", av[0], PWD_USAGE, NULL);
 		return (-1);
 	}
 	if (no_links)

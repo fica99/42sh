@@ -3,22 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2019/12/06 13:36:19 by lcrawn           ###   ########.fr        #
+#    Updated: 2020/01/26 19:39:12 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 name := 42sh
 
-lib_dir := libraries
-
-inc_dir := includes
-
 load_script := load_git_repo.sh
-
-lib_archive := $(addprefix $(lib_dir)/, lib_archive)
 
 dir_error := error
 
@@ -38,19 +32,17 @@ dir_jobs := jobs
 
 dir_lex := lex
 
-dir_signal := signal
+lib_dir := libraries
 
-objs := $(wildcard $(addprefix $(dir_bin_table), /**/*.o))\
-		$(wildcard $(addprefix $(dir_jobs), /**/*.o))\
-		$(wildcard $(addprefix $(dir_builtins), /**/*.o))\
-		$(wildcard $(addprefix $(dir_environ), /**/*.o))\
-		$(wildcard $(addprefix $(dir_error), /**/*.o))\
-		$(wildcard $(addprefix $(dir_interpretator), /**/*.o))\
-		$(wildcard $(addprefix $(dir_ft_readline), /**/*.o))\
-		$(wildcard $(addprefix $(dir_prompt), /**/*.o))\
-		$(wildcard $(addprefix $(dir_term), /**/*.o))\
-		$(wildcard $(addprefix $(dir_lex), /**/*.o))\
-		$(wildcard $(addprefix $(dir_signal), /**/*.o))\
+objs = $(wildcard $(dir_bin_table)/objs/*.o)\
+		$(wildcard $(dir_jobs)/objs/*.o)\
+		$(wildcard $(dir_builtins)/objs/*.o)\
+		$(wildcard $(dir_environ)/objs/*.o)\
+		$(wildcard $(dir_error)/objs/*.o)\
+		$(wildcard $(dir_interpretator)/objs/*.o)\
+		$(wildcard $(dir_ft_readline)/objs/*.o)\
+		$(wildcard $(dir_term)/objs/*.o)\
+		$(wildcard $(dir_lex)/objs/*.o)\
 
 .LIBPATTERNS := "lib%.a"
 
@@ -58,115 +50,69 @@ cc := gcc
 
 repo := https://github.com/OlegMulko/LibProjects42.git
 
-lib_flags := -lft -lstr -ldir -ldar -lfifo -lstack -lncurses -lhash
+lib_flags := -L libraries/libft -L libraries/libstr -L libraries/libdir -L libraries/libdar\
+			-L libraries/libhash -lft -lstr -ldir -ldar -lhash -lncurses
 
-.PHONY: loadlibs removelibs compilation link $(dir_bin_table)\
+.PHONY: compilation link $(dir_bin_table)\
 $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_ft_readline) $(dir_term) $(dir_lex) $(dir_signal)\
-lall llall llclean llfclean lfclean oclean clean fclean re
+$(dir_ft_readline) $(dir_term) $(dir_lex)\
+lall lclean lfclean clean fclean re
 
 all: $(name)
 
-$(name): $(lib_dir) lall
-	@$(MAKE) --no-print-directory compilation
-	@$(MAKE) --no-print-directory link
-
-link:
-	@$(cc) -g -O0 $(objs) -o $(name) -L $(lib_archive) $(lib_flags)
-	@echo "\033[36mCreate binary file $(CURDIR)/$(name)\033[0m"
-
-compilation:
-	@$(MAKE) --no-print-directory $(dir_bin_table)
-	@$(MAKE) --no-print-directory $(dir_builtins)
-	@$(MAKE) --no-print-directory $(dir_environ)
-	@$(MAKE) --no-print-directory $(dir_jobs)
-	@$(MAKE) --no-print-directory $(dir_error)
-	@$(MAKE) --no-print-directory $(dir_interpretator)
-	@$(MAKE) --no-print-directory $(dir_ft_readline)
-	@$(MAKE) --no-print-directory $(dir_term)
-	@$(MAKE) --no-print-directory $(dir_lex)
-	@$(MAKE) --no-print-directory $(dir_signal)
-
-$(objs):
-	@$(MAKE) --no-print-directory compilation
+$(name): $(lib_dir) $(dir_bin_table) $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
+$(dir_ft_readline) $(dir_term) $(dir_lex)
+	$(cc) $(objs) -o $(name) $(lib_flags)
 
 $(dir_bin_table):
-	@$(MAKE) --no-print-directory -C $(dir_bin_table)
+	$(MAKE) --no-print-directory -C $(dir_bin_table)
 
 $(dir_jobs):
-	@$(MAKE) --no-print-directory -C $(dir_jobs)
+	$(MAKE) --no-print-directory -C $(dir_jobs)
 
 $(dir_builtins):
-	@$(MAKE) --no-print-directory -C $(dir_builtins)
+	$(MAKE) --no-print-directory -C $(dir_builtins)
 
 $(dir_environ):
-	@$(MAKE) --no-print-directory -C $(dir_environ)
+	$(MAKE) --no-print-directory -C $(dir_environ)
 
 $(dir_error):
-	@$(MAKE) --no-print-directory -C $(dir_error)
+	$(MAKE) --no-print-directory -C $(dir_error)
 
 $(dir_interpretator):
-	@$(MAKE) --no-print-directory -C $(dir_interpretator)
+	$(MAKE) --no-print-directory -C $(dir_interpretator)
 
 $(dir_ft_readline):
-	@$(MAKE) --no-print-directory -C $(dir_ft_readline)
+	$(MAKE) --no-print-directory -C $(dir_ft_readline)
 
 $(dir_term):
-	@$(MAKE) --no-print-directory -C $(dir_term)
+	$(MAKE) --no-print-directory -C $(dir_term)
 
 $(dir_lex):
-	@$(MAKE) --no-print-directory -C $(dir_lex)
-
-$(dir_signal):
-	@$(MAKE) --no-print-directory -C $(dir_signal)
-
-loadlibs:
-	@echo "\033[32mLoad Libraries\033[0m"
-	@./$(load_script) $(repo) $(lib_dir)
+	$(MAKE) --no-print-directory -C $(dir_lex)
 
 $(lib_dir):
-	@echo "\033[32mLoad Libraries\033[0m"
-	@./$(load_script) $(repo) $(lib_dir)
+	./$(load_script) $(repo) $(lib_dir)
 
-removelibs:
-	@echo "\033[31mRemove Libraries\033[0m"
-	@rm -rf $(lib_dir)
-
-lall: $(lib_dir)
-	@$(MAKE) all --no-print-directory -C $(lib_dir)
-
-llall: $(lib_dir)
-	@$(MAKE) lall --no-print-directory -C $(lib_dir)
-
-llclean: $(lib_dir)
-	@$(MAKE) lclean --no-print-directory -C $(lib_dir)
-
-llfclean: $(lib_dir)
-	@$(MAKE) lfclean --no-print-directory -C $(lib_dir)
+lclean: $(lib_dir)
+	$(MAKE) clean --no-print-directory -C $(lib_dir)
 
 lfclean: $(lib_dir)
-	@$(MAKE) fclean --no-print-directory -C $(lib_dir)
+	$(MAKE) fclean --no-print-directory -C $(lib_dir)
 
-oclean:
-	@$(MAKE) clean --no-print-directory -C $(dir_bin_table)
-	@$(MAKE) clean --no-print-directory -C $(dir_builtins)
-	@$(MAKE) clean --no-print-directory -C $(dir_environ)
-	@$(MAKE) clean --no-print-directory -C $(dir_jobs)
-	@$(MAKE) clean --no-print-directory -C $(dir_error)
-	@$(MAKE) clean --no-print-directory -C $(dir_interpretator)
-	@$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
-	@$(MAKE) clean --no-print-directory -C $(dir_term)
-	@$(MAKE) clean --no-print-directory -C $(dir_lex)
-	@$(MAKE) clean --no-print-directory -C $(dir_signal)
+clean: lclean
+	$(MAKE) clean --no-print-directory -C $(dir_bin_table)
+	$(MAKE) clean --no-print-directory -C $(dir_builtins)
+	$(MAKE) clean --no-print-directory -C $(dir_environ)
+	$(MAKE) clean --no-print-directory -C $(dir_jobs)
+	$(MAKE) clean --no-print-directory -C $(dir_error)
+	$(MAKE) clean --no-print-directory -C $(dir_interpretator)
+	$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
+	$(MAKE) clean --no-print-directory -C $(dir_term)
+	$(MAKE) clean --no-print-directory -C $(dir_lex)
 
-
-clean: $(lib_dir)
-	@$(MAKE) --no-print-directory oclean
-	@$(MAKE) --no-print-directory lfclean
-
-fclean: $(lib_dir)
+fclean: $(lib_dir) lfclean
 	@$(MAKE) --no-print-directory clean
-	@echo "\033[31mRemove $(CURDIR)/$(name)\033[0m"
 	@-rm -rf $(name)
 
 re: $(lib_dir)

@@ -3,20 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   term.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:03:47 by filip             #+#    #+#             */
-/*   Updated: 2020/01/25 15:16:15 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:46:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TERM_H
 # define TERM_H
 
-# include "../../builtins/includes/builtins.h"
+# include <unistd.h>
+# include "environ.h"
+# include "hash_table.h"
+# include "error.h"
+# include "jobs.h"
+# include "ft_readline.h"
+# include "lex.h"
+
 # define RUNNING 1
 # define INIT_FLAGS 0
-# define LINE_MAX 2048
 # define FREE_TABLE_DATA 1
 # define DONT_FREE_TABLE_DATA 0
 # define RULES_NUM 15
@@ -31,6 +37,5 @@ void				ft_system(char **buffer);
 */
 void				init_global_var(char **environ);
 void				free_globar_var(void);
-void				free_keyw(t_keyw *keyw);
 
 #endif

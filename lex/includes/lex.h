@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/22 20:48:14 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/26 18:39:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "libhash.h"
 # include "libstr.h"
 # include "libdar.h"
-# include "../../ft_readline/includes/ft_readline.h"
-# include "../../environ/includes/environ.h"
+# include "ft_readline.h"
+# include "environ.h"
 
 # define LEX_TOKENS_SIZE 100
 

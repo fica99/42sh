@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_jobs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:32:51 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/25 17:33:01 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:18:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 static void		init_signals(void)
 {

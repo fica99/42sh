@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/26 17:12:40 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/26 19:04:26 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../error/includes/ \
 				-I ../environ/includes -I ../jobs/includes/ -I ../term/includes/\
 				-I ../ft_readline/includes/ -I ../hash_table/includes/\
-				-I ../interpretator/includes/
+				-I ../interpretator/includes/ -I ../lex/includes/
 DFLGS	=		-MMD
 
 # ------------  RULES  ------------------------------------------------------- #
@@ -110,7 +110,7 @@ $(LHASH_DIR)/$(LHASH):
 	$(MAKE) -C $(LHASH_DIR)
 
 -include $(DEPS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
 	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
 $(OBJ_DIR):

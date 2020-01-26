@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strccut.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 17:45:21 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 17:45:23 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 17:57:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "interpretator.h"
 
 char	*ft_stricut(char *str, int i)
 {

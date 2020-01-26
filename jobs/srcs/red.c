@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   red.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:04:34 by mmarti            #+#    #+#             */
-/*   Updated: 2019/12/21 16:04:35 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/01/26 18:20:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "jobs.h"
 
 int		find_dup(int **redir, int fd)
 {
