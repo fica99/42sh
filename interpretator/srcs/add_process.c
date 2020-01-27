@@ -72,8 +72,8 @@ t_process	*add_process(t_job *j)
 
 t_job		*job_new(t_lex_tkn **sep)
 {
-	t_job 	*new;
-	t_job 	*tmp;
+	t_job	*new;
+	t_job	*tmp;
 
 	if (!(new = (t_job *)ft_memalloc(sizeof(t_job))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);

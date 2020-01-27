@@ -17,7 +17,7 @@
 # define PREV_D ".."
 # define CUR_D "."
 # define FT_PATH_MAX 1000
-# define BUILT_NUM 17
+# define BUILT_NUM 16
 # define FREE_TABLE_DATA 1
 
 # include "error.h"

@@ -100,10 +100,6 @@ int					echo_one_escape(char **argv, int i, int j);
 void				echo_slashes(char **argv, int i, int j);
 void				echo_text(char **argv, int i, int j);
 /*
-***	env.c
-*/
-int					env(int argc, char **argv);
-/*
 ***	exit.c
 */
 int					exit_built(int ac, char **av);

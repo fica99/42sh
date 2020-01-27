@@ -47,7 +47,6 @@ LSTRHS_DIR	=		$(LSTR_DIR)/includes
 # ------------  SOURCE FILES  ------------------------------------------------ #
 SRC_FLS	=		cd.c\
 				echo.c\
-				env.c\
 				hash.c\
 				rewrite_cwd.c\
 				set.c\
