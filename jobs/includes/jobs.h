@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:37:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/27 13:29:05 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include "environ.h"
 # include "hash_table.h"
 # include "builtins.h"
-# include "interpretator.h"
 
 typedef	struct			s_redir_list
 {
@@ -66,6 +65,9 @@ typedef struct			s_job
 	pid_t				pgid;
 	struct termios		*tmodes;
 }						t_job;
+
+# include "interpretator.h"
+
 
 t_job					*g_first_job;
 t_job					*g_last_job;
