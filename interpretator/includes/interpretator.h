@@ -60,7 +60,7 @@ typedef struct	s_open_files
 int				make_ast(t_lex_tkn **list, t_ast **root);
 void			clean_tree(t_ast *ast);
 void			cls_redir(int **red);
-void			h_ass_words(t_lex_tkn **list, t_job *j);
+void			h_ass_words(t_lex_tkn **list, t_process *p);
 char			*ft_stricut(char *str, int i);
 char			*substitution(char *str);
 void			exec_jobs(void);

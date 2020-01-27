@@ -57,7 +57,7 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	return (word_list(list + exp_w + 1, curr_proc));
 }
 
-static void	add_set_var_proc(char **varlist, t_job *j,
+static void	add_set_var_proc(char **varlist,
 t_process *p, t_lex_tkn **list)
 {
 	int ac;
@@ -78,14 +78,13 @@ t_process *p, t_lex_tkn **list)
 		i++;
 	}
 	free(varlist);
-	return (word_list(list, add_process(j)));
+	return (word_list(list, p));
 }
 
-void		h_ass_words(t_lex_tkn **list, t_job *j)
+void		h_ass_words(t_lex_tkn **list, t_process *p)
 {
 	t_ass_vars v;
 
-	v.p = add_process(j);
 	v.size = DEF_VARLIST_SIZE;
 	v.i = 0;
 	if (!(v.varlist = (char **)ft_memalloc(sizeof(char *) * v.size)))
@@ -104,9 +103,11 @@ void		h_ass_words(t_lex_tkn **list, t_job *j)
 		list++;
 		v.i++;
 	}
-	(*list)->type == T_WORD ? v.p->environment = v.varlist
-	: add_set_var_proc(v.varlist, j, v.p, list);
-	return (word_list(list, v.p));
+	if ((*list)->type == T_WORD)
+		p->environment = v.varlist;
+	else
+		return (add_set_var_proc(v.varlist, p, list));
+	return (word_list(list, p));
 }
 
 void		word_list(t_lex_tkn **list, t_process *cur_proc)
