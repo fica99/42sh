@@ -20,7 +20,7 @@ void			ft_s(t_process *p, t_job *j, pid_t pid)
 	setpgid(pid, j->pgid);
 }
 
-static char		**fill_command(t_process *process)
+char			**fill_command(t_process *process)
 {
 	char		**command;
 	t_process	*p;
@@ -92,9 +92,9 @@ void			launch_job(t_job *j, int foreground)
 
 	check_builtin(&j);
 	p = j->first_process;
-	j->command = fill_command(p);
 	if (!launch_builtin(p, NO_FORK))
 	{
+
 		p->completed = 1;
 		return ;
 	}

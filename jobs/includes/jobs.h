@@ -109,6 +109,7 @@ int						launch_builtin(t_process *p, int flag);
 **	launch_job.c
 */
 void					launch_job(t_job *j, int foreground);
+char					**fill_command(t_process *process);
 /*
 **	hndl_chld.c
 */

@@ -88,7 +88,7 @@ void			do_job_notification(t_job *start_job,
 		}
 		else if (job_is_stopped(j) && j->num > 0)
 			format_job_info(j, "stopped", options);
-		else if (j->num > 0)
+		else if (j->num > 0 && j->execution)
 			format_job_info(j, "running", options);
 		if (stop_flag)
 			break ;

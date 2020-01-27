@@ -62,7 +62,7 @@ SRC_FLS	=		launch_job.c\
 				pipes_routine.c\
 				signals.c\
 				fprintf.c\
-				log_operators.c
+				log_operators.c\
 				uniq_env.c
 
 HDR_FLS =		jobs.h
