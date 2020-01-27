@@ -60,7 +60,9 @@ SRC_FLS	=		launch_job.c\
 				find_job.c\
 				job_print.c\
 				pipes_routine.c\
-				signals.c
+				signals.c\
+				fprintf.c\
+				log_operators.c
 
 HDR_FLS =		jobs.h
 

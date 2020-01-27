@@ -57,12 +57,13 @@ int			launch_builtin(t_process *p, int no_fork)
 		if (redir_handle(p) < 0)
 		{
 			restore_fd(fd);
+			p->exit_status = 0;
 			return (1);
 		}
 		save_fd(fd, p->fd_list);
 		dup_redir(p->fd_list);
 	}
-	func(ft_darlen(p->args), p->args);
+	p->exit_status = func(ft_darlen(p->args), p->args);
 	if (no_fork)
 		restore_fd(fd);
 	return (0);

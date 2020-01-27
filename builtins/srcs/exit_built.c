@@ -34,7 +34,10 @@ int			exit_built(int ac, char **av)
 	free_readline();
 	free_globar_var();
 	if (!av[1])
+	{
+		ft_free_jobs(g_first_job);
 		exit(g_last_exit_status);
+	}
 	if (is_num(av[1]) < 0)
 	{
 		err("42sh", av[0], NULL, "numeric argument required");

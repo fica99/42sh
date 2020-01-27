@@ -52,6 +52,6 @@ void	ft_free_jobs(t_job *j)
 	ft_free_jobs(j->next);
 	ft_free_proc(j->first_process);
 	if (j->command)
-		free(j->command);
+		ft_free_dar(j->command);
 	free(j);
 }

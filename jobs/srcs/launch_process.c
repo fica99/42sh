@@ -45,7 +45,6 @@ void	ft_sub(char **args)
 void	launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	pid_t	pid;
-	char	*fname;
 
 	pid = getpid();
 	setpgid(pid, pgid);
@@ -64,8 +63,7 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	else
 	{
 		ft_sub(p->args);
-		fname = get_fname(p->args[0]);
-		if (execve(fname, p->args, g_env.env) < 0)
+		if (execve(get_fname(p->args[0]), p->args, g_env.env) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
 		p->completed = 1;
 		exit(g_last_exit_status);

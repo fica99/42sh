@@ -20,7 +20,7 @@ void	jobs(int argc, char **argv)
 			do_job_notification(g_first_job, EXPAND_INFO, 0);
 		else if (!ft_strcmp(argv[1], "-p"))
 			do_job_notification(g_first_job, PID_INFO, 0);
-		else if (ft_atoi(argv[1]) != 0)
+		else if (find_job(ft_atoi(argv[1])))
 			do_job_notification(find_job(ft_atoi(argv[1])), NO_INFO, 0);
 		else
 			err("42sh", "jobs", argv[1], "no such job");

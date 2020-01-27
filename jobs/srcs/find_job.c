@@ -19,5 +19,7 @@ t_job	*find_job(int num)
 	j = g_first_job;
 	while (j && j->num != num)
 		j = j->next;
-	return (j);
+	if (j && j->num != -1)
+		return (j);
+	return (NULL);
 }

@@ -12,7 +12,18 @@
 
 #include "jobs.h"
 
-int			mark_process_status(pid_t pid, int status)
+static void		mark_process_pid(t_process **p, int status)
+{
+	if (WIFSTOPPED(status))
+	{
+		(*p)->stopped = 1;
+		err("42sh", "suspended", (*p)->args[0], NOERROR);
+	}
+	else
+		(*p)->completed = 1;
+}
+
+int				mark_process_status(pid_t pid, int status)
 {
 	t_job		*j;
 	t_process	*p;
@@ -27,13 +38,7 @@ int			mark_process_status(pid_t pid, int status)
 		{
 			if (p->pid == pid)
 			{
-				if (WIFSTOPPED(status))
-				{
-					p->stopped = 1;
-					err("42sh", "suspended", p->args[0], NOERROR);
-				}
-				else
-					p->completed = 1;
+				mark_process_pid(&p, status);
 				return (0);
 			}
 			p = p->next;
@@ -43,7 +48,7 @@ int			mark_process_status(pid_t pid, int status)
 	return (-1);
 }
 
-void		update_status(void)
+void			update_status(void)
 {
 	pid_t pid;
 
@@ -52,18 +57,23 @@ void		update_status(void)
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
 }
 
-void		wait_for_job(t_job *j)
+void			wait_for_job(t_job *j)
 {
 	pid_t pid;
 
 	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
+	set_exit_status(pid, j, g_last_exit_status);
 	while (!mark_process_status(pid, g_last_exit_status)
 		&& !job_is_stopped(j)
 		&& !job_is_completed(j))
+	{
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED);
+		set_exit_status(pid, j, g_last_exit_status);
+	}
 }
 
-void		do_job_notification(t_job *start_job, int options, int stop_flag)
+void			do_job_notification(t_job *start_job,
+		int options, int stop_flag)
 {
 	t_job	*j;
 

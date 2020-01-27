@@ -46,6 +46,7 @@ typedef struct			s_process
 	char				completed;
 	char				stopped;
 	int					error;
+	int 				exit_status;
 	int					**fd_list;
 	t_redir_list		*r;
 	int					inpipe;
@@ -59,7 +60,7 @@ typedef struct			s_job
 	struct s_job		*next;
 	int					separator;
 	int					num;
-	int                 notified;
+	int 				execution;
 	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
@@ -120,6 +121,12 @@ void					format_job_info(t_job *j,
 void	                completion_err(char *name, char *str, char **command, char *err);
 void	                ft_completion_error(char *name, char *str, char **command, char *err);
 /*
+**  fprintf.c
+*/
+void                    no_info_output(int num, char c, const char *status, char **command);
+void                    pid_info_output(pid_t pid);
+void					expand_info_output(int num, char c, pid_t pid, const char *status);
+/*
 **	put_in.c
 */
 void					put_job_in_foreground(t_job *j, int cont);
@@ -155,5 +162,10 @@ int						check_path_var(char *fname);
 **	signals.c
 */
 void					set_sig_def(void);
+/*
+**	log_operators.c
+*/
+void					set_exit_status(pid_t pid, t_job *j, int status);
+int 					log_check(t_job *first_job, t_job *j);
 # include "interpretator.h"
 #endif
