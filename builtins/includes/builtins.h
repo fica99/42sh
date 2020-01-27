@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:34:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/27 21:00:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
-# define FC_FILE_EDITOR ".42sh-fc"
 # define FALSE 0
 # define TRUE 1
 

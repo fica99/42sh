@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 15:02:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/27 21:05:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			fc_exec(t_fc *fc)
 {
 	char	*path;
 	char	*line;
+	char	*random;
 
 	if (fc->flag_l)
 		fc_print_list(fc);
@@ -89,16 +90,16 @@ void			fc_exec(t_fc *fc)
 	{
 		if (!(path = get_env("TMPDIR", ALL_ENV)))
 			path = "/tmp/";
-		if (!(path = ft_strjoin(path, FC_FILE_EDITOR)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		random = ft_itoa(rand());
+		path = ft_strjoin(path, random);
+		ft_strdel(&random);
 		fc_write_commands(fc->first_i, fc->last_i, path);
 		if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(fc->editor) + 1)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 		ft_strcat(ft_strcat(ft_strcpy(line, fc->editor), " "), path);
 		ft_system(&line);
 		ft_strdel(&line);
-		if (!(line = ft_read_file(path)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		line = ft_read_file(path);
 		ft_strdel(&path);
 		ft_putendl(line);
 		ft_system(&line);

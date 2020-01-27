@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara <aashara@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/27 13:28:06 by aashara          ###   ########.fr        #
+#    Updated: 2020/01/27 20:53:11 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,9 +112,17 @@ clean: lclean
 	$(MAKE) clean --no-print-directory -C $(dir_lex)
 
 fclean: $(lib_dir) lfclean
-	@$(MAKE) --no-print-directory clean
-	@-rm -rf $(name)
+	$(MAKE) clean --no-print-directory -C $(dir_bin_table)
+	$(MAKE) clean --no-print-directory -C $(dir_builtins)
+	$(MAKE) clean --no-print-directory -C $(dir_environ)
+	$(MAKE) clean --no-print-directory -C $(dir_jobs)
+	$(MAKE) clean --no-print-directory -C $(dir_error)
+	$(MAKE) clean --no-print-directory -C $(dir_interpretator)
+	$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
+	$(MAKE) clean --no-print-directory -C $(dir_term)
+	$(MAKE) clean --no-print-directory -C $(dir_lex)
+	rm -rf $(name)
 
 re: $(lib_dir)
-	@$(MAKE) --no-print-directory fclean
-	@$(MAKE) --no-print-directory all
+	$(MAKE) --no-print-directory fclean
+	$(MAKE) --no-print-directory all

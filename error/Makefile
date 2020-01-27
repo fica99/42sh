@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/26 18:05:52 by aashara-         ###   ########.fr        #
+#    Updated: 2020/01/27 20:47:01 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR)
 DFLGS	=		-MMD
 
 # ------------  RULES  ------------------------------------------------------- #
-.PHONY: all clean fclean re
+.PHONY: all clean
 
 all: $(NAME)
 
@@ -61,12 +61,4 @@ $(OBJ_DIR):
 $(NAME): $(LFT_DIR)/$(LFT) $(OBJS)
 
 clean:
-	$(MAKE) -C $(LFT_DIR) clean
 	$(RM) $(OBJ_DIR)
-
-fclean:
-	$(MAKE) -C $(LFT_DIR) fclean
-	$(RM) $(OBJ_DIR)
-	$(RM) $(NAME)
-
-re: fclean all

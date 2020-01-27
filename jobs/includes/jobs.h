@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/27 13:29:05 by aashara          ###   ########.fr       */
+/*   Updated: 2020/01/27 20:57:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct			s_process
 	char				completed;
 	char				stopped;
 	int					error;
-	int 				exit_status;
+	int					exit_status;
 	int					**fd_list;
 	t_redir_list		*r;
 	char				**environment;
@@ -60,15 +60,12 @@ typedef struct			s_job
 	struct s_job		*next;
 	int					separator;
 	int					num;
-	int 				execution;
+	int					execution;
 	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
 	struct termios		*tmodes;
 }						t_job;
-
-# include "interpretator.h"
-
 
 t_job					*g_first_job;
 t_job					*g_last_job;
@@ -131,9 +128,11 @@ char *str, char **command, char *err);
 /*
 **  fprintf.c
 */
-void                    no_info_output(int num, char c, const char *status, char **command);
-void                    pid_info_output(pid_t pid);
-void					expand_info_output(int num, char c, pid_t pid, const char *status);
+void					no_info_output(int num, char c, const char *status,
+															char **command);
+void					pid_info_output(pid_t pid);
+void					expand_info_output(int num, char c, pid_t pid,
+														const char *status);
 /*
 **	put_in.c
 */
@@ -174,7 +173,7 @@ void					set_sig_def(void);
 **	log_operators.c
 */
 void					set_exit_status(pid_t pid, t_job *j, int status);
-int 					log_check(t_job *first_job, t_job *j);
+int						log_check(t_job *first_job, t_job *j);
 # include "interpretator.h"
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_jobs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 20:59:15 by aashara          ###   ########.fr       */
+/*   Updated: 2020/01/27 20:54:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	exec_jobs(void)
 	while (j)
 	{
 		g_last_job = j;
-		if (!log_check(first_job, j) && !job_is_completed(j) && !job_is_stopped(j))
+		if (!log_check(first_job, j) && !job_is_completed(j) &&
+													!job_is_stopped(j))
 		{
 			j->execution = 1;
 			launch_job(j, j->separator == T_AND ? 0 : 1);

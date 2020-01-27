@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:20:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/27 20:54:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void			launch_job(t_job *j, int foreground)
 	p = j->first_process;
 	if (!launch_builtin(p, NO_FORK))
 	{
-
 		p->completed = 1;
 		return ;
 	}
