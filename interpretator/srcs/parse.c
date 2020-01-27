@@ -15,7 +15,7 @@
 void	parse_ass_words(t_ast *node, t_job *curr)
 {
 	if ((*node->token)->type == T_ASSIGNMENT_WORD)
-		node->token = set_ass_words(node->token, add_process(curr));
+		h_ass_words(node->token, curr);
 	if ((*node->token)->type == T_WORD || (*node->token)->class == C_REDIR)
 		word_list(node->token, add_process(curr));
 }

@@ -22,7 +22,6 @@
 # define PID_INFO 2
 # define CUR_D "."
 
-
 # include <dirent.h>
 # include <signal.h>
 # include "libft.h"
@@ -31,6 +30,7 @@
 # include "environ.h"
 # include "hash_table.h"
 # include "builtins.h"
+# include "interpretator.h"
 
 typedef	struct			s_redir_list
 {
@@ -48,6 +48,7 @@ typedef struct			s_process
 	int					error;
 	int					**fd_list;
 	t_redir_list		*r;
+	char				**environment;
 	int					inpipe;
 	int					outpipe;
 	size_t				redir_size;
@@ -59,7 +60,7 @@ typedef struct			s_job
 	struct s_job		*next;
 	int					separator;
 	int					num;
-	int                 notified;
+	int					notified;
 	char				**command;
 	t_process			*first_process;
 	pid_t				pgid;
@@ -74,6 +75,8 @@ pid_t					g_job_pgid;
 int						g_shell_terminal;
 struct termios			g_shell_tmodes;
 
+void					set_uniq_env(t_process *p);
+char					**get_uniq_env(char **ue);
 /*
 **	launch_process.c
 */
@@ -116,9 +119,11 @@ int						mark_process_status(pid_t pid, int status);
 */
 void					print_command(char **command);
 void					format_job_info(t_job *j,
-                                        const char *status, int options);
-void	                completion_err(char *name, char *str, char **command, char *err);
-void	                ft_completion_error(char *name, char *str, char **command, char *err);
+const char *status, int options);
+void					completion_err(char *name,
+char *str, char **command, char *err);
+void					ft_completion_error(char *name,
+char *str, char **command, char *err);
 /*
 **	put_in.c
 */
@@ -155,5 +160,5 @@ int						check_path_var(char *fname);
 **	signals.c
 */
 void					set_sig_def(void);
-# include "interpretator.h"
+
 #endif

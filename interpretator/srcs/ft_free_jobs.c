@@ -41,6 +41,8 @@ void	ft_free_proc(t_process *p)
 	cls_redir(p->fd_list);
 	if (p->args)
 		ft_free_dar(p->args);
+	if (p->environment)
+		ft_free_dar(p->environment);
 	ft_free_redir(p->fd_list);
 	free(p);
 }
