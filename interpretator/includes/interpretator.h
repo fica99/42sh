@@ -28,8 +28,18 @@
 # define INT_LEN 10
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
 # define INIT_AGGR_FD -5
+# define DEF_VARLIST_SIZE 10
 
 typedef	int		(*t_redirect_func)(t_lex_tkn **, t_process *, int);
+
+typedef struct	s_ass_vars
+{
+	char		**varlist;
+	int			i;
+	int			size;
+	t_process	*p;
+
+}				t_ass_vars;
 
 typedef	struct	s_her_vars
 {
@@ -50,7 +60,7 @@ typedef struct	s_open_files
 int				make_ast(t_lex_tkn **list, t_ast **root);
 void			clean_tree(t_ast *ast);
 void			cls_redir(int **red);
-t_lex_tkn		**set_ass_words(t_lex_tkn **list, t_process *curr_proc);
+void			h_ass_words(t_lex_tkn **list, t_process *p);
 char			*ft_stricut(char *str, int i);
 char			*substitution(char *str);
 void			exec_jobs(void);

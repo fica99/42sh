@@ -42,7 +42,7 @@ void	ft_sub(char **args)
 	}
 }
 
-void	launch_process(t_process *p, pid_t pgid, int foreground)
+void	prep_proc(pid_t pgid, int foreground, t_process *p)
 {
 	pid_t	pid;
 
@@ -55,6 +55,12 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	if (redir_handle(p) < 0)
 		exit(1);
 	dup_redir(p->fd_list);
+	set_uniq_env(p);
+}
+
+void	launch_process(t_process *p, pid_t pgid, int foreground)
+{
+	prep_proc(pgid, foreground, p);
 	if (!launch_builtin(p, FORK))
 	{
 		p->completed = 1;

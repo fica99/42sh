@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:56:55 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:37:54 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/27 13:29:05 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define EXPAND_INFO 1
 # define PID_INFO 2
 # define CUR_D "."
-
 
 # include <dirent.h>
 # include <signal.h>
@@ -49,6 +48,7 @@ typedef struct			s_process
 	int 				exit_status;
 	int					**fd_list;
 	t_redir_list		*r;
+	char				**environment;
 	int					inpipe;
 	int					outpipe;
 	size_t				redir_size;
@@ -67,6 +67,9 @@ typedef struct			s_job
 	struct termios		*tmodes;
 }						t_job;
 
+# include "interpretator.h"
+
+
 t_job					*g_first_job;
 t_job					*g_last_job;
 int						g_last_exit_status;
@@ -75,6 +78,8 @@ pid_t					g_job_pgid;
 int						g_shell_terminal;
 struct termios			g_shell_tmodes;
 
+void					set_uniq_env(t_process *p);
+char					**get_uniq_env(char **ue);
 /*
 **	launch_process.c
 */
@@ -117,9 +122,11 @@ int						mark_process_status(pid_t pid, int status);
 */
 void					print_command(char **command);
 void					format_job_info(t_job *j,
-                                        const char *status, int options);
-void	                completion_err(char *name, char *str, char **command, char *err);
-void	                ft_completion_error(char *name, char *str, char **command, char *err);
+const char *status, int options);
+void					completion_err(char *name,
+char *str, char **command, char *err);
+void					ft_completion_error(char *name,
+char *str, char **command, char *err);
 /*
 **  fprintf.c
 */
@@ -168,4 +175,5 @@ void					set_sig_def(void);
 void					set_exit_status(pid_t pid, t_job *j, int status);
 int 					log_check(t_job *first_job, t_job *j);
 # include "interpretator.h"
+
 #endif

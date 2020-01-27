@@ -52,7 +52,7 @@ int			launch_builtin(t_process *p, int no_fork)
 					p->args[0], g_built_table.size)))
 		return (-1);
 	ft_sub(p->args);
-	if (no_fork)
+	if (redir_handle(p) < 0)
 	{
 		if (redir_handle(p) < 0)
 		{

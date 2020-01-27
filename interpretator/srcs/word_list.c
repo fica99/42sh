@@ -57,27 +57,57 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	return (word_list(list + exp_w + 1, curr_proc));
 }
 
-t_lex_tkn	**set_ass_words(t_lex_tkn **list, t_process *curr_proc)
+static void	add_set_var_proc(char **varlist,
+t_process *p, t_lex_tkn **list)
 {
-	size_t	i;
+	int ac;
+	int i;
 
-	i = 1;
-	curr_proc->args[0] = ft_strdup("set_var");
+	i = 0;
+	ac = ft_darlen(varlist) + 1;
+	if (ac >= DEF_ARGS_SIZE)
+	{
+		free(p->args);
+		if (!(p->args = ft_memalloc(sizeof(char *) * (ac + 1))))
+			err_exit("42sh", "malloc() error", NULL, NOERROR);
+	}
+	p->args[0] = ft_strdup("set_var");
+	while (varlist[i])
+	{
+		p->args[i + 1] = varlist[i];
+		i++;
+	}
+	free(varlist);
+	return (word_list(list, p));
+}
+
+void		h_ass_words(t_lex_tkn **list, t_process *p)
+{
+	t_ass_vars v;
+
+	v.size = DEF_VARLIST_SIZE;
+	v.i = 0;
+	if (!(v.varlist = (char **)ft_memalloc(sizeof(char *) * v.size)))
+		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	while ((*list)->type == T_ASSIGNMENT_WORD)
 	{
-		if (!(curr_proc->args[i++] = ft_strdup((*list)->value)))
+		if (!(v.varlist[v.i] = ft_strdup((*list)->value)))
 			err_exit("42sh", "malloc() error", NULL, NOERROR);
-		if (i >= curr_proc->args_size - 2)
+		if (v.i >= v.size - 2)
 		{
-			curr_proc->args_size *= 2;
-			if (!(curr_proc->args = ft_realloc(curr_proc->args,
-			curr_proc->args_size / 2 * sizeof(char *),
-			curr_proc->args_size * sizeof(char *))))
+			v.size *= 2;
+			if (!(v.varlist = ft_realloc(v.varlist,
+			v.size / 2 * sizeof(char *), v.size * sizeof(char *))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
 		}
 		list++;
+		v.i++;
 	}
-	return (list);
+	if ((*list)->type == T_WORD)
+		p->environment = v.varlist;
+	else
+		return (add_set_var_proc(v.varlist, p, list));
+	return (word_list(list, p));
 }
 
 void		word_list(t_lex_tkn **list, t_process *cur_proc)

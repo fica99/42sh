@@ -63,6 +63,7 @@ SRC_FLS	=		launch_job.c\
 				signals.c\
 				fprintf.c\
 				log_operators.c
+				uniq_env.c
 
 HDR_FLS =		jobs.h
 
@@ -75,7 +76,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra -g
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../error/includes/ \
 				-I ../environ/includes -I ../hash_table/includes/\

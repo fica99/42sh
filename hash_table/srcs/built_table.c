@@ -23,7 +23,6 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "cd", &cd, BUILT_NUM);
 	push_hash(table, "echo", &ft_echo, BUILT_NUM);
 	push_hash(table, "unsetenv", &unset, BUILT_NUM);
-	push_hash(table, "env", &env, BUILT_NUM);
 	push_hash(table, "exit", &exit_built, BUILT_NUM);
 	push_hash(table, "setenv", &setenv_built, BUILT_NUM);
 	push_hash(table, "hash", &hash, BUILT_NUM);

@@ -47,7 +47,6 @@ LSTRHS_DIR	=		$(LSTR_DIR)/includes
 # ------------  SOURCE FILES  ------------------------------------------------ #
 SRC_FLS	=		cd.c\
 				echo.c\
-				env.c\
 				hash.c\
 				rewrite_cwd.c\
 				set.c\
@@ -81,7 +80,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra -g
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../error/includes/ \
 				-I ../environ/includes -I ../jobs/includes/ -I ../term/includes/\

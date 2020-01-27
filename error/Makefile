@@ -38,7 +38,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra -g
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR)
 DFLGS	=		-MMD
 
