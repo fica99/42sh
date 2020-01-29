@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/26 18:39:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/01/29 23:04:58 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # include "ft_readline.h"
 # include "environ.h"
 
-# define LEX_TOKENS_SIZE 100
+# define LEX_TOKENS_SIZE 1
+# define SIZE_CS_FILTER 1
 
 typedef enum		e_lex_tkn_type
 {
@@ -53,6 +54,8 @@ typedef enum		e_lex_tkn_type
 	T_OR_OR,
 	T_OPEN_FIG_BRACE,
 	T_CLOSE_FIG_BRACE,
+	T_ROUND_SUB,
+	T_FIGURE_SUB,
 	T_ARITH_OPERS
 }					t_lex_tkn_type;
 
@@ -70,6 +73,17 @@ typedef enum		e_lex_tkn_class
 	C_NULL,
 	C_END
 }					t_lex_tkn_class;
+
+typedef enum		e_lex_cs_type
+{
+	CS_NULL,
+	CS_DOUBLE_QUOTES,
+	CS_SINGLE_QUOTES,
+	CS_BACK_QUOTES,
+	CS_ROUND_BRK,
+	CS_FIGURE_BRK,
+	CS_D_ROUND_BRK,
+}					t_lex_cs_type;
 
 typedef struct		s_lex_tkn
 {
@@ -284,6 +298,40 @@ void				lex_fill_arith_opers_value(t_lex_tkn *token,
 */
 
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
+
+/*
+** lex_cs.c
+*/
+
+t_lex_tkn_type		lex_cs(char **str, size_t *pos, t_lex_cs_type type);
+
+/*
+** lex_cs_open_close.c
+*/
+
+int					lex_cs_is_quotes(t_lex_cs_type type);
+int					lex_cs_is_brk(t_lex_cs_type type);
+int					lex_cs_check_open(int check, t_lex_cs_type *cs_filter,
+	int cs_count, t_lex_cs_type type);
+int					lex_cs_check_close(int check, t_lex_cs_type	*cs_filter,
+	int cs_count, t_lex_cs_type type);
+
+/*
+** lex_cs_inc_dec.c
+*/
+
+int					lex_cs_inc_dec(const char *str, int *cs_count,
+	size_t *offset);
+
+/*
+** lex_cs_filter.c
+*/
+
+t_lex_cs_type		*lex_new_cs_filter(size_t size);
+int					lex_reloc_cs_filter(t_lex_cs_type **cs_filter,
+	size_t *size);
+void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
+	size_t *filter_size);
 
 /*
 ** lex_debug.c
