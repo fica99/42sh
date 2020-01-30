@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/16 22:46:26 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:16:48 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	lex_print_tkn(t_lex_tkn *token)
 void	lex_print_type(t_lex_tkn_type type)
 {
 	if (type == T_WORD)
-		ft_putstr("T_WORD\n");
+		ft_putstr("WORD\n");
 	else if (type == T_END)
-		ft_putstr("T_END\n");
+		ft_putstr("END\n");
 	else if (type == T_PIPE)
-		ft_putstr("T_PIPE\n");
+		ft_putstr("PIPE\n");
 	else if (type == T_GREATER)
 		ft_putstr("GREATER\n");
 	else if (type == T_GREATER_GREATER)
@@ -78,18 +78,18 @@ void	lex_print_type(t_lex_tkn_type type)
 		ft_putstr("ASSIGNMENT_WORD\n");
 	else if (type == T_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
-	else if (type == T_ARITH_OPERS)
-		ft_putstr("ARITH_OPERS\n");
+	else if (type == T_ROUND_SUB)
+		ft_putstr("ROUND_SUB\n");
+	else if (type == T_FIGURE_SUB)
+		ft_putstr("FIGURE_SUB\n");
+	else if (type == T_ARITH_SUB)
+		ft_putstr("ARITH_SUB\n");
 	else if (type == T_AND_AND)
 		ft_putstr("AND_AND\n");
 	else if (type == T_OR_OR)
 		ft_putstr("OR_OR\n");
 	else if (type == T_AND)
 		ft_putstr("AND\n");
-	else if (type == T_OPEN_FIG_BRACE)
-		ft_putstr("OPEN_FIG_BRACE\n");
-	else if (type == T_CLOSE_FIG_BRACE)
-		ft_putstr("CLOSE_FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }
@@ -110,12 +110,10 @@ void	lex_print_class(t_lex_tkn_class class)
 		ft_putstr("SEP\n");
 	else if (class == C_CONTROL_SUB)
 		ft_putstr("CONTROL_SUB\n");
-	else if (class == C_ARITH_OPERS)
-		ft_putstr("ARITH_OPERS\n");
+	else if (class == C_SUB)
+		ft_putstr("SUB\n");
 	else if (class == C_AND)
 		ft_putstr("AND\n");
-	else if (class == C_FIG_BRACE)
-		ft_putstr("FIG_BRACE\n");
 	else
 		ft_putstr("UNDEFINED\n");
 }

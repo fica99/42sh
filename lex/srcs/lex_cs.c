@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 21:28:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:09:21 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 	else if (type == CS_FIGURE_BRK)
 		return (T_FIGURE_SUB);
 	else if (type == CS_D_ROUND_BRK)
-		return (T_ARITH_OPERS);
+		return (T_ARITH_SUB);
 	else
 		return (T_NULL);
 }
