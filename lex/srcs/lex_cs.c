@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/29 22:29:00 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/30 21:28:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,19 @@ static int				lex_cs_add_line(char **str, t_lex_cs_type type)
 static int				lex_is_cs_open(const char *str,
 	int *cs_count, size_t *offset)
 {
+	int	inc_dec;
+
 	if (!str || !offset)
 		return (-1);
 	while (str[*offset])
 	{
-		if (!lex_cs_inc_dec(str, cs_count, offset))
+		if (!(inc_dec = lex_cs_inc_dec(str, cs_count, offset)))
 			return (-1);
+		if (inc_dec == 2)
+			return (1);
 		if (*cs_count == -1)
-			break ;
+			return (0);
 	}
-	if (*cs_count == -1)
-		return (0);
 	return (1);
 }
 
