@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:08:27 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:25:01 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,13 @@ void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
 */
 
 void				lex_clipping_tkn_value(t_lex_tkn *token, const char *str);
+
+/*
+** lex_substitutions.c
+*/
+
+int					lex_is_brk(char c);
+t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_debug.c

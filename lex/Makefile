@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/30 22:08:28 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/01/30 22:24:21 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_cs_filter.c\
 				lex_cs.c\
 				lex_val_tkn_processing.c\
+				lex_substitutions.c\
 				lex_debug.c\
 
 HDR_FLS =		lex.h

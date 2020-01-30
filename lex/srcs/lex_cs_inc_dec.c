@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 21:42:21 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/01/30 22:30:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int						lex_cs_inc_dec(const char *str,
 		cs_filter[++(*cs_count)] = check_type;
 	else if (lex_cs_check_close(check, cs_filter, *cs_count, check_type))
 		(*cs_count)--;
-	if ((size_t)(*cs_count) >= filter_size - 1)
+	if (*cs_count != -1 && (size_t)(*cs_count) >= filter_size - 1)
 		if (!lex_reloc_cs_filter(&cs_filter, &filter_size))
 			return (0);
 	if (*cs_count > -1)
