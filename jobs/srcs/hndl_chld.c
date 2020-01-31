@@ -90,9 +90,9 @@ void			do_job_notification(t_job *start_job,
 			format_job_info(j, "stopped", options);
 		else if (j->num > 0 && j->execution)
 			format_job_info(j, "running", options);
-		if (stop_flag)
+		if (stop_flag || !j)
 			break ;
-		if (j)
+		else
 			j = j->next;
 	}
 }

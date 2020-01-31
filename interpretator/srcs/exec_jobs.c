@@ -28,6 +28,7 @@ void	exec_jobs(void)
 	while (j)
 	{
 		g_last_job = j;
+		j->command = fill_command(j->first_process);
 		if (!log_check(first_job, j) && !job_is_completed(j) &&
 													!job_is_stopped(j))
 		{

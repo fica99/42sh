@@ -45,18 +45,24 @@ char			**fill_command(t_process *process)
 	return (command);
 }
 
-static void		check_builtin(t_job **j)
+static int		check_builtin(t_job **j)
 {
 	t_process	*p;
+	int			builtin;
 
+	builtin = 0;
 	p = (*j)->first_process;
 	while (p)
 	{
 		if (get_hash_data(g_built_table.table,
 					p->args[0], g_built_table.size))
+		{
+			builtin++;
 			(*j)->num = -1;
+		}
 		p = p->next;
 	}
+	return (builtin);
 }
 
 static void		launch_loop(t_job *j, t_process *p, int foreground)

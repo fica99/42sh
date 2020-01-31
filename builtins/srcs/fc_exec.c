@@ -102,7 +102,10 @@ void			fc_exec(t_fc *fc)
 		line = ft_read_file(path);
 		ft_strdel(&path);
 		ft_putendl(line);
-		ft_system(&line);
-		ft_strdel(&line);
+		if (g_last_exit_status == 0)
+		{
+			ft_system(&line);
+			ft_strdel(&line);
+		}
 	}
 }

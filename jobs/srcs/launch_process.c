@@ -48,9 +48,9 @@ void	prep_proc(pid_t pgid, int foreground, t_process *p)
 
 	pid = getpid();
 	setpgid(pid, pgid);
+	set_sig_def();
 	if (foreground)
 		tcsetpgrp(g_shell_terminal, pgid);
-	set_sig_def();
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);
