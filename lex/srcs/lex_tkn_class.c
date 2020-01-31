@@ -16,6 +16,8 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 {
 	if (type == T_WORD || type == T_IO_NUMBER)
 		return (C_WORD);
+	else if (type == T_END)
+		return (C_END);
 	else if (type == T_ASSIGNMENT_WORD)
 		return (C_WORD);
 	else if (type == T_PIPE)
@@ -32,8 +34,6 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 		return (C_SEP);
 	else if (type == T_CONTROL_SUB)
 		return (C_WORD);
-	else if (type == T_END)
-		return (C_END);
 	else
 		return (C_NULL);
 }
