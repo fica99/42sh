@@ -28,12 +28,12 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 		return (C_LOG_OPERS);
 	else if (type == T_AND)
 		return (C_SEP);
-	else if (type >= T_ROUND_SUB || type <= T_ARITH_SUB)
-		return (C_SUB);
 	else if (type == T_SEP)
 		return (C_SEP);
 	else if (type == T_CONTROL_SUB)
 		return (C_WORD);
+	else if (type >= T_ROUND_SUB || type <= T_ARITH_SUB)
+		return (C_SUB);
 	else
 		return (C_NULL);
 }
