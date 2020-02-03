@@ -53,18 +53,22 @@ int			launch_builtin(t_process *p, int no_fork)
 					p->args[0], g_built_table.size)))
 		return (-1);
 	ft_sub(p->args);
-	if (redir_handle(p) < 0)
+	if (no_fork)
 	{
-		restore_fd(fd);
-		p->exit_status = 0;
-		return (1);
+		if (redir_handle(p) < 0)
+		{
+			restore_fd(fd);
+			p->exit_status = 0;
+			return (1);
+		}
+		save_fd(fd, p->fd_list);
+		dup_redir(p->fd_list);
 	}
-	save_fd(fd, p->fd_list);
-	dup_redir(p->fd_list);
 	save_env = g_env.env;
 	g_env.env = get_uniq_env(p->environment);
 	p->exit_status = func(ft_darlen(p->args), p->args);
 	g_env.env = save_env;
-	restore_fd(fd);
+	if (no_fork)
+		restore_fd(fd);
 	return (0);
 }
