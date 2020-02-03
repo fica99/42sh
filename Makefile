@@ -6,123 +6,62 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/27 20:53:11 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/03 23:07:41 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 name := 42sh
 
-load_script := load_git_repo.sh
-
-dir_error := error
-
-dir_ft_readline := ft_readline
-
-dir_bin_table := hash_table
-
-dir_interpretator := interpretator
-
-dir_term := term
-
-dir_environ := environ
-
-dir_builtins := builtins
-
-dir_jobs := jobs
-
-dir_lex := lex
-
 lib_dir := libraries
 
-objs = $(wildcard $(dir_bin_table)/objs/*.o)\
-		$(wildcard $(dir_jobs)/objs/*.o)\
-		$(wildcard $(dir_builtins)/objs/*.o)\
-		$(wildcard $(dir_environ)/objs/*.o)\
-		$(wildcard $(dir_error)/objs/*.o)\
-		$(wildcard $(dir_interpretator)/objs/*.o)\
-		$(wildcard $(dir_ft_readline)/objs/*.o)\
-		$(wildcard $(dir_term)/objs/*.o)\
-		$(wildcard $(dir_lex)/objs/*.o)\
+main_dir := main
 
-.LIBPATTERNS := "lib%.a"
+ft_readline_dir := ft_readline
 
 cc := gcc
 
-repo := https://github.com/OlegMulko/LibProjects42.git
+lib_flags := -L libraries/libft -L libraries/libdir -L libraries/libdar\
+			-L libraries/libhash -L libraries/libstr -lft -ldir -ldar -lstr -lhash -lncurses
 
-lib_flags := -L libraries/libft -L libraries/libstr -L libraries/libdir -L libraries/libdar\
-			-L libraries/libhash -lft -lstr -ldir -ldar -lhash -lncurses
+srcs_dir := srcs
 
-.PHONY: compilation link $(dir_bin_table)\
-$(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_ft_readline) $(dir_term) $(dir_lex)\
-lall lclean lfclean clean fclean re
+srcs := $(wildcard $(main_dir)/$(srcs_dir)/*.c)\
+		$(wildcard $(ft_readline_dir)/$(srcs_dir)/*.c)
 
-all: $(name)
+objs_dir := objs
 
-$(name): $(lib_dir) $(dir_bin_table) $(dir_builtins) $(dir_environ) $(dir_jobs) $(dir_error) $(dir_interpretator)\
-$(dir_ft_readline) $(dir_term) $(dir_lex)
+objs := $(patsubst $(main_dir)/$(srcs_dir)/%.c,$(main_dir)/$(objs_dir)/%.o, $(srcs))
+
+objs := $(patsubst $(ft_readline_dir)/$(srcs_dir)/%.c,$(ft_readline_dir)/$(objs_dir)/%.o, $(objs))
+
+
+.PHONY: all lall lclean lfclean clean fclean re $(main_dir) $(ft_readline_dir)
+
+all: lall $(main_dir) $(ft_readline_dir) $(name)
+
+$(name): $(objs)
 	$(cc) $(objs) -o $(name) $(lib_flags)
 
-$(dir_bin_table):
-	$(MAKE) --no-print-directory -C $(dir_bin_table)
+$(main_dir):
+	$(MAKE) all --no-print-directory -C $(main_dir)
 
-$(dir_jobs):
-	$(MAKE) --no-print-directory -C $(dir_jobs)
+$(ft_readline_dir):
+	$(MAKE) all --no-print-directory -C $(ft_readline_dir)
 
-$(dir_builtins):
-	$(MAKE) --no-print-directory -C $(dir_builtins)
+lall:
+	$(MAKE) all --no-print-directory -C $(lib_dir)
 
-$(dir_environ):
-	$(MAKE) --no-print-directory -C $(dir_environ)
-
-$(dir_error):
-	$(MAKE) --no-print-directory -C $(dir_error)
-
-$(dir_interpretator):
-	$(MAKE) --no-print-directory -C $(dir_interpretator)
-
-$(dir_ft_readline):
-	$(MAKE) --no-print-directory -C $(dir_ft_readline)
-
-$(dir_term):
-	$(MAKE) --no-print-directory -C $(dir_term)
-
-$(dir_lex):
-	$(MAKE) --no-print-directory -C $(dir_lex)
-
-$(lib_dir):
-	./$(load_script) $(repo) $(lib_dir)
-
-lclean: $(lib_dir)
+lclean:
 	$(MAKE) clean --no-print-directory -C $(lib_dir)
 
-lfclean: $(lib_dir)
+lfclean:
 	$(MAKE) fclean --no-print-directory -C $(lib_dir)
 
-clean: lclean
-	$(MAKE) clean --no-print-directory -C $(dir_bin_table)
-	$(MAKE) clean --no-print-directory -C $(dir_builtins)
-	$(MAKE) clean --no-print-directory -C $(dir_environ)
-	$(MAKE) clean --no-print-directory -C $(dir_jobs)
-	$(MAKE) clean --no-print-directory -C $(dir_error)
-	$(MAKE) clean --no-print-directory -C $(dir_interpretator)
-	$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
-	$(MAKE) clean --no-print-directory -C $(dir_term)
-	$(MAKE) clean --no-print-directory -C $(dir_lex)
+clean: lfclean
+	$(MAKE) clean --no-print-directory -C $(main_dir)
+	$(MAKE) clean --no-print-directory -C $(ft_readline_dir)
 
-fclean: $(lib_dir) lfclean
-	$(MAKE) clean --no-print-directory -C $(dir_bin_table)
-	$(MAKE) clean --no-print-directory -C $(dir_builtins)
-	$(MAKE) clean --no-print-directory -C $(dir_environ)
-	$(MAKE) clean --no-print-directory -C $(dir_jobs)
-	$(MAKE) clean --no-print-directory -C $(dir_error)
-	$(MAKE) clean --no-print-directory -C $(dir_interpretator)
-	$(MAKE) clean --no-print-directory -C $(dir_ft_readline)
-	$(MAKE) clean --no-print-directory -C $(dir_term)
-	$(MAKE) clean --no-print-directory -C $(dir_lex)
+fclean: clean
 	rm -rf $(name)
 
-re: $(lib_dir)
-	$(MAKE) --no-print-directory fclean
-	$(MAKE) --no-print-directory all
+re: fclean all

@@ -1,0 +1,12 @@
+# ignore .DC_Store
+.DS_Store
+#ignore obj dir
+/*/obj
+# ignore all files .o
+*.o
+# ignore all files .d
+*.d
+# ignore all files .a
+*.a
+#ignore vscode files
+.vscode/

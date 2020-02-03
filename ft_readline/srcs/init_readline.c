@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:16:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 17:01:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:56:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,8 @@ static void	rl_init_readline_struct(t_readline *rl)
 
 void		init_readline(void)
 {
-	char	*ps1;
-	char	*ps2;
-
 	rl_save_mode(&g_rl.start_mode);
 	rl_init_terminfo();
 	rl_check_terminfo_templates();
-	if (!(ps1 = get_env("PS1", ALL_ENV)))
-		ps1 = "\033[0;36m\\u \033[0;32m\\H \033[0;33m\\w\n\033[0m\\$> ";
-	set_env("PS1", ps1, SET_ENV);
-	if (!(ps2 = get_env("PS2", ALL_ENV)))
-		ps2 = "> ";
-	set_env("PS2", ps2, SET_ENV);
-	set_env("READMODE", "EMACS", SET_ENV);
 	rl_init_readline_struct(&g_rl);
 }
