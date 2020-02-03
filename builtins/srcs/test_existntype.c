@@ -6,11 +6,11 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:42:40 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:31:59 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 21:50:15 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 static int	is_file_socket(char **argv, struct stat lstb, struct stat stb)
 {

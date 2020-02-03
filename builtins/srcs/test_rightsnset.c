@@ -6,11 +6,11 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 21:07:33 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:11:19 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 21:50:40 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 int	rights_n_set(char **argv, struct stat lstb, struct stat stb)
 {

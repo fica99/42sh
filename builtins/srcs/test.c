@@ -6,11 +6,11 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 22:01:45 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:29:55 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 21:49:43 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 static int		is_exist(char **argv)
 {

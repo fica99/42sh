@@ -6,11 +6,11 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/26 09:25:12 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:33:23 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 21:50:27 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_shell.h"
+#include "builtins.h"
 
 static char	*ft_strrev(char *str)
 {
