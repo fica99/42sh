@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/27 20:46:31 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/03 21:44:53 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,11 @@ SRC_FLS	=		cd.c\
 				fc_exec.c\
 				type.c\
 				keywords.c\
-				export.c
+				export.c\
+				test_rightsnset.c\
+				test_files.c \
+				test_compare.c \
+				test_existntype.c
 
 HDR_FLS =		builtins.h
 

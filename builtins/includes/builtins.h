@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/27 21:00:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 21:44:18 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,31 @@ int					ft_type(int argc, char **argv);
 **	unset.c
 */
 int					unset(int ac, char **args);
+/*
+***	test.c
+*/
+int				ft_test(int argc, char **argv);
+/*
+***	test_files.c
+*/
+int				works_with_dir(char **argv);
+/*
+***	test_existntype.c.c
+*/
+int				file_was_found(char **argv);
+int				is_dir_char_block(char **argv, struct stat lstb,
+struct stat stb);
+int				is_pipe_link_sock_file(char **argv, struct stat lstb,
+struct stat stb);
+/*
+***	test_rightsnset.c
+*/
+int				test_types(char **argv, struct stat lstb, struct stat stb);
+int				rights_n_set(char **argv, struct stat lstb, struct stat stb);
+int				s_or_file(char **argv);
+/*
+***	test_compare.c
+*/
+int				iscomparison(char **argv);
 
 #endif

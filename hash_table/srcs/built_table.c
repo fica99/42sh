@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_table.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:06:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 17:50:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 21:45:58 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_built_table(t_table *g_built_table)
 	push_hash(table, "jobs", &jobs, BUILT_NUM);
 	push_hash(table, "fc", &fc, BUILT_NUM);
 	push_hash(table, "type", &ft_type, BUILT_NUM);
+	push_hash(table, "test", &ft_test, BUILT_NUM);
 	push_hash(table, "export", &export, BUILT_NUM);
 	push_hash(table, "unset", &unset, BUILT_NUM);
 	g_built_table->table = table;
