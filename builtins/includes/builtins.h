@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/03 21:44:18 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 22:08:26 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,28 +163,29 @@ int					unset(int ac, char **args);
 /*
 ***	test.c
 */
-int				ft_test(int argc, char **argv);
+int					ft_test(int argc, char **argv);
 /*
 ***	test_files.c
 */
-int				works_with_dir(char **argv);
+int					works_with_dir(char **argv);
 /*
 ***	test_existntype.c.c
 */
-int				file_was_found(char **argv);
-int				is_dir_char_block(char **argv, struct stat lstb,
+int					file_was_found(char **argv);
+int					is_dir_char_block(char **argv, struct stat lstb,
 struct stat stb);
-int				is_pipe_link_sock_file(char **argv, struct stat lstb,
+int					is_pipe_link_sock_file(char **argv, struct stat lstb,
 struct stat stb);
 /*
 ***	test_rightsnset.c
 */
-int				test_types(char **argv, struct stat lstb, struct stat stb);
-int				rights_n_set(char **argv, struct stat lstb, struct stat stb);
-int				s_or_file(char **argv);
+int					test_types(char **argv, struct stat lstb, struct stat stb);
+int					rights_n_set(char **argv, struct stat lstb,
+struct stat stb);
+int					s_or_file(char **argv);
 /*
 ***	test_compare.c
 */
-int				iscomparison(char **argv);
+int					iscomparison(char **argv);
 
 #endif

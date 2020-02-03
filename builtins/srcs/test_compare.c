@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 17:03:27 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:50:02 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 21:55:59 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int		unary_error(char **argv)
 {
-	ft_error("42sh", "test", "unary operator expected", argv[1]);
+	err("42sh", "test", "unary operator expected", argv[1]);
 	return (2);
 }
 

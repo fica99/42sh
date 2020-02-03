@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 22:01:45 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:49:43 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/03 22:03:31 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static int		dash_flags(char **argv)
 		return (1);
 	}
 	if (argv[3])
-		ft_error("42sh", "test", "binary operator expected", argv[1]);
+		err("42sh", "test", "binary operator expected", argv[1]);
 	else
-		ft_error("42sh", "test", "unary operator expected", argv[1]);
+		err("42sh", "test", "unary operator expected", argv[1]);
 	return (2);
 }
 
@@ -86,9 +86,9 @@ static int		what_is(char **argv)
 		if (ret == 3)
 		{
 			if (argv[3])
-				ft_error("42sh", "test", "binary operator expected", argv[1]);
+				err("42sh", "test", "binary operator expected", argv[1]);
 			else
-				ft_error("42sh", "test", "unary operator expected", argv[1]);
+				err("42sh", "test", "unary operator expected", argv[1]);
 			return (2);
 		}
 	}
@@ -103,7 +103,7 @@ int				ft_test(int argc, char **argv)
 		return (1);
 	if (argc > 4)
 	{
-		ft_error("42sh", "test", "too many arguments", NULL);
+		err("42sh", "test", "too many arguments", NULL);
 		return (2);
 	}
 	if ((ret = what_is(argv)) == 0)
