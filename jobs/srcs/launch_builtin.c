@@ -45,7 +45,6 @@ int			launch_builtin(t_process *p, int no_fork)
 {
 	t_builtin	func;
 	int			fd[3];
-	char		**save_env;
 
 	if (p->next && no_fork)
 		return (-1);
@@ -64,10 +63,7 @@ int			launch_builtin(t_process *p, int no_fork)
 		save_fd(fd, p->fd_list);
 		dup_redir(p->fd_list);
 	}
-	save_env = g_env.env;
-	g_env.env = get_uniq_env(p->environment);
 	p->exit_status = func(ft_darlen(p->args), p->args);
-	g_env.env = save_env;
 	if (no_fork)
 		restore_fd(fd);
 	return (0);
