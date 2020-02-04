@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:01:44 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 19:15:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 22:32:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void			init_builtins_hash_table(void)
 {
-	g_builins_hash_table.size = BUILTINS_NB;
-	g_builins_hash_table.table = init_hash_table(BUILTINS_NB);
+	g_builtins_hash_table.size = BUILTINS_NB;
+	g_builtins_hash_table.table = init_hash_table(BUILTINS_NB);
 	// push_hash(g_builins_hash_table.table, "pwd", &pwd, BUILT_NB);
 	// push_hash(g_builins_hash_table.table, "cd", &cd, BUILT_NB);
 	// push_hash(g_builins_hash_table.table, "echo", &ft_echo, BUILT_NB);

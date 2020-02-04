@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:59:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:16:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 22:24:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void			init_builtins_hash_table(void);
 void			init_bin_hash_table(void);
 
 t_table			g_bin_hash_table;
-t_table			g_builins_hash_table;
+t_table			g_builtins_hash_table;
 #endif

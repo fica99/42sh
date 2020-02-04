@@ -5,35 +5,67 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/04 19:52:52 by aashara-         ###   ########.fr        #
+#    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
+#    Updated: 2020/02/04 22:37:23 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ------------  PROJECT  ----------------------------------------------------- #
-NAME	=		libdar.a
+NAME	=		interpretator
 
 # ------------  DIRECTORIES  ------------------------------------------------- #
 SRC_DIR	=		srcs
 HDR_DIR	=		includes
 OBJ_DIR	=		objs
+LIB_DIR =		../libraries
 
 # ------------  LIBFT  ------------------------------------------------------- #
-LFT_DIR	=		../libft
+LFT		=		libft.a
+LFT_DIR	=		$(LIB_DIR)/libft
 LHS_DIR	=		$(LFT_DIR)/includes
 
+# ------------  LIBDAR  ------------------------------------------------------- #
+LDAR		=		libdar.a
+LDAR_DIR	=		$(LIB_DIR)/libdar
+LDARHS_DIR	=		$(LDAR_DIR)/includes
+
+# ------------  LIBDIR  ------------------------------------------------------- #
+LDIR		=		libdir.a
+LDIR_DIR	=		$(LIB_DIR)/libdir
+LDIRHS_DIR	=		$(LDIR_DIR)/includes
+
+# ------------  LIBHASH  ------------------------------------------------------- #
+LHASH		=		libhash.a
+LHASH_DIR	=		$(LIB_DIR)/libhash
+LHASHHS_DIR	=		$(LHASH_DIR)/includes
+
+# ------------  LIBSTR  ------------------------------------------------------- #
+LSTR		=		libstr.a
+LSTR_DIR	=		$(LIB_DIR)/libstr
+LSTRHS_DIR	=		$(LSTR_DIR)/includes
+
 # ------------  SOURCE FILES  ------------------------------------------------ #
-SRC_FLS	=		ft_check_exec.c\
-				ft_dar_add.c\
-				ft_darlen.c\
-				ft_free_dar.c\
-				ft_dardup.c\
-				ft_darnew.c\
-				ft_putdar.c\
-				ft_putdar_fd.c\
-				ft_dar2str.c\
-				ft_darjoin.c\
-				ft_dar_sort.c\
+SRC_FLS	=			add_redir.c\
+					check_job.c\
+					exec_jobs.c\
+					fd_aggr.c\
+					ft_open.c\
+					ft_pathcmp.c\
+					ft_pathjoin.c\
+					get_fname.c\
+					heredoc.c\
+					hndl_chld.c\
+					io_redir.c\
+					launch_builtin.c\
+					launch_job.c\
+					launch_process.c\
+					make_redir.c\
+					pipes_routine.c\
+					put_in.c\
+					spec_symb.c\
+					uniq_env.c\
+					init_jobs.c\
+
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -44,11 +76,13 @@ DEPS	=		$(OBJS:.o=.d)
 CC		=		gcc
 RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
-IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR)
+IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
+				-I ../lex/includes/ -I ../parser/includes/ -I ../main/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
-.PHONY: all clean fclean re
+.PHONY: all clean
 
 all: $(NAME)
 
@@ -60,13 +94,6 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
 
 clean:
 	$(RM) $(OBJ_DIR)
-
-fclean: clean
-	$(RM) $(NAME)
-
-re: fclean all

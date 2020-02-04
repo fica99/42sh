@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   init_jobs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:33:30 by aashara-         ###   ########.fr       */
+/*   Created: 2020/01/25 17:32:51 by lcrawn            #+#    #+#             */
+/*   Updated: 2020/02/04 22:36:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "interpretator.h"
 
-# include <stdlib.h>
-# include "variables.h"
-# include "exec_hash_tables.h"
-# include "ft_readline.h"
-# include "lex.h"
-# include "parser.h"
-# include "interpretator.h"
+static void		init_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+}
 
-/*
-**			main.c
-*/
-void		ft_system(char **line);
-#endif
+void			init_jobs(void)
+{
+	g_first_job = NULL;
+	g_last_job = NULL;
+	g_shell_terminal = STDIN_FILENO;
+	init_signals();
+	g_shell_pgid = getpid();
+	tcgetattr(g_shell_terminal, &g_shell_tmodes);
+}

@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/17 13:54:22 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/03 16:15:02 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/04 19:53:51 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,9 @@ SRC_FLS	=		free_hash_table.c\
 				push_hash.c\
 				get_hash_data.c\
 
-
-HDR_FLS =		libhash.h
-
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
 OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
-HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
 DEPS	=		$(OBJS:.o=.d)
 
 # ------------  FLAGS  ------------------------------------------------------- #
@@ -53,7 +49,7 @@ DFLGS	=		-MMD -MP
 all: $(NAME)
 
 -include $(DEPS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
 $(OBJ_DIR):

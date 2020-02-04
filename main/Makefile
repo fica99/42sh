@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 16:41:33 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/04 19:19:44 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/04 22:32:39 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ LIB_DIR =		../libraries
 LFT		=		libft.a
 LFT_DIR	=		$(LIB_DIR)/libft
 LHS_DIR	=		$(LFT_DIR)/includes
-deps_lft=		$(wildcard ../libraries/libft/objs/*.d)
 
 # ------------  LIBDAR  ------------------------------------------------------- #
 LDAR		=		libdar.a
@@ -64,7 +63,7 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes \
-				-I ../lex/includes
+				-I ../lex/includes -I ../parser/includes -I ../interpretator/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

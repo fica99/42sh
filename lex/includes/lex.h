@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/04 19:23:13 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 19:40:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,6 @@ typedef	struct		s_lex_tkns
 	size_t			malloc_size;
 	size_t			size;
 }					t_lex_tkns;
-
-// typedef struct		s_ast
-// {
-// 	t_lex_tkn		**token;
-// 	struct s_ast	*left;
-// 	struct s_ast	*right;
-// }					t_ast;
-
-// char				*del_spc(char *str);
-// char				*ft_stricut(char *str, int i);
 
 /*
 ** lex_lexer.c

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:33:30 by aashara-         ###   ########.fr       */
+/*   Created: 2020/02/04 19:45:45 by aashara-          #+#    #+#             */
+/*   Updated: 2020/02/04 19:46:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "parser.h"
 
-# include <stdlib.h>
-# include "variables.h"
-# include "exec_hash_tables.h"
-# include "ft_readline.h"
-# include "lex.h"
-# include "parser.h"
-# include "interpretator.h"
-
-/*
-**			main.c
-*/
-void		ft_system(char **line);
-#endif
+int		syntax_err(t_lex_tkn *token)
+{
+	ft_putstr("42sh: ");
+	ft_putstr("syntax error near unexpected token: ");
+	ft_putchar('`');
+	if (token->value)
+		ft_putstr(token->value);
+	else
+	{
+		if (token->type == T_END)
+			ft_putstr("end of line");
+	}
+	ft_putchar('\'');
+	ft_putchar('\n');
+	return (-1);
+}

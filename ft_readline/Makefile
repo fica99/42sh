@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/03 22:37:23 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/04 19:54:50 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,13 +84,9 @@ SRC_FLS	=		add_to_history_buff.c\
 				rl_autocom_path.c\
 				rl_autocom_bin.c\
 
-HDR_FLS =		ft_readline.h\
-				rl_templates.h
-
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
 OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
-HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
 DEPS	=		$(OBJS:.o=.d)
 
 # ------------  FLAGS  ------------------------------------------------------- #
