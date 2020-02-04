@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:54:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:50:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	init_shell(char **environ)
 	init_bin_hash_table();
 	init_builtins_hash_table();
 	init_cwd();
+	//	fill_keyw(&g_keyw);
 	set_var("?", "0", VARS);
 	if (!(get_var("PS1", ENV)))
 		set_var("PS1",
@@ -29,10 +30,24 @@ static void	init_shell(char **environ)
 	init_readline();
 }
 
+void		ft_system(char **line)
+{
+	t_lex_tkn	**tokens;
+
+	tokens = lex_get_tkns(line);
+	if (tokens && *tokens && (*tokens)->type != T_END)
+	{
+		
+	}
+	lex_del_tkns(tokens);
+}
+
 static void	shell_start(void)
 {
 	char	*line;
 
+	// g_last_job = NULL;
+	// init_jobs();
 	while (TRUE)
 	{
 		if (!(line = ft_readline(get_var("PS1", ALL_VARS))))

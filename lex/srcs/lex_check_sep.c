@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   lex_check_sep.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 19:07:26 by aashara-         ###   ########.fr       */
+/*   Created: 2019/12/08 20:36:23 by ggrimes           #+#    #+#             */
+/*   Updated: 2019/12/08 20:38:40 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "lex.h"
 
-# include <stdlib.h>
-# include "variables.h"
-# include "exec_hash_tables.h"
-# include "ft_readline.h"
-# include "lex.h"
-
-/*
-**			main.c
-*/
-void		ft_system(char **line);
-#endif
+t_lex_tkn_type	lex_check_sep(char **str, short is_word, size_t *pos)
+{
+	(void)str;
+	if (is_word)
+		return (T_NULL);
+	(*pos)++;
+	return (T_SEP);
+}

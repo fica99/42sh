@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/02/03 16:41:33 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/04 19:19:44 by aashara-         ###   ########.fr        #
+#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
+#    Updated: 2020/02/04 19:12:44 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ------------  PROJECT  ----------------------------------------------------- #
-NAME	=		main
+NAME	=		lex
 
 # ------------  DIRECTORIES  ------------------------------------------------- #
 SRC_DIR	=		srcs
@@ -23,7 +23,6 @@ LIB_DIR =		../libraries
 LFT		=		libft.a
 LFT_DIR	=		$(LIB_DIR)/libft
 LHS_DIR	=		$(LFT_DIR)/includes
-deps_lft=		$(wildcard ../libraries/libft/objs/*.d)
 
 # ------------  LIBDAR  ------------------------------------------------------- #
 LDAR		=		libdar.a
@@ -46,16 +45,41 @@ LSTR_DIR	=		$(LIB_DIR)/libstr
 LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
 # ------------  SOURCE FILES  ------------------------------------------------ #
-SRC_FLS	=		error.c\
-				get_variable.c\
-				init_hash_tables.c\
-				init_variables.c\
-				main.c\
-				set_variable.c\
+SRC_FLS	=		lex_lexer.c\
+				lex_tkn.c\
+				lex_tkns.c\
+				lex_get_tkn.c\
+				lex_check_tkn.c\
+				lex_check_or.c\
+				lex_tkn_type.c\
+				lex_tkn_class.c\
+				lex_check_greater.c\
+				lex_check_less.c\
+				lex_check_sep.c\
+				lex_quotation_marks.c\
+				lex_io_num.c\
+				lex_asig_name.c\
+				lex_dol.c\
+				lex_con_sub.c\
+				lex_log_opers.c\
+				lex_check_and.c\
+				lex_str.c\
+				lex_double_quotes.c\
+				lex_single_quotes.c\
+				lex_back_quotes.c\
+				lex_ctrl_c.c\
+				lex_cs_inc_dec.c\
+				lex_cs_open_close.c\
+				lex_cs_filter.c\
+				lex_cs.c\
+				lex_val_tkn_processing.c\
+				lex_substitutions.c\
+				lex_debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
 OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
+HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
 DEPS	=		$(OBJS:.o=.d)
 
 # ------------  FLAGS  ------------------------------------------------------- #
@@ -63,8 +87,8 @@ CC		=		gcc
 RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
-				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes \
-				-I ../lex/includes
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
+				-I ../main/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
