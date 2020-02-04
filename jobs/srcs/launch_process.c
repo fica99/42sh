@@ -48,9 +48,9 @@ void	prep_proc(pid_t pgid, int foreground, t_process *p)
 
 	pid = getpid();
 	setpgid(pid, pgid);
-	set_sig_def();
 	if (foreground)
 		tcsetpgrp(g_shell_terminal, pgid);
+	set_sig_def();
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);
@@ -64,6 +64,8 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 	if (!launch_builtin(p, FORK))
 	{
 		p->completed = 1;
+		close_pipes(p);
+		cls_redir(p->fd_list);
 		exit(g_last_exit_status);
 	}
 	else
@@ -71,7 +73,9 @@ void	launch_process(t_process *p, pid_t pgid, int foreground)
 		ft_sub(p->args);
 		if (execve(get_fname(p->args[0]), p->args, g_env.env) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
-		p->completed = 1;
+		p->completed = 1;	
+		close_pipes(p);
+		cls_redir(p->fd_list);
 		exit(g_last_exit_status);
 	}
 }

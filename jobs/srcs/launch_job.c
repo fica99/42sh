@@ -101,6 +101,7 @@ void			launch_job(t_job *j, int foreground)
 	if (!launch_builtin(p, NO_FORK))
 	{
 		p->completed = 1;
+		cls_redir(p->fd_list);
 		return ;
 	}
 	launch_loop(j, p, foreground);
