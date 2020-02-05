@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 11:39:00 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 22:29:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:17:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static char	**find_env(char **shell_env, char *e)
+static char		**find_env(char **shell_env, char *e)
 {
 	char *name;
 	char *tmp;
@@ -35,7 +35,7 @@ static char	**find_env(char **shell_env, char *e)
 	return (NULL);
 }
 
-static void	merge_env(char **shell_env, char **ue, int se_len)
+static void		merge_env(char **shell_env, char **ue, int se_len)
 {
 	char **tmp;
 
@@ -69,7 +69,7 @@ static char		**get_uniq_env(char **ue)
 	return (shell_env);
 }
 
-void		set_uniq_env(t_process *p)
+void			set_uniq_env(t_process *p)
 {
 	char **tmp;
 

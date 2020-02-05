@@ -6,31 +6,33 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:01:44 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 22:32:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:54:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec_hash_tables.h"
+#include "hash_tables.h"
+#include "builtins.h"
 
 void			init_builtins_hash_table(void)
 {
 	g_builtins_hash_table.size = BUILTINS_NB;
 	g_builtins_hash_table.table = init_hash_table(BUILTINS_NB);
-	// push_hash(g_builins_hash_table.table, "pwd", &pwd, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "cd", &cd, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "echo", &ft_echo, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "exit", &exit_built, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "hash", &hash, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "set", &set, BUILT_NB);
-//	// push_hash(g_builins_hash_table.table, "set_var", &set_var, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "fg", &fg, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "bg", &bg, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "jobs", &jobs, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "fc", &fc, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "type", &ft_type, BUILT_NB);
-	// push_hash(g_builins_hash_table.table, "export", &export, BUILT_NB);
-	// push_hash(table, "test", &ft_test, BUILT_NUM);
-	// push_hash(g_builins_hash_table.table, "unset", &unset, BUILT_NB);
+	push_hash(g_builtins_hash_table.table, "pwd", &pwd, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "cd", &cd, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "echo", &ft_echo, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "exit", &exit_built, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "hash", &hash, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "set", &set, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "set_var", &set_variable,
+															BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "fg", &fg, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "bg", &bg, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "jobs", &jobs, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "fc", &fc, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "type", &ft_type, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "export", &export, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "test", &ft_test, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "unset", &unset, BUILTINS_NB);
 }
 
 static size_t	get_bin_table_size(char **path)
@@ -76,7 +78,7 @@ static t_hash	**make_bin_table(char **path, size_t size)
 	return (table);
 }
 
-void	init_bin_hash_table(void)
+void			init_bin_hash_table(void)
 {
 	char	*var_path;
 	char	**path;

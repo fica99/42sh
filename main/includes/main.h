@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:33:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:22:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include "variables.h"
-# include "exec_hash_tables.h"
+# include "hash_tables.h"
 # include "ft_readline.h"
 # include "lex.h"
 # include "parser.h"

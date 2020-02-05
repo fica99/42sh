@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 21:16:34 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:18:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static int	write_here_doc(char **buf)
+static int		write_here_doc(char **buf)
 {
 	int fd;
 

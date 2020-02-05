@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/21 15:42:59 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 21:56:29 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:43:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ int				ft_isspace(int c);
 void			ft_swap(int *start, int *end);
 int				ft_min(int a, int b);
 int				ft_max(int a, int b);
+int				ft_pathcmp(char *p1, char *p2);
+char			*ft_pathjoin(char *s1, char *s2);
 #endif

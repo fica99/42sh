@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathjoin.c                                      :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 22:57:29 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 21:37:16 by aashara-         ###   ########.fr       */
+/*   Created: 2019/12/21 15:03:34 by mmarti            #+#    #+#             */
+/*   Updated: 2020/02/05 15:53:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "interpretator.h"
+#include "builtins.h"
 
-char	*ft_pathjoin(char *s1, char *s2)
+int	unset(int ac, char **av)
 {
-	char			*str;
-	unsigned int	i;
-
-	i = 0;
-	if (s1 == 0 || s2 == 0)
-		return (0);
-	if (!(str = (char *)ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 2)))
-		return (0);
-	while (*s1)
-		str[i++] = *s1++;
-	if (*--s1 != '/' && *s2 != '/')
-		str[i++] = '/';
-	while (*s2)
-		str[i++] = *s2++;
-	return (str);
+	(void)ac;
+	if (av && *av)
+	{
+		while (*++av)
+			unset_var(*av, ALL_VARS);
+	}
+	return (0);
 }

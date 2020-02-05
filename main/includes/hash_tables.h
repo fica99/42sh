@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_hash_tables.h                                 :+:      :+:    :+:   */
+/*   hash_tables.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/03 17:59:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 22:24:56 by aashara-         ###   ########.fr       */
+/*   Created: 2020/02/05 16:59:16 by aashara-          #+#    #+#             */
+/*   Updated: 2020/02/05 16:59:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef EXEC_HASH_TABLES_H
-# define EXEC_HASH_TABLES_H
+#ifndef HASH_TABLES_H
+# define HASH_TABLES_H
 
 # include <limits.h>
 # include "libft.h"
@@ -20,9 +19,9 @@
 # include "libdir.h"
 # include "variables.h"
 # include "error.h"
-
 # define PREV_CUR_DIR_NB 2
 # define BUILTINS_NB 15
+
 typedef struct	s_table
 {
 	size_t		size;

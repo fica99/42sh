@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/04 22:37:23 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/05 14:53:26 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,6 @@ SRC_FLS	=			add_redir.c\
 					exec_jobs.c\
 					fd_aggr.c\
 					ft_open.c\
-					ft_pathcmp.c\
-					ft_pathjoin.c\
 					get_fname.c\
 					heredoc.c\
 					hndl_chld.c\

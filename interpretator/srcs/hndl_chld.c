@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:30:05 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/04 21:45:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:37:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		mark_process_pid(t_process **p, int status)
 		(*p)->completed = 1;
 }
 
-static int		mark_process_status(pid_t pid, int status)
+int				mark_process_status(pid_t pid, int status)
 {
 	t_job		*j;
 	t_process	*p;

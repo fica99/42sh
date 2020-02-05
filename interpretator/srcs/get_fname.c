@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 11:42:38 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 21:38:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:13:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static char	*locate(char *fname, char **path)
+static char		*locate(char *fname, char **path)
 {
 	DIR				*dr;
 	struct dirent	*dirent;
@@ -40,7 +40,7 @@ static char	*locate(char *fname, char **path)
 	return (NULL);
 }
 
-static char		*find_in_path(char *filename)
+char			*find_in_path(char *filename)
 {
 	char	**paths;
 	char	*res;
@@ -76,7 +76,7 @@ static int		find_path_var(char *name, char **paths)
 	return (-1);
 }
 
-static int		check_path_var(char *fname)
+int				check_path_var(char *fname)
 {
 	char	*tmp;
 	char	**paths;
@@ -95,7 +95,7 @@ static int		check_path_var(char *fname)
 	return (ret);
 }
 
-char	*get_fname(char *arg)
+char			*get_fname(char *arg)
 {
 	char *fname;
 

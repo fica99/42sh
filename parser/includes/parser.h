@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:40:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:35:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:16:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # define DEF_REDIR_SIZE 10
 # define DEF_VARLIST_SIZE 10
 
-typedef struct		s_ast
+typedef struct			s_ast
 {
-	t_lex_tkn		**token;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}					t_ast;
+	t_lex_tkn			**token;
+	struct s_ast		*left;
+	struct s_ast		*right;
+}						t_ast;
 
 typedef	struct			s_redir_list
 {
@@ -64,14 +64,14 @@ typedef struct			s_job
 	struct termios		*tmodes;
 }						t_job;
 
-typedef struct	s_ass_vars
+typedef struct			s_ass_vars
 {
-	char		**varlist;
-	int			i;
-	int			size;
-	t_process	*p;
+	char				**varlist;
+	int					i;
+	int					size;
+	t_process			*p;
 
-}				t_ass_vars;
+}						t_ass_vars;
 
 struct termios			g_shell_tmodes;
 t_job					*g_first_job;

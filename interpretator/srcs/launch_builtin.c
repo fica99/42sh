@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 20:59:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:17:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static void	restore_fd(int *fd)
+static void		restore_fd(int *fd)
 {
 	if (fd[0] > -1)
 	{
@@ -51,14 +51,14 @@ static int		find_dup(int **redir, int fd)
 	return (-1);
 }
 
-static void	save_fd(int *fd, int **redir)
+static void		save_fd(int *fd, int **redir)
 {
 	fd[0] = find_dup(redir, STDIN_FILENO);
 	fd[1] = find_dup(redir, STDOUT_FILENO);
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int			launch_builtin(t_process *p, int no_fork)
+int				launch_builtin(t_process *p, int no_fork)
 {
 	t_builtin	func;
 	int			fd[3];

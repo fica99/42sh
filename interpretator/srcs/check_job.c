@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:40:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:41:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:47:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ int		job_is_completed(t_job *j)
 	if (all_p == completed_p)
 		return (1);
 	return (0);
+}
+
+void	mark_job_as_running(t_job *j)
+{
+	t_process	*p;
+
+	p = j->first_process;
+	while (p)
+	{
+		p->stopped = 0;
+		p = p->next;
+	}
 }
 
 int		job_is_stopped(t_job *j)

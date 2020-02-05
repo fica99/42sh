@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 21:45:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:10:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:58:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char		*join_name_value(char *name, char *value)
 	return (name2);
 }
 
-static short	get_index_var(char *arr, char **vars)
+short			get_index_var(char *arr, char **vars)
 {
 	short	i;
 	short	len;
@@ -43,8 +43,7 @@ static short	get_index_var(char *arr, char **vars)
 	return (-1);
 }
 
-
-static void	setvar(char *name, char *value, t_vars *vars)
+static void		setvar(char *name, char *value, t_vars *vars)
 {
 	short	j;
 	char	**vars_cp;
@@ -73,7 +72,7 @@ static void	setvar(char *name, char *value, t_vars *vars)
 	}
 }
 
-void		set_var(char *name, char *value, t_vars_type type)
+void			set_var(char *name, char *value, t_vars_type type)
 {
 	if (type == ENV)
 		setvar(name, value, &g_environ);

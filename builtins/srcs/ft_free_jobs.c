@@ -1,0 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_jobs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/21 13:32:40 by mmarti            #+#    #+#             */
+/*   Updated: 2020/02/05 16:42:41 by aashara-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "builtins.h"
+
+static void	ft_free_redir(int **red)
+{
+	int i;
+
+	if (!red)
+		return ;
+	i = -1;
+	while (red[++i])
+		free(red[i]);
+	free(red);
+}
+
+static void	ft_free_r(t_redir_list *r)
+{
+	if (!r)
+		return ;
+	ft_free_r(r->next);
+	free(r);
+}
+
+void		ft_free_proc(t_process *p)
+{
+	if (!p)
+		return ;
+	ft_free_proc(p->next);
+	ft_free_r(p->r);
+	cls_redir(p->fd_list);
+	if (p->args)
+		ft_free_dar(p->args);
+	if (p->environment)
+		ft_free_dar(p->environment);
+	ft_free_redir(p->fd_list);
+	free(p);
+}

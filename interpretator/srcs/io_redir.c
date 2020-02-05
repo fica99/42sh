@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:50 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 21:21:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:17:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ int	g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number)
 	add_redir(curr_proc, fd_w, io_number);
 	return (0);
 }
-

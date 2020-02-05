@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 16:41:33 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/04 22:32:39 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/05 15:56:46 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,8 @@ SRC_FLS	=		error.c\
 				init_variables.c\
 				main.c\
 				set_variable.c\
+				unset_variable.c\
+
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -63,7 +65,8 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes \
-				-I ../lex/includes -I ../parser/includes -I ../interpretator/includes
+				-I ../lex/includes -I ../parser/includes -I ../interpretator/includes\
+				-I ../builtins/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

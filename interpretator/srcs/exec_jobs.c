@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 20:38:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:18:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char			**fill_command(t_process *process)
 	return (command);
 }
 
-static int		log_check(t_job *j, t_job *last_job)
+static int			log_check(t_job *j, t_job *last_job)
 {
 	t_process	*p;
 	int			separator;

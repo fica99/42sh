@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:04:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:48:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:03:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char		**ft_get_vars_names_dar(char *name, char **arr)
 	return (res);
 }
 
-char		**get_vars_names_dar(char *name, t_vars_type type)
+char			**get_vars_names_dar(char *name, t_vars_type type)
 {
 	if (type == ENV)
 		return (ft_get_vars_names_dar(name, g_environ.vars));
@@ -67,8 +67,7 @@ char		**get_vars_names_dar(char *name, t_vars_type type)
 						ft_get_vars_names_dar(name, g_vars.vars)));
 }
 
-
-static char	*ft_getvar(char *name, char **varlist)
+static char		*ft_getvar(char *name, char **varlist)
 {
 	char	*tmp;
 	long	varlen;
@@ -82,15 +81,16 @@ static char	*ft_getvar(char *name, char **varlist)
 		if ((long)ft_strlen(name) == varlen &&
 		!ft_strncmp(name, *varlist, varlen))
 			return (tmp + 1);
-		varlist++;
+		++varlist;
 	}
 	return (NULL);
 }
 
-char		*get_var(char *arr, t_vars_type mode)
+char			*get_var(char *arr, t_vars_type mode)
 {
 	char	*env;
 
+	env = NULL;
 	if (mode == ENV)
 		return (ft_getvar(arr, g_environ.vars));
 	else if (mode == VARS)

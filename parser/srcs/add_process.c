@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:18:31 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 20:18:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:16:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-int		max_job(void)
+int					max_job(void)
 {
 	t_job	*j;
 	int		max;
@@ -45,7 +45,7 @@ static t_process	*proc_new(void)
 	return (new);
 }
 
-t_process	*add_process(t_job *j)
+t_process			*add_process(t_job *j)
 {
 	t_process	*proc;
 	t_process	*tmp;
@@ -64,7 +64,7 @@ t_process	*add_process(t_job *j)
 	return (proc);
 }
 
-t_job		*job_new(t_lex_tkn **sep)
+t_job				*job_new(t_lex_tkn **sep)
 {
 	t_job	*new;
 	t_job	*tmp;

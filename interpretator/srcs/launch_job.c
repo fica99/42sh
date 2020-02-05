@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 21:39:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:16:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ static pid_t	make_process(void)
 	return (pid);
 }
 
-
 static void		launch_loop(t_job *j, t_process *p, int foreground)
 {
 	int			i;
@@ -70,6 +69,21 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 	}
 }
 
+void			cls_redir(int **red)
+{
+	int *tmp;
+
+	while (*red)
+	{
+		tmp = *red;
+		if (*tmp > 2)
+			close(*tmp);
+		if (*++tmp > 2)
+			close(*tmp);
+		red++;
+	}
+}
+
 void			launch_job(t_job *j, int foreground)
 {
 	char		*last_status;
@@ -80,6 +94,7 @@ void			launch_job(t_job *j, int foreground)
 	if (!launch_builtin(p, NO_FORK))
 	{
 		p->completed = 1;
+		cls_redir(p->fd_list);
 		return ;
 	}
 	launch_loop(j, p, foreground);

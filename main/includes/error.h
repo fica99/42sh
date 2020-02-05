@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:10:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:57:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:36:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define EHRDCPY "the terminal is hardcopy, cannot be used for application"
 # define ENTFND "the terminal not found, having no information for application"
 # define ENOTERMINFO "the terminfo database could not be found"
+# define EACCES "Permission denied"
 
 /*
 **			error.c
