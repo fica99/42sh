@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:47:49 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/23 21:53:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:32:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	rl_get_hist_size(t_rl_history *history)
 {
-	if ((history->histfilesize = ft_atoi(get_env("HISTFILESIZE", SET_ENV))) < 0)
+	if ((history->histfilesize = ft_atoi(get_var("HISTFILESIZE", VARS))) < 0)
 		history->histfilesize = 0;
-	if ((history->histsize = ft_atoi(get_env("HISTSIZE", SET_ENV))) < 0)
+	if ((history->histsize = ft_atoi(get_var("HISTSIZE", VARS))) < 0)
 		history->histsize = 0;
 }
 

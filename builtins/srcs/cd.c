@@ -6,20 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 18:54:41 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 16:15:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:06:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-void		init_curr_pwd(void)
-{
-	if (!(g_curr_dir = (char *)ft_memalloc(MAXDIR)))
-		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	if (!getcwd(g_curr_dir, MAXDIR))
-		err_exit("42sh", "getcwd() error", NULL, NOERROR);
-	set_env("PWD", g_curr_dir, ENV);
-}
 
 static int	check_request(char **argv, char *path)
 {
@@ -71,7 +62,7 @@ static char	*get_path(char **dir)
 
 	if (!*dir || !ft_strcmp(*dir, "--"))
 	{
-		if (!(path = get_env("HOME", ENV)))
+		if (!(path = get_var("HOME", ENV)))
 		{
 			err("42sh", "cd", NULL, "HOME not set");
 			return (NULL);
@@ -79,7 +70,7 @@ static char	*get_path(char **dir)
 	}
 	else if (!ft_strcmp(*dir, "-"))
 	{
-		if (!(path = get_env("OLDPWD", ENV)))
+		if (!(path = get_var("OLDPWD", ENV)))
 		{
 			err("42sh", "cd", NULL, "OLDPWD not set");
 			return (NULL);
@@ -104,10 +95,10 @@ int			cd(int ac, char **av)
 		err("42sh", av[0], CD_USAGE, "invalid option\n");
 		return (-1);
 	}
-	if (no_links || access(g_curr_dir, F_OK))
+	if (no_links || access(g_cur_wd, F_OK))
 	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		if (!(getcwd(g_curr_dir, MAXDIR)))
+		ft_bzero(g_cur_wd, ft_strlen(g_cur_wd));
+		if (!(getcwd(g_cur_wd, PATH_MAX)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	if (!(path = get_path(dir)))

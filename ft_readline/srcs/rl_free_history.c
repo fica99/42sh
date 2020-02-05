@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:21:48 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:07:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:33:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	rl_free_history(t_rl_history *history)
 	int		i;
 	char	*histfile;
 
-	if (!(histfile = get_env("HISTFILE", SET_ENV)))
+	if (!(histfile = get_var("HISTFILE", VARS)))
 		histfile = RL_HISTORY_FILE;
 	rl_get_hist_size(history);
 	if ((fd = open(histfile, O_RDWR | O_TRUNC | O_CREAT,

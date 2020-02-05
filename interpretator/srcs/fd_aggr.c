@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:25:03 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:12:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 21:22:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	get_fd(char *str)
 	return (fd);
 }
 
-int			find_fd(int **redir, int fd)
+static int	find_fd(int **redir, int fd)
 {
 	while (*redir)
 	{

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:37:50 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 17:30:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:10:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	pwd(int ac, char **av)
 	}
 	if (no_links)
 	{
-		if (!(dir = getcwd(NULL, MAXDIR)))
+		if (!(dir = getcwd(NULL, PATH_MAX)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	else
-		dir = ft_strdup(g_curr_dir);
+		dir = ft_strdup(g_cur_wd);
 	ft_putstr_fd(dir, STDOUT_FILENO);
 	ft_putchar('\n');
 	free(dir);

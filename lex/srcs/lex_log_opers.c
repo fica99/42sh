@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_log_opers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/22 20:25:04 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/04 19:14:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_lex_tkn_type	lex_is_and_and(char **str, size_t pos)
 		return (T_NULL);
 	while (lex_is_fin_log_oper(*str, pos, &offset))
 	{
-		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
+		if (!(new_line = ft_readline(get_var("PS2", VARS))))
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_ctrl_c(str, &new_line));
@@ -55,7 +55,7 @@ t_lex_tkn_type	lex_is_or_or(char **str, size_t pos)
 		return (T_NULL);
 	while (lex_is_fin_log_oper(*str, pos, &offset))
 	{
-		if (!(new_line = ft_readline(get_env("PS2", ALL_ENV))))
+		if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_ctrl_c(str, &new_line));

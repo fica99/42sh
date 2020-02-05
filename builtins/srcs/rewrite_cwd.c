@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 18:47:52 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 14:38:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:06:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ static void	path_back(void)
 {
 	int i;
 
-	i = ft_strlen(g_curr_dir) - 1;
-	while (g_curr_dir[i] != '/')
+	i = ft_strlen(g_cur_wd) - 1;
+	while (g_cur_wd[i] != '/')
 		--i;
 	if (!i)
 		i++;
-	ft_bzero(&g_curr_dir[i], ft_strlen(&g_curr_dir[i]));
+	ft_bzero(&g_cur_wd[i], ft_strlen(&g_cur_wd[i]));
 }
 
 void		path_add(char *tmp)
 {
 	int len;
 
-	len = ft_strlen(g_curr_dir) - 1;
-	if (g_curr_dir[len] != '/')
-		g_curr_dir[len + 1] = '/';
-	ft_strcat(g_curr_dir, tmp);
+	len = ft_strlen(g_cur_wd) - 1;
+	if (g_cur_wd[len] != '/')
+		g_cur_wd[len + 1] = '/';
+	ft_strcat(g_cur_wd, tmp);
 }
 
 static void	rewrite_global(char **split_path)
@@ -61,8 +61,8 @@ static void	rewrite_cwd(char *path)
 {
 	if (*path == '/')
 	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		ft_memcpy(g_curr_dir, path, ft_strlen(path));
+		ft_bzero(g_cur_wd, ft_strlen(g_cur_wd));
+		ft_memcpy(g_cur_wd, path, ft_strlen(path));
 		remove_slashes();
 	}
 	else
@@ -74,24 +74,24 @@ int			change_wdir(char *path, t_flag no_links)
 	char	*tmp;
 	int		ret;
 
-	if (!(tmp = ft_strdup(g_curr_dir)))
+	if (!(tmp = ft_strdup(g_cur_wd)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	rewrite_cwd(path);
-	if ((ret = chdir(g_curr_dir)) < 0)
+	if ((ret = chdir(g_cur_wd)) < 0)
 	{
-		ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-		ft_memcpy(g_curr_dir, tmp, ft_strlen(tmp));
+		ft_bzero(g_cur_wd, ft_strlen(g_cur_wd));
+		ft_memcpy(g_cur_wd, tmp, ft_strlen(tmp));
 	}
 	else
 	{
 		if (no_links)
 		{
-			ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-			if (!(getcwd(g_curr_dir, MAXDIR)))
+			ft_bzero(g_cur_wd, ft_strlen(g_cur_wd));
+			if (!(getcwd(g_cur_wd, PATH_MAX)))
 				err_exit("42sh", "getcwd() error", NULL, NOERROR);
 		}
-		set_env("OLDPWD", get_env("PWD", ENV), ENV);
-		set_env("PWD", g_curr_dir, ENV);
+		set_var("OLDPWD", get_var("PWD", ENV), ENV);
+		set_var("PWD", g_cur_wd, ENV);
 	}
 	free(tmp);
 	return (ret);

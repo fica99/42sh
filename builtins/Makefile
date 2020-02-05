@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/03 22:02:26 by jijerde          ###   ########.fr        #
+#    Created: 2020/02/05 14:29:30 by aashara-          #+#    #+#              #
+#    Updated: 2020/02/05 16:49:01 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,81 +46,62 @@ LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
 # ------------  SOURCE FILES  ------------------------------------------------ #
 SRC_FLS	=		cd.c\
-				echo.c\
-				hash.c\
-				rewrite_cwd.c\
-				set.c\
-				pwd.c\
-				ft_pathjoin.c\
-				unset.c\
-				exit_built.c\
-				setenv_built.c\
 				cdpath.c\
-				set_var.c\
-				fg.c\
-				bg.c\
-				jobs.c\
-				echo_eflag.c \
-				echo_one_escape.c \
+				rewrite_cwd.c\
+				pwd.c\
+				echo.c\
+				echo_eflag.c\
+				echo_one_escape.c\
+				exit_built.c\
+				hash.c\
+				set.c\
 				fc.c\
 				fc_parse.c\
 				fc_exec.c\
-				type.c\
-				keywords.c\
-				export.c\
-				test.c \
+				unset.c\
+				test.c\
+				test_compare.c\
+				test_files.c\
 				test_rightsnset.c\
-				test_files.c \
-				test_compare.c \
-				test_existntype.c
-
-HDR_FLS =		builtins.h
+				test_existntype.c\
+				export.c\
+				type.c\
+				set_var.c\
+				jobs.c\
+				job_print.c\
+				free_job.c\
+				ft_free_jobs.c\
+				fg.c\
+				bg.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
 OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
-HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
 DEPS	=		$(OBJS:.o=.d)
 
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra -g
+CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
-				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../error/includes/ \
-				-I ../environ/includes -I ../jobs/includes/ -I ../term/includes/\
-				-I ../ft_readline/includes/ -I ../hash_table/includes/\
-				-I ../interpretator/includes/ -I ../lex/includes/
-DFLGS	=		-MMD
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../main/includes\
+				-I ../ft_readline/includes -I ../interpretator/includes\
+				-I ../parser/includes -I ../lex/includes
+DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
 .PHONY: all clean
 
 all: $(NAME)
 
-$(LFT_DIR)/$(LFT):
-	$(MAKE) -C $(LFT_DIR)
-
-$(LDIR_DIR)/$(LDIR):
-	$(MAKE) -C $(LDIR_DIR)
-
-$(LDAR_DIR)/$(LDAR):
-	$(MAKE) -C $(LDAR_DIR)
-
-$(LSTR_DIR)/$(LSTR):
-	$(MAKE) -C $(LSTR_DIR)
-
-$(LHASH_DIR)/$(LHASH):
-	$(MAKE) -C $(LHASH_DIR)
-
 -include $(DEPS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(LFT_DIR)/$(LFT) $(LDAR_DIR)/$(LDAR) $(LDIR_DIR)/$(LDIR) $(LHASH_DIR)/$(LHASH) $(LSTR_DIR)/$(LSTR) $(OBJS)
+$(NAME): $(OBJS)
 
 clean:
 	$(RM) $(OBJ_DIR)

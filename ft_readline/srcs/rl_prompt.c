@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 12:36:19 by filip             #+#    #+#             */
-/*   Updated: 2020/01/08 17:36:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:34:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static short	rl_prompt_user_host(char *str, short i)
 	char	*path;
 
 	if (!ft_strncmp(str + i, "\\u", 2))
-		ft_putstr(get_env("USER", ENV));
+		ft_putstr(get_var("USER", ENV));
 	else if (!ft_strncmp(str + i, "\\h", 2) ||
 	!ft_strncmp(str + i, "\\H", 2))
 	{
@@ -31,7 +31,7 @@ static short	rl_prompt_user_host(char *str, short i)
 	}
 	else if (!ft_strncmp(str + i, "\\$", 2))
 	{
-		path = get_env("USER", ENV);
+		path = get_var("USER", ENV);
 		(path && !ft_strcmp(path, "root")) ?
 		ft_putchar('#') : ft_putchar('$');
 	}
@@ -46,7 +46,7 @@ t_rl_history history)
 	char	*pwd;
 	char	*home;
 
-	pwd = get_env("PWD", ENV);
+	pwd = get_var("PWD", ENV);
 	if (!ft_strncmp(str + i, "\\W", 2))
 	{
 		if (pwd)
@@ -54,7 +54,7 @@ t_rl_history history)
 	}
 	else if (!ft_strncmp(str + i, "\\w", 2))
 	{
-		home = get_env("HOME", ENV);
+		home = get_var("HOME", ENV);
 		if (pwd && home && !ft_strncmp(pwd, home, ft_strlen(home)))
 			ft_putstr("~");
 		else

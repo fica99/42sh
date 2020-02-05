@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:51:02 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/23 21:03:14 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:33:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char		*rl_autocom_path_split(char *path, char **file)
 	char	*full_path;
 
 	i = ft_strlen(path) - 1;
-	if (!(pwd = get_env("PWD", ENV)))
+	if (!(pwd = get_var("PWD", ENV)))
 		rl_err("42sh", "pwd error", NOERROR);
 	if (!(full_path = ft_strnew(ft_strlen(pwd) + ft_strlen(path) + 1)))
 		rl_err("42sh", "malloc() error", ENOMEM);

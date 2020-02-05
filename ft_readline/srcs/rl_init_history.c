@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:44:51 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:07:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:58:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ void			rl_init_history(t_rl_history *history)
 	char	*rl_histsize;
 	char	*rl_histfilesize;
 
-	if ((get_env("HOME", ENV)))
+	if ((get_var("HOME", ENV)))
 	{
-		if (!(path = ft_strjoin(get_env("HOME", ENV), RL_HISTORY_FILE)))
+		if (!(path = ft_strjoin(get_var("HOME", ENV), RL_HISTORY_FILE)))
 			rl_err("42sh", "malloc() error", ENOMEM);
 	}
 	else if (!(path = ft_strdup(RL_HISTORY_FILE)))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	set_env("HISTFILE", path, SET_ENV);
-	if (!(rl_histsize = get_env("HISTSIZE", ALL_ENV)))
+	set_var("HISTFILE", path, VARS);
+	if (!(rl_histsize = get_var("HISTSIZE", VARS)))
 	{
 		rl_histsize = RL_HISTSIZE;
-		set_env("HISTSIZE", rl_histsize, SET_ENV);
+		set_var("HISTSIZE", rl_histsize, VARS);
 	}
-	if (!(rl_histfilesize = get_env("HISTFILESIZE", ALL_ENV)))
+	if (!(rl_histfilesize = get_var("HISTFILESIZE", VARS)))
 	{
 		rl_histfilesize = RL_HISTFILESIZE;
-		set_env("HISTFILESIZE", rl_histfilesize, SET_ENV);
+		set_var("HISTFILESIZE", rl_histfilesize, VARS);
 	}
 	rl_get_hist_size(history);
 	rl_set_hist_buff(path, history, rl_find_hist_len(path));

@@ -6,33 +6,20 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 17:57:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 21:07:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-char	*spec_symbols(char *args)
-{
-	while (ft_strchr(args, '~'))
-		args = tilda_expr(args);
-	while (ft_strchr(args, '$'))
-	{
-		args = dollar_expr(args);
-		if (args == NULL)
-			break ;
-	}
-	return (args);
-}
-
-char	*tilda_expr(char *args)
+static char	*tilda_expr(char *args)
 {
 	char	*tmp;
 	char	*path;
 	char	*index;
 
 	tmp = args;
-	if ((path = get_env("HOME", ALL_ENV)))
+	if ((path = get_var("HOME", ALL_VARS)))
 	{
 		index = ft_strchr(args, '~');
 		args = ft_strjoin(path, index + 1);
@@ -41,7 +28,7 @@ char	*tilda_expr(char *args)
 	return (args);
 }
 
-void	dollar_circle(char *spec, char **var)
+static void	dollar_circle(char *spec, char **var)
 {
 	int		i;
 	int		j;
@@ -54,12 +41,12 @@ void	dollar_circle(char *spec, char **var)
 		j = i;
 		while (spec[i] != '$' && spec[i])
 			i++;
-		ft_strcat(*var, (get_env((tmp = ft_strsub(spec, j, i - j)), ALL_ENV)));
+		ft_strcat(*var, (get_var((tmp = ft_strsub(spec, j, i - j)), ALL_VARS)));
 		free(tmp);
 	}
 }
 
-char	*dollar_expr(char *args)
+static char	*dollar_expr(char *args)
 {
 	char	*var;
 	char	*spec;
@@ -75,4 +62,17 @@ char	*dollar_expr(char *args)
 	ft_memdel((void**)&copy);
 	ft_memdel((void**)&args);
 	return (var);
+}
+
+char		*spec_symbols(char *args)
+{
+	while (ft_strchr(args, '~'))
+		args = tilda_expr(args);
+	while (ft_strchr(args, '$'))
+	{
+		args = dollar_expr(args);
+		if (args == NULL)
+			break ;
+	}
+	return (args);
 }

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lex_val_tkn_processing.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:35:34 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:35:36 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/05 14:12:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-static int		lex_is_one_clip(const char *str, size_t pos, t_lex_tkn_type type)
+static int		lex_is_one_clip(const char *str, size_t pos,
+													t_lex_tkn_type type)
 {
 	if (!str)
 		return (0);
@@ -25,7 +26,8 @@ static int		lex_is_one_clip(const char *str, size_t pos, t_lex_tkn_type type)
 		return (0);
 }
 
-static int		lex_is_double_clip(const char *str, size_t pos, t_lex_tkn_type type)
+static int		lex_is_double_clip(const char *str, size_t pos,
+													t_lex_tkn_type type)
 {
 	(void)str;
 	(void)pos;

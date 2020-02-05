@@ -3,30 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:25:01 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/05 16:57:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEX_H
 # define LEX_H
-# include <termios.h>
-# include <curses.h>
-# include <term.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <sys/ioctl.h>
-# include <signal.h>
-# include <fcntl.h>
-# include <time.h>
 # include "libft.h"
-# include "libhash.h"
-# include "libstr.h"
-# include "libdar.h"
 # include "ft_readline.h"
-# include "environ.h"
+# include "variables.h"
 
 # define LEX_TOKENS_SIZE 1
 # define SIZE_CS_FILTER 1
@@ -98,16 +88,6 @@ typedef	struct		s_lex_tkns
 	size_t			malloc_size;
 	size_t			size;
 }					t_lex_tkns;
-
-typedef struct		s_ast
-{
-	t_lex_tkn		**token;
-	struct s_ast	*left;
-	struct s_ast	*right;
-}					t_ast;
-
-char				*del_spc(char *str);
-char				*ft_stricut(char *str, int i);
 
 /*
 ** lex_lexer.c
@@ -326,14 +306,5 @@ void				lex_clipping_tkn_value(t_lex_tkn *token, const char *str);
 
 int					lex_is_brk(char c);
 t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
-
-/*
-** lex_debug.c
-*/
-
-void				lex_print_tkns(t_lex_tkn **tokens);
-void				lex_print_tkn(t_lex_tkn *token);
-void				lex_print_type(t_lex_tkn_type type);
-void				lex_print_class(t_lex_tkn_class class);
 
 #endif

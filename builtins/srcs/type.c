@@ -6,11 +6,17 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 21:00:12 by jijerde           #+#    #+#             */
-/*   Updated: 2020/01/26 15:14:58 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:12:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+static char		*type_error(char *arg)
+{
+	err("42sh", "type", "not found", arg);
+	return (NULL);
+}
 
 static char		*get_fname_type(char *arg)
 {
@@ -53,24 +59,10 @@ static int		isfile(char *argv)
 
 static int		isbuiltin(char *argv)
 {
-	if (!((t_builtin)get_hash_data(g_built_table.table,
-					argv, g_built_table.size)))
+	if (!((t_builtin)get_hash_data(g_builtins_hash_table.table,
+					argv, g_builtins_hash_table.size)))
 		return (0);
 	return (1);
-}
-
-static int		iskeyword(char *argv)
-{
-	t_keyw *keyw;
-
-	keyw = &g_keyw;
-	while (keyw)
-	{
-		if ((ft_strcmp(argv, keyw->data)) == 0)
-			return (1);
-		keyw = keyw->next;
-	}
-	return (0);
 }
 
 int				ft_type(int argc, char **argv)
@@ -86,11 +78,6 @@ int				ft_type(int argc, char **argv)
 		{
 			ft_putstr_fd(argv[i], STDOUT_FILENO);
 			ft_putstr_fd(" is a shell builtin\n", STDOUT_FILENO);
-		}
-		else if (iskeyword(argv[i]))
-		{
-			ft_putstr_fd(argv[i], STDOUT_FILENO);
-			ft_putstr_fd(" is a shell keyword\n", STDOUT_FILENO);
 		}
 		else
 			isfile(argv[i]);

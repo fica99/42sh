@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/24 22:31:41 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 15:11:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:17:04 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-int	set_var(int ac, char **av)
+int	set_variable(int ac, char **av)
 {
 	char *name;
 	char *value;
@@ -29,10 +29,10 @@ int	set_var(int ac, char **av)
 		}
 		*value = 0;
 		++value;
-		if (get_env(name, ENV))
-			set_env(name, value, ENV);
+		if (get_var(name, ENV))
+			set_var(name, value, ENV);
 		else
-			set_env(name, value, SET_ENV);
+			set_var(name, value, VARS);
 		free(name);
 		av++;
 	}

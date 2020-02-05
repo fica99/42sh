@@ -6,38 +6,53 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/19 15:18:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 16:17:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:43:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	print_bin_table(t_hash **bin_table, size_t size)
+static void			print_hash(char **path)
 {
-	size_t	i;
-	t_hash	**table_copy;
-	t_hash	*hash;
+	short	i;
+	short	index;
+	char	**content;
+	int		j;
 
-	i = 0;
-	table_copy = bin_table;
-	while (i < size)
+	index = -1;
+	j = -1;
+	while (path[++j])
 	{
-		hash = table_copy[i++];
-		while (hash)
+		if ((content = ft_dir_content(path[++j], 1)))
 		{
-			ft_putstr_fd(ft_strrchr(hash->data, '/') + 1, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putstr_fd(hash->data, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-			hash = hash->next;
+			ft_dar_sort(content);
+			i = -1;
+			while (content[++i])
+			{
+				ft_putstr(content[i]);
+				ft_putchar('=');
+				ft_putstr(path[j]);
+				ft_putchar('/');
+				ft_putendl(content[i]);
+			}
+			ft_free_dar(content);
 		}
 	}
 }
 
-int			hash(int ac, char **av)
+int					hash(int ac, char **av)
 {
+	char	*env_path;
+	char	**path;
+
 	(void)ac;
 	(void)av;
-	print_bin_table(g_bin_table.table, g_bin_table.size);
+	if (!(env_path = get_var("PATH", ENV)))
+		return (0);
+	if (!(path = ft_strsplit(env_path, ':')))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	ft_dar_sort(path);
+	print_hash(path);
+	ft_free_dar(path);
 	return (0);
 }

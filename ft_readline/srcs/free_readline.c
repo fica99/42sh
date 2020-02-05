@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:20:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/08 17:16:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/04 18:47:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,5 @@ static void	rl_free_readline_struct(t_readline *rl)
 
 void		free_readline(void)
 {
-	reset_shell_mode();
-	rl_set_mode(&g_rl.start_mode);
 	rl_free_readline_struct(&g_rl);
 }

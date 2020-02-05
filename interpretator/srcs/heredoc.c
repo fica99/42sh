@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:12:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 14:18:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static int	write_here_doc(char **buf)
+static int		write_here_doc(char **buf)
 {
 	int fd;
 
@@ -31,7 +31,7 @@ static int	write_here_doc(char **buf)
 	return (fd);
 }
 
-char		**read_heredoc(char const *delim)
+static char		**read_heredoc(char const *delim)
 {
 	t_her_vars v;
 
@@ -58,7 +58,7 @@ char		**read_heredoc(char const *delim)
 	return (v.buf);
 }
 
-int			here_doc(t_lex_tkn **list, t_process *curr, int io_number)
+int				here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 {
 	char	**buf;
 	int		fd;

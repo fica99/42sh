@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:53:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 20:56:16 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:33:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char				**rl_autocom_bin(char *word)
 
 	if (!*builtins)
 		rl_autocom_set_builtins(builtins);
-	if (!(env_path = get_env("PATH", ENV)))
+	if (!(env_path = get_var("PATH", ENV)))
 		env_path = "\0";
 	if (!(path = ft_strsplit(env_path, ':')))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);

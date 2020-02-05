@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/01/30 22:24:21 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/05 16:57:23 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,53 +74,34 @@ SRC_FLS	=		lex_lexer.c\
 				lex_cs.c\
 				lex_val_tkn_processing.c\
 				lex_substitutions.c\
-				lex_debug.c\
-
-HDR_FLS =		lex.h
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
 OBJS	=		$(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o, $(SRCS))
-HDRS	=		$(addprefix $(HDR_DIR)/, $(HDR_FLS))
 DEPS	=		$(OBJS:.o=.d)
 
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra -g
+CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
-				-I ../environ/includes -I ../error/includes
-DFLGS	=		-MMD
+				-I ../main/includes
+DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
 .PHONY: all clean
 
 all: $(NAME)
 
-$(LFT_DIR)/$(LFT):
-	$(MAKE) -C $(LFT_DIR)
-
-$(LDIR_DIR)/$(LDIR):
-	$(MAKE) -C $(LDIR_DIR)
-
-$(LDAR_DIR)/$(LDAR):
-	$(MAKE) -C $(LDAR_DIR)
-
-$(LSTR_DIR)/$(LSTR):
-	$(MAKE) -C $(LSTR_DIR)
-
-$(LHASH_DIR)/$(LHASH):
-	$(MAKE) -C $(LHASH_DIR)
-
 -include $(DEPS)
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HDRS) | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLGS) $(DFLGS) -c -o $@ $< $(IFLGS)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(LFT_DIR)/$(LFT) $(LDAR_DIR)/$(LDAR) $(LDIR_DIR)/$(LDIR) $(LHASH_DIR)/$(LHASH) $(LSTR_DIR)/$(LSTR) $(OBJS)
+$(NAME): $(OBJS)
 
 clean:
 	$(RM) $(OBJ_DIR)

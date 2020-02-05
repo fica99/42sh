@@ -6,11 +6,12 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/27 21:05:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:51:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+#include "main.h"
 
 static char		**fc_get_list(int first, int last)
 {
@@ -88,7 +89,7 @@ void			fc_exec(t_fc *fc)
 		fc_print_list(fc);
 	else
 	{
-		if (!(path = get_env("TMPDIR", ALL_ENV)))
+		if (!(path = get_var("TMPDIR", ALL_VARS)))
 			path = "/tmp/";
 		random = ft_itoa(rand());
 		path = ft_strjoin(path, random);
@@ -101,11 +102,8 @@ void			fc_exec(t_fc *fc)
 		ft_strdel(&line);
 		line = ft_read_file(path);
 		ft_strdel(&path);
-		ft_putendl(line);
 		if (g_last_exit_status == 0)
-		{
 			ft_system(&line);
-			ft_strdel(&line);
-		}
+		ft_strdel(&line);
 	}
 }

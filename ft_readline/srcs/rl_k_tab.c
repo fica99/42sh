@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 21:38:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 21:53:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/03 22:46:14 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			rl_k_tab(t_readline *rl)
 		rl_disable_line(rl);
 	rl_autocom_parse(&autocom, rl);
 	if (autocom.is_env == TRUE)
-		autocom.res = get_env_names_dar(autocom.to_find, ALL_ENV);
+		autocom.res = get_vars_names_dar(autocom.to_find, ALL_VARS);
 	else if (autocom.is_path == TRUE)
 		autocom.res = rl_autocom_path(autocom.to_find);
 	else if (autocom.is_bin == TRUE)

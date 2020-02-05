@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 20:01:57 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 16:14:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:49:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	fc_check_first_last(t_fc *fc)
 
 static void	fc_init_struct(t_fc *fc)
 {
-	if (!(fc->editor = get_env("FCEDIT", ALL_ENV)))
-		if (!(fc->editor = get_env("EDITOR", ALL_ENV)))
+	if (!(fc->editor = get_var("FCEDIT", ALL_VARS)))
+		if (!(fc->editor = get_var("EDITOR", ALL_VARS)))
 			fc->editor = "vi";
 	fc->first = NULL;
 	fc->last = NULL;

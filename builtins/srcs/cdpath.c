@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:00:21 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 18:34:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 15:06:51 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void			remove_slashes(void)
 	int		i;
 
 	i = -1;
-	if ((tmp = ft_strsplit(g_curr_dir, '/')) == 0)
+	if ((tmp = ft_strsplit(g_cur_wd, '/')) == 0)
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	ft_bzero(g_curr_dir, ft_strlen(g_curr_dir));
-	*g_curr_dir = '/';
+	ft_bzero(g_cur_wd, ft_strlen(g_cur_wd));
+	*g_cur_wd = '/';
 	while (tmp[++i])
 		path_add(tmp[i]);
 	ft_free_dar(tmp);
@@ -46,7 +46,7 @@ static int		try_cdpath(char *path, char **cdpath, t_flag no_links)
 			if (no_links)
 				ft_putendl(tmp);
 			else
-				ft_putendl(g_curr_dir);
+				ft_putendl(g_cur_wd);
 			free(tmp);
 			break ;
 		}
@@ -63,7 +63,7 @@ int				cdpath_handle(char *path, t_flag no_links)
 
 	if (!ft_strncmp(path, ".", 1) || !ft_strncmp(path, "..", 2))
 		return (-1);
-	if (!(var_val = get_env("CDPATH", ALL_ENV)))
+	if (!(var_val = get_var("CDPATH", ALL_VARS)))
 		return (-1);
 	if (!(cdpath = ft_strsplit(var_val, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);

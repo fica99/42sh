@@ -5,106 +5,132 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/29 13:58:11 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 18:01:04 by aashara-         ###   ########.fr       */
+/*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
+/*   Updated: 2020/02/05 16:47:21 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INTERPRETATOR_H
 # define INTERPRETATOR_H
 
-# include "libft.h"
-# include "lex.h"
-# include "error.h"
-# include "jobs.h"
-# include "environ.h"
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-
-# define DEF_HEREDOC_SIZE 10
-# define LINE_MAX 2048
-# define INT_LEN 10
+# include <signal.h>
+# include "libft.h"
+# include "parser.h"
+# include "error.h"
+# include "variables.h"
+# include "hash_tables.h"
+# define NO_FORK 1
+# define FORK 0
 # define HEREDOC_FILE "/tmp/.42sh_heredoc"
-# define INIT_AGGR_FD -5
-# define DEF_VARLIST_SIZE 10
+# define DEF_HEREDOC_SIZE 10
+# define CUR_D "."
 
-typedef	int		(*t_redirect_func)(t_lex_tkn **, t_process *, int);
+typedef	int			(*t_builtin)(int, char **);
+typedef	int			(*t_redirect_func)(t_lex_tkn **, t_process *, int);
 
-typedef struct	s_ass_vars
+typedef	struct		s_her_vars
 {
-	char		**varlist;
-	int			i;
-	int			size;
-	t_process	*p;
+	char			**buf;
+	size_t			buf_size;
+	size_t			i;
+	char			*tmp;
+	char			**tmpb;
 
-}				t_ass_vars;
+}					t_her_vars;
 
-typedef	struct	s_her_vars
-{
-	char		**buf;
-	size_t		buf_size;
-	size_t		i;
-	char		*tmp;
-	char		**tmpb;
-
-}				t_her_vars;
-
-typedef struct	s_open_files
-{
-	int			*fd;
-	size_t		size;
-}				t_open_files;
-
-int				make_ast(t_lex_tkn **list, t_ast **root);
-void			clean_tree(t_ast *ast);
-void			cls_redir(int **red);
-void			h_ass_words(t_lex_tkn **list, t_process *p);
-char			*ft_stricut(char *str, int i);
-char			*substitution(char *str);
-void			exec_jobs(void);
-int				l_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
-int				here_doc(t_lex_tkn **list, t_process *curr, int io_number);
-int				l_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
-int				ft_open(char *fname, int fl);
-int				g_aggr(t_lex_tkn **list, t_process *curr_proc, int io_number);
-void			add_redir(t_process *curr_proc, int fd0, int fd1);
-void			file_err(char *s1, char *s2, char *s3, t_job *j);
-int				g_redir(t_lex_tkn **list, t_process *curr_proc, int io_number);
-void			ft_free_proc(t_process *p);
-int				get_token_ind(t_lex_tkn **token_list, t_lex_tkn *token);
-t_job			*job_new(t_lex_tkn **sep);
-void			ft_free_jobs(t_job *j);
-void			close_fds(t_job *first_job);
-t_process		*add_process(t_job *first_job);
-int				syntax_err(t_lex_tkn *token);
-t_lex_tkn		**find_token(t_lex_tkn **list, int type);
-void			parse(t_ast *root);
-char			**ft_strtok(char *s);
-char			*ft_strccut(char *str, char c);
-char			*ft_stricut(char *str, int i);
-t_lex_tkn		**split_list(t_lex_tkn **token);
-t_lex_tkn		**find_token(t_lex_tkn **list, int type);
-void			word_list(t_lex_tkn **redir, t_process *cur_proc);
-
+pid_t				g_job_pgid;
+int					g_shell_terminal;
+int					g_last_exit_status;
+pid_t				g_shell_pgid;
 /*
-**  spec_symb.c
+**					exec_jobs.c
 */
-char			*spec_symbols(char *args);
-char			*tilda_expr(char *args);
-char			*dollar_expr(char *args);
-
+void				exec_jobs(void);
 /*
-**	expansions_validation.c
+**					check_job.c
 */
-void			*expansions(char *s);
-int				check_bracket(char *s);
-
+int					job_is_completed(t_job *j);
+void				mark_job_as_running(t_job *j);
+int					job_is_stopped(t_job *j);
 /*
-**	expansions_implementation.c
+**					launch_job.c
 */
-
-char			*exp_implement(char *s);
-
+int					launch_builtin(t_process *p, int no_fork);
+void				cls_redir(int **red);
+void				launch_job(t_job *j, int foreground);
+/*
+**					launch_builtin.c
+*/
+int					launch_builtin(t_process *p, int no_fork);
+/*
+**					launch_process.c
+*/
+void				ft_sub(char **args);
+void				launch_process(t_process *p, pid_t pgid, int foreground);
+/*
+**					make_redir.c
+*/
+void				dup_redir(int **fd_list);
+int					redir_handle(t_process *p);
+/*
+**					spec_symb.c
+*/
+char				*spec_symbols(char *args);
+/*
+**					io_redir.c
+*/
+int					l_redir(t_lex_tkn **list, t_process *curr_proc,
+														int io_number);
+int					g_redir(t_lex_tkn **list, t_process *curr_proc,
+														int io_number);
+/*
+**					ft_open.c
+*/
+int					ft_open(char *fname, int fl);
+/*
+**					heredoc.c
+*/
+int					here_doc(t_lex_tkn **list, t_process *curr,
+														int io_number);
+/*
+**					add_redir.c
+*/
+void				add_redir(t_process *curr_proc, int fd0, int fd1);
+/*
+**					fd_aggr.c
+*/
+int					l_aggr(t_lex_tkn **list, t_process *curr_proc,
+														int io_number);
+int					g_aggr(t_lex_tkn **list, t_process *curr_proc,
+														int io_number);
+/*
+**					pipes_routine.c
+*/
+void				close_pipes(t_process *p);
+void				open_pipe(t_process *p, int *pipes);
+/*
+**					get_fname.c
+*/
+char				*find_in_path(char *filename);
+int					check_path_var(char *fname);
+char				*get_fname(char *arg);
+/*
+**					put_in.c
+*/
+void				put_job_in_foreground(t_job *j, int cont);
+void				put_job_in_background(t_job *j, int cont);
+/*
+**					hndl_chld.c
+*/
+int					mark_process_status(pid_t pid, int status);
+void				wait_for_job(t_job *j);
+/*
+**					uniq_env.c
+*/
+void				set_uniq_env(t_process *p);
+/*
+**					init_jobs.c
+*/
+void				init_jobs(void);
 #endif

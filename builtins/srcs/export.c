@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 12:06:37 by mmarti            #+#    #+#             */
-/*   Updated: 2020/01/26 15:01:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:07:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*get_value(char *arg)
 
 	if (!(tmp = ft_strchr(arg, '=')))
 	{
-		if (!(tmp = get_env(arg, ALL_ENV)))
+		if (!(tmp = get_var(arg, ALL_VARS)))
 		{
 			free(arg);
 			return (0);
@@ -90,8 +90,8 @@ int			export(int ac, char **av)
 			err_exit("42sh", "malloc() error", NULL, NOERROR);
 		if (!(value = get_value(name)))
 			continue ;
-		unset_env(name, ALL_ENV);
-		set_env(name, value, ENV);
+		unset_var(name, ALL_VARS);
+		set_var(name, value, ENV);
 		free(name);
 		free(value);
 		if (print)

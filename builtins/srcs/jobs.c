@@ -6,13 +6,59 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/26 15:09:57 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/05 16:51:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	jobs(int argc, char **argv)
+static t_job	*find_job(int num)
+{
+	t_job	*j;
+
+	j = g_first_job;
+	while (j && j->num != num)
+		j = j->next;
+	if (j && j->num != -1)
+		return (j);
+	return (NULL);
+}
+
+static void		update_status(void)
+{
+	pid_t pid;
+
+	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
+	while (!mark_process_status(pid, g_last_exit_status))
+		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
+}
+
+static void		do_job_notification(t_job *start_job,
+		int options, int stop_flag)
+{
+	t_job	*j;
+
+	update_status();
+	j = start_job;
+	while (j)
+	{
+		if (job_is_completed(j) && j->num > 0)
+		{
+			format_job_info(j, "completed", options);
+			free_job(&g_first_job, j);
+		}
+		else if (job_is_stopped(j) && j->num > 0)
+			format_job_info(j, "stopped", options);
+		else if (j->num > 0 && j->execution)
+			format_job_info(j, "running", options);
+		if (stop_flag || !j)
+			break ;
+		else
+			j = j->next;
+	}
+}
+
+void			jobs(int argc, char **argv)
 {
 	if (argc == 2)
 	{
