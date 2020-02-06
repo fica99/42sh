@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:04:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:03:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:56:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char			**get_vars_names_dar(char *name, t_vars_type type)
 						ft_get_vars_names_dar(name, g_vars.vars)));
 }
 
-static char		*ft_getvar(char *name, char **varlist)
+char			*ft_getvar(char *name, char **varlist)
 {
 	char	*tmp;
 	long	varlen;

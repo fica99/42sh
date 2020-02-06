@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:49:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:58:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:56:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void			init_variables(char **data, t_vars_type type);
 **				get_variable.c
 */
 char			**get_vars_names_dar(char *name, t_vars_type type);
+char			*ft_getvar(char *name, char **varlist);
 char			*get_var(char *arr, t_vars_type mode);
 /*
 **				set_variable.c
