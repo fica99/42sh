@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_tkn_type.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:35:52 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:21:34 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static t_lex_tkn_type	lex_check_type_next(char **str,
 
 t_lex_tkn_type			lex_check_type(char **str, short is_word, size_t *pos)
 {
+
+
 	if (!(*str)[*pos])
 		return (lex_check_end(str, is_word, pos));
 	else if (ft_isspace((*str)[*pos]))

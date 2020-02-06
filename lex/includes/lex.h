@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/05 16:57:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 16:22:34 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,7 @@ t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 */
 
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
+void				lex_clear_strs(char **s1, char **s2);
 
 /*
 ** lex_cs.c
@@ -306,5 +307,20 @@ void				lex_clipping_tkn_value(t_lex_tkn *token, const char *str);
 
 int					lex_is_brk(char c);
 t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
+
+/*
+** lex_backslash.c
+*/
+
+int					lex_check_bs(char **str, size_t *pos);
+
+/*
+** lex_debug.c
+*/
+
+void				lex_print_class(t_lex_tkn_class class);
+void				lex_print_type(t_lex_tkn_type type);
+void				lex_print_tkn(t_lex_tkn *token);
+void				lex_print_tkns(t_lex_tkn **tokens);
 
 #endif
