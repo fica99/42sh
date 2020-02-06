@@ -50,11 +50,7 @@ char			*find_in_path(char *filename)
 		return (NULL);
 	if (!(paths = ft_strsplit(path_var, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	if (!(res = locate(filename, paths)))
-	{
-		ft_free_dar(paths);
-		return (NULL);
-	}
+	res = locate(filename, paths);
 	ft_free_dar(paths);
 	return (res);
 }
