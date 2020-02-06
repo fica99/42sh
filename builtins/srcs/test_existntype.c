@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_existntype.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 12:42:40 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 21:50:15 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:21:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int			file_was_found(char **argv)
 		return (0);
 	if (lstat(argv[2], &lstb) != -1)
 	{
-		if (stat(argv[2], &stb) != -1)
-			;
+		if (stat(argv[2], &stb) == -1)
+			err("42sh", "stat error()", NULL, NOERROR);
 		if (argv[1][1] == 's' || argv[1][1] == 'd' || argv[1][1] == 'f'
 		|| argv[1][1] == 'c' || argv[1][1] == 'b' || argv[1][1] == 'p'
 		|| argv[1][1] == 'L' || argv[1][1] == 'S')
