@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/06 17:03:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:16:46 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int					ft_eflag(int i, char **argv, int argc, int *flags);
 */
 int					ft_octal(char **argv, int i, int j);
 int					ft_common_escape(char **argv, int i, int j);
-int					ft_echo(int argc, char **argv);
+int					ft_echo(int argc, char **argv, char **environ);
 /*
 **					echo_one_escape.c
 */
@@ -113,7 +113,7 @@ int					unset(int ac, char **args);
 /*
 **					test.c
 */
-int					ft_test(int argc, char **argv);
+int					ft_test(int argc, char **argv, char **environ);
 /*
 **					test_files.c
 */
@@ -144,7 +144,7 @@ int					export(int ac, char **av);
 /*
 **					type.c
 */
-int					ft_type(int argc, char **argv);
+int					ft_type(int argc, char **argv, char **environ);
 /*
 **					set_var.c
 */

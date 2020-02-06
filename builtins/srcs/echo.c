@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/26 16:15:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:10:17 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,12 @@ static void		ft_echo_wo_e(char **argv, int i)
 	}
 }
 
-int				ft_echo(int argc, char **argv)
+int				ft_echo(int argc, char **argv, char **environ)
 {
 	int				i;
 	int				flags[3];
 
+	(void)environ;
 	ft_bzero(flags, 3 * sizeof(int));
 	i = ft_echoflags(flags, argv);
 	if (flags[1] == 1)

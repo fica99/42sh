@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 21:00:12 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/05 16:12:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:14:50 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char		*type_error(char *arg)
 	return (NULL);
 }
 
-static char		*get_fname_type(char *arg)
+static char		*get_fname_type(char *arg, char **environ)
 {
 	char			*fname;
 	struct stat		stbuf;
@@ -31,23 +31,23 @@ static char		*get_fname_type(char *arg)
 		{
 			if (!(S_ISREG(stbuf.st_mode)))
 				return (type_error(arg));
-			if ((check_path_var(arg)) == 0)
+			if ((check_path_var(arg, environ)) == 0)
 				return (arg);
 			return (type_error(arg));
 		}
 		else
 			return (type_error(arg));
 	}
-	if (!(fname = find_in_path(arg)))
+	if (!(fname = find_in_path(arg, environ)))
 		return (type_error(arg));
 	return (fname);
 }
 
-static int		isfile(char *argv)
+static int		isfile(char *argv, char **environ)
 {
 	char *res;
 
-	res = get_fname_type(argv);
+	res = get_fname_type(argv, environ);
 	if (!res)
 		return (-1);
 	ft_putstr_fd(argv, STDOUT_FILENO);
@@ -65,7 +65,7 @@ static int		isbuiltin(char *argv)
 	return (1);
 }
 
-int				ft_type(int argc, char **argv)
+int				ft_type(int argc, char **argv, char **environ)
 {
 	int i;
 
@@ -80,7 +80,7 @@ int				ft_type(int argc, char **argv)
 			ft_putstr_fd(" is a shell builtin\n", STDOUT_FILENO);
 		}
 		else
-			isfile(argv[i]);
+			isfile(argv[i], environ);
 		i++;
 	}
 	return (0);

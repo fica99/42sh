@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 16:47:21 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:14:20 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ void				open_pipe(t_process *p, int *pipes);
 /*
 **					get_fname.c
 */
-char				*find_in_path(char *filename);
-int					check_path_var(char *fname);
+char				*find_in_path(char *filename, char **environ);
+int					check_path_var(char *fname, char **environ);
 char				*get_fname(char *arg);
 /*
 **					put_in.c
