@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 16:49:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:03:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int					set(int ac, char **args);
 /*
 **					fc.c
 */
-int					fc(int argc, char **argv);
+int					fc(int argc, char **argv, char **environ);
 /*
 **					fc_parse.c
 */
@@ -105,7 +105,7 @@ char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
 **					fc_exec.c
 */
-void				fc_exec(t_fc *fc);
+void				fc_exec(t_fc *fc, char **environ);
 /*
 **					unset.c
 */

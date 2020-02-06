@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 20:01:57 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:49:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:03:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void	fc_check_first_last(t_fc *fc)
 
 static void	fc_init_struct(t_fc *fc)
 {
-	if (!(fc->editor = get_var("FCEDIT", ALL_VARS)))
-		if (!(fc->editor = get_var("EDITOR", ALL_VARS)))
+	if (!(fc->editor = get_var("FCEDIT", VARS)))
+		if (!(fc->editor = get_var("EDITOR", VARS)))
 			fc->editor = "vi";
 	fc->first = NULL;
 	fc->last = NULL;
@@ -51,7 +51,7 @@ static void	fc_init_struct(t_fc *fc)
 	fc->flag_n = FALSE;
 }
 
-int			fc(int argc, char **argv)
+int			fc(int argc, char **argv, char **environ)
 {
 	t_fc	fc;
 
@@ -62,6 +62,6 @@ int			fc(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	fc_check_first_last(&fc);
-	fc_exec(&fc);
+	fc_exec(&fc, environ);
 	return (EXIT_SUCCESS);
 }
