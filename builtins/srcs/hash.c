@@ -15,11 +15,9 @@
 static void			print_hash(char **path)
 {
 	short	i;
-	short	index;
 	char	**content;
 	int		j;
 
-	index = -1;
 	j = -1;
 	while (path[++j])
 	{
