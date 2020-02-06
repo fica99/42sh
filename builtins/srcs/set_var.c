@@ -12,11 +12,12 @@
 
 #include "builtins.h"
 
-int	set_variable(int ac, char **av)
+int	set_variable(int ac, char **av, char **environ)
 {
 	char *name;
 	char *value;
 
+	(void)environ;
 	(void)ac;
 	while (*++av)
 	{

@@ -12,9 +12,10 @@
 
 #include "builtins.h"
 
-int	unset(int ac, char **av)
+int	unset(int ac, char **av, char **environ)
 {
 	(void)ac;
+	(void)environ;
 	if (av && *av)
 	{
 		while (*++av)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 16:51:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 17:05:46 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void		fc_print_list(t_fc *fc)
 	ft_free_dar(line);
 }
 
-void			fc_exec(t_fc *fc)
+void			fc_exec(t_fc *fc, char **environ)
 {
 	char	*path;
 	char	*line;
@@ -89,7 +89,7 @@ void			fc_exec(t_fc *fc)
 		fc_print_list(fc);
 	else
 	{
-		if (!(path = get_var("TMPDIR", ALL_VARS)))
+		if (!(path = ft_getvar("TMPDIR", environ)))
 			path = "/tmp/";
 		random = ft_itoa(rand());
 		path = ft_strjoin(path, random);

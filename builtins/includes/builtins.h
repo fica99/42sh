@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 16:49:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/06 19:56:36 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ typedef struct		s_fc
 **					cd.c
 */
 char				**check_flags(char **av, t_flag *no_links);
-int					cd(int ac, char **av);
+int					cd(int ac, char **av, char **environ);
 /*
 **					cdpath.c
 */
 void				remove_slashes(void);
-int					cdpath_handle(char *path, t_flag no_links);
+int					cdpath_handle(char *path, t_flag no_links, char **environ);
 /*
 **					rewrite_cwd.c
 */
 void				path_add(char *tmp);
-int					change_wdir(char *path, t_flag no_links);
+int					change_wdir(char *path, t_flag no_links, char **environ);
 /*
 **					pwd.c
 */
-int					pwd(int ac, char **av);
+int					pwd(int ac, char **av, char **environ);
 /*
 **					echo_eflag.c
 */
@@ -75,7 +75,7 @@ int					ft_eflag(int i, char **argv, int argc, int *flags);
 */
 int					ft_octal(char **argv, int i, int j);
 int					ft_common_escape(char **argv, int i, int j);
-int					ft_echo(int argc, char **argv);
+int					ft_echo(int argc, char **argv, char **environ);
 /*
 **					echo_one_escape.c
 */
@@ -85,19 +85,19 @@ void				echo_text(char **argv, int i, int j);
 /*
 **					exit_built.c
 */
-int					exit_built(int ac, char **av);
+int					exit_built(int ac, char **av, char **environ);
 /*
 **					hash.c
 */
-int					hash(int ac, char **av);
+int					hash(int ac, char **av, char **environ);
 /*
 **					set.c
 */
-int					set(int ac, char **args);
+int					set(int ac, char **args, char **environ);
 /*
 **					fc.c
 */
-int					fc(int argc, char **argv);
+int					fc(int argc, char **argv, char **environ);
 /*
 **					fc_parse.c
 */
@@ -105,15 +105,15 @@ char				fc_parse_args(t_fc *fc, int argc, char **argv);
 /*
 **					fc_exec.c
 */
-void				fc_exec(t_fc *fc);
+void				fc_exec(t_fc *fc, char **environ);
 /*
 **					unset.c
 */
-int					unset(int ac, char **args);
+int					unset(int ac, char **args, char **environ);
 /*
 **					test.c
 */
-int					ft_test(int argc, char **argv);
+int					ft_test(int argc, char **argv, char **environ);
 /*
 **					test_files.c
 */
@@ -140,19 +140,19 @@ int					iscomparison(char **argv);
 /*
 **					export.c
 */
-int					export(int ac, char **av);
+int					export(int ac, char **av, char **environ);
 /*
 **					type.c
 */
-int					ft_type(int argc, char **argv);
+int					ft_type(int argc, char **argv, char **environ);
 /*
 **					set_var.c
 */
-int					set_variable(int ac, char **av);
+int					set_variable(int ac, char **av, char **environ);
 /*
 **					jobs.c
 */
-void				jobs(int argc, char **argv);
+void				jobs(int argc, char **argv, char **environ);
 /*
 **					job_print.c
 */
@@ -168,9 +168,9 @@ void				ft_free_proc(t_process *p);
 /*
 **					fg.c
 */
-void				fg(int argc, char **argv);
+void				fg(int argc, char **argv, char **environ);
 /*
 **					bg.c
 */
-void				bg(int argc, char **argv);
+void				bg(int argc, char **argv, char **environ);
 #endif

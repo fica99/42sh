@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/23 22:01:45 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/03 22:03:31 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/06 17:16:33 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,11 @@ static int		what_is(char **argv)
 	return (1);
 }
 
-int				ft_test(int argc, char **argv)
+int				ft_test(int argc, char **argv, char **environ)
 {
 	int ret;
 
+	(void)environ;
 	if (argc < 2)
 		return (1);
 	if (argc > 4)

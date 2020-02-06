@@ -12,12 +12,13 @@
 
 #include "builtins.h"
 
-int	pwd(int ac, char **av)
+int	pwd(int ac, char **av, char **environ)
 {
 	char	*dir;
 	t_flag	no_links;
 
 	(void)ac;
+	(void)environ;
 	no_links = 0;
 	if (!check_flags(av, &no_links))
 	{

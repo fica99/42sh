@@ -56,13 +56,13 @@ char		**check_flags(char **av, t_flag *no_links)
 	return (&av[j]);
 }
 
-static char	*get_path(char **dir)
+static char	*get_path(char **dir, char **environ)
 {
 	char *path;
 
 	if (!*dir || !ft_strcmp(*dir, "--"))
 	{
-		if (!(path = get_var("HOME", ENV)))
+		if (!(path = ft_getvar("HOME", environ)))
 		{
 			err("42sh", "cd", NULL, "HOME not set");
 			return (NULL);
@@ -70,7 +70,7 @@ static char	*get_path(char **dir)
 	}
 	else if (!ft_strcmp(*dir, "-"))
 	{
-		if (!(path = get_var("OLDPWD", ENV)))
+		if (!(path = ft_getvar("OLDPWD", environ)))
 		{
 			err("42sh", "cd", NULL, "OLDPWD not set");
 			return (NULL);
@@ -82,7 +82,7 @@ static char	*get_path(char **dir)
 	return (path);
 }
 
-int			cd(int ac, char **av)
+int			cd(int ac, char **av, char **environ)
 {
 	char	**dir;
 	t_flag	no_links;
@@ -101,10 +101,10 @@ int			cd(int ac, char **av)
 		if (!(getcwd(g_cur_wd, PATH_MAX)))
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
-	if (!(path = get_path(dir)))
+	if (!(path = get_path(dir, environ)))
 		return (-1);
-	if (cdpath_handle(path, no_links) < 0)
-		if (change_wdir(path, no_links) < 0)
+	if (cdpath_handle(path, no_links, environ) < 0)
+		if (change_wdir(path, no_links, environ) < 0)
 			return (check_request(av, path));
 	return (0);
 }

@@ -27,7 +27,8 @@ void			remove_slashes(void)
 	ft_free_dar(tmp);
 }
 
-static int		try_cdpath(char *path, char **cdpath, t_flag no_links)
+static int		try_cdpath(char *path, char **cdpath,
+t_flag no_links, char **environ)
 {
 	int		i;
 	char	*tmp;
@@ -41,7 +42,7 @@ static int		try_cdpath(char *path, char **cdpath, t_flag no_links)
 			continue ;
 		if (!(tmp = ft_pathjoin(cdpath[i], path)))
 			err_exit("42sh", "malloc() error", NULL, NOERROR);
-		if (!(ret = change_wdir(tmp, no_links)))
+		if (!(ret = change_wdir(tmp, no_links, environ)))
 		{
 			if (no_links)
 				ft_putendl(tmp);
@@ -55,7 +56,8 @@ static int		try_cdpath(char *path, char **cdpath, t_flag no_links)
 	return (ret);
 }
 
-int				cdpath_handle(char *path, t_flag no_links)
+int				cdpath_handle(char *path,
+t_flag no_links, char **environ)
 {
 	char	*var_val;
 	char	**cdpath;
@@ -63,11 +65,11 @@ int				cdpath_handle(char *path, t_flag no_links)
 
 	if (!ft_strncmp(path, ".", 1) || !ft_strncmp(path, "..", 2))
 		return (-1);
-	if (!(var_val = get_var("CDPATH", ALL_VARS)))
+	if (!(var_val = ft_getvar("CDPATH", environ)))
 		return (-1);
 	if (!(cdpath = ft_strsplit(var_val, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
-	ret = try_cdpath(path, cdpath, no_links);
+	ret = try_cdpath(path, cdpath, no_links, environ);
 	ft_free_dar(cdpath);
 	return (ret);
 }

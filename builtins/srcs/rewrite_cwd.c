@@ -69,7 +69,8 @@ static void	rewrite_cwd(char *path)
 		rewrite_global(ft_strsplit(path, '/'));
 }
 
-int			change_wdir(char *path, t_flag no_links)
+int			change_wdir(char *path, t_flag no_links,
+char **environ)
 {
 	char	*tmp;
 	int		ret;
@@ -90,7 +91,7 @@ int			change_wdir(char *path, t_flag no_links)
 			if (!(getcwd(g_cur_wd, PATH_MAX)))
 				err_exit("42sh", "getcwd() error", NULL, NOERROR);
 		}
-		set_var("OLDPWD", get_var("PWD", ENV), ENV);
+		set_var("OLDPWD", ft_getvar("PWD", environ), ENV);
 		set_var("PWD", g_cur_wd, ENV);
 	}
 	free(tmp);

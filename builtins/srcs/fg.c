@@ -12,12 +12,13 @@
 
 #include "builtins.h"
 
-void	fg(int argc, char **argv)
+void	fg(int argc, char **argv, char **environ)
 {
 	char	*tmp;
 	t_job	*j;
 	int		i;
 
+	(void)environ;
 	if (argc > 1)
 		i = ft_atoi(argv[1]);
 	else
