@@ -74,13 +74,14 @@ static char	*get_value(char *arg)
 	return (value);
 }
 
-int			export(int ac, char **av)
+int			export(int ac, char **av, char **environ)
 {
 	char	*name;
 	char	*value;
 	t_flag	print;
 
 	(void)ac;
+	(void)environ;
 	print = 0;
 	if (!(av = e_getopt(av, &print)))
 		return (2);

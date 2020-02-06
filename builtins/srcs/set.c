@@ -12,8 +12,9 @@
 
 #include "builtins.h"
 
-int	set(int ac, char **args)
+int	set(int ac, char **args, char **environ)
 {
+	(void)environ;
 	(void)ac;
 	(void)args;
 	ft_putdar(g_environ.vars);

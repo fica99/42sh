@@ -38,13 +38,14 @@ static void			print_hash(char **path)
 	}
 }
 
-int					hash(int ac, char **av)
+int					hash(int ac, char **av, char **environ)
 {
 	char	*env_path;
 	char	**path;
 
 	(void)ac;
 	(void)av;
+	(void)environ;
 	if (!(env_path = get_var("PATH", ENV)))
 		return (0);
 	if (!(path = ft_strsplit(env_path, ':')))

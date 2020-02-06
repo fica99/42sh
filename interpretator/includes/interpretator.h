@@ -26,7 +26,7 @@
 # define DEF_HEREDOC_SIZE 10
 # define CUR_D "."
 
-typedef	int			(*t_builtin)(int, char **);
+typedef	int			(*t_builtin)(int, char **, char **);
 typedef	int			(*t_redirect_func)(t_lex_tkn **, t_process *, int);
 
 typedef	struct		s_her_vars

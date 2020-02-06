@@ -33,8 +33,9 @@ static void	free_globar_var(void)
 	ft_free_dar(g_environ.vars);
 }
 
-int			exit_built(int ac, char **av)
+int			exit_built(int ac, char **av, char **environ)
 {
+	(void)environ;
 	if (ac > 2)
 	{
 		err("42sh", av[0], NULL, "too many arguments");

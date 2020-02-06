@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/06 17:16:46 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/06 19:56:36 by mmarti           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ typedef struct		s_fc
 **					cd.c
 */
 char				**check_flags(char **av, t_flag *no_links);
-int					cd(int ac, char **av);
+int					cd(int ac, char **av, char **environ);
 /*
 **					cdpath.c
 */
 void				remove_slashes(void);
-int					cdpath_handle(char *path, t_flag no_links);
+int					cdpath_handle(char *path, t_flag no_links, char **environ);
 /*
 **					rewrite_cwd.c
 */
 void				path_add(char *tmp);
-int					change_wdir(char *path, t_flag no_links);
+int					change_wdir(char *path, t_flag no_links, char **environ);
 /*
 **					pwd.c
 */
-int					pwd(int ac, char **av);
+int					pwd(int ac, char **av, char **environ);
 /*
 **					echo_eflag.c
 */
@@ -85,15 +85,15 @@ void				echo_text(char **argv, int i, int j);
 /*
 **					exit_built.c
 */
-int					exit_built(int ac, char **av);
+int					exit_built(int ac, char **av, char **environ);
 /*
 **					hash.c
 */
-int					hash(int ac, char **av);
+int					hash(int ac, char **av, char **environ);
 /*
 **					set.c
 */
-int					set(int ac, char **args);
+int					set(int ac, char **args, char **environ);
 /*
 **					fc.c
 */
@@ -109,7 +109,7 @@ void				fc_exec(t_fc *fc, char **environ);
 /*
 **					unset.c
 */
-int					unset(int ac, char **args);
+int					unset(int ac, char **args, char **environ);
 /*
 **					test.c
 */
@@ -140,7 +140,7 @@ int					iscomparison(char **argv);
 /*
 **					export.c
 */
-int					export(int ac, char **av);
+int					export(int ac, char **av, char **environ);
 /*
 **					type.c
 */
@@ -148,7 +148,7 @@ int					ft_type(int argc, char **argv, char **environ);
 /*
 **					set_var.c
 */
-int					set_variable(int ac, char **av);
+int					set_variable(int ac, char **av, char **environ);
 /*
 **					jobs.c
 */
