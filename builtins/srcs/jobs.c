@@ -58,8 +58,9 @@ static void		do_job_notification(t_job *start_job,
 	}
 }
 
-void			jobs(int argc, char **argv)
+void			jobs(int argc, char **argv, char **environ)
 {
+	(void)environ;
 	if (argc == 2)
 	{
 		if (!ft_strcmp(argv[1], "-l"))

@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+	/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
@@ -152,7 +152,7 @@ int					set_variable(int ac, char **av);
 /*
 **					jobs.c
 */
-void				jobs(int argc, char **argv);
+void				jobs(int argc, char **argv, char **environ);
 /*
 **					job_print.c
 */
@@ -168,9 +168,9 @@ void				ft_free_proc(t_process *p);
 /*
 **					fg.c
 */
-void				fg(int argc, char **argv);
+void				fg(int argc, char **argv, char **environ);
 /*
 **					bg.c
 */
-void				bg(int argc, char **argv);
+void				bg(int argc, char **argv, char **environ);
 #endif
