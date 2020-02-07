@@ -71,7 +71,7 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 void		launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	prep_proc(pgid, foreground, p);
-	if (!launch_builtin(p, FORK))
+	if (!launch_fork_builtin(p))
 	{
 		p->completed = 1;
 		close_pipes(p);

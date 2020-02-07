@@ -58,30 +58,39 @@ static void		save_fd(int *fd, int **redir)
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int				launch_builtin(t_process *p, int no_fork)
+int				launch_no_fork_builtin(t_process *p)
+{
+	int fd[3];
+	t_builtin func;
+
+	if (p->next)
+		return (-1);
+	if (!(func = (t_builtin)get_hash_data(g_builtins_hash_table.table,
+				p->args[0], g_builtins_hash_table.size)))
+		return (-1);
+	set_uniq_env(p);
+	ft_sub(p->args);
+	if (redir_handle(p) < 0)
+	{
+		restore_fd(fd);
+		p->exit_status = 1;
+		return (0);
+	}
+	save_fd(fd, p->fd_list);
+	dup_redir(p->fd_list);
+	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
+	restore_fd(fd);
+	return (0);
+}
+
+int				launch_fork_builtin(t_process *p)
 {
 	t_builtin	func;
-	int			fd[3];
 
-	if (p->next && no_fork)
-		return (-1);
 	if (!(func = (t_builtin)get_hash_data(g_builtins_hash_table.table,
 					p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	ft_sub(p->args);
-	if (no_fork)
-	{
-		if (redir_handle(p) < 0)
-		{
-			restore_fd(fd);
-			p->exit_status = 0;
-			return (1);
-		}
-		save_fd(fd, p->fd_list);
-		dup_redir(p->fd_list);
-	}
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
-	if (no_fork)
-		restore_fd(fd);
 	return (0);
 }
