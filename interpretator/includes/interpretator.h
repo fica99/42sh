@@ -72,7 +72,7 @@ int					launch_fork_builtin(t_process *p);
 /*
 **					launch_process.c
 */
-void				ft_sub(char **args);
+void				ft_sub(char **args, char **environment);
 void				launch_process(t_process *p, pid_t pgid, int foreground);
 /*
 **					make_redir.c

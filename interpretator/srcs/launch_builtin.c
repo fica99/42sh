@@ -69,7 +69,7 @@ int				launch_no_fork_builtin(t_process *p)
 				p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	set_uniq_env(p);
-	ft_sub(p->args);
+	ft_sub(p->args, p->environment);
 	if (redir_handle(p) < 0)
 	{
 		restore_fd(fd);
@@ -90,7 +90,6 @@ int				launch_fork_builtin(t_process *p)
 	if (!(func = (t_builtin)get_hash_data(g_builtins_hash_table.table,
 					p->args[0], g_builtins_hash_table.size)))
 		return (-1);
-	ft_sub(p->args);
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
 	return (0);
 }
