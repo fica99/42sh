@@ -60,8 +60,8 @@ static void		save_fd(int *fd, int **redir)
 
 int				launch_no_fork_builtin(t_process *p)
 {
-	int fd[3];
-	t_builtin func;
+	int			fd[3];
+	t_builtin	func;
 
 	if (p->next)
 		return (-1);

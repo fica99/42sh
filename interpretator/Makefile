@@ -63,6 +63,7 @@ SRC_FLS	=			add_redir.c\
 					spec_symb.c\
 					uniq_env.c\
 					init_jobs.c\
+					find_in_path.c
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #
