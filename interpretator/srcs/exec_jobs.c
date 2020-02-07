@@ -44,7 +44,7 @@ static int			log_check(t_job *j, t_job *last_job)
 	int			j_amount;
 	int			bad_exit;
 
-	if (j == last_job)
+	if (j == last_job || last_job->separator == 0)
 		return (0);
 	bad_exit = 0;
 	j_amount = 0;
