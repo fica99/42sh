@@ -22,13 +22,13 @@ static void		restore_fd(int *fd)
 	}
 	if (fd[1] > -1)
 	{
-		if (dup2(fd[1], 1) < 0)
+		if (dup2(fd[1], STDOUT_FILENO) < 0)
 			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		close(fd[1]);
 	}
 	if (fd[2] > -1)
 	{
-		if (dup2(fd[2], STDERR_FILENO))
+		if (dup2(fd[2], STDERR_FILENO) < 0)
 			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		close(fd[2]);
 	}
