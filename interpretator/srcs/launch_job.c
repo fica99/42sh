@@ -91,7 +91,7 @@ void			launch_job(t_job *j, int foreground)
 
 	check_builtin(&j);
 	p = j->first_process;
-	if (!launch_builtin(p, NO_FORK))
+	if (!launch_no_fork_builtin(p))
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);

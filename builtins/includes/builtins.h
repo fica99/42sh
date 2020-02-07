@@ -24,7 +24,7 @@
 # include "hash_tables.h"
 # include "ft_readline.h"
 # include "interpretator.h"
-# define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
+# define CD_USAGE "cd: usage: cd [-L|-P] [dir]\n"
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
 # define NO_INFO 0

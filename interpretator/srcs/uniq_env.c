@@ -44,10 +44,10 @@ static void		merge_env(char **shell_env, char **ue, int se_len)
 		if ((tmp = find_env(shell_env, *ue)))
 		{
 			free(*tmp);
-			*tmp = *ue;
+			*tmp = ft_strdup(*ue);
 		}
 		else
-			shell_env[se_len++] = *ue;
+			shell_env[se_len++] = ft_strdup(*ue);
 		ue++;
 	}
 }

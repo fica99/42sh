@@ -35,7 +35,8 @@ void		dup_redir(int **fd_list)
 	{
 		if ((*fd_list)[0] == -1)
 			close((*fd_list)[1]);
-		dup2((*fd_list)[0], (*fd_list)[1]);
+		if (dup2((*fd_list)[0], (*fd_list)[1]) < 0)
+			err_exit("42sh", "dup2() error", NULL, NOERROR);
 		fd_list++;
 	}
 }

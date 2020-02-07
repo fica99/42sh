@@ -33,12 +33,21 @@ static void	dup_pipes(t_process *p)
 	}
 }
 
-void		ft_sub(char **args)
+void		ft_sub(char **args, char **environ)
 {
+	(void)environ;
 	while (*args)
 	{
 		*args = spec_symbols(*args);
 		args++;
+	}
+	if (environ)
+	{
+		while (*environ)
+		{
+			*environ = spec_symbols(*environ);
+			environ++;
+		}
 	}
 }
 
@@ -66,12 +75,13 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 		exit(1);
 	dup_redir(p->fd_list);
 	set_uniq_env(p);
+	ft_sub(p->args, p->environment);
 }
 
 void		launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	prep_proc(pgid, foreground, p);
-	if (!launch_builtin(p, FORK))
+	if (!launch_fork_builtin(p))
 	{
 		p->completed = 1;
 		close_pipes(p);
@@ -80,7 +90,6 @@ void		launch_process(t_process *p, pid_t pgid, int foreground)
 	}
 	else
 	{
-		ft_sub(p->args);
 		if (execve(get_fname(p->args[0]), p->args, g_environ.vars) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
 		p->completed = 1;

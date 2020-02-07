@@ -92,7 +92,8 @@ int			cd(int ac, char **av, char **environ)
 	no_links = 0;
 	if (!(dir = check_flags(av, &no_links)))
 	{
-		err("42sh", av[0], CD_USAGE, "invalid option\n");
+		err("42sh", av[0], NULL, "invalid option");
+		ft_putstr(CD_USAGE);
 		return (-1);
 	}
 	if (no_links || access(g_cur_wd, F_OK))

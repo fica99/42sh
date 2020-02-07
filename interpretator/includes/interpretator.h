@@ -43,6 +43,11 @@ pid_t				g_job_pgid;
 int					g_shell_terminal;
 int					g_last_exit_status;
 pid_t				g_shell_pgid;
+
+/*
+**					find_in_path.c
+*/
+char				*find_in_path(char *filename, char **environ);
 /*
 **					exec_jobs.c
 */
@@ -62,11 +67,12 @@ void				launch_job(t_job *j, int foreground);
 /*
 **					launch_builtin.c
 */
-int					launch_builtin(t_process *p, int no_fork);
+int					launch_no_fork_builtin(t_process *p);
+int					launch_fork_builtin(t_process *p);
 /*
 **					launch_process.c
 */
-void				ft_sub(char **args);
+void				ft_sub(char **args, char **environment);
 void				launch_process(t_process *p, pid_t pgid, int foreground);
 /*
 **					make_redir.c
@@ -112,7 +118,6 @@ void				open_pipe(t_process *p, int *pipes);
 /*
 **					get_fname.c
 */
-char				*find_in_path(char *filename, char **environ);
 int					check_path_var(char *fname, char **environ);
 char				*get_fname(char *arg);
 /*
