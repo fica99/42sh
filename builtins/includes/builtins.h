@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/06 19:56:36 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/02/08 18:36:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,4 +173,8 @@ void				fg(int argc, char **argv, char **environ);
 **					bg.c
 */
 void				bg(int argc, char **argv, char **environ);
+/*
+**					alias.c
+*/
+int					alias(int argc, char **argv, char **environ);
 #endif

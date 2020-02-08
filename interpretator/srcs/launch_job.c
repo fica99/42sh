@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 14:16:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 15:27:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void			launch_job(t_job *j, int foreground)
 		put_job_in_foreground(j, 0);
 	else
 		put_job_in_background(j, 0);
-	set_var("\'?\'", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
+	set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
 	free(last_status);
 }
