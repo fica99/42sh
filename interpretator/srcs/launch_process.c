@@ -14,9 +14,6 @@
 
 static void	dup_pipes(t_process *p)
 {
-	if (p->next && p->next->inpipe)
-		if (close(p->next->inpipe) < 0)
-			err_exit("42sh", "close() error", NULL, NOERROR);
 	if (p->inpipe != STDIN_FILENO)
 	{
 		if (dup2(p->inpipe, STDIN_FILENO) < 0)
@@ -81,20 +78,10 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 void		launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	prep_proc(pgid, foreground, p);
-	if (!launch_fork_builtin(p))
-	{
-		p->completed = 1;
-		close_pipes(p);
-		cls_redir(p->fd_list);
-		exit(g_last_exit_status);
-	}
-	else
-	{
+	if (launch_fork_builtin(p))
 		if (execve(get_fname(p->args[0]), p->args, g_environ.vars) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
-		p->completed = 1;
-		close_pipes(p);
-		cls_redir(p->fd_list);
-		exit(g_last_exit_status);
-	}
+	p->completed = 1;
+	cls_redir(p->fd_list);
+	exit(g_last_exit_status);
 }
