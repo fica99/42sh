@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 15:13:29 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/08 18:50:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:39:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static char		print_alias(char *name)
 {
 	char	*value;
 
-	value = get_hash_data(g_aliases_hash_table.table, name,
-											g_aliases_hash_table.size);
+	value = ft_getvar(name, g_aliases.vars);
 	if (!value)
 	{
 		err("42sh", "alias", ENOTFND, name);
@@ -40,6 +39,8 @@ int				alias(int argc, char **argv, char **environ)
 
 	(void)environ;
 	(void)argc;
+	if (g_aliases.malloc_size == 0)
+		set_variables(&g_aliases, NULL, VAR_DEF_MALLOC_SIZE);
 	result = EXIT_SUCCESS;
 	while (*++argv)
 	{
@@ -51,8 +52,8 @@ int				alias(int argc, char **argv, char **environ)
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			if (!(value = ft_strdup(*argv + (eq - *argv) + 1)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-			push_hash(g_aliases_hash_table.table, name, value,
-											g_aliases_hash_table.size);
+			setvar(name, value, &g_aliases);
+			ft_strdel(&value);
 			ft_strdel(&name);
 		}
 	}

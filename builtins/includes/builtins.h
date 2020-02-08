@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/08 18:36:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:36:41 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,4 +177,9 @@ void				bg(int argc, char **argv, char **environ);
 **					alias.c
 */
 int					alias(int argc, char **argv, char **environ);
+/*
+**					unalias.c
+*/
+int					unalias(int argc, char **argv, char **environ);
+t_vars				g_aliases;
 #endif
