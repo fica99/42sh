@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:30:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 13:30:05 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,24 @@ static int				lex_not_inc_dec(t_lex_cs_type *os_filter,
 	return (0);
 }
 
-static int				lex_cs_valid(t_lex_cs_type filter_type,
+static t_lex_fc			lex_cs_valid(t_lex_cs_type filter_type,
 	t_lex_cs_type check_type, int check, size_t *offset)
 {
 	if (!offset)
-		return (0);
+		return (FR_ERR);
 	else if (check == -1 && filter_type == CS_D_ROUND_BRK
 		&& check_type == CS_ROUND_BRK)
-		return (2);
+		return (FR_DRBRK_OPEN);
 	else if (check == -1 && filter_type != check_type)
-		return (0);
+		return (FR_ERR);
 	else
 	{
 		(*offset) += (check_type == CS_D_ROUND_BRK) ? 2 : 1;
-		return (1);
+		return (FR_OK);
 	}
 }
 
-int						lex_cs_inc_dec(const char *str,
+t_lex_fc				lex_cs_inc_dec(const char *str,
 	int *cs_count, size_t *offset)
 {
 	int						check;
@@ -80,11 +80,11 @@ int						lex_cs_inc_dec(const char *str,
 	static size_t			filter_size;
 
 	if (!str || !cs_count)
-		return (0);
+		return (FR_ERR);
 	lex_init_cs_filter(&cs_filter, &filter_size);
 	check_type = lex_is_cs(str + *offset);
 	if (lex_not_inc_dec(cs_filter, *cs_count, check_type, offset))
-		return (1);
+		return (FR_OK);
 	check = lex_cs_stat(str + *offset);
 	if (lex_cs_check_open(check, cs_filter, *cs_count, check_type))
 		cs_filter[++(*cs_count)] = check_type;
@@ -92,8 +92,9 @@ int						lex_cs_inc_dec(const char *str,
 		(*cs_count)--;
 	if (*cs_count != -1 && (size_t)(*cs_count) >= filter_size - 1)
 		if (!lex_reloc_cs_filter(&cs_filter, &filter_size))
-			return (0);
+			return (FR_ERR);
 	if (*cs_count > -1)
 		return (lex_cs_valid(cs_filter[*cs_count], check_type, check, offset));
-	return (1);
+	(*offset) += (check_type == CS_D_ROUND_BRK) ? 2 : 1;
+	return (FR_OK);
 }

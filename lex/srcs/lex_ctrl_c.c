@@ -6,7 +6,7 @@
 /*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 20:17:48 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/06 16:24:10 by olegmulko        ###   ########.fr       */
+/*   Updated: 2020/02/08 11:40:07 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ t_lex_tkn_type	lex_ctrl_c(char **s1, char **s2)
 {
 	lex_clear_strs(s1, s2);
 	return (T_CTRL_C);
+}
+
+t_lex_fc		lex_cs_ctrl_c(char **s1, char **s2)
+{
+	lex_clear_strs(s1, s2);
+	return (FR_CTRL_C);
 }

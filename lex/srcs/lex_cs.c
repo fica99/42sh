@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/06 15:44:57 by olegmulko        ###   ########.fr       */
+/*   Updated: 2020/02/09 13:20:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,58 +26,69 @@ static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 		return (T_NULL);
 }
 
-static int				lex_cs_add_line(char **str, t_lex_cs_type type)
+static t_lex_fc			lex_cs_add_line(char **str, t_lex_cs_type type)
 {
 	char	*new_line;
 
 	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
 		if (!(*str = lex_add_eol(*str)))
-			return (0);
+			return (FR_ERR);
 	if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))
-		return (0);
+		return (FR_ERR);
 	if (*new_line == RL_K_CTRL_C)
-		return (lex_ctrl_c(str, &new_line));
+		return (lex_cs_ctrl_c(str, &new_line));
 	if (!(*str = lex_strjoin(*str, new_line)))
-		return (0);
-	return (1);
+		return (FR_ERR);
+	return (FR_OK);
 }
 
-static int				lex_is_cs_open(const char *str,
+static t_lex_fc			lex_is_cs_open(char **str,
 	int *cs_count, size_t *offset)
 {
-	int	inc_dec;
+	t_lex_fc	fr;
 
-	if (!str || !offset)
-		return (-1);
-	while (str[*offset])
+	if (!str || !*str || !offset)
+		return (FR_ERR);
+	fr = FR_OK;
+	while ((*str)[*offset])
 	{
-		if (!(inc_dec = lex_cs_inc_dec(str, cs_count, offset)))
-			return (-1);
-		if (inc_dec == 2)
-			return (1);
+		if ((fr = lex_bs(str, offset)) == FR_ERR)
+			return (FR_ERR);
+		if (fr == FR_CTRL_C)
+			return (FR_CTRL_C);
+		if (fr == FR_EOL)
+			return (FR_OK);
+		if ((fr = lex_cs_inc_dec(*str, cs_count, offset)) == FR_ERR)
+			return (FR_ERR);
+		if (fr == FR_DRBRK_OPEN)
+			return (FR_OK);
 		if (*cs_count == -1)
-			return (0);
+			return (FR_NULL);
 	}
-	return (1);
+	return (FR_OK);
 }
 
 t_lex_tkn_type			lex_cs(char **str, size_t *pos, t_lex_cs_type type)
 {
-	size_t	offset;
-	int		cs_count;
-	int		check;
+	size_t		offset;
+	int			cs_count;
+	t_lex_fc	fr;
 
 	if (!str || !pos)
 		return (T_ERR);
-	offset = 0;
+	offset = *pos;
 	cs_count = -1;
-	while ((check = lex_is_cs_open((*str) + *pos, &cs_count, &offset)) == 1)
+	while ((fr = lex_is_cs_open(str, &cs_count, &offset)) == FR_OK)
 	{
-		if (check == -1)
+		if (fr == FR_ERR)
 			return (T_ERR);
-		if (!lex_cs_add_line(str, type))
+		if (fr == FR_CTRL_C)
+			return (T_CTRL_C);
+		if ((fr = lex_cs_add_line(str, type)) == FR_ERR)
 			return (T_ERR);
+		if (fr == FR_CTRL_C)
+			return (T_CTRL_C);
 	}
-	(*pos) += offset + 1;
-	return ((check == -1) ? T_ERR : lex_cs_type(type));
+	(*pos) = offset;
+	return ((fr == FR_ERR) ? T_ERR : lex_cs_type(type));
 }

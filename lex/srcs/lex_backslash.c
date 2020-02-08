@@ -3,48 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   lex_backslash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/06 15:59:31 by olegmulko        ###   ########.fr       */
+/*   Updated: 2020/02/09 13:19:47 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-static void		lex_esc_char(const char *str, size_t *pos)
+static void			lex_esc_char(const char *str, size_t *pos)
 {
-	size_t	offset;
-
 	if (!str)
 		return ;
-	offset = *pos;
-	if (str[offset] == '\\')
-		offset++;
-	if (str[offset] == '"' || str[offset] == '\''
-		|| str[offset] == '`' || str[offset] == '\\')
-		*pos = offset + 1;
+	if (str[*pos] == '\\')
+		(*pos)++;
+	if (str[*pos] == '"' || str[*pos] == '\''
+		|| str[*pos] == '`' || str[*pos] == '\\')
+		(*pos)++;
 }
 
-static int		lex_add_line_bs(char **str)
+static t_lex_fc		lex_add_line_bs(char **str)
 {
-	char	*new_line;
+	char			*new_line;
 
-	if (!(*str = lex_add_eol(*str)))
-		return (-1);
 	if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))
-		return (-1);
+		return (FR_ERR);
 	if (*new_line == RL_K_CTRL_C)
-	{
-		lex_clear_strs(str, &new_line);
-		return (0);
-	}
+		return (lex_cs_ctrl_c(str, &new_line));
 	if (!(*str = lex_strjoin(*str, new_line)))
-		return (-1);
-	return (1);
+		return (FR_ERR);
+	return (FR_OK);
 }
 
-static int		lex_bs_is_fin(const char *str, size_t pos)
+static int			lex_bs_is_fin(const char *str, size_t pos)
 {
 	if (!str)
 		return (0);
@@ -60,19 +52,35 @@ static int		lex_bs_is_fin(const char *str, size_t pos)
 	return (0);
 }
 
-int				lex_check_bs(char **str, size_t *pos)
+t_lex_fc			lex_bs(char **str, size_t *pos)
 {
-	int	al_result;
+	t_lex_fc		al_result;
 
 	if (!str || !*str)
-		return (-1);
+		return (FR_ERR);
+	al_result = FR_OK;
 	if ((*str)[*pos] != '\\')
-		return (1);
+		return (FR_OK);
 	if (lex_bs_is_fin(*str, *pos))
-		if ((al_result = lex_add_line_bs(str)) == -1)
-			return (-1);
-	if (al_result == 0)
-		return (0);
+		if ((al_result = lex_add_line_bs(str)) == FR_ERR)
+			return (FR_ERR);
+	if (al_result == FR_CTRL_C)
+		return (FR_CTRL_C);
 	lex_esc_char(*str, pos);
-	return (1);
+	if (!(*str)[*pos])
+		return (FR_EOL);
+	return (FR_OK);
+}
+
+t_lex_tkn_type		lex_check_bs(char **str, size_t *pos)
+{
+	int				bs_result;
+
+	if (!(*str) || !pos)
+		return (T_ERR);
+	if ((bs_result = lex_bs(str, pos)) == FR_ERR)
+		return (T_ERR);
+	if (bs_result == FR_CTRL_C)
+		return (T_CTRL_C);
+	return (T_WORD);
 }
