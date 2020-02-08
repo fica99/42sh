@@ -59,4 +59,5 @@ void			unset_var(char *name, t_vars_type type);
 t_vars			g_environ;
 t_vars			g_vars;
 char			*g_cur_wd;
+t_vars			g_aliases;
 #endif

@@ -34,7 +34,7 @@ void			init_builtins_hash_table(void)
 	push_hash(g_builtins_hash_table.table, "test", &ft_test, BUILTINS_NB);
 	push_hash(g_builtins_hash_table.table, "unset", &unset, BUILTINS_NB);
 	push_hash(g_builtins_hash_table.table, "alias", &alias, BUILTINS_NB);
-	push_hash(g_builtins_hash_table.table, "unalias", &unalias, BUILTINS_NB);
+	//push_hash(g_builtins_hash_table.table, "unalias", &unalias, BUILTINS_NB);
 }
 
 static size_t	get_bin_table_size(char **path)

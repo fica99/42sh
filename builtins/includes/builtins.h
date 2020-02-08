@@ -181,5 +181,5 @@ int					alias(int argc, char **argv, char **environ);
 **					unalias.c
 */
 int					unalias(int argc, char **argv, char **environ);
-t_vars				g_aliases;
+
 #endif
