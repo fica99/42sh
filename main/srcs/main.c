@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 16:09:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:58:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	init_shell(char **environ)
 	init_variables(NULL, VARS);
 	init_bin_hash_table();
 	init_builtins_hash_table();
+	set_variables(&g_aliases, NULL, VAR_DEF_MALLOC_SIZE);
 	init_cwd();
 	set_var("?", "0", VARS);
 	if (!(get_var("PS1", ENV)))

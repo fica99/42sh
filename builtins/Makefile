@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/05 14:29:30 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 16:49:01 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/09 13:01:54 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,8 @@ SRC_FLS	=		cd.c\
 				ft_free_jobs.c\
 				fg.c\
 				bg.c\
+				alias.c\
+				unalias.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

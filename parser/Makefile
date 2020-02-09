@@ -50,6 +50,7 @@ SRC_FLS	=		errors.c\
 				parse.c\
 				add_process.c\
 				word_list.c\
+				alias_sub.c
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

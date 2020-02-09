@@ -73,6 +73,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_val_tkn_processing.c\
 				lex_substitutions.c\
 				lex_backslash.c\
+				lex_backslash2.c\
 				lex_preprocessing.c\
 				lex_expantions.c\
 				lex_debug.c\
