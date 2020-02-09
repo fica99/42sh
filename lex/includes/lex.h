@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 14:07:57 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 14:29:52 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef enum		e_lex_tkn_class
 	C_AND,
 	C_CONTROL_SUB,
 	C_SUB,
-	C_PREFIX_SUB,
 	C_NULL,
-	C_END
+	C_END,
+	C_PREFIX_SUB,
 }					t_lex_tkn_class;
 
 typedef enum		e_lex_cs_type
