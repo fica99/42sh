@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:53:31 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:33:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:10:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ static void			rl_autocom_set_builtins(char *builtins[15])
 	builtins[12] = "test";
 	builtins[13] = "exit";
 	builtins[14] = "pwd";
+	builtins[15] = "alias";
+	builtins[16] = "unalias";
 }
 
 char				**rl_autocom_bin(char *word)

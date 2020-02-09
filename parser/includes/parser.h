@@ -77,6 +77,10 @@ struct termios			g_shell_tmodes;
 t_job					*g_first_job;
 t_job					*g_last_job;
 /*
+**						alias_sub.c
+*/
+t_lex_tkn				**alias_sub(t_lex_tkn **token);
+/*
 **						make_ast.c
 */
 int						make_ast(t_lex_tkn **list, t_ast **root);

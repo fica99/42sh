@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:04:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 16:56:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 20:25:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char			**get_vars_names_dar(char *name, t_vars_type type)
 		return (ft_get_vars_names_dar(name, g_environ.vars));
 	else if (type == VARS)
 		return (ft_get_vars_names_dar(name, g_vars.vars));
-	return (ft_darjoin(ft_get_vars_names_dar(name, g_vars.vars),
+	return (ft_darjoin(ft_get_vars_names_dar(name, g_environ.vars),
 						ft_get_vars_names_dar(name, g_vars.vars)));
 }
 

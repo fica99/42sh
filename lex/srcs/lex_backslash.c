@@ -12,18 +12,22 @@
 
 #include "lex.h"
 
-static void			lex_esc_char(const char *str, size_t *pos)
+static t_lex_fr		lex_esc_char(char **str, size_t *pos)
 {
-	if (!str)
-		return ;
-	if (str[*pos] == '\\')
-		(*pos)++;
-	if (str[*pos] == '"' || str[*pos] == '\''
-		|| str[*pos] == '`' || str[*pos] == '\\')
-		(*pos)++;
+	if (!str || !*str)
+		return (FR_ERR);
+	if ((*str)[*pos] == '\\')
+		if ((*str)[(*pos) + 1] == '"' || (*str)[(*pos) + 1] == '\''
+			|| (*str)[(*pos) + 1] == '`' || (*str)[(*pos) + 1] == '\\')
+		{
+			if (!(*str = lex_del_backslash(*str, *pos)))
+				return (FR_ERR);
+			(*pos)++;
+		}
+	return (FR_OK);
 }
 
-static t_lex_fr		lex_add_line_bs(char **str)
+static t_lex_fr		lex_add_line_bs(char **str, size_t pos)
 {
 	char			*new_line;
 
@@ -31,6 +35,7 @@ static t_lex_fr		lex_add_line_bs(char **str)
 		return (FR_ERR);
 	if (*new_line == RL_K_CTRL_C)
 		return (lex_cs_ctrl_c(str, &new_line));
+	(*str)[pos] = '\0';
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
 	return (FR_OK);
@@ -40,8 +45,6 @@ static int			lex_bs_is_fin(const char *str, size_t pos)
 {
 	if (!str)
 		return (0);
-	while (ft_isspace(str[pos]))
-		pos++;
 	if (str[pos] != '\\')
 		return (0);
 	pos++;
@@ -62,11 +65,12 @@ t_lex_fr			lex_bs(char **str, size_t *pos)
 	if ((*str)[*pos] != '\\')
 		return (FR_OK);
 	if (lex_bs_is_fin(*str, *pos))
-		if ((al_result = lex_add_line_bs(str)) == FR_ERR)
+		if ((al_result = lex_add_line_bs(str, *pos)) == FR_ERR)
 			return (FR_ERR);
 	if (al_result == FR_CTRL_C)
 		return (FR_CTRL_C);
-	lex_esc_char(*str, pos);
+	if (lex_esc_char(str, pos) == FR_ERR)
+		return (FR_ERR);
 	if (!(*str)[*pos])
 		return (FR_EOL);
 	return (FR_OK);

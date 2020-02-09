@@ -218,11 +218,9 @@ size_t				lex_is_esc_dq(char *str, size_t pos);
 /*
 ** lex_single_quotes.c
 */
-
 t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
 int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
 size_t				lex_is_esc_sq(char *str, size_t pos);
-
 /*
 ** lex_back_quotes.c
 */
@@ -329,6 +327,12 @@ t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
 
 t_lex_fr			lex_bs(char **str, size_t *pos);
 t_lex_tkn_type		lex_check_bs(char **str, size_t *pos);
+
+/*
+** lex_backslash2.c
+*/
+
+char				*lex_del_backslash(char *str, size_t pos);
 
 /*
 ** lex_preprocessing.c

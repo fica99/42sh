@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:52:34 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/25 20:50:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:06:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,21 @@ void	rl_k_x_upper(t_readline *rl)
 
 void	rl_k_v(t_readline *rl)
 {
+	char	*nb;
+
 	if ((g_rl_flags & RL_HISTORY_SEARCH_FLAG) ||
 	(g_rl_flags & RL_HIGHLIGHT_FLAG))
 		rl_disable_line(rl);
+	rl_check_str_mem(&rl->line, "fc ");
+	ft_strcpy(rl->line.buffer, "fc ");
 	if (*rl->line.buffer)
+	{
 		add_to_history_buff(rl->line.buffer);
-	else
-		add_to_history_buff("Empty line? Seriosly?");
-	rl_check_str_mem(&rl->line, "fc");
-	ft_strcpy(rl->line.buffer, "fc");
+		nb = ft_itoa(get_hist_size());
+		rl_check_str_mem(&rl->line, nb);
+		ft_strcat(rl->line.buffer, nb);
+		ft_strdel(&nb);
+	}
 	rl_k_enter(rl);
 }
 

@@ -31,9 +31,7 @@ static int		lex_is_an_sep(char c)
 static t_lex_fr	lex_an_quotes(char **str, size_t *pos, int *err)
 {
 	t_lex_tkn_type	quotes_result;
-	size_t			start_pos;
 
-	start_pos = *pos;
 	if ((*str)[*pos] == '"')
 		quotes_result = lex_cs(str, pos, CS_DOUBLE_QUOTES);
 	else if ((*str)[*pos] == '\'')

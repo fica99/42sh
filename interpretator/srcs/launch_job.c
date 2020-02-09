@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 14:16:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 15:27:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ void			launch_job(t_job *j, int foreground)
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);
+		set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
+		free(last_status);
 		return ;
 	}
 	launch_loop(j, p, foreground);

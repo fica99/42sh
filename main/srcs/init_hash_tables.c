@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:01:44 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 16:54:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 12:54:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void			init_builtins_hash_table(void)
 	push_hash(g_builtins_hash_table.table, "export", &export, BUILTINS_NB);
 	push_hash(g_builtins_hash_table.table, "test", &ft_test, BUILTINS_NB);
 	push_hash(g_builtins_hash_table.table, "unset", &unset, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "alias", &alias, BUILTINS_NB);
+	push_hash(g_builtins_hash_table.table, "unalias", &unalias, BUILTINS_NB);
 }
 
 static size_t	get_bin_table_size(char **path)
