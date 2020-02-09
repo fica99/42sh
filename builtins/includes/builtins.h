@@ -28,6 +28,7 @@
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
 # define FC_FILE "42sh-fc-"
+# define UNALIAS_USAGE "unalias [-a] name [name ...]"
 # define NO_INFO 0
 # define EXPAND_INFO 1
 # define PID_INFO 2
@@ -174,4 +175,13 @@ void				fg(int argc, char **argv, char **environ);
 **					bg.c
 */
 void				bg(int argc, char **argv, char **environ);
+/*
+**					alias.c
+*/
+int					alias(int argc, char **argv, char **environ);
+/*
+**					unalias.c
+*/
+int					unalias(int argc, char **argv, char **environ);
+
 #endif

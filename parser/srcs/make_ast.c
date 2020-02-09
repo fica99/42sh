@@ -79,9 +79,12 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 {
 	int			curr_status;
 	int			old_status;
-	static int	rules[RULES_NUM][3] = {{0, 0, 0}, {0, 1, 0}, {1, 0, 0},
-	{0, 3, 3}, {3, 0, 0}, {3, 3, 3}, {2, 1, 1}, {2, 0, 0},
-	{0, 2, 2}, {0, 9, 0}, {0, 4, 4}, {4, 0, 0}, {3, 9, 3}, {4, 9, 4}};
+	static int	rules[RULES_NUM][3] = {{C_WORD, C_WORD, C_WORD}, {C_WORD, C_REDIR, C_WORD},
+	{C_REDIR, C_WORD, C_WORD}, {C_WORD, C_SEP, C_SEP}, {C_SEP, C_WORD, C_WORD},
+	{C_SEP, C_SEP, C_SEP}, {C_PIPE, C_REDIR, C_REDIR},
+	{C_PIPE, C_WORD, C_WORD}, {C_WORD, C_PIPE, C_PIPE},
+	{C_WORD, C_END, C_WORD}, {C_WORD, C_LOG_OPERS, C_LOG_OPERS},
+	{C_LOG_OPERS, C_WORD, C_WORD}, {C_SEP, C_END, C_SEP}, {C_LOG_OPERS, C_END, C_LOG_OPERS}};
 
 	curr_status = (*list)->class;
 	*root = new_node(list);

@@ -18,6 +18,7 @@ static void	init_shell(char **environ)
 	init_variables(NULL, VARS);
 	init_bin_hash_table();
 	init_builtins_hash_table();
+	set_variables(&g_aliases, NULL, VAR_DEF_MALLOC_SIZE);
 	init_cwd();
 	set_var("?", "0", VARS);
 	if (!(get_var("PS1", ENV)))

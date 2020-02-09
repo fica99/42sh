@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:50:06 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 14:15:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:27:43 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "variables.h"
 
-static void	set_variables(t_vars *vars, char **data, short malloc_size)
+void		set_variables(t_vars *vars, char **data, short malloc_size)
 {
 	short	i;
 

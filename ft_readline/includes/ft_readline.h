@@ -54,7 +54,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define HIGHLIGHT "\033[35;4m"
-# define RL_BUILTINS_COUNT 15
+# define RL_BUILTINS_COUNT 17
 
 typedef enum		e_rl_mode
 {
