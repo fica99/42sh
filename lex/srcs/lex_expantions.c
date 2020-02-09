@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_expantions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 18:28:52 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 18:53:43 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 22:43:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ t_lex_tkn_type	lex_expantions(char **str, short is_word, size_t *pos)
 	if (!(*str) || !pos)
 		return (T_ERR);
 	else if ((*str)[(*pos) + 1] != '{')
+	{
+		++(*pos);
 		return (T_WORD);
+	}
 	else if (is_word)
 		return (T_NULL);
 	else
