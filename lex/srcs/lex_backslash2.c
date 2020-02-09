@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_dol.c                                          :+:      :+:    :+:   */
+/*   lex_backslash2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/12 21:17:04 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:05:58 by ggrimes          ###   ########.fr       */
+/*   Created: 2020/02/09 14:47:02 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/02/09 15:17:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-t_lex_tkn_type	lex_check_dol(char **str, short is_word, size_t *pos)
+char	*lex_del_backslash(char *str, size_t pos)
 {
-	int			err;
+	char *new_str;
 
-	err = 0;
-	if (!str || !pos)
-		return (T_ERR);
-	else if (lex_is_control_sub(*str, is_word, pos, &err))
-		return (lex_control_sub(is_word, err));
-	else
-	{
-		(*pos)++;
-		return (T_WORD);
-	}
+	if (!str)
+		return (NULL);
+	str[pos] = '\0';
+	if (!(new_str = ft_strjoin(str, str + pos + 1)))
+		return (NULL);
+	free(str);
+	return (new_str);
 }

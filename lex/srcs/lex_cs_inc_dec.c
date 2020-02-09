@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 13:30:05 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 15:04:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int				lex_not_inc_dec(t_lex_cs_type *os_filter,
 	return (0);
 }
 
-static t_lex_fc			lex_cs_valid(t_lex_cs_type filter_type,
+static t_lex_fr			lex_cs_valid(t_lex_cs_type filter_type,
 	t_lex_cs_type check_type, int check, size_t *offset)
 {
 	if (!offset)
@@ -71,7 +71,7 @@ static t_lex_fc			lex_cs_valid(t_lex_cs_type filter_type,
 	}
 }
 
-t_lex_fc				lex_cs_inc_dec(const char *str,
+t_lex_fr				lex_cs_inc_dec(const char *str,
 	int *cs_count, size_t *offset)
 {
 	int						check;

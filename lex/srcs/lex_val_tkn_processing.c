@@ -3,34 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   lex_val_tkn_processing.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:35:34 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/05 14:12:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 17:15:45 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-static int		lex_is_one_clip(const char *str, size_t pos,
-													t_lex_tkn_type type)
+static int		lex_is_one_clip(t_lex_tkn_type type)
 {
-	if (!str)
-		return (0);
-	if (type == T_ROUND_SUB || type == T_FIGURE_SUB)
-		return (1);
-	else if (type == T_WORD
-		&& (str[pos] == '"' || str[pos] == '\'' || str[pos] == '`'))
+	if (type == T_ROUND_SUB || type == T_FIGURE_SUB || type == T_QUOTES)
 		return (1);
 	else
 		return (0);
 }
 
-static int		lex_is_double_clip(const char *str, size_t pos,
-													t_lex_tkn_type type)
+static int		lex_is_double_clip(t_lex_tkn_type type)
 {
-	(void)str;
-	(void)pos;
 	if (type == T_ARITH_SUB)
 		return (1);
 	return (0);
@@ -45,10 +36,11 @@ void			lex_clipping_tkn_value(t_lex_tkn *token, const char *str)
 
 	offset = 0;
 	lex_rewind_end_spases((char *)str, &token->end_pos);
-	if (lex_is_one_clip(str, token->start_pos, token->type))
+	if (lex_is_one_clip(token->type))
 		offset = 1;
-	else if (lex_is_double_clip(str, token->start_pos, token->type))
+	else if (lex_is_double_clip(token->type))
 		offset = 2;
+	token->type = (token->type == T_QUOTES) ? T_WORD : token->type;
 	start_pos = token->start_pos + offset;
 	end_pos = token->end_pos - offset;
 	len = end_pos - start_pos;
