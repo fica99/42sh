@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:04:49 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/08 20:31:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 23:00:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			exit_built(int ac, char **av, char **environ)
 	if (ac > 2)
 	{
 		err("42sh", av[0], NULL, "too many arguments");
-		return (-1);
+		return (EXIT_FAILURE);
 	}
 	free_readline();
 	free_globar_var();
@@ -50,6 +50,6 @@ int			exit_built(int ac, char **av, char **environ)
 		err("42sh", av[0], NULL, "numeric argument required");
 		exit(255);
 	}
-	exit(ft_atoi(av[1]));
+	exit((unsigned char)ft_atoi(av[1]));
 	return (0);
 }
