@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 19:02:38 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 21:20:04 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ void				lex_fill_value_pos(t_lex_tkn *token, char *str,
 		return ;
 	token->start_pos = start_pos;
 	token->end_pos = pos;
-	lex_clipping_tkn_value(token, str);
+	lex_parse_tkn_value(token, str);
 }

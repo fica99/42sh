@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/09 13:19:47 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 20:56:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void			lex_esc_char(const char *str, size_t *pos)
 		(*pos)++;
 }
 
-static t_lex_fc		lex_add_line_bs(char **str)
+static t_lex_fr		lex_add_line_bs(char **str)
 {
 	char			*new_line;
 
@@ -52,9 +52,9 @@ static int			lex_bs_is_fin(const char *str, size_t pos)
 	return (0);
 }
 
-t_lex_fc			lex_bs(char **str, size_t *pos)
+t_lex_fr			lex_bs(char **str, size_t *pos)
 {
-	t_lex_fc		al_result;
+	t_lex_fr		al_result;
 
 	if (!str || !*str)
 		return (FR_ERR);

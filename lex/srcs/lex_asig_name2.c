@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_ctrl_c.c                                       :+:      :+:    :+:   */
+/*   lex_asig_name2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/22 20:17:48 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 20:45:13 by ggrimes          ###   ########.fr       */
+/*   Created: 2020/02/09 20:57:41 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/02/09 21:57:05 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-void			lex_clear_strs(char **s1, char **s2)
+void	lex_an_cut_quotes(t_lex_tkn *token, const char *str)
 {
-	if (s1)
-	{
-		if (*s1)
-		{
-			free(*s1);
-			*s1 = NULL;
-		}
-	}
-	if (s2)
-	{
-		if (*s2)
-		{
-			free(*s2);
-			*s2 = NULL;
-		}
-	}
-}
+	size_t	pos;
+	size_t	i;
+	char	*new_str;
 
-t_lex_tkn_type	lex_ctrl_c(char **s1, char **s2)
-{
-	lex_clear_strs(s1, s2);
-	return (T_CTRL_C);
-}
-
-t_lex_fr		lex_cs_ctrl_c(char **s1, char **s2)
-{
-	lex_clear_strs(s1, s2);
-	return (FR_CTRL_C);
+	lex_rewind_end_spases((char *)str, &token->end_pos);
+	if (!(new_str = ft_strnew((token->end_pos) - (token->start_pos) - 2)))
+		return ;
+	i = 0;
+	pos = token->start_pos;
+	while (pos < token->end_pos)
+	{
+		if (str[pos] != '"' && str[pos] != '\'' && str[pos] != '`')
+			new_str[i++] = str[pos];
+		pos++;
+	}
+	token->value = new_str;
 }
