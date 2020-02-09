@@ -95,6 +95,8 @@ void			launch_job(t_job *j, int foreground)
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);
+		set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
+		free(last_status);
 		return ;
 	}
 	launch_loop(j, p, foreground);
