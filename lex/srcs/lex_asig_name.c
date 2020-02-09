@@ -6,11 +6,20 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 18:53:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 20:43:58 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
+
+static void		lex_an_name_is_valid(const char *str, size_t *pos, int *err)
+{
+	if (ft_isdigit(str[*pos]))
+	{
+		*err = 1;
+		(*pos)++;
+	}
+}
 
 static int		lex_is_an_sep(char c)
 {
@@ -19,34 +28,58 @@ static int		lex_is_an_sep(char c)
 	return (0);
 }
 
-int				lex_is_asig_name(char **str, short is_word, size_t *pos,
-	int *err)
+static t_lex_fr	lex_an_quotes(char **str, size_t *pos, int *err)
 {
-	size_t	i;
+	t_lex_tkn_type	quotes_result;
 
-	if (!str || !*str)
-		return (0);
-	i = *pos;
-	if (ft_isdigit((*str)[i]))
+	if ((*str)[*pos] == '"')
+		quotes_result = lex_cs(str, pos, CS_DOUBLE_QUOTES);
+	else if ((*str)[*pos] == '\'')
+		quotes_result = lex_cs(str, pos, CS_SINGLE_QUOTES);
+	else if ((*str)[*pos] == '`')
+		quotes_result = lex_cs(str, pos, CS_BACK_QUOTES);
+	else
+		quotes_result = T_ERR;
+	if (quotes_result == T_ERR)
 	{
 		*err = 1;
-		i++;
+		return (FR_ERR);
 	}
+	if (quotes_result == T_CTRL_C)
+		return (FR_CTRL_C);
+	return (FR_OK);
+}
+
+t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
+	int *err)
+{
+	size_t		i;
+	t_lex_fr	fr;
+
+	if (!str || !*str)
+		return (FR_ERR);
+	i = *pos;
+	lex_an_name_is_valid(*str, &i, err);
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	if ((*str)[i++] != '=')
-		return (0);
-	while ((*str)[i] && !lex_is_an_sep((*str)[i]))
-		i++;
+		return (FR_NULL);
+	if (lex_is_quotation_marks(*str, i))
+		fr = lex_an_quotes(str, &i, err);
+	else
+		while ((*str)[i] && !lex_is_an_sep((*str)[i]))
+			i++;
 	if (!is_word)
 		(*pos) = i;
-	return (1);
+	return (FR_OK);
 }
 
-t_lex_tkn_type	lex_asig_name(short is_word, int err)
+t_lex_tkn_type	lex_asig_name(short is_word, int err, t_lex_fr fr)
 {
-	if (err)
+	if (err || fr == FR_ERR)
 		return (T_ERR);
+	else if (fr == FR_CTRL_C)
+		return (T_CTRL_C);
 	if (is_word)
 		return (T_NULL);
 	return (T_ASSIGNMENT_WORD);
