@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 20:43:13 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 21:38:50 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,12 @@ t_lex_fr			lex_is_asig_name(char **str, short is_word, size_t *pos,
 t_lex_tkn_type		lex_asig_name(short is_word, int err, t_lex_fr fr);
 
 /*
+** lex_asig_name2.c
+*/
+
+void				lex_an_cut_quotes(t_lex_tkn *token, const char *str);
+
+/*
 ** lex_log_opers.c
 */
 
@@ -306,7 +312,7 @@ void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
 ** lex_val_tkn_processing.c
 */
 
-void				lex_clipping_tkn_value(t_lex_tkn *token, const char *str);
+void				lex_parse_tkn_value(t_lex_tkn *token, const char *str);
 
 /*
 ** lex_substitutions.c
