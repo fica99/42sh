@@ -84,7 +84,7 @@ void		launch_process(t_process *p, pid_t pgid, int foreground)
 {
 	prep_proc(pgid, foreground, p);
 	if (launch_fork_builtin(p))
-		if (execve(get_fname(p->args[0]), p->args, g_environ.vars) < 0)
+		if (execve(get_fname(p->args[0]), p->args, p->environment) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
 	p->completed = 1;
 	cls_redir(p->fd_list);
