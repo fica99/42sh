@@ -79,6 +79,7 @@ int				launch_no_fork_builtin(t_process *p)
 	save_fd(fd, p->fd_list);
 	dup_redir(p->fd_list);
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
+	g_last_exit_status = p->exit_status;
 	restore_fd(fd);
 	return (0);
 }
@@ -91,5 +92,6 @@ int				launch_fork_builtin(t_process *p)
 					p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
+	g_last_exit_status = p->exit_status;
 	return (0);
 }
