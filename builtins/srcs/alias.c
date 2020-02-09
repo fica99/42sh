@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 15:13:29 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 13:54:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 20:19:32 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,30 @@ static void		print_all_aliases(void)
 	ft_strdel(&name);
 }
 
+static char		is_invalid_name(char *name, char *value)
+{
+	char	result;
+
+	result = EXIT_SUCCESS;
+	if (!ft_strcmp(name, "-") || !ft_strcmp(name, "/") ||
+	!ft_strcmp(name, "="))
+	{
+		err("42sh", "alias", "invalid alias name", name);
+		result = EXIT_FAILURE;
+	}
+	else
+	{
+		if (*name)
+			setvar(name, value, &g_aliases);
+		else
+		{
+			err("42sh", "alias", ENOTFND, name);
+			result = EXIT_FAILURE;
+		}
+	}
+	return (result);
+}
+
 int				alias(int argc, char **argv, char **environ)
 {
 	char			*eq;
@@ -61,7 +85,7 @@ int				alias(int argc, char **argv, char **environ)
 	result = EXIT_SUCCESS;
 	while (*++argv)
 	{
-		if (!(eq = ft_strchr(*argv, '=')))
+		if (!(eq = ft_strrchr(*argv, '=')))
 			result = print_alias(*argv);
 		else
 		{
@@ -69,7 +93,7 @@ int				alias(int argc, char **argv, char **environ)
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			if (!(value = ft_strdup(*argv + (eq - *argv) + 1)))
 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-			setvar(name, value, &g_aliases);
+			result = is_invalid_name(name, value);
 			ft_strdel(&value);
 			ft_strdel(&name);
 		}
