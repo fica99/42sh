@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 17:15:36 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 18:20:03 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type,
 t_lex_tkn_class				lex_check_class(t_lex_tkn_type type,
 	t_lex_prefix_prop prefix_prop)
 {
-	if (type == T_WORD || type == T_IO_NUMBER)
+	if (type == T_WORD || type == T_IO_NUMBER || type == T_QUOTES)
 		return (C_WORD);
 	else if (type == T_ASSIGNMENT_WORD)
 		return (C_WORD);

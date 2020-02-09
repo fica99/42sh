@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/09 17:16:31 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/09 18:41:37 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_backslash.c\
 				lex_backslash2.c\
 				lex_preprocessing.c\
+				lex_expantions.c\
 				lex_debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #

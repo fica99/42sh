@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 17:24:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 18:53:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ t_lex_tkn_type		lex_ionum(short is_word);
 ** lex_asig_name.c
 */
 
-int					lex_is_asig_name(char *str, short is_word, size_t *pos,
+int					lex_is_asig_name(char **str, short is_word, size_t *pos,
 	int *err);
 t_lex_tkn_type		lex_asig_name(short is_word, int err);
 
@@ -334,6 +334,12 @@ char				*lex_del_backslash(char *str, size_t pos);
 
 void				lex_preprocessing(const char *str, size_t *pos,
 	t_lex_prefix_prop *prefix_prop);
+
+/*
+** lex_expantions.c
+*/
+
+t_lex_tkn_type		lex_expantions(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_debug.c

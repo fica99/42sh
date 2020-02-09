@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_quotation_marks.c                              :+:      :+:    :+:   */
+/*   lex_expantions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/19 14:21:40 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 17:50:21 by ggrimes          ###   ########.fr       */
+/*   Created: 2020/02/09 18:28:52 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/02/09 18:53:43 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-int				lex_is_quotation_marks(char *str, size_t pos)
+t_lex_tkn_type	lex_expantions(char **str, short is_word, size_t *pos)
 {
-	if (str[pos] == '"' || str[pos] == '`' || str[pos] == '\'')
-		return (1);
-	return (0);
-}
+	t_lex_tkn_type	result;
 
-t_lex_tkn_type	lex_quotation_marks(char **str, short is_word, size_t *pos)
-{
 	if (!(*str) || !pos)
 		return (T_ERR);
-	if (is_word)
+	else if ((*str)[(*pos) + 1] != '{')
+		return (T_WORD);
+	else if (is_word)
 		return (T_NULL);
-	else if ((*str)[*pos] == '"')
-		return (lex_cs(str, pos, CS_DOUBLE_QUOTES));
-	else if ((*str)[*pos] == '\'')
-		return (lex_cs(str, pos, CS_SINGLE_QUOTES));
-	else if ((*str)[*pos] == '`')
-		return (lex_cs(str, pos, CS_BACK_QUOTES));
 	else
-		return (T_ERR);
+	{
+		(*pos)++;
+		if ((result = lex_cs(str, pos, CS_FIGURE_BRK)) == T_FIGURE_SUB)
+			return (T_WORD);
+		return (result);
+	}
 }

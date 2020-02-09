@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:37:30 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/19 15:15:27 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 17:36:55 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_lex_tkn_type	lex_check_alnum(char **str, short is_word, size_t *pos)
 	err = 0;
 	if (lex_is_ionum(*str, is_word, pos))
 		return (lex_ionum(is_word));
-	else if (lex_is_asig_name(*str, is_word, pos, &err))
+	else if (lex_is_asig_name(str, is_word, pos, &err))
 		return (lex_asig_name(is_word, err));
 	else
 	{

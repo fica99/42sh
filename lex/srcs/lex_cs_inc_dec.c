@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 15:04:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 18:54:30 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ static int				lex_not_inc_dec(t_lex_cs_type *os_filter,
 	int os_count, t_lex_cs_type check_type, size_t *offset)
 {
 	if (check_type == CS_NULL || (os_count > -1 && lex_cs_is_brk(check_type)
-		&& lex_cs_is_quotes(os_filter[os_count])))
+		&& lex_cs_is_quotes(os_filter[os_count])) || (os_count > -1
+		&& lex_cs_is_quotes(os_filter[os_count])
+		&& os_filter[os_count] != check_type))
 	{
 		(*offset) += (check_type == CS_D_ROUND_BRK) ? 2 : 1;
 		return (1);
