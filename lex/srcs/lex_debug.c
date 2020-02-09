@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 17:55:11 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:16:48 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 14:11:44 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	lex_print_class(t_lex_tkn_class class)
 		ft_putstr("CONTROL_SUB\n");
 	else if (class == C_SUB)
 		ft_putstr("SUB\n");
+	else if (class == C_PREFIX_SUB)
+		ft_putstr("PREFIX_SUB\n");
 	else if (class == C_AND)
 		ft_putstr("AND\n");
 	else

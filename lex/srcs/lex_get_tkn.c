@@ -6,19 +6,11 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:01:53 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 14:07:17 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
-
-static void			rewind_spases(char *str, size_t *pos)
-{
-	if (!str || !pos)
-		return ;
-	while (str[*pos] == ' ')
-		(*pos)++;
-}
 
 void				lex_rewind_end_spases(char *str, size_t *pos)
 {
@@ -30,14 +22,15 @@ void				lex_rewind_end_spases(char *str, size_t *pos)
 
 t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 {
-	size_t			start_pos;
-	t_lex_tkn_type	type;
-	t_lex_tkn		*token;
-	short			is_word;
+	size_t				start_pos;
+	t_lex_tkn_type		type;
+	t_lex_tkn			*token;
+	short				is_word;
+	t_lex_prefix_prop	prefix_prop;
 
 	if (!str || !(*str))
 		return (NULL);
-	rewind_spases(*str, &pos);
+	lex_preprocessing(*str, &pos, &prefix_prop);
 	start_pos = pos;
 	while (1)
 	{
@@ -51,7 +44,7 @@ t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 	if (!(token = lex_new_tkn()))
 		return (NULL);
 	token->type = (type == T_NULL) ? T_WORD : type;
-	token->class = lex_check_class(token->type);
+	token->class = lex_check_class(token->type, prefix_prop);
 	lex_fill_value_pos(token, *str, start_pos, pos);
 	return (token);
 }
