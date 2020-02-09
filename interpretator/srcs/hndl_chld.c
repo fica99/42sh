@@ -12,6 +12,18 @@
 
 #include "interpretator.h"
 
+static void		kill_info(t_process *p, int status)
+{
+	char *s_status;
+
+	s_status = ft_itoa(status);
+	ft_putstr(p->args[0]);
+	ft_putstr(" killed by signal ");
+	ft_putstr(s_status);
+	ft_putstr("\n");
+	ft_strdel(&s_status);
+}
+
 static void		mark_process_pid(t_process **p, int status)
 {
 	if (WIFSTOPPED(status))
@@ -20,7 +32,11 @@ static void		mark_process_pid(t_process **p, int status)
 		err("42sh", "suspended", (*p)->args[0], NOERROR);
 	}
 	else
+	{
 		(*p)->completed = 1;
+		if (WIFSIGNALED(status))
+			kill_info(*p, WTERMSIG(status));
+	}
 }
 
 int				mark_process_status(pid_t pid, int status)
