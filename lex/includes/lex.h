@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 18:53:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 20:43:13 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,9 +240,9 @@ t_lex_tkn_type		lex_ionum(short is_word);
 ** lex_asig_name.c
 */
 
-int					lex_is_asig_name(char **str, short is_word, size_t *pos,
+t_lex_fr			lex_is_asig_name(char **str, short is_word, size_t *pos,
 	int *err);
-t_lex_tkn_type		lex_asig_name(short is_word, int err);
+t_lex_tkn_type		lex_asig_name(short is_word, int err, t_lex_fr fr);
 
 /*
 ** lex_log_opers.c
