@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 21:45:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:58:10 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 20:30:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ short			get_index_var(char *arr, char **vars)
 	return (-1);
 }
 
-static void		setvar(char *name, char *value, t_vars *vars)
+void			setvar(char *name, char *value, t_vars *vars)
 {
 	short	j;
 	char	**vars_cp;

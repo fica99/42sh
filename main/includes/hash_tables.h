@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hash_tables.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:59:16 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 16:59:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 12:54:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "variables.h"
 # include "error.h"
 # define PREV_CUR_DIR_NB 2
-# define BUILTINS_NB 15
+# define BUILTINS_NB 17
 
 typedef struct	s_table
 {

@@ -14,6 +14,11 @@
 
 static void	dup_pipes(t_process *p)
 {
+	if (p->next && p->next->inpipe)
+	{
+		if (close(p->next->inpipe) < 0)
+			err_exit("42sh", "close() error", NULL, NOERROR);
+	}
 	if (p->inpipe != STDIN_FILENO)
 	{
 		if (dup2(p->inpipe, STDIN_FILENO) < 0)

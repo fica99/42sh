@@ -26,7 +26,7 @@ static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 		return (T_NULL);
 }
 
-static t_lex_fc			lex_cs_add_line(char **str, t_lex_cs_type type)
+static t_lex_fr			lex_cs_add_line(char **str, t_lex_cs_type type)
 {
 	char	*new_line;
 
@@ -42,10 +42,10 @@ static t_lex_fc			lex_cs_add_line(char **str, t_lex_cs_type type)
 	return (FR_OK);
 }
 
-static t_lex_fc			lex_is_cs_open(char **str,
+static t_lex_fr			lex_is_cs_open(char **str,
 	int *cs_count, size_t *offset)
 {
-	t_lex_fc	fr;
+	t_lex_fr	fr;
 
 	if (!str || !*str || !offset)
 		return (FR_ERR);
@@ -72,7 +72,7 @@ t_lex_tkn_type			lex_cs(char **str, size_t *pos, t_lex_cs_type type)
 {
 	size_t		offset;
 	int			cs_count;
-	t_lex_fc	fr;
+	t_lex_fr	fr;
 
 	if (!str || !pos)
 		return (T_ERR);

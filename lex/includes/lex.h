@@ -93,7 +93,7 @@ typedef enum		e_lex_fr
 	FR_CTRL_C,
 	FR_DRBRK_OPEN,
 	FR_EOL,
-}					t_lex_fc;
+}					t_lex_fr;
 
 typedef struct		s_lex_tkn
 {
@@ -218,11 +218,9 @@ size_t				lex_is_esc_dq(char *str, size_t pos);
 /*
 ** lex_single_quotes.c
 */
-
 t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
 int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
 size_t				lex_is_esc_sq(char *str, size_t pos);
-
 /*
 ** lex_back_quotes.c
 */
@@ -268,7 +266,7 @@ t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
 void				lex_clear_strs(char **s1, char **s2);
-t_lex_fc			lex_cs_ctrl_c(char **s1, char **s2);
+t_lex_fr			lex_cs_ctrl_c(char **s1, char **s2);
 
 /*
 ** lex_cs.c
@@ -291,7 +289,7 @@ int					lex_cs_check_close(int check, t_lex_cs_type	*cs_filter,
 ** lex_cs_inc_dec.c
 */
 
-t_lex_fc			lex_cs_inc_dec(const char *str, int *cs_count,
+t_lex_fr			lex_cs_inc_dec(const char *str, int *cs_count,
 	size_t *offset);
 
 /*
@@ -321,8 +319,14 @@ t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
 ** lex_backslash.c
 */
 
-t_lex_fc			lex_bs(char **str, size_t *pos);
+t_lex_fr			lex_bs(char **str, size_t *pos);
 t_lex_tkn_type		lex_check_bs(char **str, size_t *pos);
+
+/*
+** lex_backslash2.c
+*/
+
+char				*lex_del_backslash(char *str, size_t pos);
 
 /*
 ** lex_preprocessing.c
