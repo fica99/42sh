@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:47:49 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/03 22:32:44 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:58:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_readline.h"
 
-void	rl_get_hist_size(t_rl_history *history)
+void		rl_get_hist_size(t_rl_history *history)
 {
 	if ((history->histfilesize = ft_atoi(get_var("HISTFILESIZE", VARS))) < 0)
 		history->histfilesize = 0;
@@ -20,7 +20,7 @@ void	rl_get_hist_size(t_rl_history *history)
 		history->histsize = 0;
 }
 
-void	rl_check_history_size(t_rl_history *history)
+void		rl_check_history_size(t_rl_history *history)
 {
 	int	histsize;
 
@@ -33,11 +33,13 @@ void	rl_check_history_size(t_rl_history *history)
 	}
 }
 
-char	rl_is_all_spaces(char *line)
+static char	rl_is_all_spaces(char *line)
 {
 	size_t	i;
 
 	i = 0;
+	if (ft_strstr(line, "fc"))
+		return (TRUE);
 	while (line[i])
 	{
 		if (!ft_isspace(line[i]))
@@ -47,7 +49,7 @@ char	rl_is_all_spaces(char *line)
 	return (TRUE);
 }
 
-void	add_to_history_buff(char *line)
+void		add_to_history_buff(char *line)
 {
 	int			i;
 	char		*nl;
