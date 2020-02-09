@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/27 18:53:32 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 18:53:50 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,24 @@ static int		lex_is_an_sep(char c)
 	return (0);
 }
 
-int				lex_is_asig_name(char *str, short is_word, size_t *pos,
+int				lex_is_asig_name(char **str, short is_word, size_t *pos,
 	int *err)
 {
 	size_t	i;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	i = *pos;
-	if (ft_isdigit(str[i]))
+	if (ft_isdigit((*str)[i]))
 	{
 		*err = 1;
 		i++;
 	}
-	while (ft_isalnum(str[i]) || str[i] == '_')
+	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
-	if (str[i] != '=')
+	if ((*str)[i++] != '=')
 		return (0);
-	else
-		i++;
-	while (str[i] && !lex_is_an_sep(str[i]))
+	while ((*str)[i] && !lex_is_an_sep((*str)[i]))
 		i++;
 	if (!is_word)
 		(*pos) = i;

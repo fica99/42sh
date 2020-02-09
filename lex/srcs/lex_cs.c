@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 13:20:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 18:12:56 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 {
-	if (type <= CS_DOUBLE_QUOTES && type >= CS_BACK_QUOTES)
-		return (T_WORD);
+	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
+		return (T_QUOTES);
 	else if (type == CS_ROUND_BRK)
 		return (T_ROUND_SUB);
 	else if (type == CS_FIGURE_BRK)
