@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 17:05:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 15:47:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,35 @@ static void		fc_print_list(t_fc *fc)
 	ft_free_dar(line);
 }
 
+static char		*fc_get_path(char **environ)
+{
+	char	*random;
+	char	*path;
+	char	*tmp;
+
+	if (!(path = ft_getvar("TMPDIR", environ)))
+		path = "/tmp/";
+	if (!(tmp = ft_strjoin(path, FC_FILE)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	if (!(random = ft_itoa(rand())))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	if (!(path = ft_strjoin(tmp, random)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	ft_strdel(&tmp);
+	ft_strdel(&random);
+	return (path);
+}
+
 void			fc_exec(t_fc *fc, char **environ)
 {
 	char	*path;
 	char	*line;
-	char	*random;
 
 	if (fc->flag_l)
 		fc_print_list(fc);
 	else
 	{
-		if (!(path = ft_getvar("TMPDIR", environ)))
-			path = "/tmp/";
-		random = ft_itoa(rand());
-		path = ft_strjoin(path, random);
-		ft_strdel(&random);
+		path = fc_get_path(environ);
 		fc_write_commands(fc->first_i, fc->last_i, path);
 		if (!(line = ft_strnew(ft_strlen(path) + ft_strlen(fc->editor) + 1)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
@@ -102,8 +116,7 @@ void			fc_exec(t_fc *fc, char **environ)
 		ft_strdel(&line);
 		line = ft_read_file(path);
 		ft_strdel(&path);
-		if (g_last_exit_status == 0)
-			ft_system(&line);
-		ft_strdel(&line);
+		ft_putendl(line);
+		ft_system(&line);
 	}
 }
