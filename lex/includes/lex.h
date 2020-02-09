@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/08 12:29:14 by olegmulko        ###   ########.fr       */
+/*   Updated: 2020/02/09 14:07:57 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef enum		e_lex_tkn_class
 	C_AND,
 	C_CONTROL_SUB,
 	C_SUB,
+	C_PREFIX_SUB,
 	C_NULL,
 	C_END
 }					t_lex_tkn_class;
@@ -71,6 +72,13 @@ typedef enum		e_lex_cs_type
 	CS_FIGURE_BRK,
 	CS_D_ROUND_BRK,
 }					t_lex_cs_type;
+
+typedef enum		e_lex_prefix_prop
+{
+	PP_NULL,
+	PP_ALL,
+	PP_PREFIX,
+}					t_lex_prefix_prop;
 
 /*
 ** fr - function result
@@ -153,7 +161,8 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos);
 ** lex_tkn_class.c
 */
 
-t_lex_tkn_class		lex_check_class(t_lex_tkn_type type);
+t_lex_tkn_class		lex_check_class(t_lex_tkn_type type,
+	t_lex_prefix_prop prefix_prop);
 
 /*
 ** lex_check_or.c
@@ -329,6 +338,13 @@ t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
 
 t_lex_fc			lex_bs(char **str, size_t *pos);
 t_lex_tkn_type		lex_check_bs(char **str, size_t *pos);
+
+/*
+** lex_preprocessing.c
+*/
+
+void				lex_preprocessing(const char *str, size_t *pos,
+	t_lex_prefix_prop *prefix_prop);
 
 /*
 ** lex_debug.c

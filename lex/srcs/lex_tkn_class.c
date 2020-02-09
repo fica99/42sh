@@ -3,16 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   lex_tkn_class.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/06 16:21:36 by olegmulko        ###   ########.fr       */
+/*   Updated: 2020/02/09 14:15:03 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
+static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type,
+	t_lex_prefix_prop prefix_prop)
+{
+	if (prefix_prop == PP_ALL
+		&& type >= T_ROUND_SUB && type <= T_ARITH_SUB)
+		return (C_SUB);
+	else if (prefix_prop == PP_PREFIX
+		&& type >= T_ROUND_SUB && type <= T_ARITH_SUB)
+		return (C_PREFIX_SUB);
+	else if (type == T_END)
+		return (C_END);
+	else
+		return (C_NULL);
+}
+
+t_lex_tkn_class				lex_check_class(t_lex_tkn_type type,
+	t_lex_prefix_prop prefix_prop)
 {
 	if (type == T_WORD || type == T_IO_NUMBER)
 		return (C_WORD);
@@ -30,10 +46,6 @@ t_lex_tkn_class		lex_check_class(t_lex_tkn_type type)
 		return (C_SEP);
 	else if (type == T_CONTROL_SUB)
 		return (C_WORD);
-	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
-		return (C_SUB);
-	else if (type == T_END)
-		return (C_END);
 	else
-		return (C_NULL);
+		return (lex_check_class_next(type, prefix_prop));
 }
