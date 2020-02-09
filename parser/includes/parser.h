@@ -79,7 +79,7 @@ t_job					*g_last_job;
 /*
 **						alias_sub.c
 */
-void					alias_sub(t_lex_tkn **token);
+t_lex_tkn				**alias_sub(t_lex_tkn **token);
 /*
 **						make_ast.c
 */

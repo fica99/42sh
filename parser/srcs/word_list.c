@@ -107,7 +107,7 @@ void		h_ass_words(t_lex_tkn **list, t_process *p)
 		p->environment = v.varlist;
 	else
 		return (add_set_var_proc(v.varlist, p, list));
-	return (word_list(list, p));
+	return (word_list(alias_sub(list), p));
 }
 
 void		word_list(t_lex_tkn **list, t_process *cur_proc)

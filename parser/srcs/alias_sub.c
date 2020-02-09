@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-void	alias_sub(t_lex_tkn **token)
+t_lex_tkn	**alias_sub(t_lex_tkn **token)
 {
 	char *val;
 
@@ -22,4 +22,5 @@ void	alias_sub(t_lex_tkn **token)
 		if (!((*token)->value = ft_strdup(val)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	}
+	return (token);
 }
