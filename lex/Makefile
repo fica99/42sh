@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/09 13:47:52 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/09 17:16:31 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,8 +59,6 @@ SRC_FLS	=		lex_lexer.c\
 				lex_quotation_marks.c\
 				lex_io_num.c\
 				lex_asig_name.c\
-				lex_dol.c\
-				lex_con_sub.c\
 				lex_log_opers.c\
 				lex_check_and.c\
 				lex_str.c\
@@ -75,6 +73,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_val_tkn_processing.c\
 				lex_substitutions.c\
 				lex_backslash.c\
+				lex_backslash2.c\
 				lex_preprocessing.c\
 				lex_debug.c\
 

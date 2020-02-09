@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 13:20:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 16:06:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 {
-	if (type <= CS_DOUBLE_QUOTES && type >= CS_BACK_QUOTES)
-		return (T_WORD);
+	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
+		return (T_QUOTES);
 	else if (type == CS_ROUND_BRK)
 		return (T_ROUND_SUB);
 	else if (type == CS_FIGURE_BRK)
@@ -26,7 +26,7 @@ static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 		return (T_NULL);
 }
 
-static t_lex_fc			lex_cs_add_line(char **str, t_lex_cs_type type)
+static t_lex_fr			lex_cs_add_line(char **str, t_lex_cs_type type)
 {
 	char	*new_line;
 
@@ -42,10 +42,10 @@ static t_lex_fc			lex_cs_add_line(char **str, t_lex_cs_type type)
 	return (FR_OK);
 }
 
-static t_lex_fc			lex_is_cs_open(char **str,
+static t_lex_fr			lex_is_cs_open(char **str,
 	int *cs_count, size_t *offset)
 {
-	t_lex_fc	fr;
+	t_lex_fr	fr;
 
 	if (!str || !*str || !offset)
 		return (FR_ERR);
@@ -72,7 +72,7 @@ t_lex_tkn_type			lex_cs(char **str, size_t *pos, t_lex_cs_type type)
 {
 	size_t		offset;
 	int			cs_count;
-	t_lex_fc	fr;
+	t_lex_fr	fr;
 
 	if (!str || !pos)
 		return (T_ERR);
