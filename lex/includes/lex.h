@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/05 16:57:37 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 12:29:14 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ typedef enum		e_lex_cs_type
 	CS_FIGURE_BRK,
 	CS_D_ROUND_BRK,
 }					t_lex_cs_type;
+
+/*
+** fr - function result
+*/
+
+typedef enum		e_lex_fr
+{
+	FR_NULL,
+	FR_OK,
+	FR_ERR,
+	FR_CTRL_C,
+	FR_DRBRK_OPEN,
+	FR_EOL,
+}					t_lex_fc;
 
 typedef struct		s_lex_tkn
 {
@@ -259,6 +273,8 @@ t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 */
 
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
+void				lex_clear_strs(char **s1, char **s2);
+t_lex_fc			lex_cs_ctrl_c(char **s1, char **s2);
 
 /*
 ** lex_cs.c
@@ -281,7 +297,7 @@ int					lex_cs_check_close(int check, t_lex_cs_type	*cs_filter,
 ** lex_cs_inc_dec.c
 */
 
-int					lex_cs_inc_dec(const char *str, int *cs_count,
+t_lex_fc			lex_cs_inc_dec(const char *str, int *cs_count,
 	size_t *offset);
 
 /*
@@ -306,5 +322,21 @@ void				lex_clipping_tkn_value(t_lex_tkn *token, const char *str);
 
 int					lex_is_brk(char c);
 t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
+
+/*
+** lex_backslash.c
+*/
+
+t_lex_fc			lex_bs(char **str, size_t *pos);
+t_lex_tkn_type		lex_check_bs(char **str, size_t *pos);
+
+/*
+** lex_debug.c
+*/
+
+void				lex_print_class(t_lex_tkn_class class);
+void				lex_print_type(t_lex_tkn_type type);
+void				lex_print_tkn(t_lex_tkn *token);
+void				lex_print_tkns(t_lex_tkn **tokens);
 
 #endif

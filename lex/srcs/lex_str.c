@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_str.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: olegmulko <olegmulko@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 17:45:59 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/21 21:12:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/06 16:23:41 by olegmulko        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,4 @@ char	*lex_add_eol(char *str)
 		return (NULL);
 	free(str);
 	return (result_str);
-}
-
-void	lex_clear_strs(char **s1, char **s2)
-{
-	if (s1)
-	{
-		if (*s1)
-		{
-			free(*s1);
-			*s1 = NULL;
-		}
-	}
-	if (s2)
-	{
-		if (*s2)
-		{
-			free(*s2);
-			*s2 = NULL;
-		}
-	}
 }

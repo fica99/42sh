@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/01/30 22:35:52 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 13:20:20 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static t_lex_tkn_type	lex_check_type_next(char **str,
 	short is_word, size_t *pos)
 {
-	if ((*str)[*pos] == ';')
+	if ((*str)[*pos] == '\\')
+		return (lex_check_bs(str, pos));
+	else if ((*str)[*pos] == ';')
 		return (lex_check_sep(str, is_word, pos));
 	else if ((*str)[*pos] == '$')
 		return (lex_check_dol(str, is_word, pos));
