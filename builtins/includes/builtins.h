@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/08 20:36:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 13:12:38 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define CD_USAGE "cd: usage: cd [-L|-P] [dir]"
 # define PWD_USAGE "usage: pwd [-LP]"
 # define FC_USAGE "fc: usage: fc [-e ename] [-lnr] [first] [last]"
+# define UNALIAS_USAGE "unalias [-a] name [name ...]"
 # define NO_INFO 0
 # define EXPAND_INFO 1
 # define PID_INFO 2

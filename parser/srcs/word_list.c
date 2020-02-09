@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:50:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 20:19:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 12:51:53 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	parse_word(t_lex_tkn **list, t_process *curr_proc)
 			curr_proc->args_size *= 2;
 			if (!(tmp = ft_realloc(curr_proc->args, curr_proc->args_size / 2
 			* sizeof(char *), curr_proc->args_size * sizeof(char *))))
-				err_exit("42sh", "malloc() error", NULL, NOERROR);
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
 			curr_proc->args = tmp;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 16:59:16 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/08 20:36:26 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 12:54:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "variables.h"
 # include "error.h"
 # define PREV_CUR_DIR_NB 2
-# define BUILTINS_NB 16
+# define BUILTINS_NB 17
 # define ALIASES_HASH_TABLE_SIZE 1000
 
 typedef struct	s_table

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 15:13:29 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/08 20:39:11 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 13:54:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,24 @@ static char		print_alias(char *name)
 	return (EXIT_SUCCESS);
 }
 
+static void		print_all_aliases(void)
+{
+	short	i;
+	char	*eq;
+	char	*name;
+
+	i = -1;
+	if (!(name = ft_strnew(MAXNAMLEN)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	while (++i < g_aliases.cur_size)
+	{
+		eq = ft_strchr(g_aliases.vars[i], '=');
+		ft_strncpy(name, g_aliases.vars[i], eq - g_aliases.vars[i]);
+		print_alias(name);
+	}
+	ft_strdel(&name);
+}
+
 int				alias(int argc, char **argv, char **environ)
 {
 	char			*eq;
@@ -38,9 +56,8 @@ int				alias(int argc, char **argv, char **environ)
 	char			*value;
 
 	(void)environ;
-	(void)argc;
-	if (g_aliases.malloc_size == 0)
-		set_variables(&g_aliases, NULL, VAR_DEF_MALLOC_SIZE);
+	if (argc == 1)
+		print_all_aliases();
 	result = EXIT_SUCCESS;
 	while (*++argv)
 	{

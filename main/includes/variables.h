@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:49:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/08 20:30:40 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 13:33:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void			set_var(char *name, char *value, t_vars_type type);
 /*
 **				unset_variable.c
 */
+void			ft_unsetvar(char *arr, t_vars *vars);
 void			unset_var(char *name, t_vars_type type);
 t_vars			g_environ;
 t_vars			g_vars;
