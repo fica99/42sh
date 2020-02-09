@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 15:39:14 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 17:24:07 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,9 @@ size_t				lex_is_esc_dq(char *str, size_t pos);
 /*
 ** lex_single_quotes.c
 */
-
 t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
 int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
 size_t				lex_is_esc_sq(char *str, size_t pos);
-
 /*
 ** lex_back_quotes.c
 */
@@ -245,22 +243,6 @@ t_lex_tkn_type		lex_ionum(short is_word);
 int					lex_is_asig_name(char *str, short is_word, size_t *pos,
 	int *err);
 t_lex_tkn_type		lex_asig_name(short is_word, int err);
-
-/*
-** lex_dol.c
-*/
-
-t_lex_tkn_type		lex_check_dol(char **str, short is_word, size_t *pos);
-
-/*
-** lex_con_sub.c
-*/
-
-int					lex_is_control_sub(char *str, short is_word,
-	size_t *pos, int *err);
-t_lex_tkn_type		lex_control_sub(short is_word, int err);
-void				lex_fill_control_sub_value(t_lex_tkn *token,
-	char *str, size_t pos);
 
 /*
 ** lex_log_opers.c

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/04 19:42:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 17:24:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,14 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 {
 	int			curr_status;
 	int			old_status;
-	static int	rules[RULES_NUM][3] = {{C_WORD, C_WORD, C_WORD}, {C_WORD, C_REDIR, C_WORD},
-	{C_REDIR, C_WORD, C_WORD}, {C_WORD, C_SEP, C_SEP}, {C_SEP, C_WORD, C_WORD},
+	static int	rules[RULES_NUM][3] = {{C_WORD, C_WORD, C_WORD},
+	{C_WORD, C_REDIR, C_WORD}, {C_REDIR, C_WORD, C_WORD},
+	{C_WORD, C_SEP, C_SEP}, {C_SEP, C_WORD, C_WORD},
 	{C_SEP, C_SEP, C_SEP}, {C_PIPE, C_REDIR, C_REDIR},
 	{C_PIPE, C_WORD, C_WORD}, {C_WORD, C_PIPE, C_PIPE},
 	{C_WORD, C_END, C_WORD}, {C_WORD, C_LOG_OPERS, C_LOG_OPERS},
-	{C_LOG_OPERS, C_WORD, C_WORD}, {C_SEP, C_END, C_SEP}, {C_LOG_OPERS, C_END, C_LOG_OPERS}};
+	{C_LOG_OPERS, C_WORD, C_WORD}, {C_SEP, C_END, C_SEP},
+	{C_LOG_OPERS, C_END, C_LOG_OPERS}};
 
 	curr_status = (*list)->class;
 	*root = new_node(list);
