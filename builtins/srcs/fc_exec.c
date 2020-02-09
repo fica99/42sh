@@ -117,6 +117,8 @@ void			fc_exec(t_fc *fc, char **environ)
 		line = ft_read_file(path);
 		ft_strdel(&path);
 		ft_putendl(line);
-		ft_system(&line);
+		if (g_last_exit_status == 0 || g_last_exit_status == 256)
+			ft_system(&line);
+		ft_strdel(&line);
 	}
 }
