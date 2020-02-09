@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:49:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 16:56:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 13:33:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef enum		e_vars_type
 /*
 **				init_variables.c
 */
+void			set_variables(t_vars *vars, char **data, short malloc_size);
 void			init_cwd(void);
 void			init_variables(char **data, t_vars_type type);
 /*
@@ -49,12 +50,15 @@ char			*get_var(char *arr, t_vars_type mode);
 **				set_variable.c
 */
 short			get_index_var(char *arr, char **vars);
+void			setvar(char *name, char *value, t_vars *vars);
 void			set_var(char *name, char *value, t_vars_type type);
 /*
 **				unset_variable.c
 */
+void			ft_unsetvar(char *arr, t_vars *vars);
 void			unset_var(char *name, t_vars_type type);
 t_vars			g_environ;
 t_vars			g_vars;
 char			*g_cur_wd;
+t_vars			g_aliases;
 #endif

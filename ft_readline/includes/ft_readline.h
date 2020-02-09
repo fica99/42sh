@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 14:05:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/08 18:10:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@
 # define PURPLE "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define HIGHLIGHT "\033[35;4m"
-# define RL_BUILTINS_COUNT 15
+# define RL_BUILTINS_COUNT 17
 
 typedef enum		e_rl_mode
 {
