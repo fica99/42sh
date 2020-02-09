@@ -21,7 +21,6 @@
 # include "error.h"
 # define PREV_CUR_DIR_NB 2
 # define BUILTINS_NB 17
-# define ALIASES_HASH_TABLE_SIZE 1000
 
 typedef struct	s_table
 {
