@@ -36,8 +36,16 @@ int				check_path_var(char *fname, char **environ)
 	char	*path_var;
 	int		ret;
 
-	if (!(path_var = ft_getvar("PATH", environ)))
-		return (-1);
+	if (!environ)
+	{
+		if (!(path_var = get_var("PATH", ALL_VARS)))
+			return (-1);
+	}
+	else
+	{
+		if (!(path_var = ft_getvar("PATH", environ)))
+			return (-1);
+	}
 	if (!(tmp = ft_strdup(fname)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	if (!(paths = ft_strsplit(path_var, ':')))
@@ -57,12 +65,12 @@ char			*get_fname(char *arg)
 	else if (!(fname = (char *)get_hash_data(g_bin_hash_table.table,
 	arg, g_bin_hash_table.size)))
 	{
-		if (!(fname = find_in_path(arg, g_environ.vars)))
+		if (!(fname = find_in_path(arg, NULL)))
 			err_exit("42sh", "command not found", arg, NOERROR);
 	}
 	else
 	{
-		if (check_path_var(fname, g_environ.vars) < 0)
+		if (check_path_var(fname, NULL) < 0)
 			err_exit("42sh", "command not found", arg, NOERROR);
 	}
 	return (fname);
