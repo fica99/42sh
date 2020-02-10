@@ -46,13 +46,13 @@ static char		*locate(char *fname, char **path)
 	return (NULL);
 }
 
-char			*find_in_path(char *filename, char **environ)
+char			*find_in_path(char *filename)
 {
 	char	**paths;
 	char	*res;
 	char	*path_var;
 
-	if (!(path_var = ft_getvar("PATH", environ)))
+	if (!(path_var = get_var("PATH", ALL_VARS)))
 		return (NULL);
 	if (!(paths = ft_strsplit(path_var, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);

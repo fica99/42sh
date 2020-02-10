@@ -47,7 +47,7 @@ pid_t				g_shell_pgid;
 /*
 **					find_in_path.c
 */
-char				*find_in_path(char *filename, char **environ);
+char				*find_in_path(char *filename);
 /*
 **					exec_jobs.c
 */
@@ -118,7 +118,7 @@ void				open_pipe(t_process *p, int *pipes);
 /*
 **					get_fname.c
 */
-int					check_path_var(char *fname, char **environ);
+int					check_path_var(char *fname);
 char				*get_fname(char *arg);
 /*
 **					put_in.c

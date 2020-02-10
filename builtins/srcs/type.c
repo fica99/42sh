@@ -23,6 +23,7 @@ static char		*get_fname_type(char *arg, char **environ)
 	char			*fname;
 	struct stat		stbuf;
 
+	(void)environ;
 	if (ft_strcmp(".", arg) == 0 || ft_strcmp("..", arg) == 0)
 		return (type_error(arg));
 	if (ft_strchr(arg, '/'))
@@ -31,14 +32,14 @@ static char		*get_fname_type(char *arg, char **environ)
 		{
 			if (!(S_ISREG(stbuf.st_mode)))
 				return (type_error(arg));
-			if ((check_path_var(arg, environ)) == 0)
+			if ((check_path_var(arg)) == 0)
 				return (arg);
 			return (type_error(arg));
 		}
 		else
 			return (type_error(arg));
 	}
-	if (!(fname = find_in_path(arg, environ)))
+	if (!(fname = find_in_path(arg)))
 		return (type_error(arg));
 	return (fname);
 }
