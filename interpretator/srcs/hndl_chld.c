@@ -16,6 +16,8 @@ static void		kill_info(t_process *p, int status)
 {
 	char *s_status;
 
+	if (status == 13)
+		return ;
 	s_status = ft_itoa(status);
 	ft_putstr(p->args[0]);
 	ft_putstr(" killed by signal ");
