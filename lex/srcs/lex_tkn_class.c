@@ -6,20 +6,17 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 18:20:03 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:25:49 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type,
-	t_lex_prefix_prop prefix_prop)
+static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type)
 {
-	if (prefix_prop == PP_ALL
-		&& type >= T_ROUND_SUB && type <= T_ARITH_SUB)
+	if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
 		return (C_SUB);
-	else if (prefix_prop == PP_PREFIX
-		&& type >= T_ROUND_SUB && type <= T_ARITH_SUB)
+	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
 		return (C_PREFIX_SUB);
 	else if (type == T_END)
 		return (C_END);
@@ -27,8 +24,7 @@ static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type,
 		return (C_NULL);
 }
 
-t_lex_tkn_class				lex_check_class(t_lex_tkn_type type,
-	t_lex_prefix_prop prefix_prop)
+t_lex_tkn_class				lex_check_class(t_lex_tkn_type type)
 {
 	if (type == T_WORD || type == T_IO_NUMBER || type == T_QUOTES)
 		return (C_WORD);
@@ -47,5 +43,5 @@ t_lex_tkn_class				lex_check_class(t_lex_tkn_type type,
 	else if (type == T_CONTROL_SUB)
 		return (C_WORD);
 	else
-		return (lex_check_class_next(type, prefix_prop));
+		return (lex_check_class_next(type));
 }
