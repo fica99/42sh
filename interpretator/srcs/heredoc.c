@@ -41,7 +41,7 @@ static char		**read_heredoc(char const *delim)
 	if (!(v.buf = (char **)ft_memalloc(sizeof(char *) * v.buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	while ((v.tmp = ft_readline("heredoc> ")) && ft_strcmp(v.tmp, delim)
-	&& ft_strcmp(v.tmp, "exit") && *v.tmp != RL_K_CTRL_C)
+	&& *v.tmp != RL_K_CTRL_D && *v.tmp != RL_K_CTRL_C)
 	{
 		v.buf[v.i++] = v.tmp;
 		if (v.i >= v.buf_size - 1)

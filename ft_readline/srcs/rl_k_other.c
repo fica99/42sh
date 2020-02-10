@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/31 19:00:21 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 17:52:04 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/09 21:29:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ void	rl_k_ctrl_d(t_readline *rl)
 		rl_disable_line(rl);
 	if (rl_is_end_pos(rl->cord) && rl_is_start_pos(rl->cord))
 	{
-		ft_putstr(tigetstr("ed"));
-		rl_check_str_mem(&rl->line, "exit");
-		rl_print(ft_strcpy(rl->line.buffer, "exit"), &rl->cord);
+		ft_strclr(rl->line.buffer);
+		*rl->line.buffer = RL_K_CTRL_D;
 	}
 	else
 	{

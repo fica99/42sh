@@ -14,7 +14,6 @@
 
 int	set(int ac, char **args, char **environ)
 {
-	(void)environ;
 	(void)ac;
 	(void)args;
 	ft_putdar(environ);

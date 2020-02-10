@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 21:38:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:02:10 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include "ft_readline.h"
 # include "variables.h"
+# include "error.h"
 
 # define LEX_TOKENS_SIZE 1
 # define SIZE_CS_FILTER 1
@@ -26,6 +27,7 @@ typedef enum		e_lex_tkn_type
 	T_NULL,
 	T_CTRL_C,
 	T_ERR,
+
 	T_END,
 	T_WORD,
 	T_ASSIGNMENT_WORD,
@@ -91,6 +93,7 @@ typedef enum		e_lex_fr
 	FR_OK,
 	FR_ERR,
 	FR_CTRL_C,
+	FR_CTRL_D,
 	FR_DRBRK_OPEN,
 	FR_EOL,
 }					t_lex_fr;
@@ -208,28 +211,6 @@ int					lex_is_quotation_marks(char *str, size_t pos);
 t_lex_tkn_type		lex_quotation_marks(char **str, short is_word, size_t *pos);
 
 /*
-** lex_double_quotes.c
-*/
-
-t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
-int					lex_is_open_dq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_dq(char *str, size_t pos);
-
-/*
-** lex_single_quotes.c
-*/
-t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
-int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_sq(char *str, size_t pos);
-/*
-** lex_back_quotes.c
-*/
-
-t_lex_tkn_type		lex_back_quotes(char **str, size_t *pos);
-int					lex_is_open_bq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_bq(char *str, size_t pos);
-
-/*
 ** lex_io_num.c
 */
 
@@ -273,6 +254,14 @@ t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
 void				lex_clear_strs(char **s1, char **s2);
 t_lex_fr			lex_cs_ctrl_c(char **s1, char **s2);
+
+/*
+** lex_ctrl_d.c
+*/
+
+t_lex_fr			lex_cs_ctrl_d(char **s1, char is_quotes);
+t_lex_tkn_type		lex_ctrl_d(void);
+t_lex_tkn_type		lex_ctrl_d_pipe(char **s1);
 
 /*
 ** lex_cs.c

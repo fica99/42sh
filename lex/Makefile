@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/09 21:39:02 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/10 23:02:21 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,10 +63,8 @@ SRC_FLS	=		lex_lexer.c\
 				lex_log_opers.c\
 				lex_check_and.c\
 				lex_str.c\
-				lex_double_quotes.c\
-				lex_single_quotes.c\
-				lex_back_quotes.c\
 				lex_ctrl_c.c\
+				lex_ctrl_d.c\
 				lex_cs_inc_dec.c\
 				lex_cs_open_close.c\
 				lex_cs_filter.c\
@@ -91,7 +89,8 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
-				-I ../main/includes
+				-I ../builtins/includes -I ../main/includes -I ../interpretator/includes \
+				-I ../parser/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 20:46:23 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 22:49:20 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static t_lex_fr			lex_cs_add_line(char **str, t_lex_cs_type type)
 		return (FR_ERR);
 	if (*new_line == RL_K_CTRL_C)
 		return (lex_cs_ctrl_c(str, &new_line));
+	if (*new_line == RL_K_CTRL_D)
+		return (lex_cs_ctrl_d(&new_line, 1));
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
 	return (FR_OK);
@@ -52,12 +54,6 @@ static t_lex_fr			lex_is_cs_open(char **str,
 	fr = FR_OK;
 	while ((*str)[*offset])
 	{
-		if ((fr = lex_bs(str, offset)) == FR_ERR)
-			return (FR_ERR);
-		if (fr == FR_CTRL_C)
-			return (FR_CTRL_C);
-		if (fr == FR_EOL)
-			return (FR_OK);
 		if ((fr = lex_cs_inc_dec(*str, cs_count, offset)) == FR_ERR)
 			return (FR_ERR);
 		if (fr == FR_DRBRK_OPEN)
@@ -80,13 +76,9 @@ t_lex_tkn_type			lex_cs(char **str, size_t *pos, t_lex_cs_type type)
 	cs_count = -1;
 	while ((fr = lex_is_cs_open(str, &cs_count, &offset)) == FR_OK)
 	{
-		if (fr == FR_ERR)
-			return (T_ERR);
-		if (fr == FR_CTRL_C)
-			return (T_CTRL_C);
 		if ((fr = lex_cs_add_line(str, type)) == FR_ERR)
 			return (T_ERR);
-		if (fr == FR_CTRL_C)
+		if (fr == FR_CTRL_C || fr == FR_CTRL_D)
 			return (T_CTRL_C);
 	}
 	(*pos) = offset;
