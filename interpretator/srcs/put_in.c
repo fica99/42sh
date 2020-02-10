@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:37:40 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/04 21:40:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:32:55 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		put_job_in_foreground(t_job *j, int cont)
 
 void		put_job_in_background(t_job *j, int cont)
 {
-	t_process 	*p;
+	t_process	*p;
 	char		*s_pid;
 	char		*s_num;
 

@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:32:51 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/04 22:36:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/10 18:33:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static void 	sig_handler_2(int sig)
+static void		sig_handler_2(int sig)
 {
 	if (sig == SIGPROF)
 		ft_putstr_fd("Sigprof: 29\n", STDOUT_FILENO);
@@ -53,8 +53,6 @@ static void		sig_handler(int sig)
 		ft_putstr_fd("Sigusr1: 16\n", STDOUT_FILENO);
 	else if (sig == SIGUSR2)
 		ft_putstr_fd("Sigusr2: 17\n", STDOUT_FILENO);
-	else if (sig == SIGPOLL)
-		ft_putstr_fd("Sigpoll: 22\n", STDOUT_FILENO);
 	else
 		sig_handler_2(sig);
 }
