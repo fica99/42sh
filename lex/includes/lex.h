@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 23:02:10 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:26:56 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,7 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos);
 ** lex_tkn_class.c
 */
 
-t_lex_tkn_class		lex_check_class(t_lex_tkn_type type,
-	t_lex_prefix_prop prefix_prop);
+t_lex_tkn_class		lex_check_class(t_lex_tkn_type type);
 
 /*
 ** lex_check_or.c
@@ -327,14 +326,7 @@ char				*lex_del_backslash(char *str, size_t pos);
 ** lex_preprocessing.c
 */
 
-void				lex_preprocessing(const char *str, size_t *pos,
-	t_lex_prefix_prop *prefix_prop);
-
-/*
-** lex_expantions.c
-*/
-
-t_lex_tkn_type		lex_expantions(char **str, short is_word, size_t *pos);
+void				lex_preprocessing(const char *str, size_t *pos);
 
 /*
 ** lex_debug.c
