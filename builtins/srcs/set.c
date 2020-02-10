@@ -12,7 +12,7 @@
 
 #include "builtins.h"
 
-char		**check_set_flags(char **av, t_flag *o_opt)
+char	**check_set_flags(char **av, t_flag *o_opt)
 {
 	int i;
 	int j;
@@ -36,7 +36,7 @@ char		**check_set_flags(char **av, t_flag *o_opt)
 	return (&av[j]);
 }
 
-int	set_readline(char **args)
+int		set_readline(char **args)
 {
 	if (!*args)
 	{
@@ -58,7 +58,7 @@ int	set_readline(char **args)
 	return (1);
 }
 
-int	set(int ac, char **args, char **environ)
+int		set(int ac, char **args, char **environ)
 {
 	t_flag o_opt;
 
