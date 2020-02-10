@@ -35,7 +35,6 @@ int	set_variable(int ac, char **av, char **environ)
 		else
 			set_var(name, value, VARS);
 		free(name);
-		av++;
 	}
 	return (0);
 }
