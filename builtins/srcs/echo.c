@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 17:10:17 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:18:28 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ int				ft_echo(int argc, char **argv, char **environ)
 	int				flags[3];
 
 	(void)environ;
+	if (fcntl(1, F_GETFD) == -1)
+	{
+		err("42sh", argv[0], EBADFD, "write error");
+		return (EXIT_FAILURE);
+	}
 	ft_bzero(flags, 3 * sizeof(int));
 	i = ft_echoflags(flags, argv);
 	if (flags[1] == 1)
