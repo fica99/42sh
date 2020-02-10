@@ -85,7 +85,8 @@ int			export(int ac, char **av, char **environ)
 	print = 0;
 	if (!(av = e_getopt(av, &print)))
 		return (2);
-	while (*av)
+	av--;
+	while (*++av)
 	{
 		if (!(name = ft_strdup(*av)))
 			err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -97,7 +98,6 @@ int			export(int ac, char **av, char **environ)
 		free(value);
 		if (print)
 			e_print(*av);
-		av++;
 	}
 	return (0);
 }
