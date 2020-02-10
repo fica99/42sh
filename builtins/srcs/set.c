@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:05:59 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/10 18:29:22 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:15:17 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ int	set_readline(char **args)
 		ft_putstr("required argument\n");
 		ft_putstr("set: usage: set [-o]\n");
 	}
-	else if (ft_strcmp(*args, "VI") && ft_strcmp(*args, "readline"))
+	else if (ft_strcmp(*args, "vi") && ft_strcmp(*args, "readline"))
 		ft_putstr("invalid mode\n");
-	else
+	else if (!ft_strcmp(*args, "vi"))
 	{
 		setvar("READMODE", "VI", &g_vars);
+		return (0);
+	}
+	else
+	{
+		setvar("READMODE", "READLINE", &g_vars);
 		return (0);
 	}
 	return (1);
