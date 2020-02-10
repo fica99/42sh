@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_expantions.c                                   :+:      :+:    :+:   */
+/*   lex_asig_name2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/09 18:28:52 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 22:43:00 by aashara-         ###   ########.fr       */
+/*   Created: 2020/02/09 20:57:41 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/02/09 22:30:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-t_lex_tkn_type	lex_expantions(char **str, short is_word, size_t *pos)
+void	lex_an_cut_quotes(t_lex_tkn *token, const char *str)
 {
-	t_lex_tkn_type	result;
+	size_t	pos;
+	size_t	i;
+	char	*new_str;
 
-	if (!(*str) || !pos)
-		return (T_ERR);
-	else if ((*str)[(*pos) + 1] != '{')
+	lex_rewind_end_spases((char *)str, &token->end_pos);
+	if (!(new_str = ft_strnew((token->end_pos) - (token->start_pos))))
+		return ;
+	i = 0;
+	pos = token->start_pos;
+	while (pos < token->end_pos)
 	{
-		++(*pos);
-		return (T_WORD);
+		if (str[pos] != '"' && str[pos] != '\'' && str[pos] != '`')
+			new_str[i++] = str[pos];
+		pos++;
 	}
-	else if (is_word)
-		return (T_NULL);
-	else
-	{
-		(*pos)++;
-		if ((result = lex_cs(str, pos, CS_FIGURE_BRK)) == T_FIGURE_SUB)
-			return (T_WORD);
-		return (result);
-	}
+	token->value = new_str;
 }

@@ -59,6 +59,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_quotation_marks.c\
 				lex_io_num.c\
 				lex_asig_name.c\
+				lex_asig_name2.c\
 				lex_log_opers.c\
 				lex_check_and.c\
 				lex_str.c\

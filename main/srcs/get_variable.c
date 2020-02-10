@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 18:04:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 20:25:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/10 11:38:09 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,20 @@ static char		**ft_get_vars_names_dar(char *name, char **arr)
 
 char			**get_vars_names_dar(char *name, t_vars_type type)
 {
+	char	**env;
+	char	**vars;
+	char	**res;
+
 	if (type == ENV)
 		return (ft_get_vars_names_dar(name, g_environ.vars));
 	else if (type == VARS)
 		return (ft_get_vars_names_dar(name, g_vars.vars));
-	return (ft_darjoin(ft_get_vars_names_dar(name, g_environ.vars),
-						ft_get_vars_names_dar(name, g_vars.vars)));
+	env = ft_get_vars_names_dar(name, g_environ.vars);
+	vars = ft_get_vars_names_dar(name, g_vars.vars);
+	res = ft_darjoin(env, vars);
+	ft_free_dar(vars);
+	ft_free_dar(env);
+	return (res);
 }
 
 char			*ft_getvar(char *name, char **varlist)

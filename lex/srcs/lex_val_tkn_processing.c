@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:35:34 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 17:56:41 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/09 21:59:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		lex_is_double_clip(t_lex_tkn_type type)
 	return (0);
 }
 
-void			lex_clipping_tkn_value(t_lex_tkn *token, const char *str)
+static void		lex_clipping_tkn_value(t_lex_tkn *token, const char *str)
 {
 	size_t	offset;
 	size_t	start_pos;
@@ -52,4 +52,12 @@ void			lex_clipping_tkn_value(t_lex_tkn *token, const char *str)
 		return ;
 	}
 	token->value = ft_strsub(str, start_pos, len);
+}
+
+void			lex_parse_tkn_value(t_lex_tkn *token, const char *str)
+{
+	if (token->type == T_ASSIGNMENT_WORD)
+		lex_an_cut_quotes(token, str);
+	else
+		lex_clipping_tkn_value(token, str);
 }
