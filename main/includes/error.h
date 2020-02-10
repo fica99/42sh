@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:10:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/10 22:46:24 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 23:17:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define EACCES "Permission denied"
 # define ENOTFND "not found"
 # define EUEOF "unexpected end of file"
+# define EBADFD "Bad file descriptor"
 
 /*
 **			error.c
