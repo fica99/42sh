@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/22 12:59:55 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 14:53:02 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/11 17:37:37 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,13 @@ interpretator_dir := interpretator
 
 builtins_dir := builtins
 
+calc_dir := calc
+
 cc := gcc
 
 lib_flags := -L libraries/libft -L libraries/libdir -L libraries/libdar\
-			-L libraries/libhash -L libraries/libstr -lft -ldir -ldar -lstr -lhash -lncurses
+			-L libraries/libhash -L libraries/libstr -lft -ldir -ldar -lstr\
+			-lhash -lncurses
 
 srcs_dir := srcs
 
@@ -38,7 +41,8 @@ srcs := $(wildcard $(main_dir)/$(srcs_dir)/*.c)\
 		$(wildcard $(lex_dir)/$(srcs_dir)/*.c)\
 		$(wildcard $(parser_dir)/$(srcs_dir)/*.c)\
 		$(wildcard $(interpretator_dir)/$(srcs_dir)/*.c)\
-		$(wildcard $(builtins_dir)/$(srcs_dir)/*.c)
+		$(wildcard $(builtins_dir)/$(srcs_dir)/*.c)\
+		$(wildcard $(calc_dir)/$(srcs_dir)/*.c)
 
 objs_dir := objs
 
@@ -54,10 +58,13 @@ objs := $(patsubst $(interpretator_dir)/$(srcs_dir)/%.c,$(interpretator_dir)/$(o
 
 objs := $(patsubst $(builtins_dir)/$(srcs_dir)/%.c,$(builtins_dir)/$(objs_dir)/%.o, $(objs))
 
-.PHONY: all lall lclean lfclean clean fclean re $(main_dir) $(ft_readline_dir) $(lex_dir) $(parser_dir)\
-		$(interpretator_dir) $(builtins_dir)
+objs := $(patsubst $(calc_dir)/$(srcs_dir)/%.c,$(calc_dir)/$(objs_dir)/%.o, $(objs))
 
-all: lall $(ft_readline_dir) $(lex_dir) $(parser_dir) $(interpretator_dir) $(builtins_dir) $(main_dir) $(name)
+.PHONY: all lall lclean lfclean clean fclean re $(main_dir) $(ft_readline_dir) $(lex_dir) $(parser_dir)\
+		$(interpretator_dir) $(builtins_dir) $(calc_dir)
+
+all: lall $(ft_readline_dir) $(lex_dir) $(parser_dir) $(interpretator_dir) $(builtins_dir)\
+	$(main_dir) $(calc_dir) $(name)
 
 $(name): $(objs)
 	$(cc) $(objs) -o $(name) $(lib_flags)
@@ -80,6 +87,9 @@ $(interpretator_dir):
 $(builtins_dir):
 	$(MAKE) all --no-print-directory -C $(builtins_dir)
 
+$(calc_dir):
+	$(MAKE) all --no-print-directory -C $(calc_dir)
+
 lall:
 	$(MAKE) all --no-print-directory -C $(lib_dir)
 
@@ -96,6 +106,7 @@ clean: lfclean
 	$(MAKE) clean --no-print-directory -C $(parser_dir)
 	$(MAKE) clean --no-print-directory -C $(interpretator_dir)
 	$(MAKE) clean --no-print-directory -C $(builtins_dir)
+	$(MAKE) clean --no-print-directory -C $(calc_dir)
 
 fclean: clean
 	rm -rf $(name)

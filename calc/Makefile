@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/02/04 19:57:47 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 16:51:18 by aashara-         ###   ########.fr        #
+#    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
+#    Updated: 2020/02/11 17:02:53 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ------------  PROJECT  ----------------------------------------------------- #
-NAME	=		parser
+NAME	=		calc
 
 # ------------  DIRECTORIES  ------------------------------------------------- #
 SRC_DIR	=		srcs
@@ -45,13 +45,23 @@ LSTR_DIR	=		$(LIB_DIR)/libstr
 LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
 # ------------  SOURCE FILES  ------------------------------------------------ #
-SRC_FLS	=		errors.c\
-				make_ast.c\
-				parse.c\
-				add_process.c\
-				word_list.c\
-				alias_handle.c\
-				alias_add_to_cycle.c\
+SRC_FLS	=		calc_add_fun.c\
+				calc.c\
+				calc_lexer.c\
+				calc_arr_tkns.c\
+				calc_mul_fun.c\
+				calc_inc_fun.c\
+				calc_com_fun.c\
+				calc_eq_fun.c\
+				calc_log_fun.c\
+				calc_tkn.c\
+				calc_num_fun.c\
+				calc_parent_fun.c\
+				calc_error_fun.c\
+				calc_var_fun.c\
+				calc_var_tkn.c\
+				calc_arr_reloc.c\
+				calc_atoi.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -63,8 +73,7 @@ CC		=		gcc
 RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
-				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes\
-				-I ../lex/includes -I ../parser/includes -I ../main/includes
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../main/includes/
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
