@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:22:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:11:26 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include "lex.h"
 # include "parser.h"
 # include "interpretator.h"
+# include "builtins.h"
 
 /*
 **			main.c
 */
 void		ft_system(char **line);
-void		update_status(void);
 #endif

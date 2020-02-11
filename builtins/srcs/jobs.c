@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/05 16:51:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:13:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static t_job	*find_job(int num)
 
 static t_job	*check_background_process(pid_t pid)
 {
-	t_job 		*j;
-	t_process 	*p;
+	t_job		*j;
+	t_process	*p;
 
 	j = g_first_job;
 	while (j)
