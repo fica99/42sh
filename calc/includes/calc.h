@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 21:43:49 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 22:21:52 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,5 +212,11 @@ t_calc_tkns				*calc_prefix(char *str, t_calc_tkns *s_tokens,
 */
 
 long long				calc_ll_atoi(const char *str);
+
+/*
+** calc_ltoa.c
+*/
+
+char					*calc_ltoa(long long num);
 
 #endif
