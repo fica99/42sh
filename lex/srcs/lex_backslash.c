@@ -18,7 +18,7 @@ static t_lex_fr		lex_esc_char(char **str, size_t *pos)
 		return (FR_ERR);
 	if ((*str)[*pos] == '\\')
 		if ((*str)[(*pos) + 1] == '"' || (*str)[(*pos) + 1] == '\''
-			|| (*str)[(*pos) + 1] == '`' || (*str)[(*pos) + 1] == '\\')
+			|| (*str)[(*pos) + 1] == '\\')
 		{
 			if (!(*str = lex_del_backslash(*str, *pos)))
 				return (FR_ERR);

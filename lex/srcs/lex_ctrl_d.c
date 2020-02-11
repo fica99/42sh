@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_ctrl_d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 21:41:53 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 23:03:34 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 14:44:53 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_lex_tkn_type	lex_ctrl_d(void)
 	return (T_NULL);
 }
 
-t_lex_tkn_type	lex_ctrl_d_pipe(char **s1)
+t_lex_tkn_type	lex_al_ctrl_d(char **s1)
 {
 	err("42sh", "syntax error", NULL, EUEOF);
 	lex_clear_strs(s1, NULL);
