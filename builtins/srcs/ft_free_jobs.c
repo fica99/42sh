@@ -6,15 +6,15 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:32:40 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 16:42:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 22:17:30 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	ft_free_redir(int **red)
+static void		ft_free_redir(int **red)
 {
-	int i;
+	int	i;
 
 	if (!red)
 		return ;
@@ -24,7 +24,7 @@ static void	ft_free_redir(int **red)
 	free(red);
 }
 
-static void	ft_free_r(t_redir_list *r)
+static void		ft_free_r(t_redir_list *r)
 {
 	if (!r)
 		return ;
@@ -32,7 +32,7 @@ static void	ft_free_r(t_redir_list *r)
 	free(r);
 }
 
-void		ft_free_proc(t_process *p)
+void			ft_free_proc(t_process *p)
 {
 	if (!p)
 		return ;
@@ -45,4 +45,15 @@ void		ft_free_proc(t_process *p)
 		ft_free_dar(p->environment);
 	ft_free_redir(p->fd_list);
 	free(p);
+}
+
+void			ft_free_jobs(t_job *j)
+{
+	if (!j)
+		return ;
+	ft_free_jobs(j->next);
+	ft_free_proc(j->first_process);
+	if (j->command)
+		ft_free_dar(j->command);
+	free(j);
 }

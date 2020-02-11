@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 13:47:49 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 15:58:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 21:16:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ static char	rl_is_all_spaces(char *line)
 	size_t	i;
 
 	i = 0;
-	if (ft_strstr(line, "fc"))
-		return (TRUE);
 	while (line[i])
 	{
 		if (!ft_isspace(line[i]))

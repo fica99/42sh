@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 19:40:55 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 15:47:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 22:16:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,15 @@ void			fc_exec(t_fc *fc, char **environ)
 		ft_strcat(ft_strcat(ft_strcpy(line, fc->editor), " "), path);
 		ft_system(&line);
 		ft_strdel(&line);
-		line = ft_read_file(path);
-		ft_strdel(&path);
-		ft_putendl(line);
-		if (g_last_exit_status == 0 || g_last_exit_status == 1 ||
-			g_last_exit_status == 256)
+		if (g_last_exit_status == 0)
+		{
+			line = ft_read_file(path);
+			ft_strdel(&path);
+			ft_putendl(line);
 			ft_system(&line);
-		ft_strdel(&line);
+			add_to_history_buff(line);
+			ft_strdel(&line);
+		}
+		ft_strdel(&path);
 	}
 }

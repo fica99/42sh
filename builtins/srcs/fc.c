@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 20:01:57 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 17:03:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 21:34:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	fc_check_first_last(t_fc *fc)
 	if (!fc->last)
 		fc->last = "-1";
 	if ((fc->first_i = ft_atoi(fc->first)) <= 0)
-		fc->first_i += size;
+		if ((fc->first_i += size) <= 0)
+			fc->first_i = 1;
 	if ((fc->last_i = ft_atoi(fc->last)) <= 0)
 		fc->last_i += size;
 	if (fc->first_i > size)
