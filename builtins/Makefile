@@ -75,6 +75,7 @@ SRC_FLS	=		cd.c\
 				bg.c\
 				alias.c\
 				unalias.c\
+				type_isalias.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

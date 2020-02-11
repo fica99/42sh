@@ -48,6 +48,10 @@ typedef struct		s_fc
 }					t_fc;
 
 /*
+**					type_isalias.c
+*/
+int					isalias(char *al);
+/*
 **					cd.c
 */
 char				**check_flags(char **av, t_flag *no_links);
