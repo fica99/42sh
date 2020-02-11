@@ -39,6 +39,7 @@ void		ft_system(char **line)
 	tokens = lex_get_tkns(line);
 	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
+		tokens = alias_handle(tokens);
 		root = NULL;
 		if (!make_ast(tokens, &root))
 		{

@@ -20,12 +20,12 @@
 # include "error.h"
 # define VAR_DEF_MALLOC_SIZE 500
 
-typedef struct	s_vars
+typedef struct		s_vars
 {
 	short		cur_size;
 	short		malloc_size;
 	char		**vars;
-}				t_vars;
+}					t_vars;
 
 typedef enum		e_vars_type
 {
@@ -34,31 +34,42 @@ typedef enum		e_vars_type
 	ALL_VARS = 3
 }					t_vars_type;
 
+typedef struct		s_cycle_list
+{
+	char				*name;
+	struct s_cycle_list *next;
+}					t_cycle_list;
+
 /*
-**				init_variables.c
+**					alias_add_to_cycle.c
 */
-void			set_variables(t_vars *vars, char **data, short malloc_size);
-void			init_cwd(void);
-void			init_variables(char **data, t_vars_type type);
+void				free_cycle_list(t_cycle_list *l);
+void				add_to_cycle_list(char *alias, t_cycle_list **l);
 /*
-**				get_variable.c
+**					init_variables.c
 */
-char			**get_vars_names_dar(char *name, t_vars_type type);
-char			*ft_getvar(char *name, char **varlist);
-char			*get_var(char *arr, t_vars_type mode);
+void				set_variables(t_vars *vars, char **data, short malloc_size);
+void				init_cwd(void);
+void				init_variables(char **data, t_vars_type type);
 /*
-**				set_variable.c
+**					get_variable.c
 */
-short			get_index_var(char *arr, char **vars);
-void			setvar(char *name, char *value, t_vars *vars);
-void			set_var(char *name, char *value, t_vars_type type);
+char				**get_vars_names_dar(char *name, t_vars_type type);
+char				*ft_getvar(char *name, char **varlist);
+char				*get_var(char *arr, t_vars_type mode);
 /*
-**				unset_variable.c
+**					set_variable.c
 */
-void			ft_unsetvar(char *arr, t_vars *vars);
-void			unset_var(char *name, t_vars_type type);
-t_vars			g_environ;
-t_vars			g_vars;
-char			*g_cur_wd;
-t_vars			g_aliases;
+short				get_index_var(char *arr, char **vars);
+void				setvar(char *name, char *value, t_vars *vars);
+void				set_var(char *name, char *value, t_vars_type type);
+/*
+**					unset_variable.c
+*/
+void				ft_unsetvar(char *arr, t_vars *vars);
+void				unset_var(char *name, t_vars_type type);
+t_vars				g_environ;
+t_vars				g_vars;
+char				*g_cur_wd;
+t_vars				g_aliases;
 #endif

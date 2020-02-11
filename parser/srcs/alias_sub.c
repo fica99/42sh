@@ -12,15 +12,17 @@
 
 #include "parser.h"
 
-t_lex_tkn	**alias_sub(t_lex_tkn **token)
-{
-	char *val;
-
-	if ((val = ft_getvar((*token)->value, g_aliases.vars)))
-	{
-		free((*token)->value);
-		if (!((*token)->value = ft_strdup(val)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	}
-	return (token);
-}
+// t_lex_tkn	**alias_sub(t_lex_tkn **list, char *alias, int i)
+// {
+// 	char		*val;
+// 	t_lex_tkn	**new;
+// 	t_lex_tkn	**ret;
+	
+// 	new = lex_get_tkns(alias);
+// 	if (!(ret = lex_insert_tkns(list, new, i)))
+// 	{
+// 		lex_del_tkns(new);
+// 		lex_del_tkns(list);
+// 	}
+// 	return (ret);
+// }

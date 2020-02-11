@@ -21,6 +21,7 @@
 # include "parser.h"
 # include "interpretator.h"
 
+t_lex_tkn	**alias_handle(t_lex_tkn **list);
 /*
 **			main.c
 */

@@ -52,6 +52,8 @@ SRC_FLS	=		error.c\
 				main.c\
 				set_variable.c\
 				unset_variable.c\
+				alias_handle.c\
+				alias_add_to_cycle.c\
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #
