@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_arith_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 16:29:44 by work              #+#    #+#             */
-/*   Updated: 2020/02/11 16:40:33 by work             ###   ########.fr       */
+/*   Updated: 2020/02/11 23:08:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,8 @@ t_lex_tkn_type	lex_arith_sub(char **str, short is_word, size_t *pos)
 		return (lex_cs(str, pos, CS_D_ROUND_BRK));
 	}
 	else
+	{
+		++(*pos);
 		return (T_WORD);
+	}
 }
