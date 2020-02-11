@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:45:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 15:22:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:43:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include "parser.h"
 # include "interpretator.h"
 
-t_lex_tkn	**alias_handle(t_lex_tkn **list);
 /*
 **			main.c
 */

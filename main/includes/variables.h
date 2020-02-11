@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:49:09 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 13:33:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:47:23 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,6 @@ typedef enum		e_vars_type
 	ALL_VARS = 3
 }					t_vars_type;
 
-typedef struct		s_cycle_list
-{
-	char				*name;
-	struct s_cycle_list *next;
-}					t_cycle_list;
-
-/*
-**					alias_add_to_cycle.c
-*/
-void				free_cycle_list(t_cycle_list *l);
-void				add_to_cycle_list(char *alias, t_cycle_list **l);
 /*
 **					init_variables.c
 */

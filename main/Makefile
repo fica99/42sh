@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/03 16:41:33 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 15:56:46 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/11 15:43:04 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,6 @@ SRC_FLS	=		error.c\
 				main.c\
 				set_variable.c\
 				unset_variable.c\
-				alias_handle.c\
-				alias_add_to_cycle.c\
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #
@@ -64,7 +62,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-g -Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes \
 				-I ../lex/includes -I ../parser/includes -I ../interpretator/includes\

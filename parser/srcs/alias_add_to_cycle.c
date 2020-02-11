@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   alias_add_to_cycle.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarti <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 06:04:51 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 06:04:53 by mmarti           ###   ########.fr       */
+/*   Updated: 2020/02/11 15:44:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "parser.h"
 
 void				free_cycle_list(t_cycle_list *l)
 {
