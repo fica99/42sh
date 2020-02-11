@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/11 19:56:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 22:27:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void			do_job_notification(t_job *start_job,
 	{
 		if (job_is_completed(j) && j->num > 0)
 		{
-			format_job_info(j, "completed", options);
+			if (j->separator == T_AND)
+				format_job_info(j, "completed", options);
 			free_job(&g_first_job, j);
 		}
 		else if (job_is_stopped(j) && j->num > 0)
@@ -58,7 +59,7 @@ static void			do_job_notification(t_job *start_job,
 	}
 }
 
-void				jobs(int argc, char **argv, char **environ)
+void				 jobs(int argc, char **argv, char **environ)
 {
 	(void)environ;
 	if (argc == 2)

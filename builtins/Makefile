@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/05 14:29:30 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 21:51:17 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/11 22:22:07 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-g -Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../main/includes\
 				-I ../ft_readline/includes -I ../interpretator/includes\
