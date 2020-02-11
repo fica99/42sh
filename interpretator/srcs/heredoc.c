@@ -56,10 +56,9 @@ static char		**read_heredoc(char const *delim)
 		v.buf[v.i++] = v.tmp;
 		if (v.i >= v.buf_size - 1)
 		{
-			if (!(v.tmpb = (char **)ft_realloc(v.buf, sizeof(char *) *
+			if (!(v.buf = (char **)ft_realloc(v.buf, sizeof(char *) *
 			v.buf_size, sizeof(char *) * (v.buf_size * 2))))
 				err_exit("42sh", "malloc() error", NULL, NOERROR);
-			v.buf = v.tmpb;
 			v.buf_size *= 2;
 		}
 	}
