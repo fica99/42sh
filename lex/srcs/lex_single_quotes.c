@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_single_quotes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:42:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 15:01:34 by work             ###   ########.fr       */
+/*   Updated: 2020/02/11 15:32:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_lex_fr	lex_is_open_sq(char **str, size_t pos, size_t *offset)
 {
-	if (!str || !*str|| !offset)
+	if (!str || !*str || !offset)
 		return (FR_ERR);
 	while ((*str)[pos + *offset])
 	{

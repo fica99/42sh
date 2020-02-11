@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 15:05:59 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 00:15:17 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:33:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char		**check_set_flags(char **av, t_flag *o_opt)
 	return (&av[j]);
 }
 
-int	set_readline(char **args)
+int			set_readline(char **args)
 {
 	if (!*args)
 	{
@@ -63,7 +63,7 @@ int	set_readline(char **args)
 	return (1);
 }
 
-int	set(int ac, char **args, char **environ)
+int			set(int ac, char **args, char **environ)
 {
 	t_flag o_opt;
 
