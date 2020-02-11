@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2020/02/10 18:28:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 01:14:48 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	set_sig_def(void)
 static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 {
 	pid_t	pid;
+	char	**tmp;
 
 	pid = getpid();
 	setpgid(pid, pgid);
@@ -77,7 +78,9 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 		exit(1);
 	dup_redir(p->fd_list);
 	set_uniq_env(p);
-	ft_sub(p->args, p->environment);
+	tmp = pattern_matching(p->args);
+	ft_free_dar(p->args);
+	ft_sub(p->args = tmp, p->environment);
 }
 
 void		launch_process(t_process *p, pid_t pgid, int foreground)

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/11 19:49:52 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 01:22:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <signal.h>
+# include <glob.h>
 # include "libft.h"
 # include "parser.h"
 # include "error.h"
@@ -136,4 +137,8 @@ void				set_uniq_env(t_process *p);
 **					init_jobs.c
 */
 void				init_jobs(void);
+/*
+**					pattern_matching.c
+*/
+char				**pattern_matching(char **args);
 #endif

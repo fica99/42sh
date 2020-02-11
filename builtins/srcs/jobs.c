@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/11 22:27:56 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 01:18:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void			do_job_notification(t_job *start_job,
 	}
 }
 
-void				 jobs(int argc, char **argv, char **environ)
+void				jobs(int argc, char **argv, char **environ)
 {
 	(void)environ;
 	if (argc == 2)
