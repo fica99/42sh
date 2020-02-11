@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:40:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/05 14:16:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 15:47:49 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,15 @@ typedef struct			s_ass_vars
 
 }						t_ass_vars;
 
+typedef struct			s_cycle_list
+{
+	char				*name;
+	struct s_cycle_list	*next;
+}						t_cycle_list;
+
 struct termios			g_shell_tmodes;
 t_job					*g_first_job;
 t_job					*g_last_job;
-/*
-**						alias_sub.c
-*/
-t_lex_tkn				**alias_sub(t_lex_tkn **token);
 /*
 **						make_ast.c
 */
@@ -104,4 +106,16 @@ t_job					*job_new(t_lex_tkn **sep);
 */
 void					h_ass_words(t_lex_tkn **list, t_process *p);
 void					word_list(t_lex_tkn **list, t_process *cur_proc);
+
+/*
+**						alias_handle.c
+*/
+char					*ft_getalias(char *name, char **varlist);
+t_lex_tkn				**alias_handle(t_lex_tkn **list);
+/*
+**						alias_add_to_cycle.c
+*/
+void					free_cycle_list(t_cycle_list *l);
+void					add_to_cycle_list(char *alias, t_cycle_list **l);
+
 #endif
