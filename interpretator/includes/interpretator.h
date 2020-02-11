@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 17:14:20 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/12 00:02:42 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,4 +138,21 @@ void				set_uniq_env(t_process *p);
 **					init_jobs.c
 */
 void				init_jobs(void);
+/*
+**					expansions_validation.c
+*/
+int					isvalidparameter(char s);
+void				*expansions(char *s);
+int					check_bracket(char *s);
+void				*expansions_validation(char *s);
+/*
+**					expansions_implementation.c 
+*/
+char				*exp_implement(char *s);
+/*
+**					expansions_cycle.c 
+*/
+char				*expansions_cycle(char *s);
+void				*exp_error(char *s);
+
 #endif

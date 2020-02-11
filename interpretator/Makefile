@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 14:53:26 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/11 22:04:07 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,10 @@ SRC_FLS	=			add_redir.c\
 					spec_symb.c\
 					uniq_env.c\
 					init_jobs.c\
-					find_in_path.c
+					find_in_path.c\
+					expansions_implementation.c \
+					expansions_validation.c \
+					expansions_cycle.c \
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #
@@ -74,7 +77,7 @@ DEPS	=		$(OBJS:.o=.d)
 # ------------  FLAGS  ------------------------------------------------------- #
 CC		=		gcc
 RM		=		rm -rf
-CFLGS	=		-Wall -Werror -Wextra
+CFLGS	=		-Wall -Werror -Wextra -g
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
 				-I ../lex/includes/ -I ../parser/includes/ -I ../main/includes
