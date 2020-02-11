@@ -6,12 +6,12 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 21:52:52 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/11 21:53:18 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ------------  PROJECT  ----------------------------------------------------- #
-NAME	=		lex
+NAME	=		calc
 
 # ------------  DIRECTORIES  ------------------------------------------------- #
 SRC_DIR	=		srcs
@@ -45,39 +45,23 @@ LSTR_DIR	=		$(LIB_DIR)/libstr
 LSTRHS_DIR	=		$(LSTR_DIR)/includes
 
 # ------------  SOURCE FILES  ------------------------------------------------ #
-SRC_FLS	=		lex_lexer.c\
-				lex_tkn.c\
-				lex_tkns.c\
-				lex_get_tkn.c\
-				lex_check_tkn.c\
-				lex_check_or.c\
-				lex_tkn_type.c\
-				lex_tkn_class.c\
-				lex_check_greater.c\
-				lex_check_less.c\
-				lex_check_sep.c\
-				lex_quotation_marks.c\
-				lex_io_num.c\
-				lex_asig_name.c\
-				lex_asig_name2.c\
-				lex_log_opers.c\
-				lex_check_and.c\
-				lex_str.c\
-				lex_ctrl_c.c\
-				lex_ctrl_d.c\
-				lex_double_quotes.c\
-				lex_single_quotes.c\
-				lex_cs_inc_dec.c\
-				lex_cs_open_close.c\
-				lex_cs_filter.c\
-				lex_cs.c\
-				lex_val_tkn_processing.c\
-				lex_substitutions.c\
-				lex_backslash.c\
-				lex_backslash2.c\
-				lex_preprocessing.c\
-				lex_arith_sub.c\
-				lex_insert_tkns.c\
+SRC_FLS	=		calc_add_fun.c\
+				calc.c\
+				calc_lexer.c\
+				calc_arr_tkns.c\
+				calc_mul_fun.c\
+				calc_inc_fun.c\
+				calc_com_fun.c\
+				calc_eq_fun.c\
+				calc_log_fun.c\
+				calc_tkn.c\
+				calc_num_fun.c\
+				calc_parent_fun.c\
+				calc_error_fun.c\
+				calc_var_fun.c\
+				calc_var_tkn.c\
+				calc_arr_reloc.c\
+				calc_atoi.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -89,9 +73,7 @@ CC		=		gcc
 RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
-				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
-				-I ../builtins/includes -I ../main/includes -I ../interpretator/includes \
-				-I ../parser/includes
+				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../main/includes/
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

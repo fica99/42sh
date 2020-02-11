@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs_inc_dec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 20:45:55 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:29:13 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static t_lex_cs_type	lex_is_cs(const char *str)
 		return (CS_DOUBLE_QUOTES);
 	else if (*str == '\'')
 		return (CS_SINGLE_QUOTES);
-	else if (*str == '`')
-		return (CS_BACK_QUOTES);
 	else
 		return (CS_NULL);
 }
@@ -36,7 +34,7 @@ static int				lex_cs_stat(const char *str)
 		return (1);
 	else if (!ft_strncmp(str, "))", 2) || *str == ')' || *str == '}')
 		return (-1);
-	else if (*str == '"' || *str == '\'' || *str == '`')
+	else if (*str == '"' || *str == '\'')
 		return (2);
 	else
 		return (0);

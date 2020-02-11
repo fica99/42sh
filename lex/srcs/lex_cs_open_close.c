@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs_open_close.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 18:12:43 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:25:45 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	lex_cs_is_quotes(t_lex_cs_type type)
 {
-	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
+	if (type == CS_DOUBLE_QUOTES && type == CS_SINGLE_QUOTES)
 		return (1);
 	return (0);
 }
