@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 05:50:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 16:01:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:26:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-char			*ft_getalias(char *name, char **varlist)
+char				*ft_getalias(char *name, char **varlist)
 {
 	char	*tmp;
 	long	varlen;
@@ -31,18 +31,22 @@ char			*ft_getalias(char *name, char **varlist)
 	return (NULL);
 }
 
-int				check_cycle(char *alias, t_cycle_list *l)
+static int			check_cycle(char *alias, t_cycle_list *l, t_lex_tkn **curr)
 {
 	while (l)
 	{
-		if (!strcmp(alias, l->name))
-			return (1);
+		if (!ft_strcmp(alias, l->name))
+		{
+			if (curr && ft_strcmp((*curr)->value, l->name))
+				return (1);
+		}
 		l = l->next;
 	}
 	return (0);
 }
 
-t_lex_tkn		**get_alias_tkn(t_lex_tkn **tkn, char *val, t_cycle_list **l)
+static t_lex_tkn	**get_alias_tkn(t_lex_tkn **tkn, char *val,
+													t_cycle_list **l)
 {
 	t_lex_tkn	**ret;
 	char		*alias;
@@ -50,7 +54,7 @@ t_lex_tkn		**get_alias_tkn(t_lex_tkn **tkn, char *val, t_cycle_list **l)
 
 	if (!(alias = ft_getalias(val, g_aliases.vars)))
 		return (tkn);
-	if (check_cycle(alias, *l))
+	if (check_cycle(alias, *l, tkn))
 	{
 		lex_del_tkns(tkn);
 		return (NULL);
@@ -65,7 +69,7 @@ t_lex_tkn		**get_alias_tkn(t_lex_tkn **tkn, char *val, t_cycle_list **l)
 	return (ret);
 }
 
-void			skip_delim(t_lex_tkn **list, int *i)
+static void			skip_delim(t_lex_tkn **list, int *i)
 {
 	while (list[*i]->class != C_END)
 	{
@@ -76,7 +80,7 @@ void			skip_delim(t_lex_tkn **list, int *i)
 	}
 }
 
-t_lex_tkn		**alias_handle(t_lex_tkn **list)
+t_lex_tkn			**alias_handle(t_lex_tkn **list)
 {
 	t_lex_tkn			**new;
 	int					i;
