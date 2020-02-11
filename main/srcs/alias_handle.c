@@ -50,13 +50,14 @@ t_lex_tkn		**get_alias_tkn(t_lex_tkn **tkn, char *val, t_cycle_list **l)
 
 	if (!(alias = ft_getalias(val, g_aliases.vars)))
 		return (tkn);
-	if (tkn)
-		lex_del_tkns(tkn);
 	if (check_cycle(alias, *l))
 		return (NULL);
 	add_to_cycle_list(alias, l);
 	alias = ft_strchr(alias, '=') + 1;
-	new_tkn = lex_get_tkns(&alias);
+	if (!tkn)
+		new_tkn = lex_get_tkns(&alias);
+	else
+		new_tkn = lex_insert_tkns(tkn, lex_get_tkns(&alias), 0);
 	ret = get_alias_tkn(new_tkn, (*new_tkn)->value, l);
 	return (ret);
 }
