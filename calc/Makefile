@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 21:53:18 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/11 23:22:32 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRC_FLS	=		calc_add_fun.c\
 				calc_var_tkn.c\
 				calc_arr_reloc.c\
 				calc_atoi.c\
+				calc_ltoa.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
