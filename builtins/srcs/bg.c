@@ -41,7 +41,7 @@ void		bg(int argc, char **argv, char **environ)
 	}
 }
 
-void		print_finished_process(t_job *j,  pid_t pid)
+void		print_finished_process(t_job *j,  pid_t pid, int status)
 {
 	char 		*s_num;
 	t_process 	*p;
@@ -54,7 +54,10 @@ void		print_finished_process(t_job *j,  pid_t pid)
 	s_num = ft_itoa(j->num);
 	ft_putstr_fd("[", STDOUT_FILENO);
 	ft_putstr_fd(s_num, STDOUT_FILENO);
-	ft_putstr_fd("] Done ", STDOUT_FILENO);
+	if (WIFSIGNALED(status) && WTERMSIG(status))
+		ft_putstr_fd("] Killed ", STDOUT_FILENO);
+	else
+		ft_putstr_fd("] Done ", STDOUT_FILENO);
 	ft_putstr_fd(p->args[0], STDOUT_FILENO);
 	ft_putstr_fd("\n", STDOUT_FILENO);
 	ft_strdel(&s_num);

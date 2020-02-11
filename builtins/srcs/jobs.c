@@ -51,12 +51,12 @@ void			update_status(void)
 
 	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
 	if ((j = check_background_process(pid)))
-		print_finished_process(j, pid);
+		print_finished_process(j, pid, g_last_exit_status);
 	while (!mark_process_status(pid, g_last_exit_status))
 	{
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
 		if ((j = check_background_process(pid)))
-			print_finished_process(j, pid);
+			print_finished_process(j, pid, g_last_exit_status);
 	}
 }
 
