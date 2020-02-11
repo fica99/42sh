@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/09 15:22:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 19:50:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ typedef struct		s_fc
 	char			flag_r;
 }					t_fc;
 
+/*
+**					type_isalias.c
+*/
+int					isalias(char *al);
 /*
 **					cd.c
 */
@@ -175,6 +179,7 @@ void				fg(int argc, char **argv, char **environ);
 **					bg.c
 */
 void				bg(int argc, char **argv, char **environ);
+void				print_finished_process(t_job *j, pid_t pid, int status);
 /*
 **					alias.c
 */

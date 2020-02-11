@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 15:58:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 19:50:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void		ft_system(char **line)
 	tokens = lex_get_tkns(line);
 	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
+		tokens = alias_handle(tokens);
 		root = NULL;
 		if (!make_ast(tokens, &root))
 		{

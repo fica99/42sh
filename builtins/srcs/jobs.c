@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/05 16:51:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 19:56:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static t_job	*find_job(int num)
+static t_job		*find_job(int num)
 {
 	t_job	*j;
 
@@ -24,16 +24,16 @@ static t_job	*find_job(int num)
 	return (NULL);
 }
 
-static void		update_status(void)
+static void			update_status(void)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
 	while (!mark_process_status(pid, g_last_exit_status))
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
 }
 
-static void		do_job_notification(t_job *start_job,
+static void			do_job_notification(t_job *start_job,
 		int options, int stop_flag)
 {
 	t_job	*j;
@@ -58,7 +58,7 @@ static void		do_job_notification(t_job *start_job,
 	}
 }
 
-void			jobs(int argc, char **argv, char **environ)
+void				jobs(int argc, char **argv, char **environ)
 {
 	(void)environ;
 	if (argc == 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fname.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 11:42:38 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/06 17:15:58 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:26:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,11 @@ char			*get_fname(char *arg)
 	char *fname;
 
 	if (ft_strchr(arg, '/'))
+	{
 		fname = arg;
+		if (access(arg, 0) < 0)
+			err_exit("42sh", "no such file or directory", arg, NOERROR);
+	}
 	else if (!(fname = (char *)get_hash_data(g_bin_hash_table.table,
 	arg, g_bin_hash_table.size)))
 	{
