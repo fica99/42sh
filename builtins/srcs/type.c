@@ -80,6 +80,8 @@ int				ft_type(int argc, char **argv, char **environ)
 			ft_putstr_fd(argv[i], STDOUT_FILENO);
 			ft_putstr_fd(" is a shell builtin\n", STDOUT_FILENO);
 		}
+		else if (isalias(argv[i]))
+			;
 		else
 			isfile(argv[i], environ);
 		i++;
