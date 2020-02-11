@@ -56,6 +56,7 @@ static void	shell_start(void)
 
 	while (TRUE)
 	{
+		update_status();
 		line = ft_readline(get_var("PS1", ALL_VARS));
 		ft_system(&line);
 		add_to_history_buff(line);

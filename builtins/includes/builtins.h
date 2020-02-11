@@ -175,6 +175,7 @@ void				fg(int argc, char **argv, char **environ);
 **					bg.c
 */
 void				bg(int argc, char **argv, char **environ);
+void				print_finished_process(t_job *j,  pid_t pid);
 /*
 **					alias.c
 */

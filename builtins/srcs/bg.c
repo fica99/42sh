@@ -40,3 +40,22 @@ void		bg(int argc, char **argv, char **environ)
 		ft_strdel(&tmp);
 	}
 }
+
+void		print_finished_process(t_job *j,  pid_t pid)
+{
+	char 		*s_num;
+	t_process 	*p;
+
+	p = j->first_process;
+	while (p && p->pid != pid)
+		p = p->next;
+	if (!p)
+		return ;
+	s_num = ft_itoa(j->num);
+	ft_putstr_fd("[", STDOUT_FILENO);
+	ft_putstr_fd(s_num, STDOUT_FILENO);
+	ft_putstr_fd("] Done ", STDOUT_FILENO);
+	ft_putstr_fd(p->args[0], STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_strdel(&s_num);
+}

@@ -25,4 +25,5 @@
 **			main.c
 */
 void		ft_system(char **line);
+void		update_status(void);
 #endif
