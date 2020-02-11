@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 15:41:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 20:08:33 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef enum		e_lex_tkn_type
 	T_NULL,
 	T_CTRL_C,
 	T_ERR,
-
 	T_END,
 	T_WORD,
 	T_ASSIGNMENT_WORD,
@@ -70,7 +69,6 @@ typedef enum		e_lex_cs_type
 	CS_NULL,
 	CS_DOUBLE_QUOTES,
 	CS_SINGLE_QUOTES,
-	CS_BACK_QUOTES,
 	CS_ROUND_BRK,
 	CS_FIGURE_BRK,
 	CS_D_ROUND_BRK,
@@ -145,7 +143,6 @@ t_lex_tkn			**lex_del_s_tokens(t_lex_tkns *s_tokens);
 t_lex_tkn			*lex_get_next_tkn(char	**str, size_t pos);
 void				lex_fill_value_pos(t_lex_tkn *token, char *str,
 	size_t start_pos, size_t pos);
-void				lex_rewind_end_spases(char *str, size_t *pos);
 
 /*
 ** lex_check_tkn.c
@@ -341,20 +338,16 @@ char				*lex_del_backslash(char *str, size_t pos);
 void				lex_preprocessing(const char *str, size_t *pos);
 
 /*
+** lex_arith_sub.c
+*/
+
+t_lex_tkn_type		lex_arith_sub(char **str, short is_word, size_t *pos);
+
+/*
 ** lex_insert_tkns.c
 */
 
 size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
-
-/*
-** lex_debug.c
-*/
-
-void				lex_print_class(t_lex_tkn_class class);
-void				lex_print_type(t_lex_tkn_type type);
-void				lex_print_tkn(t_lex_tkn *token);
-void				lex_print_tkns(t_lex_tkn **tokens);
-
 #endif

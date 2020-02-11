@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 16:10:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 19:50:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,6 @@ int					set_variable(int ac, char **av, char **environ);
 **					jobs.c
 */
 void				jobs(int argc, char **argv, char **environ);
-void				update_status(void);
 /*
 **					job_print.c
 */
