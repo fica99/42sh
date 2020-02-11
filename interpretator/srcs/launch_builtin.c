@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 19:51:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 01:14:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int				launch_no_fork_builtin(t_process *p)
 {
 	int			fd[3];
 	t_builtin	func;
+	char		**tmp;
 
 	if (p->next)
 		return (-1);
@@ -69,7 +70,9 @@ int				launch_no_fork_builtin(t_process *p)
 				p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	set_uniq_env(p);
-	ft_sub(p->args, p->environment);
+	tmp = pattern_matching(p->args);
+	ft_free_dar(p->args);
+	ft_sub(p->args = tmp, p->environment);
 	if (redir_handle(p) < 0)
 	{
 		restore_fd(fd);

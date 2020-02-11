@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 14:53:26 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/12 00:15:22 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRC_FLS	=			add_redir.c\
 					spec_symb.c\
 					uniq_env.c\
 					init_jobs.c\
-					find_in_path.c
+					find_in_path.c\
+					pattern_matching.c\
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #
