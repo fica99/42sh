@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 15:41:41 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:46:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,14 +347,4 @@ void				lex_preprocessing(const char *str, size_t *pos);
 size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
-
-/*
-** lex_debug.c
-*/
-
-void				lex_print_class(t_lex_tkn_class class);
-void				lex_print_type(t_lex_tkn_type type);
-void				lex_print_tkn(t_lex_tkn *token);
-void				lex_print_tkns(t_lex_tkn **tokens);
-
 #endif

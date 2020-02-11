@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 17:32:51 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/10 18:33:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 17:48:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ static void		sig_handler_2(int sig)
 		ft_putstr_fd("Sigxfsz: 31\n", STDOUT_FILENO);
 }
 
-void		child_handler(int sig)
+void			child_handler(int sig)
 {
 	int status;
 
-	while ((waitpid(WAIT_ANY, &status, WNOHANG)) > 0);
+	while ((waitpid(WAIT_ANY, &status, WNOHANG)) > 0)
+		;
 	sig = WTERMSIG(status);
 	if (sig == SIGSEGV)
 		ft_putstr_fd("Segmentation fault: 11\n", STDOUT_FILENO);
