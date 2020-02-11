@@ -30,11 +30,11 @@ static void		sig_handler_2(int sig)
 		ft_putstr_fd("Sigxfsz: 31\n", STDOUT_FILENO);
 }
 
-static void		child_handler(int sig)
+void		child_handler(int sig)
 {
 	int status;
 
-	while((waitpid(WAIT_ANY, &status, WNOHANG)) > 0);
+	while ((waitpid(WAIT_ANY, &status, WNOHANG)) > 0);
 	sig = WTERMSIG(status);
 	if (sig == SIGSEGV)
 		ft_putstr_fd("Segmentation fault: 11\n", STDOUT_FILENO);

@@ -135,5 +135,6 @@ void				set_uniq_env(t_process *p);
 /*
 **					init_jobs.c
 */
+void				child_handler(int status);
 void				init_jobs(void);
 #endif
