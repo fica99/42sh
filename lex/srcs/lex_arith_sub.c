@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_asig_name2.c                                   :+:      :+:    :+:   */
+/*   lex_arith_sub.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/09 20:57:41 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 17:44:13 by work             ###   ########.fr       */
+/*   Created: 2020/02/11 16:29:44 by work              #+#    #+#             */
+/*   Updated: 2020/02/11 16:40:33 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-void	lex_an_cut_quotes(t_lex_tkn *token, const char *str)
+t_lex_tkn_type	lex_arith_sub(char **str, short is_word, size_t *pos)
 {
-	size_t	pos;
-	size_t	i;
-	char	*new_str;
-
-	if (!(new_str = ft_strnew((token->end_pos) - (token->start_pos))))
-		return ;
-	i = 0;
-	pos = token->start_pos;
-	while (pos < token->end_pos)
+	if (!(*str) || !pos)
+		return (T_ERR);
+	else if (!ft_strncmp((*str) + (*pos), "$((", 3))
 	{
-		if (str[pos] != '"' && str[pos] != '\'' && str[pos] != '`')
-			new_str[i++] = str[pos];
-		pos++;
+		if (is_word)
+			return (T_NULL);
+		(*pos)++;
+		return (lex_cs(str, pos, CS_D_ROUND_BRK));
 	}
-	token->value = new_str;
+	else
+		return (T_WORD);
 }
