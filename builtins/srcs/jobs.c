@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:11 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/05 16:51:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:13:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,40 @@ static t_job	*find_job(int num)
 	return (NULL);
 }
 
-static void		update_status(void)
+static t_job	*check_background_process(pid_t pid)
+{
+	t_job		*j;
+	t_process	*p;
+
+	j = g_first_job;
+	while (j)
+	{
+		p = j->first_process;
+		while (p)
+		{
+			if (p->pid == pid && j->separator == T_AND)
+				return (j);
+			p = p->next;
+		}
+		j = j->next;
+	}
+	return (0);
+}
+
+void			update_status(void)
 {
 	pid_t pid;
+	t_job *j;
 
 	pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
+	if ((j = check_background_process(pid)))
+		print_finished_process(j, pid, g_last_exit_status);
 	while (!mark_process_status(pid, g_last_exit_status))
+	{
 		pid = waitpid(WAIT_ANY, &g_last_exit_status, WUNTRACED | WNOHANG);
+		if ((j = check_background_process(pid)))
+			print_finished_process(j, pid, g_last_exit_status);
+	}
 }
 
 static void		do_job_notification(t_job *start_job,
