@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_check_or.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:27:21 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/04 19:14:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/10 22:59:36 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static t_lex_tkn_type	lex_pipe(char **str, size_t *pos)
 			return (T_ERR);
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_ctrl_c(str, &newline));
+		if (*new_line == RL_K_CTRL_D)
+			return (lex_ctrl_d_pipe(&new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}

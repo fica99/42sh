@@ -17,6 +17,7 @@
 # include "libft.h"
 # include "ft_readline.h"
 # include "variables.h"
+# include "error.h"
 
 # define LEX_TOKENS_SIZE 1
 # define SIZE_CS_FILTER 1
@@ -26,6 +27,7 @@ typedef enum		e_lex_tkn_type
 	T_NULL,
 	T_CTRL_C,
 	T_ERR,
+
 	T_END,
 	T_WORD,
 	T_ASSIGNMENT_WORD,
@@ -91,6 +93,7 @@ typedef enum		e_lex_fr
 	FR_OK,
 	FR_ERR,
 	FR_CTRL_C,
+	FR_CTRL_D,
 	FR_DRBRK_OPEN,
 	FR_EOL,
 }					t_lex_fr;
@@ -162,8 +165,7 @@ t_lex_tkn_type		lex_check_type(char **str, short is_word, size_t *pos);
 ** lex_tkn_class.c
 */
 
-t_lex_tkn_class		lex_check_class(t_lex_tkn_type type,
-	t_lex_prefix_prop prefix_prop);
+t_lex_tkn_class		lex_check_class(t_lex_tkn_type type);
 
 /*
 ** lex_check_or.c
@@ -206,28 +208,6 @@ char				*lex_add_eol(char *str);
 
 int					lex_is_quotation_marks(char *str, size_t pos);
 t_lex_tkn_type		lex_quotation_marks(char **str, short is_word, size_t *pos);
-
-/*
-** lex_double_quotes.c
-*/
-
-t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
-int					lex_is_open_dq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_dq(char *str, size_t pos);
-
-/*
-** lex_single_quotes.c
-*/
-t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
-int					lex_is_open_sq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_sq(char *str, size_t pos);
-/*
-** lex_back_quotes.c
-*/
-
-t_lex_tkn_type		lex_back_quotes(char **str, size_t *pos);
-int					lex_is_open_bq(char *str, size_t pos, size_t *offset);
-size_t				lex_is_esc_bq(char *str, size_t pos);
 
 /*
 ** lex_io_num.c
@@ -273,6 +253,14 @@ t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
 void				lex_clear_strs(char **s1, char **s2);
 t_lex_fr			lex_cs_ctrl_c(char **s1, char **s2);
+
+/*
+** lex_ctrl_d.c
+*/
+
+t_lex_fr			lex_cs_ctrl_d(char **s1, char is_quotes);
+t_lex_tkn_type		lex_ctrl_d(void);
+t_lex_tkn_type		lex_ctrl_d_pipe(char **s1);
 
 /*
 ** lex_cs.c
@@ -338,14 +326,7 @@ char				*lex_del_backslash(char *str, size_t pos);
 ** lex_preprocessing.c
 */
 
-void				lex_preprocessing(const char *str, size_t *pos,
-	t_lex_prefix_prop *prefix_prop);
-
-/*
-** lex_expantions.c
-*/
-
-t_lex_tkn_type		lex_expantions(char **str, short is_word, size_t *pos);
+void				lex_preprocessing(const char *str, size_t *pos);
 
 /*
 ** lex_insert_tkns.c

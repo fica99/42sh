@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/09 20:56:07 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 22:50:12 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_lex_fr		lex_add_line_bs(char **str, size_t pos)
 	if (*new_line == RL_K_CTRL_C)
 		return (lex_cs_ctrl_c(str, &new_line));
 	(*str)[pos] = '\0';
+	if (*new_line == RL_K_CTRL_D)
+		return (lex_cs_ctrl_d(&new_line, 0));
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
 	return (FR_OK);
@@ -67,8 +69,8 @@ t_lex_fr			lex_bs(char **str, size_t *pos)
 	if (lex_bs_is_fin(*str, *pos))
 		if ((al_result = lex_add_line_bs(str, *pos)) == FR_ERR)
 			return (FR_ERR);
-	if (al_result == FR_CTRL_C)
-		return (FR_CTRL_C);
+	if (al_result == FR_CTRL_C || al_result == FR_CTRL_D)
+		return (al_result);
 	if (lex_esc_char(str, pos) == FR_ERR)
 		return (FR_ERR);
 	if (!(*str)[*pos])

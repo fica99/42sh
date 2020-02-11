@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   type.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 21:00:12 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/06 17:14:50 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/10 12:47:55 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char		*get_fname_type(char *arg, char **environ)
 
 static int		isfile(char *argv, char **environ)
 {
-	char *res;
+	char	*res;
 
 	res = get_fname_type(argv, environ);
 	if (!res)
@@ -54,6 +54,7 @@ static int		isfile(char *argv, char **environ)
 	ft_putstr_fd(" is ", STDOUT_FILENO);
 	ft_putstr_fd(res, STDOUT_FILENO);
 	ft_putchar_fd('\n', STDOUT_FILENO);
+	ft_strdel(&res);
 	return (0);
 }
 

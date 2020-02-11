@@ -35,8 +35,6 @@ typedef	struct		s_her_vars
 	size_t			buf_size;
 	size_t			i;
 	char			*tmp;
-	char			**tmpb;
-
 }					t_her_vars;
 
 pid_t				g_job_pgid;

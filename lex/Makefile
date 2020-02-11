@@ -63,10 +63,8 @@ SRC_FLS	=		lex_lexer.c\
 				lex_log_opers.c\
 				lex_check_and.c\
 				lex_str.c\
-				lex_double_quotes.c\
-				lex_single_quotes.c\
-				lex_back_quotes.c\
 				lex_ctrl_c.c\
+				lex_ctrl_d.c\
 				lex_cs_inc_dec.c\
 				lex_cs_open_close.c\
 				lex_cs_filter.c\
@@ -78,7 +76,6 @@ SRC_FLS	=		lex_lexer.c\
 				lex_preprocessing.c\
 				lex_expantions.c\
 				lex_insert_tkns.c\
-				lex_debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -92,7 +89,8 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
-				-I ../main/includes
+				-I ../builtins/includes -I ../main/includes -I ../interpretator/includes \
+				-I ../parser/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

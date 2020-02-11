@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:10:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 14:03:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/10 23:17:39 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define ENOTERMINFO "the terminfo database could not be found"
 # define EACCES "Permission denied"
 # define ENOTFND "not found"
+# define EUEOF "unexpected end of file"
+# define EBADFD "Bad file descriptor"
 
 /*
 **			error.c

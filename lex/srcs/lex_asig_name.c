@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_asig_name.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 21:57:47 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/10 11:24:44 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
 	int *err)
 {
 	size_t		i;
-	t_lex_fr	fr;
 
 	if (!str || !*str)
 		return (FR_ERR);
@@ -65,7 +64,7 @@ t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
 	if ((*str)[i++] != '=')
 		return (FR_NULL);
 	if (lex_is_quotation_marks(*str, i))
-		fr = lex_an_quotes(str, &i, err);
+		lex_an_quotes(str, &i, err);
 	else
 		while ((*str)[i] && !lex_is_an_sep((*str)[i]))
 			i++;
