@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 12:24:22 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 19:50:24 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 21:55:02 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ void				free_job(t_job **head, t_job *to_del);
 **					ft_free_jobs.c
 */
 void				ft_free_proc(t_process *p);
+void				ft_free_jobs(t_job *j);
 /*
 **					fg.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 14:18:08 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 22:14:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static char			**fill_command(t_process *process)
 		p = p->next;
 		i++;
 	}
-	command = (char **)ft_memalloc(sizeof(char *) * i + 10);
+	if (!(command = ft_darnew(i)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	p = process;
 	i = 0;
 	while (p)
@@ -82,7 +83,7 @@ void				exec_jobs(void)
 	while (j)
 	{
 		g_last_job = j;
-		j->command = fill_command(j->first_process);
+		j->command = !j->command ? fill_command(j->first_process) : j->command;
 		if (!log_check(first_job, j) && !job_is_completed(j) &&
 													!job_is_stopped(j))
 		{
