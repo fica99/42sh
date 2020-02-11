@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:08 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 21:22:31 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 01:45:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_calc_tkn	*calc_define_tkn(char *str, size_t pos)
 		return (NULL);
 	else if (!*str)
 		return (calc_newtkn(NULL, CALC_END));
-	else if (!strncmp(str, "&&", 2) || !strncmp(str, "||", 2))
+	else if (!ft_strncmp(str, "&&", 2) || !ft_strncmp(str, "||", 2))
 		return (calc_get_log_tkn(str, pos));
-	else if (!strncmp(str, "==", 2) || !strncmp(str, "!=", 2))
+	else if (!ft_strncmp(str, "==", 2) || !ft_strncmp(str, "!=", 2))
 		return (calc_get_eq_tkn(str, pos));
 	else if (*str == '<' || *str == '>')
 		return (calc_get_com_tkn(str, pos));
