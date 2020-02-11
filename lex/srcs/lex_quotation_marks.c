@@ -14,7 +14,7 @@
 
 int				lex_is_quotation_marks(char *str, size_t pos)
 {
-	if (str[pos] == '"' || str[pos] == '`' || str[pos] == '\'')
+	if (str[pos] == '"' || str[pos] == '\'')
 		return (1);
 	return (0);
 }
@@ -26,11 +26,9 @@ t_lex_tkn_type	lex_quotation_marks(char **str, short is_word, size_t *pos)
 	if (is_word)
 		return (T_NULL);
 	else if ((*str)[*pos] == '"')
-		return (lex_cs(str, pos, CS_DOUBLE_QUOTES));
+		return (lex_double_quotes(str, pos));
 	else if ((*str)[*pos] == '\'')
-		return (lex_cs(str, pos, CS_SINGLE_QUOTES));
-	else if ((*str)[*pos] == '`')
-		return (lex_cs(str, pos, CS_BACK_QUOTES));
+		return (lex_single_quotes(str, pos));
 	else
 		return (T_ERR);
 }

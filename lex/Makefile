@@ -65,6 +65,8 @@ SRC_FLS	=		lex_lexer.c\
 				lex_str.c\
 				lex_ctrl_c.c\
 				lex_ctrl_d.c\
+				lex_double_quotes.c\
+				lex_single_quotes.c\
 				lex_cs_inc_dec.c\
 				lex_cs_open_close.c\
 				lex_cs_filter.c\
