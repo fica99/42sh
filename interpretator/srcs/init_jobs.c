@@ -58,7 +58,7 @@ static void		child_handler(int sig)
 		sig_handler_2(sig);
 }
 
-void			init_signals(void)
+static void		init_signals(void)
 {
 	signal(SIGCHLD, child_handler);
 	signal(SIGINT, SIG_IGN);
