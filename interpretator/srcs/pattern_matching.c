@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 00:14:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 01:21:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 01:34:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ static char	**result_pattern(char *line)
 	glob_t	globbuf;
 	int		j;
 
+	res = NULL;
 	glob(line, 0, NULL, &globbuf);
-	if (!(res = ft_darnew(globbuf.gl_pathc)))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	j = -1;
-	while (++j < (int)globbuf.gl_pathc)
-		if (!(res[j] = ft_strdup(globbuf.gl_pathv[j])))
+	if (globbuf.gl_pathc)
+	{
+		if (!(res = ft_darnew(globbuf.gl_pathc)))
 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		j = -1;
+		while (++j < (int)globbuf.gl_pathc)
+			if (!(res[j] = ft_strdup(globbuf.gl_pathv[j])))
+				err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	}
 	globfree(&globbuf);
 	return (res);
 }
@@ -55,7 +59,10 @@ static int	count_pattern(char **args)
 		if (is_glob(args[i]))
 		{
 			glob(args[i], 0, NULL, &globbuf);
-			counter += globbuf.gl_pathc;
+			if (globbuf.gl_pathc)
+				counter += globbuf.gl_pathc;
+			else
+				++counter;
 			globfree(&globbuf);
 		}
 		else
@@ -72,18 +79,20 @@ char		**pattern_matching(char **args)
 	int		k;
 
 	i = -1;
-	if (!(res = ft_darnew(count_pattern(args))))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	res = ft_darnew(count_pattern(args));
 	while (args[++i])
 	{
 		if (is_glob(args[i]))
 		{
-			tmp = result_pattern(args[i]);
-			k = -1;
-			while (tmp[++k])
-				if (!(res[i + k] = ft_strdup(tmp[k])))
-					err_exit("42sh", "malloc() error", NULL, ENOMEM);
-			ft_free_dar(tmp);
+			if ((tmp = result_pattern(args[i])))
+			{
+				k = -1;
+				while (tmp[++k])
+					res[i + k] = ft_strdup(tmp[k]);
+				ft_free_dar(tmp);
+			}
+			else
+				res[i] = ft_strdup(args[i]);
 		}
 		else
 			res[i] = ft_strdup(args[i]);
