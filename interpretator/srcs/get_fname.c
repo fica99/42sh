@@ -53,7 +53,11 @@ char			*get_fname(char *arg)
 	char *fname;
 
 	if (ft_strchr(arg, '/'))
+	{
 		fname = arg;
+		if (access(arg,0) < 0)
+			err_exit("42sh", "no such file or directory", arg, NOERROR);
+	}
 	else if (!(fname = (char *)get_hash_data(g_bin_hash_table.table,
 	arg, g_bin_hash_table.size)))
 	{
