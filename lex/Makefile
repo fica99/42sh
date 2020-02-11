@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: work <work@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/10 23:17:33 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/11 16:41:23 by work             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_backslash.c\
 				lex_backslash2.c\
 				lex_preprocessing.c\
+				lex_arith_sub.c\
 				lex_debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #

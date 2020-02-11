@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_asig_name.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 11:24:44 by aashara          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:23:56 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static t_lex_fr	lex_an_quotes(char **str, size_t *pos, int *err)
 		quotes_result = lex_cs(str, pos, CS_DOUBLE_QUOTES);
 	else if ((*str)[*pos] == '\'')
 		quotes_result = lex_cs(str, pos, CS_SINGLE_QUOTES);
-	else if ((*str)[*pos] == '`')
-		quotes_result = lex_cs(str, pos, CS_BACK_QUOTES);
 	else
 		quotes_result = T_ERR;
 	if (quotes_result == T_ERR)

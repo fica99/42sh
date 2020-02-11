@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 22:49:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 16:25:24 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 {
-	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
+	if (type == CS_DOUBLE_QUOTES && type == CS_SINGLE_QUOTES)
 		return (T_QUOTES);
 	else if (type == CS_ROUND_BRK)
 		return (T_ROUND_SUB);
@@ -30,7 +30,7 @@ static t_lex_fr			lex_cs_add_line(char **str, t_lex_cs_type type)
 {
 	char	*new_line;
 
-	if (type >= CS_DOUBLE_QUOTES && type <= CS_BACK_QUOTES)
+	if (type == CS_DOUBLE_QUOTES && type == CS_SINGLE_QUOTES)
 		if (!(*str = lex_add_eol(*str)))
 			return (FR_ERR);
 	if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))

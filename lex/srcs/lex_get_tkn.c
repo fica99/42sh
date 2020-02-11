@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lex_get_tkn.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 23:27:19 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 17:47:00 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
-
-void				lex_rewind_end_spases(char *str, size_t *pos)
-{
-	if (!str || !pos)
-		return ;
-	while (str[*pos - 1] == ' ')
-		(*pos)--;
-}
 
 t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 {
