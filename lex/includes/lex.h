@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 20:08:33 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 20:25:57 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,4 +350,14 @@ t_lex_tkn_type		lex_arith_sub(char **str, short is_word, size_t *pos);
 size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
+
+/*
+** lex_debug.c
+*/
+
+void	lex_print_tkns(t_lex_tkn **tokens);
+void	lex_print_tkn(t_lex_tkn *token);
+void	lex_print_type(t_lex_tkn_type type);
+void	lex_print_class(t_lex_tkn_class class);
+
 #endif
