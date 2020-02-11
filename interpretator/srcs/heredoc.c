@@ -31,12 +31,22 @@ static int		write_here_doc(char **buf)
 	return (fd);
 }
 
+static char		**check_inp(char *line, char **buf)
+{
+	if (*line == RL_K_CTRL_C)
+	{
+		ft_free_dar(buf);
+		buf = NULL;
+	}
+	free(line);
+	return (buf);
+}
+
 static char		**read_heredoc(char const *delim)
 {
 	t_her_vars v;
 
 	v.i = 0;
-	v.tmp = NULL;
 	v.buf_size = DEF_HEREDOC_SIZE;
 	if (!(v.buf = (char **)ft_memalloc(sizeof(char *) * v.buf_size)))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -53,9 +63,7 @@ static char		**read_heredoc(char const *delim)
 			v.buf_size *= 2;
 		}
 	}
-	if (v.tmp)
-		free(v.tmp);
-	return (v.buf);
+	return (check_inp(v.tmp, v.buf));
 }
 
 int				here_doc(t_lex_tkn **list, t_process *curr, int io_number)
@@ -66,7 +74,8 @@ int				here_doc(t_lex_tkn **list, t_process *curr, int io_number)
 	if (io_number < 0)
 		io_number = 0;
 	list++;
-	buf = read_heredoc((*list)->value);
+	if (!(buf = read_heredoc((*list)->value)))
+		return (-1);
 	if ((fd = write_here_doc(buf)) < 0)
 	{
 		err("42sh", "failed to create heredoc file", NULL, HEREDOC_FILE);
