@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_log_opers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 22:58:41 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 14:44:24 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_lex_tkn_type	lex_is_and_and(char **str, size_t pos)
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_ctrl_c(str, &new_line));
 		if (*new_line == RL_K_CTRL_D)
-			return (lex_ctrl_d_pipe(&new_line));
+			return (lex_al_ctrl_d(&new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}
@@ -62,7 +62,7 @@ t_lex_tkn_type	lex_is_or_or(char **str, size_t pos)
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_ctrl_c(str, &new_line));
 		if (*new_line == RL_K_CTRL_D)
-			return (lex_ctrl_d_pipe(&new_line));
+			return (lex_al_ctrl_d(&new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (T_ERR);
 	}

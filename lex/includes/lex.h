@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 23:26:56 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 14:45:38 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,19 @@ t_lex_fr			lex_cs_ctrl_c(char **s1, char **s2);
 
 t_lex_fr			lex_cs_ctrl_d(char **s1, char is_quotes);
 t_lex_tkn_type		lex_ctrl_d(void);
-t_lex_tkn_type		lex_ctrl_d_pipe(char **s1);
+t_lex_tkn_type		lex_al_ctrl_d(char **s1);
+
+/*
+** lex_double_quotes.c
+*/
+
+t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
+
+/*
+** lex_single_quotes.c
+*/
+
+t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
 
 /*
 ** lex_cs.c
