@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 18:05:30 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/01/26 14:22:09 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 16:14:20 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,26 @@ void		bg(int argc, char **argv, char **environ)
 		err("42sh", "bg", tmp, "no such job");
 		ft_strdel(&tmp);
 	}
+}
+
+void		print_finished_process(t_job *j, pid_t pid, int status)
+{
+	char		*s_num;
+	t_process	*p;
+
+	p = j->first_process;
+	while (p && p->pid != pid)
+		p = p->next;
+	if (!p)
+		return ;
+	s_num = ft_itoa(j->num);
+	ft_putstr_fd("[", STDOUT_FILENO);
+	ft_putstr_fd(s_num, STDOUT_FILENO);
+	if (WIFSIGNALED(status) && WTERMSIG(status))
+		ft_putstr_fd("] Killed ", STDOUT_FILENO);
+	else
+		ft_putstr_fd("] Done ", STDOUT_FILENO);
+	ft_putstr_fd(p->args[0], STDOUT_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	ft_strdel(&s_num);
 }

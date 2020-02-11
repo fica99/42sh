@@ -14,8 +14,8 @@
 
 char		**check_set_flags(char **av, t_flag *o_opt)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	j = 1;
 	i = 0;
@@ -65,7 +65,7 @@ int			set_readline(char **args)
 
 int			set(int ac, char **args, char **environ)
 {
-	t_flag o_opt;
+	t_flag	o_opt;
 
 	(void)ac;
 	o_opt = 0;

@@ -20,6 +20,7 @@
 # include "lex.h"
 # include "parser.h"
 # include "interpretator.h"
+# include "builtins.h"
 
 /*
 **			main.c
