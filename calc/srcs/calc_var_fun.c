@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_var_fun.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 20:33:09 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 17:08:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 21:48:01 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static long long	calc_var_next(long long result, t_calc_tkns *s_tokens,
 	if (type == CALC_VAR)
 	{
 		var = (t_calc_var *)s_tokens->tokens[*index].value;
-		result = calc(var->value, error);
+		result = calc(var->value, &error);
 		if (error->status)
 			return (0);
 		*index += (calc_check_var_inc(s_tokens, *index)) ? 2 : 1;

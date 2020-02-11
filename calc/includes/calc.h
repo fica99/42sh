@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 17:15:19 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/11 21:43:49 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "variables.h"
 
-# define CALC_TOKENS_SIZE 1
+# define CALC_TOKENS_SIZE 100
 
 typedef enum			e_calc_tkntype
 {
@@ -176,7 +176,7 @@ long long				calc_log(t_calc_tkns *s_tokens, size_t *index,
 ** calc.c
 */
 
-long long				calc(char *str, t_calc_err *error);
+long long				calc(char *str, t_calc_err **error);
 long long				calc_exp(t_calc_tkns *s_tokens, size_t index,
 	t_calc_err *error);
 
