@@ -30,9 +30,12 @@ static void		sig_handler_2(int sig)
 		ft_putstr_fd("Sigxfsz: 31\n", STDOUT_FILENO);
 }
 
-static void		sig_handler(int sig)
+static void		child_handler(int sig)
 {
-	sig = WTERMSIG(g_last_exit_status);
+	int status;
+
+	while((waitpid(WAIT_ANY, &status, WNOHANG)) > 0);
+	sig = WTERMSIG(status);
 	if (sig == SIGSEGV)
 		ft_putstr_fd("Segmentation fault: 11\n", STDOUT_FILENO);
 	else if (sig == SIGABRT)
@@ -45,8 +48,6 @@ static void		sig_handler(int sig)
 		ft_putstr_fd("Sigfpe: 8\n", STDOUT_FILENO);
 	else if (sig == SIGHUP)
 		ft_putstr_fd("Sighup: 1\n", STDOUT_FILENO);
-	else if (sig == SIGPIPE)
-		ft_putstr_fd("Sigpipe: 13\n", STDOUT_FILENO);
 	else if (sig == SIGTERM)
 		ft_putstr_fd("Sigterm: 15\n", STDOUT_FILENO);
 	else if (sig == SIGUSR1)
@@ -57,14 +58,14 @@ static void		sig_handler(int sig)
 		sig_handler_2(sig);
 }
 
-static void		init_signals(void)
+void			init_signals(void)
 {
+	signal(SIGCHLD, child_handler);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
-	signal(SIGCHLD, sig_handler);
 }
 
 void			init_jobs(void)

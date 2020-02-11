@@ -135,5 +135,6 @@ void				set_uniq_env(t_process *p);
 /*
 **					init_jobs.c
 */
+void				init_signals(void);
 void				init_jobs(void);
 #endif
