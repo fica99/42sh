@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/10 22:50:12 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/11 21:10:38 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ t_lex_tkn_type		lex_check_bs(char **str, size_t *pos)
 		return (T_ERR);
 	if (bs_result == FR_CTRL_C)
 		return (T_CTRL_C);
+	(*pos)++;
 	return (T_WORD);
 }
