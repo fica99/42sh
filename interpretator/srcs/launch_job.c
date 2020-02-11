@@ -95,6 +95,7 @@ void			launch_job(t_job *j, int foreground)
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);
+		g_last_exit_status = g_last_exit_status == 256 ? 1 : g_last_exit_status;
 		set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
 		free(last_status);
 		return ;
@@ -104,6 +105,7 @@ void			launch_job(t_job *j, int foreground)
 		put_job_in_foreground(j, 0);
 	else
 		put_job_in_background(j, 0);
+	g_last_exit_status = g_last_exit_status == 256 ? 1 : g_last_exit_status;
 	set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
 	free(last_status);
 }
