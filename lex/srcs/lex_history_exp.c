@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_history_exp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 21:33:13 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 23:41:49 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/13 00:04:56 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				lex_is_hist_exp(const char *str, size_t pos)
 {
 	if (str[pos] != '!')
 		return (0);
-	if (pos > 0 && (str[pos - 1] == '[' || str[pos - 1] == '['))
+	if (pos > 0 && (str[pos - 1] == '[' || str[pos - 1] == '{'))
 		return (0);
 	pos++;
 	if (str[pos] == '!')

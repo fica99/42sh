@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/22 15:12:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 00:28:32 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/13 00:06:14 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,6 @@ SRC_FLS	=		add_to_history_buff.c\
 				rl_autocom_parse.c\
 				rl_autocom_path.c\
 				rl_autocom_bin.c\
-				check_hist_expansions.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

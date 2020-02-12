@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 21:02:45 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 00:06:29 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,10 +355,6 @@ char				**rl_autocom_path(char *word);
 **	rl_autocom_bin.c
 */
 char				**rl_autocom_bin(char *word);
-/*
-**	check_hist_expansions.c
-*/
-char				check_hist_expansions(char **buffer);
 t_readline			g_rl;
 unsigned char		g_rl_flags;
 #endif

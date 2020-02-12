@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 17:46:05 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/06 14:44:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 00:06:08 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ char		*ft_readline(char *prompt)
 	++g_rl.history.cur_command_nb;
 	if (!(buff = ft_strdup(rl_reading(&g_rl))))
 		rl_err("42sh", "malloc() error", ENOMEM);
-	if (check_hist_expansions(&buff))
-		ft_putendl(buff);
 	return (buff);
 }
 
