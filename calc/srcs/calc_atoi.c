@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calc_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:12:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2019/12/21 15:48:38 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 11:11:21 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ long long	calc_ll_atoi(const char *str)
 {
 	long long			sign;
 	unsigned long long	res;
-	size_t				s_len;
 
 	if (!str)
 		return (0);
@@ -36,7 +35,6 @@ long long	calc_ll_atoi(const char *str)
 		sign = -1;
 	if (*str == '+' || *str == '-')
 		str++;
-	s_len = 0;
 	while (*str >= 48 && *str <= 57)
 	{
 		res *= 10;
