@@ -112,6 +112,8 @@ void		h_ass_words(t_lex_tkn **list, t_process *p)
 
 void		word_list(t_lex_tkn **list, t_process *cur_proc)
 {
+	if ((*list)->type == T_ARITH_SUB)
+		parse_calc(list);
 	if ((*list)->type == T_IO_NUMBER || (*list)->class == C_REDIR)
 		parse_redirect(list, cur_proc);
 	else if ((*list)->class == C_WORD)

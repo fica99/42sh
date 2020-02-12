@@ -14,7 +14,9 @@
 
 static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type)
 {
-	if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
+	if (type == T_ARITH_SUB)
+		return (C_WORD);
+	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
 		return (C_SUB);
 	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
 		return (C_PREFIX_SUB);

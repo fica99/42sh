@@ -52,6 +52,7 @@ SRC_FLS	=		errors.c\
 				word_list.c\
 				alias_handle.c\
 				alias_add_to_cycle.c\
+				parse_calc.c
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -64,7 +65,7 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes\
-				-I ../lex/includes -I ../parser/includes -I ../main/includes
+				-I ../lex/includes -I ../calc/includes -I ../main/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
