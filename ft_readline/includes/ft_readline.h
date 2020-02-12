@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:19:28 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/09 14:58:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 21:02:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,6 @@ void				rl_init_history(t_rl_history *history);
 */
 void				rl_clr_data(t_readline *rl);
 void				rl_clr_buff(t_buff *buff);
-void				free_readline(void);
 /*
 **	rl_free_history.c
 */

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 16:20:15 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 18:47:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 21:02:54 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,4 @@ void		rl_clr_buff(t_buff *buff)
 {
 	ft_strclr(buff->buffer);
 	buff->cur_len = 0;
-}
-
-static void	rl_free_readline_struct(t_readline *rl)
-{
-	rl->vi_temp = free_hash_table(rl->vi_temp, VI_HASH_SIZE,
-	DONT_FREE_HASH_DATA);
-	rl->emacs_temp = free_hash_table(rl->emacs_temp, EMACS_HASH_SIZE,
-	DONT_FREE_HASH_DATA);
-	rl_free_history(&rl->history);
-	ft_strdel(&rl->history.save_line.buffer);
-	ft_strdel(&rl->history.search.buffer);
-	ft_strdel(&rl->line.buffer);
-	ft_strdel(&rl->save_line.buffer);
-	ft_strdel(&rl->copy_buff.buffer);
-}
-
-void		free_readline(void)
-{
-	rl_free_readline_struct(&g_rl);
 }

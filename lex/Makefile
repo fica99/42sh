@@ -80,6 +80,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_insert_tkns.c\
 				lex_history_exp.c\
 				lex_check_hist_exp.c\
+				lex_stat.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

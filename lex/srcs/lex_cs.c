@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 19:45:25 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:43:31 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,14 @@ t_lex_tkn_type			lex_cs(char **str, size_t *pos, t_lex_cs_type type)
 	cs_count = -1;
 	while ((fr = lex_is_cs_open(str, &cs_count, &offset)) == FR_OK)
 	{
+		if (fr == FR_ERR)
+			return (T_ERR);
 		if ((fr = lex_cs_add_line(str, type)) == FR_ERR)
 			return (T_ERR);
-		if (fr == FR_CTRL_C || fr == FR_CTRL_D)
+		if (fr == FR_CTRL_C)
 			return (T_CTRL_C);
+		if (fr == FR_CTRL_D)
+			return (T_CTRL_D);
 	}
 	(*pos) = offset;
 	return ((fr == FR_ERR) ? T_ERR : lex_cs_type(type));
