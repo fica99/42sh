@@ -37,7 +37,9 @@ void		ft_system(char **line)
 	t_ast		*root;
 
 	tokens = lex_get_tkns(line);
-	if (tokens && *tokens && (*tokens)->type != T_END)
+	if (g_lex_stat == LS_ERR)
+		ft_putstr_fd("42sh: lex: unexpected syntax error\n", STDERR_FILENO);
+	else if (tokens && *tokens && (*tokens)->type != T_END)
 	{
 		tokens = alias_handle(tokens);
 		root = NULL;
