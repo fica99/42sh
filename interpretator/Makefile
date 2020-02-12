@@ -65,6 +65,7 @@ SRC_FLS	=			add_redir.c\
 					init_jobs.c\
 					find_in_path.c\
 					pattern_matching.c\
+					chld_signals.c\
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #

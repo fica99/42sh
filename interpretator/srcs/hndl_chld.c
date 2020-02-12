@@ -12,20 +12,6 @@
 
 #include "interpretator.h"
 
-static void		kill_info(t_process *p, int status)
-{
-	char *s_status;
-
-	if (status == 13)
-		return ;
-	s_status = ft_itoa(status);
-	ft_putstr(p->args[0]);
-	ft_putstr(" killed by signal ");
-	ft_putstr(s_status);
-	ft_putstr("\n");
-	ft_strdel(&s_status);
-}
-
 static void		mark_process_pid(t_process **p, int status, int foreground)
 {
 	if (WIFSTOPPED(status))
@@ -38,7 +24,7 @@ static void		mark_process_pid(t_process **p, int status, int foreground)
 	{
 		(*p)->completed = 1;
 		if (WIFSIGNALED(status))
-			kill_info(*p, WTERMSIG(status));
+			kill_info(*p, WTERMSIG(status), foreground);
 	}
 }
 

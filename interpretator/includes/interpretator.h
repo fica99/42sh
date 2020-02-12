@@ -141,4 +141,8 @@ void				init_jobs(void);
 **					pattern_matching.c
 */
 char				**pattern_matching(char **args);
+/*
+**					chld_signals.c
+*/
+void				kill_info(t_process *p, int status, int foreground);
 #endif
