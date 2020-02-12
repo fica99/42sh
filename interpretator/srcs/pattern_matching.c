@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 00:14:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 00:00:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 01:08:10 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,27 +105,3 @@ char		**pattern_matching(char **args)
 	}
 	return (res);
 }
-
-// char		**pattern_matching(char *line)
-// {
-// 	char		**res;
-// 	glob_t	globbuf;
-// 	int		j;
-
-
-// 	res = NULL;
-// 	if (is_glob(line))
-// 	{
-// 		glob(line, 0, NULL, &globbuf);
-// 		if (!(globbuf.gl_pathc))
-// 			return (res);
-// 		if (!(res = ft_darnew(globbuf.gl_pathc)))
-// 			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-// 		j = -1;
-// 		while (++j < (int)globbuf.gl_pathc)
-// 			if (!(res[j] = ft_strdup(globbuf.gl_pathv[j])))
-// 				err_exit("42sh", "malloc() error", NULL, ENOMEM);
-// 		globfree(&globbuf);
-// 	}
-// 	return (res);
-// }
