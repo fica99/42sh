@@ -49,7 +49,7 @@ void			ft_free_proc(t_process *p)
 
 void			ft_free_jobs(t_job *j)
 {
-	if (!j)
+	if (!j || !j->next)
 		return ;
 	ft_free_jobs(j->next);
 	ft_free_proc(j->first_process);
