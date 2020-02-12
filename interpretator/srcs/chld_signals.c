@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:42:17 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/12 18:41:06 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:24:22 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void		sig_handler_other(int sig)
 		ft_putstr_fd("Sigxcpu: 30", STDOUT_FILENO);
 	else if (sig == SIGXFSZ)
 		ft_putstr_fd("Sigxfsz: 31", STDOUT_FILENO);
-	else
+	else if (sig != SIGPIPE)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
