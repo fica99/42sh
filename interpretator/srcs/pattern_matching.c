@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 00:14:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 18:40:46 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:38:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	count_pattern(char *line)
 static int	count_patterns(char **args)
 {
 	int		i;
+	int		j;
 	int		counter;
 
 	i = -1;
@@ -65,7 +66,12 @@ static int	count_patterns(char **args)
 	while (args[++i])
 	{
 		if (is_glob(args[i]))
-			counter += count_pattern(args[i]);
+		{
+			if ((j = count_pattern(args[i])))
+				counter += j;
+			else
+				++counter;
+		}
 		else
 			++counter;
 	}
