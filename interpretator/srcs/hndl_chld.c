@@ -26,12 +26,13 @@ static void		kill_info(t_process *p, int status)
 	ft_strdel(&s_status);
 }
 
-static void		mark_process_pid(t_process **p, int status)
+static void		mark_process_pid(t_process **p, int status, int foreground)
 {
 	if (WIFSTOPPED(status))
 	{
 		(*p)->stopped = 1;
-		err("42sh", "suspended", (*p)->args[0], NOERROR);
+		if (foreground)
+			err("42sh", "suspended", (*p)->args[0], NOERROR);
 	}
 	else
 	{
@@ -56,7 +57,7 @@ int				mark_process_status(pid_t pid, int status)
 		{
 			if (p->pid == pid)
 			{
-				mark_process_pid(&p, status);
+				mark_process_pid(&p, status, j->separator == T_AND ? 0 : 1);
 				return (0);
 			}
 			p = p->next;
