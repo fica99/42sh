@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 19:42:59 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:35:23 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef enum		e_lex_tkn_type
 	T_ROUND_SUB,
 	T_FIGURE_SUB,
 	T_ARITH_SUB,
-	T_QUOTES
+	T_CTRL_D
 }					t_lex_tkn_type;
 
 typedef enum		e_lex_tkn_class
@@ -74,13 +74,6 @@ typedef enum		e_lex_cs_type
 	CS_D_ROUND_BRK,
 }					t_lex_cs_type;
 
-typedef enum		e_lex_prefix_prop
-{
-	PP_NULL,
-	PP_ALL,
-	PP_PREFIX,
-}					t_lex_prefix_prop;
-
 /*
 ** fr - function result
 */
@@ -95,6 +88,14 @@ typedef enum		e_lex_fr
 	FR_DRBRK_OPEN,
 	FR_EOL,
 }					t_lex_fr;
+
+typedef enum		e_lex_stat
+{
+	LS_OK,
+	LS_ERR,
+	LS_CTRL_C,
+	LS_CTRL_D
+}					t_lex_stat;
 
 typedef struct		s_lex_tkn
 {
@@ -112,6 +113,8 @@ typedef	struct		s_lex_tkns
 	size_t			malloc_size;
 	size_t			size;
 }					t_lex_tkns;
+
+t_lex_stat			g_lex_stat;
 
 /*
 ** lex_lexer.c
@@ -350,5 +353,11 @@ t_lex_tkn_type		lex_arith_sub(char **str, short is_word, size_t *pos);
 size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
+
+/*
+** lex_stat.c
+*/
+
+t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
 
 #endif

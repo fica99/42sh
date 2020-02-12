@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 19:39:29 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:37:42 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ t_lex_tkn			*lex_get_next_tkn(char **str, size_t pos)
 	{
 		is_word = (pos - start_pos > 0) ? 1 : 0;
 		type = lex_check_type(str, is_word, &pos);
-		if (type == T_ERR || type == T_CTRL_C)
-			return (NULL);
+		if (type == T_ERR || type == T_CTRL_C || type == T_CTRL_D)
+			return (lex_status(type, NULL));
 		if (type != T_WORD)
 			break ;
 	}
 	if (!(token = lex_new_tkn()))
-		return (NULL);
+		return (lex_status(T_ERR, NULL));
 	token->type = (type == T_NULL) ? T_WORD : type;
 	token->class = lex_check_class(token->type);
 	lex_fill_value_pos(token, *str, start_pos, pos);
-	return (token);
+	return (lex_status(type, token));
 }
 
 void				lex_fill_value_pos(t_lex_tkn *token, char *str,
