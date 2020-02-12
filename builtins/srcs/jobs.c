@@ -46,16 +46,15 @@ static void			do_job_notification(t_job *start_job,
 		{
 			if (j->separator == T_AND)
 				format_job_info(j, "completed", options);
-			free_job(&g_first_job, j);
+			j->num = -1;
 		}
 		else if (job_is_stopped(j) && j->num > 0)
 			format_job_info(j, "stopped", options);
 		else if (j->num > 0 && j->execution)
 			format_job_info(j, "running", options);
-		if (stop_flag || !j)
+		if (stop_flag)
 			break ;
-		else
-			j = j->next;
+		j = j->next;
 	}
 }
 
