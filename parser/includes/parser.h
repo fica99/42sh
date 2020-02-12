@@ -83,7 +83,7 @@ struct termios			g_shell_tmodes;
 t_job					*g_first_job;
 t_job					*g_last_job;
 
-void    				parse_calc(t_lex_tkn **tkn);
+void					parse_calc(t_lex_tkn **tkn);
 /*
 **						make_ast.c
 */
