@@ -164,10 +164,6 @@ void				jobs(int argc, char **argv, char **environ);
 */
 void				format_job_info(t_job *j, const char *status, int options);
 /*
-**					free_job.c
-*/
-void				free_job(t_job **head, t_job *to_del);
-/*
 **					ft_free_jobs.c
 */
 void				ft_free_proc(t_process *p);

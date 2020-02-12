@@ -69,7 +69,6 @@ SRC_FLS	=		cd.c\
 				set_var.c\
 				jobs.c\
 				job_print.c\
-				free_job.c\
 				ft_free_jobs.c\
 				fg.c\
 				bg.c\
