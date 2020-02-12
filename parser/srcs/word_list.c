@@ -41,9 +41,7 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	t_redir_list	*first_red;
 	int				exp_w;
 
-	exp_w = (*(list))->type == T_IO_NUMBER ? 2 : 1;
-	if ((*list + 2)->class == C_END)
-		exp_w--;
+	exp_w = (*(list))->type == T_IO_NUMBER ? 3 : 2;
 	first_red = curr_proc->r;
 	if (!(new = (t_redir_list *)ft_memalloc(sizeof(t_redir_list))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
@@ -56,7 +54,9 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 			first_red = first_red->next;
 		first_red->next = new;
 	}
-	return (word_list(list + exp_w + 1, curr_proc));
+	if (!*curr_proc->args && (*(list + exp_w))->class == C_END)
+		exp_w = 1;
+	return (word_list(list + exp_w, curr_proc));
 }
 
 static void	add_set_var_proc(char **varlist,
