@@ -78,7 +78,6 @@ SRC_FLS	=		lex_lexer.c\
 				lex_preprocessing.c\
 				lex_arith_sub.c\
 				lex_insert_tkns.c\
-				lex_debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
