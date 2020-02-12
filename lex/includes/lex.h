@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 22:24:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:42:59 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
 ** lex_val_tkn_processing.c
 */
 
-void				lex_parse_tkn_value(t_lex_tkn *token, const char *str);
+void				lex_cut_tkn_value(t_lex_tkn *token, const char *str);
 
 /*
 ** lex_substitutions.c

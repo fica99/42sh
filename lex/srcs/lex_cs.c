@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 16:25:24 by work             ###   ########.fr       */
+/*   Updated: 2020/02/12 19:45:25 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_lex_tkn_type	lex_cs_type(t_lex_cs_type type)
 {
 	if (type == CS_DOUBLE_QUOTES && type == CS_SINGLE_QUOTES)
-		return (T_QUOTES);
+		return (T_WORD);
 	else if (type == CS_ROUND_BRK)
 		return (T_ROUND_SUB);
 	else if (type == CS_FIGURE_BRK)

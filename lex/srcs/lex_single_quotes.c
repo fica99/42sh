@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:42:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 20:58:27 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 19:46:35 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ t_lex_tkn_type	lex_single_quotes(char **str, size_t *pos)
 			return (T_ERR);
 	}
 	(*pos) += offset + 1;
-	return (T_QUOTES);
+	return (T_WORD);
 }
