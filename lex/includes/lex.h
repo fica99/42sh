@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 22:24:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 19:42:59 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,7 @@ void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
 ** lex_val_tkn_processing.c
 */
 
-void				lex_parse_tkn_value(t_lex_tkn *token, const char *str);
+void				lex_cut_tkn_value(t_lex_tkn *token, const char *str);
 
 /*
 ** lex_substitutions.c
@@ -350,5 +350,14 @@ t_lex_tkn_type		lex_arith_sub(char **str, short is_word, size_t *pos);
 size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
+
+/*
+** lex_debug.c
+*/
+
+void				lex_print_class(t_lex_tkn_class class);
+void				lex_print_type(t_lex_tkn_type type);
+void				lex_print_tkn(t_lex_tkn *token);
+void				lex_print_tkns(t_lex_tkn **tokens);
 
 #endif

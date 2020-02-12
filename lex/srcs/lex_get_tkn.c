@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_get_tkn.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:22:06 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 17:47:00 by work             ###   ########.fr       */
+/*   Updated: 2020/02/12 19:39:29 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void				lex_fill_value_pos(t_lex_tkn *token, char *str,
 		return ;
 	token->start_pos = start_pos;
 	token->end_pos = pos;
-	lex_parse_tkn_value(token, str);
+	lex_cut_tkn_value(token, str);
 }
