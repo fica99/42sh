@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 17:17:29 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/11 16:26:12 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 21:47:59 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char			*find_in_path(char *filename, char **environ)
 	char	**paths;
 	char	*res;
 	char	*path_var;
+
 	if (!(path_var = ft_getvar("PATH", environ)))
 		return (NULL);
 	if (!(paths = ft_strsplit(path_var, ':')))
