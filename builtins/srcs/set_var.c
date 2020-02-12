@@ -30,7 +30,7 @@ int	set_variable(int ac, char **av, char **environ)
 		}
 		*value = 0;
 		++value;
-		if (get_var(name, ENV))
+		if (get_var(name, ENV) || !ft_strcmp("PATH", name))
 			set_var(name, value, ENV);
 		else
 			set_var(name, value, VARS);

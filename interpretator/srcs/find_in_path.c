@@ -51,17 +51,8 @@ char			*find_in_path(char *filename, char **environ)
 	char	**paths;
 	char	*res;
 	char	*path_var;
-
-	if (!environ)
-	{
-		if (!(path_var = get_var("PATH", ALL_VARS)))
-			return (NULL);
-	}
-	else
-	{
-		if (!(path_var = ft_getvar("PATH", environ)))
-			return (NULL);
-	}
+	if (!(path_var = ft_getvar("PATH", environ)))
+		return (NULL);
 	if (!(paths = ft_strsplit(path_var, ':')))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
 	res = locate(filename, paths);
