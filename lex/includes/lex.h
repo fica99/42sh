@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 20:35:23 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/12 23:41:29 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -355,9 +355,21 @@ t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
 
 /*
+** lex_history_exp.c
+*/
+
+int					lex_history_exp(char **str, size_t pos);
+int					lex_is_hist_exp(const char *str, size_t pos);
+
+/*
+** lex_check_hist_exp.c
+*/
+
+t_lex_tkn_type		lex_check_hist_exp(char **str, size_t *pos);
+
+/*
 ** lex_stat.c
 */
 
 t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
-
 #endif
