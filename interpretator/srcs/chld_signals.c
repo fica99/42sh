@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   chld_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcrawn <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:42:17 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/12 17:42:19 by lcrawn           ###   ########.fr       */
+/*   Updated: 2020/02/12 18:41:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static void		sig_handler_2(int sig)
+static void		sig_handler_other(int sig)
 {
 	if (sig == SIGPROF)
 		ft_putstr_fd("Sigprof: 29", STDOUT_FILENO);
@@ -32,7 +32,7 @@ static void		sig_handler_2(int sig)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
-static void			child_handler(int sig)
+static void		child_handler(int sig)
 {
 	if (sig == SIGSEGV)
 		ft_putstr_fd("Segmentation fault: 11", STDOUT_FILENO);
@@ -53,10 +53,10 @@ static void			child_handler(int sig)
 	else if (sig == SIGUSR2)
 		ft_putstr_fd("Sigusr2: 17", STDOUT_FILENO);
 	else
-		sig_handler_2(sig);
+		sig_handler_other(sig);
 }
 
-void		kill_info(t_process *p, int status, int foreground)
+void			kill_info(t_process *p, int status, int foreground)
 {
 	if (!foreground)
 	{

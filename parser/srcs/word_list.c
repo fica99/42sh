@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:50:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/09 12:51:53 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:20:42 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,4 @@ void		word_list(t_lex_tkn **list, t_process *cur_proc)
 		parse_redirect(list, cur_proc);
 	else if ((*list)->class == C_WORD)
 		parse_word(list, cur_proc);
-	else
-		return ;
 }

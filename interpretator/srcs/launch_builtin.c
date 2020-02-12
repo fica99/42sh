@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/12 01:14:35 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 18:06:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int				launch_no_fork_builtin(t_process *p)
 		return (-1);
 	set_uniq_env(p);
 	tmp = pattern_matching(p->args);
-	ft_free_dar(p->args);
+	free(p->args);
 	ft_sub(p->args = tmp, p->environment);
 	if (redir_handle(p) < 0)
 	{
