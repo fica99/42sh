@@ -351,13 +351,4 @@ size_t				lex_tkns_size(t_lex_tkn **tkns);
 t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	t_lex_tkn **ins, size_t ins_index);
 
-/*
-** lex_debug.c
-*/
-
-void				lex_print_class(t_lex_tkn_class class);
-void				lex_print_type(t_lex_tkn_type type);
-void				lex_print_tkn(t_lex_tkn *token);
-void				lex_print_tkns(t_lex_tkn **tokens);
-
 #endif
