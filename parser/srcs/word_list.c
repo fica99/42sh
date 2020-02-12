@@ -42,6 +42,8 @@ static void	parse_redirect(t_lex_tkn **list, t_process *curr_proc)
 	int				exp_w;
 
 	exp_w = (*(list))->type == T_IO_NUMBER ? 2 : 1;
+	if ((*list + 2)->class == C_END)
+		exp_w--;
 	first_red = curr_proc->r;
 	if (!(new = (t_redir_list *)ft_memalloc(sizeof(t_redir_list))))
 		err_exit("42sh", "malloc() error", NULL, NOERROR);
