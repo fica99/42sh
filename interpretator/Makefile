@@ -6,7 +6,7 @@
 #    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 22:04:07 by jijerde          ###   ########.fr        #
+#    Updated: 2020/02/13 16:24:45 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,8 @@ SRC_FLS	=			add_redir.c\
 					expansions_implementation.c \
 					expansions_validation.c \
 					expansions_cycle.c \
+					dollar_expr.c \
+					check_brackets.c \
 
 
 # ------------  FILEPATHS  --------------------------------------------------- #

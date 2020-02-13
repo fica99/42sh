@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 05:33:08 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 21:18:58 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int					g_shell_terminal;
 int					g_last_exit_status;
 pid_t				g_shell_pgid;
 int					g_f;
+int					g_fo;
+int					g_curr_doll;
+int					g_br;
 /*
 **					find_in_path.c
 */
@@ -83,6 +86,7 @@ int					redir_handle(t_process *p);
 **					spec_symb.c
 */
 char				*spec_symbols(char **args);
+char				*isexpansion(char *args);
 /*
 **					io_redir.c
 */
@@ -142,17 +146,27 @@ void				init_jobs(void);
 **					expansions_validation.c
 */
 int					isvalidparameter(char s);
-void				*expansions(char *s);
 int					check_bracket(char *s);
 void				*expansions_validation(char *s);
 /*
-**					expansions_implementation.c 
+**					expansions_implementation.c
 */
 char				*exp_implement(char *s);
 /*
-**					expansions_cycle.c 
+**					expansions_cycle.c
 */
 char				*expansions_cycle(char *s);
 void				*exp_error(char *s);
+/*
+**					dollar_expr.c
+*/
+char				*dollar_expr(char *args);
+void				tilda_expr(char **args);
+void				*expansions(char *s);
+/*
+**					check_brackets.c
+*/
+int					check_bracket(char *s);
+int					last_bracket(char *s);
 
 #endif
