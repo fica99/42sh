@@ -33,9 +33,24 @@ static void	ft_error(char *name, char *str, char *command, char *err)
 	ft_putchar_fd('\n', STDERR_FILENO);
 }
 
+int			fix_exit(int status)
+{
+	if (status == 256)
+		return (1);
+	else if (status == 32256)
+		return (126);
+	else if (status == 32512)
+		return (127);
+	return (status);
+}
+
 void		err_exit(char *name, char *str, char *command, char *err)
 {
 	ft_error(name, str, command, err);
+	if (ft_strequ("permission denied", str))
+		exit(126);
+	else if (ft_strequ("command not found", str))
+		exit(127);
 	exit(EXIT_FAILURE);
 }
 
