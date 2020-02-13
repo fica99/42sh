@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:31:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 19:11:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 22:22:22 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char		*tilda_substitution(char *line)
 	struct passwd	*data;
 
 	res = NULL;
-	if (!line || !(*line) || *line != '~')
-		return (res);
 	if (*(line + 1) == '/' || !*(line + 1))
 	{
 		if ((path = get_var("HOME", ENV)))
@@ -35,7 +33,7 @@ char		*tilda_substitution(char *line)
 		else
 			path = ft_strdup(line + 1);
 		if ((data = getpwnam(path)))
-			res = ft_strjoin(data->pw_dir, slash);
+			res = ft_strjoin(data->pw_dir, (!slash) ? "" : slash);
 		ft_strdel(&path);
 	}
 	return (res);
@@ -74,29 +72,21 @@ char		**pattern_matching(char *line)
 
 char		*var_substitution(char *line)
 {
-	char	*dollar;
-	char	*res;
-	char	*tmp;
-	char	*end;
 	int		i;
+	char	*to_find;
+	char	*var;
+	char	*res;
 
-	if (!line || !*line || !ft_strchr(line, '$'))
+	i = 0;
+	if (!ft_isalpha(line[++i]))
 		return (NULL);
-	if (!(res = ft_strnew(PATH_MAX)))
+	while (ft_isalnum(line[i]))
+		++i;
+	if (!(to_find = ft_strsub(line, 1, i - 1)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	res = ft_strcpy(res, line);
-	while ((dollar = ft_strchr(res, '$')))
-	{
-		i = 1;
-		while (dollar[i] && dollar[i] != '$')
-			++i;
-		if (!(tmp = ft_strsub(dollar, 1, i - 1)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-		if (!(end = ft_strdup(dollar + i)))
-			err_exit("42sh", "malloc() error", NULL, ENOMEM);
-		ft_strcat(ft_strcpy(dollar, get_var(tmp, ALL_VARS)), end);
-		ft_strdel(&end);
-		ft_strdel(&tmp);
-	}
+	var = get_var(to_find, ALL_VARS);
+	ft_strdel(&to_find);
+	if (!(res = ft_strjoin(var, line + i)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	return (res);
 }

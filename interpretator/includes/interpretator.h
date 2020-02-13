@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 19:13:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/14 00:20:44 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,14 @@ void				init_jobs(void);
 char				*tilda_substitution(char *line);
 char				**pattern_matching(char *line);
 char				*var_substitution(char *line);
+/*
+**					quotes_managment.c
+*/
+char				**quotes_managment(char **args);
+/*
+**					check_patterns.c
+*/
+char				**check_patterns(char **args, size_t i, short patterns);
 /*
 **					chld_signals.c
 */

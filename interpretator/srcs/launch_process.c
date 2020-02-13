@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2020/02/13 19:13:25 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 22:05:23 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 	if (foreground)
 		tcsetpgrp(g_shell_terminal, pgid);
 	set_sig_def();
+	p->args = quotes_managment(p->args);
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);
