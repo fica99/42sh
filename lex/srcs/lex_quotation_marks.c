@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 14:21:40 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 20:44:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/13 23:22:22 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,19 @@ int				lex_is_quotation_marks(char *str, size_t pos)
 
 t_lex_tkn_type	lex_quotation_marks(char **str, short is_word, size_t *pos)
 {
+	t_lex_tkn_type	result;
+
 	if (!(*str) || !pos)
 		return (T_ERR);
-	if (is_word)
-		return (T_NULL);
-	else if ((*str)[*pos] == '"')
-		return (lex_double_quotes(str, pos));
+	result = T_ERR;
+	if ((*str)[*pos] == '"')
+		result = lex_double_quotes(str, pos);
 	else if ((*str)[*pos] == '\'')
-		return (lex_single_quotes(str, pos));
-	else
+		result = lex_single_quotes(str, pos);
+	if (result == T_ERR)
 		return (T_ERR);
+	if (result == T_WORD && is_word
+		&& ((*str)[*pos] == ' ' || !(*str)[*pos]))
+		return (T_NULL);
+	return (T_WORD);
 }
