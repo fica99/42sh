@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/12 17:50:39 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/13 17:48:24 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ SRC_FLS	=			add_redir.c\
 					uniq_env.c\
 					init_jobs.c\
 					find_in_path.c\
-					pattern_matching.c\
+					substitution.c\
 					chld_signals.c\
 
 
