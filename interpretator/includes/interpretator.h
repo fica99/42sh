@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 01:22:27 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/13 19:13:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <unistd.h>
 # include <signal.h>
 # include <glob.h>
+# include <pwd.h>
+# include <sys/types.h>
 # include "libft.h"
 # include "parser.h"
 # include "error.h"
@@ -71,17 +73,12 @@ int					launch_fork_builtin(t_process *p);
 /*
 **					launch_process.c
 */
-void				ft_sub(char **args, char **environment);
 void				launch_process(t_process *p, pid_t pgid, int foreground);
 /*
 **					make_redir.c
 */
 void				dup_redir(int **fd_list);
 int					redir_handle(t_process *p);
-/*
-**					spec_symb.c
-*/
-char				*spec_symbols(char *args);
 /*
 **					io_redir.c
 */
@@ -138,9 +135,11 @@ void				set_uniq_env(t_process *p);
 */
 void				init_jobs(void);
 /*
-**					pattern_matching.c
+**					substitution.c
 */
-char				**pattern_matching(char **args);
+char				*tilda_substitution(char *line);
+char				**pattern_matching(char *line);
+char				*var_substitution(char *line);
 /*
 **					chld_signals.c
 */

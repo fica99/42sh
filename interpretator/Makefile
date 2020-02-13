@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/13 17:48:24 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/13 19:12:01 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,6 @@ SRC_FLS	=			add_redir.c\
 					make_redir.c\
 					pipes_routine.c\
 					put_in.c\
-					spec_symb.c\
 					uniq_env.c\
 					init_jobs.c\
 					find_in_path.c\
