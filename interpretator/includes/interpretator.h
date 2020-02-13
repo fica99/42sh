@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 22:27:26 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 05:33:08 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ pid_t				g_job_pgid;
 int					g_shell_terminal;
 int					g_last_exit_status;
 pid_t				g_shell_pgid;
-
+int					g_f;
 /*
 **					find_in_path.c
 */

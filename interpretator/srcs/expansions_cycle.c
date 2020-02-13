@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 21:57:09 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/13 02:55:06 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 05:32:20 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*triple_strcat(char *s, char *for_replace, int sec_beg, int third_beg)
 {
 	char	*new_str;
 	char	*final_str;
+	char	*beg;
 	int		i;
 
 	i = 0;
@@ -33,16 +34,18 @@ char	*triple_strcat(char *s, char *for_replace, int sec_beg, int third_beg)
 	}
 	if (for_replace != NULL)
 	{
+		beg = for_replace;
 		while(*for_replace)
 		{
 			*new_str++ = *for_replace++;
 		}
+		if (g_f == 1)
+			free(beg);
 	}
 	while(s[third_beg])
 	{
 		*new_str++ = s[third_beg++];
 	}
-	//free(s);
 	return (final_str);
 }	
 
@@ -60,6 +63,7 @@ char	*expansions_cycle(char *s)
 	f = 0;
 	while (1)
 	{
+		g_f = 0;
 		i = 0;
 		while (s[i])
 		{
@@ -77,7 +81,14 @@ char	*expansions_cycle(char *s)
 		if (for_replace)
 		{
 			if (!(ft_strcmp(for_replace, "err")))
+			{
+				if (g_f == 1)
+				{
+					free(for_replace);
+					g_f = 0;
+				}
 				return (NULL);
+			}
 		}
 		if (curr_doll == 0)
 		{
@@ -87,11 +98,9 @@ char	*expansions_cycle(char *s)
 		}
 		tmp2 = triple_strcat(s, for_replace, second_beg + 1, third_beg + 2);
 		if (f)
-		{
 			free(s);
-			f++;
-		}
 		s = tmp2;
+		f++;
 		if (!(ft_strchr(s, '$')))
 			break ;
 	}

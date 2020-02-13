@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 12:27:24 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/12 20:59:32 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 04:20:42 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char *exp_implement(char *s)
 	char	*param;
 	char	*value;
 	char	*tmp;
+	char	*for_free;
 
 	i = 0;
 	j = 0;
@@ -42,11 +43,15 @@ char *exp_implement(char *s)
 			if (!*value)
 			{
 				if (s[i] == '=')
-					set_var(param, (ft_strsub(s, i + 1, j - (i + 1))), ALL_VARS);
+				{
+					set_var(param, (for_free = (ft_strsub(s, i + 1, j - (i + 1)))), ALL_VARS);
+					free(for_free);
+				}
 				if (s[i] == '?')
 				{
-					err("42sh", param, ft_strsub(s, i + 1, j - (i + 1)), NULL);
+					err("42sh", param, for_free = (ft_strsub(s, i + 1, j - (i + 1))), NULL);
 					free(param);
+					free(for_free);
 					return (NULL);
 				}
 				if (s[i] == '+')
@@ -65,6 +70,7 @@ char *exp_implement(char *s)
 						return ("");
 					}
 					free(param);
+					g_f = 1;
 					return (ft_strsub(s, i + 1, j - (i + 1)));
 				}
 				free(param);
@@ -74,10 +80,14 @@ char *exp_implement(char *s)
 		else
 		{
 			if (s[i] == '=')
-				set_var(param, (ft_strsub(s, i + 1, j - (i + 1))), ALL_VARS);
+			{
+				set_var(param, (for_free = (ft_strsub(s, i + 1, j - (i + 1)))), ALL_VARS);
+				free(for_free);
+			}
 			if (s[i] == '?')
 			{
-				err("42sh", param, ft_strsub(s, i + 1, j - (i + 1)), NULL);
+				err("42sh", param, for_free = (ft_strsub(s, i + 1, j - (i + 1))), NULL);
+				free(for_free);
 				free(param);
 				return (NULL);
 			}
@@ -88,6 +98,7 @@ char *exp_implement(char *s)
 			}
 		}
 		free(param);
+		g_f = 1;
 		return (ft_strsub(s, i + 1, j - (i + 1)));
 	}
 	else

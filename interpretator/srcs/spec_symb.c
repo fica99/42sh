@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 02:42:31 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 05:28:13 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*isexpansion(char *args)
 
 	z = 0;
 	var = ft_strnew(LINE_MAX);
-	spec = ft_strnew(LINE_MAX);
 	while (args[z])
 	{
 		i = 1;
@@ -71,7 +70,8 @@ char	*isexpansion(char *args)
 			{
 				ft_strcat(var, copy1);
 				ft_strcat(var, path);
-				free(path);
+				if (g_f == 1)
+					free(path);
 			}
 		}
 		while (spec[i] == '}' && spec[i])

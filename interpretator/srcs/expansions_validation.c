@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 06:05:14 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/12 20:59:12 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 05:45:27 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,24 @@ void	*expansions_validation(char *s)
 		return (0);
 	if (s[2] == '#')
 	{
+		i++;
+		while (s[i] != '}' && s[i] && s[i] != '$')
+		{
+			if (s[i + 1])
+			{
+				if (!(isvalidword(s[i], s[i + 1])))
+					return (exp_error(s));
+			}
+			else
+			{
+				if (!isvalidword(s[i], 0))
+					return (exp_error(s));
+			}
+			i++;
+		}
 		ret = ft_itoa(ft_strlen(get_var(tmp = (ft_strsub(s, 3, paramlen - 2)), ALL_VARS)));
 		free(tmp);
+		g_f = 1;
 		return (ret);
 	}
 	i = 2;
