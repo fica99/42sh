@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 12:27:24 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/10 18:04:38 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:59:32 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char *exp_implement(char *s)
 	int		j;
 	char	*param;
 	char	*value;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
@@ -45,15 +46,28 @@ char *exp_implement(char *s)
 				if (s[i] == '?')
 				{
 					err("42sh", param, ft_strsub(s, i + 1, j - (i + 1)), NULL);
+					free(param);
 					return (NULL);
 				}
 				if (s[i] == '+')
+				{
+					free(param);
 					return (NULL);
+				}
 			}
 			else
 			{
 				if (s[i] == '+')
+				{
+					if (s[i + 1] == '}')
+					{
+						free(param);
+						return ("");
+					}
+					free(param);
 					return (ft_strsub(s, i + 1, j - (i + 1)));
+				}
+				free(param);
 				return (value);
 			}
 		}
@@ -64,13 +78,22 @@ char *exp_implement(char *s)
 			if (s[i] == '?')
 			{
 				err("42sh", param, ft_strsub(s, i + 1, j - (i + 1)), NULL);
+				free(param);
 				return (NULL);
 			}
 			if (s[i] == '+')
+			{
+				free(param);
 				return (NULL);
+			}
 		}
+		free(param);
 		return (ft_strsub(s, i + 1, j - (i + 1)));
 	}
 	else
-		return (get_var(param, ALL_VARS));
+	{
+		tmp = get_var(param, ALL_VARS);
+		free(param);
+		return (tmp);
+	}
 }

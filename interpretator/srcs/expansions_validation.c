@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 06:05:14 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/12 00:19:50 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/12 20:59:12 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,21 @@ int		check_bracket(char *s)
 
 void	*expansions_validation(char *s)
 {
-	int i;
-	int	paramlen;
+	int		i;
+	int		paramlen;
+	char	*tmp;
+	char	*ret;
 	
 	i = 0;
 	if (!(paramlen = check_bracket(s)))
 		return (0);
 	if (s[2] == '#')
-		return (ft_itoa(ft_strlen(get_var(ft_strsub(s, 2, paramlen - 1), ALL_VARS))));
+	{
+		ret = ft_itoa(ft_strlen(get_var(tmp = (ft_strsub(s, 3, paramlen - 2)), ALL_VARS)));
+		free(tmp);
+		return (ret);
+	}
+	i = 2;
 	while (s[i] != '}' && s[i])
 	{
 		if (s[i] == ':' && s[i + 1] != '}' && i != 0)
@@ -91,10 +98,10 @@ void	*expansions_validation(char *s)
 			}
 		}
 		else if (!(isvalidparameter(s[i])))
-			return (exp_error(s));	
+			return (exp_error(s));
 		i++;
 	}
-	return (exp_implement(s));
+	return (exp_implement(s + 2));
 }
 
 void	*expansions(char *s)

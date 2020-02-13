@@ -6,26 +6,26 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 23:30:58 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 00:07:50 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/13 02:42:31 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static char	*tilda_expr(char *args)
+void	tilda_expr(char **args)
 {
-	char	*tmp;
 	char	*path;
 	char	*index;
+	char	*tmp;
 
-	tmp = args;
 	if ((path = get_var("HOME", ALL_VARS)))
 	{
-		index = ft_strchr(args, '~');
-		args = ft_strjoin(path, index + 1);
-		free(tmp);
+		index = ft_strchr(*args, '~');
+		if (!(tmp = ft_strjoin(path, index + 1)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+		ft_strdel(args);
+		*args = tmp;
 	}
-	return (args);
 }
 
 char	*isexpansion(char *args)
@@ -36,10 +36,12 @@ char	*isexpansion(char *args)
 	char	*path;
 	int		i;
 	int		j;
+	int		z;
 
+	z = 0;
 	var = ft_strnew(LINE_MAX);
-	path = ft_strnew(LINE_MAX);
-	while (*args)
+	spec = ft_strnew(LINE_MAX);
+	while (args[z])
 	{
 		i = 1;
 		j = 0;
@@ -53,20 +55,31 @@ char	*isexpansion(char *args)
 		if (spec != args)
 			copy1 = ft_strsub(args, 0, spec - args);
 		if (!(path = expansions(spec)))
-			return (NULL); //invalid exp error here
-		while (spec[i] != '}')
+		{
+			if (copy1)
+				free(copy1);
+			free(var);
+			return (NULL);
+		}
+		while (spec[i] != '}' && spec[i])
 		{
 			i++;
 			j = i;
-			while (spec[i] != '}')
+			while (spec[i] != '}' && spec[i])
 				i++;
 			if (path)
 			{
 				ft_strcat(var, copy1);
 				ft_strcat(var, path);
+				free(path);
 			}
 		}
-		args += ((ft_strlen(copy1) + i) + 1);
+		while (spec[i] == '}' && spec[i])
+			i++;
+		i--;
+		args += (z = ((ft_strlen(copy1) + i) + 1));
+		if (copy1)
+			free(copy1);
 	}
 	return (var);
 }
@@ -118,6 +131,7 @@ char	*dollar_expr(char *args)
 	copy = NULL;
 	if (spec[1] == '{')
 	{
+		free(var);
 		return (isexpansion(args));
 	}
 	if (spec != args)
@@ -135,15 +149,24 @@ char	*dollar_expr(char *args)
 	return (var);
 }
 
-char	*spec_symbols(char *args)
+char	*spec_symbols(char **args)
 {
-	while (ft_strchr(args, '~'))
-		args = tilda_expr(args);
-	while (ft_strchr(args, '$') && (!(ft_strcmp((ft_strchr(args, '$')), "$") == 0)))
+	char	*tmp;
+	char	*dollar;
+	int		i;
+	
+	i = 0;
+	while (ft_strchr(*args, '~'))
+		tilda_expr(args);
+	while ((dollar = ft_strchr(*args, '$')) && (ft_strcmp(dollar, "$")))
 	{
-		args = dollar_expr(args);
-		if (args == NULL)
+		tmp = dollar_expr(*args);
+		if (i)
+			free(*args);
+		*args = tmp;
+		i++;
+		if (*args == NULL)
 			break ;
 	}
-	return (args);
+	return (*args);
 }

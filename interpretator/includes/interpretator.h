@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 00:02:42 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/12 22:27:26 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int					redir_handle(t_process *p);
 /*
 **					spec_symb.c
 */
-char				*spec_symbols(char *args);
+char				*spec_symbols(char **args);
 /*
 **					io_redir.c
 */

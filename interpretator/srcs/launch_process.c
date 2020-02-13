@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2020/02/05 14:17:20 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/12 22:28:10 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void		ft_sub(char **args, char **environ)
 	(void)environ;
 	while (*args)
 	{
-		*args = spec_symbols(*args);
+		*args = spec_symbols(args);
 		args++;
 	}
 	if (environ)
 	{
 		while (*environ)
 		{
-			*environ = spec_symbols(*environ);
+			*environ = spec_symbols(environ);
 			environ++;
 		}
 	}
