@@ -54,12 +54,12 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 	if (foreground)
 		tcsetpgrp(g_shell_terminal, pgid);
 	set_sig_def();
-	p->args = quotes_managment(p->args);
 	dup_pipes(p);
 	if (redir_handle(p) < 0)
 		exit(1);
 	dup_redir(p->fd_list);
 	set_uniq_env(p);
+	p->args = quotes_managment(p->args);
 }
 
 void		launch_process(t_process *p, pid_t pgid, int foreground)
