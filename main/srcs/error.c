@@ -35,7 +35,11 @@ static void	ft_error(char *name, char *str, char *command, char *err)
 
 int			fix_exit(int status)
 {
-	if (status == 256)
+	if (WIFSIGNALED(status))
+		return (128);
+	else if (WIFSTOPPED(status))
+		return (130);
+	else if (status == 256)
 		return (1);
 	else if (status == 32256)
 		return (126);
