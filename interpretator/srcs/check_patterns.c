@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_patterns.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 23:46:57 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/14 00:28:42 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/14 02:13:05 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	**check_patterns(char **args, size_t i, short patterns)
 	ft_memcpy(new_args + i, result, sizeof(char *) * res_len);
 	ft_memcpy(new_args + i + res_len, args + i + 1, sizeof(char *) *
 										ft_darlen(args + i + 1));
+	ft_memdel((void**)&args[i]);
 	free(args);
 	free(result);
 	return (new_args);

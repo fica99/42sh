@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_managment.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 19:47:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/14 00:21:48 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/14 01:39:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static int	del_quote(char **str, size_t pos, short *quote_type)
 	len = ft_strlen(*str);
 	if (!(new_str = ft_strnew(len)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	ft_memcpy(new_str, *str, pos++);
-	ft_memcpy(new_str + pos - 1, (*str) + pos, len - pos);
+	ft_memcpy(new_str, *str, pos);
+	ft_memcpy(new_str + pos, (*str) + pos + 1, len - pos - 1);
 	free(*str);
 	*str = new_str;
 	return ((pos > 1) ? pos - 2 : pos);

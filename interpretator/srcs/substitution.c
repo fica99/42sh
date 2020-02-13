@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 17:31:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/13 22:22:22 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/14 01:53:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,22 @@ char		*var_substitution(char *line)
 	char	*var;
 	char	*res;
 
-	i = 0;
-	if (!ft_isalpha(line[++i]))
-		return (NULL);
-	while (ft_isalnum(line[i]))
+	i = 1;
+	while (line[i] && !ft_isspace(line[i]) && line[i] != '\''
+	&& line[i] != '"' && line[i + 1] != '$')
 		++i;
 	if (!(to_find = ft_strsub(line, 1, i - 1)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	var = get_var(to_find, ALL_VARS);
+	if ((var = get_var(to_find, ALL_VARS)))
+	{
+		if (!(res = ft_strjoin(var, line + i)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	}
+	else
+	{
+		if (!(res = ft_strdup(line + i)))
+			err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	}
 	ft_strdel(&to_find);
-	if (!(res = ft_strjoin(var, line + i)))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	return (res);
 }
