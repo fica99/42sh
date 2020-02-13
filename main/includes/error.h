@@ -29,6 +29,7 @@
 /*
 **			error.c
 */
+int			fix_exit(int status);
 void		err_exit(char *name, char *str, char *command, char *err);
 void		err(char *name, char *str, char *command, char *err);
 #endif
