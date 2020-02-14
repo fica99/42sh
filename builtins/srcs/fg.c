@@ -26,6 +26,8 @@ static t_job	*last_not_compl(int i)
 			lst = j;
 		j = j->next;
 	}
+	if (!j)
+		return (j);
 	if (job_is_completed(j))
 		j = lst;
 	return (j);

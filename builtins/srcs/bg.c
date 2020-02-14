@@ -12,7 +12,28 @@
 
 #include "builtins.h"
 
-void		bg(int argc, char **argv, char **environ)
+static t_job	*last_not_compl(int i)
+{
+	t_job *j;
+	t_job *lst;
+
+	if (i <= 0)
+		return (NULL);
+	j = g_first_job;
+	while (j && j->num != i)
+	{
+		if (!job_is_completed(j))
+			lst = j;
+		j = j->next;
+	}
+	if (!j)
+		return (j);
+	if (job_is_completed(j))
+		j = lst;
+	return (j);
+}
+
+void			bg(int argc, char **argv, char **environ)
 {
 	char	*tmp;
 	t_job	*j;
@@ -22,43 +43,19 @@ void		bg(int argc, char **argv, char **environ)
 	if (argc > 1)
 		i = ft_atoi(argv[1]);
 	else
-		i = max_job();
-	j = g_first_job;
-	while (j && j->num != i)
-		j = j->next;
+		i = max_job() - 1;
+	j = last_not_compl(i);
 	if (j)
 	{
 		mark_job_as_running(j);
 		put_job_in_background(j, 1);
 	}
 	else if (argv[1])
-		err("42sh", "bg", argv[1], "no such job");
+		err("42sh", "fg", argv[1], "no such job");
 	else
 	{
 		tmp = ft_itoa(i);
-		err("42sh", "bg", tmp, "no such job");
+		err("42sh", "fg", NULL, "no jobs left");
 		ft_strdel(&tmp);
 	}
-}
-
-void		print_finished_process(t_job *j, pid_t pid, int status)
-{
-	char		*s_num;
-	t_process	*p;
-
-	p = j->first_process;
-	while (p && p->pid != pid)
-		p = p->next;
-	if (!p)
-		return ;
-	s_num = ft_itoa(j->num);
-	ft_putstr_fd("[", STDOUT_FILENO);
-	ft_putstr_fd(s_num, STDOUT_FILENO);
-	if (WIFSIGNALED(status) && WTERMSIG(status))
-		ft_putstr_fd("] Killed ", STDOUT_FILENO);
-	else
-		ft_putstr_fd("] Done ", STDOUT_FILENO);
-	ft_putstr_fd(p->args[0], STDOUT_FILENO);
-	ft_putstr_fd("\n", STDOUT_FILENO);
-	ft_strdel(&s_num);
 }
