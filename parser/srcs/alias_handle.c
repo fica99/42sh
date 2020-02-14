@@ -33,6 +33,19 @@ char				*ft_getalias(char *name, char **varlist)
 
 static int			check_cycle(char *alias, t_cycle_list *l, t_lex_tkn **curr)
 {
+	int i;
+
+	i = 0;
+	while (alias[i++] != '=')
+		;
+	while (alias[i])
+	{
+		if (alias[i] != '\n' && alias[i] != ' ' && alias[i] != '\t')
+			break ;
+		i++;
+	}
+	if (!alias[i])
+		return (1);
 	while (l)
 	{
 		if (!ft_strcmp(alias, l->name))
