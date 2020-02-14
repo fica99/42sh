@@ -51,11 +51,11 @@ void			bg(int argc, char **argv, char **environ)
 		put_job_in_background(j, 1);
 	}
 	else if (argv[1])
-		err("42sh", "fg", argv[1], "no such job");
+		err("42sh", "bg", argv[1], "no such job");
 	else
 	{
 		tmp = ft_itoa(i);
-		err("42sh", "fg", NULL, "no jobs left");
+		err("42sh", "bg", NULL, "no jobs left");
 		ft_strdel(&tmp);
 	}
 }
