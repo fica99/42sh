@@ -50,6 +50,11 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 	i = 0;
 	while (p)
 	{
+		if (redir_handle(p) < 0)
+		{
+			p = p->next;
+			continue ;
+		}
 		open_pipe(p, pipes);
 		pid = make_process();
 		j->pgid = !j->pgid && i == 0 ? pid : j->pgid;
