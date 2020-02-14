@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: aashara <aashara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/14 01:23:31 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/15 02:52:22 by aashara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,10 @@ SRC_FLS	=			add_redir.c\
 					uniq_env.c\
 					init_jobs.c\
 					find_in_path.c\
-					substitution.c\
 					chld_signals.c\
+					tilda_substitutions.c\
+					vars_substitutions.c\
 					quotes_managment.c\
-					check_patterns.c\
-
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

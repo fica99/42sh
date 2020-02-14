@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/14 00:20:44 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 02:53:11 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ typedef	struct		s_her_vars
 	size_t			i;
 	char			*tmp;
 }					t_her_vars;
+
+typedef enum 		e_qt
+{
+	QT_DQ,
+	QT_SQ,
+	QT_NQ
+}					t_qt;
+
 
 pid_t				g_job_pgid;
 int					g_shell_terminal;
@@ -135,21 +143,19 @@ void				set_uniq_env(t_process *p);
 */
 void				init_jobs(void);
 /*
-**					substitution.c
-*/
-char				*tilda_substitution(char *line);
-char				**pattern_matching(char *line);
-char				*var_substitution(char *line);
-/*
-**					quotes_managment.c
-*/
-char				**quotes_managment(char **args);
-/*
-**					check_patterns.c
-*/
-char				**check_patterns(char **args, size_t i, short patterns);
-/*
 **					chld_signals.c
 */
 void				kill_info(t_process *p, int status, int foreground);
+/*
+**					tilda_substitutions.c
+*/
+char				**tilda_substitutions(char **args);
+/*
+**					vars_substitutions.c
+*/
+char				**vars_substitutions(char **args);
+/*
+**					quotes_managment.c
+*/
+t_qt				check_quotes_type(char *str, size_t pos, t_qt qt);
 #endif

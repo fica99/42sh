@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/13 22:05:22 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 02:51:16 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int				launch_no_fork_builtin(t_process *p)
 				p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	set_uniq_env(p);
-	p->args = quotes_managment(p->args);
+	p->args = tilda_substitutions(p->args);
+	p->args = vars_substitutions(p->args);
 	if (redir_handle(p) < 0)
 	{
 		restore_fd(fd);
