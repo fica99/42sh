@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 19:47:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/14 01:39:15 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/14 18:45:18 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,12 @@ static char	*check_sub(char *str, size_t pos)
 	char	*start;
 	char	*tmp;
 
+	result = NULL;
 	if (pos == 0 && str[pos] == '~')
 		result = tilda_substitution(str + pos);
 	else if (str[pos] == '$')
 		result = var_substitution(str + pos);
-	else
+	if (!result)
 		return (str);
 	if (!(start = ft_strsub(str, 0, pos)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
