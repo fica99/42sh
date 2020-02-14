@@ -63,6 +63,7 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 			launch_process(p, j->pgid, foreground);
 		else
 		{
+			cls_redir(p->fd_list);
 			p->pid = pid;
 			if (!j->pgid)
 				j->pgid = pid;

@@ -67,6 +67,5 @@ void		launch_process(t_process *p, pid_t pgid, int foreground)
 		if (execve(get_fname(p->args[0]), p->args, p->environment) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
 	p->completed = 1;
-	cls_redir(p->fd_list);
 	exit(g_last_exit_status);
 }
