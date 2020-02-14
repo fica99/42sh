@@ -12,7 +12,26 @@
 
 #include "builtins.h"
 
-void	fg(int argc, char **argv, char **environ)
+static t_job	*last_not_compl(int i)
+{
+	t_job *j;
+	t_job *lst;
+
+	if (i <= 0)
+		return (NULL);
+	j = g_first_job;
+	while (j && j->num != i)
+	{
+		if (!job_is_completed(j))
+			lst = j;
+		j = j->next;
+	}
+	if (job_is_completed(j))
+		j = lst;
+	return (j);
+}
+
+void			fg(int argc, char **argv, char **environ)
 {
 	char	*tmp;
 	t_job	*j;
@@ -23,9 +42,7 @@ void	fg(int argc, char **argv, char **environ)
 		i = ft_atoi(argv[1]);
 	else
 		i = max_job() - 1;
-	j = g_first_job;
-	while (j && j->num != i)
-		j = j->next;
+	j = last_not_compl(i);
 	if (j)
 	{
 		mark_job_as_running(j);
@@ -36,7 +53,7 @@ void	fg(int argc, char **argv, char **environ)
 	else
 	{
 		tmp = ft_itoa(i);
-		err("42sh", "fg", tmp, "no such job");
+		err("42sh", "fg", NULL, "no jobs left");
 		ft_strdel(&tmp);
 	}
 }
