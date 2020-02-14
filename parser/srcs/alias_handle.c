@@ -37,7 +37,7 @@ static int			check_cycle(char *alias, t_cycle_list *l, t_lex_tkn **curr)
 
 	i = 0;
 	while (alias[i++] != '=')
-			;
+		;
 	while (alias[i])
 	{
 		if (alias[i] != '\n' && alias[i] != ' ' && alias[i] != '\t')
