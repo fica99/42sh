@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 17:37:02 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 18:27:52 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@ typedef	struct		s_her_vars
 	char			*tmp;
 }					t_her_vars;
 
-typedef enum 		e_qt
+typedef enum		e_qt
 {
 	QT_DQ,
 	QT_SQ,
 	QT_NQ
 }					t_qt;
-
 
 pid_t				g_job_pgid;
 int					g_shell_terminal;
@@ -158,6 +157,10 @@ char				**vars_substitutions(char **args);
 **					pattern_substitutions.c
 */
 char				**pattern_substitutions(char **args);
+/*
+**					cut_quotes.c
+*/
+char				**cut_quotes(char **args);
 /*
 **					substitutions.c
 */

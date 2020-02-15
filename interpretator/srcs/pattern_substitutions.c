@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 16:45:51 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/15 17:18:17 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:28:31 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static char		**pattern_substitution(char **args, size_t i)
 	return (res);
 }
 
-char		**pattern_substitutions(char **args)
+char			**pattern_substitutions(char **args)
 {
 	size_t	i;
 	size_t	j;

@@ -6,12 +6,11 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:18:08 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/15 17:07:10 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:29:02 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
-
 
 static char	*tilda_substitution(char *line)
 {

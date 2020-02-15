@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/15 17:36:43 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/15 18:09:51 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC_FLS	=			add_redir.c\
 					chld_signals.c\
 					tilda_substitutions.c\
 					vars_substitutions.c\
+					cut_quotes.c\
 					substitutions.c\
 					pattern_substitutions.c\
 
