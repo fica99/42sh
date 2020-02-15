@@ -12,7 +12,7 @@
 
 #include "builtins.h"
 
-static t_job	*last_not_compl(int i)
+static t_job	*last_not_compl(int i, int argv)
 {
 	t_job *j;
 	t_job *lst;
@@ -20,6 +20,7 @@ static t_job	*last_not_compl(int i)
 	if (i <= 0)
 		return (NULL);
 	j = g_first_job;
+	lst = NULL;
 	while (j && j->num != i)
 	{
 		if (!job_is_completed(j))
@@ -28,8 +29,10 @@ static t_job	*last_not_compl(int i)
 	}
 	if (!j)
 		return (j);
-	if (job_is_completed(j))
+	if (job_is_completed(j) && !argv)
 		j = lst;
+	else if (job_is_completed(j))
+		j = NULL;
 	return (j);
 }
 
@@ -44,7 +47,7 @@ void			fg(int argc, char **argv, char **environ)
 		i = ft_atoi(argv[1]);
 	else
 		i = max_job() - 1;
-	j = last_not_compl(i);
+	j = last_not_compl(i, argc > 1 ? 1 : 0);
 	if (j)
 	{
 		mark_job_as_running(j);
