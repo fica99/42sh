@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "main.h"
+// #include "interpretator.h"
 
 static void	init_shell(char **environ)
 {
@@ -38,7 +39,11 @@ void		ft_system(char **line)
 
 	tokens = lex_get_tkns(line);
 	if (g_lex_stat == LS_ERR)
+	{
 		ft_putstr_fd("42sh: lex: unexpected syntax error\n", STDERR_FILENO);
+		g_last_exit_status = 1;
+		set_var("?", "1", ALL_VARS);
+	}
 	else if (tokens && *tokens && (*tokens)->type != T_END)
 	{
 		tokens = alias_handle(tokens);
