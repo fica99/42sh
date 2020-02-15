@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/15 21:48:11 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/15 23:57:03 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_insert_tkns.c\
 				lex_history_exp.c\
 				lex_check_hist_exp.c\
+				lex_expantions.c\
 				lex_stat.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #

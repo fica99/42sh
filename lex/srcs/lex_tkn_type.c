@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:34:00 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 23:29:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 23:56:04 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static t_lex_tkn_type	lex_check_type_next(char **str,
 		return (lex_arith_sub(str, is_word, pos));
 	else if ((*str)[*pos] == '!')
 		return (lex_check_hist_exp(str, pos));
+	else if ((*str)[*pos] == '{')
+		return (lex_expantions(str, pos));
 	else
 		return (lex_check_other(str, is_word, pos));
 }
