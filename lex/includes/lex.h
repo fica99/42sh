@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 23:41:29 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 00:11:41 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,14 +325,7 @@ t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
 ** lex_backslash.c
 */
 
-t_lex_fr			lex_bs(char **str, size_t *pos);
-t_lex_tkn_type		lex_check_bs(char **str, size_t *pos);
-
-/*
-** lex_backslash2.c
-*/
-
-char				*lex_del_backslash(char *str, size_t pos);
+t_lex_tkn_type		lex_bs(char **str, size_t *pos);
 
 /*
 ** lex_preprocessing.c

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/15 19:37:23 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 00:36:07 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static t_lex_fr		lex_esc_char(char **str, size_t *pos)
 	if (!str || !*str)
 		return (FR_ERR);
 	if ((*str)[*pos] == '\\')
-		if ((*str)[(*pos) + 1] == '"' || (*str)[(*pos) + 1] == '\''
-			|| (*str)[(*pos) + 1] == '\\')
-			(*pos) += 2;
+		(*pos) += 2;
 	return (FR_OK);
 }
 
@@ -53,40 +51,25 @@ static int			lex_bs_is_fin(const char *str, size_t pos)
 	return (0);
 }
 
-t_lex_fr			lex_bs(char **str, size_t *pos)
+t_lex_tkn_type		lex_bs(char **str, size_t *pos)
 {
 	t_lex_fr		al_result;
 
 	if (!str || !*str)
-		return (FR_ERR);
-	al_result = FR_OK;
+		return (T_ERR);
+	al_result = FR_ERR;
 	if ((*str)[*pos] != '\\')
-		return (FR_OK);
+		return (T_WORD);
 	if (lex_esc_char(str, pos) == FR_ERR)
-		return (FR_ERR);
+		return (T_ERR);
 	if (lex_bs_is_fin(*str, *pos))
 		if ((al_result = lex_add_line_bs(str, *pos)) == FR_ERR)
-			return (FR_ERR);
-	if (al_result == FR_CTRL_C || al_result == FR_CTRL_D)
-		return (al_result);
-	if (!(*str)[*pos])
-		return (FR_EOL);
-	return (FR_OK);
-}
-
-t_lex_tkn_type		lex_check_bs(char **str, size_t *pos)
-{
-	int				bs_result;
-
-	if (!(*str) || !pos)
-		return (T_ERR);
-	if ((bs_result = lex_bs(str, pos)) == FR_ERR)
-		return (T_ERR);
-	if (bs_result == FR_CTRL_C)
+			return (T_ERR);
+	if (al_result == FR_CTRL_C)
 		return (T_CTRL_C);
-	if (bs_result == FR_CTRL_D)
+	if (al_result == FR_CTRL_D)
 		return (T_CTRL_D);
-	if (bs_result == FR_EOL)
+	if (!(*str)[*pos])
 		return (T_NULL);
 	return (T_WORD);
 }
