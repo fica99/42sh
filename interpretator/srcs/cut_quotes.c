@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cut_quotes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:48:13 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/15 21:53:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/16 00:29:10 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,8 @@ static char	*check_bs(char *str, size_t *pos)
 
 static int	cut(char **str, size_t *pos, t_qt *qt)
 {
-	if ((*str)[*pos] == '\\')
+	if ((*str)[*pos] == '\\' && *qt != QT_SQ)
 	{
-		if ((*str)[*pos + 1] != '"'
-			&& (*str)[*pos + 1] != '\''
-			&& (*str)[*pos + 1] != '\\')
-			return (0);
-		if (*qt == QT_SQ)
-			return (0);
 		*str = check_bs(*str, pos);
 		return (1);
 	}
