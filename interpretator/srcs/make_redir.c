@@ -41,16 +41,25 @@ void		dup_redir(int **fd_list)
 	}
 }
 
-int			redir_handle(t_process *p)
+int			redir_handle(t_job *j)
 {
-	t_redir_list *tmp;
+	t_redir_list	*tmp;
+	t_process		*p;
 
-	tmp = p->r;
-	while (tmp)
+	p = j->first_process;
+	while (p)
 	{
-		if (make_redir(tmp->rd_token, p) < 0)
-			return (-1);
-		tmp = tmp->next;
+		tmp = p->r;
+		while (tmp)
+		{
+			if (make_redir(tmp->rd_token, p) < 0)
+			{
+				clean_all_processes(j);
+				return (-1);
+			}
+			tmp = tmp->next;
+		}
+		p = p->next;
 	}
 	return (0);
 }

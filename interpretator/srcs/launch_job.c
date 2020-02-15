@@ -50,12 +50,6 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 	i = 0;
 	while (p)
 	{
-		if (redir_handle(p) < 0)
-		{
-			p->error = 256;
-			p = p->next;
-			continue ;
-		}
 		open_pipe(p, pipes);
 		pid = make_process();
 		j->pgid = !j->pgid && i == 0 ? pid : j->pgid;
@@ -89,9 +83,11 @@ void			launch_job(t_job *j, int foreground)
 	char		*last_status;
 	t_process	*p;
 
+	if (redir_handle(j) < 0)
+		return ;
 	check_builtin(&j);
 	p = j->first_process;
-	if (!launch_no_fork_builtin(p))
+	if (!launch_no_fork_builtin(p, j))
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);

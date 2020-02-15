@@ -76,7 +76,7 @@ void				launch_job(t_job *j, int foreground);
 /*
 **					launch_builtin.c
 */
-int					launch_no_fork_builtin(t_process *p);
+int					launch_no_fork_builtin(t_process *p, t_job *j);
 int					launch_fork_builtin(t_process *p);
 /*
 **					launch_process.c
@@ -86,7 +86,7 @@ void				launch_process(t_process *p, pid_t pgid, int foreground);
 **					make_redir.c
 */
 void				dup_redir(int **fd_list);
-int					redir_handle(t_process *p);
+int					redir_handle(t_job *j);
 /*
 **					io_redir.c
 */
@@ -182,4 +182,5 @@ char				*expansions(char *line, int pos);
 **					clean_proc.c
 */
 void				clean_proc(t_process *p, t_job *j, int pid);
+void				clean_all_processes(t_job *j);
 #endif
