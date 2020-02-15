@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lex_ctrl_c.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 20:17:48 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/09 20:45:13 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 21:58:24 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
+#include "interpretator.h"
 
 void			lex_clear_strs(char **s1, char **s2)
 {
@@ -35,11 +36,15 @@ void			lex_clear_strs(char **s1, char **s2)
 t_lex_tkn_type	lex_ctrl_c(char **s1, char **s2)
 {
 	lex_clear_strs(s1, s2);
+	set_var("?", "1", VARS);
+	g_last_exit_status = 1;
 	return (T_CTRL_C);
 }
 
 t_lex_fr		lex_cs_ctrl_c(char **s1, char **s2)
 {
 	lex_clear_strs(s1, s2);
+	set_var("?", "1", VARS);
+	g_last_exit_status = 1;
 	return (FR_CTRL_C);
 }
