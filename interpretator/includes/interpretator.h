@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 02:53:11 by aashara          ###   ########.fr       */
+/*   Updated: 2020/02/15 17:06:57 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,4 +158,12 @@ char				**vars_substitutions(char **args);
 **					quotes_managment.c
 */
 t_qt				check_quotes_type(char *str, size_t pos, t_qt qt);
+/*
+**					pattern_substitutions.c
+*/
+char				**pattern_substitutions(char **args);
+/*
+**					substitutions.c
+*/
+char				**substitutions(char **args);
 #endif

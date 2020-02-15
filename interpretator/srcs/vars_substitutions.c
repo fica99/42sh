@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_substitutions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/15 02:58:59 by aashara          ###   ########.fr       */
+/*   Updated: 2020/02/15 17:07:13 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ char		**vars_substitutions(char **args)
 			if (args[i][j] == '\'' || args[i][j] == '"')
 				qt = check_quotes_type(args[i], j, qt);
 			if (qt != QT_SQ)
-			{
 				if (args[i][j] == '$')
 					args[i] = var_substitution(args[i], j);
-			}
 			++j;
 		}
 		++i;
