@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 19:42:12 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 20:44:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:46:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,7 @@ static t_lex_fr	lex_is_open_sq(char **str, size_t pos, size_t *offset)
 	while ((*str)[pos + *offset])
 	{
 		if (!ft_strncmp((*str) + pos + (*offset), "\\'", 2))
-		{
-			if (!(*str = lex_del_backslash(*str, pos + (*offset))))
-				return (FR_ERR);
-			(*offset)++;
-		}
+			(*offset) += 2;
 		if ((*str)[pos + *offset] == '\'')
 			return (FR_NULL);
 		if ((*str)[pos + (*offset)])

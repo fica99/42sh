@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:48:13 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/15 18:28:20 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 18:49:45 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static char	*check_bs(char *str, size_t *pos, t_qt qt)
 		return (str);
 	tmp = del_bs(str, *pos);
 	(*pos)++;
-	free(str);
 	return (tmp);
 }
 
