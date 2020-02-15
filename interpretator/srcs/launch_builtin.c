@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/15 17:07:26 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 17:37:25 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int				launch_no_fork_builtin(t_process *p)
 		return (-1);
 	set_uniq_env(p);
 	p->args = substitutions(p->args);
+	p->environment = substitutions(p->environment);
 	if (redir_handle(p) < 0)
 	{
 		restore_fd(fd);
