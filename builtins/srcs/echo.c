@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 17:28:01 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/10 23:18:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 21:06:09 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,6 @@ static void		ft_echo_wo_e(char **argv, int i)
 	j = 0;
 	while (argv[i][j])
 	{
-		while (argv[i][j] == '\\')
-		{
-			if (argv[i][j + 1] == '\\')
-			{
-				ft_putchar_fd('\\', STDOUT_FILENO);
-				j += 2;
-			}
-			else
-				j++;
-		}
 		if (argv[i][j])
 			ft_putchar_fd(argv[i][j], STDOUT_FILENO);
 		j++;

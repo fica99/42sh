@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 18:27:52 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 22:29:19 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ char				**tilda_substitutions(char **args);
 **					vars_substitutions.c
 */
 char				**vars_substitutions(char **args);
+char				*strcutcopy(char *dest, char *copy, int i, int n);
 /*
 **					pattern_substitutions.c
 */
@@ -167,4 +168,18 @@ char				**cut_quotes(char **args);
 */
 t_qt				check_quotes_type(char *str, size_t pos, t_qt qt);
 char				**substitutions(char **args);
+/*
+**					expr_validation.c
+*/
+int					expansions_validation(char *line, int pos);
+int					isvalidparameter(char s);
+void				exp_error(char *s);
+/*
+**					expansions_implementation.c
+*/
+char				*expansions(char *line, int pos);
+/*
+**					clean_proc.c
+*/
+void				clean_proc(t_process *p, t_job *j, int pid);
 #endif

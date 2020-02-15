@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/15 18:50:18 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/15 22:29:33 by jijerde          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,9 @@ SRC_FLS	=			add_redir.c\
 					cut_quotes.c\
 					substitutions.c\
 					pattern_substitutions.c\
+					expansions_implementation.c\
+					expr_validation.c\
+					clean_proc.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
