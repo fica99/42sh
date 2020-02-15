@@ -59,6 +59,7 @@ char				*find_in_path(char *filename, char **environ);
 /*
 **					exec_jobs.c
 */
+void				mark_exit_stat(t_job *j);
 void				exec_jobs(void);
 /*
 **					check_job.c
