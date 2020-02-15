@@ -12,6 +12,19 @@
 
 #include "interpretator.h"
 
+void clean_all_processes(t_job *j)
+{
+	t_process *p;
+
+	p = j->first_process;
+	while (p)
+	{
+		cls_redir(p->fd_list);
+		close_pipes(p);
+		p = p->next;
+	}
+}
+
 void	clean_proc(t_process *p, t_job *j, int pid)
 {
 	cls_redir(p->fd_list);

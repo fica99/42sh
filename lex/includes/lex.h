@@ -365,4 +365,8 @@ t_lex_tkn_type		lex_check_hist_exp(char **str, size_t *pos);
 */
 
 t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
+/*
+**					lex_expantions.c
+*/
+t_lex_tkn_type		lex_expantions(char **str, size_t *pos);
 #endif

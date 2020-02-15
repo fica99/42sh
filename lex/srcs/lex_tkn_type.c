@@ -25,6 +25,8 @@ static t_lex_tkn_type	lex_check_type_next(char **str,
 		return (lex_arith_sub(str, is_word, pos));
 	else if ((*str)[*pos] == '!')
 		return (lex_check_hist_exp(str, pos));
+	else if ((*str)[*pos] == '{')
+		return (lex_expantions(str, pos));
 	else
 		return (lex_check_other(str, is_word, pos));
 }

@@ -27,7 +27,7 @@ static int	check_request(char **argv, char *path)
 	}
 	else
 		err("42sh", argv[0], "no such file or directory", path);
-	return (-1);
+	return (1);
 }
 
 char		**check_flags(char **av, t_flag *no_links)
@@ -103,7 +103,7 @@ int			cd(int ac, char **av, char **environ)
 			err_exit("42sh", "getcwd() error", NULL, NOERROR);
 	}
 	if (!(path = get_path(dir, environ)))
-		return (-1);
+		return (1);
 	if (cdpath_handle(path, no_links, environ) < 0)
 		if (change_wdir(path, no_links, environ) < 0)
 			return (check_request(av, path));

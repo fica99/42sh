@@ -79,6 +79,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_insert_tkns.c\
 				lex_history_exp.c\
 				lex_check_hist_exp.c\
+				lex_expantions.c\
 				lex_stat.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
