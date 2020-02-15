@@ -91,6 +91,7 @@ char		**cut_quotes(char **args)
 		{
 			if (cut(&args[i], &j, &qt))
 				continue ;
+			}
 			j++;
 		}
 		i++;

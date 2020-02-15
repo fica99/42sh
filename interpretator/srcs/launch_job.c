@@ -50,6 +50,12 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 	i = 0;
 	while (p)
 	{
+		if (redir_handle(p) < 0)
+		{
+			p->error = 256;
+			p = p->next;
+			continue ;
+		}
 		open_pipe(p, pipes);
 		pid = make_process();
 		j->pgid = !j->pgid && i == 0 ? pid : j->pgid;
@@ -58,6 +64,7 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 			launch_process(p, j->pgid, foreground);
 		else
 		{
+			cls_redir(p->fd_list);
 			p->pid = pid;
 			if (!j->pgid)
 				j->pgid = pid;
@@ -105,6 +112,7 @@ void			launch_job(t_job *j, int foreground)
 		put_job_in_foreground(j, 0);
 	else
 		put_job_in_background(j, 0);
+	mark_exit_stat(j);
 	g_last_exit_status = fix_exit(g_last_exit_status);
 	set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
 	free(last_status);

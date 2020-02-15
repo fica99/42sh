@@ -55,8 +55,6 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 		tcsetpgrp(g_shell_terminal, pgid);
 	set_sig_def();
 	dup_pipes(p);
-	if (redir_handle(p) < 0)
-		exit(1);
 	dup_redir(p->fd_list);
 	set_uniq_env(p);
 	p->args = substitutions(p->args);
@@ -70,6 +68,5 @@ void		launch_process(t_process *p, pid_t pgid, int foreground)
 		if (execve(get_fname(p->args[0]), p->args, p->environment) < 0)
 			err_exit("42sh", "permission denied", p->args[0], NOERROR);
 	p->completed = 1;
-	cls_redir(p->fd_list);
 	exit(g_last_exit_status);
 }

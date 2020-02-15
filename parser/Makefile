@@ -6,7 +6,7 @@
 #    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 19:57:47 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/11 16:51:18 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/15 19:12:18 by aashara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,8 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes\
-				-I ../lex/includes -I ../calc/includes -I ../main/includes
+				-I ../lex/includes -I ../calc/includes -I ../interpretator/includes \
+				-I ../main/includes
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #
