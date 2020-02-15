@@ -38,6 +38,17 @@ static char			**fill_command(t_process *process)
 	return (command);
 }
 
+void				mark_exit_stat(t_job *j)
+{
+	t_process *p;
+
+	p = j->first_process;
+	while (p->next)
+		p = p->next;
+	if (p->error != 0)
+		g_last_exit_status = 256;
+}
+
 static int			log_check(t_job *j, t_job *last_job)
 {
 	t_process	*p;

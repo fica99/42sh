@@ -52,6 +52,7 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 	{
 		if (redir_handle(p) < 0)
 		{
+			p->error = 256;
 			p = p->next;
 			continue ;
 		}
@@ -111,6 +112,7 @@ void			launch_job(t_job *j, int foreground)
 		put_job_in_foreground(j, 0);
 	else
 		put_job_in_background(j, 0);
+	mark_exit_stat(j);
 	g_last_exit_status = fix_exit(g_last_exit_status);
 	set_var("?", last_status = ft_itoa(g_last_exit_status), ALL_VARS);
 	free(last_status);
