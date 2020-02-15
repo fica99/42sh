@@ -25,12 +25,11 @@ static char	*del_bs(char *str, size_t pos)
 	return (new_str);
 }
 
-static char	*del_quote(char *str, size_t pos, t_qt *qt, short *is_cut)
+static char	*del_quote(char *str, size_t pos, t_qt *qt)
 {
 	char	*new_str;
 	size_t	len;
 
-	*is_cut = 1;
 	*qt = check_quotes_type(str, pos, *qt);
 	len = ft_strlen(str);
 	if (!(new_str = ft_strnew(len)))
@@ -58,7 +57,6 @@ char		**cut_quotes(char **args)
 	size_t		i;
 	size_t		j;
 	t_qt		qt;
-	short		is_cut;
 
 	i = 0;
 	while (args[i])
@@ -67,13 +65,13 @@ char		**cut_quotes(char **args)
 		qt = QT_NQ;
 		while (args[i][j])
 		{
-			is_cut = 0;
 			if (args[i][j] == '\\')
 				args[i] = check_bs(args[i], &j, qt);
 			if (args[i][j] == '"' || args[i][j] == '\'')
-				args[i] = del_quote(args[i], j, &qt, &is_cut);
-			if (is_cut)
+			{
+				args[i] = del_quote(args[i], j, &qt);
 				continue ;
+			}
 			j++;
 		}
 		i++;
