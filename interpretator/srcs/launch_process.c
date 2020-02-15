@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_process.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/27 23:37:26 by filip             #+#    #+#             */
-/*   Updated: 2020/02/13 22:05:23 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 17:36:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	prep_proc(pid_t pgid, int foreground, t_process *p)
 		exit(1);
 	dup_redir(p->fd_list);
 	set_uniq_env(p);
-	p->args = quotes_managment(p->args);
+	p->args = substitutions(p->args);
+	p->environment = substitutions(p->environment);
 }
 
 void		launch_process(t_process *p, pid_t pgid, int foreground)
