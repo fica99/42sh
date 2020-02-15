@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_quotation_marks.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 14:21:40 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/13 23:22:22 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/15 22:46:19 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ t_lex_tkn_type	lex_quotation_marks(char **str, short is_word, size_t *pos)
 	if (result == T_WORD && is_word
 		&& ((*str)[*pos] == ' ' || !(*str)[*pos]))
 		return (T_NULL);
-	return (T_WORD);
+	return (result);
 }

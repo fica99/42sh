@@ -6,12 +6,11 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/12 00:09:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 22:47:03 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
-// #include "interpretator.h"
 
 static void	init_shell(char **environ)
 {
