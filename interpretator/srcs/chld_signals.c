@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 17:42:17 by lcrawn            #+#    #+#             */
-/*   Updated: 2020/02/12 21:46:38 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/16 00:50:45 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		child_handler(int sig)
 {
 	if (sig == SIGSEGV)
 		ft_putstr_fd("Segmentation fault: 11\n", STDOUT_FILENO);
-	if (sig == SIGABRT)
+	else if (sig == SIGABRT)
 		ft_putstr_fd("Sigabrt: 6\n", STDOUT_FILENO);
 	else if (sig == SIGBUS)
 		ft_putstr_fd("Sigbug: 10\n", STDOUT_FILENO);
