@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/08 15:27:07 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 22:28:46 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,7 @@ static void		launch_loop(t_job *j, t_process *p, int foreground)
 		if (pid == 0)
 			launch_process(p, j->pgid, foreground);
 		else
-		{
-			cls_redir(p->fd_list);
-			p->pid = pid;
-			if (!j->pgid)
-				j->pgid = pid;
-			setpgid(pid, j->pgid);
-			close_pipes(p);
-		}
+			clean_proc(p, j, pid);
 		i++;
 		p = p->next;
 	}

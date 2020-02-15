@@ -3,38 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   vars_substitutions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/15 17:32:31 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 22:24:02 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
+char		*strcutcopy(char *dest, char *copy, int i, int n)
+{
+	char	*new;
+	int		copylen;
+
+	if (!copy)
+		copy = "";
+	copylen = ft_strlen(copy);
+	if (!(new = (char *)malloc(ft_strlen(dest) + copylen + 1 - n)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	ft_memcpy(new, dest, i);
+	ft_memcpy(new + i, copy, copylen);
+	ft_memcpy(new + i + copylen, dest + i + n + 1,
+											ft_strlen(dest + i + n + 1));
+	return (new);
+}
+
+static char	*dollar_expr(char *line, int pos)
+{
+	char	*var;
+	int		i;
+	char	*replace;
+	int		pos_save;
+
+	i = 0;
+	pos_save = pos;
+	if (!(var = ft_strnew(LINE_MAX)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	pos++;
+	while (line[pos] && isvalidparameter(line[pos]))
+		var[i++] = line[pos++];
+	replace = get_var(var, ALL_VARS);
+	ft_memdel((void**)&var);
+	return (strcutcopy(line, replace, pos_save, i));
+}
+
 static char	*var_substitution(char *line, size_t pos)
 {
-	size_t	i;
-	char	*to_find;
-	char	*var;
-	char	*res;
+	char	*for_return;
 
-	i = pos + 1;
-	while (line[i] && !ft_isspace(line[i]) && line[i] != '\''
-	&& line[i] != '"' && line[i] != '$')
-		++i;
-	if (!(to_find = ft_strsub(line, pos + 1, i - (pos + 1))))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	var = get_var(to_find, ALL_VARS);
-	ft_strdel(&to_find);
-	if (!(res = ft_strnew(ft_strlen(var) + ft_strlen(line))))
-		err_exit("42sh", "malloc() error", NULL, ENOMEM);
-	res = ft_strncpy(res, line, pos);
-	if (var)
-		res = ft_strcat(res, var);
-	res = ft_strcat(res, line + i);
-	ft_strdel(&line);
-	return (res);
+	for_return = NULL;
+	if (line[pos + 1] == '{')
+		for_return = expansions(line, pos);
+	else
+		for_return = dollar_expr(line, pos);
+	if (for_return)
+		ft_strdel(&line);
+	else
+		return (line);
+	return (for_return);
 }
 
 char		**vars_substitutions(char **args)

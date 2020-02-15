@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:44:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/05 14:18:00 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/15 22:16:11 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static char		**check_inp(char *line, char **buf)
 {
 	if (*line == RL_K_CTRL_C)
 	{
+		g_last_exit_status = 1;
+		set_var("?", "1", ALL_VARS);
 		ft_free_dar(buf);
 		buf = NULL;
 	}
