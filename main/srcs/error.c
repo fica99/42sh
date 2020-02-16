@@ -35,7 +35,9 @@ static void	ft_error(char *name, char *str, char *command, char *err)
 
 int			fix_exit(int status)
 {
-	if (WIFSIGNALED(status))
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
 		return (128);
 	else if (WIFSTOPPED(status))
 		return (130);
