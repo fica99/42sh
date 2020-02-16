@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 16:28:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 18:51:16 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,4 +369,8 @@ t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
 **					lex_expantions.c
 */
 t_lex_tkn_type		lex_expantions(char **str, size_t *pos);
+/*
+**					al_pipes_log_opers.c
+*/
+t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns);
 #endif

@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/16 17:14:54 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/16 18:50:19 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,7 @@ SRC_FLS	=		lex_lexer.c\
 				lex_check_hist_exp.c\
 				lex_expantions.c\
 				lex_stat.c\
+				al_pipes_log_opers.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
