@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_asig_name.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 16:23:56 by work             ###   ########.fr       */
+/*   Updated: 2020/02/16 16:03:10 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
 	if (!str || !*str)
 		return (FR_ERR);
 	i = *pos;
-	lex_an_name_is_valid(*str, &i, err);
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	if ((*str)[i++] != '=')
