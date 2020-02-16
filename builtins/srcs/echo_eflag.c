@@ -78,9 +78,9 @@ int				ft_eflag(int i, char **argv, int argc, int *flags)
 	{
 		while (argv[i][++j])
 		{
-			if (argv[i][j] == '\\' && argv[i][j + 1] == '\\' && argv[i][j + 2])
+			if (argv[i][j] == '\\' && argv[i][j + 1])
 			{
-				j += 2;
+				j += 1;
 				if (ft_common_escape(argv, i, j))
 					;
 				else if (argv[i][j] == '0' || argv[i][j] == 'x')

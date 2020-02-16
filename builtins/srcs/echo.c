@@ -56,30 +56,41 @@ int				ft_common_escape(char **argv, int i, int j)
 	return (1);
 }
 
+static int		ft_check_whole_arg(int *tmp_flags, int i, int j, char **argv)
+{
+	if (argv[i][j] == 'n')
+		tmp_flags[0] = 1;
+	else if (argv[i][j] == 'e' || argv[i][j] == 'E')
+	{
+		if (argv[i][j] == 'e')
+			tmp_flags[1] = 1;
+		else
+			tmp_flags[1] = 0;
+	}
+	else
+		return (i - 1);
+	return (i);
+}
+
 static int		ft_echoflags(int *flags, char **argv)
 {
 	int				i;
 	int				j;
+	int				tmp_flags[2];
 
 	i = 1;
 	while (argv[i] && argv[i][0] == '-' && argv[i][1])
 	{
+		ft_bzero(tmp_flags, 2 * sizeof(int));
 		j = 1;
 		while (argv[i][j])
 		{
-			if (argv[i][j] == 'n')
-				flags[0] = 1;
-			else if (argv[i][j] == 'e' || argv[i][j] == 'E')
-			{
-				if (argv[i][j] == 'e')
-					flags[1] = 1;
-				else
-					flags[1] = 0;
-			}
-			else
+			if (ft_check_whole_arg(tmp_flags, i, j, argv) != i)
 				return (i);
 			j++;
 		}
+		flags[0] = (flags[0] | tmp_flags[0]);
+		flags[1] = (flags[1] | tmp_flags[1]);
 		i++;
 	}
 	return (i);
