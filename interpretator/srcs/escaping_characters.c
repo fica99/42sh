@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:55:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 14:38:54 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 14:52:48 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,33 @@ int	esc_hex_num(char *str, size_t *pos, short is_rep_pos)
 	return (1);
 }
 
+int	esc_octal_num(char *str, size_t *pos, short is_rep_pos)
+{
+	size_t	new_pos;
+	size_t	i;
+
+	new_pos = (*pos) + 1;
+	if (str[new_pos] == '0')
+		new_pos++;
+	if (!ft_isdigit(str[new_pos]))
+		return (0);
+	i = 0;
+	while (ft_isdigit(str[new_pos + i]))
+		i++;
+	if (i != 3)
+		return (0);
+	if (is_rep_pos)
+		(*pos) = new_pos + i;
+	return (1);
+}
+
 int	esc_chars(char *str, size_t *pos)
 {
 	if (esc_simple_chars(str, pos, 1))
 		return (1);
 	if (esc_hex_num(str, pos, 1))
+		return (1);
+	if (esc_octal_num(str, pos, 1))
 		return (1);
 	return (0);
 }
