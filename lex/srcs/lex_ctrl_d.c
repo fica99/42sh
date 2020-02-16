@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 21:41:53 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 20:41:01 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 16:42:24 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 t_lex_fr		lex_cs_ctrl_d(char **s1, char is_quotes)
 {
 	if (is_quotes)
-		err("42sh", "syntax error", NULL, EUEOF);
+		err("42sh", "unexpected EOF while looking for matching quote\n", NULL, EUEOF);
 	lex_clear_strs(s1, NULL);
 	return (FR_CTRL_D);
 }
@@ -34,9 +34,14 @@ t_lex_tkn_type	lex_ctrl_d(void)
 	return (T_CTRL_D);
 }
 
-t_lex_tkn_type	lex_al_ctrl_d(char **s1)
+t_lex_tkn_type	lex_al_ctrl_d(char **s1, char c)
 {
-	err("42sh", "syntax error", NULL, EUEOF);
+	if (c == '"')
+		err("42sh", NULL, NULL, EUEOFMDQ);
+	else if (c == '\'')
+		err("42sh", NULL, NULL, EUEOFMSQ);
+	else
+		err("42sh", "syntax error", NULL, EUEOF);
 	lex_clear_strs(s1, NULL);
 	return (T_CTRL_D);
 }
