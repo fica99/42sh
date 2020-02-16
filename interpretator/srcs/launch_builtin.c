@@ -58,7 +58,7 @@ static void		save_fd(int *fd, int **redir)
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int				launch_no_fork_builtin(t_process *p, t_job *j)
+int				launch_no_fork_builtin(t_process *p)
 {
 	int			fd[3];
 	t_builtin	func;
@@ -71,12 +71,6 @@ int				launch_no_fork_builtin(t_process *p, t_job *j)
 	set_uniq_env(p);
 	p->args = substitutions(p->args);
 	p->environment = substitutions(p->environment);
-	if (redir_handle(j) < 0)
-	{
-		restore_fd(fd);
-		p->exit_status = 1;
-		return (0);
-	}
 	save_fd(fd, p->fd_list);
 	dup_redir(p->fd_list);
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);
