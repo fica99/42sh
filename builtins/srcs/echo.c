@@ -87,17 +87,6 @@ static int		ft_echoflags(int *flags, char **argv)
 		{
 			if (ft_check_whole_arg(tmp_flags, i, j, argv) != i)
 				return (i);
-			/*if (argv[i][j] == 'n')
-				flags[0] = 1;
-			else if (argv[i][j] == 'e' || argv[i][j] == 'E')
-			{
-				if (argv[i][j] == 'e')
-					flags[1] = 1;
-				else
-					flags[1] = 0;
-			}
-			else
-				return (i - 1);*/
 			j++;
 		}
 		flags[0] = (flags[0] | tmp_flags[0]);

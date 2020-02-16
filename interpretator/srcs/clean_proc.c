@@ -12,7 +12,7 @@
 
 #include "interpretator.h"
 
-void clean_all_processes(t_job *j)
+void	clean_all_processes(t_job *j)
 {
 	t_process *p;
 
