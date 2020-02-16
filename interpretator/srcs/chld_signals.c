@@ -28,6 +28,12 @@ static void		sig_handler_other(int sig)
 		ft_putstr_fd("Sigxcpu: 30\n", STDOUT_FILENO);
 	else if (sig == SIGXFSZ)
 		ft_putstr_fd("Sigxfsz: 31\n", STDOUT_FILENO);
+	else if (sig == SIGQUIT)
+		ft_putstr_fd("Sigquit: 3\n", STDOUT_FILENO);
+	else if (sig == SIGTTIN)
+		ft_putstr_fd("Sigttin: 26\n", STDOUT_FILENO);
+	else if (sig == SIGTTOU)
+		ft_putstr_fd("Sigttou: 27\n", STDOUT_FILENO);
 }
 
 static void		child_handler(int sig)
