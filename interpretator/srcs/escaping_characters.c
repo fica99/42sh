@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:55:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 15:01:49 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 15:04:30 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	esc_simple_chars(char *str, size_t *pos, short is_rep_pos)
 {
 	if (str[*pos + 1] == 'a' || str[*pos + 1] == 'b' || str[*pos + 1] == 'e'
 		|| str[*pos + 1] == 'E' || str[*pos + 1] == 'f' || str[*pos + 1] == 'n'
-		|| str[*pos + 1] == 'r' || str[*pos + 1] == 't' || str[*pos + 1] == 'v')
+		|| str[*pos + 1] == 'r' || str[*pos + 1] == 't' || str[*pos + 1] == 'v'
+		|| str[*pos + 1] == 'c')
 	{
 		if (is_rep_pos)
 			(*pos) += 2;
