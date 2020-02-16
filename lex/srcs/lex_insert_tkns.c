@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 20:08:21 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 21:21:45 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 17:27:58 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_lex_tkn	**lex_insert_new_tkns(size_t src_size,
 {
 	t_lex_tkn		**new_tkns;
 
-	if (!src_size || !ins_size || ins_index >= src_size)
+	if (ins_index > src_size)
 		return (NULL);
 	if (!(new_tkns = (t_lex_tkn **)malloc(sizeof(t_lex_tkn *)
 		* (src_size + ins_size + 1))))
