@@ -6,13 +6,13 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 12:55:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 14:19:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 14:38:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 
-static int	esc_simple_chars(char *str, size_t *pos, short is_rep_pos)
+int	esc_simple_chars(char *str, size_t *pos, short is_rep_pos)
 {
 	if (str[*pos + 1] == 'a' || str[*pos + 1] == 'b' || str[*pos + 1] == 'e'
 		|| str[*pos + 1] == 'E' || str[*pos + 1] == 'f' || str[*pos + 1] == 'n'
@@ -25,7 +25,7 @@ static int	esc_simple_chars(char *str, size_t *pos, short is_rep_pos)
 	return (0);
 }
 
-static int	esc_hex_num(char *str, size_t *pos, short is_rep_pos)
+int	esc_hex_num(char *str, size_t *pos, short is_rep_pos)
 {
 	size_t	new_pos;
 	size_t	i;
@@ -45,7 +45,7 @@ static int	esc_hex_num(char *str, size_t *pos, short is_rep_pos)
 	return (1);
 }
 
-int			esc_chars(char *str, size_t *pos)
+int	esc_chars(char *str, size_t *pos)
 {
 	if (esc_simple_chars(str, pos, 1))
 		return (1);

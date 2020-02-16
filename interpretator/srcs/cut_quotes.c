@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:48:13 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 14:02:33 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 14:48:20 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,19 @@ static char	*del_quote(char *str, size_t pos, t_qt *qt)
 	return (new_str);
 }
 
-static char	*check_bs(char *str, size_t *pos)
-{
-	char	*tmp;
-
-	tmp = del_bs(str, *pos);
-	(*pos)++;
-	return (tmp);
-}
-
 static int	cut(char **str, size_t *pos, t_qt *qt)
 {
 	if ((*str)[*pos] == '\\' && *qt != QT_SQ)
 	{
 		if (esc_chars(*str, pos))
 			return (1);
-		*str = check_bs(*str, pos);
+		if (*qt == QT_NQ || (*qt == QT_DQ && ((*str)[(*pos) + 1] == '\"'
+			|| (*str)[(*pos) + 1] == '\\')))
+		{
+			*str = del_bs(*str, (*pos)++);
+			return (1);
+		}
+		(*pos) += 2;
 		return (1);
 	}
 	else if ((*str)[*pos] == '"' || (*str)[*pos] == '\'')
