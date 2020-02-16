@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/16 14:36:05 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 15:01:48 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ char				**cut_quotes(char **args);
 int					esc_chars(char *str, size_t *pos);
 int					esc_simple_chars(char *str, size_t *pos, short is_rep_pos);
 int					esc_hex_num(char *str, size_t *pos, short is_rep_pos);
+int					esc_octal_num(char *str, size_t *pos, short is_rep_pos);
+int					esc_unicode(char *str, size_t *pos, short is_rep_pos);
 /*
 **					substitutions.c
 */
