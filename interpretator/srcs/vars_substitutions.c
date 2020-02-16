@@ -6,7 +6,7 @@
 /*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/15 22:24:02 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/16 02:56:11 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char		*strcutcopy(char *dest, char *copy, int i, int n)
 	ft_memcpy(new, dest, i);
 	ft_memcpy(new + i, copy, copylen);
 	ft_memcpy(new + i + copylen, dest + i + n + 1,
-											ft_strlen(dest + i + n + 1));
+											ft_strlen(dest + i + n));
 	return (new);
 }
 
