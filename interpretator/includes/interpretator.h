@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 22:29:19 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/16 13:07:13 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,10 @@ char				**pattern_substitutions(char **args);
 **					cut_quotes.c
 */
 char				**cut_quotes(char **args);
+/*
+**					escaping_characters.c
+*/
+int					esc_chars(char *str, size_t *pos);
 /*
 **					substitutions.c
 */

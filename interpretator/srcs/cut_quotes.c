@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:48:13 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 00:29:10 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/16 13:09:37 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ static int	cut(char **str, size_t *pos, t_qt *qt)
 {
 	if ((*str)[*pos] == '\\' && *qt != QT_SQ)
 	{
+		if (esc_chars(*str, pos))
+			return (1);
 		*str = check_bs(*str, pos);
 		return (1);
 	}
