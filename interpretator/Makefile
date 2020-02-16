@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/16 00:40:24 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/16 12:56:06 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRC_FLS	=			add_redir.c\
 					tilda_substitutions.c\
 					vars_substitutions.c\
 					cut_quotes.c\
+					escaping_characters.c\
 					substitutions.c\
 					pattern_substitutions.c\
 					expansions_implementation.c\

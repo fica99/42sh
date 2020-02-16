@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
+#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/20 13:57:06 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/05 14:43:06 by aashara-         ###   ########.fr        #
+#    Updated: 2020/02/16 13:53:39 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC_FLS	=		ft_strlen.c\
 				ft_lstmap.c\
 				get_next_line.c\
 				ft_isspace.c\
+				ft_isupper.c\
 				ft_swap.c\
 				ft_realloc.c\
 				ft_min.c\
