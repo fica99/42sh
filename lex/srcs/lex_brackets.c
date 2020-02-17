@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lex_asig_name2.c                                   :+:      :+:    :+:   */
+/*   lex_brackets.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/09 20:57:41 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 16:07:52 by ggrimes          ###   ########.fr       */
+/*   Created: 2020/02/17 23:07:45 by ggrimes           #+#    #+#             */
+/*   Updated: 2020/02/17 23:15:02 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
 
-void	lex_an_cut_quotes(t_lex_tkn *token, const char *str)
+t_lex_tkn_type	lex_check_brackets(char **str, size_t *pos)
 {
-	size_t	pos;
-	size_t	i;
-	char	*new_str;
+	t_lex_fr	fr;
 
-	if (!(new_str = ft_strnew((token->end_pos) - (token->start_pos))))
-		return ;
-	i = 0;
-	pos = token->start_pos;
-	while (pos < token->end_pos)
-	{
-		if (str[pos] != '"' && str[pos] != '\'' && str[pos] != '`')
-			new_str[i++] = str[pos];
-		pos++;
-	}
-	token->value = new_str;
+	fr = FR_FALSE;
+	if ((*str)[*pos] == '{')
+		fr = lex_cs(str, pos, CS_FIGURE_BRK);
+	else if (!ft_strncmp((*str) + *pos, "((", 2))
+		fr = lex_cs(str, pos, CS_D_ROUND_BRK);
+	if (fr == FR_ERR)
+		return (T_ERR);
+	else if (fr == FR_CTRL_C)
+		return (T_CTRL_C);
+	else if (fr == FR_CTRL_D)
+		return (T_CTRL_D);
+	if (fr == FR_FALSE)
+		(*pos)++;
+	return (T_WORD);
 }

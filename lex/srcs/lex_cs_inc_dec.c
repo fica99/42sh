@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs_inc_dec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 20:38:05 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 16:29:13 by work             ###   ########.fr       */
+/*   Updated: 2020/02/17 20:19:08 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_lex_fr			lex_cs_valid(t_lex_cs_type filter_type,
 	else
 	{
 		(*offset) += (check_type == CS_D_ROUND_BRK) ? 2 : 1;
-		return (FR_OK);
+		return (FR_TRUE);
 	}
 }
 
@@ -84,7 +84,7 @@ t_lex_fr				lex_cs_inc_dec(const char *str,
 	lex_init_cs_filter(&cs_filter, &filter_size);
 	check_type = lex_is_cs(str + *offset);
 	if (lex_not_inc_dec(cs_filter, *cs_count, check_type, offset))
-		return (FR_OK);
+		return (FR_TRUE);
 	check = lex_cs_stat(str + *offset);
 	if (lex_cs_check_open(check, cs_filter, *cs_count, check_type))
 		cs_filter[++(*cs_count)] = check_type;
@@ -96,5 +96,5 @@ t_lex_fr				lex_cs_inc_dec(const char *str,
 	if (*cs_count > -1)
 		return (lex_cs_valid(cs_filter[*cs_count], check_type, check, offset));
 	(*offset) += (check_type == CS_D_ROUND_BRK) ? 2 : 1;
-	return (FR_OK);
+	return (FR_TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/16 16:29:00 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 23:00:30 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_lex_fr		lex_esc_char(char **str, size_t *pos)
 		return (FR_ERR);
 	if ((*str)[*pos] == '\\')
 		(*pos) += 2;
-	return (FR_OK);
+	return (FR_TRUE);
 }
 
 static t_lex_fr		lex_add_line_bs(char **str, size_t pos)
@@ -31,10 +31,10 @@ static t_lex_fr		lex_add_line_bs(char **str, size_t pos)
 		return (lex_cs_ctrl_c(str, &new_line));
 	(*str)[pos] = '\0';
 	if (*new_line == RL_K_CTRL_D)
-		return (lex_cs_ctrl_d(&new_line, 0));
+		return (lex_cs_ctrl_d(0));
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
-	return (FR_OK);
+	return (FR_TRUE);
 }
 
 static int			lex_bs_is_fin(const char *str, size_t pos)
@@ -60,8 +60,6 @@ t_lex_tkn_type		lex_bs(char **str, size_t *pos)
 	al_result = FR_ERR;
 	if ((*str)[*pos] != '\\')
 		return (T_WORD);
-	if (lex_esc_char(str, pos) == FR_ERR)
-		return (T_ERR);
 	if (lex_bs_is_fin(*str, *pos))
 		if ((al_result = lex_add_line_bs(str, *pos)) == FR_ERR)
 			return (T_ERR);
@@ -69,6 +67,8 @@ t_lex_tkn_type		lex_bs(char **str, size_t *pos)
 		return (T_CTRL_C);
 	if (al_result == FR_CTRL_D)
 		return (T_CTRL_D);
+	if (lex_esc_char(str, pos) == FR_ERR)
+		return (T_ERR);
 	if (!(*str)[*pos])
 		return (T_NULL);
 	return (T_WORD);

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 18:51:16 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 23:12:34 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ typedef enum		e_lex_tkn_type
 	T_AND_AND,
 	T_AND,
 	T_OR_OR,
-	T_ROUND_SUB,
-	T_FIGURE_SUB,
-	T_ARITH_SUB,
 	T_CTRL_D
 }					t_lex_tkn_type;
 
@@ -57,11 +54,8 @@ typedef enum		e_lex_tkn_class
 	C_LOG_OPERS,
 	C_SEP,
 	C_AND,
-	C_CONTROL_SUB,
-	C_SUB,
 	C_NULL,
-	C_END,
-	C_PREFIX_SUB,
+	C_END
 }					t_lex_tkn_class;
 
 typedef enum		e_lex_cs_type
@@ -81,12 +75,12 @@ typedef enum		e_lex_cs_type
 typedef enum		e_lex_fr
 {
 	FR_NULL,
-	FR_OK,
+	FR_TRUE,
+	FR_FALSE,
 	FR_ERR,
 	FR_CTRL_C,
 	FR_CTRL_D,
-	FR_DRBRK_OPEN,
-	FR_EOL,
+	FR_DRBRK_OPEN
 }					t_lex_fr;
 
 typedef enum		e_lex_stat
@@ -201,13 +195,7 @@ t_lex_tkn_type		lex_check_sep(char **str, short is_word, size_t *pos);
 
 char				*lex_strjoin(char *s1, char *s2);
 char				*lex_add_eol(char *str);
-
-/*
-** lex_quotation_marks.c
-*/
-
-int					lex_is_quotation_marks(char *str, size_t pos);
-t_lex_tkn_type		lex_quotation_marks(char **str, short is_word, size_t *pos);
+void				lex_clear_strs(char **s1, char **s2);
 
 /*
 ** lex_io_num.c
@@ -220,15 +208,9 @@ t_lex_tkn_type		lex_ionum(short is_word);
 ** lex_asig_name.c
 */
 
-t_lex_fr			lex_is_asig_name(char **str, short is_word, size_t *pos,
-	int *err);
-t_lex_tkn_type		lex_asig_name(short is_word, int err, t_lex_fr fr);
-
-/*
-** lex_asig_name2.c
-*/
-
-void				lex_an_cut_quotes(t_lex_tkn *token, const char *str);
+t_lex_fr			lex_is_asig_name(char **str, short is_word, size_t *pos);
+t_lex_tkn_type		lex_asig_name(short is_word, t_lex_fr fr);
+char				*lex_an_cut_quotes(t_lex_tkn *token, const char *str);
 
 /*
 ** lex_log_opers.c
@@ -247,38 +229,20 @@ int					lex_is_fin_log_oper(char *str, size_t pos, size_t *offset);
 t_lex_tkn_type		lex_check_and(char **str, short is_word, size_t *pos);
 
 /*
-** lex_ctrl_c.c
+** lex_ctrl.c
 */
 
 t_lex_tkn_type		lex_ctrl_c(char **s1, char **s2);
-void				lex_clear_strs(char **s1, char **s2);
 t_lex_fr			lex_cs_ctrl_c(char **s1, char **s2);
-
-/*
-** lex_ctrl_d.c
-*/
-
-t_lex_fr			lex_cs_ctrl_d(char **s1, char is_quotes);
+t_lex_fr			lex_cs_ctrl_d(char c);
 t_lex_tkn_type		lex_ctrl_d(void);
 t_lex_tkn_type		lex_al_ctrl_d(char **s1, char c);
-
-/*
-** lex_double_quotes.c
-*/
-
-t_lex_tkn_type		lex_double_quotes(char **str, size_t *pos);
-
-/*
-** lex_single_quotes.c
-*/
-
-t_lex_tkn_type		lex_single_quotes(char **str, size_t *pos);
 
 /*
 ** lex_cs.c
 */
 
-t_lex_tkn_type		lex_cs(char **str, size_t *pos, t_lex_cs_type type);
+t_lex_fr			lex_cs(char **str, size_t *pos, t_lex_cs_type type);
 
 /*
 ** lex_cs_open_close.c
@@ -315,13 +279,6 @@ void				lex_init_cs_filter(t_lex_cs_type **cs_filter,
 void				lex_cut_tkn_value(t_lex_tkn *token, const char *str);
 
 /*
-** lex_substitutions.c
-*/
-
-int					lex_is_brk(char c);
-t_lex_tkn_type		lex_substitutions(char **str, short is_word, size_t *pos);
-
-/*
 ** lex_backslash.c
 */
 
@@ -332,12 +289,6 @@ t_lex_tkn_type		lex_bs(char **str, size_t *pos);
 */
 
 void				lex_preprocessing(const char *str, size_t *pos);
-
-/*
-** lex_arith_sub.c
-*/
-
-t_lex_tkn_type		lex_arith_sub(char **str, short is_word, size_t *pos);
 
 /*
 ** lex_insert_tkns.c
@@ -365,12 +316,23 @@ t_lex_tkn_type		lex_check_hist_exp(char **str, size_t *pos);
 */
 
 t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
-/*
-**					lex_expantions.c
-*/
-t_lex_tkn_type		lex_expantions(char **str, size_t *pos);
+
 /*
 **					al_pipes_log_opers.c
 */
-t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns);
+
+t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns);
+
+/*
+**					lex_quotes.c
+*/
+
+t_lex_fr			lex_quotes(char **str, size_t *pos, char c);
+t_lex_tkn_type		lex_check_quotes(char **str, size_t *pos);
+
+/*
+**					lex_brackets.c
+*/
+t_lex_tkn_type		lex_check_brackets(char **str, size_t *pos);
+
 #endif

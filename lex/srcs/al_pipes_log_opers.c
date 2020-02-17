@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 18:49:52 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 18:51:47 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 23:05:18 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static t_lex_tkn	**lo_p_ctrl(t_lex_tkn **tkns, char *line)
 	return (tkns);
 }
 
-t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns)
+t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns)
 {
-	char 		*new_line;
+	char		*new_line;
 	t_lex_tkn	**ins_tkns;
 	t_lex_tkn	**result_tkns;
 	size_t		src_tkns_size;

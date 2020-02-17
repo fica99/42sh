@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:22:50 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/16 16:09:03 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 23:01:54 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,39 @@ static int		lex_is_an_sep(char c)
 	return (0);
 }
 
-static t_lex_fr	lex_an_quotes(char **str, size_t *pos, int *err)
+static t_lex_fr	lex_an_quotes(char **str, size_t *pos)
 {
-	t_lex_tkn_type	quotes_result;
+	t_lex_fr	qr;
 
 	if ((*str)[*pos] == '"')
-		quotes_result = lex_cs(str, pos, CS_DOUBLE_QUOTES);
+		qr = lex_quotes(str, pos, '"');
 	else if ((*str)[*pos] == '\'')
-		quotes_result = lex_cs(str, pos, CS_SINGLE_QUOTES);
+		qr = lex_quotes(str, pos, '\'');
 	else
-		quotes_result = T_ERR;
-	if (quotes_result == T_ERR)
-	{
-		*err = 1;
-		return (FR_ERR);
-	}
-	if (quotes_result == T_CTRL_C)
-		return (FR_CTRL_C);
-	return (FR_OK);
+		qr = FR_ERR;
+	return (qr);
 }
 
-t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
-	int *err)
+char			*lex_an_cut_quotes(t_lex_tkn *token, const char *str)
+{
+	size_t	pos;
+	size_t	i;
+	char	*new_str;
+
+	if (!(new_str = ft_strnew((token->end_pos) - (token->start_pos))))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	i = 0;
+	pos = token->start_pos;
+	while (pos < token->end_pos)
+	{
+		if (str[pos] != '"' && str[pos] != '\'' && str[pos] != '`')
+			new_str[i++] = str[pos];
+		pos++;
+	}
+	return (new_str);
+}
+
+t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos)
 {
 	size_t		i;
 
@@ -50,22 +61,24 @@ t_lex_fr		lex_is_asig_name(char **str, short is_word, size_t *pos,
 	while (ft_isalnum((*str)[i]) || (*str)[i] == '_')
 		i++;
 	if ((*str)[i++] != '=')
-		return (FR_NULL);
-	if (lex_is_quotation_marks(*str, i))
-		lex_an_quotes(str, &i, err);
+		return (FR_FALSE);
+	if ((*str)[i] == '"' || (*str)[i] == '\'')
+		lex_an_quotes(str, &i);
 	else
 		while ((*str)[i] && !lex_is_an_sep((*str)[i]))
 			i++;
 	if (!is_word)
 		(*pos) = i;
-	return (FR_OK);
+	return (FR_TRUE);
 }
 
-t_lex_tkn_type	lex_asig_name(short is_word, int err, t_lex_fr fr)
+t_lex_tkn_type	lex_asig_name(short is_word, t_lex_fr fr)
 {
-	if (err || fr == FR_ERR)
+	if (fr == FR_ERR)
 		return (T_ERR);
 	else if (fr == FR_CTRL_C)
+		return (T_CTRL_D);
+	else if (fr == FR_CTRL_D)
 		return (T_CTRL_C);
 	if (is_word)
 		return (T_NULL);
