@@ -24,7 +24,7 @@ static t_lex_tkn	**lo_p_ctrl(t_lex_tkn **tkns, char *line)
 	return (tkns);
 }
 
-t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns)
+t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns)
 {
 	char 		*new_line;
 	t_lex_tkn	**ins_tkns;
@@ -45,7 +45,7 @@ t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns)
 	}
 	src_tkns_size = lex_tkns_size(src_tkns);
 	result_tkns = lex_insert_tkns(src_tkns, ins_tkns, src_tkns_size);
-	free(ins_tkns);
+	//free(ins_tkns);
 	if (!result_tkns)
 		lex_del_tkns(src_tkns);
 	return (result_tkns);

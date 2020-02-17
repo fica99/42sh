@@ -13,12 +13,21 @@
 #include "parser.h"
 #include "interpretator.h"
 
+void	clean_tree(t_ast *ast)
+{
+	if (!ast)
+		return ;
+	clean_tree(ast->left);
+	clean_tree(ast->right);
+	free(ast);
+}
+
 int		syntax_err(t_lex_tkn *token)
 {
 	ft_putstr("42sh: ");
 	ft_putstr("syntax error near unexpected token: ");
 	ft_putchar('`');
-	if (token->value)
+	if (token->value && *token->value)
 		ft_putstr(token->value);
 	else
 	{

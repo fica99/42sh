@@ -372,5 +372,5 @@ t_lex_tkn_type		lex_expantions(char **str, size_t *pos);
 /*
 **					al_pipes_log_opers.c
 */
-t_lex_tkn 			**al_p_lo(t_lex_tkn **src_tkns);
+t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns);
 #endif

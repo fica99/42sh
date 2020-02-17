@@ -16,7 +16,8 @@
 t_lex_fr		lex_cs_ctrl_d(char **s1, char is_quotes)
 {
 	if (is_quotes)
-		err("42sh", "unexpected EOF while looking for matching quote\n", NULL, EUEOF);
+		err("42sh", "unexpected EOF while looking for matching quote\n",
+		NULL, EUEOF);
 	lex_clear_strs(s1, NULL);
 	return (FR_CTRL_D);
 }
