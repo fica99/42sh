@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/08 14:41:21 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:48:05 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/17 17:02:37 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	rl_print(char *str, t_rl_cord *cord)
 {
 	while (str && *str)
 	{
+		if (ft_isspace(*str))
+			*str = ' ';
 		ft_putchar(*str);
 		if (++cord->x_cur >= cord->ws_col)
 		{
@@ -111,7 +113,7 @@ void	rl_print_hist_search(t_readline *rl)
 	else
 		++rl->cord.y_cur;
 	rl->cord.x_cur = 0;
-	rl_print("(reverse-i-search): ", &rl->cord);
+	rl_print("(reverse-i-search):", &rl->cord);
 	rl_print(rl->history.search.buffer, &rl->cord);
 	rl_go_to_cord(rl->cord.x_start, rl->cord.y_start);
 	rl->cord.x_cur = rl->cord.x_start;
