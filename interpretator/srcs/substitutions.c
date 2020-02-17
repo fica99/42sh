@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:04:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/17 21:06:04 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 00:11:56 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char		**substitutions(char **args)
 	args = tilda_substitutions(args);
 	args = vars_substitutions(args);
 	args = pattern_substitutions(args);
-//	args = arith_opers(args);
+	args = arith_opers(args);
 	args = cut_quotes(args);
 	return (args);
 }
