@@ -42,10 +42,11 @@ void		ft_system(char **line)
 		ft_putstr_fd("42sh: lex: unexpected syntax error\n", STDERR_FILENO);
 		g_last_exit_status = 1;
 		set_var("?", "1", ALL_VARS);
+		return ;
 	}
-	else if (tokens && *tokens && (*tokens)->type != T_END)
+	tokens = alias_handle(tokens);
+	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
-		tokens = alias_handle(tokens);
 		root = NULL;
 		if (!make_ast(tokens, &root))
 		{
