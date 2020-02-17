@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 22:47:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/17 18:22:11 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	shell_start(void)
 {
 	char	*line;
 
+	while (tcgetpgrp(STDIN_FILENO) != getpgrp())
+		;
 	while (TRUE)
 	{
 		line = ft_readline(get_var("PS1", ALL_VARS));
