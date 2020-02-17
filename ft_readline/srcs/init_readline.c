@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_readline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 15:16:25 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/16 18:24:44 by aashara          ###   ########.fr       */
+/*   Updated: 2020/02/17 19:44:44 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static void	rl_check_terminfo_templates(void)
 	!tigetstr("kRIT") || !tigetstr("cvvis") || !tigetstr("civis") ||
 	!tigetstr("ed") || !tigetstr("kdch1") || !tigetstr("kcud1") ||
 	!tigetstr("kcuu1") || !tigetstr("clear"))
-		err("42sh", "ft_readline",
-		"Missing required sequences, possibly unexpected behavior", NOERROR);
+		rl_err("42sh", "missing required sequences", NOERROR);
 }
 
 static void	rl_init_readline_struct(t_readline *rl)
