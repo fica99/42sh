@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitutions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:04:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/18 22:52:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 00:53:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,16 @@ char		**substitutions(char **args, char is_env)
 {
 	if (!args)
 		return (NULL);
-	args = tilda_substitutions(args);
-	args = vars_substitutions(args);
+	if (!(args = tilda_substitutions(args)))
+		return (NULL);
+	if (!(args = vars_substitutions(args)))
+		return (NULL);
 	if (!is_env)
 	{
-		args = pattern_substitutions(args);
-		args = arith_opers(args);
+		if (!(args = pattern_substitutions(args)))
+			return (NULL);
+		if (!(args = arith_opers(args)))
+			return (NULL);
 	}
 	args = cut_quotes(args);
 	return (args);
