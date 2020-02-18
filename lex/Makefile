@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/16 00:38:09 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/18 20:46:02 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,31 +56,25 @@ SRC_FLS	=		lex_lexer.c\
 				lex_check_greater.c\
 				lex_check_less.c\
 				lex_check_sep.c\
-				lex_quotation_marks.c\
 				lex_io_num.c\
 				lex_asig_name.c\
-				lex_asig_name2.c\
 				lex_log_opers.c\
 				lex_check_and.c\
 				lex_str.c\
-				lex_ctrl_c.c\
-				lex_ctrl_d.c\
-				lex_double_quotes.c\
-				lex_single_quotes.c\
+				lex_ctrl.c\
 				lex_cs_inc_dec.c\
-				lex_cs_open_close.c\
 				lex_cs_filter.c\
 				lex_cs.c\
 				lex_val_tkn_processing.c\
-				lex_substitutions.c\
 				lex_backslash.c\
 				lex_preprocessing.c\
-				lex_arith_sub.c\
 				lex_insert_tkns.c\
 				lex_history_exp.c\
 				lex_check_hist_exp.c\
-				lex_expantions.c\
 				lex_stat.c\
+				al_pipes_log_opers.c\
+				lex_quotes.c\
+				lex_brackets.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))

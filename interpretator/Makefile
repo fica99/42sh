@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/16 12:56:06 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/17 23:36:10 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,7 @@ SRC_FLS	=			add_redir.c\
 					expansions_implementation.c\
 					expr_validation.c\
 					clean_proc.c\
+					arithmetic_operation.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
@@ -85,7 +86,8 @@ RM		=		rm -rf
 CFLGS	=		-Wall -Werror -Wextra
 IFLGS	=		-I $(HDR_DIR) -I $(LHS_DIR) -I $(LDARHS_DIR) -I $(LDIRHS_DIR) \
 				-I $(LHASHHS_DIR) -I $(LSTRHS_DIR) -I ../ft_readline/includes/ \
-				-I ../lex/includes/ -I ../parser/includes/ -I ../main/includes
+				-I ../lex/includes/ -I ../parser/includes/ -I ../main/includes \
+				-I ../calc/includes/
 DFLGS	=		-MMD -MP
 
 # ------------  RULES  ------------------------------------------------------- #

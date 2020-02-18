@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:10:35 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/10 23:17:39 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/16 16:41:43 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define EACCES "Permission denied"
 # define ENOTFND "not found"
 # define EUEOF "unexpected end of file"
+# define EUEOFMDQ "unexpected EOF while looking for matching '\"'"
+# define EUEOFMSQ "unexpected EOF while looking for matching '\''"
 # define EBADFD "Bad file descriptor"
 
 /*

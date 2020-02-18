@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_log_opers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 22:57:42 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 14:44:24 by work             ###   ########.fr       */
+/*   Updated: 2020/02/17 21:06:15 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,10 @@
 
 t_lex_tkn_type	lex_is_and_and(char **str, size_t pos)
 {
-	char	*new_line;
-	size_t	offset;
-
 	if (!str || !*str)
 		return (0);
-	offset = 0;
-	if (ft_strncmp(*str + pos, "&&", 2) != 0)
+	if (ft_strncmp(*str + pos, "&&", 2))
 		return (T_NULL);
-	while (lex_is_fin_log_oper(*str, pos, &offset))
-	{
-		if (!(new_line = ft_readline(get_var("PS2", VARS))))
-			return (T_ERR);
-		if (*new_line == RL_K_CTRL_C)
-			return (lex_ctrl_c(str, &new_line));
-		if (*new_line == RL_K_CTRL_D)
-			return (lex_al_ctrl_d(&new_line));
-		if (!(*str = lex_strjoin(*str, new_line)))
-			return (T_ERR);
-	}
 	return (T_AND_AND);
 }
 
@@ -47,25 +32,10 @@ t_lex_tkn_type	lex_check_and_and(char **str, short is_word, size_t *pos)
 
 t_lex_tkn_type	lex_is_or_or(char **str, size_t pos)
 {
-	char	*new_line;
-	size_t	offset;
-
 	if (!str || !*str)
 		return (0);
-	offset = 0;
-	if (ft_strncmp(*str + pos, "||", 2) != 0)
+	if (ft_strncmp(*str + pos, "||", 2))
 		return (T_NULL);
-	while (lex_is_fin_log_oper(*str, pos, &offset))
-	{
-		if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))
-			return (T_ERR);
-		if (*new_line == RL_K_CTRL_C)
-			return (lex_ctrl_c(str, &new_line));
-		if (*new_line == RL_K_CTRL_D)
-			return (lex_al_ctrl_d(&new_line));
-		if (!(*str = lex_strjoin(*str, new_line)))
-			return (T_ERR);
-	}
 	return (T_OR_OR);
 }
 

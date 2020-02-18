@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/09 13:45:09 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/10 23:26:32 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 23:32:51 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void					rewind_spases(const char *str, size_t *pos)
 {
 	if (!str || !pos)
 		return ;
-	while (str[*pos] == ' ')
+	while (ft_isspace(str[*pos]))
 		(*pos)++;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 22:21:52 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 21:09:05 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_calc_tkn				*calc_define_tkn_next(char *str, size_t pos);
 */
 
 long long				calc_error(t_calc_err *error, t_calc_err_type type);
-t_calc_err				*calc_new_error(void);
 
 /*
 ** calc_tkn.c
@@ -176,7 +175,7 @@ long long				calc_log(t_calc_tkns *s_tokens, size_t *index,
 ** calc.c
 */
 
-long long				calc(char *str, t_calc_err **error);
+long long				calc(char *str, t_calc_err *error);
 long long				calc_exp(t_calc_tkns *s_tokens, size_t index,
 	t_calc_err *error);
 

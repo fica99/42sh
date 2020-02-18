@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/15 20:21:12 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 22:15:48 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ int				launch_no_fork_builtin(t_process *p)
 				p->args[0], g_builtins_hash_table.size)))
 		return (-1);
 	set_uniq_env(p);
-	p->args = substitutions(p->args);
-	p->environment = substitutions(p->environment);
+	if (redir_handle(j) < 0)
+	{
+		restore_fd(fd);
+		p->exit_status = 1;
+		return (0);
+	}
 	save_fd(fd, p->fd_list);
 	dup_redir(p->fd_list);
 	p->exit_status = func(ft_darlen(p->args), p->args, p->environment);

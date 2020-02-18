@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitutions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:04:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/15 21:43:29 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 01:18:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,55 @@ t_qt		check_quotes_type(char *str, size_t pos, t_qt qt)
 		return (qt);
 }
 
-char		**substitutions(char **args)
+int			check_bs(char *str, size_t *pos)
 {
-	args = tilda_substitutions(args);
-	args = vars_substitutions(args);
-	args = pattern_substitutions(args);
+	if (str[*pos] == '\\' && str[(*pos) + 1] != '\0')
+	{
+		(*pos) += 2;
+		return (1);
+	}
+	return (0);
+}
+
+char		**substitutions(char **args, char is_env)
+{
+	if (!args)
+		return (NULL);
+	if (!(args = tilda_substitutions(args)))
+		return (NULL);
+	if (!(args = vars_substitutions(args)))
+		return (NULL);
+	if (!is_env)
+	{
+		if (!(args = pattern_substitutions(args)))
+			return (NULL);
+		if (!(args = arith_opers(args)))
+			return (NULL);
+	}
 	args = cut_quotes(args);
 	return (args);
+}
+
+int			process_substitutions(t_job *j)
+{
+	t_process	*p;
+
+	if (!(p = j->first_process))
+		return (0);
+	while (p)
+	{
+		if (!(p->args = substitutions(p->args, 0)))
+		{
+			clean_all_processes(j);
+			return (0);
+		}
+		if (p->environment
+			&& !(p->environment = substitutions(p->environment, 1)))
+		{
+			clean_all_processes(j);
+			return (0);
+		}
+		p = p->next;
+	}
+	return (1);
 }

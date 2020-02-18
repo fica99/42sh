@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 22:35:34 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 19:50:28 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 21:29:59 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void			lex_cut_tkn_value(t_lex_tkn *token, const char *str)
 	size_t	es_size;
 
 	es_size = lex_end_spases_size(str, token->end_pos);
-	if (token->type == T_ARITH_SUB)
-		tkn_value = lex_clip_tkn_value(token, str, 3, es_size + 2);
+	if (token->type == T_ASSIGNMENT_WORD)
+		tkn_value = lex_an_cut_quotes(token, str);
 	else
 		tkn_value = lex_clip_tkn_value(token, str, 0, es_size + 0);
 	token->value = tkn_value;

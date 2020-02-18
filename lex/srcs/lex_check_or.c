@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_check_or.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:27:21 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 14:43:54 by work             ###   ########.fr       */
+/*   Updated: 2020/02/16 15:48:46 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,8 @@
 
 static t_lex_tkn_type	lex_pipe(char **str, size_t *pos)
 {
-	char	*new_line;
-	size_t	offset;
-
 	if (!str || !*str)
 		return (0);
-	offset = 0;
-	while (lex_is_fin_log_oper(*str, *pos, &offset))
-	{
-		if (!(new_line = ft_readline(get_var("PS2", ALL_VARS))))
-			return (T_ERR);
-		if (*new_line == RL_K_CTRL_C)
-			return (lex_ctrl_c(str, &newline));
-		if (*new_line == RL_K_CTRL_D)
-			return (lex_al_ctrl_d(&new_line));
-		if (!(*str = lex_strjoin(*str, new_line)))
-			return (T_ERR);
-	}
 	(*pos)++;
 	return (T_PIPE);
 }

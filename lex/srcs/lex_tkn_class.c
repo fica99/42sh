@@ -6,25 +6,11 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 18:35:39 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 20:24:17 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/17 20:55:03 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
-
-static t_lex_tkn_class		lex_check_class_next(t_lex_tkn_type type)
-{
-	if (type == T_ARITH_SUB)
-		return (C_WORD);
-	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
-		return (C_SUB);
-	else if (type >= T_ROUND_SUB && type <= T_ARITH_SUB)
-		return (C_PREFIX_SUB);
-	else if (type == T_END)
-		return (C_END);
-	else
-		return (C_NULL);
-}
 
 t_lex_tkn_class				lex_check_class(t_lex_tkn_type type)
 {
@@ -44,6 +30,8 @@ t_lex_tkn_class				lex_check_class(t_lex_tkn_type type)
 		return (C_SEP);
 	else if (type == T_CONTROL_SUB)
 		return (C_WORD);
+	else if (type == T_END)
+		return (C_END);
 	else
-		return (lex_check_class_next(type));
+		return (C_NULL);
 }

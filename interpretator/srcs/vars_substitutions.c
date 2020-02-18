@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_substitutions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/16 02:56:11 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/19 01:11:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,45 +48,67 @@ static char	*dollar_expr(char *line, int pos)
 	return (strcutcopy(line, replace, pos_save, i));
 }
 
-static char	*var_substitution(char *line, size_t pos)
+static char	*var_substitution(char *line, int *pos)
 {
 	char	*for_return;
 
 	for_return = NULL;
-	if (line[pos + 1] == '{')
-		for_return = expansions(line, pos);
+	if (line[*pos + 1] == '{')
+		for_return = expansions(line, *pos);
+	else if (!ft_strncmp(line + *pos, "$((", 3))
+		(*pos) += 3;
 	else
-		for_return = dollar_expr(line, pos);
+		for_return = dollar_expr(line, *pos);
+	--(*pos);
 	if (for_return)
 		ft_strdel(&line);
 	else
-		return (line);
+		for_return = line;
+	if (!*for_return)
+		ft_strdel(&for_return);
 	return (for_return);
+}
+
+static char	**delete_element(char **args, int *i)
+{
+	size_t	len;
+
+	len = ft_darlen(args + *i + 1);
+	ft_memcpy(args + *i, args + *i + 1, sizeof(char *) * len);
+	args[*i + len] = NULL;
+	--(*i);
+	if (!*args)
+	{
+		ft_free_dar(args);
+		args = NULL;
+	}
+	return (args);
 }
 
 char		**vars_substitutions(char **args)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	t_qt	qt;
 
-	i = 0;
-	while (args[i])
+	i = -1;
+	while (args && args[++i])
 	{
-		j = 0;
+		j = -1;
 		qt = QT_NQ;
-		while (args[i][j])
+		while (args[i][++j])
 		{
 			if (args[i][j] == '\'' || args[i][j] == '"')
 				qt = check_quotes_type(args[i], j, qt);
 			if (qt != QT_SQ && args[i][j] == '$')
 			{
-				args[i] = var_substitution(args[i], j);
-				continue ;
+				if (!(args[i] = var_substitution(args[i], &j)))
+				{
+					args = delete_element(args, &i);
+					break ;
+				}
 			}
-			++j;
 		}
-		++i;
 	}
 	return (args);
 }
