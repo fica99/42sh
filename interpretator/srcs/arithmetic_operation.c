@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_operation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 09:30:29 by work              #+#    #+#             */
-/*   Updated: 2020/02/18 22:52:06 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 01:32:50 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,18 @@ static void		print_error(t_calc_err_type err)
 {
 	ft_putstr_fd("42sh: calc: ", STDERR_FILENO);
 	if (err == CALC_ERR_NULL_OR_IND)
-		ft_putstr_fd("err null or ind", STDERR_FILENO);
+		ft_putstr_fd("err null or ind ", STDERR_FILENO);
 	else if (err == CALC_ERR_LX)
-		ft_putstr_fd("err lx", STDERR_FILENO);
+		ft_putstr_fd("err lx ", STDERR_FILENO);
 	else if (err == CALC_ERR_NULL_OR_IND)
-		ft_putstr_fd("sytax error", STDERR_FILENO);
+		ft_putstr_fd("sytax error ", STDERR_FILENO);
 	else if (err == CALC_ERR_NULL_OR_IND)
-		ft_putstr_fd("division by zero", STDERR_FILENO);
+		ft_putstr_fd("division by zero ", STDERR_FILENO);
 	else if (err == CALC_ERR_NULL_OR_IND)
-		ft_putstr_fd("err parent", STDERR_FILENO);
+		ft_putstr_fd("err parent ", STDERR_FILENO);
 	else
-		ft_putstr_fd("unexpected error", STDERR_FILENO);
+		ft_putstr_fd("unexpected error ", STDERR_FILENO);
+	ft_putchar('\n');
 }
 
 static size_t	check_ao(char *str, size_t pos)
