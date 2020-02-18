@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilda_substitutions.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:18:08 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/15 18:29:02 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 12:15:19 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static char	*tilda_substitution(char *line)
 			path = ft_strdup(line + 1);
 		if ((data = getpwnam(path)))
 			res = ft_strjoin(data->pw_dir, (!slash) ? "" : slash);
+		else
+			res = ft_strdup(line);
 		ft_strdel(&path);
 	}
 	return (res);
