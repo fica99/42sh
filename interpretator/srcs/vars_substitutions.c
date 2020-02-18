@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_substitutions.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/16 02:56:11 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/18 13:15:15 by aashara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,17 @@ static char	*dollar_expr(char *line, int pos)
 	return (strcutcopy(line, replace, pos_save, i));
 }
 
-static char	*var_substitution(char *line, size_t pos)
+static char	*var_substitution(char *line, size_t *pos)
 {
 	char	*for_return;
 
 	for_return = NULL;
-	if (line[pos + 1] == '{')
-		for_return = expansions(line, pos);
+	if (line[*pos + 1] == '{')
+		for_return = expansions(line, *pos);
+	else if (!ft_strncmp(line + *pos, "$((", 3))
+		++(*pos);
 	else
-		for_return = dollar_expr(line, pos);
+		for_return = dollar_expr(line, *pos);
 	if (for_return)
 		ft_strdel(&line);
 	else
@@ -81,7 +83,7 @@ char		**vars_substitutions(char **args)
 				qt = check_quotes_type(args[i], j, qt);
 			if (qt != QT_SQ && args[i][j] == '$')
 			{
-				args[i] = var_substitution(args[i], j);
+				args[i] = var_substitution(args[i], &j);
 				continue ;
 			}
 			++j;
