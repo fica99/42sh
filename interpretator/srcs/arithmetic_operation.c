@@ -28,7 +28,7 @@ static void		print_error(t_calc_err_type err)
 		ft_putstr_fd("err parent ", STDERR_FILENO);
 	else
 		ft_putstr_fd("unexpected error ", STDERR_FILENO);
-	ft_putchar('\n');
+	ft_putchar_fd('\n', STDERR_FILENO);
 }
 
 static size_t	check_ao(char *str, size_t pos)
