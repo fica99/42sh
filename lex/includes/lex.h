@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/17 23:30:02 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 20:18:32 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ typedef	struct		s_lex_tkns
 	size_t			size;
 }					t_lex_tkns;
 
-t_lex_stat			g_lex_stat;
+extern t_lex_stat	g_lex_stat;
 
 /*
 ** lex_lexer.c

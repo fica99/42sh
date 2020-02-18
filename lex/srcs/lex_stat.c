@@ -6,11 +6,13 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/12 20:02:14 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/12 20:35:38 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 20:17:12 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lex.h"
+
+t_lex_stat	g_lex_stat;
 
 t_lex_tkn	*lex_status(t_lex_tkn_type type, t_lex_tkn *token)
 {
