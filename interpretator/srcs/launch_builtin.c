@@ -58,7 +58,7 @@ static void		save_fd(int *fd, int **redir)
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int				launch_no_fork_builtin(t_process *p, t_job *j)
+int				launch_no_fork_builtin(t_process *p)
 {
 	int			fd[3];
 	t_builtin	func;

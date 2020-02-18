@@ -62,6 +62,8 @@ static void	shell_start(void)
 {
 	char	*line;
 
+	while (tcgetpgrp(STDIN_FILENO) != getpgrp())
+		;
 	while (TRUE)
 	{
 		line = ft_readline(get_var("PS1", ALL_VARS));
