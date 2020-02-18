@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/18 20:18:32 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 20:44:11 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,8 @@ typedef enum		e_lex_tkn_class
 typedef enum		e_lex_cs_type
 {
 	CS_NULL,
-	CS_DOUBLE_QUOTES,
-	CS_SINGLE_QUOTES,
 	CS_ROUND_BRK,
-	CS_FIGURE_BRK,
-	CS_D_ROUND_BRK,
+	CS_FIGURE_BRK
 }					t_lex_cs_type;
 
 /*
@@ -242,18 +239,7 @@ t_lex_tkn_type		lex_al_ctrl_d(char **s1, char c);
 ** lex_cs.c
 */
 
-t_lex_fr			lex_cs(char **str, size_t *pos, t_lex_cs_type type);
-
-/*
-** lex_cs_open_close.c
-*/
-
-int					lex_cs_is_quotes(t_lex_cs_type type);
-int					lex_cs_is_brk(t_lex_cs_type type);
-int					lex_cs_check_open(int check, t_lex_cs_type *cs_filter,
-	int cs_count, t_lex_cs_type type);
-int					lex_cs_check_close(int check, t_lex_cs_type	*cs_filter,
-	int cs_count, t_lex_cs_type type);
+t_lex_fr			lex_cs(char **str, size_t *pos);
 
 /*
 ** lex_cs_inc_dec.c

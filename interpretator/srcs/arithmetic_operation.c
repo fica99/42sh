@@ -6,12 +6,29 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 09:30:29 by work              #+#    #+#             */
-/*   Updated: 2020/02/18 00:09:03 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 22:52:06 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "interpretator.h"
 #include "calc.h"
+
+static void		print_error(t_calc_err_type err)
+{
+	ft_putstr_fd("42sh: calc: ", STDERR_FILENO);
+	if (err == CALC_ERR_NULL_OR_IND)
+		ft_putstr_fd("err null or ind", STDERR_FILENO);
+	else if (err == CALC_ERR_LX)
+		ft_putstr_fd("err lx", STDERR_FILENO);
+	else if (err == CALC_ERR_NULL_OR_IND)
+		ft_putstr_fd("sytax error", STDERR_FILENO);
+	else if (err == CALC_ERR_NULL_OR_IND)
+		ft_putstr_fd("division by zero", STDERR_FILENO);
+	else if (err == CALC_ERR_NULL_OR_IND)
+		ft_putstr_fd("err parent", STDERR_FILENO);
+	else
+		ft_putstr_fd("unexpected error", STDERR_FILENO);
+}
 
 static size_t	check_ao(char *str, size_t pos)
 {
@@ -41,14 +58,15 @@ static char		*calc_str_result(char *str, size_t start, size_t end)
 	char				*str_res;
 	char				c;
 	long long			res;
-	static t_calc_err	*err;
+	static t_calc_err	err;
 
 	c = str[end - 2];
 	str[end - 2] = '\0';
 	res = calc(str + start + 3, &err);
-	if (err->status == 1)
+	if (err.status == 1)
 	{
 		str[end] = c;
+		print_error(err.type);
 		return (NULL);
 	}
 	if (!(str_res = calc_ltoa(res)))
@@ -57,7 +75,7 @@ static char		*calc_str_result(char *str, size_t start, size_t end)
 	return (str_res);
 }
 
-static char		*add_ao(char **args, size_t i, size_t start, size_t end)
+static char		**add_ao(char **args, size_t i, size_t start, size_t end)
 {
 	char				*new_str;
 	char				*calc_res;
@@ -66,8 +84,7 @@ static char		*add_ao(char **args, size_t i, size_t start, size_t end)
 
 	if (!(calc_res = calc_str_result(args[i], start, end)))
 	{
-		ft_free_dar(args);
-		return (NULL);
+		return (args);
 	}
 	calc_len = ft_strlen(calc_res);
 	str_len = ft_strlen(args[i]);
@@ -77,7 +94,8 @@ static char		*add_ao(char **args, size_t i, size_t start, size_t end)
 	ft_memcpy(new_str + start, calc_res, calc_len);
 	ft_memcpy(new_str + start + calc_len, args[i] + end, str_len - end + 1);
 	free(args[i]);
-	return (new_str);
+	args[i] = new_str;
+	return (args);
 }
 
 char			**arith_opers(char **args)
@@ -99,7 +117,7 @@ char			**arith_opers(char **args)
 			qt = check_quotes_type(args[i], j, qt);
 			if (qt != QT_SQ)
 				if ((end = check_ao(args[i], j)))
-					if (!(args[i] = add_ao(args, i, j, end)))
+					if (!(args = add_ao(args, i, j, end)))
 						return (NULL);
 			j++;
 		}

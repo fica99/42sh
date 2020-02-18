@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/15 22:28:46 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/18 22:15:39 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			launch_job(t_job *j, int foreground)
 	char		*last_status;
 	t_process	*p;
 
-	if (redir_handle(j) < 0)
+	if (redir_handle(j) < 0 || !process_substitutions(j))
 		return ;
 	check_builtin(&j);
 	p = j->first_process;

@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 19:48:32 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/11 21:48:26 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 21:43:28 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ static long long	calc_unary_next(t_calc_tkns *s_tokens, size_t *index,
 	t_calc_err *error)
 {
 	long long		result;
+	short			sign;
 
+	sign = 1;
+	if ((s_tokens->tokens)[*index].type == CALC_MINUS)
+		sign = -1;
 	(*index)++;
 	result = calc_number(s_tokens, index, error);
 	if (error->status)
 		return (0);
-	return (result * -1);
+	return (result * sign);
 }
 
 t_calc_tkn			*calc_get_number_tkn(char *str, size_t pos)
@@ -69,7 +73,8 @@ long long			calc_unary(t_calc_tkns *s_tokens, size_t *index,
 {
 	if (!s_tokens || !calc_check_index(s_tokens, *index))
 		return (calc_error(error, CALC_ERR_NULL_OR_IND));
-	if (s_tokens->tokens[*index].type == CALC_MINUS)
+	if (s_tokens->tokens[*index].type == CALC_MINUS
+		|| s_tokens->tokens[*index].type == CALC_PLUS)
 		return (calc_unary_next(s_tokens, index, error));
 	else if (s_tokens->tokens[*index].type == CALC_NUMBER)
 		return (calc_number(s_tokens, index, error));

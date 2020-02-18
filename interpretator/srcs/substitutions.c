@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitutions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara <aashara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:04:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/18 13:27:35 by aashara          ###   ########.fr       */
+/*   Updated: 2020/02/18 22:52:18 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,41 @@ int			check_bs(char *str, size_t *pos)
 	return (0);
 }
 
-char		**substitutions(char **args)
+char		**substitutions(char **args, char is_env)
 {
+	if (!args)
+		return (NULL);
 	args = tilda_substitutions(args);
 	args = vars_substitutions(args);
-	args = pattern_substitutions(args);
-	args = arith_opers(args);
+	if (!is_env)
+	{
+		args = pattern_substitutions(args);
+		args = arith_opers(args);
+	}
 	args = cut_quotes(args);
 	return (args);
+}
+
+int			process_substitutions(t_job *j)
+{
+	t_process	*p;
+
+	if (!(p = j->first_process))
+		return (0);
+	while (p)
+	{
+		if (!(p->args = substitutions(p->args, 0)))
+		{
+			clean_all_processes(j);
+			return (0);
+		}
+		if (p->environment
+			&& !(p->environment = substitutions(p->environment, 1)))
+		{
+			clean_all_processes(j);
+			return (0);
+		}
+		p = p->next;
+	}
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/15 22:47:03 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/18 20:58:24 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		ft_system(char **line)
 	t_ast		*root;
 
 	tokens = lex_get_tkns(line);
-	if (g_lex_stat == LS_ERR)
+	if (g_lex_stat != LS_OK)
 	{
 		ft_putstr_fd("42sh: lex: unexpected syntax error\n", STDERR_FILENO);
 		g_last_exit_status = 1;

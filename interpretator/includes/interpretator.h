@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/17 21:00:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/18 22:12:01 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,8 +174,9 @@ int					esc_unicode(char *str, size_t *pos, short is_rep_pos);
 /*
 **					substitutions.c
 */
+int					process_substitutions(t_job *j);
 t_qt				check_quotes_type(char *str, size_t pos, t_qt qt);
-char				**substitutions(char **args);
+char				**substitutions(char **args, char is_env);
 int					check_bs(char *str, size_t *pos);
 /*
 **					expr_validation.c

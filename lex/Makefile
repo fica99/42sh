@@ -6,7 +6,7 @@
 #    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/18 18:08:37 by aashara-          #+#    #+#              #
-#    Updated: 2020/02/17 23:12:00 by ggrimes          ###   ########.fr        #
+#    Updated: 2020/02/18 20:46:02 by ggrimes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,6 @@ SRC_FLS	=		lex_lexer.c\
 				lex_str.c\
 				lex_ctrl.c\
 				lex_cs_inc_dec.c\
-				lex_cs_open_close.c\
 				lex_cs_filter.c\
 				lex_cs.c\
 				lex_val_tkn_processing.c\
