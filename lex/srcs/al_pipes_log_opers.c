@@ -6,7 +6,7 @@
 /*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 18:49:52 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/17 23:05:18 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 19:46:34 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns)
 		free(new_line);
 		return (NULL);
 	}
+	free(new_line);
 	src_tkns_size = lex_tkns_size(src_tkns);
 	result_tkns = lex_insert_tkns(src_tkns, ins_tkns, src_tkns_size);
-	//free(ins_tkns);
-	if (!result_tkns)
-		lex_del_tkns(src_tkns);
 	return (result_tkns);
 }

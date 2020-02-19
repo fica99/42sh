@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/18 20:44:11 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:12:53 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,5 +321,10 @@ t_lex_tkn_type		lex_check_quotes(char **str, size_t *pos);
 */
 
 t_lex_tkn_type		lex_check_brackets(char **str, size_t *pos);
+
+void				lex_print_tkns(t_lex_tkn **tokens);
+void				lex_print_tkn(t_lex_tkn *token);
+void				lex_print_type(t_lex_tkn_type type);
+void				lex_print_class(t_lex_tkn_class class);
 
 #endif
