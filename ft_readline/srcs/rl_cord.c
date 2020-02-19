@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 18:11:14 by aashara-          #+#    #+#             */
-/*   Updated: 2020/01/22 16:44:55 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:15:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void		rl_get_cur_cord(t_rl_cord *cord)
 	short	num;
 
 	num = 0;
+	rl_set_non_canon_mode(&g_rl.non_canon_mode);
 	ft_putstr_fd(tigetstr("u7"), STDIN_FILENO);
 	rl_read_handler(cur_cord, STDOUT_FILENO);
+	rl_set_mode(&g_rl.start_mode);
 	if (!(pos = ft_strchr(cur_cord, (int)'[')))
 		return ;
 	while (ft_isdigit(*(++pos)))
