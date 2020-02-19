@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_ctrl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 21:41:53 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/17 23:19:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:36:34 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ t_lex_fr		lex_cs_ctrl_c(char **s1, char **s2)
 	return (FR_CTRL_C);
 }
 
-t_lex_fr		lex_cs_ctrl_d(char c)
+t_lex_fr		lex_cs_ctrl_d(char c, char **str)
 {
+	ft_strdel(str);
 	if (c != '"' && c != '\'')
 		return (FR_CTRL_D);
 	if (c == '"')
