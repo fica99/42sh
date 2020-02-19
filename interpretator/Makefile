@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+         #
+#    By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/04 20:28:45 by aashara-          #+#    #+#              #
 #    Updated: 2020/02/20 01:48:05 by ggrimes          ###   ########.fr        #
