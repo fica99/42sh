@@ -39,10 +39,9 @@ typedef enum		e_lex_tkn_type
 	T_GREATER_AND,
 	T_IO_NUMBER,
 	T_SEP,
-	T_CONTROL_SUB,
 	T_AND_AND,
-	T_AND,
 	T_OR_OR,
+	T_AND,
 	T_CTRL_D
 }					t_lex_tkn_type;
 
@@ -55,7 +54,8 @@ typedef enum		e_lex_tkn_class
 	C_SEP,
 	C_AND,
 	C_NULL,
-	C_END
+	C_END,
+	C_BGR
 }					t_lex_tkn_class;
 
 typedef enum		e_lex_cs_type

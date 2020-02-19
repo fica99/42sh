@@ -17,7 +17,7 @@
 # include "lex.h"
 # include "error.h"
 # define COMPLETION 255
-# define RULES_NUM 17
+# define RULES_NUM 21
 # define DEF_ARGS_SIZE 10
 # define DEF_REDIR_SIZE 10
 # define DEF_VARLIST_SIZE 10
