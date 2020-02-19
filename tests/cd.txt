@@ -7,14 +7,13 @@ $> cd ${P}
 $> cd -
 $> cd
 $> cd /////tmp
-$> cd + 2>&1
-$> cd lol 2>&1
-$> cd -88qweqfwqwqeqwe 2>&1
+$> cd + 
+$> cd lol
+$> cd -88qweqfwqwqeqwe
 $> cd ${P}
-$> cd Makefile 2>&1
+$> cd Makefile
 $> echo $PWD > ${A}; cd ..; echo $PWD > ${B}; grep -Fxvf ${A} ${B}
 $> A=/tmp/a; B=/tmp/b
-
 $> cd /tmp; \
     echo $PWD | grep "/tmp"; \
     echo $OLDPWD | grep ${P}; \
