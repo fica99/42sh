@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_quotes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 21:43:20 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/19 16:34:36 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 01:30:49 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ static t_lex_fr	lex_is_open_q(char *str, size_t *pos, char c)
 		return (FR_ERR);
 	while (str[*pos])
 	{
-		if (str[*pos] == '\\' && str[(*pos) + 1] == c)
+		if (str[*pos] == '\\' && str[(*pos) + 1] != '\0')
+		{
 			(*pos) += 2;
+			continue ;
+		}
 		if (str[*pos] == c)
 		{
 			(*pos)++;

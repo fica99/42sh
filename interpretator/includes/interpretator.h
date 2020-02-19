@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 09:40:34 by work             ###   ########.fr       */
+/*   Updated: 2020/02/20 01:35:52 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ int					process_substitutions(t_job *j);
 t_qt				check_quotes_type(char *str, size_t pos, t_qt qt);
 char				**substitutions(char **args, char is_env);
 int					check_bs(char *str, size_t *pos);
+int					check_bs_int(char *str, int *pos);
 /*
 **					expr_validation.c
 */
