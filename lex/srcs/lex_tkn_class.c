@@ -22,9 +22,7 @@ t_lex_tkn_class				lex_check_class(t_lex_tkn_type type)
 		return (C_PIPE);
 	else if (type >= T_GREATER && type <= T_GREATER_AND)
 		return (C_REDIR);
-	else if (type == T_AND)
-		return (C_BGR);
-	else if (type >= T_AND_AND && type <= T_OR_OR)
+	else if (type >= T_AND_AND && type <= T_AND)
 		return (C_LOG_OPERS);
 	else if (type == T_SEP)
 		return (C_SEP);

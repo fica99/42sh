@@ -50,10 +50,8 @@ typedef enum		e_lex_tkn_class
 	C_WORD,
 	C_REDIR,
 	C_PIPE,
-	C_BGR,
 	C_LOG_OPERS,
 	C_SEP,
-	C_AND,
 	C_NULL,
 	C_END
 }					t_lex_tkn_class;

@@ -78,7 +78,7 @@ int rules[RULES_NUM][3], int curr_status)
 		old_status = curr_status;
 		if (status_update(rules, &curr_status, list + i) < 0)
 			return (syntax_err(list[i + 1]));
-		if (curr_status == COMPLETION)
+		if (curr_status == COMPLETION && list[i]->type != T_AND)
 			return (2);
 		i++;
 		if (curr_status != old_status)
@@ -97,10 +97,8 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 	{C_PIPE, C_WORD, C_WORD}, {C_WORD, C_PIPE, C_PIPE},
 	{C_WORD, C_END, C_WORD}, {C_WORD, C_LOG_OPERS, C_LOG_OPERS},
 	{C_LOG_OPERS, C_WORD, C_WORD}, {C_SEP, C_END, C_SEP},
-	{C_SEP, C_REDIR, C_REDIR},
-	{C_LOG_OPERS, C_END, COMPLETION}, {C_PIPE, C_END, COMPLETION},
-	{C_WORD, C_BGR, C_BGR}, {C_BGR, C_WORD, C_WORD},
-	{C_BGR, C_END, C_BGR}};
+	{C_SEP, C_REDIR, C_REDIR}, {C_LOG_OPERS, C_END, C_LOG_OPERS},
+	{C_LOG_OPERS, C_END, COMPLETION}, {C_PIPE, C_END, COMPLETION}};
 
 	curr_status = (*list)->class;
 	*root = new_node(list);
