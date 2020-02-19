@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/09 17:24:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 22:33:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,7 @@ int rules[RULES_NUM][3], int curr_status)
 		if (status_update(rules, &curr_status, list + i) < 0)
 			return (syntax_err(list[i + 1]));
 		if (curr_status == COMPLETION)
-		{
-			if (!(list = al_p_lo(list)))
-				return (1);
-			curr_status = old_status;
-			continue ;
-		}
+			return (2);
 		i++;
 		if (curr_status != old_status)
 			insert(new_node(list + i), root, list[i]->class);
