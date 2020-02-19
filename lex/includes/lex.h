@@ -321,9 +321,4 @@ t_lex_tkn_type		lex_check_quotes(char **str, size_t *pos);
 
 t_lex_tkn_type		lex_check_brackets(char **str, size_t *pos);
 
-void				lex_print_tkns(t_lex_tkn **tokens);
-void				lex_print_tkn(t_lex_tkn *token);
-void				lex_print_type(t_lex_tkn_type type);
-void				lex_print_class(t_lex_tkn_class class);
-
 #endif
