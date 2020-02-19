@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:54:15 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/18 22:15:48 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 09:38:19 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void		save_fd(int *fd, int **redir)
 	fd[2] = find_dup(redir, STDERR_FILENO);
 }
 
-int				launch_no_fork_builtin(t_process *p)
+int				launch_no_fork_builtin(t_process *p, t_job *j)
 {
 	int			fd[3];
 	t_builtin	func;

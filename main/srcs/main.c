@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 01:41:18 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 09:29:46 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ static void	init_shell(char **environ)
 	init_jobs();
 }
 
+static void		lex_status_proc(void)
+{
+	if (g_lex_stat == LS_ERR)
+	{
+		err("42sh", "unexpected syntax error", NULL, NOERROR);
+		g_last_exit_status = 1;
+		set_var("?", "1", ALL_VARS);
+		return ;
+	}
+	g_last_exit_status = 130;
+	set_var("?", "130", ALL_VARS);
+}
+
 void		ft_system(char **line)
 {
 	t_lex_tkn	**tokens;
@@ -39,9 +52,7 @@ void		ft_system(char **line)
 	tokens = lex_get_tkns(line);
 	if (g_lex_stat != LS_OK)
 	{
-		err("42sh", "unexpected syntax error", NULL, NOERROR);
-		g_last_exit_status = 1;
-		set_var("?", "1", ALL_VARS);
+		lex_status_proc();
 		return ;
 	}
 	tokens = alias_handle(tokens);

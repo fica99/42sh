@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpretator.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 20:29:37 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/18 22:12:01 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 09:40:34 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void				launch_job(t_job *j, int foreground);
 /*
 **					launch_builtin.c
 */
-int					launch_no_fork_builtin(t_process *p);
+int					launch_no_fork_builtin(t_process *p, t_job *j);
 int					launch_fork_builtin(t_process *p);
 /*
 **					launch_process.c
