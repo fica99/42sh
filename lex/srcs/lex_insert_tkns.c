@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_insert_tkns.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 20:08:21 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/19 19:46:12 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 20:24:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ t_lex_tkn			**lex_insert_tkns(t_lex_tkn **src,
 	size_t			i;
 	size_t			j;
 
-	if (!src || !ins)
-		return (NULL);
 	src_size = lex_tkns_size(src);
 	ins_size = lex_tkns_size(ins);
 	if (!(new_tkns = lex_insert_new_tkns(src_size, ins_size, ins_index)))

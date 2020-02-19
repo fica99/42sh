@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 09:29:46 by work             ###   ########.fr       */
+/*   Updated: 2020/02/19 22:24:33 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		ft_system(char **line)
 	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
 		root = NULL;
-		if (!make_ast(tokens, &root))
+		if (!make_ast(&tokens, &root))
 		{
 			parse(root);
 			exec_jobs();
@@ -72,12 +72,23 @@ void		ft_system(char **line)
 static void	shell_start(void)
 {
 	char	*line;
+//	t_lex_tkn **tkns;
 
 	while (tcgetpgrp(STDIN_FILENO) != getpgrp())
 		;
 	while (TRUE)
 	{
 		line = ft_readline(get_var("PS1", ALL_VARS));
+		// if (!ft_strcmp(line, "exit"))
+		// {
+		// 	ft_memdel((void**)&line);
+		// 	break ;
+		// }
+		// if (!(tkns = lex_get_tkns(&line)))
+		// 	break ;
+		// if (al_p_lo(&tkns))
+		// 	break ;
+		// lex_print_tkns(tkns);
 		ft_system(&line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:40:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/11 15:47:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 21:07:01 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void					parse_calc(t_lex_tkn **tkn);
 /*
 **						make_ast.c
 */
-int						make_ast(t_lex_tkn **list, t_ast **root);
+int						make_ast(t_lex_tkn ***list, t_ast **root);
 void					clean_tree(t_ast *ast);
 /*
 **						errors.c

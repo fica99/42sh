@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 23:37:47 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/09 17:24:49 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 22:33:40 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,33 +66,32 @@ enum e_lex_tkn_class node_class)
 	prev_node->right = node;
 }
 
-static int		ast_loop(t_lex_tkn **list, t_ast **root,
+static int		ast_loop(t_lex_tkn ***list, t_ast **root,
 int rules[RULES_NUM][3], int curr_status)
 {
 	int	i;
 	int old_status;
 
 	i = 0;
-	while (list[i + 1])
+	while ((*list)[i + 1])
 	{
 		old_status = curr_status;
-		if (status_update(rules, &curr_status, list + i) < 0)
-			return (syntax_err(list[i + 1]));
+		if (status_update(rules, &curr_status, (*list) + i) < 0)
+			return (syntax_err((*list)[i + 1]));
 		if (curr_status == COMPLETION)
 		{
-			if (!(list = al_p_lo(list)))
+			if (al_p_lo(list))
 				return (1);
-			curr_status = old_status;
 			continue ;
 		}
-		i++;
 		if (curr_status != old_status)
-			insert(new_node(list + i), root, list[i]->class);
+			insert(new_node((*list) + i), root, (*list)[i]->class);
+		i++;
 	}
 	return (0);
 }
 
-int				make_ast(t_lex_tkn **list, t_ast **root)
+int				make_ast(t_lex_tkn ***list, t_ast **root)
 {
 	int			curr_status;
 	static int	rules[RULES_NUM][3] = {{C_WORD, C_WORD, C_WORD},
@@ -105,9 +104,9 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 	{C_SEP, C_REDIR, C_REDIR},
 	{C_LOG_OPERS, C_END, COMPLETION}, {C_PIPE, C_END, COMPLETION}};
 
-	curr_status = (*list)->class;
-	*root = new_node(list);
+	curr_status = (**list)->class;
+	*root = new_node(*list);
 	if (curr_status != C_WORD && curr_status != C_REDIR && curr_status != C_SEP)
-		return (syntax_err(*list));
+		return (syntax_err(**list));
 	return (ast_loop(list, root, rules, curr_status));
 }

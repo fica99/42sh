@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:19:01 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/19 16:12:53 by work             ###   ########.fr       */
+/*   Updated: 2020/02/19 20:25:58 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
 **					al_pipes_log_opers.c
 */
 
-t_lex_tkn			**al_p_lo(t_lex_tkn **src_tkns);
+int					al_p_lo(t_lex_tkn ***src_tkns);
 
 /*
 **					lex_quotes.c
