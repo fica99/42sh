@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   substitutions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 17:04:44 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/19 14:27:30 by work             ###   ########.fr       */
+/*   Updated: 2020/02/20 01:34:56 by ggrimes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,29 @@
 
 t_qt		check_quotes_type(char *str, size_t pos, t_qt qt)
 {
-	if (str[pos] == '"' && qt == QT_NQ && (!pos
-		|| (pos > 0 && str[pos - 1] != '\\')))
+	if (str[pos] == '"' && qt == QT_NQ)
 		return (QT_DQ);
-	else if (str[pos] == '"' && qt == QT_DQ && (!pos
-		|| (pos > 0 && str[pos - 1] != '\\')))
+	else if (str[pos] == '"' && qt == QT_DQ)
 		return (QT_NQ);
-	else if (str[pos] == '\'' && qt == QT_NQ && (!pos
-		|| (pos > 0 && str[pos - 1] != '\\')))
+	else if (str[pos] == '\'' && qt == QT_NQ)
 		return (QT_SQ);
-	else if (str[pos] == '\'' && qt == QT_SQ && (!pos
-		|| (pos > 0 && str[pos - 1] != '\\')))
+	else if (str[pos] == '\'' && qt == QT_SQ)
 		return (QT_NQ);
 	else
 		return (qt);
 }
 
 int			check_bs(char *str, size_t *pos)
+{
+	if (str[*pos] == '\\' && str[(*pos) + 1] != '\0')
+	{
+		(*pos) += 2;
+		return (1);
+	}
+	return (0);
+}
+
+int			check_bs_int(char *str, int *pos)
 {
 	if (str[*pos] == '\\' && str[(*pos) + 1] != '\0')
 	{
