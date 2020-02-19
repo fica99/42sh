@@ -75,7 +75,6 @@ SRC_FLS	=		lex_lexer.c\
 				al_pipes_log_opers.c\
 				lex_quotes.c\
 				lex_brackets.c\
-				debug.c\
 
 # ------------  FILEPATHS  --------------------------------------------------- #
 SRCS	=		$(addprefix $(SRC_DIR)/, $(SRC_FLS))
