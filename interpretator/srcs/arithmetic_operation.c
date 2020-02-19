@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arithmetic_operation.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 09:30:29 by work              #+#    #+#             */
-/*   Updated: 2020/02/19 01:32:50 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 14:27:37 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ static char		**add_ao(char **args, size_t i, size_t start, size_t end)
 
 	if (!(calc_res = calc_str_result(args[i], start, end)))
 	{
-		return (args);
+		ft_free_dar(args);
+		return (NULL);
 	}
 	calc_len = ft_strlen(calc_res);
 	str_len = ft_strlen(args[i]);
@@ -95,6 +96,7 @@ static char		**add_ao(char **args, size_t i, size_t start, size_t end)
 	ft_memcpy(new_str + start, calc_res, calc_len);
 	ft_memcpy(new_str + start + calc_len, args[i] + end, str_len - end + 1);
 	free(args[i]);
+	free(calc_res);
 	args[i] = new_str;
 	return (args);
 }

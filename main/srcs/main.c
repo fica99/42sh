@@ -12,7 +12,7 @@
 
 #include "main.h"
 
-static void	init_shell(char **environ)
+static void		init_shell(char **environ)
 {
 	init_variables(environ, ENV);
 	init_variables(NULL, VARS);
@@ -31,17 +31,22 @@ static void	init_shell(char **environ)
 	init_jobs();
 }
 
-static void		lex_status_proc(void)
+static char		lex_status_proc(void)
 {
-	if (g_lex_stat == LS_ERR)
+	if (g_lex_stat == LS_ERR || g_lex_stat == LS_CTRL_D)
 	{
 		err("42sh", "unexpected syntax error", NULL, NOERROR);
+		g_last_exit_status = 258;
+		set_var("?", "258", ALL_VARS);
+	}
+	else if (g_lex_stat == LS_CTRL_C)
+	{
 		g_last_exit_status = 1;
 		set_var("?", "1", ALL_VARS);
-		return ;
 	}
-	g_last_exit_status = 130;
-	set_var("?", "130", ALL_VARS);
+	else
+		return (TRUE);
+	return (FALSE);
 }
 
 int			ast_handle(t_lex_tkn ***tokens, t_ast **root, char **line)
@@ -60,17 +65,14 @@ int			ast_handle(t_lex_tkn ***tokens, t_ast **root, char **line)
 	return (ret);
 }
 
-void		ft_system(char **line)
+void			ft_system(char **line)
 {
 	t_lex_tkn	**tokens;
 	t_ast		*root;
 
 	tokens = lex_get_tkns(line);
-	if (g_lex_stat != LS_OK)
-	{
-		lex_status_proc();
+	if (!lex_status_proc())
 		return ;
-	}
 	tokens = alias_handle(tokens);
 	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
@@ -85,10 +87,9 @@ void		ft_system(char **line)
 	lex_del_tkns(tokens);
 }
 
-static void	shell_start(void)
+static void		shell_start(void)
 {
 	char	*line;
-//	t_lex_tkn **tkns;
 
 	while (tcgetpgrp(STDIN_FILENO) != getpgrp())
 		;
@@ -101,7 +102,7 @@ static void	shell_start(void)
 	}
 }
 
-int			main(int argc, char **argv, char **environ)
+int				main(int argc, char **argv, char **environ)
 {
 	(void)argv;
 	(void)argc;

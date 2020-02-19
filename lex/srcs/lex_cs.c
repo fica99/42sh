@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_cs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/29 21:11:31 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/18 22:53:50 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:37:31 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static t_lex_fr		lex_cs_add_line(char **str)
 	if (*new_line == RL_K_CTRL_C)
 		return (lex_cs_ctrl_c(str, &new_line));
 	if (*new_line == RL_K_CTRL_D)
-		return (lex_cs_ctrl_d(0));
+		return (lex_cs_ctrl_d(0, &new_line));
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
 	return (FR_TRUE);

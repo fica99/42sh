@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_backslash.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 08:49:45 by olegmulko         #+#    #+#             */
-/*   Updated: 2020/02/17 23:00:30 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:38:06 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_lex_fr		lex_add_line_bs(char **str, size_t pos)
 		return (lex_cs_ctrl_c(str, &new_line));
 	(*str)[pos] = '\0';
 	if (*new_line == RL_K_CTRL_D)
-		return (lex_cs_ctrl_d(0));
+		return (lex_cs_ctrl_d(0, &new_line));
 	if (!(*str = lex_strjoin(*str, new_line)))
 		return (FR_ERR);
 	return (FR_TRUE);

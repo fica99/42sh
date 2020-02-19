@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lex_quotes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 21:43:20 by ggrimes           #+#    #+#             */
-/*   Updated: 2020/02/17 23:03:34 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 16:34:36 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_lex_fr		lex_quotes(char **str, size_t *pos, char c)
 		if (*new_line == RL_K_CTRL_C)
 			return (lex_cs_ctrl_c(str, &new_line));
 		if (*new_line == RL_K_CTRL_D)
-			return (lex_cs_ctrl_d(c));
+			return (lex_cs_ctrl_d(c, &new_line));
 		if (!(*str = lex_strjoin(*str, new_line)))
 			return (FR_ERR);
 	}
