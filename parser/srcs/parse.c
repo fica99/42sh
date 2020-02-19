@@ -36,10 +36,12 @@ static void	parse_logical(t_ast *root)
 {
 	if (!root)
 		return ;
-	if ((*root->token)->class != C_LOG_OPERS)
+	if ((*root->token)->class != C_LOG_OPERS &&
+	(*root->token)->class != C_BGR)
 		return (parse_pipe(root, job_new(NULL)));
 	parse_pipe(root->left, job_new(root->token));
-	if (root->right && (*root->right->token)->class == C_LOG_OPERS)
+	if (root->right && ((*root->right->token)->class == C_LOG_OPERS ||
+	(*root->token)->class == C_BGR))
 		parse_logical(root->right);
 	else if (root->right)
 		parse_pipe(root->right, job_new(root->token));
