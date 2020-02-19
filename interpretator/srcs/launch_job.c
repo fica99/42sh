@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch_job.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggrimes <ggrimes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: work <work@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 16:00:57 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/18 22:15:39 by ggrimes          ###   ########.fr       */
+/*   Updated: 2020/02/19 09:41:20 by work             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			launch_job(t_job *j, int foreground)
 		return ;
 	check_builtin(&j);
 	p = j->first_process;
-	if (!launch_no_fork_builtin(p))
+	if (!launch_no_fork_builtin(p, j))
 	{
 		p->completed = 1;
 		cls_redir(p->fd_list);
