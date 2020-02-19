@@ -6,13 +6,13 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 16:26:28 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/19 17:07:15 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-static void	init_shell(char **environ)
+static void		init_shell(char **environ)
 {
 	init_variables(environ, ENV);
 	init_variables(NULL, VARS);
@@ -49,7 +49,7 @@ static char		lex_status_proc(void)
 	return (FALSE);
 }
 
-void		ft_system(char **line)
+void			ft_system(char **line)
 {
 	t_lex_tkn	**tokens;
 	t_ast		*root;
@@ -71,7 +71,7 @@ void		ft_system(char **line)
 	lex_del_tkns(tokens);
 }
 
-static void	shell_start(void)
+static void		shell_start(void)
 {
 	char	*line;
 
@@ -86,7 +86,7 @@ static void	shell_start(void)
 	}
 }
 
-int			main(int argc, char **argv, char **environ)
+int				main(int argc, char **argv, char **environ)
 {
 	(void)argv;
 	(void)argc;
