@@ -307,7 +307,7 @@ t_lex_tkn			*lex_status(t_lex_tkn_type type, t_lex_tkn *token);
 **					al_pipes_log_opers.c
 */
 
-int					al_p_lo(t_lex_tkn ***src_tkns);
+int					al_p_lo(t_lex_tkn ***src_tkns, char **line);
 
 /*
 **					lex_quotes.c

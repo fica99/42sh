@@ -12,32 +12,33 @@
 
 #include "lex.h"
 
-static int	lo_p_ctrl(t_lex_tkn **tkns, char *line)
+static int	lo_p_ctrl_c(char **line, char **new_line)
 {
-	free(line);
-	if (tkns)
-	{
-		err("42sh", "syntax error", NULL, EUEOF);
-		lex_del_tkns(tkns);
-		return (1);
-	}
+	ft_strdel(line);
+	ft_strdel(new_line);
 	return (1);
 }
 
-int			al_p_lo(t_lex_tkn ***src_tkns)
+static int	lo_p_ctrl_d(char **new_line)
+{
+	ft_strdel(new_line);
+	err("42sh", "syntax error", NULL, EUEOF);
+	return (1);
+}
+
+int			al_p_lo(t_lex_tkn ***src_tkns, char **line)
 {
 	char		*new_line;
 	t_lex_tkn	**ins_tkns;
 	size_t		src_tkns_size;
-	t_lex_tkn	**tmp;
 
 	src_tkns_size = 0;
 	while (!*(new_line = ft_readline(get_var("PS2", ALL_VARS))))
 		free(new_line);
 	if (*new_line == RL_K_CTRL_C)
-		return lo_p_ctrl(*src_tkns, new_line);
+		return lo_p_ctrl_c(line, &new_line);
 	if (*new_line == RL_K_CTRL_D)
-		return lo_p_ctrl(NULL, new_line);
+		return lo_p_ctrl_d(&new_line);
 	if (!(ins_tkns = lex_get_tkns(&new_line)) && g_lex_stat != LS_OK)
 	{
 		if (g_lex_stat != LS_CTRL_D)
@@ -45,9 +46,9 @@ int			al_p_lo(t_lex_tkn ***src_tkns)
 		free(new_line);
 		return (1);
 	}
-	free(new_line);
-	tmp = *src_tkns;
-	src_tkns_size = lex_tkns_size(tmp);
-	*src_tkns = lex_insert_tkns(tmp, ins_tkns, src_tkns_size);
+	if (!(*line = lex_strjoin(*line, new_line)))
+		err_exit("42sh", "malloc() error", NULL, ENOMEM);
+	src_tkns_size = lex_tkns_size(*src_tkns);
+	*src_tkns = lex_insert_tkns(*src_tkns, ins_tkns, src_tkns_size);
 	return (0);
 }

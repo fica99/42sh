@@ -88,7 +88,7 @@ void					parse_calc(t_lex_tkn **tkn);
 /*
 **						make_ast.c
 */
-int						make_ast(t_lex_tkn ***list, t_ast **root);
+int						make_ast(t_lex_tkn **list, t_ast **root);
 void					clean_tree(t_ast *ast);
 /*
 **						errors.c

@@ -44,6 +44,22 @@ static void		lex_status_proc(void)
 	set_var("?", "130", ALL_VARS);
 }
 
+int			ast_handle(t_lex_tkn ***tokens, t_ast **root, char **line)
+{
+	int ret;
+
+	ret = make_ast(*tokens, root);
+	if (ret == 2)
+	{
+		clean_tree(*root);
+		*root = NULL;
+		if (al_p_lo(tokens, line))
+			return (1);
+		return (ast_handle(tokens, root, line));
+	}
+	return (ret);
+}
+
 void		ft_system(char **line)
 {
 	t_lex_tkn	**tokens;
@@ -59,7 +75,7 @@ void		ft_system(char **line)
 	if (tokens && *tokens && (*tokens)->type != T_END)
 	{
 		root = NULL;
-		if (!make_ast(&tokens, &root))
+		if (!ast_handle(&tokens, &root, line))
 		{
 			parse(root);
 			exec_jobs();
@@ -79,16 +95,6 @@ static void	shell_start(void)
 	while (TRUE)
 	{
 		line = ft_readline(get_var("PS1", ALL_VARS));
-		// if (!ft_strcmp(line, "exit"))
-		// {
-		// 	ft_memdel((void**)&line);
-		// 	break ;
-		// }
-		// if (!(tkns = lex_get_tkns(&line)))
-		// 	break ;
-		// if (al_p_lo(&tkns))
-		// 	break ;
-		// lex_print_tkns(tkns);
 		ft_system(&line);
 		add_to_history_buff(line);
 		ft_memdel((void**)&line);
