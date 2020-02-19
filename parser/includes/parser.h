@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 19:40:17 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 21:07:01 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:18:00 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int						syntax_err(t_lex_tkn *token);
 **						parse.c
 */
 void					parse(t_ast *root);
+int						ast_handle(t_lex_tkn ***tokens, t_ast **root,
+													char **line);
 /*
 **						add_process.c
 */

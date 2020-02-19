@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/04 20:11:42 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:17:12 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,20 @@ void		parse(t_ast *root)
 		parse(root->right);
 	else
 		parse_logical(root->right);
+}
+
+int			ast_handle(t_lex_tkn ***tokens, t_ast **root, char **line)
+{
+	int ret;
+
+	ret = make_ast(*tokens, root);
+	if (ret == 2)
+	{
+		clean_tree(*root);
+		*root = NULL;
+		if (al_p_lo(tokens, line))
+			return (1);
+		return (ast_handle(tokens, root, line));
+	}
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:41:23 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/19 22:24:33 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 00:17:09 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,6 @@ static char		lex_status_proc(void)
 	else
 		return (TRUE);
 	return (FALSE);
-}
-
-int			ast_handle(t_lex_tkn ***tokens, t_ast **root, char **line)
-{
-	int ret;
-
-	ret = make_ast(*tokens, root);
-	if (ret == 2)
-	{
-		clean_tree(*root);
-		*root = NULL;
-		if (al_p_lo(tokens, line))
-			return (1);
-		return (ast_handle(tokens, root, line));
-	}
-	return (ret);
 }
 
 void			ft_system(char **line)
