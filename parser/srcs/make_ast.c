@@ -100,7 +100,7 @@ int				make_ast(t_lex_tkn **list, t_ast **root)
 	{C_SEP, C_REDIR, C_REDIR},
 	{C_LOG_OPERS, C_END, COMPLETION}, {C_PIPE, C_END, COMPLETION},
 	{C_WORD, C_BGR, C_LOG_OPERS}, {C_BGR, C_WORD, C_WORD},
-	{C_BGR, C_SEP, C_SEP}, {C_BGR, C_END, C_BGR}};
+	{C_BGR, C_END, C_BGR}};
 
 	curr_status = (*list)->class;
 	*root = new_node(list);
