@@ -74,7 +74,7 @@ static void			skip_delim(t_lex_tkn **list, int *i)
 	while (list[*i]->class != C_END)
 	{
 		if (list[*i]->class == C_SEP || list[*i]->class == C_PIPE
-				|| list[*i]->class == C_AND || list[*i]->class == C_LOG_OPERS)
+				|| list[*i]->class == C_LOG_OPERS)
 			break ;
 		(*i)++;
 	}
