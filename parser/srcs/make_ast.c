@@ -81,7 +81,7 @@ int rules[RULES_NUM][3], int curr_status)
 		if (curr_status == COMPLETION)
 			return (2);
 		i++;
-		if (curr_status != old_status)
+		if (curr_status != old_status && list[i]->class != C_END)
 			insert(new_node(list + i), root, list[i]->class);
 	}
 	return (0);
