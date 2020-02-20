@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_jobs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 13:23:13 by mmarti            #+#    #+#             */
-/*   Updated: 2020/02/20 02:44:23 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 03:44:18 by jijerde          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,31 +49,15 @@ void				mark_exit_stat(t_job *j)
 		g_last_exit_status = 256;
 }
 
-static int			log_check(t_job *j, t_job *last_job)
+static int			log_check(t_job *first, t_job *j)
 {
-	t_process	*p;
 	int			separator;
-	int			j_amount;
-	int			bad_exit;
 
-	if (j == last_job || last_job->separator == 0)
+	if (j == first || j->separator == 0 || j->separator == T_AND)
 		return (0);
-	bad_exit = 0;
-	j_amount = 0;
 	separator = j->separator;
-	while (j && j != last_job)
-	{
-		p = j->first_process;
-		while (p && p->next)
-			p = p->next;
-		if ((p && p->exit_status) || !j->execution)
-			bad_exit++;
-		separator = j->next == last_job ? j->separator : separator;
-		j_amount++;
-		j = j->next;
-	}
-	if (j && (separator == 0 || separator == T_AND || ((separator == T_AND_AND
-	&& bad_exit < j_amount) || (separator == T_OR_OR && bad_exit == j_amount))))
+	if (j && (separator == 0 || ((separator == T_AND_AND
+	&& !g_last_exit_status) || (separator == T_OR_OR && g_last_exit_status))))
 		return (0);
 	return (-1);
 }
