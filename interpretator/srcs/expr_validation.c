@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expr_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 12:22:07 by jijerde           #+#    #+#             */
-/*   Updated: 2020/02/15 22:21:55 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/20 02:59:35 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		isvalidparameter(char s)
 {
-	if (s == '_' || ft_isalnum(s) || s == '?')
+	if (s == '_' || ft_isalnum(s))
 		return (1);
 	return (0);
 }

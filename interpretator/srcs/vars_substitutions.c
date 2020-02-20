@@ -6,7 +6,7 @@
 /*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/15 02:23:31 by aashara           #+#    #+#             */
-/*   Updated: 2020/02/20 01:45:30 by aashara-         ###   ########.fr       */
+/*   Updated: 2020/02/20 03:05:27 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,18 @@ static char	*dollar_expr(char *line, int pos)
 	if (!(var = ft_strnew(LINE_MAX)))
 		err_exit("42sh", "malloc() error", NULL, ENOMEM);
 	pos++;
-	while (line[pos] && isvalidparameter(line[pos]))
+	if (line[pos] == '$' || line[pos] == '?')
 		var[i++] = line[pos++];
+	else if (!isvalidparameter(line[pos]))
+	{
+		ft_strdel(&var);
+		return (NULL);
+	}
+	else
+	{
+		while (line[pos] && isvalidparameter(line[pos]))
+			var[i++] = line[pos++];
+	}
 	replace = get_var(var, ALL_VARS);
 	ft_memdel((void**)&var);
 	return (strcutcopy(line, replace, pos_save, i));
@@ -59,9 +69,11 @@ static char	*var_substitution(char *line, int *pos)
 		(*pos) += 3;
 	else
 		for_return = dollar_expr(line, *pos);
-	--(*pos);
 	if (for_return)
+	{
 		ft_strdel(&line);
+		--(*pos);
+	}
 	else
 		for_return = line;
 	if (!*for_return)
