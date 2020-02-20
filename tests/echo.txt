@@ -24,7 +24,5 @@ $> echo -e \\x38 petits\\x20chats boivent son lait\\x21
 8 petits chats boivent son lait!
 $> echo -e \\063 chats et \\08 chiens boivent son lait\\077
 3 chats et 8 chiens boivent son lait?
-$> echo -e \\063 chats et \\08 chiens boivent son lait\\077 | cat -e
-3 chats et ^@8 chiens boivent son lait?
 $> echo -e \\38 petits\\20chats boivent son lait\\21
 \38 petits\20chats boivent son lait\21
