@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jijerde <jijerde@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aashara- <aashara-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 13:55:45 by aashara-          #+#    #+#             */
-/*   Updated: 2020/02/20 04:20:54 by jijerde          ###   ########.fr       */
+/*   Updated: 2020/02/20 04:23:47 by aashara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	parse_logical(t_ast *root, t_lex_tkn **sep)
 		return ;
 	if ((*root->token)->class != C_LOG_OPERS)
 		return (parse_pipe(root, job_new(sep)));
-	parse_pipe(root->left, job_new((*root->token)->type == T_AND ? root->token : sep));
+	parse_pipe(root->left, job_new((*root->token)->type == T_AND
+	? root->token : sep));
 	if (root->right && ((*root->right->token)->class == C_LOG_OPERS))
 		parse_logical(root->right, root->token);
 	else if (root->right)
