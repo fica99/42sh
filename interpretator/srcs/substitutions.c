@@ -75,6 +75,8 @@ int			process_substitutions(t_job *j)
 	{
 		if (!(p->args = substitutions(p->args, 0)))
 		{
+			g_last_exit_status = 1;
+			set_var("?", "1", ALL_VARS);
 			clean_all_processes(j);
 			return (0);
 		}
