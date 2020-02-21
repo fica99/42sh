@@ -77,13 +77,13 @@ int			process_substitutions(t_job *j)
 		{
 			g_last_exit_status = 1;
 			set_var("?", "1", ALL_VARS);
-			clean_all_processes(j);
+			clean_all_err_processes(j);
 			return (0);
 		}
 		if (p->environment
 			&& !(p->environment = substitutions(p->environment, 1)))
 		{
-			clean_all_processes(j);
+			clean_all_err_processes(j);
 			return (0);
 		}
 		p = p->next;

@@ -193,7 +193,7 @@ char				*expansions(char *line, int pos);
 **					clean_proc.c
 */
 void				clean_proc(t_process *p, t_job *j, int pid);
-void				clean_all_processes(t_job *j);
+void				clean_all_err_processes(t_job *j);
 /*
 **					arithmetic_operation.c
 */

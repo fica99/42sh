@@ -12,7 +12,7 @@
 
 #include "interpretator.h"
 
-void	clean_all_processes(t_job *j)
+void	clean_all_err_processes(t_job *j)
 {
 	t_process *p;
 
@@ -29,7 +29,6 @@ void	clean_all_processes(t_job *j)
 
 void	clean_proc(t_process *p, t_job *j, int pid)
 {
-	p->completed = 1;
 	cls_redir(p->fd_list);
 	p->pid = pid;
 	if (!j->pgid)
