@@ -54,7 +54,7 @@ int			redir_handle(t_job *j)
 		{
 			if (make_redir(tmp->rd_token, p) < 0)
 			{
-				clean_all_processes(j);
+				clean_all_err_processes(j);
 				return (-1);
 			}
 			tmp = tmp->next;

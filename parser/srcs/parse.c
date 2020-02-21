@@ -43,7 +43,8 @@ static void	parse_logical(t_ast *root, t_lex_tkn **sep)
 	if (root->right && ((*root->right->token)->class == C_LOG_OPERS))
 		parse_logical(root->right, root->token);
 	else if (root->right)
-		parse_pipe(root->right, job_new(root->token));
+		parse_pipe(root->right, job_new((*root->token)->type == T_AND
+	? sep : root->token));
 }
 
 void		parse(t_ast *root)
