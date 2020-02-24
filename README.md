@@ -1,6 +1,6 @@
 # 42sh
 
-As a coder in training, there are moments, which marks your life. Forever. 42sh is one of those moments. Achieving this project is a milestone at 42.
+As a coder in training, there are moments, which marks your life. Forever. 42sh is one of those moments. Achieving this project is a milestone at 42(school 42).
 
 You already know a lot of shells and each has its own features, from the humble sh available on every UNIX distribution in the world to the complete and complex zsh, which many of you use without really knowing why. There are many other shells, such as bash, csh, tcsh, ksh, ash, etc. 42sh is your first real shell.
 
