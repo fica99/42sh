@@ -48,9 +48,9 @@ static int			check_cycle(char *alias, t_cycle_list *l, t_lex_tkn **curr)
 static t_lex_tkn	**get_alias_tkn(t_lex_tkn **tkn, char *val,
 													t_cycle_list **l)
 {
-	t_lex_tkn	**ret;
 	char		*alias;
 	t_lex_tkn	**new_tkn;
+	char		*tmp;
 
 	if (!(alias = ft_getalias(val, g_aliases.vars)))
 		return (tkn);
@@ -60,13 +60,14 @@ static t_lex_tkn	**get_alias_tkn(t_lex_tkn **tkn, char *val,
 		return (NULL);
 	}
 	add_to_cycle_list(alias, l);
-	alias = ft_strchr(alias, '=') + 1;
+	tmp = ft_strchr(alias, '=') + 1;
 	if (!tkn)
-		new_tkn = lex_get_tkns(&alias);
+		new_tkn = lex_get_tkns(&tmp);
 	else
-		new_tkn = lex_insert_tkns(tkn, lex_get_tkns(&alias), 0);
-	ret = get_alias_tkn(new_tkn, (*new_tkn)->value, l);
-	return (ret);
+		new_tkn = lex_insert_tkns(tkn, lex_get_tkns(&tmp), 0);
+	if (ft_strncmp(alias, (*new_tkn)->value, tmp - alias - 1))
+		return (get_alias_tkn(new_tkn, (*new_tkn)->value, l));
+	return (new_tkn);
 }
 
 static void			skip_delim(t_lex_tkn **list, int *i)
