@@ -1,7 +1,0 @@
-echo ~
-echo ~oops
-echo "~"
-echo '~'
-echo "~"travis
-echo '~'travis
-cd ~

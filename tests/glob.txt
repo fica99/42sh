@@ -1,4 +1,0 @@
-$> echo *
-$> echo s?c ob? ???? ?
-$> echo "*"
-$> echo '*'
