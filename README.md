@@ -31,6 +31,8 @@ You already know a lot of shells and each has its own features, from the humble 
 * ioctl
 * tcsetattr, tcgetattr
 
+The program is fully implemented in C using the terminfo library.
+
 ### Installation
 
 ```
